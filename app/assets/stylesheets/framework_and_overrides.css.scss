@@ -34,7 +34,7 @@ img {
 // to make views framework-neutral
 main {
   @extend .container;
-  background-image: url("wood.jpg");
+  background-image: image-url("wood.jpg");
   padding-bottom: 80px;
  // width: 100%;
   margin-top: 51px; // accommodate the navbar
@@ -519,3 +519,5 @@ nav ul li a {
     text-align: justify;
     line-height: 18px;
   }
+
+

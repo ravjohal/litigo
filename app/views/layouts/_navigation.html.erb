@@ -1,4 +1,9 @@
 <%# navigation styled for Bootstrap 3.0 %>
+  <script>
+    $(function () {
+        $('#menu').metisMenu();
+    });
+</script>
 <nav class="navbar navbar-inverse navbar-fixed-top nav-dark-blue">
   <div class="container">
     <div class="navbar-header">
@@ -28,4 +33,6 @@
       </div>
     </div>
   </nav>
+
+  <%= render 'layouts/side_navigation' %>
 <% end %>

@@ -35,15 +35,14 @@ img {
 main {
   @extend .container;
   background-image: image-url("wood.jpg");
-  padding-bottom: 80px;
+  padding-bottom: 500px;
  // width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  //margin-top: 11px; // accommodate the navbar
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 100% 550px;
-
-   width: auto;
+  width: auto;
   margin: 0 auto;
   }
 section {
@@ -102,7 +101,7 @@ section {
 
 .navbar .nav > li > a {
   color: white;
-}
+}v
 
 
 /* From litigoinsights.com */
@@ -477,7 +476,7 @@ a.button1:hover{
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 0;
-    margin-top: 20px;
+    margin-top: 10px;
   }
  
 /*  
@@ -535,4 +534,41 @@ nav ul li a {
     line-height: 18px;
   }
 
+.nav-second-level li a {
+  padding-left: 37px;
+}
 
+.navbar-static-side {
+z-index: 1;
+position: absolute;
+width: 250px;
+background-color: #38393A;
+font-weight: lighter;
+font-family: sans-serif;
+font-size: 14px;
+display: block;
+color: #B5B5B5;
+}
+
+.navbar-static-side li a {
+  color: white;
+}
+
+.navbar-static-side li a:hover{
+  color: black;
+}
+
+.nav-second-level li {
+border-bottom: 1px solid #e7e7e7;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.alert {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding-left: 800px;
+  padding-top: 60px;
+}

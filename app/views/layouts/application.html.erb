@@ -32,29 +32,10 @@
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
-
-    <div class="footer">
-      <div class="container">
-        <nav class="navbar navbar-default">
-          <div class="navbar-inner navbar-content-center">
-        
-            <ul class="nav navbar-nav">
-              <li>
-                <a href="#">&copy;  Litigo 2014</a>
-              </li>
-              <li>
-                  <a href="#">FAQ</a>
-              </li>
-              <li>
-                  <a href="http://litigoinsights.com/aboutus.html">ABOUT US</a>
-              </li>
-              <li>
-                  <a href="#">CONTACT</a>
-              </li>
-            </ul>
-          </div>
-        </nav>
+    <% if !user_signed_in? %>
+      <div class="footer">
+        <%= render 'layouts/footer' %>
       </div>
-    </div>
+    <% end %>
   </body>
 </html>

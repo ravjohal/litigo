@@ -1,10 +1,24 @@
+  <script>
+    $(function () {
+        $('#menu').metisMenu();
+        toggle: false;
+    });
+</script>
+
 <nav class="nav navbar-nav side-nav">
   <div class="navbar-default navbar-static-side" role="navigation">
     <div class="sidebar-collapse">
-      <ul class="nav" id="side-menu">
-        <li><%= link_to "Dashboard", user_path(@user), :class => "fa fa-dashboard fa-fw" %></li>
-        <li><%= link_to "Case Management", user_path(@user), :class => "fa fa-dashboard fa-fw arrow" %>
-          <ul class="nav nav-second-level" id="menu">
+      <ul class="nav" id="menu">
+        <li><%= link_to user_path(@user) do %>
+        		<i class="fa fa-dashboard fa-fw"></i>
+        		Dashboard
+        	<% end %>
+        </li>
+        <li><%= link_to user_path(@user) do %>
+        		<i class="fa fa-bar-chart-o fa-fw"></i>
+        		Case Management
+        	<% end %>
+          <ul class="nav nav-second-level">
             <li><%= link_to "Cases", user_path(@user) %></li>
             <li><%= link_to "Calendar", user_path(@user) %></li>
             <li><%= link_to "Contacts", user_path(@user) %></li>
@@ -12,14 +26,26 @@
             <li><%= link_to "Tasks", user_path(@user) %></li>
           </ul>
         </li>
-        <li><%= link_to "Case Evaluation", user_path(@user), :class => "fa fa-dashboard fa-fw" %></li>
-        <li><%= link_to "Legal Insights", user_path(@user), :class => "fa fa-dashboard fa-fw arrow" %>
-          <ul class="nav nav-second-level" id="menu">
+        <li><%= link_to user_path(@user) do %>
+        		<i class="fa fa-dashboard fa-fw"></i>
+        		Case Evaluation
+        	<% end %>
+        </li>
+        <li><%= link_to user_path(@user) do %>
+        		<i class="fa fa-bar-chart-o fa-fw"></i>
+        		Legal Insights
+        	<% end %>
+        	<ul class="nav nav-second-level">
             <li><%= link_to "Litigation", user_path(@user) %></li>
             <li><%= link_to "My Stats", user_path(@user) %></li>
             <li><%= link_to "Practice Stats", user_path(@user) %></li>
             <li><%= link_to "Financials", user_path(@user) %></li>
           </ul>
+        </li>
+         <li><%= link_to user_path(@user) do %>
+        		<i class="fa fa-dashboard fa-fw"></i>
+        		Profile
+        	<% end %>
         </li>
       </ul>
     </div>

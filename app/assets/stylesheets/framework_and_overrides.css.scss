@@ -552,14 +552,34 @@ color: #B5B5B5;
 
 .navbar-static-side li a {
   color: white;
+  display: block;
 }
 
 .navbar-static-side li a:hover{
   color: black;
 }
 
-.nav-second-level li {
-border-bottom: 1px solid #e7e7e7;
+.navbar-static-side ul a {
+padding: 10px 20px;
+color: #aaa;
+border-top: 1px solid rgba(0, 0, 0, 0.3);
+box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.05) inset;
+text-shadow: 0px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.navbar-static-side ul {
+padding: 0;
+margin: 0;
+list-style: none;
+}
+
+.navbar-static-side ul ul a {
+padding: 10px 80px;
+background-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar-static-side ul ul a:hover {
+color: #3FC2D8;
 }
 
 .navbar {

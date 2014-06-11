@@ -33,7 +33,11 @@
     </header>
     <main role="main">
        <%= render 'layouts/messages' %>
-       <%= yield %>
+        <div class="column">
+         <div class="row">
+          <%= yield %>
+         </div>
+       </div>
     </main>
     <% if !user_signed_in? %>
       <div class="footer">

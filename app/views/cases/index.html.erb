@@ -1,0 +1,36 @@
+<h1>Listing cases</h1>
+
+<div class="table-responsive">
+    <h3>Cases</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Description</th>
+            <th>Medical bills</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @cases.each do |case1| %>
+            <tr>
+              <td><%= case1.name %></td>
+              <td><%= case1.number %></td>
+              <td><%= case1.description %></td>
+              <td><%= case1.medical_bills %></td>
+              <td><%= link_to 'Show', case1 %></td>
+              <td><%= link_to 'Edit', edit_case_path(case1) %></td>
+              <td><%= link_to 'Destroy', case1, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>
+
+<br>
+
+<%= link_to 'New Case', new_case_path %>

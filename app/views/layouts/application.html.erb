@@ -31,14 +31,33 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header>
-    <main role="main">
+    <% if user_signed_in? %>
+      
+      <div class="side-nav">
+           <%= render 'layouts/side_navigation' %>
+      </div>
+       
+    <% end %>
+
+    <div class="container">
        <%= render 'layouts/messages' %>
-        <div class="column">
-         <div class="row">
-          <%= yield %>
-         </div>
-       </div>
-    </main>
+    </div>
+
+    <div class="container">
+      <div class = "row">
+        <div class = "col-md-2">
+
+        </div>
+        <div class = "col-md-9">
+           <%= yield %>
+        </div>
+        <div class = "col-md-1">
+
+        </div>
+      </div>
+    </div>
+
+   
     <% if !user_signed_in? %>
       <div class="footer">
         <%= render 'layouts/footer' %>

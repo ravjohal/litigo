@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140611080948) do
+ActiveRecord::Schema.define(version: 20140613075045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20140611080948) do
     t.integer  "case_type_id"
     t.integer  "subtype_id"
     t.integer  "attorney_id"
+    t.string   "case_type"
+    t.string   "subtype"
   end
 
   create_table "subtypes", force: true do |t|

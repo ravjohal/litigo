@@ -29,6 +29,7 @@ class CasesController < ApplicationController
   # POST /cases
   # POST /cases.json
   def create
+    @user = current_user
     @case = Case.new(case_params)
 
     respond_to do |format|
@@ -45,6 +46,7 @@ class CasesController < ApplicationController
   # PATCH/PUT /cases/1
   # PATCH/PUT /cases/1.json
   def update
+    @user = current_user
     respond_to do |format|
       if @case.update(case_params)
         format.html { redirect_to @case, notice: 'Case was successfully updated.' }
@@ -59,6 +61,7 @@ class CasesController < ApplicationController
   # DELETE /cases/1
   # DELETE /cases/1.json
   def destroy
+    @user = current_user
     @case.destroy
     respond_to do |format|
       format.html { redirect_to cases_url, notice: 'Case was successfully destroyed.' }
@@ -74,6 +77,6 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:name, :number, :description, :medical_bills)
+      params.require(:case).permit(:name, :number, :description, :case_type, :subtype, :medical_bills)
     end
 end

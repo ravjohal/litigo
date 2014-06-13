@@ -42,21 +42,25 @@
     <div class="container">
        <%= render 'layouts/messages' %>
     </div>
+    <% if user_signed_in? %>
+      <div class="container">
+        <div class = "row">
+          <div class = "col-md-2">
 
-    <div class="container">
-      <div class = "row">
-        <div class = "col-md-2">
+          </div>
+          <div class = "col-md-9">
+     <% end %>
 
-        </div>
-        <div class = "col-md-9">
-           <%= yield %>
-        </div>
-        <div class = "col-md-1">
+             <%= yield %>
 
+    <% if user_signed_in? %>
+          </div>
+          <div class = "col-md-1">
+
+          </div>
         </div>
       </div>
-    </div>
-
+     <% end %>
    
     <% if !user_signed_in? %>
       <div class="footer">

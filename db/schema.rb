@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 20140613075045) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "attorneys", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "case_types", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "cases", force: true do |t|
     t.string   "name"
     t.integer  "number"
@@ -37,15 +25,8 @@ ActiveRecord::Schema.define(version: 20140613075045) do
     t.datetime "updated_at"
     t.integer  "case_type_id"
     t.integer  "subtype_id"
-    t.integer  "attorney_id"
     t.string   "case_type"
     t.string   "subtype"
-  end
-
-  create_table "subtypes", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

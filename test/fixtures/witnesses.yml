@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  witness_type: MyString
+  witness_subtype: MyString
+  witness_doctor_type: MyString
+
+two:
+  witness_type: MyString
+  witness_subtype: MyString
+  witness_doctor_type: MyString

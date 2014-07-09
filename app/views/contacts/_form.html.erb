@@ -1,0 +1,24 @@
+<%= simple_form_for(@contact) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :first_name %>
+    <%= f.input :middle_name %>
+    <%= f.input :last_name %>
+    <%= f.input :address %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :country %>
+    <%= f.input :phone_number %>
+    <%= f.input :fax_number %>
+    <%= f.input :email %>
+    <%= f.input :gender %>
+    <%= f.input :age %>
+    <%= f.input :contactable_id %>
+    <%= f.input :contactable_type %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Married:</strong>
+  <%= @defendant.married %>
+</p>
+
+<p>
+  <strong>Employed:</strong>
+  <%= @defendant.employed %>
+</p>
+
+<p>
+  <strong>Job description:</strong>
+  <%= @defendant.job_description %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @defendant.salary %>
+</p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @defendant.parent %>
+</p>
+
+<p>
+  <strong>Felony convictions:</strong>
+  <%= @defendant.felony_convictions %>
+</p>
+
+<p>
+  <strong>Last ten years:</strong>
+  <%= @defendant.last_ten_years %>
+</p>
+
+<p>
+  <strong>Jury likeability:</strong>
+  <%= @defendant.jury_likeability %>
+</p>
+
+<%= link_to 'Edit', edit_defendant_path(@defendant) %> |
+<%= link_to 'Back', defendants_path %>

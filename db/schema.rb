@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613075045) do
+ActiveRecord::Schema.define(version: 20140708075642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "attorneys", force: true do |t|
+    t.string   "attorney_type"
+    t.string   "firm"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cases", force: true do |t|
     t.string   "name"
@@ -27,6 +34,35 @@ ActiveRecord::Schema.define(version: 20140613075045) do
     t.integer  "subtype_id"
     t.string   "case_type"
     t.string   "subtype"
+  end
+
+  create_table "clients", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "contacts", force: true do |t|
+    t.string   "first_name"
+    t.string   "middle_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.integer  "phone_number"
+    t.integer  "fax_number"
+    t.string   "email"
+    t.string   "gender"
+    t.integer  "age"
+    t.integer  "contactable_id"
+    t.string   "contactable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "plantiffs", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
@@ -52,5 +88,13 @@ ActiveRecord::Schema.define(version: 20140613075045) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "witnesses", force: true do |t|
+    t.string   "witness_type"
+    t.string   "witness_subtype"
+    t.string   "witness_doctor_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

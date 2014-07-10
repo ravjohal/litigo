@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Contact type:</strong>
+  <%= @contact.contactable_type %>
+</p>
+
+<p>
   <strong>First name:</strong>
   <%= @contact.first_name %>
 </p>
@@ -58,16 +63,6 @@
 <p>
   <strong>Age:</strong>
   <%= @contact.age %>
-</p>
-
-<p>
-  <strong>Contactable:</strong>
-  <%= @contact.contactable_id %>
-</p>
-
-<p>
-  <strong>Contactable type:</strong>
-  <%= @contact.contactable_type %>
 </p>
 
 <%= link_to 'Edit', edit_contact_path(@contact) %> |

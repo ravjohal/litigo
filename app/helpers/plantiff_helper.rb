@@ -1,0 +1,2 @@
+module PlantiffHelper
+end

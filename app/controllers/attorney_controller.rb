@@ -1,2 +1,0 @@
-class AttorneyController < ApplicationController
-end

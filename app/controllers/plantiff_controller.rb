@@ -1,2 +1,0 @@
-class PlantiffController < ApplicationController
-end

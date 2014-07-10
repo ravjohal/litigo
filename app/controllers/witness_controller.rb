@@ -1,2 +1,0 @@
-class WitnessController < ApplicationController
-end

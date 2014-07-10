@@ -1,0 +1,39 @@
+<h1>Listing plantiffs</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Married</th>
+      <th>Employed</th>
+      <th>Job description</th>
+      <th>Salary</th>
+      <th>Parent</th>
+      <th>Felony convictions</th>
+      <th>Last ten years</th>
+      <th>Jury likeability</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @plantiffs.each do |plantiff| %>
+      <tr>
+        <td><%= plantiff.married %></td>
+        <td><%= plantiff.employed %></td>
+        <td><%= plantiff.job_description %></td>
+        <td><%= plantiff.salary %></td>
+        <td><%= plantiff.parent %></td>
+        <td><%= plantiff.felony_convictions %></td>
+        <td><%= plantiff.last_ten_years %></td>
+        <td><%= plantiff.jury_likeability %></td>
+        <td><%= link_to 'Show', plantiff %></td>
+        <td><%= link_to 'Edit', edit_plantiff_path(plantiff) %></td>
+        <td><%= link_to 'Destroy', plantiff, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Plantiff', new_plantiff_path %>

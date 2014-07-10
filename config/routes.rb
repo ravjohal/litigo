@@ -1,6 +1,16 @@
 Rails.application.routes.draw do
   
 
+  resources :clients
+
+  resources :defendants
+
+  resources :plantiffs
+
+  resources :witnesses
+
+  resources :attorneys
+
   resources :contacts
 
   root :to => "visitors#index"

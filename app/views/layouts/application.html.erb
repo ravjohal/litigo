@@ -34,14 +34,6 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header>
-    <% if user_signed_in? %>
-      
-      <div class="side-nav">
-           <%= render 'layouts/side_navigation' %>
-      </div>
-       
-    <% end %>
-
     <div class="container">
        <%= render 'layouts/messages' %>
     </div>

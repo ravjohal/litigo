@@ -1,4 +1,4 @@
-<a class="action-button"><%= link_to 'New Case', new_case_path %></a>
+<%= link_to 'New Case', new_case_path, :class => "action-button" %>
 
 <div class="table-responsive">
     <h3>Cases</h3>
@@ -18,7 +18,7 @@
 
         <tbody>
           <% @cases.each do |case1| %>
-            <tr class='clickableRow' <%= link_to 'Show', case1 %>>
+            <tr>
               <td><%= case1.name %></td>
               <td><%= case1.number %></td>
               <td><%= case1.case_type %></td>
@@ -33,13 +33,6 @@
     </div>
 </div>
 
-<script>
-jQuery(document).ready(function($) {
-      $(".clickableRow").click(function() {
-            window.document.location = $(this).attr("href");
-      });
-});
-</script>
 
 <<<<<<< HEAD
 <%= link_to 'New Case', new_case_path %>

@@ -11,9 +11,9 @@
 // about supported directives.
 //
 //= require jquery
+//= require bootstrap/sprockets
 //= require jquery_ujs
 //= require jquery.metisMenu.js
 //= require turbolinks
-//= require bootstrap
-//= require bootstrap-modal
+//= require bootstrap/modal
 //= require_tree .

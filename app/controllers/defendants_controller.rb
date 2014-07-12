@@ -1,6 +1,6 @@
 class DefendantsController < ApplicationController
   before_action :set_defendant, only: [:show, :edit, :update, :destroy]
-
+  @user = current_user
   # GET /defendants
   # GET /defendants.json
   def index

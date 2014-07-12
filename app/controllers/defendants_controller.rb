@@ -69,6 +69,6 @@ class DefendantsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def defendant_params
-      params.require(:defendant).permit(:married, :employed, :job_description, :salary, :parent, :felony_convictions, :last_ten_years, :jury_likeability)
+      params.require(:defendant).permit(:married, :employed, :job_description, :salary, :parent, :felony_convictions, :last_ten_years, :jury_likeability, :contact_attributes => [:first_name, :middle_name, :last_name, :address, :city, :state, :phone_number, :fax_number, :email, :gender, :age, :contactable_id, :contactable_type])
     end
 end

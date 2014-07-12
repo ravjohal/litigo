@@ -1,6 +1,6 @@
 class AttorneysController < ApplicationController
   before_action :set_attorney, only: [:show, :edit, :update, :destroy]
-
+  @user = current_user
   # GET /attorneys
   # GET /attorneys.json
   def index

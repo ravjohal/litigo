@@ -1,6 +1,6 @@
 class WitnessesController < ApplicationController
   before_action :set_witness, only: [:show, :edit, :update, :destroy]
-
+  @user = current_user
   # GET /witnesses
   # GET /witnesses.json
   def index

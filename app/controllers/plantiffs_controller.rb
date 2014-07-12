@@ -1,6 +1,6 @@
 class PlantiffsController < ApplicationController
   before_action :set_plantiff, only: [:show, :edit, :update, :destroy]
-
+  @user = current_user
   # GET /plantiffs
   # GET /plantiffs.json
   def index

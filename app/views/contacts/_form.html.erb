@@ -12,9 +12,8 @@
     <%= f.input :phone_number %>
     <%= f.input :fax_number %>
     <%= f.input :email %>
-    <%= f.input :gender %>
+    <%= f.input :gender, :collection => ['M', 'F'], as: :radio_buttons %>
     <%= f.input :age %>
-    <%= f.input :contactable_id %>
   </div>
 
   <div class="form-actions">

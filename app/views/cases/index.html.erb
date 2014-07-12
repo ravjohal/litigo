@@ -1,4 +1,4 @@
-<h1>Listing cases</h1>
+<a class="action-button"><%= link_to 'New Case', new_case_path %></a>
 
 <div class="table-responsive">
     <h3>Cases</h3>
@@ -18,7 +18,7 @@
 
         <tbody>
           <% @cases.each do |case1| %>
-            <tr>
+            <tr class='clickableRow' <%= link_to 'Show', case1 %>>
               <td><%= case1.name %></td>
               <td><%= case1.number %></td>
               <td><%= case1.case_type %></td>
@@ -26,8 +26,6 @@
               <td><%= case1.description %></td>
               <td><%= case1.medical_bills %></td>
               <td><%= link_to 'Show', case1 %></td>
-              <td><%= link_to 'Edit', edit_case_path(case1) %></td>
-              <td><%= link_to 'Destroy', case1, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>
           <% end %>
         </tbody>
@@ -35,9 +33,18 @@
     </div>
 </div>
 
-<br>
+<script>
+jQuery(document).ready(function($) {
+      $(".clickableRow").click(function() {
+            window.document.location = $(this).attr("href");
+      });
+});
+</script>
 
+<<<<<<< HEAD
 <%= link_to 'New Case', new_case_path %>
 <%= link_to 'Add Case', new_modal_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+=======
+>>>>>>> f3183900a2e5f43d2167b7d5d3d5f73e9797e1a0

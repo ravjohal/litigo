@@ -674,3 +674,24 @@ a.action-button:hover{
 .simple_form div.input{
   margin-bottom: 10px;
 }
+.navbar-inverse {
+  background-color: #0483A0;
+  border-color: #0483A0;
+}
+.navbar-brand {
+  float: left;
+  height: 50px;
+  padding-left: 15px;
+  padding-top: 10px;
+  font-size: 18px;
+  line-height: 20px;
+}
+.navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 0px;
+}
+.navbar-default {
+  margin-top: 48px;
+  background-color: #3FC2D8;
+  border-color: #3FC2D8;
+}

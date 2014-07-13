@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  after_action :verify_authorized, except: [:show]
+  before_filter :update_last_sign_in_at
+  after_action :verify_authorized, except: [:show,:start_google_oauth]
 
   def index
     @users = User.all
@@ -34,6 +35,19 @@ class UsersController < ApplicationController
       redirect_to users_path, :notice => "User deleted."
     else
       redirect_to users_path, :notice => "Can't delete yourself."
+    end
+  end
+
+  def start_google_oauth
+    @user = User.find(params[:id])
+  end
+
+  protected
+
+  def update_last_sign_in_at
+    if user_signed_in? && !session[:logged_signin]
+      sign_in(current_user, :force => true)
+      session[:logged_signin] = true
     end
   end
 

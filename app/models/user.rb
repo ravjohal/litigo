@@ -8,9 +8,14 @@ class User < ActiveRecord::Base
 
   enum role: [:user, :vip, :admin]
   after_initialize :set_default_role, :if => :new_record?
+  after_initialize :set_show_onboarding, :if => :new_record?
 
   def set_default_role
     self.role ||= :user
+  end
+
+  def set_show_onboarding
+    self.show_onboarding = true
   end
 
 end

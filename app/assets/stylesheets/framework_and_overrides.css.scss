@@ -104,7 +104,7 @@ section {
 
 .navbar .nav > li > a {
   color: white;
-}v
+}
 
 
 /* From litigoinsights.com */
@@ -132,29 +132,6 @@ h1 {
   top: 5px;
   }
   
-  a.sign {
-    font-family: arial;
-    color: white;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-decoration: none;
-    border: solid 1px;
-    border-color: white;
-    border-radius: 4px;
-    padding-bottom: 4px;
-  }
-
-  a.sign:hover {
-    font-family: arial;
-    color: #323A45;
-    background: white;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-decoration: none;
-    border: solid 1px;
-    border-color: white;
-    border-radius: 4px;
-  }
 
 .sbox {
   height: 24px;
@@ -638,7 +615,7 @@ a.action-button:hover{
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
-    top: 48px;
+    top: 98px;
     bottom: 0;
     left: 0;
     z-index: 1000;
@@ -647,36 +624,35 @@ a.action-button:hover{
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
     background-color: #38393A;
     border-right: 0px solid #eee;
+    text-decoration: none;
   }
 }
 
 /* Sidebar navigation */
 .nav-sidebar {
-  margin-right: -20px; /* 20px padding + 1px border */
+  margin-right: -20px; /* 20px padding*/
   margin-bottom: 20px;
   margin-left: -20px;
+  font-weight: lighter;
 }
 .nav-sidebar > li > a {
   padding-right: 20px;
   padding-left: 20px;
   color: #ffffff;
   font-weight: lighter;
+  font-family: sans-serif;
+  text-decoration: none;
 }
 .nav-sidebar > .active > a,
-.nav-sidebar > .active > a:hover,
 .nav-sidebar > .active > a:focus {
-  color: #fff;
+  color: #ccc;
   background-color: #6C6D6D;
+  font-weight: lighter;
 }
-.simple_form lable {
-  float: left;
-  width: 100px;
-  text-align: right;
-  margin: 2px 10px;
+.nav-sidebar > .active > a:hover{
+ color: #fff;
 }
-.simple_form div.input{
-  margin-bottom: 10px;
-}
+
 .navbar-inverse {
   background-color: #0483A0;
   border-color: #0483A0;
@@ -698,3 +674,49 @@ a.action-button:hover{
   background-color: #3FC2D8;
   border-color: #3FC2D8;
 }
+/*Sign out button*/
+
+  a.sign {
+    position: absolute;
+    right: 18px;
+    font-family: arial;
+    color: white;
+    font-size: 10px;
+    margin: 12px 8px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border: solid 1px;
+    border-color: white;
+    border-radius: 4px;
+    padding: 2px 12px;
+  }
+    a.sign:hover {
+    float: right;
+    font-family: arial;
+    color: #323A45;
+    background: white;
+    font-size: 10px;
+    margin: 12px 8px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    border: solid 1px;
+    border-color: white;
+    border-radius: 4px;
+    padding: 2px 12px;
+    transition: .1s;
+  }
+  a.welcome-link{
+  position: absolute;
+  right: 150px;
+  color: #fff;
+  margin-top: 14px;
+  text-decoration: none;
+  }
+  a.welcome-link:hover{
+  position: absolute;
+  right: 150px;
+  color: #fff;
+  margin-top: 14px;
+  text-decoration: none;
+  background-color: transparent;
+  }

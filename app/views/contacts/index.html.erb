@@ -1,4 +1,4 @@
-<%= link_to 'New Contact', new_contact_path, :class => "action-button" %>
+<%= link_to 'New Contact', new_contact_path, {:class => "action-button", :id => "contact_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %>
 
 <div class="table-responsive">
   <h3>Contacts</h3>
@@ -26,6 +26,16 @@
     </table>
   </div>
 </div>
+
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#contact_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render 'contacts/new_contact_form', new_contact: Contact.new ) %>");
+  });
+});
+</script>
 
 <br>
 

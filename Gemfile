@@ -25,7 +25,11 @@ group :development do
   gem 'hub', :require=>nil
   gem 'quiet_assets'
   gem 'rails_layout'
+  gem "awesome_print"       # Nicely formatted data structures in console, for example "ap User.first"
+  gem 'pry-debugger'        # Pry navigation commands via debugger (formerly ruby-debug) https://github.com/nixme/pry-debugger
+  gem "git-smart", "~> 0.1.9"   # Allows "git smart-pull" for less merge messes
 end
+
 group :production do
   gem 'rails_12factor'
 end

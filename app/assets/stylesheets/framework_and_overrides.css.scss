@@ -629,10 +629,11 @@ a.action-button:hover{
 }
 
 /* Sidebar navigation */
+.sidebar {
+  padding: 0;
+}
 .nav-sidebar {
-  margin-right: -20px; /* 20px padding*/
   margin-bottom: 20px;
-  margin-left: -20px;
   font-weight: lighter;
 }
 .nav-sidebar > li > a {
@@ -642,6 +643,7 @@ a.action-button:hover{
   font-weight: lighter;
   font-family: sans-serif;
   text-decoration: none;
+  display: block;
 }
 .nav-sidebar > .active > a,
 .nav-sidebar > .active > a:focus {
@@ -674,6 +676,32 @@ a.action-button:hover{
   background-color: #3FC2D8;
   border-color: #3FC2D8;
 }
+#first, #second {
+  ul {
+    padding: 0;
+    list-style-type: none;
+  }
+}
+.sec {
+  a {
+    display: block;
+    width: 100%;
+    margin-top: 1px;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 13px;
+    background-color: transparent;
+    &:hover {
+      text-decoration: none;
+      background-color: transparent;
+      box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
+      color: #3FC2D8;
+      transition: .5s;
+    }
+  }
+}
+
 /*Sign out button*/
 
   a.sign {
@@ -720,3 +748,4 @@ a.action-button:hover{
   text-decoration: none;
   background-color: transparent;
   }
+

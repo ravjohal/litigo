@@ -42,6 +42,15 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
+  def save_google_oauth
+    current_user.oauth_token = request.env['omniauth.auth']['credentials']['token']
+    current_user.oauth_expires_at = DateTime.strptime(request.env['omniauth.auth']['credentials']['expires_at'].to_s,'%s')
+    current_user.save
+    #binding.pry
+    redirect_to user_path(current_user.id)
+  end
+
+
   protected
 
   def update_last_sign_in_at

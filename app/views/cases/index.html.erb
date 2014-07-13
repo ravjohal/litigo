@@ -1,4 +1,4 @@
-<%= link_to 'New Case', new_case_path, :class => "action-button" %> 
+<%= link_to 'New Case', new_modal_path, {:class => "action-button", :id => "case_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
 <div class="table-responsive">
     <h3>Cases</h3>
@@ -33,7 +33,14 @@
     </div>
 </div>
 
-<%= link_to 'Add Case', new_modal_path,  {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
-
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#case_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render 'cases/new_case', new_case: Case.new ) %>");
+  });
+});
+</script>
+
 

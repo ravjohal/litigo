@@ -69,7 +69,10 @@ class CasesController < ApplicationController
     end
   end
 
-  def new_modal
+  def new_case
+    @user = current_user
+    @case = Case.new
+    
     respond_to do |format|
       format.html
       format.js

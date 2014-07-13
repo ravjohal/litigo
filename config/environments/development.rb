@@ -51,4 +51,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Some custom environmental variables for development environment
+  ENV['GOOGLE_CLIENT_ID'] = ''
+  ENV['GOOGLE_CLIENT_SECRET'] = ''
 end

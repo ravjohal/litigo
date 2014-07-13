@@ -18,6 +18,7 @@ gem 'simple_form'
 gem 'thin'
 gem 'figaro'
 gem "font-awesome-rails"
+gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google
 
 group :development do
   gem 'better_errors'

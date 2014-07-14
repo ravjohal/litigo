@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714001757) do
+ActiveRecord::Schema.define(version: 20140714005237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "attorneys", force: true do |t|
     t.string   "attorney_type"
@@ -140,6 +141,7 @@ ActiveRecord::Schema.define(version: 20140714001757) do
     t.string   "oauth_refresh_token"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
+    t.string   "google_email"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -2,19 +2,22 @@
   <div class="modal-content">
       <div class="modal-header">
        <a class="close" data-dismiss="modal">×</a>
-        <h1>New Document</h1>
+        <h1>New Event</h1>
    </div>
    <div class="modal-body">
 
-    <%= simple_form_for(new_document) do |f| %>
+     <%= simple_form_for(new_event) do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs">
-        <%= f.input :author, :readonly => true, :input_html => { :value => @user.name }%>
-        <%= f.input :type %>
-        <%= f.input :template %>
-      </div>
-             
+        <%= f.input :subject %>
+        <%= f.input :location %>
+        <%= f.input :date %>
+        <%= f.input :time %>
+        <%= f.input :all_day %>
+        <%= f.input :reminder %>
+        <%= f.input :notes %>
+      </div> 
    </div>
    <div class="modal-footer">
       <div class="pull-left">

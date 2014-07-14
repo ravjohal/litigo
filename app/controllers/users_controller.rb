@@ -45,8 +45,11 @@ class UsersController < ApplicationController
   def save_google_oauth
     current_user.oauth_token = request.env['omniauth.auth']['credentials']['token']
     current_user.oauth_expires_at = DateTime.strptime(request.env['omniauth.auth']['credentials']['expires_at'].to_s,'%s')
+    current_user.google_email = request.env['omniauth.auth']['info']['email']
     current_user.save
     #binding.pry
+
+    # RestClient.get('https://www.google.com/m8/feeds/contacts/russellsavage%40gmail.com/full?alt=json', {:content_type => :json, :authorization => 'Bearer ya29.QQCs5FjfrU5h3xoAAABi7y_JsdP1TTGpAb45n_3DCUYEvvZ1vxad7GVD8HvDsw'})
     redirect_to user_path(current_user.id)
   end
 

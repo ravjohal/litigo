@@ -1,37 +1,45 @@
-<h1>Listing events</h1>
+<%= link_to 'New Event', new_case_path, {:class => "action-button", :id => "event_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
-<table>
-  <thead>
-    <tr>
-      <th>Subject</th>
-      <th>Location</th>
-      <th>Date</th>
-      <th>Time</th>
-      <th>All day</th>
-      <th>Reminder</th>
-      <th>Notes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="table-responsive">
+    <h3>Events</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Subject</th>
+            <th>Location</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>All day</th>
+            <th>Reminder</th>
+            <th>Notes</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @events.each do |event| %>
+            <tr>
+              <td><%= event.subject %></td>
+              <td><%= event.location %></td>
+              <td><%= event.date %></td>
+              <td><%= event.time %></td>
+              <td><%= event.all_day %></td>
+              <td><%= event.reminder %></td>
+              <td><%= event.notes %></td>
+              <td><%= link_to 'Show', event %></td>
+              <td><%= link_to 'Edit', edit_event_path(event) %></td>
+              <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+          <% end %>
+        </tbody>
+    </table>
+  </div>
+</div>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= event.subject %></td>
-        <td><%= event.location %></td>
-        <td><%= event.date %></td>
-        <td><%= event.time %></td>
-        <td><%= event.all_day %></td>
-        <td><%= event.reminder %></td>
-        <td><%= event.notes %></td>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Event', new_event_path %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#event_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render 'events/new_event_form', new_event: Event.new ) %>");
+  });
+});
+</script>

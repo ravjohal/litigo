@@ -9,10 +9,6 @@ img {
   @extend .img-responsive;
   margin: 0 auto;
   }
-// override for the 'Home' navigation link
-.navbar-brand {
-  font-size: inherit;
-  }
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
@@ -726,12 +722,13 @@ a.action-button:hover{
   border-color: #0483A0;
 }
 .navbar-brand {
-  float: left;
-  height: 50px;
-  padding-left: 15px;
-  padding-top: 10px;
-  font-size: 18px;
-  line-height: 20px;
+  background-image: url(/assets/darklogo.png);
+  background-repeat: no-repeat;
+  background-size: 102px 33px;
+  width: 102px;
+  height: 33px;
+  margin-top: 8px;
+  margin-left: 15px !important;
 }
 .navbar-fixed-top {
   top: 0;

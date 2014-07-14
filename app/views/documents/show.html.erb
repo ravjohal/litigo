@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Author:</strong>
+  <%= @document.author %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @document.type %>
+</p>
+
+<p>
+  <strong>Template:</strong>
+  <%= @document.template %>
+</p>
+
+<%= link_to 'Edit', edit_document_path(@document) %> |
+<%= link_to 'Back', documents_path %>

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
   
+  resources :documents
+
+  resources :events
+
+  resources :tasks
+
   resources :contacts
   resources :clients
   resources :plantiffs

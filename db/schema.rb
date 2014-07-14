@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140714005237) do
+ActiveRecord::Schema.define(version: 20140714013720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "attorneys", force: true do |t|
     t.string   "attorney_type"
@@ -76,7 +75,7 @@ ActiveRecord::Schema.define(version: 20140714005237) do
 
   create_table "documents", force: true do |t|
     t.string   "author"
-    t.string   "type"
+    t.string   "doc_type"
     t.string   "template"
     t.datetime "created_at"
     t.datetime "updated_at"

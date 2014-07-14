@@ -1,29 +1,23 @@
 <ul class="nav nav-sidebar">
     <li>
-        <%= link_to user_path(@user) do %>
-                  <i class="fa fa-dashboard fa-fw"></i>
-                  DASHBOARD
-                <% end %>
+        <%= link_to "DASHBOARD", user_path(@user), class: "nav-sidebar__dsh" %>
     </li>
     <li id="first">
-              <a href="#" onclick="return false;"><i class="fa fa-bar-chart-o fa-fw"></i>
-              CASE MANAGEMENT</a>
-        <ul>
-            <li class="sec selected"><%= link_to "CASES", cases_path %></li>
-            <li class="sec"><%= link_to "CALENDAR", user_path(@user) %></li>
-            <li class="sec"><%= link_to "CONTACTS", contacts_path %></li>
-            <li class="sec"><%= link_to "DOCUMENTS", user_path(@user) %></li>
-            <li class="sec"><%= link_to "TASKS", user_path(@user) %></li>
-        </ul>
+      <a href="#" class="nav-sidebar__cm" onclick="return false;">
+      CASE MANAGEMENT</a>
+      <ul>
+          <li class="sec"><%= link_to "CASES", cases_path %></li>
+          <li class="sec"><%= link_to "CALENDAR", user_path(@user) %></li>
+          <li class="sec"><%= link_to "CONTACTS", contacts_path %></li>
+          <li class="sec"><%= link_to "DOCUMENTS", user_path(@user) %></li>
+          <li class="sec"><%= link_to "TASKS", user_path(@user) %></li>
+      </ul>
     </li>
     <li>
-        <%= link_to user_path(@user) do %>
-          <i class="fa fa-dashboard fa-fw"></i>
-          CASE EVALUATION
-          <% end %>
+        <%= link_to "CASE EVALUATION", user_path(@user), class: "nav-sidebar__cev" %>
     </li>
     <li id="second">
-          <a href="#" onclick="return false;"><i class="fa fa-bar-chart-o fa-fw"></i>
+          <a href="#" class="nav-sidebar__li" onclick="return false;">
           LEGAL INSIGHTS</a>
     <ul>
         <li class="sec"><%= link_to "LITIGATION", user_path(@user) %></li>
@@ -33,10 +27,7 @@
     </ul>
     </li>
     <li>
-        <%= link_to user_path(@user) do %>
-      <i class="fa fa-dashboard fa-fw"></i>
-      PROFILE
-      <% end %>
+      <%= link_to "PROFILE", user_path(@user), class: "nav-sidebar__prf" %>
     </li>
 </ul>
 

@@ -635,24 +635,83 @@ a.action-button:hover{
 .nav-sidebar {
   margin-bottom: 20px;
   font-weight: lighter;
+  ul {
+    padding: 0;
+    list-style-type: none;
+    li {
+      a {
+        display: block;
+        width: 100%;
+        margin-top: 1px;
+        padding-left: 40px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: #6c6d6d;
+        line-height: 13px;
+        font-weight: lighter;
+        font-family: sans-serif;
+        background-color: transparent;
+        &:hover {
+          text-decoration: none;
+          background-color: transparent;
+          box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
+          color: #3FC2D8;
+          transition: .5s;
+        }
+      }
+    }
+  }
 }
-.nav-sidebar > li > a {
-  padding-right: 20px;
-  padding-left: 20px;
-  color: #ffffff;
-  font-weight: lighter;
-  font-family: sans-serif;
-  text-decoration: none;
-  display: block;
+
+.nav-sidebar__dsh {
+  &:before {
+    content: url('/assets/custom-icons/dash-menu-gray.png');
+    &:hover {
+      content: url('/assets/custom-icons/dash-menu.png');
+    }
+  }
 }
-.nav-sidebar > .active > a,
-.nav-sidebar > .active > a:focus {
-  color: #ccc;
-  background-color: #6C6D6D;
-  font-weight: lighter;
+
+.nav-sidebar__cm {
+  color: #6c6d6d;
+  &:before {
+    content: url('/assets/custom-icons/folder-menu-gray.png');
+    &:hover {
+      content: url('/assets/custom-icons/folder-menu.png');
+    }
+  }
 }
-.nav-sidebar > .active > a:hover{
- color: #fff;
+
+.nav-sidebar__cev {
+  &:before {
+    content: url('/assets/custom-icons/mag-menu-gray.png');
+    &:hover {
+      content: url('/assets/custom-icons/mag-menu.png');
+    }
+  }
+}
+
+.nav-sidebar__li {
+  color: #6c6d6d;
+  &:before {
+    content: url('/assets/custom-icons/graph-menu-gray.png');
+    position: relative;
+    left: 0;
+    &:hover {
+      content: url('/assets/custom-icons/graph-menu.png');
+    }
+  }
+}
+
+.nav-sidebar__prf {
+  &:before {
+    content: url('/assets/custom-icons/profile-menu-gray.png');
+    position: relative;
+    left: 0;
+    &:hover {
+      content: url('/assets/custom-icons/profile-menu.png');
+    }
+  }
 }
 
 .navbar-inverse {
@@ -675,31 +734,6 @@ a.action-button:hover{
   margin-top: 48px;
   background-color: #3FC2D8;
   border-color: #3FC2D8;
-}
-#first, #second {
-  ul {
-    padding: 0;
-    list-style-type: none;
-  }
-}
-.sec {
-  a {
-    display: block;
-    width: 100%;
-    margin-top: 1px;
-    padding-left: 40px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    line-height: 13px;
-    background-color: transparent;
-    &:hover {
-      text-decoration: none;
-      background-color: transparent;
-      box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
-      color: #3FC2D8;
-      transition: .5s;
-    }
-  }
 }
 
 /*Sign out button*/

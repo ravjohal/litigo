@@ -45,6 +45,7 @@ class UsersController < ApplicationController
   def save_google_oauth
     current_user.oauth_token = request.env['omniauth.auth']['credentials']['token']
     current_user.oauth_expires_at = DateTime.strptime(request.env['omniauth.auth']['credentials']['expires_at'].to_s,'%s')
+    current_user.google_email = request.env['omniauth.auth']['info']['email']
     current_user.save
     #binding.pry
 

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :update_last_sign_in_at
-  after_action :verify_authorized, except: [:show,:start_google_oauth]
+  after_action :verify_authorized, except: [:show,:save_google_oauth]
 
   def index
     @users = User.all

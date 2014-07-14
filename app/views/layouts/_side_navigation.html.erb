@@ -3,7 +3,7 @@
         <%= link_to "DASHBOARD", user_path(@user), class: "nav-sidebar__dsh" %>
     </li>
     <li id="first">
-      <a href="#" class="nav-sidebar__cm" onclick="return false;">
+      <a href="#" class="nav-sidebar__cm">
       CASE MANAGEMENT</a>
       <ul>
           <li class="sec"><%= link_to "CASES", cases_path %></li>
@@ -17,7 +17,7 @@
         <%= link_to "CASE EVALUATION", user_path(@user), class: "nav-sidebar__cev" %>
     </li>
     <li id="second">
-          <a href="#" class="nav-sidebar__li" onclick="return false;">
+          <a href="#" class="nav-sidebar__li">
           LEGAL INSIGHTS</a>
     <ul>
         <li class="sec"><%= link_to "LITIGATION", user_path(@user) %></li>
@@ -44,12 +44,6 @@ $(function() {
     });
     $('#second').collapsible('default-open', {
         contentOpen: isSecondOpen
-    });
-
-    $('.nav-sidebar li a').on('click', function(e){
-//        console.log('e', e.currentTarget)
-        $('.nav-sidebar li a').removeClass('active');
-        $(e.currentTarget).addClass('active');
     });
 
 });

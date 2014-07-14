@@ -47,9 +47,38 @@ class UsersController < ApplicationController
     current_user.oauth_expires_at = DateTime.strptime(request.env['omniauth.auth']['credentials']['expires_at'].to_s,'%s')
     current_user.google_email = request.env['omniauth.auth']['info']['email']
     current_user.save
-    #binding.pry
+    # binding.pry
+    
+    json_dump = RestClient.get("https://www.google.com/m8/feeds/contacts/#{current_user.google_email}/full?alt=json&max-results=99999", 
+         {:content_type => :json, :authorization => "Bearer #{current_user.oauth_token}"})
 
-    # RestClient.get('https://www.google.com/m8/feeds/contacts/russellsavage%40gmail.com/full?alt=json', {:content_type => :json, :authorization => 'Bearer ya29.QQCs5FjfrU5h3xoAAABi7y_JsdP1TTGpAb45n_3DCUYEvvZ1vxad7GVD8HvDsw'})
+    jsonObj = JSON.parse json_dump
+    
+    jsonObj['feed']['entry'].each do |e|
+      contact_email = e['gd$email'][0]['address'] if e['gd$email']
+      if contact_email.nil? or contact_email.empty?
+        next
+      end
+      contact_name = e['title']['$t'] if e['title']
+      if contact_name.nil? or contact_name.empty? 
+        next
+      end
+      name_list = contact_name.split(' ',2)
+      first_name = name_list[0]
+      last_name = 'Unknown'
+      if name_list.length > 1
+        last_name = name_list[1]
+      end
+      new_contact = Contact.new(
+        :email => contact_email, 
+        :first_name => first_name, 
+        :last_name => last_name,
+        :contactable_type => "General")
+      new_contact.save
+      #binding.pry
+    end
+    current_user.show_onboarding = false
+    current_user.save
     redirect_to user_path(current_user.id)
   end
 

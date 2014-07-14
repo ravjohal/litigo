@@ -3,33 +3,25 @@
 <div class="table-responsive">
     <h3>Cases</h3>
     <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Number</th>
-            <th>Case Type</th>
-            <th>Sub-type</th>
-            <th>Description</th>
-            <th>Medical Bills</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @cases.each do |case1| %>
-            <tr>
-              <td><%= case1.name %></td>
-              <td><%= case1.number %></td>
-              <td><%= case1.case_type %></td>
-              <td><%= case1.subtype %></td>
-              <td><%= case1.description %></td>
-              <td><%= case1.medical_bills %></td>
-              <td><%= link_to 'Show', case1 %></td>
-            </tr>
+      <%= table_for @cases,
+                    :table_html => { :class => "table table-striped" },
+                    :sortable => true,
+                    :sort_url => cases_path do |case1| %>
+          <% case1.column :name, :header => "Name" %>
+          <% case1.column :number, :header => "Number" %>
+          <% case1.column :case_type, :header => "Case Type" %>
+          <% case1.column :subtype, :header => "Sub-type" %>
+          <% case1.column :description, :header => "Description" %>
+          <% case1.column :medical_bills, :header => "Medical Bills" %>
+          <% case1.column :data => "Show", :link => true %>
+          <% case1.footer do %>
+              <div class="pull-right">
+                <%= will_paginate @cases %>
+              </div>
           <% end %>
-        </tbody>
-      </table>
+    <% end %>
+
     </div>
 </div>
 

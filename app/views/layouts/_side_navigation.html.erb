@@ -45,6 +45,13 @@ $(function() {
     $('#second').collapsible('default-open', {
         contentOpen: isSecondOpen
     });
+
+    $('.nav-sidebar li a').on('click', function(e){
+//        console.log('e', e.currentTarget)
+        $('.nav-sidebar li a').removeClass('active');
+        $(e.currentTarget).addClass('active');
+    });
+
 });
 
 </script>

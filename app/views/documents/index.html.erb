@@ -1,0 +1,40 @@
+<%= link_to 'New Case', new_case_path, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
+
+<div class="table-responsive">
+    <h3>Documents</h3>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Author</th>
+          <th>Type</th>
+          <th>Template</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @documents.each do |document| %>
+          <tr>
+            <td><%= document.author %></td>
+            <td><%= document.type %></td>
+            <td><%= document.template %></td>
+            <td><%= link_to 'Show', document %></td>
+            <td><%= link_to 'Edit', edit_document_path(document) %></td>
+            <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#document_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render 'documents/new_document_form', new_document: Document.new ) %>");
+  });
+});
+</script>

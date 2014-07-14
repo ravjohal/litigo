@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140713225935) do
+ActiveRecord::Schema.define(version: 20140714001757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,26 @@ ActiveRecord::Schema.define(version: 20140713225935) do
     t.datetime "updated_at"
   end
 
+  create_table "documents", force: true do |t|
+    t.string   "author"
+    t.string   "type"
+    t.string   "template"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: true do |t|
+    t.string   "subject"
+    t.string   "location"
+    t.date     "date"
+    t.time     "time"
+    t.boolean  "all_day"
+    t.boolean  "reminder"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "plantiffs", force: true do |t|
     t.boolean  "married"
     t.boolean  "employed"
@@ -82,6 +102,17 @@ ActiveRecord::Schema.define(version: 20140713225935) do
     t.boolean  "felony_convictions"
     t.boolean  "last_ten_years"
     t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tasks", force: true do |t|
+    t.string   "name"
+    t.date     "due_date"
+    t.date     "completed"
+    t.boolean  "sms_reminder"
+    t.boolean  "email_reminder"
+    t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

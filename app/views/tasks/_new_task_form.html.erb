@@ -2,22 +2,21 @@
   <div class="modal-content">
       <div class="modal-header">
        <a class="close" data-dismiss="modal">×</a>
-        <h1>New Event</h1>
+        <h1>New Task</h1>
    </div>
    <div class="modal-body">
 
-     <%= simple_form_for(new_event) do |f| %>
+     <%= simple_form_for(new_task) do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs">
-        <%= f.input :subject %>
-        <%= f.input :location %>
-        <%= f.input :date %>
-        <%= f.input :time %>
-        <%= f.input :all_day %>
-        <%= f.input :reminder %>
-        <%= f.input :notes %>
-      </div> 
+        <%= f.input :name %>
+        <%= f.input :due_date %>
+        <%= f.input :completed %>
+        <%= f.input :sms_reminder %>
+        <%= f.input :email_reminder %>
+        <%= f.input :description %>
+      </div>
    </div>
    <div class="modal-footer">
       <div class="pull-left">

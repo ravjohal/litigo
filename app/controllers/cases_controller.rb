@@ -6,7 +6,18 @@ class CasesController < ApplicationController
   # GET /cases.json
   def index
     @user = current_user
-    @cases = Case.all
+
+    @cases = Case.unscoped
+    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
+      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
+      @cases = @cases.order(order)
+    end
+    if params[:search].present? && params[:utf8] == "✓"
+      logger.info"#{params[:search]}"
+      @cases = @cases.search(params[:search])
+
+    end
+    @cases = @cases.paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /cases/1

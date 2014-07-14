@@ -19,6 +19,8 @@ gem 'thin'
 gem 'figaro'
 gem "font-awesome-rails"
 gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google
+gem "table-for", '~> 3.2.0'
+gem 'will_paginate', '~> 3.0.7'
 
 group :development do
   gem 'better_errors'

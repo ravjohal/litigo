@@ -1,35 +1,46 @@
-<h1>Listing tasks</h1>
+<%= link_to 'New Task', new_task_path, {:class => "action-button", :id => "task_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Due date</th>
-      <th>Completed</th>
-      <th>Sms reminder</th>
-      <th>Email reminder</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="table-responsive">
+  <h3>Tasks</h3>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Due date</th>
+          <th>Completed</th>
+          <th>Sms reminder</th>
+          <th>Email reminder</th>
+          <th>Description</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-  <tbody>
-    <% @tasks.each do |task| %>
-      <tr>
-        <td><%= task.name %></td>
-        <td><%= task.due_date %></td>
-        <td><%= task.completed %></td>
-        <td><%= task.sms_reminder %></td>
-        <td><%= task.email_reminder %></td>
-        <td><%= task.description %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= task.name %></td>
+            <td><%= task.due_date %></td>
+            <td><%= task.completed %></td>
+            <td><%= task.sms_reminder %></td>
+            <td><%= task.email_reminder %></td>
+            <td><%= task.description %></td>
+            <td><%= link_to 'Show', task %></td>
+            <td><%= link_to 'Edit', edit_task_path(task) %></td>
+            <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<br>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
-<%= link_to 'New Task', new_task_path %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#task_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render 'tasks/new_task_form', new_task: Task.new ) %>");
+  });
+});
+</script>

@@ -632,6 +632,14 @@ a.action-button:hover{
 .sidebar {
   padding: 0;
 }
+
+.nav.nav-sidebar {
+  a:hover, .active {
+    background: #6C6D6D;
+    color: #fff;
+  }
+}
+
 .nav-sidebar {
   margin-bottom: 20px;
   font-weight: lighter;
@@ -655,7 +663,7 @@ a.action-button:hover{
           text-decoration: none;
           background-color: transparent;
           box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
-          color: #3FC2D8;
+          color: #3FC2D8 !important; 
           transition: .5s;
         }
       }
@@ -712,9 +720,6 @@ a.action-button:hover{
     }
   }
 }
-.active {
-  background-color: red;
-}
 
 .navbar-inverse {
   background-color: #0483A0;
@@ -744,30 +749,24 @@ a.action-button:hover{
     position: absolute;
     right: 18px;
     font-family: arial;
-    color: white;
+    color: #fff;
     font-size: 10px;
-    margin: 12px 8px;
+    margin: 14px 10px;
     letter-spacing: 2px;
+    line-height: 11px;
     text-decoration: none;
     border: solid 1px;
     border-color: white;
     border-radius: 4px;
-    padding: 2px 12px;
-  }
-    a.sign:hover {
-    float: right;
-    font-family: arial;
-    color: #323A45;
-    background: white;
-    font-size: 10px;
-    margin: 12px 8px;
-    letter-spacing: 2px;
-    text-decoration: none;
-    border: solid 1px;
-    border-color: white;
-    border-radius: 4px;
-    padding: 2px 12px;
-    transition: .1s;
+    padding: 4px 12px;
+    &:visited {
+      color: #fff;
+    }
+    &:hover {
+      color: #323A45;
+      background: white;
+      transition: .1s;
+    }
   }
   a.welcome-link{
   position: absolute;

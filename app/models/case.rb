@@ -2,6 +2,9 @@ class Case < ActiveRecord::Base
 
 	has_one :attorney, :through => :contact
 	has_one :client, :through => :contact
+  has_many :documents
+  has_many :tasks
+  has_many :events
 
 	validates :number, :presence => true
 	validates :case_type, :presence => true

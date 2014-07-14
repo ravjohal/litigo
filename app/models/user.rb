@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_show_onboarding, :if => :new_record?
 
+  has_many :documents
+  has_many :tasks
+  has_many :events
+
   def set_default_role
     self.role ||= :user
   end

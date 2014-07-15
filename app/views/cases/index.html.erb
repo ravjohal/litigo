@@ -4,7 +4,7 @@
     <h3>Cases</h3>
     <div class="table-responsive">
 
-      <%= table_for @cases,
+      <%= table_for @user.cases,
                     :table_html => { :class => "table table-striped" },
                     :sortable => true,
                     :sort_url => cases_path do |case1| %>

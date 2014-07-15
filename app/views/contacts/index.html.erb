@@ -14,7 +14,7 @@
       </thead>
 
       <tbody>
-        <% @contacts.each do |contact| %>
+        <% @user.contacts.each do |contact| %>
           <tr>
             <td><%= contact.first_name + ' ' + contact.last_name %></td>
             <td><%= contact.contactable_type %></td>

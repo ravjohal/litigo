@@ -1,5 +1,6 @@
 class Contact < ActiveRecord::Base
 	belongs_to :contactable, :polymorphic => true
+	belongs_to :user
 
 	validates :contactable_type, :presence => true
 	validates_presence_of :first_name, :last_name, :contactable_type

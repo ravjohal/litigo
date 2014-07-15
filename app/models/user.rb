@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :tasks
   has_many :events
+  has_many :contacts
 
   def set_default_role
     self.role ||= :user

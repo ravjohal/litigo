@@ -2,6 +2,7 @@ class Case < ActiveRecord::Base
 
 	has_one :attorney, :through => :contact
 	has_one :client, :through => :contact
+  belongs_to :user
   has_many :documents
   has_many :tasks
   has_many :events

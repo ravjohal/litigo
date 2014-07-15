@@ -43,6 +43,8 @@ class CasesController < ApplicationController
     @user = current_user
     @case = Case.new(case_params)
 
+    @case.user = @user
+
     respond_to do |format|
       if @case.save
         format.html { redirect_to @case, notice: 'Case was successfully created.' }
@@ -58,6 +60,9 @@ class CasesController < ApplicationController
   # PATCH/PUT /cases/1.json
   def update
     @user = current_user
+
+    @case.user = @user
+    
     respond_to do |format|
       if @case.update(case_params)
         format.html { redirect_to @case, notice: 'Case was successfully updated.' }

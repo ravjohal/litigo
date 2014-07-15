@@ -32,6 +32,8 @@ class ContactsController < ApplicationController
     @user = current_user
     @contact = Contact.new(contact_params)
 
+    @contact.user = @user
+
     respond_to do |format|
       if @contact.save
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
@@ -47,6 +49,9 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1.json
   def update
     @user = current_user
+
+    @contact = @user
+
     respond_to do |format|
       if @contact.update(contact_params)
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }

@@ -7,7 +7,7 @@ class CasesController < ApplicationController
   def index
     @user = current_user
 
-    @cases = Case.unscoped
+    @cases = @user.cases
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
       @cases = @cases.order(order)

@@ -10,6 +10,7 @@
             <th>Location</th>
             <th>Date</th>
             <th>Time</th>
+            <th>User(s)</th>
             <th>All day</th>
             <th>Reminder</th>
             <th>Notes</th>
@@ -23,6 +24,7 @@
               <td><%= event.location %></td>
               <td><%= event.date %></td>
               <td><%= event.time %></td>
+              <td><%= event.users.map {|c| c.name}.join(', ')%></td>
               <td><%= event.all_day %></td>
               <td><%= event.reminder %></td>
               <td><%= event.notes %></td>

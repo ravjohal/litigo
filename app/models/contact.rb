@@ -7,4 +7,12 @@ class Contact < ActiveRecord::Base
   validates :phone_number, length: { maximum: 10 }
   validates :fax_number, length: { maximum: 10 }
 
+  def self.search(search)
+    if search
+      where('lower(email) LIKE ?', "%#{search}%")
+    else
+      scoped
+    end
+  end
+
 end

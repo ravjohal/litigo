@@ -1,4 +1,5 @@
 class PlantiffsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_plantiff, only: [:show, :edit, :update, :destroy]
 
   # GET /plantiffs

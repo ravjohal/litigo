@@ -1,4 +1,5 @@
 class AttorneysController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_attorney, only: [:show, :edit, :update, :destroy]
   # GET /attorneys
   # GET /attorneys.json

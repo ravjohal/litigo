@@ -6,7 +6,18 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @user = current_user
-    @contacts = Contact.all
+    
+    @contacts = Contact.unscoped
+    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
+      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
+      @cases = @contacts.order(order)
+    end
+    if params[:search].present? && params[:utf8] == "✓"
+      logger.info"#{params[:search]}"
+      @contacts = @contacts.search(params[:search])
+
+    end
+    @contacts = @contacts.paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /contacts/1

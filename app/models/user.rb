@@ -12,9 +12,10 @@ class User < ActiveRecord::Base
 
   has_many :documents
   has_many :tasks
-  has_many :events
+  has_and_belongs_to_many :events
   has_many :contacts
   has_many :cases
+
 
   def set_default_role
     self.role ||= :user

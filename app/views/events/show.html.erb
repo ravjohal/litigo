@@ -21,6 +21,11 @@
 </p>
 
 <p>
+  <strong>User(s):</strong>
+  <%= @event.users.map {|c| c.name}.join(', ') %>
+</p>
+
+<p>
   <strong>All day:</strong>
   <%= @event.all_day %>
 </p>

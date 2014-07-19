@@ -7,10 +7,10 @@ class ContactsController < ApplicationController
   def index
     @user = current_user
     
-    @contacts = Contact.unscoped
+    @contacts = @user.contacts
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      @cases = @contacts.order(order)
+      @contacts = @contacts.order(order)
     end
     if params[:search].present? && params[:utf8] == "✓"
       logger.info"#{params[:search]}"

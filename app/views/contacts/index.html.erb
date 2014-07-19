@@ -4,7 +4,7 @@
   <h3>Contacts</h3>
   <div class="table-responsive">
 
-    <%= table_for @user.contacts,
+    <%= table_for @contacts,
                     :table_html => { :class => "table table-striped" },
                     :sortable => true,
                     :sort_url => contacts_path do |contact| %>
@@ -16,7 +16,7 @@
          
           <% contact.footer do %>
               <div class="pull-right">
-                <%= will_paginate @contact %>
+                <%= will_paginate @contacts %>
               </div>
           <% end %>
     <% end %>

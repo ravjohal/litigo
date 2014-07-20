@@ -1,15 +1,18 @@
 <%= simple_form_for(@event) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
+   <div class="form-inputs">
     <%= f.input :subject %>
     <%= f.input :location %>
+    <%= f.association :attorneys, :label => "Lawyer" %> 
     <%= f.input :date %>
     <%= f.input :time %>
+    <%= f.association :users, :label => "Invitees" %>
     <%= f.input :all_day %>
     <%= f.input :reminder %>
+    <%= f.association :cases %>
     <%= f.input :notes %>
-  </div>
+  </div> 
 
   <div class="form-actions">
     <%= f.button :submit %>

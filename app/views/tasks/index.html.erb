@@ -6,7 +6,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Task</th>
           <th>Due date</th>
           <th>Completed</th>
           <th>Sms reminder</th>
@@ -20,6 +20,7 @@
         <% @tasks.each do |task| %>
           <tr>
             <td><%= task.name %></td>
+            <td><%= @task.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= task.due_date %></td>
             <td><%= task.completed %></td>
             <td><%= task.sms_reminder %></td>

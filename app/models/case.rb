@@ -4,7 +4,7 @@ class Case < ActiveRecord::Base
 	has_one :client, :through => :contact
   belongs_to :user
   has_many :documents
-  has_many :tasks
+  has_and_belongs_to_many :tasks
   has_and_belongs_to_many :events
 
 	validates :number, :presence => true

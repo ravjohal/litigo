@@ -1,8 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Task:</strong>
   <%= @task.name %>
+</p>
+
+<p>
+  <strong>Case(s):</strong>
+  <%= @task.cases.map {|c| c.name}.join(', ') %>
 </p>
 
 <p>

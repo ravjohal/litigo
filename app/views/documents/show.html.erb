@@ -15,5 +15,10 @@
   <%= @document.template %>
 </p>
 
+<p>
+  <strong>Case(s):</strong>
+  <%= @document.cases.map {|c| c.name}.join(', ') %>
+</p>
+
 <%= link_to 'Edit', edit_document_path(@document) %> |
 <%= link_to 'Back', documents_path %>

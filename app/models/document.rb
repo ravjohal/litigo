@@ -1,4 +1,4 @@
 class Document < ActiveRecord::Base
 	has_one :user
-	has_many :cases
+	has_and_belongs_to_many :cases
 end

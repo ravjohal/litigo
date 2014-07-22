@@ -640,10 +640,12 @@ a.action-button:hover{
   margin-bottom: 20px;
   font-weight: lighter;
   ul {
+  font-weight: lighter;
     padding: 0;
     list-style-type: none;
     li {
       a {
+       font-weight: lighter;
         display: block;
         width: 100%;
         margin-top: 1px;
@@ -656,6 +658,7 @@ a.action-button:hover{
         font-family: sans-serif;
         background-color: transparent;
         &:hover {
+        font-weight: lighter;
           text-decoration: none;
           background-color: transparent;
           box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
@@ -724,8 +727,8 @@ a.action-button:hover{
 .navbar-brand {
   background-image: url(/assets/darklogo.png);
   background-repeat: no-repeat;
-  background-size: 102px 33px;
-  width: 102px;
+  background-size: 100px 33px;
+  width: 100px;
   height: 33px;
   margin-top: 8px;
   margin-left: 15px !important;
@@ -744,7 +747,7 @@ a.action-button:hover{
 
   a.sign {
     position: absolute;
-    right: 18px;
+    right: 8px;
     font-family: arial;
     color: #fff;
     font-size: 10px;
@@ -779,4 +782,11 @@ a.action-button:hover{
   margin-top: 14px;
   text-decoration: none;
   background-color: transparent;
+  }
+   a.welcome-link:visited{
+  position: absolute;
+  right: 150px;
+  color: #fff;
+  margin-top: 14px;
+  text-decoration: none;
   }

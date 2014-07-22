@@ -12,6 +12,7 @@
         <%= f.input :author, :readonly => true, :input_html => { :value => @user.name }%>
         <%= f.input :doc_type %>
         <%= f.input :template %>
+        <%= f.association :cases %>
       </div>
              
    </div>

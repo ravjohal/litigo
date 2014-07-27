@@ -47,3 +47,4 @@ group :production do
   gem 'rails_12factor'
 end
   gem 'pry-debugger', group: [:development, :test]        # Pry navigation commands via debugger (formerly ruby-debug) https://github.com/nixme/pry-debugger
+  gem "rspec-rails", group: [:development, :test]         # https://www.relishapp.com/rspec/rspec-rails/docs/gettingstarted

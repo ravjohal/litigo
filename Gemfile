@@ -30,10 +30,20 @@ group :development do
   gem 'quiet_assets'
   gem 'rails_layout'
   gem "awesome_print"       # Nicely formatted data structures in console, for example "ap User.first"
-  gem 'pry-debugger'        # Pry navigation commands via debugger (formerly ruby-debug) https://github.com/nixme/pry-debugger
   gem "git-smart", "~> 0.1.9"   # Allows "git smart-pull" for less merge messes
 end
 
+group :test do
+  gem 'minitest', '~> 5.4.0'
+  gem "shoulda-matchers", "~> 2.5.0"                  # Collection of testing matchers extracted from Shoulda http://thoughtbot.com/community
+  gem "factory_girl_rails", "~> 4.3.0"                # Test data generator -- see spec/factories/factories.rb
+  gem "capybara", "~> 2.2.1"
+  gem "database_cleaner", "~> 1.2.0"                  # database_cleaner is not required, but highly recommended
+  gem "selenium-webdriver", "~> 2.41.0"
+  gem "capybara-firebug", '~> 2.0.0'
+  gem "cucumber-rails", "~>1.4.0", :require => false  # Cucumber Generator and Runtime for Rails
+end
 group :production do
   gem 'rails_12factor'
 end
+  gem 'pry-debugger', group: [:development, :test]        # Pry navigation commands via debugger (formerly ruby-debug) https://github.com/nixme/pry-debugger

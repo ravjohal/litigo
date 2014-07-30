@@ -4,7 +4,31 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+require 'factory_girl'
 require 'cucumber/rails'
+require 'capybara/firebug'
+require 'capybara'
+require 'capybara/dsl'
+require 'capybara/cucumber'
+require 'selenium-webdriver'
+
+Capybara.configure do |config|
+  #config.default_driver = :selenium
+  config.javascript_driver = :selenium
+  config.run_server = true
+  config.default_selector = :css
+  config.default_wait_time = 10
+  #config.app_host = "http://0.0.0.0:9292"
+  #config.app_host = "file://" + File.dirname(__FILE__) + "/../../test_site/html"
+
+  #capybara 2.1 config options
+  config.match = :prefer_exact
+  config.ignore_hidden_elements = false
+end
+Capybara.register_driver :selenium do |app|
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  Capybara::Selenium::Driver.new( app, :browser => :firefox, :profile => profile )
+end
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -55,4 +79,21 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
+def wait_for_ajax
+  Timeout.timeout(Capybara.default_wait_time) do
+    active = page.evaluate_script('jQuery.active')
+    until active == 0
+      active = page.evaluate_script('jQuery.active')
+    end
+  end
+end
 
+Before do |scenario|
+  if page.driver.options[:browser] == :firefox
+    page.driver.browser.manage.window.maximize
+  end
+end
+
+After do |scenario|
+
+end

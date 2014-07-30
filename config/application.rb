@@ -20,5 +20,10 @@ module Litigo
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     # config.assets.paths << "#{Rails.root}/app/assets/fonts"
+
+    #test config
+    config.generators do |g|
+      g.test_framework false
+    end
   end
 end

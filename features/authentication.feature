@@ -5,7 +5,3 @@ Feature: User Registragion
 
   Scenario: Successfull user sign_up
     Given I am a guest
-    When I visit sign up page
-    And I fill in the sign_up form with email "such@gmail.com" password "password"
-    Then "Anonymous" should appear on the edit page
-    And I should receive welcome email

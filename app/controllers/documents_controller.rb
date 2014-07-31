@@ -6,7 +6,7 @@ class DocumentsController < ApplicationController
   # GET /documents.json
   def index
     @user = current_user
-    @documents = Document.all
+    @documents = @user.documents
   end
 
   # GET /documents/1
@@ -30,7 +30,10 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     @user = current_user
+
     @document = Document.new(document_params)
+
+    @document.user = @user
 
     respond_to do |format|
       if @document.save
@@ -77,6 +80,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:author, :type, :template, :case_ids => [])
+      params.require(:document).permit(:author, :doc_type, :template, :case_ids => [])
     end
 end

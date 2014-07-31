@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @user = current_user
-    @tasks = Task.all
+    @tasks = @user.tasks
   end
 
   # GET /tasks/1
@@ -31,6 +31,8 @@ class TasksController < ApplicationController
   def create
     @user = current_user
     @task = Task.new(task_params)
+
+    @task.user = @user
 
     respond_to do |format|
       if @task.save
@@ -77,6 +79,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description, :case_ids => [])
+      params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description, :user_id, :case_ids => [])
     end
 end

@@ -6,7 +6,19 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @user = current_user
-    @events = @user.events
+    @events = @user.owned_events
+
+    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
+      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
+      @events = @events.order(order)
+    end
+    if params[:search].present? && params[:utf8] == "✓"
+      logger.info"#{params[:search]}"
+      @events = @events.search(params[:search])
+
+    end
+    @events = @events.paginate(:per_page => 10, :page => params[:page])
+
   end
 
   # GET /events/1
@@ -31,6 +43,8 @@ class EventsController < ApplicationController
   def create
     @user = current_user
     @event = Event.new(event_params)
+
+    @event.owner = @user
 
     respond_to do |format|
       if @event.save
@@ -77,6 +91,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :user_ids => [], :case_ids => [], :attorney_ids => [])
+      params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :user_ids => [], :case_ids => [], :attorney_ids => [])
     end
 end

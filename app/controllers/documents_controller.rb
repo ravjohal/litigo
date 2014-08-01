@@ -7,6 +7,18 @@ class DocumentsController < ApplicationController
   def index
     @user = current_user
     @documents = @user.documents
+
+    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
+      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
+      @documents = @documents.order(order)
+    end
+    if params[:search].present? && params[:utf8] == "✓"
+      logger.info"#{params[:search]}"
+      @documents = @documents.search(params[:search])
+
+    end
+    @documents = @documents.paginate(:per_page => 10, :page => params[:page])
+
   end
 
   # GET /documents/1
@@ -80,6 +92,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:author, :doc_type, :template, :case_ids => [])
+      params.require(:document).permit(:author, :doc_type, :user_id, :template, :case_ids => [])
     end
 end

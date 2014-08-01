@@ -10,9 +10,9 @@
     <%= f.association :users, :label => "Invitees" %>
     <%= f.input :all_day %>
     <%= f.input :reminder %>
-    <%= f.association :cases %>
+    <%= f.association :cases, :collection => @user.cases %>
     <%= f.input :notes %>
-  </div> 
+   </div> 
 
   <div class="form-actions">
     <%= f.button :submit %>

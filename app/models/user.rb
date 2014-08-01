@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :tasks
   has_and_belongs_to_many :events
+  has_many :owned_events, class_name: "Event", foreign_key: "owner_id"
   has_many :contacts
   has_many :cases
 

@@ -7,6 +7,18 @@ class TasksController < ApplicationController
   def index
     @user = current_user
     @tasks = @user.tasks
+
+    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
+      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
+      @tasks = @tasks.order(order)
+    end
+    if params[:search].present? && params[:utf8] == "✓"
+      logger.info"#{params[:search]}"
+      @tasks = @tasks.search(params[:search])
+
+    end
+    @tasks = @tasks.paginate(:per_page => 10, :page => params[:page])
+
   end
 
   # GET /tasks/1

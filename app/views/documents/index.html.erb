@@ -3,31 +3,26 @@
 <div class="table-responsive">
     <h3>Documents</h3>
     <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-        <tr>
-          <th>Author</th>
-          <th>Type</th>
-          <th>Template</th>
-          <th>Case(s)</th>
-          <th colspan="3"></th>
-        </tr>
-      </thead>
+     
 
-      <tbody>
-        <% @documents.each do |document| %>
-          <tr>
-            <td><%= document.author %></td>
-            <td><%= document.doc_type %></td>
-            <td><%= document.template %></td>
-            <td><%= document.cases.map {|c| c.name}.join(', ')%>
-            <td><%= link_to 'Show', document %></td>
-            <td><%= link_to 'Edit', edit_document_path(document) %></td>
-            <td><%= link_to 'Destroy', document, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+      <%= table_for @documents,
+                    :table_html => { :class => "table table-striped" },
+                    :sortable => true,
+                    :sort_url => documents_path do |doc| %>
+          <% doc.column :author, :header => "Author" %>
+          <% doc.column :doc_type, :header => "Type" %>
+          <% doc.column :template, :header => "Template" %>
+          <% doc.column :header => "Case(s)", :data => lambda {|doc| doc.cases.map {|c| c.name}.join(', ') } %>
+          <% doc.column :data => "Show", :link => true %>
+          <% doc.column :data => "Edit", :link_action => :edit %>
+          <% doc.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
+          <% doc.footer do %>
+              <div class="pull-right">
+                <%= will_paginate @documents %>
+              </div>
+          <% end %>
+      <% end %>
+
   </div>
 </div>
 

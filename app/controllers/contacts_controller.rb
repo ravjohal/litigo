@@ -61,7 +61,7 @@ class ContactsController < ApplicationController
   def update
     @user = current_user
 
-    @contact = @user
+    @contact.user = @user
 
     respond_to do |format|
       if @contact.update(contact_params)

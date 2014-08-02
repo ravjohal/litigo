@@ -33,7 +33,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('#task_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'tasks/new_task_form', new_task: Task.new ) %>");
+    $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: Task.new ) %>");
   });
 });
 </script>

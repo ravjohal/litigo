@@ -35,7 +35,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('#event_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'events/new_event_form', new_event: Event.new ) %>");
+    $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
   });
 });
 </script>

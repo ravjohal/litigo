@@ -1,26 +1,5 @@
-<div class="modal-dialog">
-  <div class="modal-content">
-      <div class="modal-header">
-       <a class="close" data-dismiss="modal">×</a>
-       <h1>New case</h1>
-   </div>
-   <div class="modal-body">
-       
+<h1>New case</h1>
 
-		<%= render 'form' %>
+<%= render 'form', new_case: @case %>
 
-		<%= link_to 'Back', cases_path %>           
-   </div>
-   <div class="modal-footer">
-       <a href="#" class="btn btn-success">Call to action</a>
-       <a href="#" class="btn" data-dismiss="modal">Close</a>
-   </div>
-  </div>
-</div>
-
-
-<!-- <h1>New case</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', cases_path %> -->
+<%= link_to 'Back', cases_path %>

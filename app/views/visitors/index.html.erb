@@ -7,10 +7,17 @@
           SIGN UP FOR A FREE 30-DAY TRIAL
       </div>
       <div class="formarea">
-             <form method="post" action="register.php">
+        <%= form_tag new_user_registration_path, :method => "get" do %>
+          <%= text_field_tag :email, nil, :placeholder => "ENTER YOUR EMAIL ADDRESS HERE", :class => "email" %>
+          <%= submit_tag "GET STARTED", :class => "sub" %>
+        <% end %>
+
+<!--
+            <form method="post" action="#{new_user_registration_path}">
           <input type="email" name="email" id="email" placeholder="ENTER YOUR EMAIL ADDRESS" class="email">
           </input>
-          <input type="submit" class="sub" value="GET STARTED"></input></form>
+-->
+
       </div>
       <div class="mission">
       Empowering attorneys with case management, analytics, and 

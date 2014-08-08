@@ -15,8 +15,6 @@
           <% case1.column :description, :header => "Description" %>
           <% case1.column :medical_bills, :header => "Medical Bills" %>
           <% case1.column :data => "Show", :link => true %>
-          <% case1.column :data => "Edit", :link_action => :edit %>
-          <% case1.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
           <% case1.footer do %>
               <div class="pull-right">
                 <%= will_paginate @cases %>

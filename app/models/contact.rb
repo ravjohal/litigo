@@ -1,5 +1,5 @@
 class Contact < ActiveRecord::Base
-	belongs_to :contactable, :polymorphic => true
+	belongs_to :contactable, :polymorphic => true, :foreign_key => :contactable_id
 	belongs_to :user
 
 	validates :contactable_type, :presence => true

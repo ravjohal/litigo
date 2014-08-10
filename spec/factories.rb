@@ -19,5 +19,10 @@ FactoryGirl.define do
 
   end
 
+  factory :user do
+    email
+    password "1#{Faker::Lorem.characters(7)}"
+  end
+
 
 end

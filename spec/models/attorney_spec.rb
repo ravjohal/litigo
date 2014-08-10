@@ -1,32 +1,22 @@
 require 'spec_helper'
 
-describe "Attorney" do
+describe 'Attorney' do
   let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer', :firm => 'Firm') }
   let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh', :contactable => attorney) }
   let!(:invalid_contact) { create(:contact, :contactable => attorney) }
   let!(:event) { create(:event) }
 
 
-  context "Check attributes" do
-    it "Expects Attorney to be valid and have attrs" do
+  context 'Check attributes' do
+    it 'Expects Attorney to be valid and have attrs' do
       expect(attorney).to be_valid
       expect(attorney.attorney_type).to eq 'Lawyer'
       expect(attorney.firm).to eq 'Firm'
     end
 
-    it 'Expects Contact to be valid and have attrs' do
-      expect(contact).to be_valid
-      expect(contact.first_name).to eq 'John'
-      expect(contact.last_name).to eq 'Doh'
-    end
-
-    it 'Expects Contact to be invalid' do
-      !expect(invalid_contact).to be_valid
-    end
-
   end
 
-  context "Checking dependencies" do
+  context 'Checking dependencies' do
 
     it 'Expects to have has_and_belongs_to_many Event -> Attorney association' do
       attorney.events << event

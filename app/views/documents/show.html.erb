@@ -11,6 +11,11 @@
 </p>
 
 <p>
+  <strong>Document:</strong>
+  <%= link_to @document.document.file.filename, @document.document_url %>
+</p>
+
+<p>
   <strong>Template:</strong>
   <%= @document.template %>
 </p>

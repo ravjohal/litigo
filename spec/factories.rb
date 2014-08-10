@@ -11,11 +11,19 @@ FactoryGirl.define do
   end
 
   factory :attorney do
-    attorney_type "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
-    firm "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
+    attorney_type "#{Faker::Lorem.characters(8)}"
+    firm "#{Faker::Lorem.characters(8)}"
   end
 
   factory :event do
+
+  end
+
+  factory :task do
+
+  end
+
+  factory :document do
 
   end
 
@@ -24,5 +32,12 @@ FactoryGirl.define do
     password "1#{Faker::Lorem.characters(7)}"
   end
 
+  factory :case do
+    number Random.rand(5)
+    case_type :some_case_type
+    subtype :some_subtype
+    name "#{Faker::Lorem.characters(8)}"
+    description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
+  end
 
 end

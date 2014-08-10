@@ -11,6 +11,7 @@
                     :sort_url => documents_path do |doc| %>
           <% doc.column :author, :header => "Author" %>
           <% doc.column :doc_type, :header => "Type" %>
+          <% doc.column :header => "Document", :data => lambda {|document| document.document.file.filename if !document.document_url.blank? }, :link_url => lambda { |document| document.document_url } %>
           <% doc.column :template, :header => "Template" %>
           <% doc.column :header => "Case(s)", :data => lambda {|doc| doc.cases.map {|c| c.name}.join(', ') } %>
           <% doc.column :data => "Show", :link => true %>

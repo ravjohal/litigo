@@ -34,7 +34,7 @@
     <header>
     <div class="home-nav-banner">
       <div class="wrapper">
-        <a class="navlogo" id="top"><img style="border:0;" src="" alt="home logo"></a>
+        <div class="navlogo"></div>
         <% if user_signed_in? %>
             <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign' %>
         <% else %>
@@ -44,6 +44,8 @@
     </div>
     </header>
 
+<div class="wood-back">
+</div>
     <main>
     <div class="shadow"></div>
       <div class="tagline">

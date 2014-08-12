@@ -117,10 +117,10 @@ h1 {
   position: absolute;
   text-decoration: none;
   top: 8px;
-  height: 33px;
+  height: 34px;
   width: 100px;
   background: url('/assets/lightlogo.png');
-  background-size: 88px 33px;
+  background-size: 88px 34px;
   background-repeat: no-repeat;
   }
   
@@ -238,7 +238,7 @@ nav ul li a {
     Margin: 0 auto;
     max-width: 960px;
     text-align: center;
-    padding: 60px 0px 0 0;
+    padding: 44px 0px 0 0;
     letter-spacing: 1px;
     text-shadow: 4px 4px 10px black;
   }
@@ -252,7 +252,7 @@ nav ul li a {
     Margin: 0 auto;
     max-width: 960px;
     text-align: center;
-    padding: 80px 0 0;
+    padding: 65px 0 0;
     letter-spacing: 4px;
   }
     div.formarea{
@@ -264,7 +264,7 @@ nav ul li a {
   }
   
   input.email {
-    height: 30px;
+    height: 31px;
     width: 300px;
     font-size: 11px;
     border: none;
@@ -325,8 +325,8 @@ nav ul li a {
     font-weight: lighter;
     padding-top:45px;
     font-family: sans-serif;
-    font-size: 16px;
-    line-height: 23px;
+    font-size: 20px;
+    line-height: 28px;
     letter-spacing: 1px;
     text-align: center;
     margin: 0 auto;
@@ -346,9 +346,7 @@ nav ul li a {
     max-width: 800px;
   }
   div.submain{
-    position: relative;
-    top: 50px;
-    max-width: 960px;
+    padding-top: 50px;
     margin: 0 auto;
     height: 100%;
     text-align: center;
@@ -358,7 +356,7 @@ nav ul li a {
     font-weight: lighter;
     font-family: sans-serif;
     text-align: justify;
-    margin-top:10px;
+    margin-top:10px auto;
   }
   div.firstbox{
     margin-left: 26px;
@@ -369,7 +367,7 @@ nav ul li a {
     line-height: 21px;
     font-family: sans-serif;
     text-align: center;
-    width: 25%;
+    width: 30%;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
@@ -384,7 +382,7 @@ nav ul li a {
     color: #666666;
     font-family: sans-serif;
     text-align: center;
-    width: 25%;
+    width: 30%;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
@@ -402,7 +400,7 @@ nav ul li a {
     line-height: 21px;
     font-family: sans-serif;
     text-align: center;
-    width: 25%;
+    width: 30%;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
@@ -415,7 +413,7 @@ nav ul li a {
     padding-top:0px;
     padding-bottom: 0px;
     text-align: center;
-    width: 25%;
+    width: 30%;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
@@ -426,7 +424,7 @@ nav ul li a {
   div.imgbox2{
     padding-top:0px;
     padding-bottom: 0px;
-    width: 25%;
+    width: 30%;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
@@ -439,7 +437,7 @@ nav ul li a {
     padding-top:0px;
     padding-bottom: 0px;
     text-align: center;
-    width: 25%;
+    width: 30%;
     padding-left: 30px;
     padding-right: 30px;
     height: 100%;
@@ -451,7 +449,7 @@ nav ul li a {
 
   a.button{
   position: relative;
-  top: 14px;
+  top: 12px;
   width: 0;
   height: 0;
   border-left: 30px solid transparent;
@@ -474,10 +472,47 @@ a.button:hover{
   transition: .2s;
 }
 
-  a.button1{
+  .button14{
   position: relative;
-  top: 405px;
-  right: 460px;
+  top: 50px;
+  font-family: sans-serif;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  cursor:pointer;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  color: White;
+  height: 40px;
+  text-decoration: none;
+  }
+  
+.button14:hover{
+  position: relative;
+  top: 50px;
+  font-family: sans-serif;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-size: 13px;
+  background: transparent;
+  border: none;
+  cursor:pointer;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  color: white;
+  height: 40px;
+  transition: .2s;
+  text-decoration: none;
+}
+  .button1{
+  position: relative;
+  top: 10px;
   font-family: sans-serif;
   padding-right: 20px;
   padding-left: 20px;
@@ -494,9 +529,9 @@ a.button:hover{
   text-decoration: none;
   }
   
-a.button1:hover{
+.button1:hover{
   position: relative;
-  top: 65px;
+  top: 10px;
   font-family: sans-serif;
   padding-right: 20px;
   padding-left: 20px;
@@ -513,7 +548,6 @@ a.button1:hover{
   transition: .2s;
   text-decoration: none;
 }
- 
   
   div.small{
     height: 4px;

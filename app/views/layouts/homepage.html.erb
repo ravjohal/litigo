@@ -36,9 +36,9 @@
       <div class="wrapper">
         <div class="navlogo"></div>
         <% if user_signed_in? %>
-            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign' %>
+            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
         <% else %>
-        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign' %>
+        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
         <% end %>
       </div>
     </div>

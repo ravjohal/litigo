@@ -203,7 +203,7 @@ nav ul li a {
   letter-spacing: 1px;
   }
   nav ul li a:hover {
-    font-weight: lighter;
+  font-weight: lighter;
   margin-top: 10px;
   text-align: center;
   padding: 8px 0;
@@ -859,9 +859,8 @@ a.action-button:hover{
 
 /*Sign out button*/
 
-  a.sign {
-    position: absolute;
-    right: 8px;
+  a.sign-home {
+   float: right;
     font-family: arial;
     color: #fff;
     font-size: 10px;

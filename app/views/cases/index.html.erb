@@ -5,7 +5,7 @@
     <div class="table-responsive">
 
       <%= table_for @cases,
-                    :table_html => { :class => "table table-striped" },
+                    :table_html => { :class => "table table-striped table-hover" },
                     :sortable => true,
                     :sort_url => cases_path do |case1| %>
           <% case1.column :name, :header => "Name" %>

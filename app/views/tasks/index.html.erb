@@ -6,7 +6,7 @@
     
 
     <%= table_for @tasks,
-                    :table_html => { :class => "table table-striped" },
+                    :table_html => { :class => "table table-striped table-hover" },
                     :sortable => true,
                     :sort_url => tasks_path do |task| %>
           <% task.column :name, :header => "Task" %>

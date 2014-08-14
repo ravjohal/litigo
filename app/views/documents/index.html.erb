@@ -6,7 +6,7 @@
      
 
       <%= table_for @documents,
-                    :table_html => { :class => "table table-striped" },
+                    :table_html => { :class => "table table-striped table-hover" },
                     :sortable => true,
                     :sort_url => documents_path do |doc| %>
           <% doc.column :author, :header => "Author" %>

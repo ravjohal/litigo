@@ -6,6 +6,7 @@ class Case < ActiveRecord::Base
   has_and_belongs_to_many :documents
   has_and_belongs_to_many :tasks
   has_and_belongs_to_many :events
+  has_many :notes
 
 	validates :number, :presence => true
 	validates :case_type, :presence => true

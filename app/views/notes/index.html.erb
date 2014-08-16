@@ -1,25 +1,35 @@
-<h1>Listing notes</h1>
+<%= link_to 'NEW NOTE', new_note_path, {:class => "action-button", :id => "note_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
-<table>
-  <thead>
-    <tr>
-      <th>Note</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="table-responsive">
+    <h3>Notes</h3>
+    <div class="table-responsive">
+     
 
-  <tbody>
-    <% @notes.each do |note| %>
-      <tr>
-        <td><%= note.note %></td>
-        <td><%= link_to 'Show', note %></td>
-        <td><%= link_to 'Edit', edit_note_path(note) %></td>
-        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+      <%= table_for @notes,
+                    :table_html => { :class => "table table-striped" },
+                    :sortable => true,
+                    :sort_url => notes_path do |note| %>
+          <% note.column :note, :header => "Note" %>
+          <% note.column :header => "Case(s)", :data => lambda {|doc| note.cases.map {|c| c.name}.join(', ') } %>
+          <% note.column :data => "Show", :link => true %>
+          <% note.column :data => "Edit", :link_action => :edit %>
+          <% note.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
+          <% note.footer do %>
+              <div class="pull-right">
+                <%= will_paginate @notes %>
+              </div>
+          <% end %>
+      <% end %>
 
-<br>
+  </div>
+</div>
 
-<%= link_to 'New Note', new_note_path %>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#note_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: Note.new ) %>");
+  });
+});
+</script>

@@ -42,6 +42,8 @@ class NotesController < ApplicationController
     @user = current_user
     @note = Note.new(note_params)
 
+    @note.user = @user
+    
     respond_to do |format|
       if @note.save
         format.html { redirect_to @note, notice: 'Note was successfully created.' }
@@ -57,6 +59,7 @@ class NotesController < ApplicationController
   # PATCH/PUT /notes/1.json
   def update
     @user = current_user
+    @note.user = @user
     respond_to do |format|
       if @note.update(note_params)
         format.html { redirect_to @note, notice: 'Note was successfully updated.' }
@@ -87,6 +90,6 @@ class NotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def note_params
-      params.require(:note).permit(:note, :case_id)
+      params.require(:note).permit(:note, :case_id, :user_id, :note_type, :created_at, :updated_at, :author)
     end
 end

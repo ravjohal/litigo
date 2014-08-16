@@ -4,20 +4,19 @@
     <h3>Notes</h3>
     <div class="table-responsive">
      
-
       <%= table_for @notes,
                     :table_html => { :class => "table table-striped" },
                     :sortable => true,
-                    :sort_url => notes_path do |note| %>
-          <% note.column :author, :header => "Author" %>
-          <% note.column :created_at, :header => "Date" %>
-          <% note.column :note_type, :header => "Type" %>         
-          <% note.column :header => "Case(s)", :data => note.case  %>
-          <% note.column :note, :header => "Note" %>
-          <% note.column :data => "Show", :link => true %>
-          <% note.column :data => "Edit", :link_action => :edit %>
-          <% note.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
-          <% note.footer do %>
+                    :sort_url => notes_path do |note1| %>
+          <% note1.column :author, :header => "Author" %>
+          <% note1.column :created_at, :header => "Date", :date => lambda {|note| localize(note.created_at.to_date) } %>
+          <% note1.column :note_type, :header => "Type" %>         
+          <% note1.column :header => "Case", :data => lambda {|note| note.case.name}  %>
+          <% note1.column :note, :header => "Note" %>
+          <% note1.column :data => "Show", :link => true %>
+          <% note1.column :data => "Edit", :link_action => :edit %>
+          <% note1.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
+          <% note1.footer do %>
               <div class="pull-right">
                 <%= will_paginate @notes %>
               </div>

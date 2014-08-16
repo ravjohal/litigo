@@ -6,7 +6,18 @@ class NotesController < ApplicationController
   # GET /notes.json
   def index
     @user = current_user
-    @notes = Note.all
+    @notes = @user.notes
+
+    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
+      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
+      @notes = @notes.order(order)
+    end
+    if params[:search].present? && params[:utf8] == "✓"
+      logger.info"#{params[:search]}"
+      @notes = @notes.search(params[:search])
+
+    end
+    @notes = @notes.paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /notes/1

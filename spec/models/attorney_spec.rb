@@ -22,6 +22,7 @@ describe 'Attorney' do
       attorney.events << event
       expect(attorney.events.size).to eq 1
       expect(event.attorneys.size).to eq 1
+      expect(event.attorneys.first).to eq attorney
 
       attorney.events.clear
       event.attorneys.clear

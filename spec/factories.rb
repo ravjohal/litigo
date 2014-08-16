@@ -40,4 +40,16 @@ FactoryGirl.define do
     description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
   end
 
+  factory :client do
+
+  end
+
+  factory :defendant do
+
+  end
+
+  factory :note do
+
+  end
+
 end

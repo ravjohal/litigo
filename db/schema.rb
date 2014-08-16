@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20140816063727) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "case_id"
   end
 
   create_table "defendants", force: true do |t|

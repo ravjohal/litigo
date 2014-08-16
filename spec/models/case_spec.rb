@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe 'Case' do
 
+  let!(:user) { create(:user) }
   let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer', :firm => 'Firm') }
   let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh', :contactable => attorney) }
   let!(:cas) { create(:case, number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',
@@ -32,7 +33,8 @@ describe 'Case' do
     it 'Expects to have has_and_belongs_to_many Case -> Event association' do
       cas.events << event
       expect(cas.events.size).to eq 1
-      expect(event.cases.size).to eq 1
+      expect(cas.events.first).to eq event
+
 
       cas.events.clear
       event.cases.clear

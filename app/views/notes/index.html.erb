@@ -9,8 +9,11 @@
                     :table_html => { :class => "table table-striped" },
                     :sortable => true,
                     :sort_url => notes_path do |note| %>
+          <% note.column :author, :header => "Author" %>
+          <% note.column :created_at, :header => "Date" %>
+          <% note.column :note_type, :header => "Type" %>         
+          <% note.column :header => "Case(s)", :data => note.case  %>
           <% note.column :note, :header => "Note" %>
-          <% note.column :header => "Case(s)", :data => lambda {|doc| note.cases.map {|c| c.name}.join(', ') } %>
           <% note.column :data => "Show", :link => true %>
           <% note.column :data => "Edit", :link_action => :edit %>
           <% note.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>

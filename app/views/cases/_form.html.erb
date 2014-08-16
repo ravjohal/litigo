@@ -17,7 +17,7 @@
               <%= f.input :number, :label => "Case number" %>
               <%= f.input :case_type, :label => "Case Type" , :collection => ['Personal Injury'], :selected => 'Personal Injury'%>
               <%= f.input :subtype, :label => "Sub-type", :collection => ['Motor Vehicle'], :selected => 'Motor Vehicle' %>
-              <%= f.input :description %>
+              <%= f.input :description, :type => 'text-area' %>
               <%= f.input :medical_bills, :label => "Medical Bills" %>
             </div>  
      <% if action_name == "index" %>        

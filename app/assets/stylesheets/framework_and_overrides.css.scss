@@ -701,7 +701,9 @@ a.action-button:hover{
 }
 
 .nav-sidebar__dsh {
+  color: #6c6d6d;
   &:before {
+    color: white;
     content: url('/assets/custom-icons/dash-menu-gray.png');
     margin-right: 5px;
     &:hover {
@@ -721,6 +723,7 @@ a.action-button:hover{
 }
 
 .nav-sidebar__cev {
+  color: #6c6d6d;
   &:before {
     content: url('/assets/custom-icons/mag-menu-gray.png');
     margin-right: 5px;

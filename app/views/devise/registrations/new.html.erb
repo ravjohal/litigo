@@ -1,6 +1,6 @@
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f| %>
-    <h3>Sign up</h3>
+    <h3>SIGN UP</h3>
     <%= devise_error_messages! %>
     <div class="form-group">
       <%= f.label :name %>
@@ -18,6 +18,10 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
     </div>
-     <%= f.submit 'Sign up', :class => 'button right' %>
+     <%= f.submit 'SIGN UP', :class => 'button right' %><br>
+  <div class="center">
+      Already have an account? <%= link_to 'Sign In', new_registration_path(resource_name), :class => 'center-link'  %>
+      </div>
   <% end %>
+
 </div>

@@ -19,10 +19,6 @@ FactoryGirl.define do
 
   end
 
-  factory :task do
-
-  end
-
   factory :document do
 
   end
@@ -49,6 +45,18 @@ FactoryGirl.define do
   end
 
   factory :note do
+
+  end
+
+  factory :plantiff do
+
+  end
+
+  factory :task do
+
+  end
+
+  factory :witness do
 
   end
 

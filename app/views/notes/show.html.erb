@@ -6,11 +6,15 @@
 </p>
 <p>
   <strong>Date:</strong>
-  <%= @note.created_at %>
+  <%= localize(@note.created_at).to_date %>
 </p>
 <p>
   <strong>Case:</strong>
-  <%= @note.case %>
+  <%= @note.case.name %>
+</p>
+<p>
+  <strong>Type:</strong>
+  <%= @note.note_type %>
 </p>
 <p>
   <strong>Note:</strong>

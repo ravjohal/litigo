@@ -23,6 +23,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google
 gem 'table-for', '~> 3.2.0'
 gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.7.1'               # Replacement for curl commands to grab contacts from google
+gem 'active_link_to', '~> 1.0.2'
 
 group :development do
   gem 'better_errors'

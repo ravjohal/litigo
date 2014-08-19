@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
   
+  resources :firms
+
   resources :staffs
 
   resources :notes

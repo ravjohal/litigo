@@ -1,12 +1,11 @@
 class CasesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_case, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   # GET /cases
   # GET /cases.json
   def index
-    @user = current_user
-
     @cases = @user.cases
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
@@ -23,24 +22,22 @@ class CasesController < ApplicationController
   # GET /cases/1
   # GET /cases/1.json
   def show
-    @user = current_user
+   
   end
 
   # GET /cases/new
   def new
-    @user = current_user
-    @case = Case.new
+   @case = Case.new
   end
 
   # GET /cases/1/edit
   def edit
-    @user = current_user
+  
   end
 
   # POST /cases
   # POST /cases.json
   def create
-    @user = current_user
     @case = Case.new(case_params)
 
     @case.user = @user
@@ -59,8 +56,6 @@ class CasesController < ApplicationController
   # PATCH/PUT /cases/1
   # PATCH/PUT /cases/1.json
   def update
-    @user = current_user
-
     @case.user = @user
     
     respond_to do |format|
@@ -77,7 +72,6 @@ class CasesController < ApplicationController
   # DELETE /cases/1
   # DELETE /cases/1.json
   def destroy
-    @user = current_user
     @case.destroy
     respond_to do |format|
       format.html { redirect_to cases_url, notice: 'Case was successfully destroyed.' }
@@ -86,8 +80,7 @@ class CasesController < ApplicationController
   end
 
   def new_case
-    @user = current_user
-    @case = Case.new
+   @case = Case.new
     
     respond_to do |format|
       format.html

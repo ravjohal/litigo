@@ -1,11 +1,11 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   # GET /events
   # GET /events.json
   def index
-    @user = current_user
     @events = @user.owned_events
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
@@ -24,24 +24,22 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @user = current_user
+    
   end
 
   # GET /events/new
   def new
-    @user = current_user
     @event = Event.new
   end
 
   # GET /events/1/edit
   def edit
-    @user = current_user
+    
   end
 
   # POST /events
   # POST /events.json
   def create
-    @user = current_user
     @event = Event.new(event_params)
 
     @event.owner = @user
@@ -60,7 +58,6 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    @user = current_user
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -75,7 +72,6 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    @user = current_user
     @event.destroy
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }

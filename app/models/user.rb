@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :events
   has_many :owned_events, class_name: "Event", foreign_key: "owner_id"
   has_many :contacts
+  has_one :contact_user, class_name: "Contact", foreign_key: "contact_user_id"
   has_many :cases
   has_many :notes
 

@@ -4,23 +4,26 @@
     <%= devise_error_messages! %>
     <div class="form-group">
       <%= f.label :name %>
-      <%= f.text_field :name, :autofocus => true, class: 'form-control' %>
+      <%= f.text_field :name, :autofocus => true, :class => 'form-control' %>
     </div>
     <div class="form-group">
       <%= f.label :email %>
-      <%= f.email_field :email, :value => params[:email], class: 'form-control' %>
+      <%= f.email_field :email, :value => params[:email], :class => 'form-control' %>
     </div>
     <div class="form-group">
       <%= f.label :password %>
-      <%= f.password_field :password, class: 'form-control' %>
+      <%= f.password_field :password, :class => 'form-control' %>
     </div>
     <div class="form-group">
       <%= f.label :password_confirmation %>
-      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      <%= f.password_field :password_confirmation, :class => 'form-control' %>
     </div>
-     <%= f.submit 'SIGN UP', :class => 'button right' %><br>
+    <div class="center-term">
+    You agree to the <%= link_to 'Terms of Service', new_user_session_path, :class => 'center-link-term'  %>
+    </div>
+     <%= f.submit 'SIGN UP', :class => 'btn-block' %><br>
   <div class="center">
-      Already have an account? <%= link_to 'Sign In', new_registration_path(resource_name), :class => 'center-link'  %>
+      Already have an account? <%= link_to 'Sign In', new_user_session_path, :class => 'center-link'  %>
       </div>
   <% end %>
 

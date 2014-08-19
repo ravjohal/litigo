@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
     user_root_path(resource)
   end
 
+  def set_user
+    @user = current_user
+  end
+
 end

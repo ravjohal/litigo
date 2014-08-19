@@ -1,11 +1,11 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   # GET /documents
   # GET /documents.json
   def index
-    @user = current_user
     @documents = @user.documents
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
@@ -24,25 +24,22 @@ class DocumentsController < ApplicationController
   # GET /documents/1
   # GET /documents/1.json
   def show
-    @user = current_user
+    
   end
 
   # GET /documents/new
   def new
-    @user = current_user
     @document = Document.new
   end
 
   # GET /documents/1/edit
   def edit
-    @user = current_user
+  
   end
 
   # POST /documents
   # POST /documents.json
   def create
-    @user = current_user
-
     @document = Document.new(document_params)
 
     @document.user = @user
@@ -61,7 +58,6 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   # PATCH/PUT /documents/1.json
   def update
-    @user = current_user
     respond_to do |format|
       if @document.update(document_params)
         format.html { redirect_to @document, notice: 'Document was successfully updated.' }
@@ -76,7 +72,6 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    @user = current_user
     @document.destroy
     respond_to do |format|
       format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }

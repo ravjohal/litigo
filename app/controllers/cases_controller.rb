@@ -62,7 +62,7 @@ class CasesController < ApplicationController
     @user = current_user
 
     @case.user = @user
-    
+
     respond_to do |format|
       if @case.update(case_params)
         format.html { redirect_to @case, notice: 'Case was successfully updated.' }
@@ -88,7 +88,7 @@ class CasesController < ApplicationController
   def new_case
     @user = current_user
     @case = Case.new
-    
+
     respond_to do |format|
       format.html
       format.js
@@ -103,6 +103,9 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:name, :number, :description, :case_type, :subtype, :medical_bills, :event_ids => [], :task_ids => [], :document_ids => [])
+      params.require(:case).permit(:name, :number, :description, :case_type, :subtype, :judje,
+                                  :court, :plaintiff, :defendant, :corporation, :status,
+                                  :creation_date, :closing_date,
+                                  :medical_bills, :event_ids => [], :task_ids => [], :document_ids => [])
     end
 end

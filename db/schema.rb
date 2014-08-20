@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140816063727) do
+ActiveRecord::Schema.define(version: 20140819223709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,14 @@ ActiveRecord::Schema.define(version: 20140816063727) do
     t.string   "case_type"
     t.string   "subtype"
     t.integer  "user_id"
+    t.string   "judje"
+    t.string   "court"
+    t.string   "plaintiff"
+    t.string   "defendant"
+    t.boolean  "corporation",   default: false
+    t.string   "status"
+    t.date     "creation_date"
+    t.date     "closing_date"
   end
 
   create_table "cases_documents", id: false, force: true do |t|
@@ -80,7 +88,6 @@ ActiveRecord::Schema.define(version: 20140816063727) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "case_id"
   end
 
   create_table "defendants", force: true do |t|
@@ -122,6 +129,21 @@ ActiveRecord::Schema.define(version: 20140816063727) do
   create_table "events_users", id: false, force: true do |t|
     t.integer "event_id"
     t.integer "user_id"
+  end
+
+  create_table "incidents", force: true do |t|
+    t.date     "incident_date"
+    t.date     "statute_of_limitations"
+    t.integer  "defendant_liability"
+    t.boolean  "alcohol_involved",                               default: false
+    t.boolean  "weather_factor",                                 default: false
+    t.decimal  "property_damage",        precision: 8, scale: 2
+    t.boolean  "airbag_deployed",                                default: false
+    t.string   "speed"
+    t.string   "police_report"
+    t.integer  "case_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notes", force: true do |t|

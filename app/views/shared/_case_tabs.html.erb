@@ -1,0 +1,12 @@
+<ul class="nav nav-tabs bottom10" role="tablist">
+  <li<%= is_active('cases') %>><%= link_to 'Details', case_path(@case) %></li>
+  <% if @case.incident %>
+    <li<%= is_active('incidents') %>><%= link_to 'Incident', case_incident_path(@case, @case.incident) %></li>
+  <% end %>
+  <li><%= link_to 'Medicals', '#' %></li>
+  <li><%= link_to 'Contacts', '#' %></li>
+  <li><%= link_to 'Calendar/Tasks', '#' %></li>
+  <li><%= link_to 'Documents', '#' %></li>
+  <li><%= link_to 'Notes', '#' %></li>
+  <li><%= link_to 'Resolution', '#' %></li>
+</ul>

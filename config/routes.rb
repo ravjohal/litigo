@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   resources :notes
 
   resources :documents
@@ -25,5 +25,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :users
-  resources :cases
+  resources :cases do
+    resources :incidents
+  end
 end

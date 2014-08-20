@@ -6,7 +6,9 @@ class NotesController < ApplicationController
   # GET /notes.json
   def index
     @user = current_user
-    @notes = @user.notes
+    #@notes = Note.order(:created_at, "desc")
+    @notes = @user.notes.order("created_at desc")
+
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")

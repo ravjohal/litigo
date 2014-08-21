@@ -36,6 +36,21 @@ FactoryGirl.define do
     description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
   end
 
+  factory :case_with_incident, parent: :case do
+    after(:create) do |incident_case|
+      FactoryGirl.create(:incident, case: incident_case)
+    end
+  end
+
+  factory :incident do
+    incident_date Date.today
+    defendant_liability Random.rand(100)
+    alcohol_involved [true, false].sample
+    weather_factor [true, false].sample
+    airbag_deployed [true, false].sample
+    speed "20"
+  end
+
   factory :client do
 
   end

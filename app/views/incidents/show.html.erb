@@ -1,0 +1,53 @@
+<span class="class-make-h1">Incident Details</span> > <%= render_breadcrumbs %>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Date of Incident:</strong>
+  <%= @incident.date_of_incident %>
+</p>
+
+<p>
+  <strong>Statute of Limitation:</strong>
+  <%= @incident.statute_of_limitations %>
+</p>
+
+<p>
+  <strong>Defendant Liability:</strong>
+  <%= @incident.liability %>
+</p>
+
+<p>
+  <strong>Alcohol Involved?:</strong>
+  <%= @incident.alcohol %>
+</p>
+
+<p>
+  <strong>Weather a Factor:</strong>
+  <%= @incident.weather_factor %>
+</p>
+
+<p>
+  <strong>Property Damage:</strong>
+  <%= @incident.damage %>
+</p>
+
+<p>
+  <strong>Airbag Deployed:</strong>
+  <%= @incident.airbag %>
+</p>
+
+<p>
+  <strong>Speed of Bullet Car:</strong>
+  <%= @incident.speed %>
+</p>
+
+<p>
+  <strong>Police Report</strong>
+  <%- if @incident.police_report.exists? %>
+      <%= link_to image_tag('pdf.jpg', id: 'pdf-img'), @incident.police_report.url %>
+  <%- end %>
+</p>
+
+<%= link_to 'Edit', edit_incident_path(@incident) %> |
+<%= link_to 'Back to Cases', cases_path %>

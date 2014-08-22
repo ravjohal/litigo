@@ -3,6 +3,7 @@
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-collapse collapse">
+                <%= render 'layouts/case_menu' if (request.original_url.include?('cases/') or request.original_url.include?('incidents/')) %>
                  <form class="navbar-form navbar-right">
                     <%= render 'layouts/sub_navigation_links' %>
                 </form>

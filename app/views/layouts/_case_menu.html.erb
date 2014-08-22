@@ -1,0 +1,22 @@
+<ul id="horizontal-menu-list">
+  <li>
+    <% if request.original_url.include?('cases/') %>
+        DETAILS
+    <% else %>
+        <%= link_to 'DETAILS', case_path(id: $current_case_id) %>
+    <% end %>
+  </li>
+  <li>
+    <% if request.original_url.include?('incidents/') %>
+        INCIDENT
+    <% else %>
+        <%= link_to 'INCIDENT', new_incident_path %>
+    <% end %>
+  </li>
+  <li><%=link_to 'MEDICALS' %></li>
+  <li><%=link_to 'CONTACTS' %></li>
+  <li><%=link_to 'CALENDAR / TASKS' %></li>
+  <li><%=link_to 'NOTES' %></li>
+  <li><%=link_to 'DOCUMENTS' %></li>
+  <li><%=link_to 'RESOLUTION' %></li>
+</ul>

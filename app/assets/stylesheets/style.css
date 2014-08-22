@@ -45,4 +45,43 @@
 
 .active > a > .fa.plus-minus:before {
     content: "\f068";
-}    
+}
+
+#horizontal-menu-list {
+    list-style-type: none;
+    position: absolute;
+    padding-left: 210px;
+    padding-top: 15px;
+}
+
+#horizontal-menu-list a{
+    color: #ffffff;
+}
+
+#horizontal-menu-list li {
+    display: inline;
+    padding-right: 25px;
+}
+
+#incident_police_report {
+    padding: 20px 0 10px 230px;
+}
+
+#pdf-img {
+    margin-left: 100px;
+    width: 50px;
+    height: 53px;
+}
+
+#show-table {
+    width: 300px;
+}
+
+#show-table tr {
+    height: 25px;
+}
+
+.class-make-h1 {
+    font-size: 22px;
+    font-family: serif;
+}

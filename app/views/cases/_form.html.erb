@@ -15,6 +15,24 @@
             <div class="form-inputs">
               <%= f.input :name %>
               <%= f.input :number, :label => "Case number" %>
+              <%= f.input :doc_number %>
+              <%= f.input :judge %>
+              <%= f.input :court %>
+              <%= f.input :plantiff do %>
+                  <%= f.select :plantiff,
+                               Plantiff.with_contact.map { |p|
+                                 [p.id.to_s + ' :id,' + ' ' + p.contact.first_name + ' ' + p.contact.last_name]
+                               }, include_blank: true %>
+              <% end %>
+              <%= f.input :defendant do %>
+                  <%= f.select :defendant,
+                               Defendant.with_contact.map { |d|
+                                 [d.id.to_s+ ' :id,' + ' ' + d.contact.first_name + ' ' + d.contact.last_name]
+                               }, include_blank: true %>
+              <% end %>
+              <%= f.input :status %>
+              <%= f.input :creation_date, as: :date %>
+              <%= f.input :closing_date, as: :date  %>
               <%= f.input :case_type, :label => "Case Type" , :collection => ['Personal Injury'], :selected => 'Personal Injury'%>
               <%= f.input :subtype, :label => "Sub-type", :collection => ['Motor Vehicle'], :selected => 'Motor Vehicle' %>
               <%= f.input :description, :type => 'text-area' %>

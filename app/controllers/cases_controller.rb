@@ -6,6 +6,7 @@ class CasesController < ApplicationController
   # GET /cases
   # GET /cases.json
   def index
+
     @cases = @user.cases
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
@@ -22,7 +23,9 @@ class CasesController < ApplicationController
   # GET /cases/1
   # GET /cases/1.json
   def show
-   
+    add_breadcrumb (Case.find params[:id]).name + ', #' + (Case.find params[:id]).number.to_s,
+        case_path(Case.find params[:id])
+    $current_case_id = params[:id]
   end
 
   # GET /cases/new
@@ -32,7 +35,8 @@ class CasesController < ApplicationController
 
   # GET /cases/1/edit
   def edit
-  
+    add_breadcrumb (Case.find params[:id]).name + ', #' + (Case.find params[:id]).number.to_s,
+                   case_path(Case.find params[:id])
   end
 
   # POST /cases
@@ -57,7 +61,19 @@ class CasesController < ApplicationController
   # PATCH/PUT /cases/1.json
   def update
     @case.user = @user
-    
+
+    if params[:case][:plantiff].empty?
+      @case.plantiff = nil
+    else
+      @case.plantiff = Plantiff.find(params[:case][:plantiff][0])
+    end
+
+    if params[:case][:defendant].empty?
+      @case.plantiff = nil
+    else
+      @case.defendant = Defendant.find(params[:case][:defendant][0])
+    end
+
     respond_to do |format|
       if @case.update(case_params)
         format.html { redirect_to @case, notice: 'Case was successfully updated.' }
@@ -96,6 +112,8 @@ class CasesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def case_params
-      params.require(:case).permit(:name, :number, :description, :case_type, :subtype, :medical_bills, :event_ids => [], :task_ids => [], :document_ids => [])
+      params.require(:case).permit(:name, :number, :doc_number, :judge, :court, :status,
+                                   :creation_date, :closing_date, :description, :case_type,
+                                   :subtype, :medical_bills, :event_ids => [], :task_ids => [], :document_ids => [])
     end
 end

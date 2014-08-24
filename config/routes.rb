@@ -30,4 +30,5 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :cases
+  resources :incidents, except: [:index]
 end

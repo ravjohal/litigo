@@ -1,34 +1,146 @@
+<span class="class-make-h1">Case Details</span> > <%= render_breadcrumbs %>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @case.name %>
-</p>
+<table id="show-table">
+  <tr>
+    <td>
+    <strong>Case name:</strong>
+    </td>
+    <td>
+     <%= @case.name %>
+    </td>
+  </tr>
 
-<p>
-  <strong>Number:</strong>
-  <%= @case.number %>
-</p>
+  <tr>
+    <td>
+    <strong>Docket no.:</strong>
+    </td>
+    <td>
+      <strong><%= @case.doc_number %></strong>
+    </td>
+  </tr>
 
-<p>
-  <strong>Case Type:</strong>
-  <%= @case.case_type %>
-</p>
+  <tr>
+    <td>
+    <strong>Judge:</strong>
+    </td>
+    <td>
+    <%= @case.judge %>
+    </td>
+  </tr>
 
-<p>
-  <strong>Sub-type:</strong>
-  <%= @case.subtype %>
-</p>
+  <tr>
+    <td>
+    <strong>court:</strong>
+    </td>
+    <td>
+    <%= @case.court %>
+    </td>
+  </tr>
 
-<p>
-  <strong>Description:</strong>
-  <%= @case.description %>
-</p>
+  <tr>
+    <td>
+    <strong>plaintiff:</strong>
+    </td>
+    <td>
+    <% unless @case.plantiff.nil? %>
+        <% unless @case.plantiff.contact.nil? %>
+            <%= @case.plantiff.contact.first_name + ' ' + @case.plantiff.contact.last_name %>
+        <% end %>
+    <% end %>
+    </td>
+  </tr>
 
-<p>
-  <strong>Medical bills:</strong>
-  <%= @case.medical_bills %>
-</p>
+  <tr>
+    <td>
+    <strong>Defendant:</strong>
+    </td>
+    <td>
+    <% unless @case.defendant.nil? %>
+        <% unless @case.defendant.contact.nil? %>
+            <%= @case.defendant.contact.first_name + ' ' + @case.defendant.contact.last_name %>
+        <% end %>
+    <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>corporation:</strong>
+    </td>
+    <td>
+    <% if @case.court %>
+        Yes
+    <% else %>
+        No
+    <% end %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Status:</strong>
+    </td>
+    <td>
+    <%= @case.status %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Creation Date:</strong>
+    </td>
+    <td>
+    <%= @case.creation_date %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Date closed:</strong>
+    </td>
+    <td>
+    <%= @case.closing_date %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Case Type:</strong>
+    </td>
+    <td>
+    <%= @case.case_type %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Sub-type:</strong>
+    </td>
+    <td>
+    <%= @case.subtype %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Description:</strong>
+    </td>
+    <td>
+    <%= @case.description %>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+    <strong>Medical bills:</strong>
+    </td>
+    <td>
+    <%= @case.medical_bills %>
+    </td>
+  </tr>
+</table>
 
 <%= link_to 'Edit', edit_case_path(@case) %> |
 <%= link_to 'Back', cases_path %>

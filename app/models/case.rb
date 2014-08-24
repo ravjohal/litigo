@@ -18,6 +18,9 @@ class Case < ActiveRecord::Base
   has_and_belongs_to_many :tasks
   has_and_belongs_to_many :events
   has_many :notes
+  has_one :incident, dependent: :destroy
+  has_one :plantiff
+  has_one :defendant
 
 	validates :number, :presence => true
 	validates :case_type, :presence => true

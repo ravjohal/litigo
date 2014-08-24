@@ -10,7 +10,7 @@
                     :sortable => true,
                     :sort_url => tasks_path do |task| %>
           <% task.column :name, :header => "Task" %>
-          <% task.column :header => "Case(s)", :data => lambda {|task| task.cases.map {|c| c.name}.join(', ') } %>
+          <% task.column :header => "Case(s)", :data => lambda {|task| task.cases.map {|c| c.name}.join(', ') }, :order => 'cases' %>
           <% task.column :description, :header => "Description" %>
           <% task.column :due_date, :header => "Due Date" %>
           <% task.column :completed, :header => "Completed" %>

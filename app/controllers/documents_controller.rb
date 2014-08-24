@@ -10,7 +10,11 @@ class DocumentsController < ApplicationController
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      @documents = @documents.order(order)
+      if params[:order] =='cases'
+        @documents = @documents.eager_load(params[:order].to_sym).order(order)
+      else
+        @documents = @documents.order(order)
+      end
     end
     if params[:search].present? && params[:utf8] == "✓"
       logger.info"#{params[:search]}"

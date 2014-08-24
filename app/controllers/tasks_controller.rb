@@ -10,7 +10,12 @@ class TasksController < ApplicationController
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      @tasks = @tasks.order(order)
+      if ['cases'].include?(params[:order])
+        @tasks = @tasks.eager_load(params[:order].to_sym).order(order)
+      else
+        @tasks = @tasks.order(order)
+      end
+
     end
     if params[:search].present? && params[:utf8] == "✓"
       logger.info"#{params[:search]}"

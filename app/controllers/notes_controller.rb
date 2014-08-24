@@ -12,7 +12,12 @@ class NotesController < ApplicationController
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      @notes = @notes.order(order)
+      if params[:order] == 'case'
+        @notes = @notes.order("case_id #{params[:sort_mode]}")
+        logger.info"@notes: #{@notes}\n\n\n"
+      else
+        @notes = @notes.order(order)
+      end
     end
     if params[:search].present? && params[:utf8] == "✓"
       logger.info"#{params[:search]}"

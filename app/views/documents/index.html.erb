@@ -11,9 +11,9 @@
                     :sort_url => documents_path do |doc| %>
           <% doc.column :author, :header => "Author" %>
           <% doc.column :doc_type, :header => "Type" %>
-          <% doc.column :header => "Document", :data => lambda {|document| document.document.file.filename if !document.document_url.blank? }, :link_url => lambda { |document| document.document_url } %>
+          <% doc.column :header => "Document", :data => lambda {|document| document.document.file.filename if !document.document_url.blank? }, :link_url => lambda { |document| document.document_url }, :order => 'documents' %>
           <% doc.column :template, :header => "Template" %>
-          <% doc.column :header => "Case(s)", :data => lambda {|doc| doc.cases.map {|c| c.name}.join(', ') } %>
+          <% doc.column :header => "Case(s)", :data => lambda {|doc| doc.cases.map {|c| c.name}.join(', ') }, :order => 'cases' %>
           <% doc.column :data => "Show", :link => true %>
           <% doc.column :data => "Edit", :link_action => :edit %>
           <% doc.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>

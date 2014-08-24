@@ -11,7 +11,7 @@
           <% note1.column :author, :header => "Author" %>
           <% note1.column :created_at, :header => "Date", :date => lambda {|note| localize(note.created_at.to_date) } %>
           <% note1.column :note_type, :header => "Type" %>         
-          <% note1.column :header => "Case", :data => lambda {|note| note.case.name}  %>
+          <% note1.column :header => "Case", :data => lambda {|note| note.case.name}, :order => 'case'  %>
           <% note1.column :note, :header => "Note" %>
           <% note1.column :data => "Show", :link => true %>
           <% note1.column :data => "Edit", :link_action => :edit %>

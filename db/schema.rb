@@ -40,10 +40,8 @@ ActiveRecord::Schema.define(version: 20140819223709) do
     t.string   "case_type"
     t.string   "subtype"
     t.integer  "user_id"
+    t.integer  "firm_id"
     t.string   "judje"
-    t.string   "court"
-    t.string   "plaintiff"
-    t.string   "defendant"
     t.boolean  "corporation",   default: false
     t.string   "status"
     t.date     "creation_date"
@@ -88,6 +86,9 @@ ActiveRecord::Schema.define(version: 20140819223709) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "contact_user_id"
+    t.integer  "case_id"
+    t.integer  "firm_id"
   end
 
   create_table "defendants", force: true do |t|
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 20140819223709) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "document"
+    t.integer  "firm_id"
   end
 
   create_table "events", force: true do |t|
@@ -129,6 +131,15 @@ ActiveRecord::Schema.define(version: 20140819223709) do
   create_table "events_users", id: false, force: true do |t|
     t.integer "event_id"
     t.integer "user_id"
+  end
+
+  create_table "firms", force: true do |t|
+    t.string   "name"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "fax"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "incidents", force: true do |t|
@@ -169,6 +180,12 @@ ActiveRecord::Schema.define(version: 20140819223709) do
     t.datetime "updated_at"
   end
 
+  create_table "staffs", force: true do |t|
+    t.string   "staff_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tasks", force: true do |t|
     t.string   "name"
     t.date     "due_date"
@@ -205,6 +222,7 @@ ActiveRecord::Schema.define(version: 20140819223709) do
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
     t.string   "google_email"
+    t.integer  "firm_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

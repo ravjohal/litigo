@@ -67,6 +67,10 @@ module ApplicationHelper
       ['Wisconsin', 'WI'],
       ['Wyoming', 'WY']
     ]
-end
+  end
+
+  def is_active(controller)
+    return " class=active" if controller_name == controller
+  end
 
 end

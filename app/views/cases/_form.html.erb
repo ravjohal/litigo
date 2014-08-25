@@ -19,12 +19,16 @@
               <%= f.input :subtype, :label => "Sub-type", :collection => ['Motor Vehicle'], :selected => 'Motor Vehicle' %>
               <%= f.input :description, :type => 'text-area' %>
               <%= f.input :medical_bills, :label => "Medical Bills" %>
-            </div>  
-     <% if action_name == "index" %>        
+              <%= f.input :status %>
+              <%= f.input :creation_date %>
+              <%= f.input :closing_date %>
+
+            </div>
+     <% if action_name == "index" %>
           </div><!--end of modal-body-->
           <div class="modal-footer">
             <div class="pull-left">
-              <a class="close" data-dismiss="modal">Cancel</a> 
+              <a class="close" data-dismiss="modal">Cancel</a>
             </div>
      <% end %>
 

@@ -1,6 +1,6 @@
 <ul class="nav nav-sidebar">
     <li>
-        <%= link_to "DASHBOARD", user_path(@user), class: "nav-sidebar__dsh" %>
+        <%= link_to "DASHBOARD", user_path(current_user), class: "nav-sidebar__dsh" %>
     </li>
     <li id="first">
       <a href="#" class="nav-sidebar__cm">
@@ -15,16 +15,16 @@
       </ul>
     </li>
     <li>
-        <%= link_to "CASE EVALUATION", user_path(@user), class: "nav-sidebar__cev" %>
+        <%= link_to "CASE EVALUATION", user_path(current_user), class: "nav-sidebar__cev" %>
     </li>
     <li id="second">
           <a href="#" class="nav-sidebar__li">
           LEGAL INSIGHTS</a>
     <ul>
-        <li class="sec"><%= link_to "LITIGATION", user_path(@user) %></li>
-        <li class="sec"><%= link_to "MY STATS", user_path(@user) %></li>
-        <li class="sec"><%= link_to "PRACTICE STATS", user_path(@user) %></li>
-        <li class="sec"><%= link_to "FINANCIALS", user_path(@user) %></li>
+        <li class="sec"><%= link_to "LITIGATION", user_path(current_user) %></li>
+        <li class="sec"><%= link_to "MY STATS", user_path(current_user) %></li>
+        <li class="sec"><%= link_to "PRACTICE STATS", user_path(current_user) %></li>
+        <li class="sec"><%= link_to "FINANCIALS", user_path(current_user) %></li>
     </ul>
     </li>
     <li>
@@ -34,7 +34,7 @@
 
 
 <script>
-$(function() {  
+$(function() {
     var isFirstOpen = 0;
     var isSecondOpen = 0;
     if(document.location && document.location.toString().indexOf('/cases') > 0) { isFirstOpen = 1; }

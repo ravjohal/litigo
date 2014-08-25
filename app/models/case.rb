@@ -13,6 +13,8 @@ class Case < ActiveRecord::Base
   #has_many :plantiffs, :through => :contacts
   #has_many :staffs, :through => :contacts
 
+  has_one :incident, dependent: :destroy
+
   belongs_to :user
   has_and_belongs_to_many :documents
   has_and_belongs_to_many :tasks

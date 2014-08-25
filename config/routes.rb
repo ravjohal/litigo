@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   resources :firms
 
   resources :staffs
@@ -29,5 +29,7 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :users
-  resources :cases
+  resources :cases do
+    resources :incidents
+  end
 end

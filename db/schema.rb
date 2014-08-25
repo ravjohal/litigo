@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140819103447) do
+=======
+ActiveRecord::Schema.define(version: 20140819223709) do
+>>>>>>> pullrequest
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +45,14 @@ ActiveRecord::Schema.define(version: 20140819103447) do
     t.string   "subtype"
     t.integer  "user_id"
     t.integer  "firm_id"
+<<<<<<< HEAD
+=======
+    t.string   "judje"
+    t.boolean  "corporation",   default: false
+    t.string   "status"
+    t.date     "creation_date"
+    t.date     "closing_date"
+>>>>>>> pullrequest
   end
 
   create_table "cases_documents", id: false, force: true do |t|
@@ -137,6 +149,24 @@ ActiveRecord::Schema.define(version: 20140819103447) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
+=======
+  create_table "incidents", force: true do |t|
+    t.date     "incident_date"
+    t.date     "statute_of_limitations"
+    t.integer  "defendant_liability"
+    t.boolean  "alcohol_involved",                               default: false
+    t.boolean  "weather_factor",                                 default: false
+    t.decimal  "property_damage",        precision: 8, scale: 2
+    t.boolean  "airbag_deployed",                                default: false
+    t.string   "speed"
+    t.string   "police_report"
+    t.integer  "case_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+>>>>>>> pullrequest
   create_table "notes", force: true do |t|
     t.text     "note"
     t.datetime "created_at"

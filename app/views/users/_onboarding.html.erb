@@ -1,0 +1,41 @@
+<%= simple_form_for(@user) do |f| %>
+      <%= f.error_notification %>
+
+    
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h1>Welcome!</h1>
+            </div>
+         <div class="modal-body">
+            <p>To give you the best Litigo experience possible, please tell us some information about you and your firm: </p>
+
+            <div class="form-inputs">
+                <%= f.input :name, disabled: true %>
+                <%= f.input :role_types, :label => 'Role', :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false %>
+                <%= f.association :firm, :label => "Firm or Company", as: :string %>
+                <%= f.simple_fields_for :firm do |p| %>
+                  <%= p.input :address, :required => false %>
+                  <%= p.input :phone, :required => false %>
+                <% end %>
+               </div>
+          
+          </div><!--end of modal-body-->
+          
+           <div class="modal-footer">
+              <div class="pull-left">
+                <a class="close" data-dismiss="modal">Skip this step</a> 
+              </div>
+       
+
+              <div class="form-actions">
+                  <%= f.button :submit, "Continue", :class =>"btn btn-default" %>
+              </div>
+
+          
+            </div><!--end of modal-footer-->
+        </div><!--end of modal-content-->
+      </div><!--end of modal-dialog-->
+    
+
+<% end %>

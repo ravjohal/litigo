@@ -14,6 +14,7 @@ class Case < ActiveRecord::Base
   #has_many :staffs, :through => :contacts
 
   belongs_to :user
+  belongs_to :firm
   has_and_belongs_to_many :documents
   has_and_belongs_to_many :tasks
   has_and_belongs_to_many :events

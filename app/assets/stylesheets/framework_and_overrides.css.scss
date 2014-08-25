@@ -540,12 +540,7 @@ a.button1:hover{
     margin-top: 10px;
   }
  
-/*  
-  nav {
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-  }
+
   
 nav ul {
   list-style: none;
@@ -571,7 +566,7 @@ nav ul li a {
   letter-spacing: 1px;
   }
   nav ul li a:hover {
-    font-weight: lighter;
+  font-weight: lighter;
   margin-top: 10px;
   text-align: center;
   padding: 8px 0;
@@ -584,8 +579,20 @@ nav ul li a {
   letter-spacing: 1px;
   transition: .3s;
   }
-
-  */
+  nav ul li a:active {
+  font-weight: lighter;
+  margin-top: 10px;
+  text-align: center;
+  padding: 8px 0;
+  display: block;
+  width: 100%;
+  background: transparent;
+  text-decoration: none;
+  color: #3FC2D8;
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  transition: .3s;
+  }
 
 
   p.con{
@@ -709,51 +716,7 @@ a.action-button:hover{
   }
 }
 
-/* Sidebar navigation */
-.sidebar {
-  padding: 0;
-}
 
-.nav.nav-sidebar {
-  a:hover, .active {
-    background: #6C6D6D;
-    color: #fff;
-  }
-}
-
-.nav-sidebar {
-  margin-bottom: 20px;
-  font-weight: lighter;
-  ul {
-  font-weight: lighter;
-    padding: 0;
-    list-style-type: none;
-    li {
-      a {
-       font-weight: lighter;
-        display: block;
-        width: 100%;
-        margin-top: 1px;
-        padding-left: 40px;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        color: #6c6d6d;
-        line-height: 13px;
-        font-weight: lighter;
-        font-family: sans-serif;
-        background-color: transparent;
-        &:hover {
-        font-weight: lighter;
-          text-decoration: none;
-          background-color: transparent;
-          box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
-          color: #3FC2D8 !important; 
-          transition: .5s;
-        }
-      }
-    }
-  }
-}
 
 .nav-sidebar__dsh {
 color: #6c6d6d;
@@ -800,7 +763,7 @@ color: #6c6d6d;
 
 .nav-sidebar__prf {
   &:before {
-    content: url('/assets/custom-icons/profile-menu-gray.png');
+    content: url('/assets/custom-icons/profile-menu.png');
     margin-right: 5px;
     &:hover {
       content: url('/assets/custom-icons/profile-menu.png');

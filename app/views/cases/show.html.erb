@@ -1,3 +1,10 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Cases', cases_path %></li>
+  <li class="active"><%= @case.name %></li>
+</ol>
+
+<%= render partial: 'shared/case_tabs' %>
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -28,6 +35,46 @@
 <p>
   <strong>Medical bills:</strong>
   <%= @case.medical_bills %>
+</p>
+
+<p>
+  <strong>Judje:</strong>
+  <%= @case.judje %>
+</p>
+
+<p>
+  <strong>Court:</strong>
+  <%= @case.court %>
+</p>
+
+<p>
+  <strong>Plaintiff:</strong>
+  <%= @case.plaintiff %>
+</p>
+
+<p>
+  <strong>Defendant:</strong>
+  <%= @case.defendant %>
+</p>
+
+<p>
+  <strong>Corporation:</strong>
+  <%= @case.corporation? ? 'yes' : 'no' %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @case.status %>
+</p>
+
+<p>
+  <strong>Creation date:</strong>
+  <%= @case.creation_date %>
+</p>
+
+<p>
+  <strong>Closing_date:</strong>
+  <%= @case.closing_date %>
 </p>
 
 <%= link_to 'Edit', edit_case_path(@case) %> |

@@ -1,0 +1,52 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Cases', cases_path %></li>
+  <li><%= link_to @case.name, case_path(@case) %></li>
+  <li class="active">Incident</li>
+</ol>
+
+<%= render partial: 'shared/case_tabs' %>
+
+<p>
+  <strong>Incident date:</strong>
+  <%= @incident.incident_date %>
+</p>
+
+<p>
+  <strong>Statute of limitations:</strong>
+  <%= @incident.statute_of_limitations %>
+</p>
+
+<p>
+  <strong>Defendant Liability:</strong>
+  <%= @incident.defendant_liability %>%
+</p>
+
+<p>
+  <strong>Alcohol Involved?:</strong>
+  <%= @incident.alcohol_involved? ? 'yes' : 'no' %>
+</p>
+
+<p>
+  <strong>Weather a factor:</strong>
+  <%= @incident.weather_factor? ? 'yes' : 'no' %>
+</p>
+
+<p>
+  <strong>Property Damage:</strong>
+  <%= number_to_currency(@incident.property_damage, precision: 0) %>
+</p>
+
+<p>
+  <strong>Airbag Deployed:</strong>
+  <%= @incident.airbag_deployed? ? 'yes' : 'no' %>
+</p>
+
+<p>
+  <strong>Speed of Bullet Car:</strong>
+  <%= @incident.speed %>
+</p>
+
+<p>
+  <strong>Police Report:</strong>
+  <%= @incident.police_report %>
+</p>

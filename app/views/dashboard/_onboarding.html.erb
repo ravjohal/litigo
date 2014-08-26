@@ -1,4 +1,4 @@
-<%= simple_form_for(@user) do |f| %>
+<%= simple_form_for(current_user) do |f| %>
       <%= f.error_notification %>
 
     
@@ -18,7 +18,7 @@
                   <%= p.input :address, :required => false %>
                   <%= p.input :phone, :required => false %>
                 <% end %>
-               </div>
+               </div> 
           
           </div><!--end of modal-body-->
           

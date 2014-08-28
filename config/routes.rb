@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'dashboard/index'
+
   resources :firms
 
   resources :staffs
@@ -24,10 +26,11 @@ Rails.application.routes.draw do
   end
 
   root :to => "visitors#index"
-  get '/dashboard/:id' => 'users#show', as: :user_root # TODO: Change the page where this is routed to
+  get '/onboarding' => 'dashboard#index'
+  get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
 
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
   resources :users
   resources :cases do
     resources :incidents

@@ -40,7 +40,7 @@ end
 # Elevator Configuration
 
  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
-    request.host.reverse
+    nil
  }
 
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'

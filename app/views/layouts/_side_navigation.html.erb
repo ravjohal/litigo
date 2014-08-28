@@ -1,11 +1,11 @@
 <ul class="nav nav-sidebar">
     <li>
-        <%= link_to "DASHBOARD", user_path(current_user), class: "nav-sidebar__dsh" %>
+        <%= active_link_to "DASHBOARD", user_path(current_user), class: "nav-sidebar__dsh" %>
     </li>
     <li id="first">
       <a href="#" class="nav-sidebar__cm">
       CASE MANAGEMENT</a>
-      <ul>
+      <ul class="nav2">
           <li><%= active_link_to "CASES", cases_path %></li>
           <li><%= active_link_to "CALENDAR", events_path %></li>
           <li><%= active_link_to "TASKS", tasks_path %></li>
@@ -27,8 +27,11 @@
         <li class="sec"><%= link_to "FINANCIALS", user_path(current_user) %></li>
     </ul>
     </li>
+     <li>
+      <%= link_to " BILLING", user_path(current_user), :class => 'nav-sidebar__bil' %>
+    </li>
     <li>
-      <%= link_to "PROFILE", edit_user_registration_path, class: "nav-sidebar__prf" %>
+      <%= active_link_to "PROFILE", edit_user_registration_path, :class => 'nav-sidebar__prf' %>
     </li>
 </ul>
 

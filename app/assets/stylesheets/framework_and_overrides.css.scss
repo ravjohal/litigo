@@ -375,13 +375,15 @@ transition: .3s;
 }
 .nav-two {
   position: absolute;
-  left: -40px;
+  left: -30px;
   top: -46px;
   z-index: 4000;
   font-weight: lighter;
   background-color: transparent;
   color: white; 
+  border: none
 }
+
 .nav-tabs > li {
 color: white;
 padding: 0px 5px;
@@ -389,25 +391,24 @@ padding: 0px 5px;
   text-decoration: none;
   font-size: 12px;
   letter-spacing: 1px;
-  border: 0px solid transparent;
+  border: nonw;
 }
 .nav-tabs > li > a{
   font-family: sans-serif;
   font-weight: lighter;
   color: white;
-  margin-right: 5px;
   font-size: 12px;
   letter-spacing: 1px;
-  border: 0px solid transparent;
+  border: none;
 }
 .nav-tabs > li > a:hover, a:active{
-font-family: sans-serif;
+  border: none;
+  font-family: sans-serif;
   font-weight: lighter;
   color: #323A45;
   background-color: transparent;
   text-decoration: none;
-  margin-right: 5px;
-  border: 0px solid transparent;
+  padding-right: 8px;
   font-size: 12px;
   letter-spacing: 1px;
 }

@@ -54,7 +54,7 @@ class ContactsController < ApplicationController
     puts "firm: " + firm_name
 
     # TODO: render partials per each contactable type
-    if params[:contactable_type] != "General"
+    if params[:contact][:contactable_type] != "General"
       #puts "Contactblae Type: " + params[:contact][:contactable_type].to_s
       class_string_name = params[:contact][:contactable_type]
       contactable = class_string_name.constantize.new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829094827) do
+ActiveRecord::Schema.define(version: 20140829101320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(version: 20140829094827) do
     t.string   "case_type"
     t.string   "subtype"
     t.integer  "user_id"
-    t.integer  "firm_id"
     t.string   "judje"
     t.boolean  "corporation",   default: false
     t.string   "status"
@@ -76,7 +75,7 @@ ActiveRecord::Schema.define(version: 20140829094827) do
     t.string   "city"
     t.string   "state"
     t.string   "country"
-    t.integer  "phone_number"
+    t.string   "phone_number"
     t.integer  "fax_number"
     t.string   "email"
     t.string   "gender"
@@ -88,7 +87,6 @@ ActiveRecord::Schema.define(version: 20140829094827) do
     t.integer  "user_id"
     t.integer  "contact_user_id"
     t.integer  "case_id"
-    t.integer  "firm_id"
   end
 
   create_table "defendants", force: true do |t|
@@ -112,7 +110,6 @@ ActiveRecord::Schema.define(version: 20140829094827) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "document"
-    t.integer  "firm_id"
   end
 
   create_table "events", force: true do |t|

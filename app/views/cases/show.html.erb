@@ -8,17 +8,61 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Case Name:</strong>
   <%= @case.name %>
 </p>
 
 <p>
-  <strong>Number:</strong>
+  <strong>Docket Number:</strong>
   <%= @case.number %>
 </p>
 
 <p>
-  <strong>Case Type:</strong>
+  <strong>Court:</strong>
+  <%= @case.court %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @case.state %>
+</p>
+
+<p>
+  <strong>Plaintiff(s):</strong>
+  <% @case.assigned_plantiffs.each do |p| %>
+    <%= p.first_name %> <%= p.last_name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Defendant(s):</strong>
+  <% @case.assigned_defendants.each do |d| %>
+    <%= d.first_name %> <%= d.last_name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Corporation:</strong>
+  <%= @case.corporation? ? 'yes' : 'no' %>
+</p>
+
+<p>
+  <strong>Attorney(s):</strong>
+  <%= @case.assigned_attorneys.size %>
+  <% @case.assigned_attorneys.each do |a| %>
+    <%= a.first_name %> <%= a.last_name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Stuff(s):</strong>
+  <% @case.assigned_staffs.each do |s| %>
+    <%= s.first_name %> <%= s.last_name %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Type:</strong>
   <%= @case.case_type %>
 </p>
 
@@ -33,27 +77,17 @@
 </p>
 
 <p>
-  <strong>Medical bills:</strong>
-  <%= @case.medical_bills %>
-</p>
-
-<p>
-  <strong>Corporation:</strong>
-  <%= @case.corporation? ? 'yes' : 'no' %>
-</p>
-
-<p>
   <strong>Status:</strong>
   <%= @case.status %>
 </p>
 
 <p>
   <strong>Creation date:</strong>
-  <%= @case.creation_date %>
+  <%= @case.created_at.to_date %>
 </p>
 
 <p>
-  <strong>Closing_date:</strong>
+  <strong>Closing date:</strong>
   <%= @case.closing_date %>
 </p>
 

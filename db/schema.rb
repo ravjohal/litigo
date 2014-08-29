@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140829101320) do
+ActiveRecord::Schema.define(version: 20140829145431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,21 +30,19 @@ ActiveRecord::Schema.define(version: 20140829101320) do
 
   create_table "cases", force: true do |t|
     t.string   "name"
-    t.integer  "number"
+    t.string   "number"
     t.text     "description"
     t.decimal  "medical_bills"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "case_type_id"
-    t.integer  "subtype_id"
     t.string   "case_type"
     t.string   "subtype"
     t.integer  "user_id"
-    t.string   "judje"
-    t.boolean  "corporation",   default: false
-    t.string   "status"
-    t.date     "creation_date"
+    t.boolean  "corporation",             default: false
     t.date     "closing_date"
+    t.string   "state",         limit: 2
+    t.integer  "status",                  default: 0
+    t.string   "court"
   end
 
   create_table "cases_documents", id: false, force: true do |t|

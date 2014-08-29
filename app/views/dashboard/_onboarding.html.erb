@@ -1,4 +1,4 @@
-<%= simple_form_for(current_user) do |f| %>
+<%= simple_form_for(@user_contact) do |f| %>
       <%= f.error_notification %>
 
     
@@ -11,14 +11,21 @@
             <p>To give you the best Litigo experience possible, please tell us some information about you and your firm: </p>
 
             <div class="form-inputs">
-                <%= f.input :name, disabled: true %>
-                <%= f.input :role_types, :label => 'Role', :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false %>
-                <%= f.association :firm, :label => "Firm or Company", as: :string %>
-                <%= f.simple_fields_for :firm do |p| %>
+                <%= f.input :first_name %>
+                <%= f.input :last_name %>
+                <%= f.input :contactable_type, :label => 'Role', :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false %>
+                <%= f.input :phone_number, :label => 'Phone', :required => false %>
+            </div>
+          </br />
+            <div class="form-inputs">
+        
+                
+                <%= f.simple_fields_for :firm, Firm.new do |p| %>
+                  <%= p.input :name, :label => "Firm or Company", :required => true %>
                   <%= p.input :address, :required => false %>
-                  <%= p.input :phone, :required => false %>
+                  <%= p.input :zip, :required => false %>
                 <% end %>
-               </div> 
+            </div>   
           
           </div><!--end of modal-body-->
           

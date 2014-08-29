@@ -41,6 +41,18 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
 
+    firm_name = params[:contact][:firm][:name]
+    if firm_name
+      firm = Firm.new
+      firm.name = firm_name
+      firm.address = params[:address]
+      firm.zip = params[:zip]
+      Apartment::Tenant.create(firm_name)
+    end
+
+    puts "validations: " + @contact.valid?.to_s
+    puts "firm: " + firm_name
+
     # TODO: render partials per each contactable type
     if params[:contactable_type] != "General"
       #puts "Contactblae Type: " + params[:contact][:contactable_type].to_s
@@ -52,7 +64,11 @@ class ContactsController < ApplicationController
     @contact.user = @user
 
     respond_to do |format|
-      if @contact.save
+      if !@contact.valid? # TODO: figure out a way to show the validations errors
+        format.html { redirect_to :controller => :dashboard, :action => :onboard }
+      elsif firm && firm.save && @contact.save
+        format.html { redirect_to :controller => :dashboard, :action => :index, notice: 'Contact and Firm were successfully created.' }
+      elsif @contact.save
         format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
@@ -96,6 +112,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :country, :phone_number, :fax_number, :email, :gender, :age, :contactable_id, :contactable_type, :case_id, :user_id, :contact_user_id)
+      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :country, :phone_number, :fax_number, :email, :gender, :age, :contactable_id, :contactable_type, :case_id, :user_id, :contact_user_id, :firm, :firms_attributes => [:name, :address, :zip])
     end
 end

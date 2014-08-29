@@ -1,0 +1,8 @@
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#modal-window").html("<%= escape_javascript(render 'dashboard/onboarding' ) %>");
+  $("#modal-window").modal();
+});
+</script>

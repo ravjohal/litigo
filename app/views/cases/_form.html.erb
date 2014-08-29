@@ -14,14 +14,20 @@
 
             <div class="form-inputs">
               <%= f.input :name %>
-              <%= f.input :number, :label => "Case number" %>
-              <%= f.input :case_type, :label => "Case Type" , :collection => ['Personal Injury'], :selected => 'Personal Injury'%>
-              <%= f.input :subtype, :label => "Sub-type", :collection => ['Motor Vehicle'], :selected => 'Motor Vehicle' %>
-              <%= f.input :description, :type => 'text-area' %>
-              <%= f.input :medical_bills, :label => "Medical Bills" %>
-              <%= f.input :status %>
-              <%= f.input :creation_date %>
-              <%= f.input :closing_date %>
+              <%= f.input :number %>
+              <%= f.input :court %>
+              <%= f.input :state, as: :select, collection: us_states %>
+              <% #plaintiff %>
+              <% #defendant %>
+              <%= f.input :corporation %>
+              <% #attorney %>
+              <% #stuff %>
+              <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
+              <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
+              <%= f.input :description, type: 'text-area' %>
+              <%= f.input :status, as: :select, collection: Case.statuses.keys, include_blank: false %>
+              <%= f.input :closing_date, label: "Closed Date", include_blank: true %>
+
 
             </div>
      <% if action_name == "index" %>

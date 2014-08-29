@@ -4,8 +4,9 @@ class Contact < ActiveRecord::Base
 	belongs_to :user
   belongs_to :user_account, class_name: "User"
 
-	validates :contactable_type, :presence => true
-	validates_presence_of :first_name, :last_name, :contactable_type
+  validates :contactable_type, presence: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
   validates :phone_number, length: { maximum: 10 }
   validates :fax_number, length: { maximum: 10 }
 

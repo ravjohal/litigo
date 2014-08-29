@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   end
 
   root :to => "visitors#index"
-  get '/onboarding' => 'dashboard#index'
+  get '/onboarding' => 'dashboard#onboard'
   get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
 

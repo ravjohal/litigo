@@ -18,7 +18,6 @@ class User < ActiveRecord::Base
   has_one :contact_user, class_name: "Contact", foreign_key: "contact_user_id"
   has_many :cases
   has_many :notes
-  belongs_to :firm
 
 
   def set_default_role

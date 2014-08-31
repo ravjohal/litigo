@@ -1,50 +1,22 @@
-<%= simple_form_for(new_case) do |f| %>
+<%= simple_form_for(case_) do |f| %>
   <%= f.error_notification %>
-
-     <% if action_name == "index" %>
-      <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-           <a class="close" data-dismiss="modal">×</a>
-            <h1>New Case</h1>
-          </div>
-          <div class="modal-body">
-     <% end %>
-
-            <div class="form-inputs">
-              <%= f.input :name %>
-              <%= f.input :number %>
-              <%= f.input :court %>
-              <%= f.input :state, as: :select, collection: us_states %>
-              <% #plaintiff %>
-              <% #defendant %>
-              <%= f.input :corporation %>
-              <% #attorney %>
-              <% #stuff %>
-              <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
-              <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
-              <%= f.input :description, type: 'text-area' %>
-              <%= f.input :status, as: :select, collection: Case.statuses.keys, include_blank: false %>
-              <%= f.input :closing_date, label: "Closed Date", include_blank: true %>
-
-
-            </div>
-     <% if action_name == "index" %>
-          </div><!--end of modal-body-->
-          <div class="modal-footer">
-            <div class="pull-left">
-              <a class="close" data-dismiss="modal">Cancel</a>
-            </div>
-     <% end %>
-
-            <div class="form-actions">
-                <%= f.button :submit, :class =>"btn btn-default" %>
-            </div>
-
-     <% if action_name == "index" %>
-            </div><!--end of modal-footer-->
-        </div><!--end of modal-content-->
-      </div><!--end of modal-dialog-->
-     <% end %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :number %>
+    <%= f.input :court %>
+    <%= f.input :state, as: :select, collection: us_states %>
+    <% #plaintiff %>
+    <% #defendant %>
+    <%= f.input :corporation %>
+    <% #attorney %>
+    <% #staff %>
+    <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
+    <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
+    <%= f.input :description, type: 'text-area' %>
+    <%= f.input :status, as: :select, collection: Case.statuses.keys, include_blank: false %>
+    <%= f.input :closing_date, label: "Closed Date", include_blank: true %>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit, :class =>"btn btn-default" %>
+  </div>
 <% end %>

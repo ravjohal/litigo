@@ -2,7 +2,7 @@
 #
  require 'apartment/elevators/generic'
 # require 'apartment/elevators/domain'
-#require 'apartment/elevators/subdomain'
+# require 'apartment/elevators/subdomain'
 
 #
 # Apartment Configuration
@@ -17,7 +17,9 @@ Apartment.configure do |config|
   #
   # config.excluded_models = %w{Tenant}
   #
-  config.excluded_models = %w{Firm}
+  #config.excluded_models = %w{User, Firm}
+
+  config.excluded_models = ["User", "Firm"]
 
   # use postgres schemas?
   config.use_schemas = true
@@ -33,15 +35,15 @@ Apartment.configure do |config|
   # config.append_environment = true
 
   # supply list of database names for migrations to run on
-  config.tenant_names = lambda{ Firm.pluck :name }
+  config.tenant_names = lambda{ Firm.pluck :tenant }
 end
 
 ##
 # Elevator Configuration
 
  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
-    nil
- }
+    #puts "MIDDLEWARE STUFF: " + request.cookies.to_s
+  }
 
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'
 

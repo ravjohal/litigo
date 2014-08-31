@@ -41,17 +41,31 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
 
+    # firm_name comes from parameters if contact is created through the signup; also the first time firm is created
     firm_name = params[:contact][:firm][:name]
-    if firm_name
+    tenant = firm_name.gsub(/[^0-9a-z ]/i, '').tr(" ", "_") #replace whitespace and remove special characters
+    firm_from_db = Firm.find_by(:name => firm_name)
+    if firm_name && !firm_from_db
       firm = Firm.new
       firm.name = firm_name
       firm.address = params[:address]
       firm.zip = params[:zip]
-      Apartment::Tenant.create(firm_name)
+      firm.tenant = tenant
+
+      puts "FIRM NAME SIGN UP: " + tenant
+      
+      firm.save
+
+      @user.firm = firm
+      @user.save!
+
+      Apartment::Tenant.create(tenant)
+    elsif firm_from_db
+      Apartment::Tenant.switch(tenant)
     end
 
-    puts "validations: " + @contact.valid?.to_s
-    puts "firm: " + firm_name
+    #puts "validations: " + @contact.valid?.to_s
+    #puts "firm: " + firm_name
 
     # TODO: render partials per each contactable type
     if params[:contact][:contactable_type] != "General"

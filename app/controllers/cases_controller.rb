@@ -11,9 +11,7 @@ class CasesController < ApplicationController
       @cases = @cases.order(order)
     end
     if params[:search].present? && params[:utf8] == "✓"
-      logger.info"#{params[:search]}"
       @cases = @cases.search(params[:search])
-
     end
     @cases = @cases.paginate(:per_page => 10, :page => params[:page])
   end
@@ -22,7 +20,7 @@ class CasesController < ApplicationController
   end
 
   def new
-   @case = Case.new
+    @case = Case.new
   end
 
   def edit
@@ -36,7 +34,6 @@ class CasesController < ApplicationController
     else
       render :new
     end
-
   end
 
   def update

@@ -16,8 +16,6 @@ class UsersController < ApplicationController
         redirect_to :back, :alert => "Access denied."
       end
     end
-
-    Apartment::Tenant.switch(@user.firm)
   end
 
   def update

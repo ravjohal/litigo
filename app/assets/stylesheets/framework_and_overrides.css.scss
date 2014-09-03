@@ -268,8 +268,8 @@ a.action-button:hover{
   a.sign {
     position: absolute;
     right: 8px;
-    font-family: arial;
     color: #fff;
+    font-family: arial;
     font-size: 10px;
     margin: 14px 10px;
     letter-spacing: 2px;
@@ -287,8 +287,10 @@ a.action-button:hover{
       background: white;
       transition: .1s;
       text-decoration: none;
+      border: solid 1px #fff;
     }
   }
+
   a.welcome-link{
   position: absolute;
   right: 150px;

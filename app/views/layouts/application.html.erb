@@ -31,11 +31,10 @@
  -->  
 </head>
   <body>
+  <% if user_signed_in? %> 
     <header>
       <%= render 'layouts/navigation' %>
-    </header>
-  
-      <% if user_signed_in? %> 
+    </header> 
         <div class="container-fluid">
           <div class = "row">
            

@@ -26,9 +26,11 @@ class FirmsController < ApplicationController
   # POST /firms.json
   def create
     @firm = Firm.new(firm_params)
-
+    
     respond_to do |format|
-      if @firm.save
+      if !@firm.valid? # TODO: figure out a way to show the validations errors
+        format.html { redirect_to :controller => :dashboard, :action => :onboard }
+      elsif @firm.save
         format.html { redirect_to @firm, notice: 'Firm was successfully created.' }
         format.json { render :show, status: :created, location: @firm }
       else

@@ -15,7 +15,7 @@
       </ul>
     </li>
     <li>
-        <%= link_to "CASE EVALUATION", user_path(current_user), class: "nav-sidebar__cev" %>
+        <%= link_to "CASE EVALUATION", user_path(current_user), :class => 'nav-sidebar__cev' %>
     </li>
     <li id="second">
           <a href="#" class="nav-sidebar__li">
@@ -41,6 +41,10 @@ $(function() {
     var isFirstOpen = 0;
     var isSecondOpen = 0;
     if(document.location && document.location.toString().indexOf('/cases') > 0) { isFirstOpen = 1; }
+    if(document.location && document.location.toString().indexOf('/notes') > 0) { isFirstOpen = 1; }
+    if(document.location && document.location.toString().indexOf('/documents') > 0) { isFirstOpen = 1; }
+    if(document.location && document.location.toString().indexOf('/tasks') > 0) { isFirstOpen = 1; }
+    if(document.location && document.location.toString().indexOf('/calendar') > 0) { isFirstOpen = 1; }
     if(document.location && document.location.toString().indexOf('/contacts') > 0) { isFirstOpen = 1; }
 
     $('#first').collapsible('default-open', {

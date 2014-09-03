@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'dashboard/index'
-
   resources :firms
 
   resources :staffs
@@ -22,14 +20,17 @@ Rails.application.routes.draw do
   resources :witnesses
 
   authenticated :user do
-    root :to => "cases#index", as: :authenticated_root
+    root :to => "dashboards#show", as: :authenticated_root
   end
 
   root :to => "visitors#index"
-  get '/onboarding' => 'dashboard#onboard'
-  get '/dashboard/:id' => 'dashboard#index', as: :user_root
+  get '/onboarding' => 'dashboards#new'
+  get '/dashboard/:id' => 'dashboards#show', as: :user_root
+  #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
+
+  resources :dashboards, path: "dashboard"
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
   resources :users

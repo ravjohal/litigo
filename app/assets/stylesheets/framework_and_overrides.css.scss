@@ -341,36 +341,49 @@ a.action-button:visited{
   font-weight: lighter;
   background-color: transparent;
   color: white; 
-  border: none
 }
 
-.nav-tabs > li {
-color: white;
-padding: 0px 5px;
-  display: inline-block;
-  text-decoration: none;
-  font-size: 12px;
-  letter-spacing: 1px;
-  border: nonw;
-}
-.nav-tabs > li > a{
-  font-family: sans-serif;
-  font-weight: lighter;
+ul.nav-tabs{
+  border-bottom: 1px solid transparent;
   color: white;
-  font-size: 12px;
-  letter-spacing: 1px;
-  border: none;
 }
-.nav-tabs > li > a:hover, a:active{
-  border: none;
-  font-family: sans-serif;
-  font-weight: lighter;
+
+.nav-tabs { 
+  li {
+    padding: 0px 5px;
+    display: inline-block;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border: none;
+      a{
+        color: white;
+        font-family: sans-serif;
+        font-weight: lighter;
+        font-size: 12px;
+        letter-spacing: 1px;
+        border: none;
+        }
+        a:hover{
+        color: #323A45;
+        font-family: sans-serif;
+        font-weight: lighter;
+        font-size: 12px;
+        letter-spacing: 1px;
+        border: none;
+        }
+      }
+    }
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #323A45;
-  background-color: transparent;
-  text-decoration: none;
-  padding-right: 8px;
+   padding-right: 8px;
+   font-family: sans-serif;
+  font-weight: lighter;
   font-size: 12px;
   letter-spacing: 1px;
+  background-color: transparent;
+  border: none;
+  cursor: default;
 }
 
 .nav-sidebar {

@@ -3,7 +3,8 @@
 <% if @user.show_onboarding %>
   <h3>Welcome to Litigo!</h3>
   <p>Click <%= link_to "Sign in with Google", "/auth/google_oauth2" %> to import your google contacts and calendar.</p>
-
+  <p><button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button></p>
+   
 <% else %>
 
   <h3>User</h3>
@@ -11,4 +12,8 @@
   <p>Email: <%= @user.email if @user.email %></p>
   <p>Show Onboarding: <%= @user.show_onboarding if @user.show_onboarding %></p>
 
+<p><button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button></p>
 <% end %>
+
+<script src="javascript/hopscotch.js"></script>
+<script src="javascript/product_tour.js"></script>

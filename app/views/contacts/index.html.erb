@@ -14,11 +14,9 @@
           <%= "#{contact.first_name} #{contact.last_name}" %>
           <% end %>
           <% contact.column :contactable_type, :header => "Contact Type" %>
-          <% contact.column :contactable_id, :header => "Contactable Id" %>
           <% contact.column :email, :header => "Email" %>
+          <% contact.column :phone_number, :header => "Phone" %>
           <% contact.column :data => "Show", :link => true %>
-          <% contact.column :data => "Edit", :link_action => :edit %>
-          <% contact.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
          
           <% contact.footer do %>
               <div class="pull-right">

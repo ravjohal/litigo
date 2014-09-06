@@ -1,8 +1,8 @@
-<div class="main-container-div">
+
 <%= link_to 'NEW TASK', new_task_path, {:class => "action-button", :id => "task_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
   <h3>Tasks</h3>
-  </div>
+  
   <div class="table-responsive">
     
 
@@ -16,8 +16,6 @@
           <% task.column :due_date, :header => "Due Date" %>
           <% task.column :completed, :header => "Completed" %>
           <% task.column :data => "Show", :link => true %>
-          <% task.column :data => "Edit", :link_action => :edit %>
-          <% task.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
          
           <% task.footer do %>
               <div class="pull-right">

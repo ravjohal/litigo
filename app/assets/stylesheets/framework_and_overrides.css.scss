@@ -529,7 +529,9 @@ textarea {
   display: inline;
 }
 .table-responsive{
-  padding: none;
+position: relative;
+left: -15px;
+ width: 103%;
 }
 
 

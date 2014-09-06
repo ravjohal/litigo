@@ -515,6 +515,18 @@ textarea {
     margin: 30px auto;
   }
 
+.control-group{
+  margin-bottom: 10px;
+}
+
+#document_document{
+  position: relative;
+  top: -20px;
+  margin-left: 230px;
+  border: none;
+  display: inline;
+}
+
 
 .animated {
   -webkit-animation-fill-mode: both;

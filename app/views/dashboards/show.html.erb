@@ -1,3 +1,4 @@
+<div class="main-container-div">
 <%= link_to 'Add New Contact', new_contact_path, {:class => "action-button"} %>
 
 <% if @user.show_onboarding %>
@@ -14,6 +15,7 @@
 
 <p><button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button></p>
 <% end %>
+</div>
 
 <script src="javascript/hopscotch.js"></script>
 <script src="javascript/product_tour.js"></script>

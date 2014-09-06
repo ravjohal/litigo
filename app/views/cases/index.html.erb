@@ -1,7 +1,9 @@
+
+<div class="main-container-div">
 <%= link_to 'NEW CASE', new_case_path, class: "action-button" %>
 
-<div class="table-responsive">
   <h3>Cases</h3>
+</div>
     <div class="table-responsive">
 
       <%= table_for @cases,
@@ -23,6 +25,5 @@
       <% end %>
 
     </div>
-</div>
 
 

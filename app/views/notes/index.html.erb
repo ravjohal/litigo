@@ -1,7 +1,8 @@
+<div class="main-container-div">
 <%= link_to 'NEW NOTE', new_note_path, {:class => "action-button", :id => "note_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
-<div class="table-responsive">
     <h3>Notes</h3>
+</div>
     <div class="table-responsive">
      
       <%= table_for @notes,
@@ -24,7 +25,6 @@
       <% end %>
 
   </div>
-</div>
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 

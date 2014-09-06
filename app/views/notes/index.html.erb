@@ -15,8 +15,6 @@
           <% note1.column :header => "Case", :data => lambda {|note| note.case.name}, :order => 'case'  %>
           <% note1.column :note, :header => "Note" %>
           <% note1.column :data => "Show", :link => true %>
-          <% note1.column :data => "Edit", :link_action => :edit %>
-          <% note1.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
           <% note1.footer do %>
               <div class="pull-right">
                 <%= will_paginate @notes %>

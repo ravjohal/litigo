@@ -98,6 +98,7 @@ section {
 
   
 h1 {
+  font: arial;
   font-size: 22px;
   font-family: san-serif;
   margin: 0 auto;
@@ -601,6 +602,9 @@ a.button:hover{
   text-decoration: none;
   top: 5px;
   }
+  h2, .h2{
+  margin: 0;
+}
 
 /* Hide for mobile, show later */
 .sidebar {

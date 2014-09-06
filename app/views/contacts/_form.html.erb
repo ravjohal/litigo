@@ -7,7 +7,7 @@
         <div class="modal-content">
           <div class="modal-header">
            <a class="close" data-dismiss="modal">×</a>
-            <h1>New Contact</h1>
+            <h2>New Contact</h2>
           </div>
           <div class="modal-body">
      <% end %>
@@ -19,7 +19,7 @@
                 <%= f.input :last_name %>
                 <%= f.input :address %>
                 <%= f.input :city %>
-                <%= f.input :state %>
+                <%= f.input :state, as: :select, collection: us_states %>
                 <%= f.input :phone_number %>
                 <%= f.input :fax_number %>
                 <%= f.input :email %>
@@ -35,7 +35,7 @@
      <% end %>
 
             <div class="form-actions">
-                <%= f.button :submit, :class =>"btn btn-default" %>
+                <%= f.button :submit, :class =>"btn btn-large btn-primary" %>
             </div>
 
      <% if action_name == "index" %>

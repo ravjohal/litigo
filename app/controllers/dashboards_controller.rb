@@ -19,6 +19,9 @@ class DashboardsController < ApplicationController
   end
 
   def create
+    # create_user
+    # create_firm
+    # create_user
     firm_name = params[:firm][:name]
     firm_from_db = Firm.find_by(:name => firm_name)
     if !firm_from_db

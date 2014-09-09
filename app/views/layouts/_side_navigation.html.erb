@@ -28,10 +28,10 @@
     </ul>
     </li>
      <li>
-      <%= link_to " BILLING", user_path(current_user), :class => 'nav-sidebar__bil' %>
+      <%= link_to " BILLING", user_path(current_user), :class => 'nav-sidebar__bil', :id => 'bill' %>
     </li>
     <li>
-      <%= active_link_to "PROFILE", edit_user_registration_path, :class => 'nav-sidebar__prf' %>
+      <%= active_link_to "PROFILE", edit_user_registration_path, :class => 'nav-sidebar__prf', :id => 'profile' %>
     </li>
 </ul>
 

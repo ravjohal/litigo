@@ -43,8 +43,13 @@ class Case < ActiveRecord::Base
   end
 
   
-  def self.last_number
-    Case.maximum(:number).to_i
+  def self.next_number(case_, action_)
+    puts "ACTION NAME " + action_
+    if action_ == "index" || action_ == "new"
+      Case.maximum(:number).to_i + 1
+    else
+      case_.number
+    end
   end
 
 end

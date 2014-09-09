@@ -36,5 +36,8 @@ Rails.application.routes.draw do
   resources :users
   resources :cases do
     resources :incidents
+    resources :medicals do
+      resources :injuries
+    end
   end
 end

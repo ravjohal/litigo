@@ -4,15 +4,14 @@
     <div class="table-responsive">
 
       <%= table_for @cases,
-          :table_html => { :class => "table table-striped table-hover" },
+          :table_html => { :class => "table table-striped table-hover rowlink" },
           :sortable => true,
           :sort_url => cases_path do |case1| %>
-          <% case1.column :name, :header => "Name" %>
-          <% case1.column :case_type, :header => "Case Type" %>
-          <% case1.column :subtype, :header => "Sub-type" %>
-          <% case1.column :description, :header => "Description" %>
-          <% case1.column :medical_bills, :header => "Medical Bills" %>
-          <% case1.column :data => "Show", :link => true %>
+          <% case1.column :name, :header => "Name", :link => true %>
+          <% case1.column :case_type, :header => "Case Type", :link => true %>
+          <% case1.column :subtype, :header => "Sub-type", :link => true %>
+          <% case1.column :medical_bills, :header => "Medical Bills", :link => true %>
+          <% case1.column :description, :header => "Description", :link => true %>
           <% case1.footer do %>
             <div class="pull-right">
               <%= will_paginate @cases %>
@@ -21,5 +20,9 @@
       <% end %>
 
     </div>
+
+    <script>
+      $('table.rowlink').rowlink()
+    </script>
 
 

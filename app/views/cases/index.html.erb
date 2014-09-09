@@ -10,9 +10,9 @@
           <% case1.column :name, :header => "Name", :link => true %>
           <% case1.column :number, :header => "Number", :link => true %>
           <% case1.column :case_type, :header => "Case Type", :link => true %>
-          <% case1.column :subtype, :header => "Sub-type", :link => true %>
           <% case1.column :medical_bills, :header => "Medical Bills", :link => true %>
           <% case1.column :description, :header => "Description", :link => true %>
+          <% case1.column :status, :header => "Status", :link => true %>
           <% case1.footer do %>
               <div class="pull-right">
                 <%= will_paginate @cases %>

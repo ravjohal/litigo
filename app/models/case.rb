@@ -42,4 +42,9 @@ class Case < ActiveRecord::Base
     end
   end
 
+  
+  def self.last_number
+    Case.maximum(:number).to_i
+  end
+
 end

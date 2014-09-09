@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Total med bills:</strong>
+  <%= @medical.total_med_bills %>
+</p>
+
+<p>
+  <strong>Subrogated amount:</strong>
+  <%= @medical.subrogated_amount %>
+</p>
+
+<p>
+  <strong>Injuries within three days:</strong>
+  <%= @medical.injuries_within_three_days %>
+</p>
+
+<p>
+  <strong>Length of treatment:</strong>
+  <%= @medical.length_of_treatment %>
+</p>
+
+<p>
+  <strong>Length of treatment:</strong>
+  <%= @medical.length_of_treatment %>
+</p>
+
+<p>
+  <strong>Doctor type:</strong>
+  <%= @medical.doctor_type %>
+</p>
+
+<p>
+  <strong>Treatment type:</strong>
+  <%= @medical.treatment_type %>
+</p>
+
+<%= link_to 'Edit', edit_medical_path(@medical) %> |
+<%= link_to 'Back', medicals_path %>

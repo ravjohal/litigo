@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @injury.type %>
+</p>
+
+<p>
+  <strong>Region:</strong>
+  <%= @injury.region %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @injury.code %>
+</p>
+
+<%= link_to 'Edit', edit_injury_path(@injury) %> |
+<%= link_to 'Back', injuries_path %>

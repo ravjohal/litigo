@@ -1,0 +1,37 @@
+<h1>Listing medicals</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Total med bills</th>
+      <th>Subrogated amount</th>
+      <th>Injuries within three days</th>
+      <th>Length of treatment</th>
+      <th>Length of treatment</th>
+      <th>Doctor type</th>
+      <th>Treatment type</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @medicals.each do |medical| %>
+      <tr>
+        <td><%= medical.total_med_bills %></td>
+        <td><%= medical.subrogated_amount %></td>
+        <td><%= medical.injuries_within_three_days %></td>
+        <td><%= medical.length_of_treatment %></td>
+        <td><%= medical.length_of_treatment %></td>
+        <td><%= medical.doctor_type %></td>
+        <td><%= medical.treatment_type %></td>
+        <td><%= link_to 'Show', medical %></td>
+        <td><%= link_to 'Edit', edit_medical_path(medical) %></td>
+        <td><%= link_to 'Destroy', medical, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Medical', new_medical_path %>

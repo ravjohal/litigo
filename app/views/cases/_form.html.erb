@@ -14,7 +14,7 @@
 
             <div class="form-inputs">
               <%= f.input :name %>
-              <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.last_number + 1} %>
+              <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
               <%= f.input :court %>
               <%= f.input :state, as: :select, collection: us_states %>
               <% #plaintiff %>

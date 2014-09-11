@@ -8,6 +8,7 @@ class Case < ActiveRecord::Base
   has_many :contacts
 
   has_one :incident, dependent: :destroy
+  has_one :medical, dependent: :destroy
 
   belongs_to :user
   has_and_belongs_to_many :documents

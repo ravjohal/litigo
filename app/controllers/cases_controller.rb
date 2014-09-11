@@ -59,6 +59,6 @@ class CasesController < ApplicationController
       params.require(:case).permit(:name, :number, :description, :case_type, :subtype,
                                   :court, :plaintiff, :defendant, :corporation, :status,
                                   :creation_date, :closing_date, :state,
-                                  :medical_bills, :event_ids => [], :task_ids => [], :document_ids => [])
+                                  :medical_bills, :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [])
     end
 end

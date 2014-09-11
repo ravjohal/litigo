@@ -66,22 +66,17 @@ class DashboardsController < ApplicationController
   def create_contact(tenant)
     Apartment::Tenant.switch(tenant)
 
-    contact = Contact.new
-    contactable_type = params[:firm][:contact][:contactable_type]
+    # contact = Contact.new
+    class_string_name = params[:firm][:contact][:type]
 
-    if (contactable_type != "General") && (contactable_type != "Staff/Paralegal")
-      class_string_name = contactable_type
-      contactable = class_string_name.constantize.new
-      contactable.save!
-      contact.contactable = contactable
-    elsif contactable_type == "Staff/Paralegal"
+    if class_string_name == "Staff/Paralegal"
       class_string_name = "Staff"
-      contactable = class_string_name.constantize.new
-      contactable.save!
-      contact.contactable = contactable
-    else
-      contact.contactable_type = contactable_type
     end
+    
+    contact = class_string_name.constantize.new
+    
+    puts " FIRST NAME: " + @user.first_name
+
     contact.first_name = @user.first_name
     contact.last_name = @user.last_name
     contact.user = @user

@@ -10,7 +10,7 @@ class EventsController < ApplicationController
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      if ['attorneys', 'users', 'cases'].include?(params[:order])
+      if ['users', 'cases'].include?(params[:order])
         @events = @events.eager_load(params[:order].to_sym).order(order)
       else
         @events = @events.order(order)

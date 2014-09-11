@@ -29,14 +29,14 @@
 
 <p>
   <strong>Plaintiff(s):</strong>
-  <% @case.assigned_plantiffs.each do |p| %>
+  <% @case.contacts.where("type = 'Plaintiff'").each do |p| %>
     <%= p.first_name %> <%= p.last_name %>
   <% end %>
 </p>
 
 <p>
   <strong>Defendant(s):</strong>
-  <% @case.assigned_defendants.each do |d| %>
+  <% @case.contacts.where("type = 'Defendant'").each do |d| %>
     <%= d.first_name %> <%= d.last_name %>
   <% end %>
 </p>
@@ -48,15 +48,15 @@
 
 <p>
   <strong>Assigned Attorney(s):</strong>
-  <%= @case.assigned_attorneys.size %>
-  <% @case.assigned_attorneys.each do |a| %>
+  <%= @case.contacts.where("type = 'Attorney'").size %>
+  <% @case.contacts.where("type = 'Attorney'").each do |a| %>
     <%= a.first_name %> <%= a.last_name %>
   <% end %>
 </p>
 
 <p>
   <strong>Assigned Staff(s):</strong>
-  <% @case.assigned_staffs.each do |s| %>
+  <% @case.contacts.where("type = 'Staff'").each do |s| %>
     <%= s.first_name %> <%= s.last_name %>
   <% end %>
 </p>

@@ -17,11 +17,11 @@
               <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
               <%= f.input :court %>
               <%= f.input :state, as: :select, collection: us_states %>
-              <% f.association :assigned_plantiffs, :collection => Contact.all.where("contactable_type = 'Plantiff'") %>
-              <%= f.association :assigned_defendants, :collection => Contact.all.where("contactable_type = 'Attorney'") %>
+              <%= f.association :contacts, label: "Plaintiff(s)", :collection => Contact.all.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false %>
+              <%= f.association :contacts, label: "Defendant(s)", :collection => Contact.all.where("type = 'Defendant'"), :label_method => :name, :include_blank => false %>
               <%= f.input :corporation %>
-              <% # f.association :assigned_attorneys, :collection => Attorney.all.build_contact %>
-              <% # f.association :assigned_staffs, :collection => Staff.all %>
+              <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false %>
+              <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false %>
               <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
               <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
               <%= f.input :description, type: 'text-area' %>

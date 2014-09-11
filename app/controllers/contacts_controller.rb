@@ -43,10 +43,6 @@ class ContactsController < ApplicationController
 
     # TODO: render partials per each type
 
-    class_string_name = params[:contact][:type]
-    contactable = class_string_name.constantize.create
-
-    @contact.contactable = contactable
     @contact.user = @user
 
     respond_to do |format|
@@ -94,6 +90,6 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :country, :phone_number, :fax_number, :email, :gender, :age, :contactable_id, :contactable_type, :case_id, :user_id, :contact_user_id, :firm, :firms_attributes => [:name, :address, :zip])
+      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :user_id, :contact_user_id, :firm, :firms_attributes => [:name, :address, :zip])
     end
 end

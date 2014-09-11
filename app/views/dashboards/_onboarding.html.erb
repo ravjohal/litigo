@@ -13,7 +13,7 @@
         
                 <%= f.input :name, :label => "Firm or Company", :required => true %>
                 <%= f.simple_fields_for :contact, Contact.new do |p| %>
-                  <%= p.input :contactable_type, :label => 'Role', :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false %>
+                  <%= p.input :type, :label => 'Role', :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false %>
                 <% end %>
                 <%= f.input :phone, :required => false %>
             </div>   

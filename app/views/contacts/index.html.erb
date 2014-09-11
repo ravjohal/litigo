@@ -7,17 +7,15 @@
   <div class="table-responsive">
 
     <%= table_for @contacts,
-                    :table_html => { :class => "table table-striped table-hover" },
+                    :table_html => { :class => "table table-striped table-hover rowlink" },
                     :sortable => true,
                     :sort_url => contacts_path do |contact| %>
           <% contact.column :header => "Name", :order => "last_name, first_name" do |contact| %>
           <%= "#{contact.first_name} #{contact.last_name}" %>
           <% end %>
-          <% contact.column :contactable_type, :header => "Contact Type" %>
-          <% contact.column :email, :header => "Email" %>
-          <% contact.column :phone_number, :header => "Phone" %>
-          <% contact.column :data => "Show", :link => true %>
-         
+          <% contact.column :contactable_type, :header => "Contact Type", :link => true %>
+          <% contact.column :email, :header => "Email", :link => true %>
+          <% contact.column :phone_number, :header => "Phone", :link => true %>
           <% contact.footer do %>
               <div class="pull-right">
                 <%= will_paginate @contacts %>
@@ -37,7 +35,9 @@ $(document).ready(function() {
   });
 });
 </script>
-
+  <script>
+      $('table.rowlink').rowlink()
+  </script>
 <br>
 
 

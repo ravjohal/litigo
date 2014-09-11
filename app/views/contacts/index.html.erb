@@ -13,9 +13,11 @@
           <% contact.column :header => "Name", :order => "last_name, first_name" do |contact| %>
           <%= "#{contact.first_name} #{contact.last_name}" %>
           <% end %>
-          <% contact.column :contactable_type, :header => "Contact Type", :link => true %>
-          <% contact.column :email, :header => "Email", :link => true %>
-          <% contact.column :phone_number, :header => "Phone", :link => true %>
+          <% contact.column :type, :header => "Contact Type" %>
+          <% contact.column :email, :header => "Email" %>
+          <% contact.column :phone_number, :header => "Phone" %>
+          <% contact.column :data => "Show", :link => true %>
+
           <% contact.footer do %>
               <div class="pull-right">
                 <%= will_paginate @contacts %>

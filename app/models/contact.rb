@@ -1,5 +1,8 @@
 class Contact < ActiveRecord::Base
-	#belongs_to :contactable, :polymorphic => true, :foreign_key => :contactable_id
+	
+  TYPES = ['Attorney', 'Client', 'Witness', 'Plaintiff', 'Defendant', 'Staff', 'General']
+
+
   belongs_to :case
 	belongs_to :user
   belongs_to :event
@@ -17,6 +20,19 @@ class Contact < ActiveRecord::Base
     else
       scoped
     end
+  end
+
+  def self.inherited(child)
+    child.instance_eval do
+      def model_name
+        Contact.model_name
+      end
+    end
+    super
+  end
+
+  def name
+    first_name + " " + last_name
   end
 
 end

@@ -25,6 +25,7 @@ gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.7.1'               # Replacement for curl commands to grab contacts from google
 gem 'active_link_to', '~> 1.0.2'
 gem 'apartment'
+gem 'jquery-datatables-rails', '~> 2.2.3'
 
 group :development do
   gem 'better_errors'

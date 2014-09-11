@@ -1,2 +1,2 @@
-class Client < ActiveRecord::Base
+class Client < Contact
 end

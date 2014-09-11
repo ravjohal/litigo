@@ -1,0 +1,2 @@
+class General < Contact
+end

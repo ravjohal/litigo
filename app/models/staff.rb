@@ -1,5 +1,2 @@
-class Staff < ActiveRecord::Base
-	has_one :contact, as: :contactable, dependent: :destroy
-
-	accepts_nested_attributes_for :contact
+class Staff < Contact
 end

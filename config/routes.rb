@@ -2,8 +2,6 @@ Rails.application.routes.draw do
 
   resources :firms
 
-  resources :staffs
-
   resources :notes
 
   resources :documents
@@ -12,13 +10,8 @@ Rails.application.routes.draw do
 
   resources :tasks
 
-  resources :contacts
-  resources :clients
-  resources :plantiffs
-  resources :defendants
-  resources :attorneys
-  resources :witnesses
-
+  resources :contacts  
+  
   authenticated :user do
     root :to => "dashboards#show", as: :authenticated_root
   end

@@ -17,11 +17,11 @@
               <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
               <%= f.input :court %>
               <%= f.input :state, as: :select, collection: us_states %>
-              <% #plaintiff %>
-              <% #defendant %>
+              <% f.association :assigned_plantiffs, :collection => Contact.all.where("contactable_type = 'Plantiff'") %>
+              <%= f.association :assigned_defendants, :collection => Contact.all.where("contactable_type = 'Attorney'") %>
               <%= f.input :corporation %>
-              <% #attorney %>
-              <% #stuff %>
+              <% # f.association :assigned_attorneys, :collection => Attorney.all.build_contact %>
+              <% # f.association :assigned_staffs, :collection => Staff.all %>
               <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
               <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
               <%= f.input :description, type: 'text-area' %>

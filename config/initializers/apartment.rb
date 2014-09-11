@@ -42,7 +42,11 @@ end
 # Elevator Configuration
 
  Rails.application.config.middleware.use 'Apartment::Elevators::Generic', lambda { |request|
-    #puts "MIDDLEWARE STUFF: " + request.cookies.to_s
+    # if request.env['rack.request.form_hash']['user']
+    #   puts "MIDDLEWARE STUFF: " + request.env['rack.request.form_hash']['user']['email'].to_s
+    # end
+
+    #puts "MIDDLE WARE STU FF:  " + request.session[:email].inspect
   }
 
 # Rails.application.config.middleware.use 'Apartment::Elevators::Domain'

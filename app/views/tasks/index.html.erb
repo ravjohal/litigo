@@ -7,15 +7,14 @@
     
 
     <%= table_for @tasks,
-                    :table_html => { :class => "table table-striped table-hover" },
+                    :table_html => { :class => "table table-striped table-hover rowlink" },
                     :sortable => true,
                     :sort_url => tasks_path do |task| %>
-          <% task.column :name, :header => "Task" %>
-          <% task.column :header => "Case(s)", :data => lambda {|task| task.cases.map {|c| c.name}.join(', ') }, :order => 'cases' %>
-          <% task.column :description, :header => "Description" %>
-          <% task.column :due_date, :header => "Due Date" %>
-          <% task.column :completed, :header => "Completed" %>
-          <% task.column :data => "Show", :link => true %>
+          <% task.column :name, :header => "Task", :link => true %>
+          <% task.column :header => "Case(s)", :data => lambda {|task| task.cases.map {|c| c.name}.join(', ') }, :order => 'cases', :link => true %>
+          <% task.column :description, :header => "Description", :link => true %>
+          <% task.column :due_date, :header => "Due Date", :link => true %>
+          <% task.column :completed, :header => "Completed", :link => true %>
          
           <% task.footer do %>
               <div class="pull-right">
@@ -36,3 +35,6 @@ $(document).ready(function() {
   });
 });
 </script>
+  <script>
+      $('table.rowlink').rowlink()
+  </script>

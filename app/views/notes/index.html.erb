@@ -6,15 +6,14 @@
     <div class="table-responsive">
      
       <%= table_for @notes,
-                    :table_html => { :class => "table table-striped" },
+                    :table_html => { :class => "table table-striped table-hover rowlink" },
                     :sortable => true,
                     :sort_url => notes_path do |note1| %>
-          <% note1.column :author, :header => "Author" %>
-          <% note1.column :created_at, :header => "Date", :date => lambda {|note| localize(note.created_at.to_date) } %>
-          <% note1.column :note_type, :header => "Type" %>         
-          <% note1.column :header => "Case", :data => lambda {|note| note.case.name}, :order => 'case'  %>
-          <% note1.column :note, :header => "Note" %>
-          <% note1.column :data => "Show", :link => true %>
+          <% note1.column :author, :header => "Author", :link => true %>
+          <% note1.column :header => "Case", :data => lambda {|note| note.case.name}, :order => 'case', :link => true  %>
+          <% note1.column :created_at, :header => "Date", :date => lambda {|note| localize(note.created_at.to_date) }, :link => true %>
+          <% note1.column :note_type, :header => "Type", :link => true %>         
+          <% note1.column :note, :header => "Note", :link => true %>
           <% note1.footer do %>
               <div class="pull-right">
                 <%= will_paginate @notes %>
@@ -33,3 +32,6 @@ $(document).ready(function() {
   });
 });
 </script>
+  <script>
+      $('table.rowlink').rowlink()
+  </script>

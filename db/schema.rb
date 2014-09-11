@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140911064453) do
+ActiveRecord::Schema.define(version: 20140911072234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,19 @@ ActiveRecord::Schema.define(version: 20140911064453) do
     t.integer  "user_id"
     t.integer  "contact_user_id"
     t.integer  "case_id"
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.decimal  "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.string   "witness_type"
+    t.string   "witness_subtype"
+    t.string   "witness_doctype"
+    t.string   "attorney_type"
+    t.string   "staff_type"
   end
 
   create_table "defendants", force: true do |t|

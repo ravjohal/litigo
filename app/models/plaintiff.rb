@@ -1,0 +1,2 @@
+class Plaintiff < Contact
+end

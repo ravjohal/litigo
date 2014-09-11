@@ -47,7 +47,7 @@
 </p>
 
 <p>
-  <strong>Attorney(s):</strong>
+  <strong>Assigned Attorney(s):</strong>
   <%= @case.assigned_attorneys.size %>
   <% @case.assigned_attorneys.each do |a| %>
     <%= a.first_name %> <%= a.last_name %>
@@ -55,7 +55,7 @@
 </p>
 
 <p>
-  <strong>Staff(s):</strong>
+  <strong>Assigned Staff(s):</strong>
   <% @case.assigned_staffs.each do |s| %>
     <%= s.first_name %> <%= s.last_name %>
   <% end %>

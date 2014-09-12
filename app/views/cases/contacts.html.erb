@@ -1,17 +1,8 @@
-<% if @case %>
-  <ol class="breadcrumb">
-    <li><%= link_to 'Cases', cases_path %></li>
-    <li><%= link_to @case.name, case_path(@case) %></li>
-    <li class="active">Contacts</li>
-  </ol>
-
-  <%= render partial: 'shared/case_tabs' %>
-<% end %>
+<h3>Contacts</h3>
 
 <div class="main-container-div">
 <%= link_to 'NEW CONTACT', new_contact_path, {:class => "action-button", :id => "contact_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %>
 
-  <h3>Contacts</h3>
   </div>
   <div class="table-responsive">
 

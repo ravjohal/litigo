@@ -33,4 +33,6 @@ Rails.application.routes.draw do
       resources :injuries
     end
   end
+
+  get '/cases/:id/contacts' => 'contacts#index', as: :case_contacts
 end

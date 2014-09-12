@@ -6,7 +6,7 @@
  <% if @case.medical %>
     <li<%= is_active('medicals') %>><%= link_to 'MEDICAL', case_medical_path(@case, @case.medical) %></li>
   <% end %>
-  <li><%= link_to 'CONTACTS', '#' %></li>
+  <li><%= link_to 'CONTACTS', case_contacts_path(@case, @case.contacts) %></li>
   <li><%= link_to 'CALENDAR', '#' %></li>
   <li><%= link_to 'TASKS', '#' %></li>
   <li><%= link_to 'DOCUMENTS', '#' %></li>

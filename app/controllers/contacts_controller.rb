@@ -7,7 +7,16 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     
-    @contacts = @user.contacts
+    if params[:id] 
+      @case = Case.find(params[:id])
+    end
+
+    if @case
+      @contacts = @case.contacts
+    else
+      @contacts = @user.contacts
+    end
+
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
       @contacts = @contacts.order(order)

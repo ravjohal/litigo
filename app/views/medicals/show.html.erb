@@ -1,4 +1,10 @@
-<p id="notice"><%= notice %></p>
+<ol class="breadcrumb">
+  <li><%= link_to 'Cases', cases_path %></li>
+  <li><%= link_to @case.name, case_path(@case) %></li>
+  <li class="active">Incident</li>
+</ol>
+
+<%= render partial: 'shared/case_tabs' %>
 
 <p>
   <strong>Total med bills:</strong>
@@ -35,5 +41,5 @@
   <%= @medical.treatment_type %>
 </p>
 
-<%= link_to 'Edit', edit_medical_path(@medical) %> |
-<%= link_to 'Back', medicals_path %>
+<%= link_to 'Edit', edit_case_medical_path(@case, @medical) %> |
+<% # = link_to 'Back', medicals_path %>

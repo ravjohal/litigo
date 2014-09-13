@@ -1,17 +1,17 @@
 <ul class="nav nav-sidebar">
     <li>
-        <%= active_link_to "DASHBOARD", user_root_path(@user), :class => 'nav-sidebar__dsh' %>
+        <%= active_link_to "DASHBOARD", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh' %>
     </li>
     <li id="first">
       <a href="#" class="nav-sidebar__cm">
       CASE MANAGEMENT</a>
-      <ul class="nav2">
-          <li><%= active_link_to "CASES", cases_path %></li>
-          <li><%= active_link_to "CALENDAR", events_path %></li>
-          <li><%= active_link_to "TASKS", tasks_path %></li>
-          <li><%= active_link_to "CONTACTS", contacts_path %></li>
-          <li><%= active_link_to "DOCUMENTS", documents_path %></li>
-          <li><%= active_link_to "NOTES", notes_path %></li>
+      <ul>
+          <li><%= active_link_to "CASES", cases_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "CALENDAR", events_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "CONTACTS", contacts_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "DOCUMENTS", documents_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "NOTES", notes_path, :class_active => 'enabled' %></li>
       </ul>
     </li>
     <li>
@@ -21,17 +21,16 @@
           <a href="#" class="nav-sidebar__li">
           LEGAL INSIGHTS</a>
     <ul>
-        <li class="sec"><%= link_to "LITIGATION", user_path(current_user) %></li>
-        <li class="sec"><%= link_to "MY STATS", user_path(current_user) %></li>
-        <li class="sec"><%= link_to "PRACTICE STATS", user_path(current_user) %></li>
-        <li class="sec"><%= link_to "FINANCIALS", user_path(current_user) %></li>
+        <li><%= active_link_to "LIT RESEARCH", user_path(current_user), :class_active => 'enabled' %></li>
+        <li><%= active_link_to "STATISTICS", user_path(current_user), :class_active => 'enabled' %></li>
+        <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li>
     </ul>
     </li>
      <li>
-      <%= link_to " BILLING", user_path(current_user), :class => 'nav-sidebar__bil', :id => 'bill' %>
+      <%= active_link_to " BILLING", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
     </li>
     <li>
-      <%= active_link_to "PROFILE", edit_user_registration_path, :class => 'nav-sidebar__prf', :id => 'profile' %>
+      <%= active_link_to "PROFILE", edit_user_registration_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :id => 'profile' %>
     </li>
 </ul>
 

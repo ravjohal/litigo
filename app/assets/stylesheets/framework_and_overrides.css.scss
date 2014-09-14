@@ -336,18 +336,18 @@ a.action-button:visited{
 
 
 .nav-two {
-  position: absolute;
-  left: -30px;
-  top: -46px;
-  z-index: 4000;
+  position: fixed;
+  top: 64px;
+  z-index: 1500;
   font-weight: lighter;
   background-color: transparent;
   color: white; 
+  border: none;
 }
 
 
-
-.nav-tabs { 
+.nav-tabs-custom { 
+border: none;
   li {
     padding: 0px 5px;
     display: inline-block;
@@ -374,7 +374,11 @@ a.action-button:visited{
       }
     }
 
-
+.navigated {
+        background: transparent;
+        display: block;
+        color: #323A45;
+}
 
 
   
@@ -429,6 +433,8 @@ position: relative;
 left: -15px;
  width: 103%;
 }
+
+
 
 
 /**! hopscotch - v0.2.2*/

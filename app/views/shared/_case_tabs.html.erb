@@ -1,12 +1,12 @@
-<ul class="nav-two nav-tabs bottom10" role="tablist">
-  <li<%= is_active('cases') %>><%= link_to 'DETAILS', case_path(@case) %></li>
+<ul class="nav-two nav-tabs-custom" role="tablist">
+  <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case)  %></li>
   <% if @case.incident %>
     <li<%= is_active('incidents') %>><%= link_to 'INCIDENT', case_incident_path(@case, @case.incident) %></li>
   <% end %>
  <% if @case.medical %>
     <li<%= is_active('medicals') %>><%= link_to 'MEDICAL', case_medical_path(@case, @case.medical) %></li>
   <% end %>
-  <li><%= link_to 'CONTACTS', case_contacts_path(@case, @case.contacts) %></li>
+  <li><%= active_link_to 'CONTACTS', case_contacts_path(@case, @case.contacts), :class_active => 'navigated' %></li>
   <li><%= link_to 'CALENDAR', '#' %></li>
   <li><%= link_to 'TASKS', '#' %></li>
   <li><%= link_to 'DOCUMENTS', '#' %></li>

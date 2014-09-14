@@ -6,15 +6,14 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    
-    if params[:id] 
-      @case = Case.find(params[:id])
-    end
-
-    if @case
+    if get_case
       @contacts = @case.contacts
+      @new_path_contacts = new_case_contact_path(@case)
+      @contacts_a = [@case, Contact.new] #for modal partial rendering
     else
       @contacts = @user.contacts
+      @new_path_contacts = new_contact_path
+      @contacts_a = Contact.new #for modal partial rendering
     end
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
@@ -36,23 +35,39 @@ class ContactsController < ApplicationController
   end
 
   # GET /contacts/new
-  def new
-    @contact = Contact.new
-  end
+  # def new
+
+  #   if get_case
+  #     @contact = @case.contacts.build
+  #     @create_case_contacts_array = [@case, @contact]
+  #   else
+  #     @contact = Contact.new
+  #     @create_case_contacts_array = @contact
+  #   end
+
+  #   puts " CASE CONTACTS array " + @create_case_contacts_array.to_s
+  # end
 
   # GET /contacts/1/edit
   def edit
-
+    
   end
 
   # POST /contacts
   # POST /contacts.json
   def create
-    @contact = Contact.new(contact_params)
+    if get_case
+      @contact = @case.contacts.build(contact_params)
+    else
+      @contact = Contact.new(contact_params)
+    end
 
+    
     # TODO: render partials per each type
 
     @contact.user = @user
+
+    #@case.contacts << @contact
 
     respond_to do |format|
       if @contact.save
@@ -97,8 +112,15 @@ class ContactsController < ApplicationController
       @contact = Contact.find(params[:id])
     end
 
+    def get_case
+      if params[:case_id]
+        @case = Case.find(params[:case_id])
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :user_id, :contact_user_id, :firm, :firms_attributes => [:name, :address, :zip])
     end
+
 end

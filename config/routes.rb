@@ -28,11 +28,14 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
   resources :users
   resources :cases do
+    resources :contacts, :shallow => true
     resources :incidents
     resources :medicals do
       resources :injuries
     end
   end
 
-  get '/cases/:id/contacts' => 'contacts#index', as: :case_contacts
+  # get '/cases/:id/contacts' => 'contacts#index', as: :case_contacts
+  # post '/cases/:id/contacts' => 'contacts#create'
+  # get '/cases/:id/contacts/new' => 'contacts#new', as: :new_case_contact
 end

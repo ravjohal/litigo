@@ -9,7 +9,7 @@
 <% end %>
 
 <div class="main-container-div">
-<%= link_to 'NEW CONTACT', new_contact_path, {:class => "action-button", :id => "contact_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %>
+<%= link_to 'NEW CONTACT', @new_path_contacts, {:class => "action-button", :id => "contact_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %>
 
   <h3>Contacts</h3>
   </div>
@@ -42,7 +42,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('#contact_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'contacts/form', new_contact: Contact.new ) %>");
+    $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
   });
 });
 </script>

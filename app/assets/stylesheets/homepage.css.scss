@@ -153,34 +153,6 @@ h1 {
   background: #323A45; 
   }
 
- .home-foot {
-    background-color: #0F0F0F;
-    opacity: .9;
-    margin: 0 auto;
-    padding-top: 20px;
-    text-align: center;
-    color: white;
-    font-size: 12px;
-    height: 100px;
-    width: 100%;
-    bottom: 0;
-  }
-    div.small{
-    height: 4px;
-    width: 40px;
-    background-color: #0483A0;
-    margin: auto;
-  }
-  
-  div.copy{
-    font-family: sans-serif;
-    font-weight: lighter;
-    color: white;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 0;
-    margin-top: 20px;
-  }
 
   .shadow{
     position: absolute;
@@ -248,7 +220,7 @@ h1 {
   background:#0483A0;
   border: 1px solid #0483A0;
   cursor:pointer;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   border-radius: 4px;
   color: white;
   height: 38px;
@@ -412,7 +384,7 @@ h1 {
   width: 100%;
 }
 .screen-container{
-  max-width: 960px;
+  max-width: 940px;
   margin: 0 auto;
 }
 .screen-left{
@@ -443,63 +415,90 @@ h1 {
   margin-bottom: 30px;
 }
 .text-left{
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 40px;
+  padding-right: 0px;
   float: left;
   height: 400px;
   width: 300px;
 }
-.screen-right{
-  float: right;
-  height: 400px;
-  width: 594px;
-  border: 1px solid #ccc;
-  background-image: url(/assets/caseeval.png);
-  background-repeat: none;
-  margin-bottom: 30px;
-}
-.text-right{
-  padding-left: 20px;
-  padding-right: 20px;
-  float: right;
-  height: 400px;
-  width: 300px;
-}
 h5 {
-  text-align: center;
+  text-align: left;
   padding: none;
   margin-bottom: 15px;
   font-size: 32px;
   color: #898989;
 }
-.text-body{
+.text-body-alt{
   font-weight: lighter;
   font-size: 18px;
   text-align: left;
 }
+.text-body{
+  font-weight: lighter;
+  font-size: 18px;
+  text-align: left;
+  line-height: 28px;
+}
+.features {
+margin-bottom: 10px;
+}
 
-  .button14{
-  position: relative;
+.ending{
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: black;
+  opacity: .8;
+}
+.footer-container{
+  margin: 0 auto;
+  width: 960px;
+  padding-top: 40px;
+  color: white;
+  font-weight: lighter;
+  font-size: 13px;
+}
+a.request-button{
   margin: 0 auto;
   font-family: sans-serif;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 13px;
-  background: transparent;
+  padding-right: 30px;
+  padding-left: 30px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
+  background:#0483A0;
   border: none;
   cursor:pointer;
   letter-spacing: 1px;
   border-radius: 4px;
   color: White;
-  height: 40px;
   text-decoration: none;
+  font-weight: lighter;
   }
   
-.button14:hover{
+a.request-button:hover{
+  font-family: sans-serif;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 14px;
+  background:#3FC2D8;
+  border: none;
+  cursor:pointer;
+  letter-spacing: 1px;  
+  border-radius: 4px;
+  color: white;
   transition: .2s;
+  text-decoration: none;
+  font-weight: lighter;
 }
+.request{
+  position: relative;
+  top: -50px;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 30px;
+}
+
   .button1{
   text-align: center;
   position: relative;

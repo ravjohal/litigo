@@ -407,9 +407,75 @@ h1 {
 .screens{
   position: relative;
   top: -100px;
-  background-color: #ccc;
+  background-color: transparent;
   height: 400px;
   width: 100%;
+}
+.screen-container{
+  max-width: 960px;
+  margin: 0 auto;
+}
+.screen-left{
+  float: left;
+  height: 400px;
+  width: 594px;
+  border: 1px solid #ccc;
+  background-image: url(/assets/caseeval.png);
+  background-repeat: none;
+  margin-bottom: 30px;
+}
+.screen-left1{
+  float: left;
+  height: 400px;
+  width: 594px;
+  border: 1px solid #ccc;
+  background-image: url(/assets/insights.png);
+  background-repeat: none;
+  margin-bottom: 30px;
+}
+.screen-left2{
+  float: left;
+  height: 400px;
+  width: 594px;
+  border: 1px solid #ccc;
+  background-image: url(/assets/casemgmt.png);
+  background-repeat: none;
+  margin-bottom: 30px;
+}
+.text-left{
+  padding-left: 20px;
+  padding-right: 20px;
+  float: left;
+  height: 400px;
+  width: 300px;
+}
+.screen-right{
+  float: right;
+  height: 400px;
+  width: 594px;
+  border: 1px solid #ccc;
+  background-image: url(/assets/caseeval.png);
+  background-repeat: none;
+  margin-bottom: 30px;
+}
+.text-right{
+  padding-left: 20px;
+  padding-right: 20px;
+  float: right;
+  height: 400px;
+  width: 300px;
+}
+h5 {
+  text-align: center;
+  padding: none;
+  margin-bottom: 15px;
+  font-size: 32px;
+  color: #898989;
+}
+.text-body{
+  font-weight: lighter;
+  font-size: 18px;
+  text-align: left;
 }
 
   .button14{

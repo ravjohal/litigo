@@ -394,7 +394,7 @@ h1 {
   border: 1px solid #ccc;
   background-image: url(/assets/caseeval.png);
   background-repeat: none;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 .screen-left1{
   float: left;
@@ -403,7 +403,7 @@ h1 {
   border: 1px solid #ccc;
   background-image: url(/assets/insights.png);
   background-repeat: none;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 .screen-left2{
   float: left;
@@ -412,7 +412,7 @@ h1 {
   border: 1px solid #ccc;
   background-image: url(/assets/casemgmt.png);
   background-repeat: none;
-  margin-bottom: 30px;
+  margin-bottom: 60px;
 }
 .text-left{
   padding-left: 40px;
@@ -423,7 +423,8 @@ h1 {
 }
 h5 {
   text-align: left;
-  padding: none;
+  margin-top: none;
+  padding-top: none;
   margin-bottom: 15px;
   font-size: 32px;
   color: #898989;
@@ -493,7 +494,7 @@ a.request-button:hover{
 }
 .request{
   position: relative;
-  top: -50px;
+  top: -60px;
   text-align: center;
   margin: 0 auto;
   padding-bottom: 30px;

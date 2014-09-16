@@ -78,6 +78,7 @@ section {
   padding-top: 15px;
   color: #38393A;
 }
+
 .authform .center-term {
   font-size: 10px;
   text-align: center;
@@ -160,6 +161,8 @@ section {
 .authform fieldset {
   @extend .well;
 }
+
+
 #error_explanation {
   @extend .alert;
   @extend .alert-danger;

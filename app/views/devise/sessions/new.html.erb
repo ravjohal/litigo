@@ -1,6 +1,8 @@
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
-    <h3>SIGN IN</h3>
+    <div class="center-h">
+        <h3>SIGN IN</h3>
+    </div>
     <br>
     <%= devise_error_messages! %>
     <div class="form-group">
@@ -22,7 +24,7 @@
         </div>
       <% end -%>
        <%= f.submit 'SIGN IN', :class => 'btn-block' %>
-<div class="center">
+      <div class="center">
       Don't have an account? <%= link_to 'Sign up', new_registration_path(resource_name), :class => 'center-link'  %>
       </div>
   <% end %>

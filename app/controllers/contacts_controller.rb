@@ -62,7 +62,6 @@ class ContactsController < ApplicationController
       @contact = Contact.new(contact_params)
     end
 
-    
     # TODO: render partials per each type
 
     @contact.user = @user
@@ -110,12 +109,6 @@ class ContactsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
       @contact = Contact.find(params[:id])
-    end
-
-    def get_case
-      if params[:case_id]
-        @case = Case.find(params[:case_id])
-      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

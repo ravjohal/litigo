@@ -12,7 +12,9 @@
 
 <p>
   <strong>Document:</strong>
-  <%= link_to @document.document.file.filename, @document.document_url %>
+  <% if @document.document.file %>
+    <%= link_to @document.document.file.filename, @document.document_url %>
+  <% end %>
 </p>
 
 <p>

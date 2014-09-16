@@ -1,14 +1,22 @@
 class NotesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_user  
 
   # GET /notes
   # GET /notes.json
   def index
     @user = current_user
-    #@notes = Note.order(:created_at, "desc")
-    @notes = @user.notes.order("created_at desc")
 
+    if get_case
+      @notes = @case.notes
+      @new_path_notes = new_case_note_path(@case)
+      @notes_a = [@case, Note.new] #for modal partial rendering
+    else
+      @notes = @user.notes.order("created_at desc")
+      @new_path_notes = new_note_path
+      @notes_a = Note.new #for modal partial rendering
+    end
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
@@ -30,7 +38,7 @@ class NotesController < ApplicationController
   # GET /notes/1
   # GET /notes/1.json
   def show
-    @user = current_user
+   
   end
 
   # GET /notes/new
@@ -40,14 +48,18 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
-    @user = current_user
+
   end
 
   # POST /notes
   # POST /notes.json
   def create
-    @user = current_user
-    @note = Note.new(note_params)
+    
+    if get_case
+      @note = @case.notes.build(note_params)
+    else
+      @note = Note.new(note_params)
+    end
 
     @note.user = @user
     

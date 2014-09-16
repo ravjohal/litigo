@@ -11,7 +11,11 @@
   <% end %>
   <li><%= link_to 'CALENDAR', '#' %></li>
   <li><%= link_to 'TASKS', '#' %></li>
-  <li><%= link_to 'DOCUMENTS', '#' %></li>
-  <li><%= link_to 'NOTES', '#' %></li>
+  <% if @case.documents %>
+     <li><%= active_link_to 'DOCUMENTS', case_documents_path(@case) , :class_active => 'navigated' %></li>
+  <% end %>
+  <% if @case.notes %>
+     <li><%= active_link_to 'NOTES', case_notes_path(@case) , :class_active => 'navigated' %></li>
+  <% end %>
   <li><%= link_to 'RESOLUTION', '#' %></li>
 </ul>

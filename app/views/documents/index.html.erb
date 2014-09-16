@@ -1,5 +1,14 @@
+<% if @case %>
+  <ol class="breadcrumb">
+    <li><%= link_to 'Cases', cases_path %></li>
+    <li><%= link_to @case.name, case_path(@case) %></li>
+    <li class="active">Documents</li>
+  </ol>
 
-<%= link_to 'NEW DOCUMENT', new_document_path, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
+  <%= render partial: 'shared/case_tabs' %>
+<% end %>
+
+<%= link_to 'NEW DOCUMENT', @new_path_documents, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
     <h3>Documents</h3>
     <div class="table-responsive">

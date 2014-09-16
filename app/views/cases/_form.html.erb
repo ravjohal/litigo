@@ -1,3 +1,6 @@
+
+
+
 <%= simple_form_for(new_case) do |f| %>
   <%= f.error_notification %>
 
@@ -48,3 +51,7 @@
       </div><!--end of modal-dialog-->
      <% end %>
 <% end %>
+
+ <script>
+    $(document).ready(function() { $("#e1, #e2").select2(); });
+  </script>

@@ -15,7 +15,9 @@
             <div class="form-inputs">
               <%= f.input :author, :readonly => true, :input_html => { :value => @user.name } %>
               <%= f.input :created_at, as: :string, :readonly => true, :input_html => {:value => Date.today} %>
-              <%= f.association :case, :collection => @user.cases %>
+              <% if !@case %>
+                <%= f.association :case, :collection => @user.cases %>
+              <% end %>
               <%= f.input :note_type, :collection => ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'] %>
               <%= f.input :note %>
             </div>

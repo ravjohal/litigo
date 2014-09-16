@@ -1,5 +1,15 @@
+<% if @case %>
+  <ol class="breadcrumb">
+    <li><%= link_to 'Cases', cases_path %></li>
+    <li><%= link_to @case.name, case_path(@case) %></li>
+    <li class="active">Notes</li>
+  </ol>
+
+  <%= render partial: 'shared/case_tabs' %>
+<% end %>
+
 <div class="main-container-div">
-<%= link_to 'NEW NOTE', new_note_path, {:class => "action-button", :id => "note_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
+<%= link_to 'NEW NOTE', @new_path_notes, {:class => "action-button", :id => "note_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
     <h3>Notes</h3>
 </div>
@@ -28,7 +38,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('#note_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: Note.new ) %>");
+    $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @notes_a ) %>");
   });
 });
 </script>

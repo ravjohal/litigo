@@ -48,4 +48,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def get_case #for nested resources
+    if params[:case_id]
+      @case = Case.find(params[:case_id])
+    end
+  end
+
 end

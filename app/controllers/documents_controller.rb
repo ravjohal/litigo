@@ -6,7 +6,15 @@ class DocumentsController < ApplicationController
   # GET /documents
   # GET /documents.json
   def index
-    @documents = @user.documents
+    if get_case
+      @documents = @case.documents
+      @new_path_documents = new_case_document_path(@case)
+      @documents_a = [@case, Document.new] #for modal partial rendering
+    else
+      @documents = @user.documents
+      @new_path_documents = new_document_path
+      @documents_a = Document.new #for modal partial rendering
+    end
 
     if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
       order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
@@ -44,7 +52,11 @@ class DocumentsController < ApplicationController
   # POST /documents
   # POST /documents.json
   def create
-    @document = Document.new(document_params)
+    if get_case
+      @document = @case.documents.build(document_params)
+    else
+      @document = Document.new(document_params)
+    end
 
     @document.user = @user
 

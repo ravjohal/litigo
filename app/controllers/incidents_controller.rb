@@ -67,9 +67,4 @@ class IncidentsController < ApplicationController
     def incident_params
       params.require(:incident).permit(:incident_date, :statute_of_limitations, :defendant_liability, :alcohol_involved, :weather_factor, :property_damage, :airbag_deployed, :speed, :police_report, :case_id)
     end
-
-  	def get_case
-   	 @case = Case.find(params[:case_id])
-  	end
-
 end

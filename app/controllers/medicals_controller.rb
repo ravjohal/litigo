@@ -78,8 +78,4 @@ class MedicalsController < ApplicationController
     def medical_params
       params.require(:medical).permit(:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, :length_of_treatment, :doctor_type, :treatment_type)
     end
-
-    def get_case
-     @case = Case.find(params[:case_id])
-    end
 end

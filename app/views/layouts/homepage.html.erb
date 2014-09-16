@@ -139,13 +139,23 @@
       
   </main>  
         <div class="request">
-          <%= link_to 'REQUEST BETA', new_user_registration_path, :class => 'request-button'  %>
+          <%= text_field_tag :email, nil, :placeholder => "ENTER YOUR EMAIL ADDRESS HERE", :class => "email" %>
+          <%= submit_tag "REQUEST BETA", :class => "sub" %>
         </div>
 
     </div>
          <div class="ending">
               <div class="footer-container">
                   &copy 2014 Litigo Insights Inc.
+                  <div id="footer-links">
+                      <ul id="footer-links">
+                          <li><a>Pricing</a></li>
+                          <li><a>About Us</a></li>
+                          <li><a>Contact</a></li>
+                          <li><a>Terms of Service</a></li>
+                          <li><a>Privacy Policy</a></li>
+                      </ul>
+                  </div>
               </div>
         </div>
 

@@ -9,7 +9,7 @@
                     :sort_url => events_path do |event| %>
           <% event.column :subject, :header => "Subject" %>
           <% event.column :location, :header => "Location" %>
-          <% event.column :header => "Lawyer(s)", :data => lambda {|event| event.attorneys.map {|c| c.name}.join(', ') }, :order => 'attorneys' %>
+          <% event.column :header => "Lawyer(s)", :data => lambda {|event| event.contacts.map {|c| c.name}.join(', ') }, :order => 'attorneys' %>
           <% event.column :date, :header => "Date" %>
           <% event.column :time, :header => "Time" %>
           <% event.column :header => "Invitee(s)", :data => lambda {|event| event.users.map {|c| c.name}.join(', ') }, :order => 'users'  %>

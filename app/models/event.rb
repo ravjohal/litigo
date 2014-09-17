@@ -1,7 +1,10 @@
 class Event < ActiveRecord::Base
-	has_and_belongs_to_many :users #invitees
-	#has_and_belongs_to_many :attorneys
-	has_and_belongs_to_many :cases
+	has_many :user_events, :dependent => :destroy
+	has_many :users, :through => :user_events
+
+	has_many :case_events, :dependent => :destroy
+	has_many :cases, :through => :case_events
+
 	has_many :contacts
 	belongs_to :owner, class_name: "User"
 

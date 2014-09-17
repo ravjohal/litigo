@@ -21,7 +21,7 @@
                 <%= f.association :users, :label => "Invitees" %>
                 <%= f.input :all_day %>
                 <%= f.input :reminder %>
-                <%= f.association :cases, :collection => @user.cases %>
+                <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"} %>
                 <%= f.input :notes %>
                </div>
 
@@ -45,3 +45,8 @@
     <% end %>
 
 <% end %>
+<script>
+$(document).ready(function() { 
+  $('#case_select').select2();
+});
+</script>

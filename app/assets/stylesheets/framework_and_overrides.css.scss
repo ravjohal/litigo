@@ -268,6 +268,8 @@ a.action-button:visited{
 }
 
 .navbar-fixed-top {
+  position: absolute;
+  z-index: -3000;
   top: 0;
   border-width: 0 0 0px;
 }
@@ -346,7 +348,7 @@ a.action-button:visited{
 }
 
 
-.nav-tabs-custom { 
+.nav-tabs-custom {
 border: none;
   li {
     padding: 0px 5px;
@@ -415,7 +417,14 @@ textarea {
 .modal-dialog {
     width: 700px;
     margin: 30px auto;
+    z-index: 8000;
+    position: relative;
   }
+.modal-content {
+  position: relative;
+  z-index: 8000;
+}
+
 
 .control-group{
   margin-bottom: 10px;

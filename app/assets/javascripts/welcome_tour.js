@@ -26,7 +26,7 @@
         },
          {
           title: "Billing",
-          content: "Search by case name or party name on any page to quickly find the pertinent case.",
+          content: "Create great looking invoices, track outstanding bills, and follow up to increase collections and get paid.",
           target: "bill",
           placement: "right",
           showPrevButton: true,

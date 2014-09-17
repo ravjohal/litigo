@@ -1,6 +1,4 @@
 
-
-
 <%= simple_form_for(new_case) do |f| %>
   <%= f.error_notification %>
 
@@ -23,13 +21,17 @@
               <%= f.association :contacts, label: "Plaintiff(s)", :collection => Contact.all.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false %>
               <%= f.association :contacts, label: "Defendant(s)", :collection => Contact.all.where("type = 'Defendant'"), :label_method => :name, :include_blank => false %>
               <%= f.input :corporation %>
-              <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false %>
+              <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false, :id =>'e1' %>
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false %>
               <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
               <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
               <%= f.input :description, type: 'text-area' %>
               <%= f.input :status, as: :select, collection: Case.statuses.keys, include_blank: false %>
               <%= f.input :closing_date, label: "Closed Date", include_blank: true %>
+                <select id="e1">
+                   <option value="AL">Alabama</option>
+                   <option value="WY">Wyoming</option>
+                 </select>
 
 
             </div>
@@ -51,7 +53,6 @@
       </div><!--end of modal-dialog-->
      <% end %>
 <% end %>
-
- <script>
-    $(document).ready(function() { $("#e1, #e2").select2(); });
+  <script>
+    $(document).ready(function() { $("#e1").select2(); });
   </script>

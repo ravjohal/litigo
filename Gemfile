@@ -26,7 +26,7 @@ gem 'rest-client', '~> 1.7.1'               # Replacement for curl commands to g
 gem 'active_link_to', '~> 1.0.2'
 gem 'apartment'
 gem 'jquery-datatables-rails', '~> 2.2.3'
-gem "select2-rails"
+gem "select2-rails", '3.5.9.1'
 
 group :development do
   gem 'better_errors'

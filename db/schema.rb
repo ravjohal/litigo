@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140912105832) do
+ActiveRecord::Schema.define(version: 20140917075842) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,27 @@ ActiveRecord::Schema.define(version: 20140912105832) do
   create_table "attorneys_events", id: false, force: true do |t|
     t.integer "attorney_id"
     t.integer "event_id"
+  end
+
+  create_table "case_documents", force: true do |t|
+    t.integer  "case_id"
+    t.integer  "document_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "case_events", force: true do |t|
+    t.integer  "case_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "case_tasks", force: true do |t|
+    t.integer  "case_id"
+    t.integer  "task_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "cases", force: true do |t|
@@ -43,11 +64,6 @@ ActiveRecord::Schema.define(version: 20140912105832) do
     t.string   "state",         limit: 2
     t.integer  "status",                  default: 0
     t.string   "court"
-  end
-
-  create_table "cases_documents", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "document_id"
   end
 
   create_table "cases_events", id: false, force: true do |t|
@@ -97,6 +113,7 @@ ActiveRecord::Schema.define(version: 20140912105832) do
     t.string   "witness_doctype"
     t.string   "attorney_type"
     t.string   "staff_type"
+    t.integer  "event_id"
   end
 
   create_table "defendants", force: true do |t|
@@ -133,11 +150,6 @@ ActiveRecord::Schema.define(version: 20140912105832) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
-  end
-
-  create_table "events_users", id: false, force: true do |t|
-    t.integer "event_id"
-    t.integer "user_id"
   end
 
   create_table "firms", force: true do |t|
@@ -226,6 +238,13 @@ ActiveRecord::Schema.define(version: 20140912105832) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+  end
+
+  create_table "user_events", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|

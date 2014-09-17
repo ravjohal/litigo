@@ -12,7 +12,11 @@ class User < ActiveRecord::Base
 
   has_many :documents
   has_many :tasks
-  has_and_belongs_to_many :events
+  
+  #has_and_belongs_to_many :events
+  has_many :user_events, :dependent => :destroy
+  has_many :events, :through => :user_events
+
   has_many :owned_events, class_name: "Event", foreign_key: "owner_id"
   has_many :contacts
   has_one :contact_user, class_name: "Contact", foreign_key: "contact_user_id"

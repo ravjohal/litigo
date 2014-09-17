@@ -337,7 +337,7 @@ DEPENDENCIES
   rspec-rails (~> 3.0.2)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
-  select2-rails
+  select2-rails (= 3.5.9.1)
   selenium-webdriver (~> 2.41.0)
   shoulda-matchers (~> 2.5.0)
   simple_form

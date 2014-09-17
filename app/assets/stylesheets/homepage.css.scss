@@ -110,9 +110,6 @@ h1 {
   font-family: san-serif;
   margin: 0 auto;
 }
-h4{
-  text-align: center;
-}
   
 
   
@@ -483,6 +480,23 @@ margin-bottom: 10px;
   padding-right: 15px;
 }
 #footer-links a:hover{
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: white;
+  text-decoration: none;
+  padding-right: 15px;
+}
+ #service a{
+  font-weight: normal;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #9B9B9B;
+  text-decoration: none;
+  padding-right: 15px;
+}
+#service a:hover{
   font-weight: normal;
   cursor: pointer;
   font-size: 12px;

@@ -24,7 +24,7 @@
               <% end %>
               <%= f.input :template %>
               <% if !@case %>
-                <%= f.association :cases, :collection => @user.cases %>
+                <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, :class => 'sel2' %>
               <% end %>
             </div>
 
@@ -48,3 +48,6 @@
     <% end %>
 
 <% end %>
+  <script>
+    $(document).ready(function() { $("#doc_select").select2(); });
+  </script>

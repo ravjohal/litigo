@@ -18,7 +18,7 @@
                 <%= f.association :contacts, :label => "Lawyer", :collection => Contact.all.where("type = 'Attorney'"), :input_html => {:id => "attorney_select"}, :class => 'sel2' %> 
                 <%= f.input :date %>
                 <%= f.input :time %>
-                <%= f.association :users, :label => "Invitees" %>
+                <%= f.association :users, :label => "Invitees", :input_html => {:id => "invitee_select"}, :class => 'sel2' %>
                 <%= f.input :all_day %>
                 <%= f.input :reminder %>
                 <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"}, :class => 'sel2' %>
@@ -47,6 +47,6 @@
 <% end %>
 <script>
 $(document).ready(function() { 
-  $('#case_select, #attorney_select').select2();
+  $('#case_select, #attorney_select, #invitee_select').select2();
 });
 </script>

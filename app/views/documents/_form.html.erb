@@ -15,12 +15,13 @@
             <div class="form-inputs">
               <%= f.input :author, :readonly => true, :input_html => { :value => @user.name }%>
               <%= f.input :doc_type %>
+              <% new_document = new_document[1] if @case %>
               <% if new_document.document_url.blank? %>
-              <%= f.input :document, as: :file %>
+                <%= f.input :document, as: :file %>
               <% else %>
               Existing Document:
-              <%= link_to @document.document.file.filename, @document.document_url %>
-              <%= f.input :document, as: :file %>
+                <%= link_to @document.document.file.filename, @document.document_url %>
+                <%= f.input :document, as: :file %>
               <% end %>
               <%= f.input :template %>
               <% if !@case %>

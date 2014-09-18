@@ -53,7 +53,7 @@ class DocumentsController < ApplicationController
   # POST /documents.json
   def create
     if get_case
-      @document = @case.documents.build(document_params)
+      @document = @case.documents.create(document_params)
     else
       @document = Document.new(document_params)
     end

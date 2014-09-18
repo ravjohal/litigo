@@ -23,6 +23,8 @@ class Case < ActiveRecord::Base
 
   has_many :notes
 
+  accepts_nested_attributes_for :documents
+
   validates :name, presence: true
   validates :number, presence: true
   validates :case_type, presence: true

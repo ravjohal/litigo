@@ -41,7 +41,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('#document_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: Document.new ) %>");
+    $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: @documents_a ) %>");
   });
 });
 </script>

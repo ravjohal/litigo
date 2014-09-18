@@ -412,6 +412,39 @@ textarea {
   width: 200px;
   padding: 5px;
 }
+select {
+  color: inherit;
+  font: inherit;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 60px;
+  padding: 5px;
+}
+.select2-container{
+  width: 200px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.form-control .select2-choice {
+    border: 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.form-control .select2-choice .select2-arrow {
+    border-radius: 4px;
+}
+.form-control.select2-container.select2-dropdown-open {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.form-control .select2-container.select2-dropdown-open .select2-choices {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
 
 
 .modal-dialog {
@@ -423,6 +456,9 @@ textarea {
 .modal-content {
   position: relative;
   z-index: 8000;
+}
+.sel2{
+  width: 300px;
 }
 
 

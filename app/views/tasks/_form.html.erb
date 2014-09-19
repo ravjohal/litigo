@@ -13,8 +13,8 @@
     <% end %>
 
               <div class="form-inputs">
-                <%= f.input :name, :label => "Task" %>
-                <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'sel2'   %>
+                <%= f.input :name, :label => "Task", :class => 'box-form' %>
+                <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'sel2'  %>
                 <%= f.input :due_date %>
                 <%= f.input :completed %>
                 <%= f.input :description %>

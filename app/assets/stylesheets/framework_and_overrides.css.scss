@@ -329,11 +329,11 @@ a.action-button:visited{
   margin-top: 14px;
   text-decoration: none;
   }
-  .simple_form label {  
+.simple_form label {  
   float: left;  
-  width: 200px;  
+  width: 130px;  
   text-align: right;  
-  margin: 0px 15px;  
+  margin-right: 15px;  
 }  
 
 
@@ -383,8 +383,6 @@ border: none;
 }
 
 
-  
-
 
 .simple_form div.input {  
   margin-bottom: 10px;
@@ -401,6 +399,17 @@ border: none;
 
 input,
 optgroup,
+ {
+  color: inherit;
+  font: inherit;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 350px;
+  padding: 5px;
+}
+
 textarea {
   color: inherit;
   font: inherit;
@@ -408,31 +417,37 @@ textarea {
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 200px;
+  width: 350px;
+  height: 100px;
   padding: 5px;
 }
-input.short-drop {
+
+select {
   color: inherit;
   font: inherit;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 80px;
+  width: 112px;
   padding: 5px;
 }
-.long-drop {
-  color: inherit;
-  font: inherit;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
+
+.select2-container-multi .select2-choices {
+  height: auto !important;
+  height: 1%;
+  margin: 0;
+  padding: 0 5px 0 0;
+  position: relative;
   border: 1px solid #ccc;
-  width: 200px;
-  padding: 5px;
+  border-radius: 4px;
+  cursor: text;
+  overflow: hidden;
+  background-color: #fff;
 }
+
 .select2-container{
-  width: 200px;
+  width: 350px;
   border-radius: 4px;
   border: none;
 }
@@ -455,11 +470,14 @@ input.short-drop {
 }
 
 
+.modal-body{
+  padding: 0 0;
+}
 .modal-dialog {
     width: 700px;
     margin: 30px auto;
     z-index: 8000;
-    position: relative;
+    position: absolute;
   }
 .modal-content {
   position: relative;
@@ -482,9 +500,9 @@ input.short-drop {
   display: inline;
 }
 .table-responsive{
-position: relative;
-left: -15px;
- width: 103%;
+  position: relative;
+  left: -15px;
+  width: 103%;
 }
 
 

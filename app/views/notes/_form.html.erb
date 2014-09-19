@@ -16,7 +16,7 @@
               <%= f.input :author, :readonly => true, :input_html => { :value => @user.name } %>
               <%= f.input :created_at, as: :string, :readonly => true, :input_html => {:value => Date.today} %>
               <% if !@case %>
-                <%= f.association :case, :collection => @user.cases %>
+                <%= f.association :case, :collection => @user.cases, :input_html => {:id => "note_select"}, :class => 'sel2' %>
               <% end %>
               <%= f.input :note_type, :collection => ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'] %>
               <%= f.input :note %>
@@ -42,3 +42,6 @@
     <% end %>
 
 <% end %>
+  <script>
+    $(document).ready(function() { $("#note_select").select2(); });
+  </script>

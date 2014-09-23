@@ -1,7 +1,7 @@
 <ol class="breadcrumb">
   <li><%= link_to 'Cases', cases_path %></li>
   <li><%= link_to @case.name, case_path(@case) %></li>
-  <li class="active">Incident</li>
+  <li class="active">Medical</li>
 </ol>
 
 <%= render partial: 'shared/case_tabs' %>
@@ -27,11 +27,6 @@
 </p>
 
 <p>
-  <strong>Length of treatment:</strong>
-  <%= @medical.length_of_treatment %>
-</p>
-
-<p>
   <strong>Doctor type:</strong>
   <%= @medical.doctor_type %>
 </p>
@@ -40,6 +35,13 @@
   <strong>Treatment type:</strong>
   <%= @medical.treatment_type %>
 </p>
+<% @medical.injuries.each.with_index(1) do |injury, i|%>
+<p>
+  <strong>Injury #<%= i %> </strong> <br />
+  Injury Type: <%= injury.injury_type %> <br />
+  Region: <%= injury.region %>
+</p>
+<% end %>
 
 <%= link_to 'Edit', edit_case_medical_path(@case, @medical) %> |
 <% # = link_to 'Back', medicals_path %>

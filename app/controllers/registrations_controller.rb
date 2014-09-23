@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
   	def create
   		super
   		resource.name = resource.first_name + " " + resource.last_name
-  		resource.save!
+  		resource.save
   	end
 
 

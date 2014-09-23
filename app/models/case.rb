@@ -1,7 +1,7 @@
 class Case < ActiveRecord::Base
 
-  TYPES = ['Personal injury']
-  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action']
+  TYPES = ['Personal Injury', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Personal Injury', 'Real Estate', 'Wills', 'Trusts', 'Estates']
+  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action', 'Workers Compensation']
 
   enum status: { open: 0, pending: 1, closed: 2 }
 
@@ -24,6 +24,8 @@ class Case < ActiveRecord::Base
   has_many :notes
 
   accepts_nested_attributes_for :documents
+  accepts_nested_attributes_for :medical, :allow_destroy => true
+  accepts_nested_attributes_for :incident, :allow_destroy => true
 
   validates :name, presence: true
   validates :number, presence: true

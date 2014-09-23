@@ -24,6 +24,20 @@
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
               <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
+              <%= f.simple_fields_for :incident, new_case.build_incident do |i| %>
+                <%= i.input :incident_date %>
+                <%= i.input :statute_of_limitations %> <!-- TODO: make this read-only and calculated according to some rules that need to be defined -->
+                <% i.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
+              <% end %>
+              <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
+                <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
+                  <%= inj.input :injury_type, collection: Injury::INJURY_TYPE %>
+                  <%= inj.input :region, collection: Injury::REGION_TYPE %>
+                <% end %>
+                <%= m.input :total_med_bills, label: "Medical Bills" %>
+                <%= m.input :injuries_within_three_days, label: "Treated in first 3 days of incident? " %>
+                <%= m.input :length_of_treatment, label: "Total treatment length (months)" %>
+              <% end %>
               <%= f.input :description, type: 'text-area' %>
               <%= f.input :status, as: :select, collection: Case.statuses.keys, include_blank: false %>
 

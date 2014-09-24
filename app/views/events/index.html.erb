@@ -1,33 +1,31 @@
+<div class="grey">
+  <div class="buttons">
+    <%= link_to 'NEW EVENT', new_event_path, {:class => "action-button", :id => "event_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
+    <div class="btn-group">
+      <button type="button" class="btn btn-default">FILTER BY ATTORNEY</button>
+      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" role="menu">
 
-<%= link_to 'NEW EVENT', new_event_path, {:class => "action-button", :id => "event_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
-
-    <h3>Events</h3>
-    <div class="table-responsive">
-      <%= table_for @events,
-                    :table_html => { :class => "table table-striped table-hover" },
-                    :sortable => true,
-                    :sort_url => events_path do |event| %>
-          <% event.column :subject, :header => "Subject" %>
-          <% event.column :location, :header => "Location" %>
-          <% event.column :header => "Lawyer(s)", :data => lambda {|event| event.contacts.map {|c| c.name}.join(', ') }, :order => 'attorneys' %>
-          <% event.column :date, :header => "Date" %>
-          <% event.column :time, :header => "Time" %>
-          <% event.column :header => "Invitee(s)", :data => lambda {|event| event.users.map {|c| c.name}.join(', ') }, :order => 'users'  %>
-          <% event.column :all_day, :header => "All Day" %>
-          <% event.column :reminder, :header => "Reminder" %>
-          <% event.column :header => "Case(s)", :data => lambda {|event| event.cases.map {|c| c.name}.join(', ') }, :order => 'cases'   %>
-          <% event.column :notes, :header => "Notes" %>
-          <% event.column :data => "Show", :link => true %>
-          <% event.column :data => "Edit", :link_action => :edit %>
-          <% event.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
-          <% event.footer do %>
-              <div class="pull-right">
-                <%= will_paginate @events %>
-              </div>
-          <% end %>
-      <% end %>
-
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
     </div>
+    <%= form_tag(users_path, :method => "get", class: "case-filter") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "FILTER BY CASE"%>
+    <% end %>
+  </div>
+</div>
+
+
+  <div class="table-responsive calendar-table">
+    <div id="calendar"></div>
+  </div>
 
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
@@ -37,5 +35,15 @@ $(document).ready(function() {
   $('#event_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
   });
+  $('#calendar').fullCalendar({
+    dayClick: function(e) {
+      console.log('Date:', e);
+    },
+    header: {
+      left:   'prev, title, next',
+      center: '',
+      right:  ''
+    }
+  })
 });
 </script>

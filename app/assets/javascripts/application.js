@@ -15,5 +15,6 @@
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 //= require bootstrap
+//= require fullcalendar
 //= require_tree .
 //= require select2

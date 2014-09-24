@@ -347,7 +347,7 @@ a.action-button:visited{
   border: none;
 }
 
-
+/*
 .nav-tabs-custom {
 border: none;
   li {
@@ -373,8 +373,50 @@ border: none;
         letter-spacing: 1px;
         border: none;
         }
+        a:active{
+        color: #323A45;
+        font-family: sans-serif;
+        font-weight: lighter;
+        font-size: 12px;
+        letter-spacing: 1px;
+        border: none;
+        }
       }
     }
+    */
+
+#nav-tabs-custom{
+  position: fixed;
+  top: 64px;
+  z-index: 1500;
+  width: 100%;
+}
+#nav-tabs-custom ul{
+  padding: 0 0;
+  margin: 0 0;
+}
+#nav-tabs-custom li{
+  display: inline-block;
+  font-family: sans-serif;
+}
+#nav-tabs-custom a{
+  font-weight: lighter;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: white;
+  text-decoration: none;
+  padding-right: 10px;
+}
+#nav-tabs-custom a:hover{
+  font-weight: lighter;
+  cursor: pointer;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #323A45;
+  text-decoration: none;
+  padding-right: 10px;
+}
+
 
 .navigated {
         background: transparent;

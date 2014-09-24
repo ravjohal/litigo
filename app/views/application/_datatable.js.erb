@@ -1,0 +1,10 @@
+var table = $('.table').dataTable({
+  language: {
+    search: "_INPUT_",
+    searchPlaceholder: "Filter"
+  }
+});
+$('.table tbody').on( 'click', 'tr', function (e) {
+  var id = $(e.currentTarget).data('id');
+  $('table.rowlink').rowlink()
+});

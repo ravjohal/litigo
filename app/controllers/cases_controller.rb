@@ -5,15 +5,6 @@ class CasesController < ApplicationController
 
   def index
     @cases = @user.cases
-    #@cases = Case.all #if you want to grab all tenant's (firm) cases
-    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
-      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      @cases = @cases.order(order)
-    end
-    if params[:search].present? && params[:utf8] == "✓"
-      @cases = @cases.search(params[:search])
-    end
-    @cases = @cases.paginate(:per_page => 10, :page => params[:page])
   end
 
   def show

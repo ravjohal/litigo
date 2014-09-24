@@ -54,15 +54,17 @@ class DocumentsController < ApplicationController
   def create
     if get_case
       @document = @case.documents.create(document_params)
+      path_documents = case_documents_path
     else
       @document = Document.new(document_params)
+      path_documents = documents_path
     end
 
     @document.user = @user
 
     respond_to do |format|
       if @document.save
-        format.html { redirect_to @document, notice: 'Document was successfully created.' }
+        format.html { redirect_to path_documents, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
         format.html { render :new }

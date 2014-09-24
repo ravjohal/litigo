@@ -58,8 +58,10 @@ class ContactsController < ApplicationController
   def create
     if get_case
       @contact = @case.contacts.build(contact_params)
+      path_contacts =  case_contacts_path
     else
       @contact = Contact.new(contact_params)
+      path_contacts = contacts_path
     end
 
     # TODO: render partials per each type
@@ -70,7 +72,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+        format.html { redirect_to path_contacts, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, location: @contact }
       else
         format.html { render :new }

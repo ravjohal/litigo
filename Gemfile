@@ -26,7 +26,6 @@ gem 'active_link_to', '~> 1.0.2'
 gem 'apartment'
 gem 'jquery-datatables-rails', '~> 2.2.3'
 gem "select2-rails", '3.5.9.1'
-gem 'jquery-datatables-rails', '~> 2.2.3'
 gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'fullcalendar-rails'
 

@@ -7,23 +7,6 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     @tasks = @user.tasks
-
-    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
-      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      if ['cases'].include?(params[:order])
-        @tasks = @tasks.eager_load(params[:order].to_sym).order(order)
-      else
-        @tasks = @tasks.order(order)
-      end
-
-    end
-    if params[:search].present? && params[:utf8] == "✓"
-      logger.info"#{params[:search]}"
-      @tasks = @tasks.search(params[:search])
-
-    end
-    @tasks = @tasks.paginate(:per_page => 10, :page => params[:page])
-
   end
 
   # GET /tasks/1

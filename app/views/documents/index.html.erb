@@ -12,27 +12,34 @@
 
     <h3>Documents</h3>
     <div class="table-responsive">
-     
-
-      <%= table_for @documents,
-                    :table_html => { :class => "table table-striped table-hover" },
-                    :sortable => true,
-                    :sort_url => documents_path do |doc| %>
-          <% doc.column :author, :header => "Author" %>
-          <% doc.column :doc_type, :header => "Type" %>
-          <% doc.column :header => "Document", :data => lambda {|document| document.document.file.filename if !document.document_url.blank? }, :link_url => lambda { |document| document.document_url }, :order => 'documents' %>
-          <% doc.column :template, :header => "Template" %>
-          <% doc.column :header => "Case(s)", :data => lambda {|doc| doc.cases.map {|c| c.name}.join(', ') }, :order => 'cases' %>
-          <% doc.column :data => "Show", :link => true %>
-          <% doc.column :data => "Edit", :link_action => :edit %>
-          <% doc.column :data => "Delete", :link_method => :delete, :link_confirm => "Are you sure?" %>
-          <% doc.footer do %>
-              <div class="pull-right">
-                <%= will_paginate @documents %>
-              </div>
-          <% end %>
-      <% end %>
-
+      <table id="tasks" class="table table-striped table-hover rowlink">
+        <thead>
+        <tr>
+          <th>Author</th>
+          <th>Type</th>
+          <th>Document</th>
+          <th>Template</th>
+          <th>Case(s)</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @documents.each do |document| %>
+          <tr data-id="<%= document.id %>">
+            <td><%= document.author %></td>
+            <td><%= document.doc_type %></td>
+            <td><%= document.document.file.filename if !document.document_url.blank? %></td>
+            <td><%= document.template %></td>
+            <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
+            <td><%= link_to 'Show', document_path(document) %></td>
+            <td><%= link_to 'Edit', edit_document_path(document) %></td>
+            <td><%= link_to 'Delete',  document,  method: :delete, data: { confirm: 'Are you sure?' }  %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
   </div>
 
 
@@ -42,6 +49,15 @@
 $(document).ready(function() {
   $('#document_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: @documents_a ) %>");
+  });
+  var table = $('.table').dataTable({
+    aoColumnDefs: [
+      { 'bSortable': false, 'aTargets': [ 5,6,7 ] }
+    ],
+    language: {
+      search: "_INPUT_",
+      searchPlaceholder: "Filter"
+    }
   });
 });
 </script>

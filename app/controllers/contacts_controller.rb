@@ -15,17 +15,6 @@ class ContactsController < ApplicationController
       @new_path_contacts = new_contact_path
       @contacts_a = Contact.new #for modal partial rendering
     end
-
-    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
-      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      @contacts = @contacts.order(order)
-    end
-    if params[:search].present? && params[:utf8] == "✓"
-      logger.info"#{params[:search]}"
-      @contacts = @contacts.search(params[:search])
-
-    end
-    @contacts = @contacts.paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /contacts/1

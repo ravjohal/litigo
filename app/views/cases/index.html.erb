@@ -1,30 +1,33 @@
-
-
-
 <%= link_to 'NEW CASE', new_case_path, {:class => "action-button", :id => "case_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 
 
   <h3>Cases</h3>
 
     <div class="table-responsive">
-
-      <%= table_for @cases,
-                    :table_html => { :class => "table table-striped table-hover rowlink" },
-                    :sortable => true,
-                    :sort_url => cases_path do |case1| %>
-          <% case1.column :name, :header => "Name", :link => true %>
-          <% case1.column :number, :header => "Number", :link => true %>
-          <% case1.column :case_type, :header => "Case Type", :link => true %>
-          <% case1.column :medical_bills, :header => "Medical Bills", :link => true %>
-          <% case1.column :description, :header => "Description", :link => true %>
-          <% case1.column :status, :header => "Status", :link => true %>
-          <% case1.footer do %>
-              <div class="pull-right">
-                <%= will_paginate @cases %>
-              </div>
-          <% end %>
-    <% end %>
-
+      <table id="cases" class="table table-striped table-hover rowlink">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Case Type</th>
+            <th>Medical Bills</th>
+            <th>Description</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @cases.each do |one_case| %>
+          <tr data-id="<%= one_case.id %>">
+            <td><%= link_to one_case.name, case_path(one_case) %></td>
+            <td><%= one_case.number %></td>
+            <td><%= one_case.case_type %></td>
+            <td><%= one_case.medical_bills %></td>
+            <td><%= one_case.description %></td>
+            <td><%= one_case.status %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     </div>
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
@@ -34,11 +37,9 @@ $(document).ready(function() {
   $('#case_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'cases/form', new_case: Case.new ) %>");
   });
+  <%= render 'datatable.js' %>
 });
 </script>
-  <script>
-      $('table.rowlink').rowlink()
-  </script>
 
 
 

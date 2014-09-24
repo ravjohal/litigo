@@ -18,21 +18,6 @@ class NotesController < ApplicationController
       @notes_a = Note.new #for modal partial rendering
     end
 
-    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
-      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      if params[:order] == 'case'
-        @notes = @notes.order("case_id #{params[:sort_mode]}")
-        logger.info"@notes: #{@notes}\n\n\n"
-      else
-        @notes = @notes.order(order)
-      end
-    end
-    if params[:search].present? && params[:utf8] == "✓"
-      logger.info"#{params[:search]}"
-      @notes = @notes.search(params[:search])
-
-    end
-    @notes = @notes.paginate(:per_page => 10, :page => params[:page])
   end
 
   # GET /notes/1

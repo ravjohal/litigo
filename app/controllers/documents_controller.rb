@@ -15,22 +15,6 @@ class DocumentsController < ApplicationController
       @new_path_documents = new_document_path
       @documents_a = Document.new #for modal partial rendering
     end
-
-    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
-      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      if params[:order] =='cases'
-        @documents = @documents.eager_load(params[:order].to_sym).order(order)
-      else
-        @documents = @documents.order(order)
-      end
-    end
-    if params[:search].present? && params[:utf8] == "✓"
-      logger.info"#{params[:search]}"
-      @documents = @documents.search(params[:search])
-
-    end
-    @documents = @documents.paginate(:per_page => 10, :page => params[:page])
-
   end
 
   # GET /documents/1

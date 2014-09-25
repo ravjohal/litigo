@@ -8,11 +8,11 @@ FactoryGirl.define do
   factory :contact do
     first_name "#{Faker::Lorem.characters(8)}"
     last_name "#{Faker::Lorem.characters(8)}"
+    type "#{Faker::Lorem.characters(8)}"
   end
 
   factory :attorney do
     attorney_type "#{Faker::Lorem.characters(8)}"
-    firm "#{Faker::Lorem.characters(8)}"
   end
 
   factory :event do
@@ -21,6 +21,14 @@ FactoryGirl.define do
 
   factory :document do
 
+  end
+
+  factory :firm do
+    name "#{Faker::Lorem.characters(8)}"
+    phone "#{Faker::Number.number(10)}"
+    fax "#{Faker::Number.number(10)}"
+    zip "#{Faker::Lorem.characters(8)}"
+    tenant "#{Faker::Lorem.characters(8)}"
   end
 
   factory :user do
@@ -72,7 +80,8 @@ FactoryGirl.define do
   end
 
   factory :witness do
-
+    first_name "#{Faker::Lorem.characters(8)}"
+    last_name "#{Faker::Lorem.characters(8)}"
   end
 
 end

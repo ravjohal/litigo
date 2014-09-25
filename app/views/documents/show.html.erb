@@ -27,5 +27,10 @@
   <%= @document.cases.map {|c| c.name}.join(', ') %>
 </p>
 
+<p>
+  <strong>Creation Date:</strong>
+  <%= @document.created_at.to_date %>
+</p>
+
 <%= link_to 'Edit', edit_document_path(@document) %> |
 <%= link_to 'Back', documents_path %>

@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     resources :contacts, :shallow => true
     resources :notes, :shallow => true
     resources :documents, :shallow => true
+    resources :tasks, :shallow => true
     resources :incidents
     resources :medicals do
       resources :injuries

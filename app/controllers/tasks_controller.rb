@@ -6,7 +6,16 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = @user.tasks
+    
+    if get_case
+      @tasks = @case.tasks
+      @new_path_tasks = new_case_task_path(@case)
+      @tasks_a = [@case, Task.new] #for modal partial rendering
+    else
+      @tasks = @user.tasks
+      @new_path_tasks = new_task_path
+      @tasks_a = Task.new #for modal partial rendering
+    end
   end
 
   # GET /tasks/1
@@ -28,13 +37,19 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(task_params)
+    if get_case
+      @task = @case.tasks.create(task_params)
+      path_tasks = case_tasks_path
+    else
+      @task = Task.new(task_params)
+      path_tasks = tasks_path
+    end
 
     @task.user = @user
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html { redirect_to path_tasks, notice: 'Task was successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
         format.html { render :new }

@@ -6,4 +6,4 @@ Feature: Home page
     Given I am a guest
     When I visit home page
     Then the page should show "Legal Insights to Build a Winning Case"
-    And the page should show "SIGN UP FOR A FREE 30-DAY TRIAL"
+    And the page should show "SIGN UP FOR OUR BETA LIST"

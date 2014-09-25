@@ -594,6 +594,7 @@ a.request-button:hover{
 
 .navbar {
   margin-bottom: 0px;
+
 }
 
 .alert {
@@ -621,12 +622,17 @@ a.request-button:hover{
 .navbar-fixed-top {
   top: 0;
   border-width: 0 0 0px;
+  z-index: 10;
 }
 .navbar-default {
+  position: fixed;
   margin-top: 48px;
   background-color: #3FC2D8;
   border-color: #3FC2D8;
+  z-index: -5000;
 }
+
+
 
 /*Sign out button*/
 
@@ -755,6 +761,15 @@ a.request-button:hover{
         display: block;
         padding: 20px 15px;
         color: white;
+}
+.navigated {
+       font-weight: lighter;
+      cursor: pointer;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: #323A45;
+      text-decoration: none;
+      padding-right: 10px;
 }
 
 .nav-sidebar__dsh {

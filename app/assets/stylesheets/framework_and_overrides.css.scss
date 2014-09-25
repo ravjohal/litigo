@@ -335,6 +335,16 @@ a.action-button:visited{
   text-align: right;  
   margin-right: 15px;  
 }  
+@media (max-width: 767px) {
+#tasks_filter {
+  display: none;
+}
+}
+@media (max-width: 1230px) {
+#tasks_filter {
+  width: 200px;
+}
+}
 
 
 .nav-two {
@@ -424,18 +434,19 @@ color: #323A45;
   top: -40px;
 }
 .dataTables_filter{
-  width: 300px;
+  width: 200px;
   position: fixed;
   right: 16px;
   z-index: 1000;
   top: 55px;
 }
 input[type="search"] {
-width: 300px;
+width: 200px;
 -webkit-appearance: none;
 font-weight: lighter;
 border: none;
 letter-spacing: 1px;
+text-indent: 10px;
 }
 
 .simple_form div.input {  

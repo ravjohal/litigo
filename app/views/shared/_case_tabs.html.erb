@@ -2,23 +2,21 @@
 <ul id="nav-tabs-custom" role="tablist">
   <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case)  %></li>
   <% if @case.incident %>
-    <li<%= is_active('incidents') %>><%= link_to 'INCIDENT', case_incident_path(@case, @case.incident) %></li>
+    <li<%= is_active('incidents') %>><%= active_link_to 'INCIDENT', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
  <% if @case.medical %>
-    <li<%= is_active('medicals') %>><%= link_to 'MEDICAL', case_medical_path(@case, @case.medical) %></li>
+    <li<%= is_active('medicals') %>><%= active_link_to 'MEDICAL', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
    <% if @case.contacts %>
-     <li><%= active_link_to 'CONTACTS', case_contacts_path(@case),  :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'CONTACTS', case_contacts_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <li><%= link_to 'CALENDAR', '#' %></li>
- <% if @case.tasks %>
-     <li><%= active_link_to 'TASKS', case_tasks_path(@case),  :class_active => 'navigated' %></li>
-  <% end %>
+  <li><%= link_to 'TASKS', '#' %></li>
   <% if @case.documents %>
-     <li><%= active_link_to 'DOCUMENTS', case_documents_path(@case), :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'DOCUMENTS', case_documents_path(@case) , :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.notes %>
-     <li><%= active_link_to 'NOTES', case_notes_path(@case), :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'NOTES', case_notes_path(@case) , :class_active => 'navigated' %></li>
   <% end %>
   <li><%= link_to 'RESOLUTION', '#' %></li>
 </ul>

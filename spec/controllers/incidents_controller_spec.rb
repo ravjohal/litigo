@@ -5,9 +5,11 @@ describe IncidentsController, type: :controller do
 
     let(:case_var) { FactoryGirl.create(:case_with_incident) }
     let(:incident) { case_var.incident }
+    let!(:firm) {FactoryGirl.create(:firm)}
 
     it "has a 200 status code" do
       sign_in
+      # binding.pry
       get :show, id: case_var.incident.id, case_id: case_var.id
       expect(response.status).to eq(200)
     end

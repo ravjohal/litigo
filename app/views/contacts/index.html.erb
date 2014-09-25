@@ -26,7 +26,7 @@
       <tbody>
       <% @contacts.each do |contact| %>
         <tr data-id="<%= contact.id %>">
-          <td><%= link_to "#{contact.last_name} #{contact.first_name}", case_path(contact) %></td>
+          <td><%= link_to "#{contact.last_name} #{contact.first_name}", contact_path(contact) %></td>
           <td><%= contact.type %></td>
           <td><%= contact.email %></td>
           <td><%= contact.phone_number %></td>

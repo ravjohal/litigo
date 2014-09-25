@@ -27,7 +27,7 @@
         <tbody>
         <% @notes.each do |note| %>
           <tr data-id="<%= note.id %>">
-            <td><%= note.author %></td>
+            <td><%= link_to note.author, note_path(note)  %></td>
             <td><%= note.case.name if note.case.present? %></td>
             <td><%= note.created_at %></td>
             <td><%= note.note_type %></td>

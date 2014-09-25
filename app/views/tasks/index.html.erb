@@ -1,5 +1,14 @@
+<% if @case %>
+  <ol class="breadcrumb">
+    <li><%= link_to 'Cases', cases_path %></li>
+    <li><%= link_to @case.name, case_path(@case) %></li>
+    <li class="active">Tasks</li>
+  </ol>
 
-<%= link_to 'NEW TASK', new_task_path, {:class => "action-button", :id => "task_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
+  <%= render partial: 'shared/case_tabs' %>
+<% end %>
+
+<%= link_to 'NEW TASK', @new_path_tasks, {:class => "action-button", :id => "task_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
 
   <h3>Tasks</h3>
   
@@ -34,7 +43,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $('#task_modal').click(function (event) {
-    $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: Task.new ) %>");
+    $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
   });
   <%= render 'datatable.js' %>
 });

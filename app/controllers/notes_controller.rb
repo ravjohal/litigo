@@ -42,15 +42,17 @@ class NotesController < ApplicationController
     
     if get_case
       @note = @case.notes.build(note_params)
+      path_notes = case_notes_path
     else
       @note = Note.new(note_params)
+      path_notes = notes_path
     end
 
     @note.user = @user
     
     respond_to do |format|
       if @note.save
-        format.html { redirect_to @note, notice: 'Note was successfully created.' }
+        format.html { redirect_to path_notes, notice: 'Note was successfully created.' }
         format.json { render :show, status: :created, location: @note }
       else
         format.html { render :new }

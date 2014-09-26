@@ -21,5 +21,8 @@
   <%= @note.note %>
 </p>
 
-<%= link_to 'Edit', edit_note_path(@note) %> |
-<%= link_to 'Back', notes_path %>
+
+<div class="text-center link-pad">
+<%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %> |
+<%= link_to 'Back to Notes', notes_path, :class => 'dark' %>
+</div>

@@ -51,4 +51,7 @@
   <%= @incident.police_report %>
 </p>
 
-<%= link_to 'Edit', edit_case_incident_path(@case, @incident) %>
+<div class="text-center link-pad">
+<%= link_to 'Edit', edit_case_incident_path(@case, @incident), :class => 'dark' %> | 
+<%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
+</div>

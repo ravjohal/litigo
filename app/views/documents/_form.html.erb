@@ -20,7 +20,7 @@
                 <%= f.input :document, as: :file %>
               <% else %>
               Existing Document:
-                <%= link_to @document.document.file.filename, @document.document_url %>
+                <%= link_to @document.document.file.filename, @document.document_url, :class => 'dark' %>
                 <%= f.input :document, as: :file %>
               <% end %>
               <%= f.input :template %>

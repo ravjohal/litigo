@@ -1,6 +1,8 @@
-<h1>Editing contact</h1>
+
 
 <%= render 'form', new_contact: @contact %>
 
-<%= link_to 'Cancel', @contact %> |
-<%= link_to 'Back to Contacts', contacts_path %>
+
+<div class="text-center link-pad">
+<%= link_to 'Cancel', @contact, :class => 'dark' %>
+</div>

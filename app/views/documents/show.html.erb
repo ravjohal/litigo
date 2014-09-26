@@ -13,7 +13,7 @@
 <p>
   <strong>Document:</strong>
   <% if @document.document.file %>
-    <%= link_to @document.document.file.filename, @document.document_url %>
+    <%= link_to @document.document.file.filename, @document.document_url, :class => 'dark' %>
   <% end %>
 </p>
 
@@ -32,5 +32,7 @@
   <%= @document.created_at.to_date %>
 </p>
 
-<%= link_to 'Edit', edit_document_path(@document) %> |
-<%= link_to 'Back', documents_path %>
+<div class="text-center link-pad">
+<%= link_to 'Edit', edit_document_path(@document), :class => 'dark' %> |
+<%= link_to 'Back to Documents', documents_path, :class => 'dark' %>
+</div>

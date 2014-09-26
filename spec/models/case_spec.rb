@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Case' do
 
   let!(:user) { create(:user) }
-  let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer', :firm => 'Firm') }
+  let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer') }
   let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh') }
   let!(:cas) { create(:case, number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',
                        description: 'Description') }

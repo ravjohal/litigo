@@ -49,6 +49,7 @@ end
 group :test do
   gem 'shoulda-matchers', '~> 2.5.0'                  # Collection of testing matchers extracted from Shoulda http://thoughtbot.com/community
   gem 'rspec-rails', '~> 3.0.2'                       # https://www.relishapp.com/rspec/rspec-rails/docs/gettingstarted
+  gem 'rspec-activemodel-mocks', '~> 1.0.1'           # RSpec test doubles for ActiveModel and ActiveRecord
   gem 'capybara', '~> 2.4.1'
   gem 'database_cleaner', '~> 1.3.0'                  # database_cleaner is not required, but highly recommended
   gem 'selenium-webdriver', '~> 2.41.0'

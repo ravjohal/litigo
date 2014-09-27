@@ -143,7 +143,6 @@ GEM
     hike (1.2.3)
     hub (1.12.2)
     i18n (0.6.11)
-    icalendar (2.2.0)
     jbuilder (2.1.3)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -310,6 +309,7 @@ GEM
     uglifier (2.5.3)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uuidtools (2.1.5)
     warden (1.2.3)
       rack (>= 1.0)
     websocket (1.0.7)
@@ -343,7 +343,6 @@ DEPENDENCIES
   git-smart (~> 0.1.9)
   google-api-client (~> 0.7.1)
   hub
-  icalendar (~> 2.2.0)
   jbuilder (~> 2.0)
   jquery-datatables-rails (~> 2.2.3)
   jquery-rails

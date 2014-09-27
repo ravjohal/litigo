@@ -1,6 +1,8 @@
-<h1>Editing document</h1>
+
 
 <%= render 'form', new_document: @document %>
 
-<%= link_to 'Show', @document %> |
-<%= link_to 'Back', documents_path %>
+
+<div class="text-center link-pad">
+<%= link_to 'Cancel', @document, :class => 'dark' %>
+</div>

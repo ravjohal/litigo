@@ -331,7 +331,7 @@ a.action-button:visited{
   }
 .simple_form label {  
   float: left;  
-  width: 130px;  
+  width: 170px;  
   text-align: right;  
   margin-right: 15px;  
 }  
@@ -359,6 +359,10 @@ a.action-button:visited{
 .breadcrumb a{
   color: #323A45;
 }
+.dark {
+ color: #323A45; 
+}
+
 
 
 #nav-tabs-custom{
@@ -552,6 +556,11 @@ select {
   width: 300px;
 }
 
+.link-pad {
+  padding-top: 20px;
+  padding-bottom: 30px;
+}
+
 
 .control-group{
   margin-bottom: 10px;
@@ -560,14 +569,14 @@ select {
 #document_document{
   position: relative;
   top: -20px;
-  margin-left: 230px;
+  margin-left: 250px;
   border: none;
   display: inline;
 }
 .table-responsive{
   position: relative;
   left: -15px;
-  width: 103%;
+  width: 101%;
 }
 
 

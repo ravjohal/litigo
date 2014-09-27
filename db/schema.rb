@@ -11,22 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140923071425) do
+ActiveRecord::Schema.define(version: 20140926073624) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "attorneys", force: true do |t|
-    t.string   "attorney_type"
-    t.string   "firm"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "attorneys_events", id: false, force: true do |t|
-    t.integer "attorney_id"
-    t.integer "event_id"
-  end
+  enable_extension "hstore"
 
   create_table "case_documents", force: true do |t|
     t.integer  "case_id"
@@ -66,11 +55,6 @@ ActiveRecord::Schema.define(version: 20140923071425) do
     t.string   "court"
   end
 
-  create_table "clients", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "contacts", force: true do |t|
     t.string   "first_name"
     t.string   "middle_name"
@@ -104,19 +88,6 @@ ActiveRecord::Schema.define(version: 20140923071425) do
     t.string   "attorney_type"
     t.string   "staff_type"
     t.integer  "event_id"
-  end
-
-  create_table "defendants", force: true do |t|
-    t.boolean  "married"
-    t.boolean  "employed"
-    t.text     "job_description"
-    t.float    "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
-    t.integer  "jury_likeability"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "documents", force: true do |t|
@@ -201,25 +172,6 @@ ActiveRecord::Schema.define(version: 20140923071425) do
     t.string   "author"
   end
 
-  create_table "plantiffs", force: true do |t|
-    t.boolean  "married"
-    t.boolean  "employed"
-    t.text     "job_description"
-    t.float    "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
-    t.integer  "jury_likeability"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "staffs", force: true do |t|
-    t.string   "staff_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "tasks", force: true do |t|
     t.string   "name"
     t.date     "due_date"
@@ -270,13 +222,5 @@ ActiveRecord::Schema.define(version: 20140923071425) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "witnesses", force: true do |t|
-    t.string   "witness_type"
-    t.string   "witness_subtype"
-    t.string   "witness_doctype"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end

@@ -1,5 +1,15 @@
-<h1>Editing incident</h1>
+<ol class="breadcrumb">
+  <li><%= link_to 'Cases', cases_path %></li>
+  <li><%= link_to @case.name, case_path(@case) %></li>
+  <li class="active">Incident</li>
+</ol>
+
+
+<%= render partial: 'shared/case_tabs' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', [@case, @incident] %>
+
+<div class = "text-center link-pad">
+<%= link_to 'Cancel', [@case, @incident], :class => 'dark' %>
+</div>

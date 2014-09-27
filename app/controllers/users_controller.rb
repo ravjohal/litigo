@@ -2,6 +2,10 @@ class UsersController < ApplicationController
   before_filter :authenticate_user!
   before_filter :update_last_sign_in_at
   after_action :verify_authorized, except: [:show,:save_google_oauth]
+  require 'google/api_client'
+  require 'google/api_client/client_secrets'
+  require 'google/api_client/auth/installed_app'
+  require 'icalendar'
 
   def index
     @users = User.all
@@ -44,24 +48,46 @@ class UsersController < ApplicationController
   end
 
   def save_google_oauth
-    current_user.oauth_token = request.env['omniauth.auth']['credentials']['token']
-    current_user.oauth_expires_at = DateTime.strptime(request.env['omniauth.auth']['credentials']['expires_at'].to_s,'%s')
-    current_user.google_email = request.env['omniauth.auth']['info']['email']
+    @auth = request.env["omniauth.auth"]
+    @token = @auth["credentials"]["token"]
+    current_user.oauth_token = @token
+    current_user.oauth_expires_at = DateTime.strptime(@auth['credentials']['expires_at'].to_s,'%s')
+    current_user.google_email = @auth['info']['email']
     current_user.save
-    # binding.pry
-    
-    json_dump = RestClient.get("https://www.google.com/m8/feeds/contacts/#{current_user.google_email}/full?alt=json&max-results=99999", 
-         {:content_type => :json, :authorization => "Bearer #{current_user.oauth_token}"})
 
-    jsonObj = JSON.parse json_dump
-    
+    client = Google::APIClient.new
+    client.authorization.access_token = @token
+    #getting google calendar events
+    calendar = client.discovered_api('calendar', 'v3')
+    @google_calendar = client.execute(
+        :api_method => calendar.events.list,
+        :parameters => {'calendarId' => 'primary'},
+        :headers => {'Content-Type' => 'application/json'})
+    logger.info "@google_calendar1: #{@google_calendar.data.items}\n\n\n"
+    while true
+      events = @google_calendar.data.items
+      events.each do |e|
+        #TODO save needed info from google calendar events
+        print e.summary + "\n"
+      end
+      if !(page_token = @google_calendar.data.next_page_token)
+        break
+      end
+      @google_calendar = client.execute(:api_method => calendar.events.list,
+                              :parameters => {'calendarId' => 'primary',
+                                              'pageToken' => page_token})
+    end
+    #getting google contacts
+    contacts = RestClient.get("https://www.google.com/m8/feeds/contacts/#{current_user.google_email}/full?alt=json&max-results=99999",
+                                      {:content_type => :json, :authorization => "Bearer #{current_user.oauth_token}"})
+    jsonObj = JSON.parse contacts
     jsonObj['feed']['entry'].each do |e|
       contact_email = e['gd$email'][0]['address'] if e['gd$email']
       if contact_email.nil? or contact_email.empty?
         next
       end
       contact_name = e['title']['$t'] if e['title']
-      if contact_name.nil? or contact_name.empty? 
+      if contact_name.nil? or contact_name.empty?
         next
       end
       name_list = contact_name.split(' ',2)
@@ -71,18 +97,17 @@ class UsersController < ApplicationController
         last_name = name_list[1]
       end
       new_contact = Contact.new(
-        :email => contact_email, 
-        :first_name => first_name, 
-        :last_name => last_name,
-        :contactable_type => "General")
-      new_contact.save
+          :email => contact_email,
+          :first_name => first_name,
+          :last_name => last_name,
+          :type => "General")
+      logger.info "new_contact: #{new_contact.inspect}\n\n\n"
+      #TODO Save properly contacts with connection to User
+      # new_contact.save
       #binding.pry
     end
-    current_user.show_onboarding = false
-    current_user.save
     redirect_to user_path(current_user.id)
   end
-
 
   protected
 

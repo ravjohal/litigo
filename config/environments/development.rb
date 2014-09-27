@@ -53,6 +53,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Some custom environmental variables for development environment
-  ENV['GOOGLE_CLIENT_ID'] = '497381628040-m9e61v5lf3n5rjc3eofr70lg1b5dghnj.apps.googleusercontent.com'
-  ENV['GOOGLE_CLIENT_SECRET'] = 'j9CJmBZo9NlORSvU6Zxr2sAZ'
+  ENV['GOOGLE_CLIENT_ID'] = '736572132161-nupqnfql638fre8s0fm8k9hga9gfj834.apps.googleusercontent.com'
+  ENV['GOOGLE_CLIENT_SECRET'] = 'cm6QzGOP3xdZB2d9UsZEYmUq'
 end

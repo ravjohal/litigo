@@ -16,5 +16,6 @@
 //= require turbolinks
 //= require bootstrap
 //= require fullcalendar
+//= require gcal
 //= require_tree .
 //= require select2

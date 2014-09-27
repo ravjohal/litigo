@@ -29,7 +29,7 @@
 
 <p>
   <strong>Creation Date:</strong>
-  <%= @document.created_at.to_date %>
+  <%= @document.created_at.strftime("%m/%d/%y %I:%M %p") %>
 </p>
 
 <%= link_to 'Edit', edit_document_path(@document) %> |

@@ -33,9 +33,9 @@
             <td><%= document.document.file.filename if !document.document_url.blank? %></td>
             <td><%= document.template %></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
-            <td><%= link_to 'Show', document_path(document) %></td>
-            <td><%= link_to 'Edit', edit_document_path(document) %></td>
-            <td><%= link_to 'Delete',  document,  method: :delete, data: { confirm: 'Are you sure?' }  %></td>
+            <td><%= link_to 'Show', document_path(document), :class => 'dark' %></td>
+            <td><%= link_to 'Edit', edit_document_path(document), :class => 'dark' %></td>
+            <td><%= link_to 'Delete',  document,  method: :delete, data: { confirm: 'Are you sure?' }, :class => 'dark'  %></td>
           </tr>
         <% end %>
         </tbody>

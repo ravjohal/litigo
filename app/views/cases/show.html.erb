@@ -91,5 +91,7 @@
   <%= @case.closing_date %>
 </p>
 
-<%= link_to 'Edit', edit_case_path(@case) %> |
-<%= link_to 'Back', cases_path %>
+<div class="text-center link-pad">
+<%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %> |
+<%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
+</div>

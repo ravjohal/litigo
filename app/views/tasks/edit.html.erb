@@ -1,6 +1,8 @@
-<h1>Editing task</h1>
+
 
 <%= render 'form', new_task: @task %>
 
-<%= link_to 'Show', @task %> |
-<%= link_to 'Back', tasks_path %>
+
+<div class="text-center link-pad">
+<%= link_to 'Cancel', @task, :class => 'dark' %>
+</div>

@@ -11,7 +11,9 @@
      <li><%= active_link_to 'CONTACTS', case_contacts_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <li><%= link_to 'CALENDAR', '#' %></li>
-  <li><%= link_to 'TASKS', '#' %></li>
+  <% if @case.tasks %>
+     <li><%= active_link_to 'TASKS', case_tasks_path(@case), :class_active => 'navigated' %></li>
+  <% end %>
   <% if @case.documents %>
      <li><%= active_link_to 'DOCUMENTS', case_documents_path(@case) , :class_active => 'navigated' %></li>
   <% end %>

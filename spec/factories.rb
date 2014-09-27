@@ -13,6 +13,8 @@ FactoryGirl.define do
 
   factory :attorney do
     attorney_type "#{Faker::Lorem.characters(8)}"
+    first_name "#{Faker::Lorem.characters(8)}"
+    last_name "#{Faker::Lorem.characters(8)}"
   end
 
   factory :event do
@@ -60,11 +62,13 @@ FactoryGirl.define do
   end
 
   factory :client do
-
+    first_name "#{Faker::Lorem.characters(8)}"
+    last_name "#{Faker::Lorem.characters(8)}"
   end
 
   factory :defendant do
-
+    first_name "#{Faker::Lorem.characters(8)}"
+    last_name "#{Faker::Lorem.characters(8)}"
   end
 
   factory :note do

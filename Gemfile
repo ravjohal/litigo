@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
-ruby '2.1.1'
+ruby '2.1.3'
 gem 'rails', '4.1.1'
+gem 'ffi', '~> 1.9.5'
 gem 'sass-rails', '~> 4.0.3'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -8,7 +9,6 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
 gem 'bootstrap-sass'
 gem 'autoprefixer-rails'
 gem 'devise'
@@ -42,7 +42,6 @@ end
 group :development, :test, :staging do
   gem 'minitest', '~> 5.4.0'
   gem 'factory_girl_rails', '~> 4.4.1'                # Test data generator -- see spec/factories/factories.rb
-  gem 'pry-debugger'                                  # Pry navigation commands via debugger (formerly ruby-debug) https://github.com/nixme/pry-debugger
   gem 'git-smart', '~> 0.1.9'                         # Allows 'git smart-pull' for less merge messes
   gem 'faker', '~> 1.2.0'                             # Easy way to add fake data: names, email addresses, etc.
 end
@@ -56,6 +55,15 @@ group :test do
   gem 'selenium-webdriver', '~> 2.41.0'
   gem 'capybara-firebug', '~> 2.0.0'
   gem 'cucumber-rails', '~> 1.4.0', :require => false  # Cucumber Generator and Runtime for Rails
+end
+
+group :development, :test do
+  # Call 'debugger' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', '~> 3.5.0'
+  # Access an IRB console on exceptions page and /console in development
+  gem 'web-console', '~> 1.0.4'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring', '~> 1.1.3'
 end
 
 group :production do

@@ -31,7 +31,7 @@
             <td><%= document.author %></td>
             <td><%= document.doc_type %></td>
             <td><%= document.document.file.filename if !document.document_url.blank? %></td>
-            <td><%= document.template %></td>
+            <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= link_to 'Show', document_path(document), :class => 'dark' %></td>
             <td><%= link_to 'Edit', edit_document_path(document), :class => 'dark' %></td>

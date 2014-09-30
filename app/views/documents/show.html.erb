@@ -18,8 +18,8 @@
 </p>
 
 <p>
-  <strong>Template:</strong>
-  <%= @document.template %>
+  <strong>Creation Date:</strong>
+  <%= @document.created_at.strftime("%m/%d/%y %I:%M %p")%>
 </p>
 
 <p>
@@ -27,10 +27,6 @@
   <%= @document.cases.map {|c| c.name}.join(', ') %>
 </p>
 
-<p>
-  <strong>Creation Date:</strong>
-  <%= @document.created_at.to_date %>
-</p>
 
 <div class="text-center link-pad">
 <%= link_to 'Edit', edit_document_path(@document), :class => 'dark' %> |

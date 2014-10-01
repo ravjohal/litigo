@@ -67,6 +67,7 @@ class UsersController < ApplicationController
       events = @google_calendar.data.items
       events.each do |e|
         #TODO save needed info from google calendar events
+        logger.info "e: #{e.inspect}\n"
         print e.summary + "\n"
       end
       if !(page_token = @google_calendar.data.next_page_token)

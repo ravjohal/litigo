@@ -23,7 +23,6 @@
                 <%= link_to @document.document.file.filename, @document.document_url, :class => 'dark' %>
                 <%= f.input :document, as: :file %>
               <% end %>
-              <%= f.input :template %>
               <% if !@case %>
                 <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, :class => 'sel2' %>
               <% end %>
@@ -39,7 +38,7 @@
         <% end %>
 
               <div class="form-actions">
-                  <%= f.button :submit, :class =>"btn btn-large btn-primary" %>
+                  <%= f.button :submit, :class =>"sub" %>
               </div>
 
     <% if action_name == "index" %>        

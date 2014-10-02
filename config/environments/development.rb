@@ -55,4 +55,11 @@ Rails.application.configure do
   # Some custom environmental variables for development environment
   ENV['GOOGLE_CLIENT_ID'] = '736572132161-nupqnfql638fre8s0fm8k9hga9gfj834.apps.googleusercontent.com'
   ENV['GOOGLE_CLIENT_SECRET'] = 'cm6QzGOP3xdZB2d9UsZEYmUq'
+  ENV['S3_KEY'] = 'AKIAJBXTCGHDX5O4DTLQ'
+  ENV['S3_SECRET'] = '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'
+  ENV['S3_BUCKET_NAME'] = 'litigo'
+  ENV['S3_REGION'] = 'us-east-1'
+  ENV['DROPBOX_APP_KEY'] = "7sgh3y5p0fqu0kh"
+  ENV['DROPBOX_APP_KEY_SECRET'] = "47otytbrlftsl6d"
+  ENV['DROPBOX_APP_MODE'] = "dropbox"
 end

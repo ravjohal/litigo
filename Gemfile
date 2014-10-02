@@ -29,6 +29,8 @@ gem "select2-rails", '3.5.9.1'
 gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'fullcalendar-rails'
 gem 'google-api-client', '~> 0.7.1'
+gem 'dropbox-sdk'
+gem 'fog'
 
 group :development do
   gem 'better_errors'

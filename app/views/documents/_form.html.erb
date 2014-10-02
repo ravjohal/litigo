@@ -26,6 +26,8 @@
               <% if !@case %>
                 <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, :class => 'sel2' %>
               <% end %>
+
+              <%= render partial: 'dropbox_chooser' %>
             </div>
 
         <% if action_name == "index" %>            

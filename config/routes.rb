@@ -22,6 +22,11 @@ Rails.application.routes.draw do
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
+  get  "dropbox/main"
+  post "dropbox/upload"
+  get  "dropbox/auth_start"
+  get  "dropbox/auth_finish"
+
 
   resources :dashboards, path: "dashboard"
 
@@ -38,7 +43,4 @@ Rails.application.routes.draw do
     end
   end
 
-  # get '/cases/:id/contacts' => 'contacts#index', as: :case_contacts
-  # post '/cases/:id/contacts' => 'contacts#create'
-  # get '/cases/:id/contacts/new' => 'contacts#new', as: :new_case_contact
 end

@@ -30,9 +30,10 @@
           <tr data-id="<%= document.id %>">
             <td><%= document.author %></td>
             <td><%= document.doc_type %></td>
-            <% if !document.document_url.blank? %>
-            <td><%= link_to document.document.file.filename, document.document_url, :class => 'dark' %></td>
-            <% end %>
+            <td>
+              <%= if !document.document_url.blank?
+                  link_to document.document.file.filename, document.document_url, :class => 'dark'
+                  end %></td>
             <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= link_to 'Show', document_path(document), :class => 'dark' %></td>

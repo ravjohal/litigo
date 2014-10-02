@@ -53,6 +53,7 @@ $(function() {
     });
     $('#case-management').click(function(e){
       e.preventDefault();
+      $('.nav-sidebar > li > a').removeClass('tester');
       $(e.currentTarget).addClass('tester');
     });
 

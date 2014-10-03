@@ -144,6 +144,13 @@ section {
     }
 
 
+.form-actions{
+  float: right;
+}
+.close{
+  padding-top: 5px;
+  padding-left: 10px;
+}
 
 .checkbox {
   margin-left: 20px;
@@ -364,7 +371,24 @@ a.action-button:visited{
 table th {
 width: auto !important;
 }
+thead{
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
 
+
+#top-custom{
+  margin-bottom: 30px;
+}
+#top-custom ul{
+  padding: 0 0;
+  margin: 0 0;
+}
+#top-custom li{
+  padding-right: 15px;
+  display: inline-block;
+  font-family: sans-serif;
+}
 
 
 #nav-tabs-custom{
@@ -437,7 +461,7 @@ color: #323A45;
   text-align: right;
   position: absolute;
   right: 8px;
-  top: -40px;
+  top: -60px;
 }
 .dataTables_filter{
   width: 200px;

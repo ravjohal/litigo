@@ -1,7 +1,12 @@
-<%= link_to 'NEW CASE', new_case_path, {:class => "action-button", :id => "case_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 
+<div id="top-custom">
+<ul id="top-custom">
+  <li><h3>Cases</h3></li>
+  <li><%= link_to 'NEW CASE', new_case_path, {:class => "action-button", :id => "case_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+</ul>
+</div>
 
-  <h3>Cases</h3>
+  
 
     <div class="table-responsive">
       <table id="cases" class="table table-striped table-hover rowlink">

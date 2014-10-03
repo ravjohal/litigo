@@ -8,9 +8,12 @@
   <%= render partial: 'shared/case_tabs' %>
 <% end %>
 
-<%= link_to 'NEW DOCUMENT', @new_path_documents, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> 
-
-    <h3>Documents</h3>
+<div id="top-custom">
+<ul id="top-custom">
+  <li><h3>Documents</h3></li>
+  <li><%= link_to 'NEW DOCUMENT', @new_path_documents, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> </li>
+    </ul>
+</div>
     <div class="table-responsive">
       <table id="tasks" class="table table-striped table-hover">
         <thead>
@@ -59,7 +62,7 @@ $(document).ready(function() {
     ],
     language: {
       search: "_INPUT_",
-      searchPlaceholder: "Filter"
+      searchPlaceholder: "Search"
     }
   });
 });

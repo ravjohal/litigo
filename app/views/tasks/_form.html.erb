@@ -15,7 +15,7 @@
               <div class="form-inputs">
                 <%= f.input :name, :label => "Task", :class => 'box-form' %>
                 <% if !@case %>
-                  <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'sel2'  %>
+                  <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'sel2'  %>
                 <% end %>
                 <%= f.input :due_date %>
                 <%= f.input :completed %>

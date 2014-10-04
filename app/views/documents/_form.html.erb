@@ -24,7 +24,7 @@
                 <%= f.input :document, as: :file %>
               <% end %>
               <% if !@case %>
-                <%= f.input :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, :class => 'sel2' %>
+                <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, :class => 'sel2' %>
               <% end %>
 
               <%= render partial: 'dropbox_chooser' %>

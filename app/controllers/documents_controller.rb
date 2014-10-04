@@ -30,7 +30,11 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/edit
   def edit
-  
+    if get_case
+      @documents_a = [@case, @document] #for modal partial rendering
+    else
+      @documents_a = @document #for modal partial rendering
+    end
   end
 
   # POST /documents
@@ -60,9 +64,18 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1
   # PATCH/PUT /documents/1.json
   def update
+
+     if get_case
+      #@document = @case.documents.create(document_params)
+      path_documents = case_documents_path
+    else
+      #@document = @document(document_params)
+      path_documents = documents_path
+    end
+
     respond_to do |format|
       if @document.update(document_params)
-        format.html { redirect_to @document, notice: 'Document was successfully updated.' }
+        format.html { redirect_to path_documents, notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: @document }
       else
         format.html { render :edit }

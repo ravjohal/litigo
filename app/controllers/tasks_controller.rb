@@ -31,7 +31,11 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    
+    if get_case
+      @tasks_a = [@case, @task] #for modal partial rendering
+    else
+      @tasks_a = @task #for modal partial rendering
+    end
   end
 
   # POST /tasks
@@ -61,9 +65,18 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1
   # PATCH/PUT /tasks/1.json
   def update
+
+    if get_case
+      @task = @case.tasks.create(task_params)
+      path_tasks = case_tasks_path
+    else
+      @task = Task.new(task_params)
+      path_tasks = tasks_path
+    end
+
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html { redirect_to path_tasks, notice: 'Task was successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }

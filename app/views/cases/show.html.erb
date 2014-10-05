@@ -83,7 +83,7 @@
 
 <p>
   <strong>Creation date:</strong>
-  <%= @case.created_at.to_date %>
+  <%= @case.created_at.strftime("%m/%d/%y %I:%M %p") %>
 </p>
 
 <p>

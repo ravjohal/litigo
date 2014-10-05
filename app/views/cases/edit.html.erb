@@ -11,5 +11,6 @@
 
 <div class='text-center link-pad'>
 <%= link_to 'Cancel', @case, :class => 'dark' %> 
+<%= link_to 'Delete',  @case,  method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' }, :class => 'dark', :id => 'delete_button' %>
 </div>
 

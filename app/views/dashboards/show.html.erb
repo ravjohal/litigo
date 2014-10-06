@@ -1,21 +1,20 @@
 
 <% if @user.show_onboarding %>
 <div class="text-center">
-  <h2>Welcome to Litigo!</h2></div>
+ 	</div>
 <br>
   <div class="config">
-<h3>Configure Your Practice</h3>
+  <div class="text-center">
+		<div class="title">Practice Configuration</div>
+	</div>		
 	<ul>
-		<li><a href="#">Sync your Google Calendar and Contacts</a></li>
-		<li><a href="#">this is a link</a></li>
-		<li><a href="#">this is a link</a></li>
+		<li><%= link_to "Sync your Google Calendar", "/auth/google_oauth2" %><div class="sprite"></div></li>
+		<li><a href="#">Add users to your firm</a></li>
+		<li><a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)" >Take a quick tour</a></li>
 	</ul>
   </div>
 
-  <p>Click <%= link_to "Sign in with Google", "/auth/google_oauth2" %> to import your google contacts and calendar.
-  </p>
-
-  <p><button id="startTourBtn" class="btn btn-large btn-primary" onclick="hopscotch.startTour(tour)" >Take a tour</button></p>
+  <!-- <p><button id="startTourBtn" class="btn btn-large btn-primary" onclick="hopscotch.startTour(tour)" >Take a tour</button></p> -->
    
 <% else %>
 

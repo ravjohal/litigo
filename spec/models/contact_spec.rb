@@ -20,7 +20,7 @@ describe 'Contact' do
       expect(contact.city).to eq 'New York'
       expect(contact.state).to eq 'New York'
       expect(contact.country).to eq 'USA'
-      expect(contact.phone_number).to eq 111222
+      expect(contact.phone_number).to eq '111222'
       expect(contact.fax_number).to eq 333444
       expect(contact.email).to eq 'contact@server.com'
       expect(contact.gender).to eq 'male'

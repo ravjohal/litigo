@@ -1,6 +1,17 @@
 
 <% if @user.show_onboarding %>
-  <h3>Welcome to Litigo!</h3>
+<div class="text-center">
+  <h2>Welcome to Litigo!</h2></div>
+<br>
+  <div class="config">
+<h3>Configure Your Practice</h3>
+	<ul>
+		<li><a href="#">Sync your Google Calendar and Contacts</a></li>
+		<li><a href="#">this is a link</a></li>
+		<li><a href="#">this is a link</a></li>
+	</ul>
+  </div>
+
   <p>Click <%= link_to "Sign in with Google", "/auth/google_oauth2" %> to import your google contacts and calendar.
   </p>
 

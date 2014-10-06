@@ -378,13 +378,15 @@ thead{
 
 
 #top-custom{
-  margin-bottom: 30px;
+  margin-bottom: 45px;
 }
 #top-custom ul{
+
   padding: 0 0;
   margin: 0 0;
 }
 #top-custom li{
+vertical-align: middle;
   padding-right: 15px;
   display: inline-block;
   font-family: sans-serif;
@@ -431,7 +433,30 @@ thead{
   padding-right: 10px;
 }
 
-
+.config {
+padding: 0 0;
+  height: 300px;
+  width: 600px;
+  border-radius: 4px;
+  background-color: #ccc;
+  margin: 0 auto;
+}
+.config ul {
+padding: 0 0;
+}
+.config ul li {
+height: 100px;
+width: 600px;
+display: block
+}
+.config a {
+background-color: transparent;
+}
+.config a:hover {
+background-color: #323A45;
+transition: .5s;
+opacity: .8;
+}
 
 
 tr.even td.sorting_1 {
@@ -461,7 +486,7 @@ color: #323A45;
   text-align: right;
   position: absolute;
   right: 8px;
-  top: -60px;
+  top: -78px;
 }
 .dataTables_filter{
   width: 200px;

@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 ruby '2.1.3'
-gem 'rails', '4.1.1'
+gem 'rails', '~> 4.2.0.beta2'
 gem 'ffi', '~> 1.9.5'
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
@@ -63,7 +63,7 @@ group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', '~> 3.5.0'
   # Access an IRB console on exceptions page and /console in development
-  gem 'web-console', '~> 1.0.4'
+  gem 'web-console', '~> 2.0.0.beta4'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring', '~> 1.1.3'
 end

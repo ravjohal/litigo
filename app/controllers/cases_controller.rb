@@ -44,7 +44,7 @@ class CasesController < ApplicationController
 
   def destroy
     @case.destroy
-    redirect_to cases_url, notice: 'Case was successfully destroyed.'
+    redirect_to cases_url, notice: 'Case was successfully deleted.'
   end
 
   private

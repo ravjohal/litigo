@@ -30,6 +30,7 @@ gem 'fullcalendar-rails'
 gem 'google-api-client', '~> 0.7.1'
 gem 'dropbox-sdk'
 gem 'fog'
+gem 'notifyjs_rails', '~> 0.0.2'
 
 group :development do
   gem 'better_errors'

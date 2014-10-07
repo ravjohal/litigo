@@ -15,7 +15,6 @@
 //= require dataTables/jquery.dataTables
 //= require turbolinks
 //= require bootstrap
-//= require bootstrap-sprockets
 //= require fullcalendar
 //= require gcal
 //= require_tree .

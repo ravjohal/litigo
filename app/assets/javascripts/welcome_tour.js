@@ -9,12 +9,10 @@
           placement: "right",
         },
          {
-          title: "Search",
-          content: "Search by case name or party name on any page to quickly find the pertinent case.",
-          target: "sbox",
-          placement: "left",
-          zindex: 2000,
-          yOffset: -20,
+          title: "Case Evaluation",
+          content: "What's this case worth? Case Evaluation allows you to enter case information and get an expected value range. Share this with the client or save to the case file.",
+          target: "CaseEval",
+          placement: "right",
           showPrevButton: true,
         },
         {

@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, :set_firm
 
   # GET /contacts
   # GET /contacts.json
@@ -56,6 +56,7 @@ class ContactsController < ApplicationController
     # TODO: render partials per each type
 
     @contact.user = @user
+    @contact.firm = @firm
 
     #@case.contacts << @contact
 

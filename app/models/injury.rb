@@ -4,4 +4,5 @@ class Injury < ActiveRecord::Base
 	REGION_TYPE = ['Skull', 'Face', 'Head', 'Neck', 'Back', 'Chest', 'Thorax', 'Shoulder', 'Arm', 'Arm - wrist', 'Arm - elbow', 'Hand', 'Fingers', 'Pelvis/Hip', 'Femur', 'Knee', 'Lower Leg', 'Ankle', 'Foot', 'Toes', 'Internal']
 
 	belongs_to :medical
+	belongs_to :firm
 end

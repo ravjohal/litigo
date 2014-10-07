@@ -1,7 +1,7 @@
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :role => 'form'}) do |f| %>
     <div class="center-h">
-        <h3>SIGN IN</h3>
+        <div class="text-center"><h3>SIGN IN</h3></div>
     </div>
     <br>
     <%= devise_error_messages! %>

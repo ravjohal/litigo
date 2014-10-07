@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_document, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, :set_firm
 
   # GET /documents
   # GET /documents.json
@@ -49,6 +49,7 @@ class DocumentsController < ApplicationController
     end
 
     @document.user = @user
+    @document.firm = @firm
 
     respond_to do |format|
       if @document.save

@@ -11,6 +11,7 @@ class Case < ActiveRecord::Base
   has_one :medical, dependent: :destroy
 
   belongs_to :user
+  belongs_to :firm
   
   has_many :case_documents, :dependent => :destroy
   has_many :documents, :through => :case_documents

@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, :set_firm
 
   # GET /events
   # GET /events.json
@@ -46,6 +46,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
 
     @event.owner = @user
+    @event.firm = @firm
 
     respond_to do |format|
       if @event.save

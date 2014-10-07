@@ -1,7 +1,7 @@
 class CasesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_case, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, :set_firm
 
   def index
     @cases = @user.cases
@@ -20,6 +20,7 @@ class CasesController < ApplicationController
   def create
     @case = Case.new(case_params)
     @case.user = @user
+    @case.firm = @firm
     if @case.save
       redirect_to @case, notice: 'Case was successfully created.'
     else

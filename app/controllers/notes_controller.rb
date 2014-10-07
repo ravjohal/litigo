@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-  before_action :set_user  
+  before_action :set_user, :set_firm 
 
   # GET /notes
   # GET /notes.json
@@ -49,6 +49,7 @@ class NotesController < ApplicationController
     end
 
     @note.user = @user
+    @note.firm = @firm
     
     respond_to do |format|
       if @note.save

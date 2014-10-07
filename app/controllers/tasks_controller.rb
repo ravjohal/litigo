@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-  before_action :set_user
+  before_action :set_user, :set_firm
 
   # GET /tasks
   # GET /tasks.json
@@ -50,6 +50,7 @@ class TasksController < ApplicationController
     end
 
     @task.user = @user
+    @task.firm = @firm
 
     respond_to do |format|
       if @task.save

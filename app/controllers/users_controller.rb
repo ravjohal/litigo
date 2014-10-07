@@ -121,7 +121,7 @@ class UsersController < ApplicationController
   private
 
   def secure_params
-    params.require(:user).permit(:role, :event_ids => [])
+    params.require(:user).permit(:role, :event_ids => [], :firm_id)
   end
 
 end

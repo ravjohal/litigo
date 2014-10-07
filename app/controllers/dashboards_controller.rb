@@ -70,6 +70,7 @@ class DashboardsController < ApplicationController
     contact.first_name = @user.first_name
     contact.last_name = @user.last_name
     contact.user = @user
+    contact.firm = @firm
     contact.save! 
   end
 end

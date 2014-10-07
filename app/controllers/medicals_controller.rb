@@ -1,7 +1,7 @@
 class MedicalsController < ApplicationController
   before_filter :authenticate_user!
   before_action :get_case
-  before_action :set_user
+  before_action :set_user, :set_firm
   # before_action :set_medical, only: [:show, :edit, :update, :destroy]
 
   # # GET /medicals
@@ -30,6 +30,7 @@ class MedicalsController < ApplicationController
   # POST /medicals.json
   def create
     @medical = @case.build_medical(medical_params)
+    @medical.firm = @firm
 
     respond_to do |format|
       if @medical.save

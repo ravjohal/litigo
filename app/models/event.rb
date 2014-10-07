@@ -8,4 +8,6 @@ class Event < ActiveRecord::Base
 	has_many :contacts
 	belongs_to :owner, class_name: "User"
 
+	belongs_to :firm
+
 end

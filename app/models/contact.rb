@@ -7,6 +7,7 @@ class Contact < ActiveRecord::Base
 	belongs_to :user
   belongs_to :event
   belongs_to :user_account, class_name: "User"
+  belongs_to :firm
 
   validates :type, presence: true
   validates :first_name, presence: true

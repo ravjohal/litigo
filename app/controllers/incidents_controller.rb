@@ -1,7 +1,7 @@
 class IncidentsController < ApplicationController
   before_filter :authenticate_user!
   before_action :get_case
-  before_action :set_user
+  before_action :set_user, :set_firm
 
   def show
     @incident = @case.incident
@@ -19,6 +19,7 @@ class IncidentsController < ApplicationController
 
   def create
   	@incident = @case.build_incident(incident_params)
+    @incident.firm = @firm
 
     respond_to do |format|
       if @incident.save

@@ -32,8 +32,6 @@ class ApplicationController < ActionController::Base
       if current_user.firm
         #firm_name = current_user.firm.name.gsub(/[^0-9a-z ]/i, '').tr(" ", "_")
         tenant = current_user.firm.tenant
-        puts "FIRM SIGN IN: " + tenant
-        Apartment::Tenant.switch(tenant)
       end
     end
   end

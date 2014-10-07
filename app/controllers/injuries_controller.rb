@@ -1,5 +1,7 @@
 class InjuriesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_injury, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, :set_firm
 
   # GET /injuries
   # GET /injuries.json
@@ -25,6 +27,7 @@ class InjuriesController < ApplicationController
   # POST /injuries.json
   def create
     @injury = Injury.new(injury_params)
+    @injury.firm = @firm
 
     respond_to do |format|
       if @injury.save

@@ -1,4 +1,5 @@
 class FirmsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_firm, only: [:show, :edit, :update, :destroy]
   before_action :set_user
 

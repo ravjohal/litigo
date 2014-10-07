@@ -20,7 +20,14 @@
 //= require_tree .
 //= require select2
 
+
 $(document).ready(function () {
+
+    // $(window).on('hashchange', function(e){
+    //     console.log("hola" + e);
+    // });
+    // console.log("weeeee" );
+
     //set up some minimal options for the feedback_me plugin
     fm_options = {
         show_email: true,
@@ -48,9 +55,16 @@ $(document).ready(function () {
             send_success : "Sent successfully :) , now go ahead and star/watch the project"
         }
     };
- 
-    //init feedback_me plugin
-    fm.init(fm_options);
+     
+        //init feedback_me plugin
+
+// every page has class welcome-link on the page somewhere when the USER is Logged IN 
+// when not logged in the class does not exsist 
+    if ($(".welcome-link").length !== 0) {
+       fm.init(fm_options);
+       
+      }
+        
  
 });
 

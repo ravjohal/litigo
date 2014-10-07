@@ -1,0 +1,2 @@
+My guess is that you are using some SPA (Single Page Application) or some sort of Ajax navigation, and in that case you should call the fm.init upon "navigation complete event" 
+Note that you might need to remove the ('.feedback_content') and ('.feedback_trigger') elements before calling the init (so your DOM won't get "spammed with them)

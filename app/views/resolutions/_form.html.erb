@@ -1,9 +1,7 @@
-<%= simple_form_for(@resolution) do |f| %>
+<%= simple_form_for([@case, @resolution]) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :case_id %>
-    <%= f.input :firm_id %>
     <%= f.input :settlement_demand %>
     <%= f.input :jury_demand %>
     <%= f.input :resolution_amount %>

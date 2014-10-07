@@ -1,14 +1,12 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Cases', cases_path %></li>
+  <li><%= link_to @case.name, case_path(@case) %></li>
+  <li class="active">Resolution</li>
+</ol>
+
+<%= render partial: 'shared/case_tabs' %>
+
 <p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Case:</strong>
-  <%= @resolution.case_id %>
-</p>
-
-<p>
-  <strong>Firm:</strong>
-  <%= @resolution.firm_id %>
-</p>
 
 <p>
   <strong>Settlement demand:</strong>
@@ -30,5 +28,7 @@
   <%= @resolution.resolution_type %>
 </p>
 
-<%= link_to 'Edit', edit_resolution_path(@resolution) %> |
-<%= link_to 'Back', resolutions_path %>
+<div class="text-center link-pad">
+<%= link_to 'Edit', edit_case_resolution_path(@case, @resolution), :class => 'dark' %> | 
+<%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
+</div>

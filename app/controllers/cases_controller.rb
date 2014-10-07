@@ -21,6 +21,11 @@ class CasesController < ApplicationController
     @case = Case.new(case_params)
     @case.user = @user
     @case.firm = @firm
+
+    resolution = @case.build_resolution
+    resolution.firm = @firm
+    resolution.save
+
     if @case.save
       redirect_to @case, notice: 'Case was successfully created.'
     else
@@ -49,8 +54,12 @@ class CasesController < ApplicationController
 
     def case_params
       params.require(:case).permit(:name, :number, :description, :case_type, :subtype,
-                                  :court, :plaintiff, :defendant, :corporation, :status,
-                                  :creation_date, :closing_date, :state,
-                                  :medical_bills, :medical_attributes => [:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, :doctor_type, :treatment_type, :created_at, :updated_at, :id, :injuries_attributes => [:injury_type, :region, :code, :created_at, :updated_at, :id]], :incident_attributes => [:incident_date, :statute_of_limitations, :defendant_liability, :alcohol_involved, :weather_factor, :property_damage, :airbag_deployed, :speed, :police_report, :created_at, :updated_at, :id], :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [])
+        :court, :plaintiff, :defendant, :corporation, :status,
+        :creation_date, :closing_date, :state, :medical_bills, 
+        :medical_attributes => [:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, :doctor_type, :treatment_type, :created_at, :updated_at, :id, 
+          :injuries_attributes => [:injury_type, :region, :code, :created_at, :updated_at, :id]], 
+        :incident_attributes => [:incident_date, :statute_of_limitations, :defendant_liability, :alcohol_involved, :weather_factor, :property_damage, :airbag_deployed, :speed, :police_report, :created_at, :updated_at, :id], 
+        :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
+        :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [])
     end
 end

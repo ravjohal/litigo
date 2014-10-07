@@ -28,6 +28,7 @@ class Case < ActiveRecord::Base
   accepts_nested_attributes_for :documents
   accepts_nested_attributes_for :medical, :allow_destroy => true
   accepts_nested_attributes_for :incident, :allow_destroy => true
+  accepts_nested_attributes_for :resolution, :allow_destroy => true
 
   validates :name, presence: true
   validates :number, presence: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007061231) do
+ActiveRecord::Schema.define(version: 20141007070508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -232,6 +232,17 @@ ActiveRecord::Schema.define(version: 20141007061231) do
     t.datetime "updated_at"
   end
 
+  create_table "resolutions", force: true do |t|
+    t.integer  "case_id"
+    t.integer  "firm_id"
+    t.decimal  "settlement_demand"
+    t.decimal  "jury_demand"
+    t.decimal  "resolution_amount"
+    t.string   "resolution_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "staffs", force: true do |t|
     t.string   "staff_type", limit: 255
     t.datetime "created_at"
@@ -249,6 +260,20 @@ ActiveRecord::Schema.define(version: 20141007061231) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "firm_id"
+  end
+
+  create_table "treatments", force: true do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "user_events", force: true do |t|

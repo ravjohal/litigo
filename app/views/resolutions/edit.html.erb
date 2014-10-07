@@ -1,6 +1,15 @@
-<h1>Editing Resolution</h1>
+<ol class="breadcrumb">
+  <li><%= link_to 'Cases', cases_path %></li>
+  <li><%= link_to @case.name, case_path(@case) %></li>
+  <li class="active">Resolution</li>
+</ol>
+
+
+<%= render partial: 'shared/case_tabs' %>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @resolution %> |
-<%= link_to 'Back', resolutions_path %>
+
+<div class = "text-center link-pad">
+<%= link_to 'Cancel', [@case, @resolution], :class => 'dark' %>
+</div>

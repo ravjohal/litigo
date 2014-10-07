@@ -1,32 +1,45 @@
 class ResolutionsController < ApplicationController
   before_action :set_resolution, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!
+  before_action :get_case
+  before_action :set_user, :set_firm
+  respond_to :html
 
-  def index
-    @resolutions = Resolution.all
-    respond_with(@resolutions)
-  end
 
   def show
-    respond_with(@resolution)
+    @resolution = @case.resolution
   end
 
   def new
-    @resolution = Resolution.new
+    @resolution = @case.build_resolution
     respond_with(@resolution)
   end
 
   def edit
+    @resolution = @case.resolution
   end
 
   def create
-    @resolution = Resolution.new(resolution_params)
+    @resolution = @case.build_resolution(resolution_params)
+    @resolution.firm = @firm
     @resolution.save
-    respond_with(@resolution)
+    respond_with([@case, @resolution])
   end
 
   def update
-    @resolution.update(resolution_params)
-    respond_with(@resolution)
+    @resolution = @case.resolution
+    #@resolution.update(resolution_params)
+    #respond_with([@case, @resolution])
+
+    respond_to do |format|
+      if @resolution.update(resolution_params)
+        format.html { redirect_to [@case, @resolution], notice: 'resolution was successfully updated.' }
+        format.json { render :show, status: :ok, location: @resolution }
+      else
+        format.html { render :edit }
+        format.json { render json: @resolution.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy

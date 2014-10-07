@@ -9,6 +9,8 @@ class Firm < ActiveRecord::Base
 	has_many :injuries
 	has_many :notes
 	has_many :tasks
+	has_many :treatments
+	has_many :resolutions
 
 	validates_presence_of :name
 end

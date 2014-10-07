@@ -42,16 +42,7 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       if @firm.save
-        puts "what is the current tenant: " + Apartment::Tenant.current_tenant.to_s
-        if !firm_from_db
-          Apartment::Tenant.create(tenant)
-        # else
-        #   puts " there exists a firm already " + @firm.tenant
-        #   Apartment::Tenant.switch(@firm.tenant)
-        #   puts "what is the current tenant: " + Apartment::Tenant.current_tenant.to_s
-        end
-              
-        create_contact(@firm.tenant)
+        create_contact
         format.html { render :show, notice: 'Firm and Contact were successfully created.' }
         #format.json { render :show, status: :created, location: @firm }
       else
@@ -63,8 +54,7 @@ class DashboardsController < ApplicationController
 
   private
 
-  def create_contact(tenant)
-    Apartment::Tenant.switch(tenant)
+  def create_contact
 
     # contact = Contact.new
     class_string_name = params[:firm][:contact][:type]

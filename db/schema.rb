@@ -67,16 +67,6 @@ ActiveRecord::Schema.define(version: 20141007070508) do
     t.integer  "firm_id"
   end
 
-  create_table "cases_events", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "event_id"
-  end
-
-  create_table "cases_tasks", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "task_id"
-  end
-
   create_table "clients", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"

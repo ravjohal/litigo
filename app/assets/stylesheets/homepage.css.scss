@@ -712,6 +712,12 @@ a.request-button:hover{
   padding: 20px 15px;
   transition: .3s;
   color: white;
+   -moz-box-shadow:    inset 0px 10px 10px -10px #3A3A3A,
+                        inset 0px -10px 10px -10px #3A3A3A;
+     -webkit-box-shadow: inset 0px 10px 10px -10px #3A3A3A,
+                        inset 0px -10px 10px -10px #3A3A3A;
+     box-shadow:         inset 0px 10px 10px -10px #3A3A3A,
+                        inset 0px -10px 10px -10px #3A3A3A;
 }
 
 
@@ -731,7 +737,7 @@ a.request-button:hover{
         text-indent: 20px;
         display: block;
         width: 100%;
-        margin-top: 0px;
+        margin-top: 1px;
         padding-left: 40px;
         padding-top: 10px;
         padding-bottom: 10px;
@@ -744,7 +750,7 @@ a.request-button:hover{
         font-weight: lighter;
           text-decoration: none;
           background-color: transparent;
-          box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
+          box-shadow: 8px 0px 0px 0px #3FC2D8 inset;
           color: #3FC2D8 !important; 
           transition: .5s;
         }
@@ -757,7 +763,7 @@ a.request-button:hover{
         font-weight: lighter;
           text-decoration: none;
           background-color: transparent;
-          box-shadow: -8px 0px 0px 0px #3FC2D8 inset;
+          box-shadow: 8px 0px 0px 0px #3FC2D8 inset;
           color: #3FC2D8 !important; 
 }
 .tester {

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Case:</strong>
+  <%= @resolution.case_id %>
+</p>
+
+<p>
+  <strong>Firm:</strong>
+  <%= @resolution.firm_id %>
+</p>
+
+<p>
+  <strong>Settlement demand:</strong>
+  <%= @resolution.settlement_demand %>
+</p>
+
+<p>
+  <strong>Jury demand:</strong>
+  <%= @resolution.jury_demand %>
+</p>
+
+<p>
+  <strong>Resolution amount:</strong>
+  <%= @resolution.resolution_amount %>
+</p>
+
+<p>
+  <strong>Resolution type:</strong>
+  <%= @resolution.resolution_type %>
+</p>
+
+<%= link_to 'Edit', edit_resolution_path(@resolution) %> |
+<%= link_to 'Back', resolutions_path %>

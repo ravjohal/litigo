@@ -38,8 +38,11 @@ Rails.application.routes.draw do
     resources :documents, :shallow => true
     resources :tasks, :shallow => true
     resources :incidents
+    resources :resolutions
     resources :medicals do
-      resources :injuries
+      resources :injuries do
+        resources :treatments
+      end
     end
   end
 

@@ -15,5 +15,83 @@
   <%= @injury.code %>
 </p>
 
+
+<p>
+  <strong>Dominant Side:</strong>
+  <%= @injury.dominant_side %>
+</p>
+
+<p>
+  <strong>Fractured Through Joint:</strong>
+  <%= @injury.joint_fracture %>
+</p>
+
+<p>
+  <strong>Displaced Fracture:</strong>
+  <%= @injury.displaced_fracture %>
+</p>
+
+<p>
+  <strong>Likely to leave Disfigurement:</strong>
+  <%= @injury.disfigurement %>
+</p>
+
+<p>
+  <strong>Injury Permanent:</strong>
+  <%= @injury.permanence %>
+</p>
+
+<p>
+  <strong>Plaintiff Disabled:</strong>
+  <%= @injury.disabled %>
+</p>
+
+<p>
+  <strong>If yes, what %:</strong>
+  <%= @injury.disabled_percent %>
+</p>
+
+<p>
+Treatment:
+<p>
+
+<p>
+  <strong>Was there Surgery or 
+is Surgery Scheduled:</strong>
+  <%= @injury.surgery %>
+</p>
+
+<p>
+  <strong>Number of surgeries:</strong>
+  <%= @injury.surgery_count %>
+</p>
+
+<p>
+  <strong>Surgery Type:</strong>
+  <%= @injury.surgery_type %>
+</p>
+
+<p>
+  <strong>Fracture can be Casted:</strong>
+  <%= @injury.casted_fracture %>
+</p>
+
+<p>
+  <strong>Stitches:</strong>
+  <%= @injury.stitches %>
+</p>
+
+<p>
+  <strong>Is future surgery likely? 
+(>75% likelihood):</strong>
+  <%= @injury.future_surgery %>
+</p>
+
+<p>
+  <strong>Estimate of Future 
+Medical Bills:</strong>
+  <%= @injury.future_medicals %>
+</p>
+
 <%= link_to 'Edit', edit_injury_path(@injury) %> |
 <%= link_to 'Back', injuries_path %>

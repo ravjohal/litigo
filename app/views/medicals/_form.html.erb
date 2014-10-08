@@ -7,7 +7,15 @@
     <%= f.input :injuries_within_three_days %>
     <%= f.input :length_of_treatment %>
     <%= f.input :doctor_type %>
-    <%= f.input :treatment_type %>
+    <%= f.input :treatment_type %> 
+    <%= f.input :injury_summary %>
+    <%= f.input :medical_summary %>
+    <%= f.input :earnings_lost %>
+    <%= f.input :treatment_gap %>
+    <%= f.input :injections %>
+    <%= f.input :hospitalization %>
+    <%= f.input :hospital_stay_length %>
+    <%= f.input :hospital_stay_length_unit %>
     <%= f.simple_fields_for :injuries, @medical.injuries do |i| %>
       <%= i.input :injury_type, collection: Injury::INJURY_TYPE %>
       <%= i.input :region, collection: Injury::REGION_TYPE %>

@@ -35,6 +35,77 @@
   <strong>Treatment type:</strong>
   <%= @medical.treatment_type %>
 </p>
+
+<p>
+  <strong>Injury Summary:</strong>
+  <%= @medical.injury_summary %>
+</p>
+
+<p>
+  <strong>Medical Summary:</strong>
+  <%= @medical.medical_summary %>
+</p>
+
+<p>
+  <strong>Earnings Lost:</strong>
+  <%= @medical.earnings_lost %>
+</p>
+
+<p>
+  <strong>Treatment Gap:</strong>
+  <%= @medical.treatment_gap %>
+</p>
+
+<p>
+  <strong>Injections:</strong>
+  <%= @medical.injections %>
+</p>
+
+<p>
+  <strong>Hospitalization:</strong>
+  <%= @medical.hospitalization %>
+</p>
+
+<p>
+  <strong>Hospital Stay Lenght:</strong>
+  <%= @medical.hospital_stay_length %>
+</p>
+
+<p>
+  <strong>Hospital Stay Lenght Unit:</strong>
+  <%= @medical.hospital_stay_length_unit %>
+</p>
+
+<p>
+  <strong>Subrogated amount:</strong>
+  <%= @medical.subrogated_amount %>
+</p>
+
+<p>
+  <strong>Injuries within three days:</strong>
+  <%= @medical.injuries_within_three_days %>
+</p>
+
+<p>
+  <strong>Length of treatment:</strong>
+  <%= @medical.length_of_treatment %>
+</p>
+
+<p>
+  <strong>Doctor type:</strong>
+  <%= @medical.doctor_type %>
+</p>
+
+<p>
+  <strong>Treatment type:</strong>
+  <%= @medical.treatment_type %>
+</p>
+
+
+
+
+
+
 <% @medical.injuries.each.with_index(1) do |injury, i|%>
 <p>
   <strong>Injury #<%= i %> </strong> <br />

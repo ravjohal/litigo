@@ -42,11 +42,6 @@
 </p>
 
 <p>
-  <strong>Corporation:</strong>
-  <%= @case.corporation? ? 'yes' : 'no' %>
-</p>
-
-<p>
   <strong>Assigned Attorney(s):</strong>
   <%= @case.contacts.where("type = 'Attorney'").size %>
   <% @case.contacts.where("type = 'Attorney'").each do |a| %>

@@ -16,18 +16,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "attorneys", force: true do |t|
-    t.string   "attorney_type", limit: 255
-    t.string   "firm",          limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "attorneys_events", id: false, force: true do |t|
-    t.integer "attorney_id"
-    t.integer "event_id"
-  end
-
   create_table "case_documents", force: true do |t|
     t.integer  "case_id"
     t.integer  "document_id"
@@ -67,21 +55,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.string   "county"
   end
 
-  create_table "cases_events", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "event_id"
-  end
-
-  create_table "cases_tasks", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "task_id"
-  end
-
-  create_table "clients", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "contacts", force: true do |t|
     t.string   "first_name",         limit: 255
     t.string   "middle_name",        limit: 255
@@ -118,19 +91,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.integer  "firm_id"
   end
 
-  create_table "defendants", force: true do |t|
-    t.boolean  "married"
-    t.boolean  "employed"
-    t.text     "job_description"
-    t.float    "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
-    t.integer  "jury_likeability"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "documents", force: true do |t|
     t.string   "author",     limit: 255
     t.string   "doc_type",   limit: 255
@@ -142,9 +102,19 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.integer  "firm_id"
   end
 
+  create_table "event_attendees", force: true do |t|
+    t.integer  "event_id"
+    t.string   "displayName",    limit: 255
+    t.string   "email",          limit: 255
+    t.boolean  "creator"
+    t.string   "responseStatus", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", force: true do |t|
-    t.string   "subject",    limit: 255
-    t.string   "location",   limit: 255
+    t.string   "subject",            limit: 255
+    t.string   "location",           limit: 255
     t.date     "date"
     t.time     "time"
     t.boolean  "all_day"
@@ -153,6 +123,18 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
+    t.string   "google_id",          limit: 255
+    t.string   "etag",               limit: 255
+    t.string   "status",             limit: 255
+    t.string   "htmlLink",           limit: 255
+    t.string   "summary",            limit: 255
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean  "endTimeUnspecified"
+    t.string   "transparency",       limit: 255
+    t.string   "visibility",         limit: 255
+    t.string   "iCalUID",            limit: 255
+    t.integer  "sequence"
     t.integer  "firm_id"
   end
 
@@ -165,6 +147,42 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.datetime "updated_at"
     t.string   "zip",        limit: 255
     t.string   "tenant",     limit: 255
+  end
+
+  create_table "fullcalendar_engine_event_series", force: true do |t|
+    t.integer  "frequency",              default: 1
+    t.string   "period",     limit: 255, default: "monthly"
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.boolean  "all_day",                default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fullcalendar_engine_events", force: true do |t|
+    t.string   "title",           limit: 255
+    t.datetime "starttime"
+    t.datetime "endtime"
+    t.boolean  "all_day",                     default: false
+    t.text     "description"
+    t.integer  "event_series_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fullcalendar_engine_events", ["event_series_id"], name: "index_fullcalendar_engine_events_on_event_series_id", using: :btree
+
+  create_table "google_calendars", force: true do |t|
+    t.string   "etag",        limit: 255
+    t.string   "google_id",   limit: 255
+    t.string   "summary",     limit: 255
+    t.string   "description", limit: 255
+    t.string   "timeZone",    limit: 255
+    t.boolean  "selected"
+    t.boolean  "primary"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "incidents", force: true do |t|
@@ -243,19 +261,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.integer  "firm_id"
   end
 
-  create_table "plantiffs", force: true do |t|
-    t.boolean  "married"
-    t.boolean  "employed"
-    t.text     "job_description"
-    t.float    "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
-    t.integer  "jury_likeability"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "resolutions", force: true do |t|
     t.integer  "case_id"
     t.integer  "firm_id"
@@ -265,12 +270,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.string   "resolution_type"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-  end
-
-  create_table "staffs", force: true do |t|
-    t.string   "staff_type", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "tasks", force: true do |t|
@@ -324,13 +323,5 @@ ActiveRecord::Schema.define(version: 20141008075401) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "witnesses", force: true do |t|
-    t.string   "witness_type",    limit: 255
-    t.string   "witness_subtype", limit: 255
-    t.string   "witness_doctype", limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
 end

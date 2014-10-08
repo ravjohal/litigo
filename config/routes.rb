@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
+  get '/users/select_calendar'
   get  "dropbox/main"
   post "dropbox/upload"
   get  "dropbox/auth_start"

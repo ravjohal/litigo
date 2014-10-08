@@ -144,6 +144,8 @@ class UsersController < ApplicationController
               google_event.visibility = e['visibility']
               google_event.iCalUID = e['iCalUID']
               google_event.sequence = e['sequence']
+              google_event.owner_id = current_user.id
+              google_event.firm_id = current_user.firm.id
               google_event.save!
               logger.info "google_event: #{google_event.ai}\n"
               creator = EventAttendee.new()

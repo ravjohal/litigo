@@ -28,6 +28,7 @@ class ResolutionsController < ApplicationController
 
   def update
     @resolution = @case.resolution
+    
     #@resolution.update(resolution_params)
     #respond_with([@case, @resolution])
 

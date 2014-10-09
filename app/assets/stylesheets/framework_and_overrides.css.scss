@@ -517,6 +517,13 @@ vertical-align: middle;
     height: 200px;
 }
 
+.injury{
+   -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    height: 250px; 
+}
+
 hr {
   width: 80%;
   text-align: center;

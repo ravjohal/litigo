@@ -5,34 +5,38 @@ class InjuriesController < ApplicationController
 
   # GET /injuries
   # GET /injuries.json
-  def index
-    @injuries = Injury.all
-  end
+  # def index
+  #   @injuries = Injury.all
+  # end
 
-  # GET /injuries/1
-  # GET /injuries/1.json
-  def show
-  end
+  # # GET /injuries/1
+  # # GET /injuries/1.json
+  # def show
+  # end
 
-  # GET /injuries/new
-  def new
-    @injury = Injury.new
-  end
+  # # GET /injuries/new
+  # def new
+  #   @injury = Injury.new
+  # end
 
-  # GET /injuries/1/edit
-  def edit
-  end
+  # # GET /injuries/1/edit
+  # def edit
+  # end
 
   # POST /injuries
   # POST /injuries.json
   def create
-    @injury = Injury.new(injury_params)
+
+    @medical = get_medical
+    @case = @medical.case
+
+    @injury = @medical.injuries.create(injury_params)
     @injury.firm = @firm
 
     respond_to do |format|
       if @injury.save
-        format.html { redirect_to @injury, notice: 'Injury was successfully created.' }
-        format.json { render :show, status: :created, location: @injury }
+        format.html { redirect_to case_medical_path(@case, @medical), notice: 'Injury was successfully created.' }
+        format.json { render :show, status: :created, location: [@case, @medical] }
       else
         format.html { render :new }
         format.json { render json: @injury.errors, status: :unprocessable_entity }
@@ -70,8 +74,17 @@ class InjuriesController < ApplicationController
       @injury = Injury.find(params[:id])
     end
 
+    def get_medical
+      if params[:medical_id]
+        @medical = Medical.find(params[:medical_id])
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def injury_params
-      params.require(:injury).permit(:type, :region, :code)
+      params.require(:injury).permit(:injury_type, :region, :code, :dominant_side, :joint_fracture,
+                                  :displaced_fracture, :disfigurement, :impairment, :permanence, :disabled,
+                                  :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture,
+                                  :stitches, :future_surgery, :future_medicals)
     end
 end

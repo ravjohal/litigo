@@ -102,15 +102,38 @@
 </p>
 
 
+<div >
+  <%= link_to 'Add Injury', new_medical_injury_path(@medical), {:class => "action-button", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
+</div>
 
-
-
+<br />
 
 <% @medical.injuries.each.with_index(1) do |injury, i|%>
 <p>
-  <strong>Injury #<%= i %> </strong> <br />
+  <strong>Injury #<%= i %> </strong>
+</p>
+<p>
   Injury Type: <%= injury.injury_type %> <br />
-  Region: <%= injury.region %>
+  Region: <%= injury.region %> <br />
+  Injury: <%= injury.code %> <br />
+  Dominant Side: <%= injury.dominant_side %> <br />
+  Fracture Through Joint: <%= injury.joint_fracture %> <br />
+  Displaced Fracture: <%= injury.displaced_fracture %> <br />
+  Likely to leave disfigurement: <%= injury.disfigurement %> <br />
+  In Doctor's Opinion: <br />
+  Injury Permanent: <%= injury.permanence %> <br />
+  Plaintiff Disabled: <%= injury.disabled %> <br />
+  If yes, what %: <%= injury.disabled_percent %>% <br />
+<strong> TREATMENT </strong> <br />
+  Was there Surgery or is Surgery Scheduled: <%= injury.surgery %> <br />
+  Number of Surgeries: <%= injury.surgery_count %> <br />
+  Type of Surgery: <%= injury.surgery_type %> <br />
+  Fracture can be Casted: <%= injury.casted_fracture %> <br />
+  Stitches: <%= injury.stitches %> <br />
+  Is future surgery likely? 
+  (>75% likelihood): <%= t injury.future_surgery.class %> <br />
+  Estimate of Future 
+  Medical Bills: <%= injury.future_medicals %> <br />
 </p>
 <% end %>
 
@@ -118,3 +141,14 @@
 <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %> |
 <%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
 </div>
+
+
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#injury_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render '/injuries/form', new_injury: [@medical, Injury.new] ) %>");
+  });
+});
+</script>

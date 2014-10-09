@@ -39,11 +39,11 @@ Rails.application.routes.draw do
     resources :tasks, :shallow => true
     resources :incidents
     resources :resolutions
-    resources :medicals do
-      resources :injuries do
-        resources :treatments
-      end
-    end
+    resources :medicals
+  end
+
+  resources :medicals do
+    resources :injuries
   end
 
 end

@@ -31,10 +31,12 @@
                 <% i.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
               <% end %>
               <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
+               <% if action_name != "edit" %>
                 <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
                   <%= inj.input :injury_type, collection: Injury::INJURY_TYPE %>
                   <%= inj.input :region, collection: Injury::REGION_TYPE %>
                 <% end %>
+               <% end %>
                 <%= m.input :total_med_bills, label: "Medical Bills" %>
               <% end %>
               <%= f.input :description, type: 'text-area', label: "Case Summary" %>

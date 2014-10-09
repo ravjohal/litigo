@@ -16,10 +16,7 @@
             <div class="form-inputs">
               <%= f.input :name %>
               <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
-              <!--
-              <%= f.association :contacts, label: "Plaintiff(s)", :collection => Contact.all.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'sel2' %>
-              <%= f.association :contacts, label: "Defendant(s)", :collection => Contact.all.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'sel2' %>
-              -->
+          
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.input :state, as: :select, collection: us_states %>

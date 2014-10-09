@@ -6,8 +6,8 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = @user.firm.events
-    logger.info "@events:#{@events.ai}\n\n\n"
+    @events = []
+    @events = @user.firm.events if @user.firm
     @events_list = []
     @events.each do |event|
       hash = {}
@@ -17,7 +17,6 @@ class EventsController < ApplicationController
       hash[:allDay] = false
       @events_list << hash
     end
-    logger.info "@events_list: #{@events_list.ai}\n\n\n"
   end
 
   # GET /events/1

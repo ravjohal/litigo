@@ -6,18 +6,19 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
+<div class="meds">
 <p>
-  <strong>Total med bills:</strong>
+  <strong>Total Medical Bills:</strong>
   <%= @medical.total_med_bills %>
 </p>
 
 <p>
-  <strong>Subrogated amount:</strong>
+  <strong>Subrogated Amount:</strong>
   <%= @medical.subrogated_amount %>
 </p>
 
 <p>
-  <strong>Injuries within three days:</strong>
+  <strong>Injuries Treated within First 3 days?:</strong>
   <%= @medical.injuries_within_three_days %>
 </p>
 
@@ -27,23 +28,13 @@
 </p>
 
 <p>
-  <strong>Doctor type:</strong>
+  <strong>Type(s) of Doctor(s) Seen:</strong>
   <%= @medical.doctor_type %>
 </p>
 
 <p>
-  <strong>Treatment type:</strong>
+  <strong>Treatment Type(s):</strong>
   <%= @medical.treatment_type %>
-</p>
-
-<p>
-  <strong>Injury Summary:</strong>
-  <%= @medical.injury_summary %>
-</p>
-
-<p>
-  <strong>Medical Summary:</strong>
-  <%= @medical.medical_summary %>
 </p>
 
 <p>
@@ -52,60 +43,56 @@
 </p>
 
 <p>
-  <strong>Treatment Gap:</strong>
+  <strong>Any Gaps in Treatment?:</strong>
   <%= @medical.treatment_gap %>
 </p>
 
 <p>
-  <strong>Injections:</strong>
+  <strong>Were there Injections?:</strong>
   <%= @medical.injections %>
 </p>
 
 <p>
-  <strong>Hospitalization:</strong>
+  <strong>Was Plaintiff Hospitalized?:</strong>
   <%= @medical.hospitalization %>
 </p>
 
-<p>
-  <strong>Hospital Stay Lenght:</strong>
+<p class="indent">
+  If yes, Length of Stay:
   <%= @medical.hospital_stay_length %>
 </p>
 
 <p>
-  <strong>Hospital Stay Lenght Unit:</strong>
+  <strong>Hospital Stay Length Unit:</strong>
   <%= @medical.hospital_stay_length_unit %>
 </p>
 
+</div>
+<br>
 <p>
-  <strong>Subrogated amount:</strong>
-  <%= @medical.subrogated_amount %>
+  <strong>Injury Summary:</strong>
+  <%= @medical.injury_summary %>
 </p>
-
+<br>
 <p>
-  <strong>Injuries within three days:</strong>
-  <%= @medical.injuries_within_three_days %>
+  <strong>Medical Summary:</strong>
+  <%= @medical.medical_summary %>
 </p>
-
-<p>
-  <strong>Length of treatment:</strong>
-  <%= @medical.length_of_treatment %>
-</p>
-
-<p>
-  <strong>Doctor type:</strong>
-  <%= @medical.doctor_type %>
-</p>
-
-<p>
-  <strong>Treatment type:</strong>
-  <%= @medical.treatment_type %>
-</p>
+<br>
+<hr><br>
 
 
 <div >
   <%= link_to 'Add Injury', new_medical_injury_path(@medical), {:class => "action-button", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 </div>
 
+<<<<<<< HEAD
+
+<div class="Injury">
+<% @medical.injuries.each.with_index(1) do |injury, i|%>
+<p>
+  <h4>Injury #<%= i %> </h4> <br />
+=======
 <br />
 
 <% @medical.injuries.each.with_index(1) do |injury, i|%>
@@ -113,6 +100,7 @@
   <strong>Injury #<%= i %> </strong>
 </p>
 <p>
+>>>>>>> FETCH_HEAD
   Injury Type: <%= injury.injury_type %> <br />
   Region: <%= injury.region %> <br />
   Injury: <%= injury.code %> <br />
@@ -136,6 +124,7 @@
   Medical Bills: <%= injury.future_medicals %> <br />
 </p>
 <% end %>
+</div>
 
 <div class="text-center link-pad">
 <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %> |

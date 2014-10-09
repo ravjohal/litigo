@@ -6,89 +6,49 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
+<div class="meds">
 <p>
-  <strong>Total med bills:</strong>
+  <strong>Total Medical Bills ($):</strong>
   <%= @medical.total_med_bills %>
 </p>
 
 <p>
-  <strong>Subrogated amount:</strong>
+  <strong>Subrogated Amount:</strong>
   <%= @medical.subrogated_amount %>
 </p>
 
 <p>
-  <strong>Injuries within three days:</strong>
+  <strong>Injuries Treated within 3 days of Incident?:</strong>
   <%= @medical.injuries_within_three_days %>
 </p>
 
 <p>
-  <strong>Length of treatment:</strong>
-  <%= @medical.length_of_treatment %>
-</p>
-
-<p>
-  <strong>Doctor type:</strong>
-  <%= @medical.doctor_type %>
-</p>
-
-<p>
-  <strong>Treatment type:</strong>
-  <%= @medical.treatment_type %>
-</p>
-
-<p>
-  <strong>Injury Summary:</strong>
-  <%= @medical.injury_summary %>
-</p>
-
-<p>
-  <strong>Medical Summary:</strong>
-  <%= @medical.medical_summary %>
-</p>
-
-<p>
-  <strong>Earnings Lost:</strong>
+  <strong>Lost Earnings:</strong>
   <%= @medical.earnings_lost %>
 </p>
 
-<p>
-  <strong>Treatment Gap:</strong>
-  <%= @medical.treatment_gap %>
-</p>
 
 <p>
-  <strong>Injections:</strong>
-  <%= @medical.injections %>
-</p>
-
-<p>
-  <strong>Hospitalization:</strong>
+  <strong>Was Plaintiff Hospitalized?:</strong>
   <%= @medical.hospitalization %>
 </p>
-
-<p>
-  <strong>Hospital Stay Lenght:</strong>
+  <p class="indent">If yes, for how long?:
   <%= @medical.hospital_stay_length %>
-</p>
+  </p>
 
 <p>
   <strong>Hospital Stay Lenght Unit:</strong>
   <%= @medical.hospital_stay_length_unit %>
 </p>
 
-<p>
-  <strong>Subrogated amount:</strong>
-  <%= @medical.subrogated_amount %>
-</p>
 
 <p>
-  <strong>Injuries within three days:</strong>
-  <%= @medical.injuries_within_three_days %>
-</p>
-
-<p>
-  <strong>Length of treatment:</strong>
+  <strong>Total Length of Treatment (months):</strong>
   <%= @medical.length_of_treatment %>
+</p>
+<p>
+  <strong>Gap(s) in Treatment?:</strong>
+  <%= @medical.treatment_gap %>
 </p>
 
 <p>
@@ -100,21 +60,73 @@
   <strong>Treatment type:</strong>
   <%= @medical.treatment_type %>
 </p>
+<p>
+  <strong>Were there Injections?:</strong>
+  <%= @medical.injections %>
+</p>
+</div>
+<br>
+<p>
+  <strong>Injury Summary:</strong>
+  <%= @medical.injury_summary %>
+</p>
+<br>
+<p>
+  <strong>Medical Summary:</strong>
+  <%= @medical.medical_summary %>
+</p>
 
+<br><hr>
 
+<div >
+  <%= link_to 'ADD INJURY', new_medical_injury_path(@medical), {:class => "action-button", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
+</div>
 
-
-
-
+<br />
+<div class="injury">
 <% @medical.injuries.each.with_index(1) do |injury, i|%>
 <p>
-  <strong>Injury #<%= i %> </strong> <br />
+  <h4>Injury #<%= i %> </h4>
+</p>
+<p>
   Injury Type: <%= injury.injury_type %> <br />
-  Region: <%= injury.region %>
+  Region: <%= injury.region %> <br />
+  Injury: <%= injury.code %> <br />
+  Dominant Side: <%= injury.dominant_side %> <br />
+  Fracture Through Joint: <%= injury.joint_fracture %> <br />
+  Displaced Fracture: <%= injury.displaced_fracture %> <br />
+  Likely to leave disfigurement: <%= injury.disfigurement %> <br />
+  In Doctor's Opinion: <br />
+  Injury Permanent: <%= injury.permanence %> <br />
+  Plaintiff Disabled: <%= injury.disabled %> <br />
+  If yes, what %: <%= injury.disabled_percent %>% <br />
+<h4> Treatment </h4>
+  Was there Surgery or is Surgery Scheduled: <%= injury.surgery %> <br />
+  Number of Surgeries: <%= injury.surgery_count %> <br />
+  Type of Surgery: <%= injury.surgery_type %> <br />
+  Fracture can be Casted: <%= injury.casted_fracture %> <br />
+  Stitches: <%= injury.stitches %> <br />
+  Is future surgery likely? 
+  (>75% likelihood): <%= t injury.future_surgery.class %> <br />
+  Estimate of Future 
+  Medical Bills: <%= injury.future_medicals %> <br />
 </p>
 <% end %>
+</div>
 
 <div class="text-center link-pad">
 <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %> |
 <%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
 </div>
+
+
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#injury_modal').click(function(event){
+    $("#modal-window").html("<%= escape_javascript(render '/injuries/form', new_injury: [@medical, Injury.new] ) %>");
+  });
+});
+</script>
+

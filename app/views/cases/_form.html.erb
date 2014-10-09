@@ -16,10 +16,7 @@
             <div class="form-inputs">
               <%= f.input :name %>
               <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
-              <!--
-              <%= f.association :contacts, label: "Plaintiff(s)", :collection => Contact.all.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'sel2' %>
-              <%= f.association :contacts, label: "Defendant(s)", :collection => Contact.all.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'sel2' %>
-              -->
+          
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.input :state, as: :select, collection: us_states %>
@@ -31,10 +28,12 @@
                 <% i.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
               <% end %>
               <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
+               <% if action_name != "edit" %>
                 <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
                   <%= inj.input :injury_type, collection: Injury::INJURY_TYPE %>
                   <%= inj.input :region, collection: Injury::REGION_TYPE %>
                 <% end %>
+               <% end %>
                 <%= m.input :total_med_bills, label: "Medical Bills" %>
               <% end %>
               <%= f.input :description, type: 'text-area', label: "Case Summary" %>

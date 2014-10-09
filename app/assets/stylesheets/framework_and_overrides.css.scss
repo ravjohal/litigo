@@ -510,7 +510,22 @@ vertical-align: middle;
   border-bottom-right-radius: 4px;
 }
 
+.meds{
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    height: 200px;
+}
 
+hr {
+  width: 80%;
+  text-align: center;
+  background-color: #ccc;
+}
+
+.indent{
+  text-indent: 40px;
+}
 
 tr.even td.sorting_1 {
 background-color: transparent;

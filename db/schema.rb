@@ -67,16 +67,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.string   "county"
   end
 
-  create_table "cases_events", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "event_id"
-  end
-
-  create_table "cases_tasks", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "task_id"
-  end
-
   create_table "clients", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -284,6 +274,20 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "firm_id"
+  end
+
+  create_table "treatments", force: true do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "user_events", force: true do |t|

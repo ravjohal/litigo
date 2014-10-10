@@ -22,9 +22,21 @@ class CasesController < ApplicationController
     @case.user = @user
     @case.firm = @firm
 
-    resolution = @case.build_resolution
-    resolution.firm = @firm
-    resolution.save
+    # incident = @case.build_incident
+    # incident.firm = @firm
+    # incident.save
+
+    # resolution = @case.build_resolution
+    # resolution.firm = @firm
+    # resolution.save
+
+    # medical = @case.build_medical
+    # medical.firm = @firm
+    # medical.save
+
+    # injury = medical.tasks.create
+    # injury.firm = @firm
+    # injury.save
 
     if @case.save
       redirect_to @case, notice: 'Case was successfully created.'

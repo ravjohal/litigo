@@ -16,6 +16,7 @@
             <div class="form-inputs">
               <%= f.input :name %>
               <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
+              <%= f.input :docket %>
               <!--
               <%= f.association :contacts, label: "Plaintiff(s)", :collection => Contact.all.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'sel2' %>
               <%= f.association :contacts, label: "Defendant(s)", :collection => Contact.all.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'sel2' %>

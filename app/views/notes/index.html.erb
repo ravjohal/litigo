@@ -30,7 +30,7 @@
           <tr data-id="<%= note.id %>">
             <td><%= link_to note.author, note_path(note)  %></td>
             <td><%= note.case.name if note.case.present? %></td>
-            <td><%= note.created_at %></td>
+            <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
             <td><%= note.note_type %></td>
             <td><%= note.note %></td>
           </tr>

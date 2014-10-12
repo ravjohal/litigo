@@ -187,13 +187,11 @@ ActiveRecord::Schema.define(version: 20141008075401) do
   end
 
   create_table "injuries", force: true do |t|
-    t.string   "injury_type",        limit: 255
-    t.string   "region",             limit: 255
-    t.string   "code",               limit: 255
+    t.string   "type"
+    t.string   "region"
+    t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "medical_id"
-    t.integer  "firm_id"
     t.boolean  "dominant_side"
     t.boolean  "joint_fracture"
     t.boolean  "displaced_fracture"
@@ -216,13 +214,11 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.decimal  "subrogated_amount"
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
-    t.string   "length_of_treatment_unit",   limit: 255
-    t.text     "doctor_type"
-    t.text     "treatment_type"
+    t.string   "length_of_treatment_unit"
+    t.hstore   "doctor_type"
+    t.hstore   "treatment_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "case_id"
-    t.integer  "firm_id"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost"

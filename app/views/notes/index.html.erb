@@ -10,6 +10,7 @@
 
 <div id="top-custom">
 <ul id="top-custom">
+    <li><h3>Notes</h3></li>
     <li><%= link_to 'NEW NOTE', @new_path_notes, {:class => "action-button", :id => "note_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> </li>
     </ul>
 </div>
@@ -19,9 +20,9 @@
         <tr>
           <th>Author</th>
           <th>Case</th>
-          <th>Creation Date</th>
+          <th>Date</th>
+          <th>Type</th>
           <th>Note</th>
-          <th>Note Type</th>
         </tr>
         </thead>
         <tbody>
@@ -29,10 +30,9 @@
           <tr data-id="<%= note.id %>">
             <td><%= link_to note.author, note_path(note)  %></td>
             <td><%= note.case.name if note.case.present? %></td>
-            <td><%= note.created_at %></td>
-            <td><%= note.note %></td>
+            <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
             <td><%= note.note_type %></td>
-            
+            <td><%= note.note %></td>
           </tr>
         <% end %>
         </tbody>

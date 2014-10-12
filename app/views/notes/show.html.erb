@@ -6,7 +6,8 @@
 </p>
 <p>
   <strong>Date:</strong>
-  <%= localize(@note.created_at).to_date %>
+   <%= @note.created_at.strftime("%m/%d/%Y") %>
+
 </p>
 <p>
   <strong>Case:</strong>

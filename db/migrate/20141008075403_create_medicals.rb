@@ -8,6 +8,16 @@ class CreateMedicals < ActiveRecord::Migration
       t.string :length_of_treatment_unit
       t.hstore :doctor_type
       t.hstore :treatment_type
+      t.text :injury_summary
+      t.text :medical_summary
+      t.decimal :earnings_lost
+      t.boolean :treatment_gap
+      t.boolean :injections
+      t.boolean :hospitalization
+      t.integer :hospital_stay_length
+      t.string :hospital_stay_length_unit
+      t.integer :firm_id
+      t.integer :case_id
 
       t.timestamps
     end

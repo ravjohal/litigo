@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141007070508) do
+ActiveRecord::Schema.define(version: 20141008075401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "attorneys", force: true do |t|
     t.string   "attorney_type", limit: 255
@@ -64,7 +65,7 @@ ActiveRecord::Schema.define(version: 20141007070508) do
     t.integer  "status",                    default: 0
     t.string   "court",         limit: 255
     t.integer  "firm_id"
-    t.boolean  "corporation"
+    t.string   "county"
   end
 
   create_table "cases_events", id: false, force: true do |t|
@@ -182,16 +183,32 @@ ActiveRecord::Schema.define(version: 20141007070508) do
     t.datetime "updated_at"
     t.string   "insurance_provider",     limit: 255
     t.integer  "firm_id"
+    t.boolean  "towed"
   end
 
   create_table "injuries", force: true do |t|
-    t.string   "injury_type", limit: 255
-    t.string   "region",      limit: 255
-    t.string   "code",        limit: 255
+    t.string   "injury_type",        limit: 255
+    t.string   "region",             limit: 255
+    t.string   "code",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "medical_id"
     t.integer  "firm_id"
+    t.boolean  "dominant_side"
+    t.boolean  "joint_fracture"
+    t.boolean  "displaced_fracture"
+    t.boolean  "disfigurement"
+    t.boolean  "impairment"
+    t.boolean  "permanence"
+    t.boolean  "disabled"
+    t.decimal  "disabled_percent"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
   end
 
   create_table "medicals", force: true do |t|
@@ -200,12 +217,20 @@ ActiveRecord::Schema.define(version: 20141007070508) do
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit",   limit: 255
-    t.string   "doctor_type"
-    t.string   "treatment_type"
+    t.text     "doctor_type"
+    t.text     "treatment_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "case_id"
     t.integer  "firm_id"
+    t.text     "injury_summary"
+    t.text     "medical_summary"
+    t.decimal  "earnings_lost"
+    t.boolean  "treatment_gap"
+    t.boolean  "injections"
+    t.boolean  "hospitalization"
+    t.integer  "hospital_stay_length"
+    t.string   "hospital_stay_length_unit"
   end
 
   create_table "notes", force: true do |t|

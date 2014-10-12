@@ -30,9 +30,9 @@
                 <% end %>
                 <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
                   <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
-                    <%= inj.input :injury_type, collection: Injury::INJURY_TYPE %>
-                    <%= inj.input :region, collection: Injury::REGION_TYPE %>
-                  <% end %>
+                  <%= inj.input :injury_type, collection: Injury::INJURY_TYPE %>
+                  <%= inj.input :region, collection: Injury::REGION_TYPE %>
+                <% end %>
                   <%= m.input :total_med_bills, label: "Medical Bills" %>
                 <% end %>
               <% end %>

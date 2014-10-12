@@ -27,6 +27,10 @@ Rails.application.routes.draw do
   get  "dropbox/auth_start"
   get  "dropbox/auth_finish"
 
+  # Visitor routes
+  get "/about" => 'visitors#about', as: :about
+  get "/terms" => 'visitors#terms', as: :terms
+
 
   resources :dashboards, path: "dashboard"
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008075403) do
+ActiveRecord::Schema.define(version: 20141008075402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,16 +66,6 @@ ActiveRecord::Schema.define(version: 20141008075403) do
     t.string   "court",         limit: 255
     t.integer  "firm_id"
     t.string   "county"
-  end
-
-  create_table "cases_events", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "event_id"
-  end
-
-  create_table "cases_tasks", id: false, force: true do |t|
-    t.integer "case_id"
-    t.integer "task_id"
   end
 
   create_table "clients", force: true do |t|
@@ -143,9 +133,19 @@ ActiveRecord::Schema.define(version: 20141008075403) do
     t.integer  "firm_id"
   end
 
+  create_table "event_attendees", force: true do |t|
+    t.integer  "event_id"
+    t.string   "displayName"
+    t.string   "email"
+    t.boolean  "creator"
+    t.string   "responseStatus"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "events", force: true do |t|
-    t.string   "subject",    limit: 255
-    t.string   "location",   limit: 255
+    t.string   "subject",            limit: 255
+    t.string   "location",           limit: 255
     t.date     "date"
     t.time     "time"
     t.boolean  "all_day"
@@ -155,6 +155,18 @@ ActiveRecord::Schema.define(version: 20141008075403) do
     t.datetime "updated_at"
     t.integer  "owner_id"
     t.integer  "firm_id"
+    t.string   "google_id"
+    t.string   "etag"
+    t.string   "status"
+    t.string   "htmlLink"
+    t.string   "summary"
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean  "endTimeUnspecified"
+    t.string   "transparency"
+    t.string   "visibility"
+    t.string   "iCalUID"
+    t.integer  "sequence"
   end
 
   create_table "firms", force: true do |t|
@@ -166,6 +178,19 @@ ActiveRecord::Schema.define(version: 20141008075403) do
     t.datetime "updated_at"
     t.string   "zip",        limit: 255
     t.string   "tenant",     limit: 255
+  end
+
+  create_table "google_calendars", force: true do |t|
+    t.string   "etag"
+    t.string   "google_id"
+    t.string   "summary"
+    t.string   "description"
+    t.string   "timeZone"
+    t.boolean  "selected"
+    t.boolean  "primary"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "incidents", force: true do |t|
@@ -187,9 +212,13 @@ ActiveRecord::Schema.define(version: 20141008075403) do
   end
 
   create_table "injuries", force: true do |t|
-    t.string   "injury_type"
-    t.string   "region"
-    t.string   "code"
+    t.string   "injury_type",        limit: 255
+    t.string   "region",             limit: 255
+    t.string   "code",               limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "medical_id"
+    t.integer  "firm_id"
     t.boolean  "dominant_side"
     t.boolean  "joint_fracture"
     t.boolean  "displaced_fracture"
@@ -284,6 +313,20 @@ ActiveRecord::Schema.define(version: 20141008075403) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "firm_id"
+  end
+
+  create_table "treatments", force: true do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "user_events", force: true do |t|

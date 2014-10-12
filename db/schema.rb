@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008075401) do
+ActiveRecord::Schema.define(version: 20141008074418) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "attorneys", force: true do |t|
     t.string   "attorney_type", limit: 255
@@ -207,26 +206,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.boolean  "stitches"
     t.boolean  "future_surgery"
     t.decimal  "future_medicals"
-  end
-
-  create_table "medicals", force: true do |t|
-    t.decimal  "total_med_bills"
-    t.decimal  "subrogated_amount"
-    t.boolean  "injuries_within_three_days"
-    t.integer  "length_of_treatment"
-    t.string   "length_of_treatment_unit"
-    t.hstore   "doctor_type"
-    t.hstore   "treatment_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "injury_summary"
-    t.text     "medical_summary"
-    t.decimal  "earnings_lost"
-    t.boolean  "treatment_gap"
-    t.boolean  "injections"
-    t.boolean  "hospitalization"
-    t.integer  "hospital_stay_length"
-    t.string   "hospital_stay_length_unit"
   end
 
   create_table "notes", force: true do |t|

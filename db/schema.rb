@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008075401) do
+ActiveRecord::Schema.define(version: 20141008075403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "attorneys", force: true do |t|
     t.string   "attorney_type", limit: 255
@@ -65,6 +66,16 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.string   "court",         limit: 255
     t.integer  "firm_id"
     t.string   "county"
+  end
+
+  create_table "cases_events", id: false, force: true do |t|
+    t.integer "case_id"
+    t.integer "event_id"
+  end
+
+  create_table "cases_tasks", id: false, force: true do |t|
+    t.integer "case_id"
+    t.integer "task_id"
   end
 
   create_table "clients", force: true do |t|
@@ -176,13 +187,9 @@ ActiveRecord::Schema.define(version: 20141008075401) do
   end
 
   create_table "injuries", force: true do |t|
-    t.string   "injury_type",        limit: 255
-    t.string   "region",             limit: 255
-    t.string   "code",               limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "medical_id"
-    t.integer  "firm_id"
+    t.string   "injury_type"
+    t.string   "region"
+    t.string   "code"
     t.boolean  "dominant_side"
     t.boolean  "joint_fracture"
     t.boolean  "displaced_fracture"
@@ -198,6 +205,10 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.boolean  "stitches"
     t.boolean  "future_surgery"
     t.decimal  "future_medicals"
+    t.integer  "firm_id"
+    t.integer  "medical_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "medicals", force: true do |t|
@@ -205,13 +216,9 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.decimal  "subrogated_amount"
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
-    t.string   "length_of_treatment_unit",   limit: 255
-    t.text     "doctor_type"
-    t.text     "treatment_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "case_id"
-    t.integer  "firm_id"
+    t.string   "length_of_treatment_unit"
+    t.hstore   "doctor_type"
+    t.hstore   "treatment_type"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost"
@@ -220,6 +227,10 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.boolean  "hospitalization"
     t.integer  "hospital_stay_length"
     t.string   "hospital_stay_length_unit"
+    t.integer  "firm_id"
+    t.integer  "case_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notes", force: true do |t|
@@ -274,20 +285,6 @@ ActiveRecord::Schema.define(version: 20141008075401) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "firm_id"
-  end
-
-  create_table "treatments", force: true do |t|
-    t.integer  "injury_id"
-    t.integer  "firm_id"
-    t.boolean  "surgery"
-    t.integer  "surgery_count"
-    t.string   "surgery_type"
-    t.boolean  "casted_fracture"
-    t.boolean  "stitches"
-    t.boolean  "future_surgery"
-    t.decimal  "future_medicals"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
   end
 
   create_table "user_events", force: true do |t|

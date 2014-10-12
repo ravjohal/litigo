@@ -38,6 +38,8 @@ class DashboardsController < ApplicationController
       @user.save!
     else
       @firm = firm_from_db
+      @user.firm = @firm
+      @user.save!
     end
 
     respond_to do |format|

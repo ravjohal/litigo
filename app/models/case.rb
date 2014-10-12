@@ -9,7 +9,7 @@ class Case < ActiveRecord::Base
 
   has_one :incident, dependent: :destroy
   has_one :medical, dependent: :destroy
-  has_one :resolution
+  has_one :resolution, dependent: :destroy
 
   belongs_to :user
   belongs_to :firm

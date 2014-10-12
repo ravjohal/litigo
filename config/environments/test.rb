@@ -36,4 +36,11 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Adding this because tests bomb out if I don't have it :(
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  ENV['PUBLISHABLE_KEY'] = 'pk_test_bdNUNhdPuw421zThmcq5qAmA'
+  ENV['SECRET_KEY'] = 'sk_test_sUhYz929KV8ZvJ1rvesMzyBp'
+  ENV['EXPIRE_HOURS'] = '8' 
 end

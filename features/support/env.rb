@@ -79,14 +79,6 @@ end
 # The :transaction strategy is faster, but might give you threading problems.
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
-def wait_for_ajax
-  Timeout.timeout(Capybara.default_wait_time) do
-    active = page.evaluate_script('jQuery.active')
-    until active == 0
-      active = page.evaluate_script('jQuery.active')
-    end
-  end
-end
 
 Before do |scenario|
   if page.driver.options[:browser] == :firefox

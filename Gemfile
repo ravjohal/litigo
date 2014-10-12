@@ -9,7 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'autoprefixer-rails'
 gem 'devise'
 gem 'pg'
@@ -54,7 +54,7 @@ group :test do
   gem 'rspec-activemodel-mocks', '~> 1.0.1'           # RSpec test doubles for ActiveModel and ActiveRecord
   gem 'capybara', '~> 2.4.1'
   gem 'database_cleaner', '~> 1.3.0'                  # database_cleaner is not required, but highly recommended
-  gem 'selenium-webdriver', '~> 2.41.0'
+  gem 'selenium-webdriver', '~> 2.43.0'
   gem 'capybara-firebug', '~> 2.0.0'
   gem 'cucumber-rails', '~> 1.4.0', :require => false  # Cucumber Generator and Runtime for Rails
 end

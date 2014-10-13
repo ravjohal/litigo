@@ -1,4 +1,5 @@
 // import the CSS framework
+@import "bootstrap-sprockets";
 @import "bootstrap";
 
 
@@ -863,5 +864,115 @@ letter-spacing: 1px;
   }
 }
 
+.terms-container {
+margin: 0 auto;
+  width: 960px;
+}
+.navbar-brand {
+  background-image: url(/assets/lightlogo.png);
+  background-repeat: no-repeat;
+  background-size: 90px 36px;
+  width: 100px;
+  height: 40px;
+  margin-top: 10px;
+}
 
+.biocontainer-first {
+margin-top: 90px;
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 760px
+}
 
+.biocontainer {
+  height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 760px
+}
+.biocontainer-last {
+  height: 250px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 760px;
+  margin-bottom: 75px;
+}
+.bio{
+    float: left;
+    width: 500px;
+    text-align: justify;
+    line-height: 18px;
+    font-family: sans-serif;
+    font-weight: lighter;
+    font-size: 16px;
+    margin-left: 30px;
+    height: 100%;
+  }
+
+.ben {
+  float: left;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  background: url(/assets/ben.png) no-repeat;
+  }
+.rav {
+  float: left;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  background: url(/assets/rav.png) no-repeat;
+  }
+.john {
+ float: left;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  background: url(/assets/john.png) no-repeat;
+  }
+.alicia {
+  float: left;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  background: url(/assets/alicia.png) no-repeat;
+  }
+
+.follow-3{
+  font-size: 20px;
+  position: relative;
+  top: 160px;
+  float: left;
+  left: 25px;
+  margin-right: 16px;
+}
+.follow-2{
+  font-size: 20px;
+  position: relative;
+  top: 160px;
+  float: left;
+  left: 40px;
+  margin-right: 20px;
+}
+.follow-4{
+  font-size: 20px;
+  position: relative;
+  top: 160px;
+  float: left;
+  left: 5px;
+  margin-right: 13px;
+}
+.icons{
+  height: 25px;
+  width: 25px;
+}

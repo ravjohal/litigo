@@ -13,4 +13,16 @@ class VisitorsController < ApplicationController
 
   	end
 
+  	def privacy
+
+  	end
+
+  	def contactlitigo
+
+  	end
+
+  	def partners
+
+  	end
+
 end

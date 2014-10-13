@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html>
  <head>
-  <meta charset="UTF-8">
-  <title>Terms of Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo Terms of Service" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
  </head>
  <body>
- <h1>Litigo Terms of Service</h1>
+<header>
+    <div class="home-nav-banner">
+      <div class="wrapper">
+        <a href="index"class="navbar-brand"></a>
+        <% if user_signed_in? %>
+            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
+        <% else %>
+        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
+        <% end %>
+      </div>
+    </div>
+    </header>
 
- <div class ="main">
+ <div class ="terms-container">
+  <br><h2>Litigo Terms of Service</h2>
  <h3> Effective Date: April 1, 2014</h3>
 The following “Terms of Service” govern your use of the Litigo web site (“Service”) made available by Litigo Insights Inc. (“Litigo”):<p>
 <h3>1. Limited License & Use of the Service</h3>
@@ -23,7 +39,7 @@ The following “Terms of Service” govern your use of the Litigo web site (“
 (10)Litigo reserves the right at any time, and from time to time, to modify or discontinue, temporarily or permanently, any feature associated with the Service, with or without notice. Continued use of the Service following any modification constitutes your acceptance of the modification.<br>
 (11)Litigo reserves the right to temporarily suspend access to the Service for operational purposes, including, but not limited to, maintenance, repairs or installation of upgrades, and will endeavor to provide reasonable notice prior to any such suspension.<br>
 (12)Litigo stores all Content on redundant storage servers. Optionally, upon request by the Subscriber (as defined below), all Content associated with the subscription will be replicated at a regular interval, to an offsite storage server accessible only to a reputable data escrow agent (“Escrow Agent”). The replicated Content (“Escrowed Data”) will be held under the terms of a separate agreement among Litigo, the Subscriber, and the Escrow Agent (“Escrow Agreement”). The Escrow Agreement will provide that: a) the Escrowed Data will be encrypted with a private key accessible only to the Escrow Agent; b) each Subscriber may directly contact the Escrow Agent at any time to request a release of the Escrowed Data; and c) upon authentication of the Subscriber by the Escrow Agent, the Escrowed Data will be transmitted digitally, or copied to write-once media and delivered to the Subscriber by courier in an unencrypted format. Optionally, the Escrowed Data may also be copied to write-once media, (CD-ROM or DVD-ROM) on a monthly basis, and stored in a secure climate controlled location maintained by the Escrow Agent.<br>
-2. Access to the Service<br>
+<h3>2. Access to the Service</h3><br>
 (1)You are only permitted to access and use the Service if you are an Authorized User. “Authorized User” means an individual subscriber or the partners, members, employees, temporary employees, and contractors of an organization with a subscription to the Service (“Subscriber”). Authorized Users are required to provide their full legal name, a valid email address, and any other information requested by the Service.
 (2)Each Authorized User will be provided with a unique identifier to access and use the Service (“Username”). The Username shall only be used by the Authorized User to whom it is assigned, and shall not be shared with, or used by any other person, including other Authorized Users.
 (3)Each Subscriber shall designate an Authorized User as administrator for the Subscriber’s subscription (“Administrator”). Each Subscriber may have multiple Authorized Users, and the Administrator will manage the list of active Authorized Users associated with the subscription. The Administrator will deactivate an active Username if the Administrator wishes to terminate access to the Service for any particular user.
@@ -35,14 +51,14 @@ The following “Terms of Service” govern your use of the Litigo web site (“
 (c) Excessive use of the Service using an API may result in temporary or permanent suspension of access to the Service via an API. Litigo, in its sole discretion, will determine excessive use of the Service via an API, and will make a reasonable attempt to warn Authorized User prior to suspension; and
 (d) Litigo reserves the right at any time to modify or discontinue, temporarily or permanently, access and use of the Service via an API, with or without notice.
 (7)Litigo may offer trial or free subscriptions to the Service funded by advertisements. Litigo reserves the right at any time to modify or discontinue, temporarily or permanently, such subscriptions, with or without notice. Authorized Users using a free subscription shall not block the advertisements.
-3. Security of Passwords
+<h3>3. Security of Passwords</h3>
 (1)Authorized Users and Subscribers shall be responsible for protecting the security of Usernames and passwords, or any other codes associated to the Service known to them, and for the accuracy and adequacy of personal information provided to the Service.
 (2)Subscribers will implement policies and procedures to prevent unauthorized use of Usernames, and will promptly notify Litigo, upon suspicion that a Username has been lost, stolen, compromised, or misused.
 
-4. Confidentiality 
+<h3>4. Confidentiality</h3>
 4.1 Each party agrees to treat all Confidential Information as confidential and not to use or disclose such Confidential Information except as necessary to perform its obligations under this Agreement.
 4.2 Litigo and any third party vendors and hosting partners it utilizes to provide the Service shall hold Content in strict confidence and shall not use or disclose Content except (a) as required to perform their obligations under this Agreement; (b) in compliance with Section 6 of this Agreement, or (c) as otherwise authorized by you in writing.
-5. Payment, Refunds and Subscription Changes
+<h3>5. Payment, Refunds and Subscription Changes</h3>
 8.1 Subscribers with paid subscriptions will provide Litigo with a valid credit card for payment of the applicable subscription fees. All subscription fees are exclusive of all federal, state, provincial, municipal or other taxes which Subscribers agree to pay based on where the Subscriber is primarily domiciled. In addition to any fees, the Subscriber may still incur charges incidental to using the Service, for example, charges for Internet access, data roaming, and other data transmission charges.
 8.2 Subscribers with monthly paying subscriptions will be charged upon the expiration of any applicable free trial period. Subscriptions canceled prior to the expiration of any trial period, will not be charged. Monthly Subscribers will thereafter be charged in advance each 30 days. Annual Subscribers will thereafter be charged annually on the anniversary date of the initial subscription charge. All charges are non-refundable.
 8.3 No refunds or credits will be issued for partial periods of service, upgrade/downgrade refunds, or refunds for periods unused with an active subscription, including, but not limited to, instances involving the removal of a Subscriber.
@@ -51,11 +67,11 @@ The following “Terms of Service” govern your use of the Litigo web site (“
 8.6 All prices are subject to change upon notice. Such notice may be provided by an e-mail message to the Administrator, or in the form of an announcement on the Service.
 8.7 Subscriber is responsible for paying all taxes associated with the subscription to the Service. If Litigo has the legal obligation to pay or collect taxes for which Subscriber is responsible under this section, the appropriate amount shall be invoiced to and paid by Subscriber, unless Subscriber provides Litigo with a valid tax exemption certificate authorized by the appropriate taxing authority.
 8.8 Any and all payments by or on account of the compensation payable under this Agreement shall be made free and clear of and without deduction or withholding for any taxes. If the Subscriber is required to deduct or withhold any taxes from such payments, then the sum payable shall be increased as necessary so that, after making all required deductions or withholdings, Litigo receives an amount equal to the sum it would have received had no such deduction or withholding been made.
-6. Cancellation and Termination
+<h3>6. Cancellation and Termination</h3>
 (1)Subscribers are solely responsible for canceling their subscription. Subscribers may cancel their subscription at any time by accessing the Service, and clicking on the appropriate link in the Profile and Settings section within the Service.
 (2)Litigo in its sole discretion, has the right to suspend or discontinue providing the Service to any Subscriber without notice for non-compliance with these Terms of Service, and pursue any other remedy legally available to it. .
 (3)Upon cancellation or termination of a subscription, all Content associated with such subscription will be immediately, and irrevocably deleted from the Service. All Escrowed Data, if any, will continue to remain available for a period of six months upon cancellation or termination of a subscription in accordance with the terms of the Escrow Agreement.
-7. Limited Warranty and Limitation of Liability
+<h3>7. Limited Warranty and Limitation of Liability</h3>
 (1) The Service is provided on an “as is”, “as available” basis and Litigo expressly disclaims all warranties, including the warranties of merchantability and fitness for a particular purpose.
 (2)Litigo, its affiliates, and any officer, director, employee, subcontractor, agent, successor, or assign of Litigo or its affiliates does not warrant that:
 (a) the Service will meet any specific requirements;
@@ -72,7 +88,7 @@ The following “Terms of Service” govern your use of the Litigo web site (“
 (f) any loss of Content subsequent to a cancellation or termination of a subscription to the Service;
 (g) statements or conduct of any third party on the Service; or
 (h) any other matter relating to the Service.
-8. Miscellaneous
+<h3>8. Miscellaneous</h3>
 (1)Technical support is only provided to Authorized Users with paying subscriptions, and is available through email correspondence or over the telephone.
 (2)You acknowledge and agree that Litigo may use third party vendors and hosting partners to provide the necessary hardware, software, networking, storage, and related technology required to run the Service.
 (3)You acknowledge and agree that the technical processing and transmission of data associated with the Service, including Content, may be transmitted unencrypted and involve: (a) transmissions over various networks; and (b) changes to conform and adapt to technical requirements of connecting networks or devices.
@@ -81,15 +97,15 @@ The following “Terms of Service” govern your use of the Litigo web site (“
 (6)You may not assign your rights or delegate your duties under this license to access the Service without the prior written consent of Litigo.
 (7)These Terms of Service shall be governed by and construed in accordance with the laws of the Delware, and the federal laws of the United States of America applicable therein.
 
-9. Limitation of Liability
+<h3>9. Limitation of Liability</h3>
 9.1 Except in the case of a violation by Litigo of its obligations under Section 4 above (“Confidentiality”), Section 5 above (“Security and Access”), and except as provided in Section 11.2 below (“Indemnification”), Litigo shall not be liable for and Subscriber waives the right to claim any loss, injury, claim, liability or damage of any kind resulting in any way from the Services provided to Subscriber by Litigo.
 10.2 SUBSCRIBER AGREES THAT THE LIABILITY OF LITIGO ARISING OUT OF ANY CLAIM IN ANY WAY CONNECTED WITH THE SERVICE WILL NOT EXCEED THE TOTAL AMOUNT YOU HAVE PAID FOR THE SERVICE PURSUANT TO THE AGREEMENT WITHIN THE TWELVE MONTH PERIOD BEFORE THE DATE THE CLAIM AROSE. SUBSCRIBER FURTHER AGREES THAT LITIGO IS NOT AND WILL NOT BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL DAMAGES OF ANY KIND WHATSOEVER (INCLUDING WITHOUT LIMITATION, ATTORNEY FEES) RELATING TO THIS AGREEMENT. THESE DISCLAIMERS APPLY REGARDLESS OF THE FORM OF ACTION, WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, WHETHER THOSE DAMAGES ARE FORESEEABLE AND WHETHER LITIGO HAS BEEN ADVISED OF THE POSSIBILITY OF THOSE DAMAGES. THESE DISCLAIMERS ARE NOT APPLICABLE TO THE INDEMNIFICATION OBLIGATION SET FORTH IN SECTION 11.2.
 10.3 Subscriber will solely be responsible for any damage and/or loss of Content contained in Subscriber’s technology which occurs as a result of Subscriber’s electronic equipment and/or Subscriber’s computer system.
-10. Disclaimer of Warranties
+<h3>10. Disclaimer of Warranties</h3>
 10.1 LITIGO HEREBY DISCLAIMS ALL WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED OR STATUTORY, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT OF THIRD PARTY RIGHTS WITH RESPECT TO ANY SERVICES PROVIDED BY LITIGO. NOTHING IN THIS SECTION 11.1 SHALL MODIFY LITIGO’S OBLIGATION TO INDEMNIFY SUBSCRIBER AS REQUIRED BY SECTION 11.2(A) OF THIS AGREEMENT (“INDEMNIFICATION”).
 10.2 Litigo makes no warranty that its services when provided to Subscriber in digital or electronic format will be compatible with Subscriber computer and/or other equipment, or that these Services will be secure or error free. Nor does Litigo  make any warranty as to any results that may be obtained from the use of the Service. Nothing in this Section 10.2 shall modify Litigo’s obligations under Section 4 above (“Confidentiality”) or Section 5 above (“Security and Access”) or Litigo’ obligation to indemnify you as required by Section 11.2(b) of this Agreement (“Indemnification”).
 10.3 Litigo hereby disclaims all warranties of any kind related to Subscriber’s hardware or software beyond the warranties provided by the manufacturer of Subscriber’s hardware or software.
-11. Indemnification
+<h3>11. Indemnification</h3>
 11.1 Subscriber hereby agrees to indemnify and hold harmless Litigo from and against any claim, action, proceeding, loss, liability, judgment, obligation, penalty, damage, cost or expense, including attorneys’ fees, which arise from or relate to the following:
 a. Authorized Users’ breach of any obligation stated in this Agreement, and
 b. Authorized Users’ negligent acts or omissions.
@@ -97,11 +113,29 @@ Litigo will provide prompt notice to Subscriber of any indemnifiable event or lo
 11.2 Litigo shall defend, indemnify and hold Subscriber harmless against any loss, damage or costs (including reasonable attorneys’ fees) in connection with claims, demands, suits, or proceedings (“Claims”) made or brought against Subscriber by a third party
 a. alleging that the Service, or use of the Service as contemplated hereunder, infringes a copyright, a U.S. patent issued as of the date of final execution of this Agreement, or a trademark of a third party or involves the misappropriation of any trade secret of a third party; provided, however, that Subscriber:
 (a) promptly gives written notice of the Claim to Litigo (provided, however, that the failure to so notify shall not relieve Litigo of its indemnification obligations unless Litigo can show that it was materially prejudiced by such delay and then only to the extent of such prejudice); (b) gives Litigo sole control of the defense and settlement of the Claim (provided that Litigo may not settle any Claim unless it unconditionally releases Subscriber of all liability); and (c) provides to Litigo, at Litigo’s cost, all reasonable assistance. Litigo shall not be required to indemnify Subscriber in the event of: (x) modification of the Service by Subscriber in conflict with Subscriber’s obligations or as a result of any prohibited activity as set forth herein to the extent that the infringement or misappropriation would not have occurred but for such modification; (y) use of the Service in combination with any other product or service not provided by Litigo to the extent that the infringement or misappropriation would not have occurred but for such use; or (z) use of the Service in a manner not otherwise contemplated by this Agreement to the extent that the infringement or misappropriation would not have occurred but for such use; or
-b. arising out of or related to a violation by Litigo of its obligations under Section 4 above (“Confidentiality”) or Section 5 above (“Security and Access”).
+b. arising out of or related to a violation by Litigo of its obligations under Section 4 above (“Confidentiality”) or Section 5 above (“Security and Access”).<br>
 
-QUESTIONS
-Please feel free to direct any questions about the Terms of Service to support at litigo.co.
+<h3>QUESTIONS</h3>
+Please feel free to direct any questions about the Terms of Service to support at litigo.co.<br>
+<p>
 
-</main>
+</div>
+  <div class="ending">
+              <div class="footer-container">
+                  &copy 2014 Litigo Inc.
+                  <div id="footer-links">
+                      <ul id="footer-links">
+                          <li><a href=#>Pricing</a></li>
+                          <li><%= link_to 'About', about_path %></li>
+                          <li><a href=#>Partners</a></li>
+                          <li><a href=#>Contact</a></li>
+                      </ul>
+                  </div>
+                    <p>
+                      <%= link_to 'Terms of Service', terms_path %>
+                      <a href=# id="service">Privacy Policy</a>
+                    </p>
+              </div>
+        </div>
  </body>
 </html>

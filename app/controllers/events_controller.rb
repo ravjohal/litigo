@@ -6,22 +6,17 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @events = @user.owned_events
-
-    if params[:order] && ["asc", "desc"].include?(params[:sort_mode])
-      order = params[:order].split(",").map {|o| "#{o} #{params[:sort_mode]}" }.join(", ")
-      if ['users', 'cases'].include?(params[:order])
-        @events = @events.eager_load(params[:order].to_sym).order(order)
-      else
-        @events = @events.order(order)
-      end
+    @events = []
+    @events = @user.firm.events if @user.firm
+    @events_list = []
+    @events.each do |event|
+      hash = {}
+      hash[:title] = event.summary
+      hash[:start] = "#{event.start.to_datetime}"
+      hash[:end] = "#{event.end.to_datetime}"
+      hash[:allDay] = false
+      @events_list << hash
     end
-    if params[:search].present? && params[:utf8] == "✓"
-      @events = @events.search(params[:search])
-
-    end
-    @events = @events.paginate(:per_page => 10, :page => params[:page])
-
   end
 
   # GET /events/1

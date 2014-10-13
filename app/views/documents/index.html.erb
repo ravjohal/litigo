@@ -10,7 +10,6 @@
 
 <div id="top-custom">
 <ul id="top-custom">
-  <li><h3>Documents</h3></li>
   <li><%= link_to 'NEW DOCUMENT', @new_path_documents, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> </li>
     </ul>
 </div>
@@ -19,10 +18,10 @@
         <thead>
         <tr>
           <th>Author</th>
-          <th>Type</th>
-          <th>Document</th>
+          <th>Document Type</th>
+          <th>Document Title</th>
           <th>Template</th>
-          <th>Case(s)</th>
+          <th>Case</th>
           <th></th>
           <th></th>
           <th></th>

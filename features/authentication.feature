@@ -12,15 +12,17 @@ Feature: User Registragion
     And when I fill in the modal window
     Then I should logged in
 
+    @javascript
   Scenario: User try to sign up with invalid data
     Given I am a guest
     When I visit sign up page
     And I fill in the sign up form with invalid data
     Then I should see the sign_up form again
-    And I should not be logged in to application
 
+    @javascript
   Scenario: User Log out
     When I visit sign up page
     And I fill in the sign up form with valid data
+    And when I fill in the modal window
     Then I go to sign_out page
     And I should be signed out

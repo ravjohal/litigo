@@ -2,7 +2,7 @@
   <ol class="breadcrumb">
     <li><%= link_to 'Cases', cases_path %></li>
     <li><%= link_to @case.name, case_path(@case) %></li>
-    <li class="active">Contacts</li>
+    <li>Contacts</li>
   </ol>
 
   <%= render partial: 'shared/case_tabs' %>
@@ -10,8 +10,9 @@
 
 <div id="top-custom">
 <ul id="top-custom">
- <li><h3>Contacts</h3></li>
   <li><%= link_to 'NEW CONTACT', @new_path_contacts, {:class => "action-button", :id => "contact_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></li>
+  <li><%= link_to 'ASSIGN CONTACTS', @new_path_contacts, {:class => "action-button", :id => "contact_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} %></li>
+  </ul>
   </ul>
   </div>
   <div class="table-responsive">

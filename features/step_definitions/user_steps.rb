@@ -31,3 +31,26 @@ Then(/^I should logged in$/) do
   expect(page).to have_content('Welcome, Artem Suchov')
   expect(current_path).to eq dashboards_path
 end
+
+When(/^I fill in the sign up form with invalid data$/) do
+  fill_in 'user_first_name', with: 'Artem'
+  fill_in 'user_last_name', with: 'Suchov'
+  fill_in 'user_email', with: 'artem.suchovgmail.com'
+  fill_in 'user_password', with: 'password'
+  fill_in 'user_password_confirmation', with: 'password'
+  click_on 'SIGN UP'
+end
+
+Then(/^I should see the sign_up form again$/) do
+  expect(current_path).to eq new_user_registration_path
+end
+
+Then(/^I go to sign_out page$/) do
+  click_on 'SIGN OUT'
+end
+
+Then(/^I should be signed out$/) do
+  expect(current_path).to eq root_path
+  expect(page).to have_content 'SIGN IN'
+end
+

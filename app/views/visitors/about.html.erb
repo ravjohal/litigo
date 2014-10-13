@@ -1,1 +1,90 @@
-Hello world!
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo | About Us" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+ </head>
+ <body>
+<header>
+    <div class="home-nav-banner">
+      <div class="wrapper">
+        <a href="index"class="navbar-brand"></a>
+        <% if user_signed_in? %>
+            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
+        <% else %>
+        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
+        <% end %>
+      </div>
+    </div>
+    </header>
+    <div class="terms-container">
+		<div class="biocontainer-first">
+    		<div class="ben">
+    			<a href="https://twitter.com/BenSmalley" class="follow-4" target="_blank"><img src="/assets/twitter.png" class="icons"></img></a>
+        		<a href="mailto:ben@litigo.co?Subject=Hello" class="follow-4"><span class="glyphicon glyphicon-envelope"></span></a>
+        		<a href="http://www.linkedin.com/pub/ben-smalley/22/38/b57/" target="_blank" class="follow-4"><img src="/assets/linkedin.png" class="icons"></img></a>
+        		<a href="https://angel.co/ben-smalley" target="_blank" class="follow-4"><img src="/assets/angel.png" class="icons"></img></a>
+    		</div>
+    			 <div class="bio">
+            		<h2>Ben Smalley, Founder and CEO</h2></br>
+           			 Prior to starting Litigo, Ben worked as a consultant at PwC and as a finance analyst at Practice Fusion. While working at his father's law firm, Ben experienced first hand the nature of the legal industry: paper documents, three-ring binders, fax machines and all. While working at Practice Fusion, he realized how innovative software can create real change in an archaic industry like healthcare. He is looking to bring that same type of change to the legal industry with Litigo.
+        		</div>
+        </div>
+       
+        <div class="biocontainer">
+    		<div class="rav">
+    			<a href="mailto:rav@litigo.co?Subject=Hello" class="follow-3"><span class="glyphicon glyphicon-envelope"></span></a>
+        		<a href="https://github.com/ravjohal" target="_blank" class="follow-3"><img src="/assets/git.png" class="icons"></img></a>
+        		<a href="https://www.linkedin.com/profile/view?id=24397703&authType=NAME_SEARCH&authToken=yKxb&locale=en_US&trk=tyah2&trkInfo=tarId%3A1413183994209%2Ctas%3Arav%2Cidx%3A1-1-1" target="_blank" class="follow-3"><img src="/assets/linkedin.png" class="icons"></img></a>
+    		</div>
+    			<div class="bio">
+            			<h2>Rav Johal, Co-founder and CTO</h2></br>
+            			Prior to joining Litigo, Rav worked as an application developer at Workday for over six years. He has expirence with agile development and Ruby on Rails and keeps the engineering team busy. Workday has given him an extensive knowledge on business applicatins and processes, which he leverages everyday to make the product better.
+        		</div>
+        </div>
+        <div class="biocontainer">
+    		<div class="john">
+        		<a href="http://www.dgmslaw.com/" class="follow-2" target="_blank"><span class="glyphicon glyphicon-link"></span></a>
+        		<a href="mailto:john@litigo.co?Subject=Hello" class="follow-2"><span class="glyphicon glyphicon-envelope"></span></a>
+    		</div>
+    		 		<div class="bio">
+           				<h2>John Smalley Esq., Advisor (Product)</h2></br>
+               			 John has 25+ years experience as a personal injury attorney, on both the defense and plaintiff side. He has tried 400+ jury trials across the U.S. involving personal injuries, catastrophic injuries, wrongful death, construction accidents, property damage-fire loss, insurance bad faith, multiple types of business litigation and federal trademark infringement.</br>
+               			 </br>John lends his deep knowledge of injuries, case evaluation, and litigation to help guide product decisions.
+        			</div>
+        </div>
+
+        <div class="biocontainer-last">
+    		<div class="alicia">
+        		<a href="http://aliciapompei.com" class="follow-2" target="_blank"><span class="glyphicon glyphicon-link"></span></a>
+        		<a href="https://www.linkedin.com/profile/view?id=28227390&authType=NAME_SEARCH&authToken=BwTg&locale=en_US&trk=tyah2&trkInfo=tarId%3A1413181252082%2Ctas%3Aalic%2Cidx%3A1-2-2" class="follow-2" target="_blank"><img src="/assets/linkedin.png" class="icons"></img></a>
+    		</div>
+    		 		<div class="bio">
+                 		<h2>Alicia Pompei, Advisor (Design)</h2></br>
+            			Lawyers are slow to adopt technology, therefore intuitive and elegant design is paramount in ensuring strong customer adoption and retention. Litigo's design-focused approach is led by Alicia, a Senior Communication Designer at IDEO. With experience in branding, graphic design, and user experience, she has worked at Target, Yahoo!, and Twilio; also working with numerous freelance clients including Twitter, Chronicle Books, and Visual.ly. 
+        			</div>
+        	</div>
+        </div>
+      <div class="ending">
+              <div class="footer-container">
+                  &copy 2014 Litigo Inc.
+                  <div id="footer-links">
+                      <ul id="footer-links">
+                          <li><a href=#>Pricing</a></li>
+                          <li><%= link_to 'About', about_path %></li>
+                          <li><a href=#>Partners</a></li>
+                          <li><a href=#>Contact</a></li>
+                      </ul>
+                  </div>
+                    <p>
+                      <%= link_to 'Terms of Service', terms_path, :id => 'service' %>
+                      <%= link_to 'Privacy Policy', privacy_path, :id => 'service' %>
+                    </p>
+              </div>
+        </div>
+    </body>
+    </html>

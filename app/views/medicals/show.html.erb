@@ -19,7 +19,7 @@
 
 <p>
   <strong>Injuries Treated within 3 days of Incident?:</strong>
-  <%= @medical.injuries_within_three_days %>
+  <%= t @medical.injuries_within_three_days.class %>
 </p>
 
 <p>
@@ -92,20 +92,20 @@
   Injury Type: <%= injury.injury_type %> <br />
   Region: <%= injury.region %> <br />
   Injury: <%= injury.code %> <br />
-  Dominant Side: <%= injury.dominant_side %> <br />
-  Fracture Through Joint: <%= injury.joint_fracture %> <br />
-  Displaced Fracture: <%= injury.displaced_fracture %> <br />
-  Likely to leave disfigurement: <%= injury.disfigurement %> <br />
+  Dominant Side: <%= t injury.dominant_side.class %> <br />
+  Fracture Through Joint: <%= t injury.joint_fracture.class %> <br />
+  Displaced Fracture: <%= t injury.displaced_fracture.class %> <br />
+  Likely to leave disfigurement: <%= t injury.disfigurement.class %> <br />
   In Doctor's Opinion: <br />
   Injury Permanent: <%= injury.permanence %> <br />
-  Plaintiff Disabled: <%= injury.disabled %> <br />
+  Plaintiff Disabled: <%= t injury.disabled.class %> <br />
   If yes, what %: <%= injury.disabled_percent %>% <br />
 <h4> Treatment </h4>
-  Was there Surgery or is Surgery Scheduled: <%= injury.surgery %> <br />
+  Was there Surgery or is Surgery Scheduled: <%= t injury.surgery.class %> <br />
   Number of Surgeries: <%= injury.surgery_count %> <br />
   Type of Surgery: <%= injury.surgery_type %> <br />
-  Fracture can be Casted: <%= injury.casted_fracture %> <br />
-  Stitches: <%= injury.stitches %> <br />
+  Fracture can be Casted: <%= t injury.casted_fracture.class %> <br />
+  Stitches: <%= t injury.stitches.class %> <br />
   Is future surgery likely? 
   (>75% likelihood): <%= t injury.future_surgery.class %> <br />
   Estimate of Future 

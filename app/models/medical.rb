@@ -1,5 +1,8 @@
 class Medical < ActiveRecord::Base
 	
+	DOCTOR_TYPE = ['MD', 'Specialist', 'DO', 'Other']
+	TREATMENT_TYPE = ['PT', 'Chiro', 'Meds', 'Other']
+
 	store_accessor :data, :doctor_type, :treatment_type
 
 	belongs_to :case

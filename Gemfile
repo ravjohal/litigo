@@ -48,7 +48,7 @@ group :development, :test, :staging do
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 2.5.0'                  # Collection of testing matchers extracted from Shoulda http://thoughtbot.com/community
+  gem 'shoulda-matchers', '~> 2.7.0', require: false  # Collection of testing matchers extracted from Shoulda http://thoughtbot.com/community
   gem 'rspec-rails', '~> 3.0.2'                       # https://www.relishapp.com/rspec/rspec-rails/docs/gettingstarted
   gem 'rspec-activemodel-mocks', '~> 1.0.1'           # RSpec test doubles for ActiveModel and ActiveRecord
   gem 'capybara', '~> 2.4.1'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Event' do
+describe Event do
 
   let!(:user) { create(:user) }
   let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer') }

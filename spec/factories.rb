@@ -35,6 +35,8 @@ FactoryGirl.define do
 
   factory :user do
     email
+    first_name "1#{Faker::Lorem.characters(7)}"
+    last_name "1#{Faker::Lorem.characters(7)}"
     password "1#{Faker::Lorem.characters(7)}"
   end
 

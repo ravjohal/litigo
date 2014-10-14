@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Contact' do
+describe Contact do
   let!(:user) { create(:user) }
   let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer') }
   let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh', :user => user,
@@ -9,6 +9,10 @@ describe 'Contact' do
                           :email => 'contact@server.com', :gender => 'male', :age => 30) }
 
   let!(:invalid_contact) { create(:contact) }
+  
+  context 'Validations' do
+    it { should validate_presence_of(:type) }
+  end
 
   context 'Check attributes' do
     it 'Expects Contact to be valid and have attrs' do

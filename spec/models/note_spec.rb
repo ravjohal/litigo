@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Note' do
+describe Note do
 
   let!(:user) { create(:user) }
   let!(:cas) { create(:case, number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',

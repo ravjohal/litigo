@@ -9,7 +9,8 @@ class Contact < ActiveRecord::Base
   belongs_to :user_account, class_name: "User"
   belongs_to :firm
 
-  validates :type, presence: true
+  
+	validates_presence_of :type
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :phone_number, length: { maximum: 10 }

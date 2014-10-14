@@ -21,10 +21,10 @@ class User < ActiveRecord::Base
   has_many :contacts
   has_one :contact_user, class_name: "Contact", foreign_key: "contact_user_id"
   has_many :cases
-  has_many :notes
+  has_many :ngotes
   has_many :google_calendars
   belongs_to :firm
-
+  validates_presence_of :first_name, :last_name
 
   def set_default_role
     self.role ||= :user

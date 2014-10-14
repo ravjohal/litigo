@@ -15,6 +15,10 @@
             <div class="form-inputs">
               <%= f.input :name %>
               <%= f.input :number, :readonly => true, :input_html => {:value =>  Case.next_number(new_case, action_name.to_s)} %>
+
+               <% if action_name == "edit" %>
+                  <%= f.input :docket_number, :label => "Docket Number"%>
+                <% end %>
           
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>

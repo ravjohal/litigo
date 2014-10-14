@@ -11,10 +11,11 @@ class EventsController < ApplicationController
     @events_list = []
     @events.each do |event|
       hash = {}
+      hash[:id] = event.id
       hash[:title] = event.summary
-      hash[:start] = "#{event.start.to_datetime}"
-      hash[:end] = "#{event.end.to_datetime}"
-      hash[:allDay] = false
+      hash[:start] = event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}"
+      hash[:end] = event.all_day ? "#{event.start.to_date}" : "#{event.end.to_datetime}"
+      hash[:allDay] = event.all_day
       @events_list << hash
     end
   end
@@ -32,7 +33,11 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    
+    if @event.owner_id == current_user.id
+      render partial: 'events/edit'
+    else
+      render partial: 'events/show'
+    end
   end
 
   # POST /events
@@ -45,7 +50,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
+        format.html { redirect_to request.referrer, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
         format.html { render :new }
@@ -59,7 +64,7 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
-        format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+        format.html { redirect_to request.referrer, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
         format.html { render :edit }

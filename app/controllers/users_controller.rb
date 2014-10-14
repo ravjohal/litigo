@@ -60,6 +60,7 @@ class UsersController < ApplicationController
         google_calendar = GoogleCalendar.find_or_initialize_by(google_id: e['id'])
         next if google_calendar.etag.present? && google_calendar.etag == e['etag']
         google_calendar.user_id = current_user.id
+        google_calendar.firm_id = current_user.firm_id
         google_calendar.google_id = e['id']
         google_calendar.etag = e['etag']
         google_calendar.summary = e['summary']
@@ -115,8 +116,6 @@ class UsersController < ApplicationController
   def select_calendar
     client = init_client
     calendar = client.discovered_api('calendar', 'v3')
-    logger.info "client: #{client.ai}\n"
-    google_calendar_ids = []
     if params[:select_calendar].present?
       params[:select_calendar].each do |key, val|
         if val == '1'
@@ -137,8 +136,9 @@ class UsersController < ApplicationController
               google_event.status = e['status']
               google_event.htmlLink = e['htmlLink']
               google_event.summary = e['summary']
-              google_event.start = e['start']['dateTime']
-              google_event.end = e['end']['dateTime']
+              google_event.all_day = !e['start']['dateTime'].present?
+              google_event.start = e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date']
+              google_event.end = e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date']
               google_event.endTimeUnspecified = e['endTimeUnspecified']
               google_event.transparency = e['transparency']
               google_event.visibility = e['visibility']

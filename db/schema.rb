@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141014011714) do
+ActiveRecord::Schema.define(version: 20141014160523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,7 +125,6 @@ ActiveRecord::Schema.define(version: 20141014011714) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
-    t.integer  "firm_id"
     t.string   "google_id"
     t.string   "etag"
     t.string   "status"
@@ -138,6 +137,7 @@ ActiveRecord::Schema.define(version: 20141014011714) do
     t.string   "visibility"
     t.string   "iCalUID"
     t.integer  "sequence"
+    t.integer  "firm_id"
   end
 
   create_table "firms", force: true do |t|
@@ -162,6 +162,7 @@ ActiveRecord::Schema.define(version: 20141014011714) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "firm_id"
   end
 
   create_table "incidents", force: true do |t|
@@ -213,7 +214,8 @@ ActiveRecord::Schema.define(version: 20141014011714) do
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
-    t.hstore   "data"
+    t.hstore   "doctor_type"
+    t.hstore   "treatment_type"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost"

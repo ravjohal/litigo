@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Plantiff' do
+describe Plaintiff do
   # let!(:plantiff) { create(:plantiff, :married => true, :employed => false, :job_description => 'Taxi driver',
   #                          :salary => 4000, :parent => true, :felony_convictions => false, :last_ten_years => true,
   #                          :jury_likeability => 6) }

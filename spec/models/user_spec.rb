@@ -1,10 +1,15 @@
 require 'spec_helper'
 
-describe 'User' do
+describe User do
 
   let!(:user) { create(:user, name: 'JohnDoh', unconfirmed_email: 'unconfirmed@email.com', role: :user,
                        show_onboarding: true, oauth_refresh_token: 'Token', oauth_token: 'Token1',
                        oauth_expires_at: Date.today, google_email: 'box@gmail.com') }
+  context 'Validations' do
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+  end
 
   context 'Check attributes' do
     it 'Expects User to be valid and have attrs' do

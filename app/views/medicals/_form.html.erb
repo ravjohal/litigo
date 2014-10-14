@@ -4,10 +4,12 @@
   <div class="form-inputs">
     <%= f.input :total_med_bills %>
     <%= f.input :subrogated_amount %>
-    <%= f.input :injuries_within_three_days %>
+    <%= f.input :injuries_within_three_days, as: :radio_buttons %>
     <%= f.input :length_of_treatment %>
-    <%= f.input :doctor_type %>
-    <%= f.input :treatment_type %> 
+    <%= f.simple_fields_for :data do |d| %>
+      <%= d.input :doctor_type, as: :check_boxes, collection: Medical::DOCTOR_TYPE %>
+      <%= d.input :treatment_type, as: :check_boxes, collection: Medical::TREATMENT_TYPE %> 
+    <% end %>
     <%= f.input :injury_summary %>
     <%= f.input :medical_summary %>
     <%= f.input :earnings_lost %>

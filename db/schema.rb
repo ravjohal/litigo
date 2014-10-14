@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20141014063009) do
 
   create_table "cases", force: true do |t|
     t.string   "name",          limit: 255
+    t.string   "number",        limit: 255
     t.text     "description"
     t.decimal  "medical_bills"
     t.datetime "created_at"

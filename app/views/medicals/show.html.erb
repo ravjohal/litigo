@@ -51,15 +51,15 @@
   <%= @medical.treatment_gap %>
 </p>
 
-<p>
-  <strong>Doctor type:</strong>
-  <%= @medical.doctor_type %>
-</p>
+<!-- <p>
+<% @medical.data.each do |k,v| %>
+  <tr>
+    <td width="50%" align="left" valign="top"><%= k %></td>
+    <td width="50%" align="left" valign="top"><%= v %></td>
+  </tr>
+  <% end %>
+</p> -->
 
-<p>
-  <strong>Treatment type:</strong>
-  <%= @medical.treatment_type %>
-</p>
 <p>
   <strong>Were there Injections?:</strong>
   <%= @medical.injections %>

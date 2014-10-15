@@ -13,16 +13,13 @@ class Case < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :firm
-  
+
   has_many :case_documents, :dependent => :destroy
   has_many :documents, :through => :case_documents
-
   has_many :case_tasks, :dependent => :destroy
   has_many :tasks, :through => :case_tasks
-
   has_many :case_events, :dependent => :destroy
   has_many :events, :through => :case_events
-
   has_many :notes
 
   accepts_nested_attributes_for :documents
@@ -46,7 +43,6 @@ class Case < ActiveRecord::Base
     end
   end
 
-  
   def self.increment_number(firm_, action_, case_)
     puts "ACTION NAME " + action_ 
     if action_ != "edit"

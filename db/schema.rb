@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20141014160523) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
+    t.integer  "firm_id"
     t.string   "google_id"
     t.string   "etag"
     t.string   "status"
@@ -137,7 +138,6 @@ ActiveRecord::Schema.define(version: 20141014160523) do
     t.string   "visibility"
     t.string   "iCalUID"
     t.integer  "sequence"
-    t.integer  "firm_id"
   end
 
   create_table "firms", force: true do |t|

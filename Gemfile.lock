@@ -211,6 +211,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
+    method_source (0.8.2)
     mime-types (2.4.1)
     mini_portile (0.6.0)
     minitest (5.4.2)
@@ -243,6 +244,13 @@ GEM
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.17.1)
+    pry (0.10.1)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+    pry-byebug (2.0.0)
+      byebug (~> 3.4)
+      pry (~> 0.10)
     pundit (0.3.0)
       activesupport (>= 3.0.0)
     quiet_assets (1.0.3)
@@ -384,7 +392,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-sass (~> 3.2.0.2)
-  byebug (~> 3.5.0)
   capybara (~> 2.4.1)
   capybara-firebug (~> 2.0.0)
   carrierwave
@@ -410,6 +417,7 @@ DEPENDENCIES
   minitest (~> 5.4.0)
   omniauth-google-oauth2 (~> 0.2.5)
   pg
+  pry-byebug (~> 2.0.0)
   pundit
   quiet_assets
   rails (~> 4.2.0.beta2)

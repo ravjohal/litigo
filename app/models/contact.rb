@@ -2,14 +2,12 @@ class Contact < ActiveRecord::Base
 	
   TYPES = ['Attorney', 'Client', 'Witness', 'Plaintiff', 'Defendant', 'Staff', 'General']
 
-
   belongs_to :case
 	belongs_to :user
   belongs_to :event
-  belongs_to :user_account, class_name: "User"
+  belongs_to :user_account, class_name: 'User'
   belongs_to :firm
 
-  
 	validates_presence_of :type
   validates :first_name, presence: true
   validates :last_name, presence: true

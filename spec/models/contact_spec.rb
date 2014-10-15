@@ -9,39 +9,26 @@ describe Contact do
                           :email => 'contact@server.com', :gender => 'male', :age => 30) }
 
   let!(:invalid_contact) { create(:contact) }
-  
+
+  context 'Relationships' do
+    it { should belong_to(:case) }
+    it { should belong_to(:user) }
+    it { should belong_to(:event) }
+    it { should belong_to(:user_account).class_name('User') }
+    it { should belong_to(:firm) }
+  end
+
   context 'Validations' do
     it { should validate_presence_of(:type) }
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should ensure_length_of(:phone_number).is_at_most(10) }
+    xit { should ensure_length_of(:fax_number).is_at_most(10) }
   end
 
-  context 'Check attributes' do
-    it 'Expects Contact to be valid and have attrs' do
-      expect(contact).to be_valid
-      expect(contact.first_name).to eq 'John'
-      expect(contact.last_name).to eq 'Doh'
-      expect(contact.middle_name).to eq 'Aron'
-      expect(contact.address).to eq 'Avenue, 5th'
-      expect(contact.city).to eq 'New York'
-      expect(contact.state).to eq 'New York'
-      expect(contact.country).to eq 'USA'
-      expect(contact.phone_number).to eq '111222'
-      expect(contact.fax_number).to eq 333444
-      expect(contact.email).to eq 'contact@server.com'
-      expect(contact.gender).to eq 'male'
-      expect(contact.age).to eq 30
-    end
-
-    it 'Expects Contact without first_name, last_name to be invalid' do
-      !expect(invalid_contact).to be_valid
-    end
-  end
-
-  context "Checking dependencies" do
-    xit 'Expects to have valid association with user' do
-      expect(contact.user).to eq user
-      expect(user.contacts.first).to eq contact
-    end
-
+  context 'Accessible attributes' do
+    it { should respond_to(:first_name, :last_name, :middle_name, :address, :city, 
+                           :state, :country, :phone_number, :fax_number, :email, :gender, :age, :case, :user, :event, :phone_number, :fax_number ) }
   end
 
 end

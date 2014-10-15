@@ -7,39 +7,54 @@ describe Case do
   let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh') }
   let!(:cas) { create(:case, number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',
                        description: 'Description') }
-
   let!(:event) { create(:event) }
   let!(:doc) { create(:document) }
   let!(:task) { create(:task) }
 
-  context 'Check attributes' do
-    it 'Expects Case to be valid and have attrs' do
-      expect(cas).to be_valid
-      expect(cas.case_type).to eq 'CType'
-      expect(cas.subtype).to eq 'SubType'
-      expect(cas.name).to eq 'Case1'
-      expect(cas.description).to eq 'Description'
-    end
-
-    xit 'Expects to have valid associations' do
-      expect(cas.contact).to eq contact
-      expect(cas.contactable).to eq attorney
-    end
-
+  context 'Relationships' do
+    it { should define_enum_for(:status) }
+    it { should have_many(:contacts) }
+    it { should have_one(:incident).dependent(:destroy) }
+    it { should have_one(:medical).dependent(:destroy) }
+    it { should have_one(:resolution).dependent(:destroy) }
+    it { should belong_to(:user) }
+    it { should belong_to(:firm) }
+    it { should have_many(:case_documents).dependent(:destroy) }
+    it { should have_many(:documents).through(:case_documents) }
+    it { should have_many(:case_tasks).dependent(:destroy) }
+    it { should have_many(:tasks).through(:case_tasks) }
+    it { should have_many(:case_events).dependent(:destroy) }
+    it { should have_many(:events).through(:case_events) }
+    it { should have_many(:notes) }
+    it { should accept_nested_attributes_for(:documents) }
+    it { should accept_nested_attributes_for(:medical).allow_destroy(true)}
+    it { should accept_nested_attributes_for(:incident).allow_destroy(true)}
+    it { should accept_nested_attributes_for(:resolution).allow_destroy(true)}
   end
 
-  context 'Checking dependencies' do
-
-    it 'Expects to have has_and_belongs_to_many Case -> Event association' do
-      cas.events << event
-      expect(cas.events.size).to eq 1
-      expect(cas.events.first).to eq event
-
-
-      cas.events.clear
-      event.cases.clear
-      expect(cas.events.empty?).to eq true
-      expect(event.cases.empty?).to eq true
+  context 'Validations' do
+    it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:number) }
+    it { should validate_presence_of(:case_type) }
+    it { should validate_presence_of(:subtype) }
+    it { should allow_value('fi', 'ki', '').for(:state)}
+    it { should_not allow_value('fii', 'kii', '123').for(:state)}
+    context 'if self.closed?' do
+      before { subject.stub(:closed?) { true } }
+      it { should validate_presence_of(:closing_date) }
+    end
+    context 'if self.pending?' do
+      before { subject.stub(:pending?) { true } }
+      it { should validate_absence_of(:closing_date) }
+    end
+    context 'if self.open?' do
+      before { subject.stub(:open?) { true } }
+      it { should validate_absence_of(:closing_date) }
     end
   end
+
+  context 'Accessible attributes' do
+    it { should respond_to(:name, :number, :description, :medical_bills, :case_type, :subtype, :user_id, :closing_date, :state, :court, :firm_id, :county, :docket_number, :contacts, :incident) }
+  end
+
 end

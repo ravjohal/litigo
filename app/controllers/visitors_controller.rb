@@ -25,4 +25,8 @@ class VisitorsController < ApplicationController
 
   	end
 
+    def pricing
+
+    end
+
 end

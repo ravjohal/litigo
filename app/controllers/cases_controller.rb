@@ -26,9 +26,9 @@ class CasesController < ApplicationController
     # incident.firm = @firm
     # incident.save
 
-    # resolution = @case.build_resolution
-    # resolution.firm = @firm
-    # resolution.save
+    resolution = @case.build_resolution
+    resolution.firm = @firm
+    resolution.save
 
     # medical = @case.build_medical
     # medical.firm = @firm

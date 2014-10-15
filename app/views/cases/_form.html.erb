@@ -19,9 +19,13 @@
                <% if action_name == "edit" %>
                   <%= f.input :docket_number, :label => "Docket Number"%>
                 <% end %>
-          
+
+              <%= f.association :contacts, label: "Plaintiff(s)", :collection => Contact.all.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'sel2' %>
+              <%= f.association :contacts, label: "Defendant(s)", :collection => Contact.all.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'sel2' %>
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
               <%= f.association :contacts, :collection => Contact.all.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+              <%= f.input :court %>
+              <%= f.input :county %>
               <%= f.input :state, as: :select, collection: us_states %>
               <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
               <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
@@ -30,7 +34,7 @@
                 <%= f.simple_fields_for :incident, new_case.build_incident do |i| %>
                   <%= i.input :incident_date %>
                   <%= i.input :statute_of_limitations %> <!-- TODO: make this read-only and calculated according to some rules that need to be defined -->
-                  <% i.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
+                  <%= i.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
                 <% end %>
                 <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
                   <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
@@ -41,6 +45,8 @@
                 <% end %>
               <% end %>
               <%= f.input :description, type: 'text-area', label: "Case Summary" %>
+              <%= f.input :status %>
+              <%= f.input :closing_date %>
 
 
             </div>

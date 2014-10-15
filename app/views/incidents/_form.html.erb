@@ -8,6 +8,7 @@
     <%= f.input :alcohol_involved %>
     <%= f.input :weather_factor %>
     <%= f.input :property_damage %>
+    <%= f.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
     <%= f.input :airbag_deployed %>
     <%= f.input :speed %>
     <%= f.input :police_report %>

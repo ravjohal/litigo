@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo Terms of Service" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+ </head>
+ <body>
+<header>
+    <div class="home-nav-banner">
+      <div class="wrapper">
+        <a href="index"class="navbar-brand"></a>
+        <% if user_signed_in? %>
+            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
+        <% else %>
+        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
+        <% end %>
+      </div>
+    </div>
+    </header>
+
+<div class="terms-container">
+    <table class="" id="pricing">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Basic</th>
+                <th>Pro</th>
+                <th>Premium</th>
+            </tr>
+        </thead>
+            <tr>
+                <td><br></td>
+                <td><br></td>
+                <td><br></td>
+                <td><br></td>
+            </tr>
+            <tr>
+                <td>24/7 Access to Cases</td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+            <tr>
+                <td>Document Storage</td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+            <tr>
+                <td>Google Calendar Sync</td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+    </table>
+</div>
+ 
+  <div class="ending">
+              <div class="footer-container">
+                  &copy 2014 Litigo Inc.
+                  <div id="footer-links">
+                      <ul id="footer-links">
+                          <li><a href=#>Pricing</a></li>
+                          <li><%= link_to 'About', about_path %></li>
+                          <li><a href=#>Partners</a></li>
+                          <li><a href=#>Contact</a></li>
+                      </ul>
+                  </div>
+                    <p>
+                      <%= link_to 'Terms of Service', terms_path %>
+                      <a href=# id="service">Privacy Policy</a>
+                    </p>
+              </div>
+        </div>
+ </body>
+</html>

@@ -41,11 +41,35 @@
   <%= @medical.hospital_stay_length_unit %>
 </p>
 
-
+ 
 <p>
   <strong>Total Length of Treatment (months):</strong>
   <%= @medical.length_of_treatment %>
 </p>
+
+<% 
+=begin 
+%>
+<%= @medical.data.each do |k,v| %>
+<p>
+  <strong><%= k.dup.gsub!(/_/, ' ').titleize -%>:</strong>
+  <%= v.gsub(/[^0-9A-Za-z]/, '') %>
+</p>
+<%  end %>
+<% 
+=end 
+%>
+
+<p>
+  <strong>Doctor Type:</strong>
+  <%= @medical.doctor_type.gsub(/[^0-9A-Za-z]/, ' ')%>
+</p>
+
+<p>
+  <strong>Treatment Type:</strong>
+  <%= @medical.treatment_type.gsub(/[^0-9A-Za-z]/, ' ')%>
+</p>
+
 <p>
   <strong>Gap(s) in Treatment?:</strong>
   <%= boolean_as_yesno @medical.treatment_gap %>

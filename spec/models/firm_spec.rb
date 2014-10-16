@@ -12,7 +12,6 @@ describe Firm do
     it { should have_many(:injuries) }
     it { should have_many(:notes) }
     it { should have_many(:tasks) }
-    it { should have_many(:treatments) }
     it { should have_many(:resolutions) }
     it { should have_many(:google_calendars) }
   end

@@ -48,7 +48,7 @@ class MedicalsController < ApplicationController
   def update
     @medical = @case.medical
 
-    #puts "DOCTOR TYPE: " + params[:data].to_s
+    pp params[:data]
     # if params[:data][:doctor_type]
     #   params[:data][:doctor_type].each do |doc|
     #     doctor_type << doc
@@ -95,12 +95,10 @@ class MedicalsController < ApplicationController
       params.require(:medical).permit(:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, 
                                   :length_of_treatment_unit, :injury_summary, :medical_summary, 
                                   :earnings_lost, :treatment_gap, :injections, :hospitalization, :hospital_stay_length, 
-                                  :hospital_stay_length_unit, :data => [:doctor_type, :treatment_type], :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
+                                  :hospital_stay_length_unit, :data, :doctor_type, :treatment_type, :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
                                   :displaced_fracture, :disfigurement, :impairment, :permanence, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture,
-                                  :stitches, :future_surgery, :future_medicals, :id]).tap do |whitelisted|
-                                    whitelisted[:data] = params[:medical][:data]
-                                  end
+                                  :stitches, :future_surgery, :future_medicals, :id], :data => [:doctor_type => [], :treatment_type => []])
 
     end
 end

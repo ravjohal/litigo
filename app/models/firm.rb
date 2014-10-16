@@ -9,7 +9,6 @@ class Firm < ActiveRecord::Base
 	has_many :injuries
 	has_many :notes
 	has_many :tasks
-	has_many :treatments
 	has_many :resolutions
 	has_many :google_calendars
 

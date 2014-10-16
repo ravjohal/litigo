@@ -5,7 +5,7 @@ describe Case do
   let!(:user) { create(:user) }
   let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer') }
   let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh') }
-  let!(:cas) { create(:case, number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',
+  let!(:cas) { create(:case, case_number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',
                        description: 'Description') }
   let!(:event) { create(:event) }
   let!(:doc) { create(:document) }
@@ -34,7 +34,7 @@ describe Case do
 
   context 'Validations' do
     it { should validate_presence_of(:name) }
-    it { should validate_presence_of(:number) }
+    it { should validate_presence_of(:case_number) }
     it { should validate_presence_of(:case_type) }
     it { should validate_presence_of(:subtype) }
     it { should allow_value('fi', 'ki', '').for(:state)}
@@ -54,7 +54,7 @@ describe Case do
   end
 
   context 'Accessible attributes' do
-    it { should respond_to(:name, :number, :description, :medical_bills, :case_type, :subtype, :user_id, :closing_date, :state, :court, :firm_id, :county, :docket_number, :contacts, :incident) }
+    it { should respond_to(:name, :case_number, :description, :medical_bills, :case_type, :subtype, :user_id, :closing_date, :state, :court, :firm_id, :county, :docket_number, :contacts, :incident) }
   end
 
 end

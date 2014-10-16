@@ -19,7 +19,7 @@
 
 <p>
   <strong>Injuries Treated within 3 days of Incident?:</strong>
-  <%= t @medical.injuries_within_three_days.class %>
+  <%= boolean_as_yesno @medical.injuries_within_three_days %>
 </p>
 
 <p>
@@ -30,7 +30,7 @@
 
 <p>
   <strong>Was Plaintiff Hospitalized?:</strong>
-  <%= @medical.hospitalization %>
+  <%= boolean_as_yesno @medical.hospitalization %>
 </p>
   <p class="indent">If yes, for how long?:
   <%= @medical.hospital_stay_length %>
@@ -48,12 +48,12 @@
 </p>
 <p>
   <strong>Gap(s) in Treatment?:</strong>
-  <%= @medical.treatment_gap %>
+  <%= boolean_as_yesno @medical.treatment_gap %>
 </p>
 
 <p>
   <strong>Were there Injections?:</strong>
-  <%= @medical.injections %>
+  <%= boolean_as_yesno @medical.injections %>
 </p>
 </div>
 <br>
@@ -83,22 +83,22 @@
   Injury Type: <%= injury.injury_type %> <br />
   Region: <%= injury.region %> <br />
   Injury: <%= injury.code %> <br />
-  Dominant Side: <%= t injury.dominant_side.class %> <br />
-  Fracture Through Joint: <%= t injury.joint_fracture.class %> <br />
-  Displaced Fracture: <%= t injury.displaced_fracture.class %> <br />
-  Likely to leave disfigurement: <%= t injury.disfigurement.class %> <br />
+  Dominant Side: <%= boolean_as_yesno injury.dominant_side %> <br />
+  Fracture Through Joint: <%= boolean_as_yesno injury.joint_fracture %> <br />
+  Displaced Fracture: <%= boolean_as_yesno injury.displaced_fracture %> <br />
+  Likely to leave disfigurement: <%= boolean_as_yesno injury.disfigurement %> <br />
   In Doctor's Opinion: <br />
-  Injury Permanent: <%= injury.permanence %> <br />
-  Plaintiff Disabled: <%= t injury.disabled.class %> <br />
+  Injury Permanent: <%= boolean_as_yesno injury.permanence %> <br />
+  Plaintiff Disabled: <%= boolean_as_yesno injury.disabled %> <br />
   If yes, what %: <%= injury.disabled_percent %>% <br />
 <h4> Treatment </h4>
-  Was there Surgery or is Surgery Scheduled: <%= t injury.surgery.class %> <br />
+  Was there Surgery or is Surgery Scheduled: <%= boolean_as_yesno injury.surgery %> <br />
   Number of Surgeries: <%= injury.surgery_count %> <br />
   Type of Surgery: <%= injury.surgery_type %> <br />
-  Fracture can be Casted: <%= t injury.casted_fracture.class %> <br />
-  Stitches: <%= t injury.stitches.class %> <br />
+  Fracture can be Casted: <%= boolean_as_yesno injury.casted_fracture %> <br />
+  Stitches: <%= boolean_as_yesno injury.stitches %> <br />
   Is future surgery likely? 
-  (>75% likelihood): <%= injury.future_surgery %> <br />
+  (>75% likelihood): <%= boolean_as_yesno injury.future_surgery %> <br />
   Estimate of Future 
   Medical Bills: <%= injury.future_medicals %> <br />
 </p>

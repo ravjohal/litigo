@@ -601,14 +601,14 @@ a.request-button:hover{
 
 .alert {
   position: absolute;
-  width: 100%;
+  width: 200px;
   z-index: 10;
-  border: 1px solid transparent;
+  border: 1px solid #059E55;
   border-radius: 4px;
   padding-top: 10px;
-  //width: 50%;
+  padding-right: 5px;
   text-align: center;
-  margin: 0 auto;
+  right: 20px;
 }
 
 .navbar-inverse {
@@ -869,11 +869,19 @@ margin: 0 auto;
   width: 960px;
 }
 .navbar-brand {
+  background-image: url(/assets/darklogo.png);
+  background-repeat: no-repeat;
+  background-size: 90px 34px;
+  width: 100px;
+  height: 38px;
+  margin-top: 10px;
+}
+.navbar-brand2 {
   background-image: url(/assets/lightlogo.png);
   background-repeat: no-repeat;
-  background-size: 90px 36px;
+  background-size: 90px 34px;
   width: 100px;
-  height: 40px;
+  height: 38px;
   margin-top: 10px;
 }
 
@@ -977,9 +985,110 @@ margin-top: 90px;
   width: 25px;
 }
 
-#pricing{
-  width: 100%;
+/* Price table */
+
+#price-table{
+  width: 900px;
+  table-layout:fixed;
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 50px;
+  margin-bottom: 75px;
 }
+
+thead {
+  margin: 0 auto;
+  padding: 10px;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: middle;
+}
+
+.large {
+  font-size: 120%;
+}
+.large-star {
+  font-size: 120%;
+  padding: 0 0;
+}
+.xlarge {
+  font-size: 180%;
+}
+.small {
+  font-size: 90%;
+  padding: 0 0;
+}
+
+.cent{
+  text-align: center;
+}
+.yellow {
+  color: #3FC2D8;
+}
+
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 10px;
+  border: 0;
+  font-size: 100%;
+  vertical-align: middle;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+
+
+tbody tr:nth-child(even) {
+  background: #eee;
+}
+
 .green{
   color: #46C151;
 }
+
+ a.cta {
+    width: 90%;
+    font-family: arial;
+    color: #323A45;
+    font-size: 100%;
+    letter-spacing: 1px;
+    line-height: 11px;
+    text-decoration: none;
+    border: solid 1px;
+    border-color: #323A45;
+    border-radius: 4px;
+    padding: 6px 12px;
+    &:visited {
+      color: #323A45;
+    }
+    &:hover {
+      color: white;
+      background: #323A45;
+      transition: .2s;
+    }
+  }
+   a.cta-alt {
+    width: 90%;
+    font-family: arial;
+    color: #323A45;
+    font-size: 100%;
+    letter-spacing: 1px;
+    line-height: 11px;
+    text-decoration: none;
+    border: solid 1px;
+    border-color: #323A45;
+    border-radius: 4px;
+    padding: 6px 38px;
+    &:visited {
+      color: #323A45;
+    }
+    &:hover {
+      color: white;
+      background: #323A45;
+      transition: .2s;
+    }
+  }
+

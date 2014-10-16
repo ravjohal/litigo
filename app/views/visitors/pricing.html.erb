@@ -2,7 +2,7 @@
 <html>
  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Litigo Terms of Service" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo | Pricing" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
     <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -23,15 +23,42 @@
     </header>
 
 <div class="terms-container">
-    <table class="" id="pricing">
-        <thead>
-            <tr>
+    <table id="price-table">
+        <thead id="head">
+        <tr class="xlarge">
+                <th class="cent"></th>
+                <th class="cent">Basic</th>
+                <th class="cent">Pro</th>
+                <th class="cent">Premium</th>
+            </tr>
+            <tr class="large-star">
                 <th></th>
-                <th>Basic</th>
-                <th>Pro</th>
-                <th>Premium</th>
+                <th class="cent"><span class="glyphicon glyphicon-star yellow"></span></th>
+                <th class="cent"><span class="glyphicon glyphicon-star yellow"></span><span class="glyphicon glyphicon-star yellow"></span></th>
+                <th class="cent"><span class="glyphicon glyphicon-star yellow"></span><span class="glyphicon glyphicon-star yellow"></span><span class="glyphicon glyphicon-star yellow"></span></th>
+            </tr>
+          
+             <tr class="large">
+                <th></th>
+                <th class="cent">FREE<br></th>
+                <th class="cent">$99<br><div class="small">Practice/month</div></th>
+                <th class="cent">$199<br><div class="small">Practice/month</div></th>
+            </tr>
+             <tr>
+                <th></th>
+                <th class="cent"><a href='#' class="cta-alt">Sign Up</a></th>
+                <th class="cent"><a href='#' class="cta">Start Free Trial</a></th>
+                <th class="cent"><a href='#' class="cta">Start Free Trial</a></th>
             </tr>
         </thead>
+         <tfoot>
+            <tr>
+                <td colspan="4">
+                * Indicates that feature is coming soon
+                </td>
+            </tr>
+          </tfoot>
+        <tbody>
             <tr>
                 <td><br></td>
                 <td><br></td>
@@ -39,23 +66,112 @@
                 <td><br></td>
             </tr>
             <tr>
-                <td>24/7 Access to Cases</td>
+                <th>100% web-based</th>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
             </tr>
             <tr>
-                <td>Document Storage</td>
+                <th>Mobile access</th>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
             </tr>
             <tr>
-                <td>Google Calendar Sync</td>
+                <th>SSL encryption</th>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
                 <td><span class="glyphicon glyphicon-ok green"></span></td>
             </tr>
+              <tr>
+                <th>Client and case management</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+              <tr>
+                <th>Google Calendar sync</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+              <tr>
+                <th>Search</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+              <tr>
+                <th>Note taking</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+              <tr>
+                <th>Multi-user access</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               <tr>
+                <th>Task management</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               <tr>
+                <th>Reporting</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+                <tr>
+                <th>Billing*</th>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               </tr>
+                <tr>
+                <th>Client intake*</th>
+                <td>
+                </td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               <tr>
+                <th>Litigation research</th>
+                <td>
+                </td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               <tr>
+                <th>Case evaluation*</th>
+                <td>
+                </td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+                <tr>
+                <th>Judge analytics*</th>
+                <td></td>
+                <td></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               <tr>
+                <th>Jury analytics*</th>
+                <td></td>
+                <td></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+               <tr>
+                <th>Firm & attorney bench marking*</th>
+                <td></td>
+                <td></td>
+                <td><span class="glyphicon glyphicon-ok green"></span></td>
+            </tr>
+          </tbody>
     </table>
 </div>
  
@@ -72,7 +188,7 @@
                   </div>
                     <p>
                       <%= link_to 'Terms of Service', terms_path %>
-                      <a href=# id="service">Privacy Policy</a>
+                      <%= link_to 'Privacy Policy', privacy_path %>
                     </p>
               </div>
         </div>

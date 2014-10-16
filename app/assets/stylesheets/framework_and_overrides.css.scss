@@ -199,13 +199,6 @@ section {
   margin-bottom: 0px;
 }
 
-.alert {
-  border: 1px solid transparent;
-  border-radius: 4px;
-  padding-top: 60px;
-  //width: 50%;
-  text-align: center;
-}
 
 a.action-button{
   font-family: sans-serif;
@@ -335,6 +328,8 @@ a.action-button:hover{
   width: 200px;
 }
 }
+
+
 
 
 .nav-two {
@@ -559,6 +554,36 @@ color: #323A45;
   z-index: 1000;
   top: 55px;
 }
+
+
+/* FORMS */
+
+.case-inputs-head{
+  margin: 0 auto;
+  width: 100%;
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    height: 250px;
+}
+
+.case-inputs-body{
+  margin: 0 auto;
+  width: 100%;
+  -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    height: 10px0px;
+}
+
+#case-des{
+  width: 600px;
+}
+
+.control-group{
+  margin-bottom: 10px;
+}
+
 input[type="search"] {
 width: 200px;
 -webkit-appearance: none;
@@ -568,8 +593,16 @@ letter-spacing: 1px;
 text-indent: 10px;
 }
 
+input {
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .simple_form div.input {  
   margin-bottom: 10px;
+  width: 100px;
+
 }  
   
 .simple_form div.boolean, .simple_form input[type='submit'] {  
@@ -581,20 +614,17 @@ text-indent: 10px;
   margin-bottom: 5px;
 }  
 
-
-input,
-optgroup,
- {
-  color: inherit;
-  font: inherit;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  width: 350px;
-  padding: 5px;
+input [type="text"] {
+height: 20px;
+padding: 4px 6px;
+font-size: 14px;
+line-height: 20px;
+color: #555555;
+vertical-align: middle;
+-webkit-border-radius: 4px;
+-moz-border-radius: 4px;
+border-radius: 4px;
 }
-
 
 
 textarea {
@@ -617,7 +647,8 @@ select {
   border-radius: 4px;
   border: 1px solid #ccc;
   width: 112px;
-  padding: 5px;
+  padding: 2px;
+  background-color: white;
 }
 
 .select2-container-multi .select2-choices {
@@ -634,7 +665,7 @@ select {
 }
 
 .select2-container{
-  width: 350px;
+  width: 200px;
   border-radius: 4px;
   border: none;
 }
@@ -659,16 +690,17 @@ select {
 
 .modal-body{
   padding: 0 0;
+  width: 100%;
 }
 .modal-dialog {
-    width: 700px;
-    margin: 30px auto;
+    margin: 0 auto;
     z-index: 8000;
     position: absolute;
   }
 .modal-content {
   position: relative;
   z-index: 8000;
+  width: 100%;
 }
 .sel2{
   width: 300px;
@@ -680,9 +712,6 @@ select {
 }
 
 
-.control-group{
-  margin-bottom: 10px;
-}
 
 #document_document{
   position: relative;
@@ -1046,7 +1075,7 @@ div.hopscotch-bubble.no-number .hopscotch-bubble-content {
 }
 div.hopscotch-bubble .hopscotch-bubble-close {
   color: white;
-  background: transparent url('/assets/sprite.png') -192px -92px no-repeat;
+  background: transparent url('/assets/xxx.png')  no-repeat;
   display: block;
   padding: 8px;
   position: absolute;

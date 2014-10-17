@@ -24,7 +24,7 @@ class DashboardsController < ApplicationController
     # create_user
     firm_name = params[:firm][:name]
     firm_from_db = Firm.find_by(:name => firm_name)
-    if !firm_from_db
+    #if !firm_from_db
       @firm = Firm.new
       tenant = firm_name.gsub(/[^0-9a-z ]/i, '').tr(" ", "_") #replace whitespace and remove special characters
       @firm.name = firm_name
@@ -36,11 +36,11 @@ class DashboardsController < ApplicationController
 
       @user.firm = @firm
       @user.save!
-    else
-      @firm = firm_from_db
-      @user.firm = @firm
-      @user.save!
-    end
+   # else
+   #   @firm = firm_from_db
+   #   @user.firm = @firm
+   #   @user.save!
+   # end
 
     respond_to do |format|
       if @firm.save

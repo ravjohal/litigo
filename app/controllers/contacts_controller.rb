@@ -28,10 +28,10 @@ class ContactsController < ApplicationController
 
   #   if get_case
   #     @contact = @case.contacts.build
-  #     @create_case_contacts_array = [@case, @contact]
+  #     @contacts_a = [@case, @contact]
   #   else
   #     @contact = Contact.new
-  #     @create_case_contacts_array = @contact
+  #     @contacts_a = @contact
   #   end
 
   #   puts " CASE CONTACTS array " + @create_case_contacts_array.to_s

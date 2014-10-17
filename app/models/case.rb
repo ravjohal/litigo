@@ -2,8 +2,9 @@ class Case < ActiveRecord::Base
 
   TYPES = ['Personal Injury', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Real Estate', 'Wills', 'Trusts', 'Estates']
   SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action', 'Workers Compensation']
+  STATUS = ['open', 'pending', 'closed']
 
-  enum status: { open: 0, pending: 1, closed: 2 }
+  #enum status: { open: 0, pending: 1, closed: 2 }
 
   has_many :contacts
 
@@ -32,8 +33,8 @@ class Case < ActiveRecord::Base
   validates :case_type, presence: true
   validates :subtype, presence: true
   validates :state, length: { is: 2 }, allow_blank: true
-  validates :closing_date, presence: true , if: "self.closed?"
-  validates :closing_date, absence: true, if: "self.pending? || self.open?"
+  #validates :closing_date, presence: true , if: "self.closed?"
+  #validates :closing_date, absence: true, if: "self.pending? || self.open?"
 
   def self.search(search)
     if search
@@ -51,7 +52,7 @@ class Case < ActiveRecord::Base
       puts "INCREMENT NUMBER FIRM: " + firm_.to_s + "   and NUMBER: " + new_number.to_s
       new_number.to_i
     else
-      case_.number
+      case_.case_number
     end
   end
 

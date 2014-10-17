@@ -45,7 +45,7 @@
                 <% end %>
               <% end %>
               <%= f.input :description, type: 'text-area', label: "Case Summary" %>
-              <%= f.input :status %>
+              <%= f.input :status, collection: Case::STATUS, selected: 'open' %>
               <%= f.input :closing_date %>
 
 

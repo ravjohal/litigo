@@ -1,6 +1,6 @@
 class Contact < ActiveRecord::Base
 	
-  TYPES = ['Attorney', 'Client', 'Witness', 'Plaintiff', 'Defendant', 'Staff', 'General']
+  TYPES = ['Attorney', 'Client', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'General']
 
   belongs_to :case
 	belongs_to :user

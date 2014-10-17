@@ -1,0 +1,2 @@
+class Judge < Contact
+end

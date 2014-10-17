@@ -59,16 +59,18 @@
 <% 
 =end 
 %>
-
+<% if @medical.doctor_type %>
 <p>
   <strong>Doctor Type:</strong>
   <%= @medical.doctor_type.gsub(/[^0-9A-Za-z]/, ' ')%>
 </p>
-
+<% end %>
+<% if @medical.treatment_type %>
 <p>
   <strong>Treatment Type:</strong>
   <%= @medical.treatment_type.gsub(/[^0-9A-Za-z]/, ' ')%>
 </p>
+<% end %>
 
 <p>
   <strong>Gap(s) in Treatment?:</strong>

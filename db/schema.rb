@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141017055815) do
+ActiveRecord::Schema.define(version: 20141018051107) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20141017055815) do
     t.string   "insurance_provider",     limit: 255
     t.integer  "firm_id"
     t.boolean  "towed"
+    t.boolean  "complaint_at_scene"
   end
 
   create_table "injuries", force: true do |t|

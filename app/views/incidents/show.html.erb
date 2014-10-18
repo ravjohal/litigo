@@ -32,6 +32,11 @@
 </p>
 
 <p>
+  <strong>Complaint at Scene:</strong>
+  <%= boolean_as_yesno @incident.complaint_at_scene %>
+</p>
+
+<p>
   <strong>Property Damage:</strong>
   <%= number_to_currency(@incident.property_damage, precision: 0) %>
 </p>

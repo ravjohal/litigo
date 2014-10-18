@@ -14,7 +14,7 @@ class EventsController < ApplicationController
       hash[:id] = event.id
       hash[:title] = event.summary
       hash[:start] = event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}"
-      hash[:end] = event.all_day ? "#{event.start.to_date}" : "#{event.end.to_datetime}"
+      hash[:end] = event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"
       hash[:allDay] = event.all_day
       @events_list << hash
     end

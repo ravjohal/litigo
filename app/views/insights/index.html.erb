@@ -1,0 +1,56 @@
+<div id="insights_filter" class="well">
+  <div class="row">
+    <div class="col-md-2 box right_whiteborder">
+      <br/>
+      <select id="f_injury" class="optional full-width">
+        <option value="">INJURY</option>
+        <% @injuries.each do |f| %>
+          <option value="<%=f.injury_type%>"><%=f.injury_type%></option>
+        <% end %>
+      </select>
+      <select id="f_region" class="optional full-width">
+        <option value="">REGION</option>
+        <% @regions.each do |f| %>
+          <option value="<%=f.region%>"><%=f.region%></option>
+        <% end %>
+      </select>
+    </div>
+    <div class="col-md-8 box right_whiteborder">
+      <div class="col-md-3">
+        <br/>
+        <label>INSUER:</label>
+        <select id="f_insuer" class="optional full-width">
+          <option value=""></option>
+        </select>
+      </div>
+      <div class="col-md-6">
+        <br/>
+        <label>STATE(S):</label>
+        <select id="f_state" class="optional full-width">
+          <option value=""></option>
+          <% @us_states.each do |f| %>
+            <option value="<%=f.last%>"><%=f.first%></option>
+          <% end %>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label>COURT:</label>
+        <input type="text" id="f_court" class="full-width" />
+        <label>JUDEGE:</label>
+        <input type="text" id="f_judge" class="full-width" />
+      </div>
+    </div>
+    <div class="col-md-2 box center">
+      <a id="btnFilterReset" class="action-button" href="javascript:void(0)" id="btnReset">RESET</a>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 with-3d-shadow with-transitions">
+  <div id="stackedArea_chart" style="height:300px;width:100%;">
+    <svg></svg>
+  </div>
+  <div id="pie_chart" style="height:300px;width:300px;margin:0 auto;">
+    <svg></svg>
+  </div>
+  <div id="map_chart" style="position:relative;width:750px;height:350px;margin:0 auto;"></div>
+</div>

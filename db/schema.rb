@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20141018053108) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
+    t.integer  "firm_id"
     t.string   "google_id"
     t.string   "etag"
     t.string   "status"
@@ -139,7 +140,6 @@ ActiveRecord::Schema.define(version: 20141018053108) do
     t.string   "visibility"
     t.string   "iCalUID"
     t.integer  "sequence"
-    t.integer  "firm_id"
   end
 
   create_table "firms", force: true do |t|
@@ -217,8 +217,7 @@ ActiveRecord::Schema.define(version: 20141018053108) do
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
-    t.hstore   "doctor_type"
-    t.hstore   "treatment_type"
+    t.hstore   "data"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost"

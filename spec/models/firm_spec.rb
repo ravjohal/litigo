@@ -18,7 +18,7 @@ describe Firm do
 
   context 'Accessible attributes' do
     it { should respond_to(:name, :users, :cases, :contacts, :documents, :events, :incidents, :medicals, 
-                          :injuries, :notes, :tasks, :treatments, :resolutions, :google_calendars) }
+                          :injuries, :notes, :tasks, :resolutions, :google_calendars) }
   end
 
   context 'Validations' do

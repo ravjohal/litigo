@@ -16,6 +16,7 @@
  *= require_tree .
  *= require_self
  *= require select2
+ *= require d3/nv.d3
  */
  @import "font-awesome";
  $icon-font-path: "/assets/"

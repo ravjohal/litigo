@@ -9,9 +9,9 @@ class Firm < ActiveRecord::Base
 	has_many :injuries
 	has_many :notes
 	has_many :tasks
-	has_many :treatments
 	has_many :resolutions
 	has_many :google_calendars
 
 	validates_presence_of :name
+	validates_uniqueness_of :name
 end

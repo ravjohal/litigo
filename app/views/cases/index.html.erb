@@ -23,7 +23,7 @@
         <% @cases.each do |one_case| %>
           <tr data-id="<%= one_case.id %>">
             <td><%= link_to one_case.name, case_path(one_case) %></td>
-            <td><%= one_case.number %></td>
+            <td><%= one_case.case_number %></td>
             <td><%= one_case.case_type %></td>
             <td><%= one_case.medical_bills %></td>
             <td><%= one_case.description %></td>

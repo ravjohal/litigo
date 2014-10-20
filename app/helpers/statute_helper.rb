@@ -52,4 +52,5 @@ module StatuteHelper
 		["WV",2],
 		["WI",3],
 		["WY",4]]
-	end
+  end
+end

@@ -215,6 +215,7 @@ a.action-button{
   color: #323A45;
   text-decoration: none;
   font-weight: lighter;
+  outline: none;
   }
   
 a.action-button:hover{
@@ -233,6 +234,7 @@ a.action-button:hover{
   transition: .2s;
   text-decoration: none;
   font-weight: lighter;
+  outline: none;
 }
 
 
@@ -331,6 +333,9 @@ a.action-button:hover{
 
 
 
+input:focus {
+    outline:none;
+}
 
 .nav-two {
   position: fixed;

@@ -2,7 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
 	before_filter :configure_devise_permitted_parameters, :only => [:create, :update]
 
 
-	def after_sign_up_path_for(resource)
+	   def after_sign_up_path_for(resource)
    		onboarding_path
   	end
 
@@ -12,8 +12,16 @@ class RegistrationsController < Devise::RegistrationsController
   		resource.save
   	end
 
+    def confirmation
+      
+    end
+
 
   protected
+
+  def after_inactive_sign_up_path_for(resource)
+    confirmation_path
+  end
 
   def configure_devise_permitted_parameters
     registration_params = [:first_name, :last_name, :name, :email, :password, :password_confirmation]

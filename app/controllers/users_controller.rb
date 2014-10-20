@@ -123,15 +123,14 @@ class UsersController < ApplicationController
               :api_method => calendar.events.list,
               :parameters => {'calendarId' => key.to_s},
               :headers => {'Content-Type' => 'application/json'})
-          logger.info "@google_calendar: #{@google_calendar.data.items}\n\n\n"
           while true
             events = @google_calendar.data.items
             events.each do |e|
-              #TODO save needed info from google calendar events
               google_event = Event.find_or_initialize_by(google_id: e['id'])
               next if google_event.etag.present? && google_event.etag == e['etag']
 
               google_event.etag = e['etag']
+              google_event.google_calendar_id = key.to_s
               google_event.google_id = e['id']
               google_event.status = e['status']
               google_event.htmlLink = e['htmlLink']
@@ -142,29 +141,27 @@ class UsersController < ApplicationController
               google_event.endTimeUnspecified = e['endTimeUnspecified']
               google_event.transparency = e['transparency']
               google_event.visibility = e['visibility']
+              google_event.location = e['location']
               google_event.iCalUID = e['iCalUID']
               google_event.sequence = e['sequence']
               google_event.owner_id = current_user.id
               google_event.firm_id = current_user.firm.id
               google_event.save!
-              logger.info "google_event: #{google_event.ai}\n"
-              creator = EventAttendee.new()
+              creator = EventAttendee.find_or_initialize_by(email: e['creator']['email'], event_id: google_event.id)
               creator.event_id = google_event.id
-              creator.displayName = e['creator']['displayName']
+              creator.display_name = e['creator']['displayName']
               creator.email = e['creator']['email']
               creator.creator = true
               creator.save!
-              logger.info "creator: #{creator.ai}\n"
 
               e['attendees'].each do |attrs|
                 if attrs['email'] != creator.email
-                  attendee = EventAttendee.new()
+                  attendee = EventAttendee.find_or_initialize_by(email: e['creator']['email'], event_id: google_event.id)
                   attendee.event_id = google_event.id
-                  attendee.displayName = attrs['displayName']
+                  attendee.display_name = attrs['displayName']
                   attendee.email = attrs['email']
-                  attendee.responseStatus = attrs['responseStatus']
+                  attendee.response_status = attrs['responseStatus']
                   attendee.save!
-                  logger.info "attendee: #{attendee.ai}\n"
                 end
               end
             end
@@ -199,7 +196,8 @@ class UsersController < ApplicationController
     @token = @auth["credentials"]["token"]
     @refresh_token = @auth["credentials"]["refresh_token"]
     @expires_at = DateTime.strptime(@auth['credentials']['expires_at'].to_s,'%s')
-
+    logger.info "@auth: #{request.env["omniauth.auth"]["credentials"]}\n\n\n"
+    logger.info "@refresh_token: #{@refresh_token.ai}\n\n\n"
     current_user.oauth_token = @token
     current_user.oauth_refresh_token = @refresh_token
     current_user.oauth_expires_at = @expires_at
@@ -208,8 +206,7 @@ class UsersController < ApplicationController
   end
 
   def init_client
-    client = Google::APIClient.new(:application_name => "Litigo",
-                                   :application_version => "1.0")
+    client = Google::APIClient.new
     client.authorization.access_token = current_user.oauth_token
     client.authorization.client_id = ENV["GOOGLE_CLIENT_ID"]
     client.authorization.client_secret = ENV["GOOGLE_CLIENT_SECRET"]

@@ -8,6 +8,10 @@
 
       <p id="notice"><%= notice %></p>
       <p>
+        <strong>Summary:</strong>
+        <%= @event.summary %>
+      </p>
+      <p>
         <strong>Subject:</strong>
         <%= @event.subject %>
       </p>
@@ -23,13 +27,19 @@
       </p>
 
       <p>
-        <strong>Date:</strong>
-        <%= @event.date %>
+        <strong>Start:</strong>
+        <%= @event.start.to_datetime %>
       </p>
 
       <p>
-        <strong>Time:</strong>
-        <%= @event.time %>
+        <strong>End:</strong>
+        <%= @event.end.to_datetime %>
+      </p>
+
+
+      <p>
+        <strong>All day:</strong>
+        <%= @event.all_day %>
       </p>
 
       <p>
@@ -38,13 +48,18 @@
       </p>
 
       <p>
-        <strong>All day:</strong>
-        <%= @event.all_day %>
+        <strong>Attendee:</strong>
+        <%= @event.event_attendees.map {|c| c.display_name}.join(', ') %>
       </p>
 
       <p>
         <strong>Reminder:</strong>
         <%= @event.reminder %>
+      </p>
+
+      <p>
+        <strong>Status:</strong>
+        <%= @event.status %>
       </p>
 
       <p>

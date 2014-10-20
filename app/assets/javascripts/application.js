@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require fullcalendar
 //= require gcal
+//= require jquery.datetimepicker
 //= require_tree .
 //= require select2
 

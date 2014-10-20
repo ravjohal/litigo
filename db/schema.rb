@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018053108) do
+ActiveRecord::Schema.define(version: 20141018225207) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,10 +138,10 @@ ActiveRecord::Schema.define(version: 20141018053108) do
 
   create_table "event_attendees", force: true do |t|
     t.integer  "event_id"
-    t.string   "displayName"
+    t.string   "display_name"
     t.string   "email"
     t.boolean  "creator"
-    t.string   "responseStatus"
+    t.string   "response_status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20141018053108) do
     t.string   "visibility"
     t.string   "iCalUID"
     t.integer  "sequence"
+    t.string   "google_calendar_id"
   end
 
   create_table "firms", force: true do |t|

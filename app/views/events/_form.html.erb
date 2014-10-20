@@ -10,14 +10,26 @@
          <div class="modal-body">
 
                <div class="form-inputs">
+                <%= f.input :summary %>
                 <%= f.input :subject %>
                 <%= f.input :location %>
-                <%= f.association :contacts, :label => "Lawyer", :collection => Contact.all.where("type = 'Attorney'"), :input_html => {:id => "attorney_select"}, :class => 'sel2' %> 
-                <%= f.input :date %>
-                <%= f.input :time %>
-                <%= f.association :users, :label => "Invitees", :input_html => {:id => "invitee_select"}, :class => 'sel2' %>
+                <%= f.association :contacts, :label => "Lawyer", :collection => Contact.all.where("type = 'Attorney'"), :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+                <div class="control-group string optional event_subject">
+                  <%= f.label :start%>
+                  <div class="controls"><%= f.text_field :start, :class => 'datetimepicker'%></div>
+                </div>
+                <div class="control-group string optional event_subject">
+                  <%= f.label :end%>
+                  <div class="controls"><%= f.text_field :end, :class => 'datetimepicker'%></div>
+                </div>
                 <%= f.input :all_day %>
+                <%= f.association :users, :label => "Invitees", :input_html => {:id => "invitee_select"}, :class => 'sel2' %>
+                <%= f.association :event_attendees, :label => "Attendee", :label_method => lambda { |attendee| attendee.display_name }, :input_html => {:id => "attendee_select"}, :class => 'sel2' %>
                 <%= f.input :reminder %>
+                <div class="control-group string optional event_subject">
+                  <%= f.label :status%>
+                  <div class="controls"><%= f.select :status, ['confirmed', 'tentative', 'cancelled'] %></div>
+                </div>
                 <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"}, :class => 'sel2' %>
                 <%= f.input :notes %>
                </div>
@@ -40,6 +52,9 @@
 <% end %>
 <script>
 $(document).ready(function() {
-  $('#case_select, #attorney_select, #invitee_select').select2();
+  $('#case_select, #attorney_select, #invitee_select, #attendee_select').select2();
+  $('.datetimepicker').datetimepicker({
+    format: 'Y-m-d H:i'
+  });
 });
 </script>

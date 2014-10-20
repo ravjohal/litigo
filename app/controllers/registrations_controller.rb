@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
   	end
 
     def confirmation
-      
+
     end
 
 
@@ -24,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_devise_permitted_parameters
-    registration_params = [:first_name, :last_name, :name, :email, :password, :password_confirmation]
+    registration_params = [:first_name, :last_name, :name, :email, :password, :password_confirmation, :time_zone]
 
     if params[:action] == 'update'
       devise_parameter_sanitizer.for(:account_update) { 

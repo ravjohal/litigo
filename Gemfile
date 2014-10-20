@@ -30,6 +30,7 @@ gem 'fullcalendar-rails'
 gem 'google-api-client', '~> 0.7.1'
 gem 'dropbox-sdk'
 gem 'fog'
+gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
 
 group :development do
   gem 'better_errors'

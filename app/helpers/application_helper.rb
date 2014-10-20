@@ -73,4 +73,14 @@ module ApplicationHelper
     return " class=active" if controller_name == controller
   end
 
+  def boolean_as_yesno(bool_)
+    #bool_ = bool_.blank? false : t bool_
+    if bool_.blank?
+      bool_ = false
+    end
+    t bool_.class
+  end
+
 end
+
+

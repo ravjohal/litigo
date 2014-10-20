@@ -5,25 +5,28 @@ describe User do
   let!(:user) { create(:user, name: 'JohnDoh', unconfirmed_email: 'unconfirmed@email.com', role: :user,
                        show_onboarding: true, oauth_refresh_token: 'Token', oauth_token: 'Token1',
                        oauth_expires_at: Date.today, google_email: 'box@gmail.com') }
+
+  context 'Relationships' do
+    it { should define_enum_for :role }
+    it { should have_many :documents }
+    it { should have_many :tasks }
+    it { should have_many(:user_events).dependent(:destroy) }
+    it { should have_many(:events).through(:user_events) }
+    it { should have_many(:owned_events).class_name('Event').with_foreign_key('owner_id') }
+    it { should have_many :contacts }
+    it { should have_one(:contact_user).class_name('Contact').with_foreign_key('contact_user_id') }
+    it { should have_many :cases }
+    it { should have_many :notes }
+    it { should have_many :google_calendars }
+
+    it { should belong_to :firm }
+  end
+
   context 'Validations' do
-    it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:first_name) }
-    it { should validate_presence_of(:last_name) }
-  end
-
-  context 'Check attributes' do
-    it 'Expects User to be valid and have attrs' do
-      expect(user.name).to eq 'JohnDoh'
-      expect(user.unconfirmed_email).to eq 'unconfirmed@email.com'
-      expect(user.role).to eq 'user'
-      expect(user.show_onboarding).to eq true
-      expect(user.oauth_refresh_token).to eq 'Token'
-      expect(user.oauth_token).to eq 'Token1'
-      expect(user.oauth_expires_at).to eq Date.today
-      expect(user.google_email).to eq 'box@gmail.com'
-    end
-
 
   end
 
+  context 'Accessible attributes' do
+
+  end
 end

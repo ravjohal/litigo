@@ -23,12 +23,12 @@
 
 <p>
   <strong>Alcohol Involved?:</strong>
-  <%= @incident.alcohol_involved? ? 'yes' : 'no' %>
+  <%= boolean_as_yesno @incident.alcohol_involved  %>
 </p>
 
 <p>
   <strong>Weather a factor:</strong>
-  <%= @incident.weather_factor? ? 'yes' : 'no' %>
+  <%= boolean_as_yesno @incident.weather_factor %>
 </p>
 
 <p>
@@ -43,7 +43,7 @@
 
 <p>
   <strong>Airbag Deployed:</strong>
-  <%= @incident.airbag_deployed? ? 'yes' : 'no' %>
+  <%= boolean_as_yesno @incident.airbag_deployed %>
 </p>
 
 <p>

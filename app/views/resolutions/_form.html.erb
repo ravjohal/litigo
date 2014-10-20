@@ -5,7 +5,7 @@
     <%= f.input :settlement_demand %>
     <%= f.input :jury_demand %>
     <%= f.input :resolution_amount %>
-    <%= f.input :resolution_type %>
+    <%= f.input :resolution_type, :collection => Resolution::TYPES %>
   </div>
 
   <div class="form-actions">

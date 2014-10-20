@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :google_calendars
   belongs_to :firm
   validates_presence_of :first_name, :last_name
+  validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }
 
   def set_default_role
     self.role ||= :user

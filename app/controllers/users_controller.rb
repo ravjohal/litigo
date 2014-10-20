@@ -188,7 +188,7 @@ class UsersController < ApplicationController
   private
 
   def secure_params
-    params.require(:user).permit(:role, :event_ids => [])
+    params.require(:user).permit(:role, :time_zone, :event_ids => [])
   end
 
   def create_google_oauth

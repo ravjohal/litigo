@@ -6,6 +6,8 @@ class EventsController < ApplicationController
   require 'google/api_client/client_secrets'
   require 'google/api_client/auth/installed_app'
 
+  around_filter :user_time_zone, if: :current_user
+
   # GET /events
   # GET /events.json
   def index
@@ -156,6 +158,10 @@ class EventsController < ApplicationController
 
   def fresh_token
     refresh! if expired?
+  end
+
+  def user_time_zone(&block)
+    Time.use_zone(current_user.time_zone, &block)
   end
 
 end

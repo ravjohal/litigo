@@ -39,6 +39,8 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @event.start = @event.start.to_datetime
+    @event.end = @event.end.to_datetime
     if @event.owner_id == current_user.id
       render partial: 'events/edit'
     else
@@ -68,32 +70,29 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    event_params_google = params[:event]
-      google_event = Hash.new{|h,k| h[k] = {} }
-    google_event = {
-        status: event_params_google[:status],
-        summary: event_params_google[:summary],
-        start: {},
-        end: {}
-    }
-      if @event.all_day
-        google_event[:start][:date] = event_params[:start].to_date
-        google_event[:end][:date] = event_params[:end].to_date
-      else
-        google_event[:start][:dateTime] = event_params[:start].to_datetime
-        google_event[:end][:dateTime] = event_params[:end].to_datetime
-      end
-      client = init_client
-      calendar = client.discovered_api('calendar', 'v3')
-      update_google_event = client.execute(
-          :api_method => calendar.events.patch,
-          :parameters => {'calendarId' => @event.google_calendar_id, 'eventId' => @event.google_id},
-          :body_object => google_event,
-          :headers => {'Content-Type' => 'application/json'})
-    logger.info "update_google_event: #{update_google_event.ai}\n\n\n"
-
     respond_to do |format|
       if @event.update(event_params)
+        google_event = {
+            status: @event.status,
+            summary: @event.summary,
+            start: {},
+            end: {}
+        }
+        if @event.all_day
+          google_event[:start][:date] = @event.start.to_date
+          google_event[:end][:date] = @event.end.to_date
+        else
+          google_event[:start][:dateTime] = @event.start.to_datetime
+          google_event[:end][:dateTime] = @event.end.to_datetime
+        end
+        client = init_client
+        calendar = client.discovered_api('calendar', 'v3')
+        update_google_event = client.execute(
+            :api_method => calendar.events.patch,
+            :parameters => {'calendarId' => @event.google_calendar_id, 'eventId' => @event.google_id},
+            :body_object => google_event,
+            :headers => {'Content-Type' => 'application/json'})
+
         format.html { redirect_to request.referrer, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else

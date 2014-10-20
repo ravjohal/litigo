@@ -54,3 +54,11 @@ Then(/^I should be signed out$/) do
   expect(page).to have_content 'SIGN IN'
 end
 
+Given(/^I am a logged in user with email "(.*?)" and password "(.*?)"$/) do |arg1, arg2|
+  fill_in 'user_first_name', with: 'Artem'
+  fill_in 'user_last_name', with: 'Suchov'
+  fill_in 'user_email', with: arg1
+  fill_in 'user_password', with: arg2
+  fill_in 'user_password_confirmation', with: 'password'
+  click_on 'SIGN UP'
+end

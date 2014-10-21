@@ -12,7 +12,7 @@ class InsightsController < ApplicationController
 
   def filter_cases
     cases = Case.all
-    render json: cases
+    render json: cases.to_json(:include => :resolution)
   end
 
 end   

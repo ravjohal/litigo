@@ -59,6 +59,7 @@ group :test do
   gem 'selenium-webdriver', '~> 2.43.0'
   gem 'capybara-firebug', '~> 2.0.0'
   gem 'cucumber-rails', '~> 1.4.0', :require => false  # Cucumber Generator and Runtime for Rails
+  gem 'action_mailer_cache_delivery'
 end
 
 group :development, :test do

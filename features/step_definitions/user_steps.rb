@@ -12,9 +12,19 @@ When(/^I fill in the sign up form with valid data$/) do
   fill_in 'user_password', with: 'password'
   fill_in 'user_password_confirmation', with: 'password'
   click_on 'SIGN UP'
+  sleep 0.5
+  email = ActionMailer::Base.cached_deliveries.last
+  token = email.body.to_s.match(/3000\/(.+)">/x)[1]
+  visit "/#{token}"
 end
 
 Then(/^I should be logged in user$/) do
+  visit '/users/sign_in'
+  fill_in 'user_email', with: 'artem.suchov@gmail.com'
+  fill_in 'user_password', with: 'password'
+  click_on 'SIGN IN'
+  sleep 2
+  binding.pry
   expect(page).to have_content('Welcome!')
   expect(page).to have_content('One last step before you are using your free case management software. We just need a few more details:')
 end

@@ -2,7 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
 	before_filter :configure_devise_permitted_parameters, :only => [:create, :update]
 
 
-	   def after_sign_up_path_for(resource)
+	  def after_sign_up_path_for(resource)
    		onboarding_path
   	end
 

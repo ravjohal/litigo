@@ -8,6 +8,7 @@ Feature: User Registragion
     Given I am a guest
     When I visit sign up page
     And I fill in the sign up form with valid data
+    Then I get the confirmation email and confirm it
     Then I should be logged in user
     And when I fill in the modal window
     Then I should logged in
@@ -23,6 +24,7 @@ Feature: User Registragion
   Scenario: User Log out
     When I visit sign up page
     And I fill in the sign up form with valid data
+    Then I get the confirmation email and confirm it
     And when I fill in the modal window
     Then I go to sign_out page
     And I should be signed out

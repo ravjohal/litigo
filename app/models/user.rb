@@ -1,12 +1,11 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-         # confirmable is also another module we can add to devise to confirm user signup
 
-  enum role: [:user, :vip, :admin]
+  enum role: [:staff, :admin, :attorney]
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_show_onboarding, :if => :new_record?
 
@@ -27,7 +26,7 @@ class User < ActiveRecord::Base
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }
 
   def set_default_role
-    self.role ||= :user
+    self.role ||= :staff 
   end
 
   def set_show_onboarding

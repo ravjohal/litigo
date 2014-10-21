@@ -12,15 +12,10 @@ class RegistrationsController < Devise::RegistrationsController
   		resource.save
   	end
 
-    def confirmation
-
-    end
-
-
   protected
 
   def after_inactive_sign_up_path_for(resource)
-    confirmation_path
+    new_user_session_path
   end
 
   def configure_devise_permitted_parameters

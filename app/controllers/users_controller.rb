@@ -176,6 +176,11 @@ class UsersController < ApplicationController
     render :nothing => true, :status => 200
   end
 
+  def invite_user
+    @user = User.invite!(:email => params[:user][:email], :name => params[:user][:name])
+    render :json => @user
+  end
+
   protected
 
   def update_last_sign_in_at

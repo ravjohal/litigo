@@ -28,10 +28,16 @@
                 <%= f.input :reminder %>
                 <div class="control-group string optional event_subject">
                   <%= f.label :status%>
-                  <div class="controls"><%= f.select :status, ['confirmed', 'tentative', 'cancelled'] %></div>
+                  <div class="controls"><%= f.select :status, ["",'confirmed', 'tentative', 'cancelled'] %></div>
                 </div>
                 <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"}, :class => 'sel2' %>
                 <%= f.input :notes %>
+                 <% if action_name == 'index' %>
+                   <div class="control-group string optional event_subject">
+                     <%= f.label :google_calendar_id%>
+                     <div class="controls"><%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]} %></div>
+                   </div>
+                 <% end %>
                </div>
 
           </div><!--end of modal-body-->
@@ -44,6 +50,8 @@
               <div class="form-actions">
                   <%= f.button :submit, :class =>"sub" %>
               </div>
+
+
 
             </div><!--end of modal-footer-->
         </div><!--end of modal-content-->

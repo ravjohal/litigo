@@ -58,6 +58,30 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        google_event = {
+            status: @event.status,
+            summary: @event.summary,
+            location: @event.location,
+            start: {},
+            end: {},
+            attendees:[
+                {email: 'some@email.com'}
+            ]
+        }
+        if @event.all_day
+          google_event[:start][:date] = @event.start.to_date
+          google_event[:end][:date] = @event.end.to_date
+        else
+          google_event[:start][:dateTime] = @event.start.to_datetime
+          google_event[:end][:dateTime] = @event.end.to_datetime
+        end
+        client = init_client
+        calendar = client.discovered_api('calendar', 'v3')
+        create_google_event = client.execute(
+            :api_method => calendar.events.insert,
+            :parameters => {'calendarId' => @event.google_calendar_id},
+            :body_object => google_event,
+            :headers => {'Content-Type' => 'application/json'})
         format.html { redirect_to request.referrer, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -75,6 +99,7 @@ class EventsController < ApplicationController
         google_event = {
             status: @event.status,
             summary: @event.summary,
+            location: @event.location,
             start: {},
             end: {}
         }
@@ -120,7 +145,9 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :summary, :start, :end, :status, :user_ids => [], :case_ids => [], :contact_ids => [], :event_attendee_ids => [])
+    params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :summary,
+                                  :google_calendar_id, :start, :end, :status, :user_ids => [], :case_ids => [],
+                                  :contact_ids => [], :event_attendee_ids => [])
   end
 
   def init_client

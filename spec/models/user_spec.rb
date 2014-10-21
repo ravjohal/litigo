@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
 
-  let!(:user) { create(:user, name: 'JohnDoh', unconfirmed_email: 'unconfirmed@email.com', role: :user,
+  let!(:user) { create(:user, name: 'JohnDoh', unconfirmed_email: 'unconfirmed@email.com',
                        show_onboarding: true, oauth_refresh_token: 'Token', oauth_token: 'Token1',
                        oauth_expires_at: Date.today, google_email: 'box@gmail.com') }
 
@@ -23,7 +23,7 @@ describe User do
   end
 
   context 'Validations' do
-
+    it {should ensure_inclusion_of(:time_zone).in_array(ActiveSupport::TimeZone.all.map { |m| m.name }) }
   end
 
   context 'Accessible attributes' do

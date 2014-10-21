@@ -96,7 +96,7 @@ class MedicalsController < ApplicationController
                                   :length_of_treatment_unit, :injury_summary, :medical_summary, 
                                   :earnings_lost, :treatment_gap, :injections, :hospitalization, :hospital_stay_length, 
                                   :hospital_stay_length_unit, :data, :doctor_type, :treatment_type, :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
-                                  :displaced_fracture, :disfigurement, :impairment, :permanence, :disabled,
+                                  :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture,
                                   :stitches, :future_surgery, :future_medicals, :id], :data => [:doctor_type => [], :treatment_type => []])
 

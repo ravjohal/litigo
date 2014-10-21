@@ -83,7 +83,7 @@ class InjuriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def injury_params
       params.require(:injury).permit(:injury_type, :region, :code, :dominant_side, :joint_fracture,
-                                  :displaced_fracture, :disfigurement, :impairment, :permanence, :disabled,
+                                  :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture,
                                   :stitches, :future_surgery, :future_medicals)
     end

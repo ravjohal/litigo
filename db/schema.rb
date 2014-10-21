@@ -11,12 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141021031734) do
+ActiveRecord::Schema.define(version: 20141021074228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
+  create_table "attorneys", force: true do |t|
+    t.string   "attorney_type", limit: 255
+    t.string   "firm",          limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "attorneys_events", id: false, force: true do |t|
+    t.integer "attorney_id"
+    t.integer "event_id"
+  end
 
   create_table "case_documents", force: true do |t|
     t.integer  "case_id"
@@ -102,6 +113,18 @@ ActiveRecord::Schema.define(version: 20141021031734) do
     t.string   "company"
   end
 
+  create_table "defendants", force: true do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "documents", force: true do |t|
     t.string   "author",     limit: 255
@@ -148,7 +171,6 @@ ActiveRecord::Schema.define(version: 20141021031734) do
     t.string   "visibility"
     t.string   "iCalUID"
     t.integer  "sequence"
-    t.integer  "firm_id"
     t.string   "google_calendar_id"
   end
 
@@ -254,6 +276,19 @@ ActiveRecord::Schema.define(version: 20141021031734) do
     t.integer  "firm_id"
   end
 
+  create_table "plantiffs", force: true do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "resolutions", force: true do |t|
     t.integer  "case_id"
     t.integer  "firm_id"
@@ -263,6 +298,12 @@ ActiveRecord::Schema.define(version: 20141021031734) do
     t.string   "resolution_type"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+  end
+
+  create_table "staffs", force: true do |t|
+    t.string   "staff_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tasks", force: true do |t|
@@ -278,6 +319,20 @@ ActiveRecord::Schema.define(version: 20141021031734) do
     t.integer  "firm_id"
   end
 
+  create_table "treatments", force: true do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "user_events", force: true do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -286,12 +341,12 @@ ActiveRecord::Schema.define(version: 20141021031734) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "",                           null: false
-    t.string   "encrypted_password",     default: "",                           null: false
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "",                           null: false
+    t.string   "encrypted_password",     limit: 255, default: ""
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                            null: false
+    t.integer  "sign_in_count",                      default: 0,                            null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -310,12 +365,31 @@ ActiveRecord::Schema.define(version: 20141021031734) do
     t.datetime "oauth_expires_at"
     t.string   "google_email",           limit: 255
     t.integer  "firm_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "time_zone",              default: "Pacific Time (US & Canada)"
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "time_zone",                          default: "Pacific Time (US & Canada)"
+    t.string   "invitation_token"
+    t.datetime "invitation_created_at"
+    t.datetime "invitation_sent_at"
+    t.datetime "invitation_accepted_at"
+    t.integer  "invitation_limit"
+    t.integer  "invited_by_id"
+    t.string   "invited_by_type"
+    t.integer  "invitations_count",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true, using: :btree
+  add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
+  add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "witnesses", force: true do |t|
+    t.string   "witness_type",    limit: 255
+    t.string   "witness_subtype", limit: 255
+    t.string   "witness_doctype", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

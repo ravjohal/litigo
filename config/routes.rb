@@ -41,9 +41,9 @@ Rails.application.routes.draw do
   resources :dashboards, path: "dashboard"
 
   devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
-  devise_scope :user do
-    get '/confirm' => 'registrations#confirmation', as: :confirmation
-  end
+  # devise_scope :user do
+  #   get '/confirm' => 'registrations#confirmation', as: :confirmation
+  # end
 
   resources :users
   resources :cases do

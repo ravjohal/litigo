@@ -4,12 +4,7 @@ class DashboardsController < ApplicationController
   
   def new
     if current_user.firm
-      puts "FIRM NAME " + current_user.firm.name
-      if !@current_user.firm
-        @firm = Firm.new
-      else
-        render :show
-      end
+      render :show
     else
       @firm = Firm.new
     end
@@ -19,9 +14,7 @@ class DashboardsController < ApplicationController
   end
 
   def create
-    # create_user
-    # create_firm
-    # create_user
+
     firm_name = params[:firm][:name]
     firm_from_db = Firm.find_by(:name => firm_name)
     #if !firm_from_db
@@ -35,7 +28,7 @@ class DashboardsController < ApplicationController
       puts "FIRM NAME SIGN UP: " + tenant
 
       @user.firm = @firm
-      @user.save!
+      @user.role = :admin
    # else
    #   @firm = firm_from_db
    #   @user.firm = @firm
@@ -44,6 +37,7 @@ class DashboardsController < ApplicationController
 
     respond_to do |format|
       if @firm.save
+        @user.save!
         create_contact
         format.html { render :show, notice: 'Firm and Contact were successfully created.' }
         #format.json { render :show, status: :created, location: @firm }
@@ -57,7 +51,6 @@ class DashboardsController < ApplicationController
   private
 
   def create_contact
-
     # contact = Contact.new
     class_string_name = params[:firm][:contact][:type]
 

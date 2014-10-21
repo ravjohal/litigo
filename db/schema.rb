@@ -11,11 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020211057) do
+ActiveRecord::Schema.define(version: 20141021031734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
 
   create_table "case_documents", force: true do |t|
     t.integer  "case_id"
@@ -39,39 +40,44 @@ ActiveRecord::Schema.define(version: 20141020211057) do
   end
 
   create_table "cases", force: true do |t|
-    t.string   "name"
+    t.string   "name",          limit: 255
     t.integer  "case_number"
     t.text     "description"
     t.decimal  "medical_bills"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "case_type"
-    t.string   "subtype"
+    t.string   "case_type",     limit: 255
+    t.string   "subtype",       limit: 255
     t.integer  "user_id"
     t.date     "closing_date"
     t.string   "state",         limit: 2
-    t.string   "status",                  default: "0"
-    t.string   "court"
+    t.string   "status",                    default: "0"
+    t.string   "court",         limit: 255
     t.integer  "firm_id"
     t.string   "county"
     t.string   "docket_number"
     t.integer  "total_hours"
   end
 
+  create_table "clients", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contacts", force: true do |t|
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "phone_number"
+    t.string   "first_name",         limit: 255
+    t.string   "middle_name",        limit: 255
+    t.string   "last_name",          limit: 255
+    t.string   "address",            limit: 255
+    t.string   "city",               limit: 255
+    t.string   "state",              limit: 255
+    t.string   "country",            limit: 255
+    t.string   "phone_number",       limit: 255
     t.integer  "fax_number"
-    t.string   "email"
-    t.string   "gender"
+    t.string   "email",              limit: 255
+    t.string   "gender",             limit: 255
     t.integer  "age"
-    t.string   "type"
+    t.string   "type",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
@@ -85,24 +91,26 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.boolean  "felony_convictions"
     t.boolean  "last_ten_years"
     t.integer  "jury_likeability"
-    t.string   "witness_type"
-    t.string   "witness_subtype"
-    t.string   "witness_doctype"
-    t.string   "attorney_type"
-    t.string   "staff_type"
+    t.string   "witness_type",       limit: 255
+    t.string   "witness_subtype",    limit: 255
+    t.string   "witness_doctype",    limit: 255
+    t.string   "attorney_type",      limit: 255
+    t.string   "staff_type",         limit: 255
     t.integer  "event_id"
     t.integer  "firm_id"
     t.integer  "user_account_id"
+    t.string   "company"
   end
 
+
   create_table "documents", force: true do |t|
-    t.string   "author"
-    t.string   "doc_type"
-    t.string   "template"
+    t.string   "author",     limit: 255
+    t.string   "doc_type",   limit: 255
+    t.string   "template",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "document"
+    t.string   "document",   limit: 255
     t.integer  "firm_id"
   end
 
@@ -117,8 +125,8 @@ ActiveRecord::Schema.define(version: 20141020211057) do
   end
 
   create_table "events", force: true do |t|
-    t.string   "subject"
-    t.string   "location"
+    t.string   "subject",            limit: 255
+    t.string   "location",           limit: 255
     t.date     "date"
     t.time     "time"
     t.boolean  "all_day"
@@ -127,6 +135,7 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
+    t.integer  "firm_id"
     t.string   "google_id"
     t.string   "etag"
     t.string   "status"
@@ -144,14 +153,14 @@ ActiveRecord::Schema.define(version: 20141020211057) do
   end
 
   create_table "firms", force: true do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "phone"
-    t.string   "fax"
+    t.string   "name",       limit: 255
+    t.string   "address",    limit: 255
+    t.string   "phone",      limit: 255
+    t.string   "fax",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "zip"
-    t.string   "tenant"
+    t.string   "zip",        limit: 255
+    t.string   "tenant",     limit: 255
   end
 
   create_table "google_calendars", force: true do |t|
@@ -172,25 +181,29 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.date     "incident_date"
     t.date     "statute_of_limitations"
     t.integer  "defendant_liability"
-    t.boolean  "alcohol_involved",                               default: false
-    t.boolean  "weather_factor",                                 default: false
-    t.decimal  "property_damage",        precision: 8, scale: 2
-    t.boolean  "airbag_deployed",                                default: false
-    t.string   "speed"
-    t.string   "police_report"
+    t.boolean  "alcohol_involved",                                           default: false
+    t.boolean  "weather_factor",                                             default: false
+    t.decimal  "property_damage",                    precision: 8, scale: 2
+    t.boolean  "airbag_deployed",                                            default: false
+    t.string   "speed",                  limit: 255
+    t.string   "police_report",          limit: 255
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "insurance_provider"
+    t.string   "insurance_provider",     limit: 255
     t.integer  "firm_id"
     t.boolean  "towed"
     t.boolean  "complaint_at_scene"
   end
 
   create_table "injuries", force: true do |t|
-    t.string   "injury_type"
-    t.string   "region"
-    t.string   "code"
+    t.string   "injury_type",        limit: 255
+    t.string   "region",             limit: 255
+    t.string   "code",               limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "medical_id"
+    t.integer  "firm_id"
     t.boolean  "dominant_side"
     t.boolean  "joint_fracture"
     t.boolean  "displaced_fracture"
@@ -206,10 +219,7 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.boolean  "stitches"
     t.boolean  "future_surgery"
     t.decimal  "future_medicals"
-    t.integer  "firm_id"
-    t.integer  "medical_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.boolean  "prior_complaint"
   end
 
   create_table "medicals", force: true do |t|
@@ -218,8 +228,7 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
-    t.hstore   "doctor_type"
-    t.hstore   "treatment_type"
+    t.hstore   "data"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost"
@@ -240,8 +249,8 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.datetime "updated_at"
     t.integer  "case_id"
     t.integer  "user_id"
-    t.string   "note_type"
-    t.string   "author"
+    t.string   "note_type",  limit: 255
+    t.string   "author",     limit: 255
     t.integer  "firm_id"
   end
 
@@ -257,7 +266,7 @@ ActiveRecord::Schema.define(version: 20141020211057) do
   end
 
   create_table "tasks", force: true do |t|
-    t.string   "name"
+    t.string   "name",           limit: 255
     t.date     "due_date"
     t.date     "completed"
     t.boolean  "sms_reminder"
@@ -285,21 +294,21 @@ ActiveRecord::Schema.define(version: 20141020211057) do
     t.integer  "sign_in_count",          default: 0,                            null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "confirmation_token"
+    t.string   "name",                   limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "unconfirmed_email",      limit: 255
     t.integer  "role"
-    t.boolean  "show_onboarding",        default: true
-    t.string   "oauth_refresh_token"
-    t.string   "oauth_token"
+    t.boolean  "show_onboarding",                    default: true
+    t.string   "oauth_refresh_token",    limit: 255
+    t.string   "oauth_token",            limit: 255
     t.datetime "oauth_expires_at"
-    t.string   "google_email"
+    t.string   "google_email",           limit: 255
     t.integer  "firm_id"
     t.string   "first_name"
     t.string   "last_name"

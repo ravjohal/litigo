@@ -15,8 +15,16 @@ lineData = [
   ]
 ]
 
+mapData = {}
+
 $(document).ready ->
   $("#btnFilterReset").click ->
+    $("#f_state option").each ->
+      unless $(this).val() is ""
+        mapData[$(this).val()] =
+          fillKey: "Group1"
+          average: 0
+    console.log mapData
     $.ajax
       url: "/insights/filter_cases"
       method: "get"
@@ -50,13 +58,28 @@ $(document).ready ->
         line_result = gData.sort((a, b) ->
           a.value - b.value
         )
-        console.log line_result
 
         lineData[0].values.push([0, 0])
         line_result.forEach (c, i) ->
           lineData[0].values.push([c.value, parseFloat(c.total / total_count * 100)]);
 
-        console.log lineData
+        # rearrange Map Data
+        linq = Enumerable.From(tData)
+        gData = linq.GroupBy((v) ->
+          v.state
+        ).Select((v) ->
+          state: v.Key()
+          cnt: v.Count()
+          total: v.Sum((t) ->
+            t.value | 0
+          )
+        ).ToArray()
+        console.log "HEHE"
+        gData.forEach (c, i) ->
+          unless c.state is ""
+            mapData[c.state].average = (c.total / c.cnt).toFixed(2)
+            mapData[c.state].fillKey = "Group2"
+
         renderChart()
 
       error: ->
@@ -67,19 +90,37 @@ renderChart = ->
   keyColor = (d, i) ->
     colors d.key
 
+  commasFormatter = d3.format(",.0f")
+
   nv.addGraph ->
     chart_line = nv.models.stackedAreaChart().margin(right: 100).x((d) ->
-      d[0]
-    ).y((d) ->
-      d[1]
-    ).useInteractiveGuideline(true).rightAlignYAxis(false).transitionDuration(500).showControls(false).clipEdge(true)
+        d[0]
+      ).y((d) ->
+        d[1]
+      )
+      .rightAlignYAxis(false)
+      .transitionDuration(500)
+      .showControls(false)
+      .clipEdge(true)
     
     #Format x-axis labels with custom function.
-    #chart_line.xAxis.tickFormat (d) ->
-    #  d3.time.format("%x") new Date(d)
-    chart_line.xAxis.tickFormat d3.format(",.2f")
+    #chart_line.xAxis.tickFormat d3.format(",.2f")
+    chart_line.xAxis.tickFormat (d) ->
+      unless d is 0
+        "$" + commasFormatter(d)
+      else
+        ""
 
-    chart_line.yAxis.tickFormat d3.format(",.2f")
+    chart_line.yAxis.tickFormat (d) ->
+      unless d is 0
+        commasFormatter(d) + "%"
+      else
+        ""
+
+    chart_line.tooltips(true).tooltipContent((key, x, y, e, graph) ->
+        "<p>" + x + "</p>"
+      )
+
     d3.select("#stackedArea_chart svg").datum(lineData).call chart_line
     nv.utils.windowResize chart_line.update
     chart_line
@@ -89,11 +130,23 @@ renderChart = ->
       d.label
     ).y((d) ->
       d.value
-    ).showLabels(true).labelThreshold(.05).labelType("percent").donut(true).donutRatio(0.35)
+    ).showLabels(true).labelThreshold(.05).labelType("percent").donut(true).donutRatio(0.35).tooltips(false)
     d3.select("#pie_chart svg").datum(pieData).transition().duration(350).call chart_pie
     chart_pie
 
   map = new Datamap(
     element: document.getElementById("map_chart")
     scope: "usa"
+    geographyConfig:
+      # highlightBorderColor: "#bada55"
+      popupTemplate: (geography, data) ->
+        "<div class=\"hoverinfo\">" + geography.properties.name + " <br/>$" + data.average + " "
+      highlightBorderWidth: 3
+    fills:
+      "Group1": "#C8C8C8"
+      "Group2": "#A9C0DE"
+      "Group3": "#CA5E5B"
+      defaultFill: "#C8C8C8"
+    data: mapData
+
   )

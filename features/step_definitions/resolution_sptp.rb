@@ -17,7 +17,6 @@ When(/^I create the resolution$/) do
   sleep 0.5
   click_on 'Edit'
   fill_in 'resolution_settlement_demand', with: 1
-  # binding.pry
   fill_in 'resolution_jury_demand', with: 3
   fill_in 'resolution_resolution_amount', with: 2
   find("option[value='SETTLEMENTS']").click

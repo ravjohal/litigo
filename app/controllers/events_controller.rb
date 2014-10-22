@@ -85,6 +85,19 @@ class EventsController < ApplicationController
             :parameters => {'calendarId' => @event.google_calendar_id},
             :body_object => google_event,
             :headers => {'Content-Type' => 'application/json'})
+        if create_google_event.response.status.to_i == 200
+          response = JSON.parse(create_google_event.response.env[:body])
+          @event.update({
+              etag: response['etag'],
+              google_id: response['id'],
+              htmlLink: response['htmlLink'],
+              iCalUID: response['iCalUID'],
+              endTimeUnspecified: response['endTimeUnspecified'],
+              transparency: response['transparency'],
+              visibility: response['visibility'],
+              sequence: response['sequence']
+                        })
+        end
         format.html { redirect_to request.referrer, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
@@ -126,7 +139,19 @@ class EventsController < ApplicationController
             :parameters => {'calendarId' => @event.google_calendar_id, 'eventId' => @event.google_id},
             :body_object => google_event,
             :headers => {'Content-Type' => 'application/json'})
-
+        if update_google_event.response.status.to_i == 200
+          response = JSON.parse(update_google_event.response.env[:body])
+          @event.update({
+                            etag: response['etag'],
+                            google_id: response['id'],
+                            htmlLink: response['htmlLink'],
+                            iCalUID: response['iCalUID'],
+                            endTimeUnspecified: response['endTimeUnspecified'],
+                            transparency: response['transparency'],
+                            visibility: response['visibility'],
+                            sequence: response['sequence']
+                        })
+        end
         format.html { redirect_to request.referrer, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else

@@ -9,8 +9,10 @@
 	<ul>
 		<li><%= link_to "/auth/google_oauth2" do %>1. Sync you Google Calendar<span class="glyph-ok glyphicon glyphicon-ok-sign"></i> 
 <% end %></li>
+<% if @user.admin? %>
 		<li><%= link_to new_invitation_path(@user) do %>2. Add users to your firm<span class="glyph-ok glyphicon glyphicon-ok-sign"></i> 
-<% end %></li>
+	<% end %></li>
+<% end %>
 		<li><a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)">3. Take a quick tour<span class="glyph-ok glyphicon glyphicon-ok-sign"></span></a></li>
 	</ul>
   </div>

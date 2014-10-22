@@ -18,6 +18,7 @@
 //= require fullcalendar
 //= require gcal
 //= require jquery.datetimepicker
+//= require jquery-ui
 //= require_tree .
 //= require select2
 

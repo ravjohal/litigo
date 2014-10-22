@@ -58,15 +58,18 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        google_attendees = []
+        @event.event_attendees.each do |attendee|
+          google_attendees << {email: attendee.contact.email,
+                               displayName: attendee.display_name.present? ? attendee.display_name : "#{attendee.contact.first_name} #{attendee.contact.last_name}"}
+        end
         google_event = {
             status: @event.status,
             summary: @event.summary,
             location: @event.location,
             start: {},
             end: {},
-            attendees:[
-                {email: 'some@email.com'}
-            ]
+            attendees: google_attendees
         }
         if @event.all_day
           google_event[:start][:date] = @event.start.to_date
@@ -96,12 +99,18 @@ class EventsController < ApplicationController
   def update
     respond_to do |format|
       if @event.update(event_params)
+        google_attendees = []
+        @event.event_attendees.each do |attendee|
+          google_attendees << {email: attendee.contact.email,
+                               displayName: attendee.display_name.present? ? attendee.display_name : "#{attendee.contact.first_name} #{attendee.contact.last_name}"}
+        end
         google_event = {
             status: @event.status,
             summary: @event.summary,
             location: @event.location,
             start: {},
-            end: {}
+            end: {},
+            attendees: google_attendees
         }
         if @event.all_day
           google_event[:start][:date] = @event.start.to_date

@@ -12,7 +12,7 @@
 <header>
     <div class="home-nav-banner">
       <div class="wrapper">
-        <a href="index"class="navbar-brand"></a>
+        <a href="index"class="navlogo marge"></a>
         <% if user_signed_in? %>
             <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
         <% else %>

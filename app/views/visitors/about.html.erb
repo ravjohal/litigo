@@ -12,7 +12,7 @@
 <header>
     <div class="home-nav-banner">
       <div class="wrapper">
-        <a href="index"class="navbar-brand"></a>
+        <a href="index"class="navlogo marge"></a>
         <% if user_signed_in? %>
             <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
         <% else %>
@@ -22,6 +22,10 @@
     </div>
     </header>
     <div class="terms-container">
+    <div class="aboutus">
+        <p><strong>About Us:</strong><br></p>
+        <p>Our mission is to help lawyers. We want to help them do their jobs more efficiently and effectively. Our mission is to help reduce firm costs and drive higher verdicts and settlements.</p>
+    </div>
 		<div class="biocontainer-first">
     		<div class="ben">
     			<a href="https://twitter.com/BenSmalley" class="follow-4" target="_blank"><img src="/assets/twitter.png" class="icons"></img></a>

@@ -7,7 +7,8 @@ describe User do
                        oauth_expires_at: Date.today, google_email: 'box@gmail.com') }
 
   context 'Relationships' do
-    it { should define_enum_for :role }
+    it { should define_enum_for(:role).
+                    with([:staff, :admin, :attorney]) }
     it { should have_many :documents }
     it { should have_many :tasks }
     it { should have_many(:user_events).dependent(:destroy) }

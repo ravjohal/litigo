@@ -25,5 +25,6 @@
 
 <div class="text-center link-pad">
 <%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %> |
+<%= link_to 'Delete', @note, method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the note information from storage and you will not be able to retrieve it. Would you like to delete anyway?' }, :class => 'dark', :id => 'delete_button' %>
 <%= link_to 'Back to Notes', notes_path, :class => 'dark' %>
 </div>

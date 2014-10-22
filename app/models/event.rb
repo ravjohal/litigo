@@ -9,4 +9,5 @@ class Event < ActiveRecord::Base
 	belongs_to :owner, class_name: 'User'
 	belongs_to :firm
 
+  validates_presence_of :start, :end
 end

@@ -88,7 +88,7 @@ class EventsController < ApplicationController
         format.html { redirect_to request.referrer, notice: 'Event was successfully created.' }
         format.json { render :show, status: :created, location: @event }
       else
-        format.html { render :new }
+        format.html { redirect_to request.referrer, notice: @event.errors.full_messages.to_sentence}
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -130,7 +130,7 @@ class EventsController < ApplicationController
         format.html { redirect_to request.referrer, notice: 'Event was successfully updated.' }
         format.json { render :show, status: :ok, location: @event }
       else
-        format.html { render :edit }
+        format.html { redirect_to request.referrer, notice: @event.errors.full_messages.to_sentence}
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end

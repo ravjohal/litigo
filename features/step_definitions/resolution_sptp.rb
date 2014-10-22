@@ -3,15 +3,6 @@ Given(/^I am logged in user$/) do
   step "I should be logged in user"
 end
 
-When(/^I create a case$/) do
-  visit '/cases'
-  click_on 'NEW CASE'
-  sleep 0.5
-  fill_in 'case_name', with: 'some case'
-  click_on 'Create Case'
-  expect(page).to have_content('Case was successfully created.')
-end
-
 When(/^I create the resolution$/) do
   click_on 'RESOLUTION'
   sleep 0.5

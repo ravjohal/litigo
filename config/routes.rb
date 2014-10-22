@@ -13,12 +13,13 @@ Rails.application.routes.draw do
   resources :contacts  
   
   authenticated :user do
-    root :to => "dashboards#show", as: :authenticated_root
+    root :to => "dashboards#new", as: :user_root
+    #root :to => 'business_account#dashboard', :constraints => lambda { |request| request.env['warden'].user.class.name == 'Business' }, :as => "business_root"
   end
 
   root :to => "visitors#index"
   get '/onboarding' => 'dashboards#new'
-  get '/dashboard/:id' => 'dashboards#show', as: :user_root
+  get '/dashboard/:id' => 'dashboards#show'
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
@@ -40,7 +41,7 @@ Rails.application.routes.draw do
 
   resources :dashboards, path: "dashboard"
 
-  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions"}
+  devise_for :users, :controllers => {:registrations => "registrations", :sessions => "sessions", :invitations => "invitations"}
   # devise_scope :user do
   #   get '/confirm' => 'registrations#confirmation', as: :confirmation
   # end

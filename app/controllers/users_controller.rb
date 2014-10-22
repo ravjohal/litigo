@@ -106,7 +106,7 @@ class UsersController < ApplicationController
           :type => "General")
       # logger.info "new_contact: #{new_contact.inspect}\n\n\n"
       #TODO Save properly contacts with connection to User
-      new_contact.save
+      # new_contact.save
       #binding.pry
     end
     # render json: @calendars.to_json
@@ -128,40 +128,53 @@ class UsersController < ApplicationController
             events.each do |e|
               google_event = Event.find_or_initialize_by(google_id: e['id'])
               next if google_event.etag.present? && google_event.etag == e['etag']
+              google_event.update(
+                  {
+                      etag: e['etag'],
+                      google_calendar_id: key.to_s,
+                      google_id: e['id'],
+                      status: e['status'],
+                      htmlLink: e['htmlLink'],
+                      summary: e['summary'],
+                      all_day: !e['start']['dateTime'].present?,
+                      start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
+                      end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
+                      endTimeUnspecified: e['endTimeUnspecified'],
+                      transparency: e['transparency'],
+                      visibility: e['visibility'],
+                      location: e['location'],
+                      iCalUID: e['iCalUID'],
+                      sequence: e['sequence'],
+                      owner_id: current_user.id,
+                      firm_id: current_user.firm.id
+                  }
+              )
+              creator = Contact.find_or_initialize_by(email: e['creator']['email'])
+              creator.update({email: e['creator']['email'], type: 'General'})
+              event_attandee = EventAttendee.create({
+                                                        event_id: google_event.id,
+                                                        display_name: e['creator']['displayName'],
+                                                        contact_id: creator.id,
+                                                        creator: true
+                                                    })
 
-              google_event.etag = e['etag']
-              google_event.google_calendar_id = key.to_s
-              google_event.google_id = e['id']
-              google_event.status = e['status']
-              google_event.htmlLink = e['htmlLink']
-              google_event.summary = e['summary']
-              google_event.all_day = !e['start']['dateTime'].present?
-              google_event.start = e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date']
-              google_event.end = e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date']
-              google_event.endTimeUnspecified = e['endTimeUnspecified']
-              google_event.transparency = e['transparency']
-              google_event.visibility = e['visibility']
-              google_event.location = e['location']
-              google_event.iCalUID = e['iCalUID']
-              google_event.sequence = e['sequence']
-              google_event.owner_id = current_user.id
-              google_event.firm_id = current_user.firm.id
-              google_event.save!
-              creator = EventAttendee.find_or_initialize_by(email: e['creator']['email'], event_id: google_event.id)
-              creator.event_id = google_event.id
-              creator.display_name = e['creator']['displayName']
-              creator.email = e['creator']['email']
-              creator.creator = true
-              creator.save!
 
               e['attendees'].each do |attrs|
                 if attrs['email'] != creator.email
-                  attendee = EventAttendee.find_or_initialize_by(email: e['creator']['email'], event_id: google_event.id)
-                  attendee.event_id = google_event.id
-                  attendee.display_name = attrs['displayName']
-                  attendee.email = attrs['email']
-                  attendee.response_status = attrs['responseStatus']
-                  attendee.save!
+                  contact = Contact.find_or_initialize_by(email: e['creator']['email'])
+                  contact.update_attributes(
+                      {
+                          email: e['creator']['email'],
+                          type: 'General',
+                      }
+                  )
+
+                  attendee = EventAttendee.create({
+                                                      event_id: google_event.id,
+                                                      display_name: e['creator']['displayName'],
+                                                      contact_id: contact.id,
+                                                      response_status: attrs['responseStatus']
+                                                  })
                 end
               end
             end

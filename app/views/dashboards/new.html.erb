@@ -3,6 +3,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
   $("#modal-window").html("<%= escape_javascript(render 'dashboards/onboarding' ) %>");
-  $("#modal-window").modal();
+  $("#modal-window").modal({
+  backdrop: 'static',
+  keyboard: false
+});
 });
 </script>

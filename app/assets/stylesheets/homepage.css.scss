@@ -132,6 +132,17 @@ h1 {
   background-size: 90px 36px;
   background-repeat: no-repeat;
   }
+  .marge{
+  margin-top: 5px;
+  }
+  .aboutus{
+  padding: 40px 20px;
+  height: 100%;
+  font-size: 28px;
+  line-height: 32px;
+  font-weight: lighter;
+  color: black;
+  }
   
 
 .sbox {
@@ -247,24 +258,38 @@ h1 {
     position: relative;
     top:10px;
     max-width: 960px;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
     text-align: center;
     height: 100%;
     min-height: 650px;
     max-height: 1080px;
     background-color: #ffffff;
   }
-  p.valueprop{
-    padding-top:45px;
-    font-family: sans-serif;
-    font-size: 40px;
-    line-height: 46px;
-    letter-spacing: 1px;
-    text-align: center;
-    margin: 0 auto;
-    color: #666666;
-    max-width: 800px;
+  .valueprop-photo{
+  float: left;
+  background-image: url(/assets/david.jpg);
+  width: 150px;
+  height: 150px;
   }
+  .valueprop{
+    padding-top: 45px;
+    font-family: sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: 1px;
+    text-align: right;
+    margin: 0 30px;
+    float: right;
+    color: #666666;
+    max-width: 600px;
+    }
+  p.small {
+  font-size: 16px;
+   margin-bottom: 80px;
+  }
+
     p.valueprop2{
     font-weight: lighter;
     padding-top:15px;
@@ -886,7 +911,8 @@ margin: 0 auto;
 }
 
 .biocontainer-first {
-margin-top: 90px;
+  font-family: sans-serif;
+  font: arial;
   height: 250px;
   margin-left: auto;
   margin-right: auto;

@@ -1,6 +1,6 @@
-Feature: Contact tab
+Feature: Incident tab
 
-  I create a case change the contact and the changes are saved
+  I create a case change the incident and the changes are saved
 
   @javascript
   Scenario: I create a case and edit the contact
@@ -11,5 +11,5 @@ Feature: Contact tab
     And when I fill in the modal window
     And I should logged in
     And I create a case
-    And I create the contact
-    Then The contact for user with email "artem.suchov@gmail.com" should be saved to the db
+    And I create the incident
+    Then The incident for user with email "artem.suchov@gmail.com" should be saved to the db

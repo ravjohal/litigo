@@ -1,34 +1,47 @@
-pieData = [
-  {
-    label: "SETTLEMENTS"
-    value: 0
-  }
-  {
-    label: "JURY VERDICTS"
-    value: 0
-  }
-]
-
-lineData = [
-  key: "Case"
-  values: [
-  ]
-]
-
+pieData = []
+lineData = []
 mapData = {}
 
+initDashboard = ->
+  pieData = [
+    {
+      label: "SETTLEMENTS"
+      value: 0
+    }
+    {
+      label: "JURY VERDICTS"
+      value: 0
+    }
+  ]
+
+  lineData = [
+    key: "Case"
+    values: [
+    ]
+  ]
+
+  mapData = {}
+
 $(document).ready ->
-  $("#btnFilterReset").click ->
+  $(document).on "click", "#btnFilterReset", ->
+    initDashboard()
+
     $("#f_state option").each ->
       unless $(this).val() is ""
         mapData[$(this).val()] =
           fillKey: "Group1"
           average: 0
-    console.log mapData
+
     $.ajax
       url: "/insights/filter_cases"
       method: "get"
-      data: {}
+      data: {
+        state: $("#f_state").val()
+        court: $("#f_court").val()
+        injury_type: $("#f_injury").val()
+        region: $("#f_region").val()
+        insurer: $("#f_insuer").val()
+      }
       success: (response) ->
         console.log response
 
@@ -37,13 +50,14 @@ $(document).ready ->
 
         response.forEach (c, i) ->
           # bar Data
-          if c.resolution.resolution_type is "settlement"
-            pieData[0].value += 1
-          else
-            pieData[1].value += 1
+          if c.hasOwnProperty("resolution")
+            if c.resolution.resolution_type is "settlement"
+              pieData[0].value += 1
+            else
+              pieData[1].value += 1
 
-          # line Data
-          tData.push { value: parseFloat(c.resolution.resolution_amount), state: c.state, total: 1 }
+            # line Data
+            tData.push { value: parseFloat(c.resolution.resolution_amount), state: c.state, total: 1 }
 
         # rearrange line Data
         linq = Enumerable.From(tData)
@@ -134,6 +148,7 @@ renderChart = ->
     d3.select("#pie_chart svg").datum(pieData).transition().duration(350).call chart_pie
     chart_pie
 
+  $("#map_chart").html("")
   map = new Datamap(
     element: document.getElementById("map_chart")
     scope: "usa"

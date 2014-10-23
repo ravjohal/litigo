@@ -1,37 +1,21 @@
 <div id="insights_filter" class="well">
   <div class="row">
     <div class="col-md-2 box right_whiteborder">
-      <br/>
-      <select id="f_injury" class="optional full-width">
-        <option value="">INJURY</option>
-        <% @injuries.each do |f| %>
-          <option value="<%=f.injury_type%>"><%=f.injury_type%></option>
-        <% end %>
-      </select>
-      <select id="f_region" class="optional full-width">
-        <option value="">REGION</option>
-        <% @regions.each do |f| %>
-          <option value="<%=f.region%>"><%=f.region%></option>
-        <% end %>
-      </select>
+      <label>INJURY:</label>
+      <%= select_tag "f_injury", options_for_select(Injury::INJURY_TYPE), :include_blank => true, class: 'optional full-width' %>
+      <label>REGION:</label>
+      <%= select_tag "f_region", options_for_select(Injury::REGION_TYPE), :include_blank => true, class: 'optional full-width' %>
     </div>
     <div class="col-md-8 box right_whiteborder">
       <div class="col-md-3">
         <br/>
         <label>INSUER:</label>
-        <select id="f_insuer" class="optional full-width">
-          <option value=""></option>
-        </select>
+        <%= select_tag "f_insuer", options_for_select(Incident::INSURANCE_PROVIDERS), :include_blank => true, class: 'optional full-width' %>
       </div>
       <div class="col-md-6">
         <br/>
         <label>STATE(S):</label>
-        <select id="f_state" class="optional full-width">
-          <option value=""></option>
-          <% @us_states.each do |f| %>
-            <option value="<%=f.last%>"><%=f.first%></option>
-          <% end %>
-        </select>
+        <%= select_tag "f_state", options_from_collection_for_select(@us_states, "last", "first"), :include_blank => true, class: 'optional full-width' %>
       </div>
       <div class="col-md-3">
         <label>COURT:</label>

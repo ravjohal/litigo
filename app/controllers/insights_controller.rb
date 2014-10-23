@@ -11,7 +11,14 @@ class InsightsController < ApplicationController
   end
 
   def filter_cases
-    cases = Case.all
+    search = Sunspot.search(Case) do
+      fulltext params[:state], :fields => :state
+      fulltext params[:court], :fields => :court
+      fulltext params[:injury_type], :fields => :injury_type
+      fulltext params[:region], :fields => :region
+      fulltext params[:insurer], :fields => :insurer
+    end
+    cases = search.results
     render json: cases.to_json(:include => :resolution)
   end
 

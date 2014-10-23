@@ -82,10 +82,13 @@ $(document).ready(function () {
        fm.init(fm_options);
        
       }
-        
- 
 });
 
+$(document).on('page:change', function (e) {
+    if(e.currentTarget.location.pathname == "/insights") {
+        $("#btnFilterReset").click();
+    }
+});
 
 // var default_options = {
 //     feedback_url: "",

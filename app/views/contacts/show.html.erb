@@ -75,5 +75,7 @@
 
 <div class="text-center link-pad">
 <%= link_to 'Edit', edit_contact_path(@contact), :class => 'dark' %> |
+<%= link_to 'Delete', @contact, method: :delete, data: { confirm: 'WARNING! Deleting a contact will remove all the contact  information from storage and you will not be able to retrieve it. Would you like to delete anyway?' }, :class => 'dark', :id => 'delete_button'%> |
+
 <%= link_to 'Back to Contacts', contacts_path, :class => 'dark' %>
 </div>

@@ -24,7 +24,7 @@
           TREATMENT:
               <%= f.input :surgery %>
               <%= f.input :surgery_count %>
-              <%= f.input :surgery_type %>
+              <%= f.input :surgery_type, collection: Injury::SURGERY_TYPE %>
               <%= f.input :casted_fracture %>
               <%= f.input :stitches %>
               <%= f.input :future_surgery %>

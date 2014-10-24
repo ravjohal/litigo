@@ -245,6 +245,26 @@ h1 {
   transition: .2s;
   color: white;
   }
+  input.sub2{
+  font-weight: normal;
+  padding-right: 25px;
+  padding-left: 25px;
+  font-size: 14px;
+  background: transparent;
+  border: 2px solid #3FC2D8;
+  cursor:pointer;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  color: #3FC2D8;
+  height: 45px;
+  margin-left: 10px;
+  }
+  input.sub2:hover{
+  background:#3FC2D8;
+  border: 2px solid #3FC2D8;
+  transition: .2s;
+  color: white;
+  }
   div.mission{
   font-family: serif;
   font-size: 30px;

@@ -19,6 +19,21 @@
 //= require gcal
 //= require jquery.datetimepicker
 //= require jquery-ui
+//= require d3/lib/d3.v3
+//= require d3/topojson.v1.min
+//= require d3/datamaps.usa.min
+//= require d3/nv.d3
+//= require d3/src/utils
+//= require d3/src/models/axis
+//= require d3/src/tooltip
+//= require d3/src/interactiveLayer
+//= require d3/src/models/legend
+//= require d3/src/models/axis
+//= require d3/src/models/scatter
+//= require d3/src/models/stackedArea
+//= require d3/src/models/stackedAreaChart
+//= require d3/src/models/pie
+//= require d3/src/models/pieChart
 //= require_tree .
 //= require select2
 //= require best_in_place
@@ -69,10 +84,13 @@ $(document).ready(function () {
        fm.init(fm_options);
        
       }
-        
- 
 });
 
+$(document).on('page:change', function (e) {
+    if(e.currentTarget.location.pathname == "/insights") {
+        $("#btnFilterReset").click();
+    }
+});
 
 // var default_options = {
 //     feedback_url: "",

@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   resources :tasks
 
   resources :contacts  
+
+  resources :insights do
+    collection do
+      get :filter_cases
+    end
+  end
   
   authenticated :user do
     root :to => "dashboards#new", as: :user_root
@@ -37,7 +43,6 @@ Rails.application.routes.draw do
   get "privacy" => 'visitors#privacy', as: :privacy
   get "pricing" => 'visitors#pricing', as: :pricing
   get "partners" => 'visitors#partners', as: :partners
-
 
   resources :dashboards, path: "dashboard"
 

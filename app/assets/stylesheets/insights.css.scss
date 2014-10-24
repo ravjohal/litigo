@@ -1,0 +1,43 @@
+#insights_filter {
+  padding: 0;
+  background-color: #CCCCCC;
+  label, select {
+    display: block;
+  }
+  .row {
+    height: 140px;
+    margin-left: 0;
+    margin-right: 0;
+
+    .box {
+      padding: 19px;
+      display: table-cell;
+      height: 100%;
+    }
+
+    #f_injury {
+      margin-bottom: 10px;
+    }
+
+    #f_region {
+      
+    }
+
+    .full-width {
+      width: 100%;
+    }    
+
+    #btnFilterReset {
+      margin-top: 30px;
+      display: inline-block;
+    }
+
+    .center {
+      text-align: center;
+    }
+  }
+
+  .right_whiteborder {
+    border-right: 2px solid white;
+  }
+}

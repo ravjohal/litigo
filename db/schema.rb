@@ -211,7 +211,10 @@ ActiveRecord::Schema.define(version: 20141022113157) do
     t.integer  "medical_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+<<<<<<< HEAD
     t.boolean  "prior_complaint"
+=======
+>>>>>>> 5493e7c04b1b75d9f15b91010e10e6e3bf2f4d9e
   end
 
   create_table "medicals", force: true do |t|

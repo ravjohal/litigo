@@ -34,6 +34,8 @@ gem 'cancancan'
 gem 'devise_invitable'
 gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
 gem "best_in_place"
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 group :development do
   gem 'better_errors'

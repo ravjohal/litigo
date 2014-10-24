@@ -17,10 +17,9 @@
         <%= link_to "CASE EVALUATION", user_path(current_user), :class => 'nav-sidebar__cev', :id => 'CaseEval' %>
     </li>
     <li id="second">
-          <a href="#" class="nav-sidebar__li">
-          LEGAL INSIGHTS</a>
+      <%= active_link_to " LEGAL INSIGHTS", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
     <ul>
-        <li><%= active_link_to "LIT RESEARCH", user_path(current_user), :class_active => 'enabled' %></li>
+        <li><%= active_link_to "LIT RESEARCH", insights_path, :class_active => 'enabled' %></li>
         <li><%= active_link_to "STATISTICS", user_path(current_user), :class_active => 'enabled' %></li>
         <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li>
     </ul>
@@ -45,6 +44,8 @@ $(function() {
     if(document.location && document.location.toString().indexOf('/events') > 0) { isFirstOpen = 1; }
     if(document.location && document.location.toString().indexOf('/contacts') > 0) { isFirstOpen = 1; }
 
+    if(document.location && document.location.toString().indexOf('/insights') > 0) { isSecondOpen = 1; }
+
     $('#first').collapsible('default-open', {
         contentOpen: isFirstOpen
     });
@@ -56,7 +57,11 @@ $(function() {
       $('.nav-sidebar > li > a').removeClass('tester');
       $(e.currentTarget).addClass('tester');
     });
-
+    $('#legal-insights').click(function(e){
+      e.preventDefault();
+      $('.nav-sidebar > li > a').removeClass('tester');
+      $(e.currentTarget).addClass('tester');
+    })
 });
 
 </script>

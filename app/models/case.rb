@@ -27,13 +27,13 @@ class Case < ActiveRecord::Base
     text :state
     text :court
     text :injury_type do
-      medical.injuries.map { |injury| injury.injury_type }
+      medical.injuries.map { |injury| injury.injury_type } if medical
     end
     text :region do
-      medical.injuries.map { |injury| injury.region }
+      medical.injuries.map { |injury| injury.region } if medical
     end
     text :insurer do
-      incident.insurance_provider
+      incident.insurance_provider if incident
     end
   end
 

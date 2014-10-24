@@ -1,4 +1,5 @@
 class CasesController < ApplicationController
+  respond_to :html, :json
   before_filter :authenticate_user!
   before_action :set_case, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
@@ -47,13 +48,11 @@ class CasesController < ApplicationController
     end
   end
 
+  respond_to :html, :json
   def update
     @case.user = @user
-    if @case.update(case_params)
-      redirect_to @case, notice: 'Case was successfully updated.'
-    else
-      render :edit
-    end
+    @case.update_attributes(case_params)
+    respond_with @case, notice: 'Case was successfully updated.'
   end
 
   def destroy

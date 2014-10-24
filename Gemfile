@@ -33,6 +33,7 @@ gem 'fog'
 gem 'cancancan'
 gem 'devise_invitable'
 gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
+gem "best_in_place"
 
 group :development do
   gem 'better_errors'

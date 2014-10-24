@@ -29,6 +29,7 @@ class MedicalsController < ApplicationController
   # POST /medicals
   # POST /medicals.json
   def create
+    params[:medical][:doctor_type].delete("")
     @medical = @case.build_medical(medical_params)
     @medical.firm = @firm
 
@@ -48,7 +49,6 @@ class MedicalsController < ApplicationController
   def update
     @medical = @case.medical
 
-    pp params[:data]
     # if params[:data][:doctor_type]
     #   params[:data][:doctor_type].each do |doc|
     #     doctor_type << doc
@@ -61,7 +61,8 @@ class MedicalsController < ApplicationController
     #   end
     #   @medical.data << {:treatment_type => treatment_type}
     # end
-    @medical.data_will_change!
+    params[:medical][:doctor_type].reject! { |c| c.empty? }
+    params[:medical][:treatment_type].reject! { |c| c.empty? }
 
     respond_to do |format|
       if @medical.update(medical_params)
@@ -98,7 +99,7 @@ class MedicalsController < ApplicationController
                                   :hospital_stay_length_unit, :data, :doctor_type, :treatment_type, :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
                                   :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture,
-                                  :stitches, :future_surgery, :future_medicals, :id], :data => [:doctor_type => [], :treatment_type => []])
+                                  :stitches, :future_surgery, :future_medicals, :id], :doctor_type => [], :treatment_type => [])
 
     end
 end

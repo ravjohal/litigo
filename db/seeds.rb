@@ -2914,9 +2914,9 @@ cases = [{"id"=>1,"firm_id"=>1,"name"=>"Case 1","case_number"=>1,"case_type"=>"P
 {"id"=>2903,"firm_id"=>1,"name"=>"Case 2903","case_number"=>2903,"case_type"=>"Personal Injury","subtype"=>"","state"=>"OH","county"=>"Champaign County","court"=>"Champaign County Court of Common Pleas","closing_date"=>"1/1/14","user_id"=>1},
 {"id"=>2904,"firm_id"=>1,"name"=>"Case 2904","case_number"=>2904,"case_type"=>"Personal Injury","subtype"=>"","state"=>"OH","county"=>"Miami County","court"=>"Miami County Court of Common Pleas","closing_date"=>"1/1/14"},"user_id"=>1]
 
-cases.each do |c| {
+cases.each do |c|
 	c.create
-}
+end
 
 
 
@@ -2933,8 +2933,8 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>11,"case_id"=>11,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>12,"case_id"=>12,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>13,"case_id"=>13,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>14,"case_id"=>14,"firm_id"=>1,"incident_date"=>"11/9/01","statute_of_limitations"=>"11/9/03","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>15,"case_id"=>15,"firm_id"=>1,"incident_date"=>"9/5/97","statute_of_limitations"=>"9/5/99","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"AAA"},
+{"id"=>14,"case_id"=>14,"firm_id"=>1,"incident_date"=>"11/9/01","statute_of_limitations"=>"11/9/03","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>15,"case_id"=>15,"firm_id"=>1,"incident_date"=>"9/5/97","statute_of_limitations"=>"9/5/99","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"AAA"},
 {"id"=>16,"case_id"=>16,"firm_id"=>1,"incident_date"=>"2/2/09","statute_of_limitations"=>"2/2/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Amica Mutual"},
 {"id"=>17,"case_id"=>17,"firm_id"=>1,"incident_date"=>"9/22/03","statute_of_limitations"=>"9/22/05","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>18,"case_id"=>18,"firm_id"=>1,"incident_date"=>"6/8/07","statute_of_limitations"=>"6/8/09","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Zurich North America"},
@@ -2955,7 +2955,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>33,"case_id"=>33,"firm_id"=>1,"incident_date"=>"5/19/10","statute_of_limitations"=>"5/19/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>34,"case_id"=>34,"firm_id"=>1,"incident_date"=>"11/5/08","statute_of_limitations"=>"11/5/10","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Encompass"},
 {"id"=>35,"case_id"=>35,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>500,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>36,"case_id"=>36,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>36,"case_id"=>36,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>37,"case_id"=>37,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>38,"case_id"=>38,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>39,"case_id"=>39,"firm_id"=>1,"incident_date"=>"2/2/07","statute_of_limitations"=>"2/2/09","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3015,7 +3015,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>93,"case_id"=>93,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>94,"case_id"=>94,"firm_id"=>1,"incident_date"=>"11/24/04","statute_of_limitations"=>"11/24/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>95,"case_id"=>95,"firm_id"=>1,"incident_date"=>"5/31/05","statute_of_limitations"=>"5/31/07","property_damage"=>500,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
-{"id"=>96,"case_id"=>96,"firm_id"=>1,"incident_date"=>"8/23/04","statute_of_limitations"=>"8/23/06","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>96,"case_id"=>96,"firm_id"=>1,"incident_date"=>"8/23/04","statute_of_limitations"=>"8/23/06","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>97,"case_id"=>97,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
 {"id"=>98,"case_id"=>98,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>99,"case_id"=>99,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3035,7 +3035,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>113,"case_id"=>113,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
 {"id"=>114,"case_id"=>114,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Acuity"},
 {"id"=>115,"case_id"=>115,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Acuity"},
-{"id"=>116,"case_id"=>116,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>116,"case_id"=>116,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>117,"case_id"=>117,"firm_id"=>1,"incident_date"=>"1/30/03","statute_of_limitations"=>"1/30/05","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>118,"case_id"=>118,"firm_id"=>1,"incident_date"=>"12/2/02","statute_of_limitations"=>"12/2/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>119,"case_id"=>119,"firm_id"=>1,"incident_date"=>"7/3/02","statute_of_limitations"=>"7/3/04","property_damage"=>5000,"airbag_deployed"=>true,"speed"=>nil,"police_report"=>nil,"towed"=>true,"insurance_provider"=>"Allstate"},
@@ -3052,21 +3052,21 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>130,"case_id"=>130,"firm_id"=>1,"incident_date"=>"9/7/02","statute_of_limitations"=>"9/7/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>131,"case_id"=>131,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>132,"case_id"=>132,"firm_id"=>1,"incident_date"=>"12/13/02","statute_of_limitations"=>"12/13/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>133,"case_id"=>133,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
-{"id"=>134,"case_id"=>134,"firm_id"=>1,"incident_date"=>"5/1/01","statute_of_limitations"=>"5/1/03","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>133,"case_id"=>133,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>134,"case_id"=>134,"firm_id"=>1,"incident_date"=>"5/1/01","statute_of_limitations"=>"5/1/03","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>135,"case_id"=>135,"firm_id"=>1,"incident_date"=>"10/15/04","statute_of_limitations"=>"10/15/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>136,"case_id"=>136,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>137,"case_id"=>137,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>138,"case_id"=>138,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>139,"case_id"=>139,"firm_id"=>1,"incident_date"=>"5/23/04","statute_of_limitations"=>"5/23/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>140,"case_id"=>140,"firm_id"=>1,"incident_date"=>"4/3/01","statute_of_limitations"=>"4/3/03","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>140,"case_id"=>140,"firm_id"=>1,"incident_date"=>"4/3/01","statute_of_limitations"=>"4/3/03","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>141,"case_id"=>141,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>142,"case_id"=>142,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>143,"case_id"=>143,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>144,"case_id"=>144,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Ohio Casualty"},
 {"id"=>145,"case_id"=>145,"firm_id"=>1,"incident_date"=>"2/26/04","statute_of_limitations"=>"2/26/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>146,"case_id"=>146,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
-{"id"=>147,"case_id"=>147,"firm_id"=>1,"incident_date"=>"4/5/00","statute_of_limitations"=>"4/5/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>147,"case_id"=>147,"firm_id"=>1,"incident_date"=>"4/5/00","statute_of_limitations"=>"4/5/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>148,"case_id"=>148,"firm_id"=>1,"incident_date"=>"4/18/03","statute_of_limitations"=>"4/18/05","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Nationwide"},
 {"id"=>149,"case_id"=>149,"firm_id"=>1,"incident_date"=>"7/5/01","statute_of_limitations"=>"7/5/03","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>150,"case_id"=>150,"firm_id"=>1,"incident_date"=>"2/10/04","statute_of_limitations"=>"2/10/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Ohio Casualty"},
@@ -3081,13 +3081,13 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>159,"case_id"=>159,"firm_id"=>1,"incident_date"=>"1/10/11","statute_of_limitations"=>"1/10/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
 {"id"=>160,"case_id"=>160,"firm_id"=>1,"incident_date"=>"9/26/12","statute_of_limitations"=>"9/26/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>161,"case_id"=>161,"firm_id"=>1,"incident_date"=>"4/20/09","statute_of_limitations"=>"4/20/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>162,"case_id"=>162,"firm_id"=>1,"incident_date"=>"2/19/12","statute_of_limitations"=>"2/19/14","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>162,"case_id"=>162,"firm_id"=>1,"incident_date"=>"2/19/12","statute_of_limitations"=>"2/19/14","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>163,"case_id"=>163,"firm_id"=>1,"incident_date"=>"5/21/10","statute_of_limitations"=>"5/21/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>true,"insurance_provider"=>""},
 {"id"=>164,"case_id"=>164,"firm_id"=>1,"incident_date"=>"6/9/11","statute_of_limitations"=>"6/9/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>165,"case_id"=>165,"firm_id"=>1,"incident_date"=>"12/11/10","statute_of_limitations"=>"12/11/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Hartford"},
-{"id"=>166,"case_id"=>166,"firm_id"=>1,"incident_date"=>"10/15/10","statute_of_limitations"=>"10/15/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><20,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>166,"case_id"=>166,"firm_id"=>1,"incident_date"=>"10/15/10","statute_of_limitations"=>"10/15/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<20","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>167,"case_id"=>167,"firm_id"=>1,"incident_date"=>"1/13/10","statute_of_limitations"=>"1/13/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Farmers"},
-{"id"=>168,"case_id"=>168,"firm_id"=>1,"incident_date"=>"7/26/10","statute_of_limitations"=>"7/26/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Erie"},
+{"id"=>168,"case_id"=>168,"firm_id"=>1,"incident_date"=>"7/26/10","statute_of_limitations"=>"7/26/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Erie"},
 {"id"=>169,"case_id"=>169,"firm_id"=>1,"incident_date"=>"10/20/10","statute_of_limitations"=>"10/20/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>170,"case_id"=>170,"firm_id"=>1,"incident_date"=>"1/20/12","statute_of_limitations"=>"1/20/14","property_damage"=>400,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>false,"towed"=>nil,"insurance_provider"=>"Farmers"},
 {"id"=>171,"case_id"=>171,"firm_id"=>1,"incident_date"=>"12/10/10","statute_of_limitations"=>"12/10/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
@@ -3105,7 +3105,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>183,"case_id"=>183,"firm_id"=>1,"incident_date"=>"9/30/09","statute_of_limitations"=>"9/30/11","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>184,"case_id"=>184,"firm_id"=>1,"incident_date"=>"10/1/08","statute_of_limitations"=>"10/1/10","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>185,"case_id"=>185,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>186,"case_id"=>186,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>1500,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>186,"case_id"=>186,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>1500,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>187,"case_id"=>187,"firm_id"=>1,"incident_date"=>"1/7/09","statute_of_limitations"=>"1/7/11","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>true,"insurance_provider"=>""},
 {"id"=>188,"case_id"=>188,"firm_id"=>1,"incident_date"=>"8/5/10","statute_of_limitations"=>"8/5/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Grange"},
 {"id"=>189,"case_id"=>189,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"#N/A","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
@@ -3113,17 +3113,17 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>191,"case_id"=>191,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Cincinnati Insurance"},
 {"id"=>192,"case_id"=>192,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"#N/A","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>193,"case_id"=>193,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>194,"case_id"=>194,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>true,"insurance_provider"=>"State Farm"},
+{"id"=>194,"case_id"=>194,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>true,"insurance_provider"=>"State Farm"},
 {"id"=>195,"case_id"=>195,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>196,"case_id"=>196,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>197,"case_id"=>197,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>198,"case_id"=>198,"firm_id"=>1,"incident_date"=>"2/2/07","statute_of_limitations"=>"2/2/09","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>199,"case_id"=>199,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"USAA"},
 {"id"=>200,"case_id"=>200,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
-{"id"=>201,"case_id"=>201,"firm_id"=>1,"incident_date"=>"5/18/06","statute_of_limitations"=>"5/18/08","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>true,"insurance_provider"=>""},
+{"id"=>201,"case_id"=>201,"firm_id"=>1,"incident_date"=>"5/18/06","statute_of_limitations"=>"5/18/08","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>true,"insurance_provider"=>""},
 {"id"=>202,"case_id"=>202,"firm_id"=>1,"incident_date"=>"10/31/07","statute_of_limitations"=>"10/31/09","property_damage"=>5000,"airbag_deployed"=>true,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>203,"case_id"=>203,"firm_id"=>1,"incident_date"=>"6/26/06","statute_of_limitations"=>"6/26/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>204,"case_id"=>204,"firm_id"=>1,"incident_date"=>"11/3/06","statute_of_limitations"=>"11/3/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
+{"id"=>204,"case_id"=>204,"firm_id"=>1,"incident_date"=>"11/3/06","statute_of_limitations"=>"11/3/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
 {"id"=>205,"case_id"=>205,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"USAA"},
 {"id"=>206,"case_id"=>206,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>207,"case_id"=>207,"firm_id"=>1,"incident_date"=>"11/24/06","statute_of_limitations"=>"11/24/08","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"American Family"},
@@ -3165,7 +3165,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>243,"case_id"=>243,"firm_id"=>1,"incident_date"=>"11/2/04","statute_of_limitations"=>"11/2/06","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>244,"case_id"=>244,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>245,"case_id"=>245,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>246,"case_id"=>246,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>246,"case_id"=>246,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>247,"case_id"=>247,"firm_id"=>1,"incident_date"=>"3/5/02","statute_of_limitations"=>"3/5/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>248,"case_id"=>248,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>249,"case_id"=>249,"firm_id"=>1,"incident_date"=>"8/27/02","statute_of_limitations"=>"8/27/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
@@ -3284,12 +3284,12 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>362,"case_id"=>362,"firm_id"=>1,"incident_date"=>"8/31/09","statute_of_limitations"=>"8/31/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Self-Insured"},
 {"id"=>363,"case_id"=>363,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Safe Auto Insurance"},
 {"id"=>364,"case_id"=>364,"firm_id"=>1,"incident_date"=>"1/21/09","statute_of_limitations"=>"1/21/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
-{"id"=>365,"case_id"=>365,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>365,"case_id"=>365,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>366,"case_id"=>366,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>367,"case_id"=>367,"firm_id"=>1,"incident_date"=>"10/26/10","statute_of_limitations"=>"10/26/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Progressive Insurance"},
 {"id"=>368,"case_id"=>368,"firm_id"=>1,"incident_date"=>"6/7/12","statute_of_limitations"=>"6/7/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>369,"case_id"=>369,"firm_id"=>1,"incident_date"=>"12/7/10","statute_of_limitations"=>"12/7/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>370,"case_id"=>370,"firm_id"=>1,"incident_date"=>"2/19/12","statute_of_limitations"=>"2/19/14","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>>25,"police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>370,"case_id"=>370,"firm_id"=>1,"incident_date"=>"2/19/12","statute_of_limitations"=>"2/19/14","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>">25","police_report"=>true,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>371,"case_id"=>371,"firm_id"=>1,"incident_date"=>"7/22/06","statute_of_limitations"=>"7/22/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>372,"case_id"=>372,"firm_id"=>1,"incident_date"=>"7/22/06","statute_of_limitations"=>"7/22/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>373,"case_id"=>373,"firm_id"=>1,"incident_date"=>"7/22/06","statute_of_limitations"=>"7/22/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3322,8 +3322,8 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>400,"case_id"=>400,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>401,"case_id"=>401,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>400,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"United Farm Family Mutual"},
 {"id"=>402,"case_id"=>402,"firm_id"=>1,"incident_date"=>"9/28/00","statute_of_limitations"=>"9/28/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
-{"id"=>403,"case_id"=>403,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>404,"case_id"=>404,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>403,"case_id"=>403,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>404,"case_id"=>404,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>405,"case_id"=>405,"firm_id"=>1,"incident_date"=>"1/13/03","statute_of_limitations"=>"1/13/05","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>406,"case_id"=>406,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"American Family"},
 {"id"=>407,"case_id"=>407,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3331,13 +3331,13 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>409,"case_id"=>409,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
 {"id"=>410,"case_id"=>410,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>411,"case_id"=>411,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
-{"id"=>412,"case_id"=>412,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"American Family"},
+{"id"=>412,"case_id"=>412,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"American Family"},
 {"id"=>413,"case_id"=>413,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>414,"case_id"=>414,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>415,"case_id"=>415,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>416,"case_id"=>416,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>417,"case_id"=>417,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>418,"case_id"=>418,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>417,"case_id"=>417,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>true,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
+{"id"=>418,"case_id"=>418,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>419,"case_id"=>419,"firm_id"=>1,"incident_date"=>"9/21/02","statute_of_limitations"=>"9/21/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>420,"case_id"=>420,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>421,"case_id"=>421,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3350,13 +3350,13 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>428,"case_id"=>428,"firm_id"=>1,"incident_date"=>"11/3/05","statute_of_limitations"=>"11/3/07","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>429,"case_id"=>429,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>430,"case_id"=>430,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Nationwide"},
-{"id"=>431,"case_id"=>431,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"American Family"},
+{"id"=>431,"case_id"=>431,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"American Family"},
 {"id"=>432,"case_id"=>432,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>433,"case_id"=>433,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>434,"case_id"=>434,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>435,"case_id"=>435,"firm_id"=>1,"incident_date"=>"12/10/10","statute_of_limitations"=>"12/10/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>436,"case_id"=>436,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>437,"case_id"=>437,"firm_id"=>1,"incident_date"=>"7/20/02","statute_of_limitations"=>"7/20/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Grange"},
+{"id"=>437,"case_id"=>437,"firm_id"=>1,"incident_date"=>"7/20/02","statute_of_limitations"=>"7/20/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Grange"},
 {"id"=>438,"case_id"=>438,"firm_id"=>1,"incident_date"=>"7/20/02","statute_of_limitations"=>"7/20/04","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Grange"},
 {"id"=>439,"case_id"=>439,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Westfield"},
 {"id"=>440,"case_id"=>440,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3365,7 +3365,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>443,"case_id"=>443,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Progressive Insurance"},
 {"id"=>444,"case_id"=>444,"firm_id"=>1,"incident_date"=>"9/21/12","statute_of_limitations"=>"9/21/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Farmers "},
 {"id"=>445,"case_id"=>445,"firm_id"=>1,"incident_date"=>"4/22/09","statute_of_limitations"=>"4/22/11","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Farmers"},
-{"id"=>446,"case_id"=>446,"firm_id"=>1,"incident_date"=>"5/14/10","statute_of_limitations"=>"5/14/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Progressive Insurance"},
+{"id"=>446,"case_id"=>446,"firm_id"=>1,"incident_date"=>"5/14/10","statute_of_limitations"=>"5/14/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Progressive Insurance"},
 {"id"=>447,"case_id"=>447,"firm_id"=>1,"incident_date"=>"7/11/11","statute_of_limitations"=>"7/11/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>448,"case_id"=>448,"firm_id"=>1,"incident_date"=>"5/20/09","statute_of_limitations"=>"5/20/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>449,"case_id"=>449,"firm_id"=>1,"incident_date"=>"1/30/10","statute_of_limitations"=>"1/30/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
@@ -3392,7 +3392,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>470,"case_id"=>470,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>471,"case_id"=>471,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>472,"case_id"=>472,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
-{"id"=>473,"case_id"=>473,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"USAA"},
+{"id"=>473,"case_id"=>473,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"USAA"},
 {"id"=>474,"case_id"=>474,"firm_id"=>1,"incident_date"=>"12/28/07","statute_of_limitations"=>"12/28/09","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>475,"case_id"=>475,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>476,"case_id"=>476,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3407,8 +3407,8 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>485,"case_id"=>485,"firm_id"=>1,"incident_date"=>"5/1/06","statute_of_limitations"=>"5/1/08","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>true,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>486,"case_id"=>486,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>487,"case_id"=>487,"firm_id"=>1,"incident_date"=>"12/8/03","statute_of_limitations"=>"12/8/05","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Progressive Insurance"},
-{"id"=>488,"case_id"=>488,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
-{"id"=>489,"case_id"=>489,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>488,"case_id"=>488,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
+{"id"=>489,"case_id"=>489,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/01","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>490,"case_id"=>490,"firm_id"=>1,"incident_date"=>"6/14/12","statute_of_limitations"=>"6/14/15","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>491,"case_id"=>491,"firm_id"=>1,"incident_date"=>"12/11/09","statute_of_limitations"=>"12/11/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>492,"case_id"=>492,"firm_id"=>1,"incident_date"=>"10/1/11","statute_of_limitations"=>"10/1/14","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
@@ -3457,21 +3457,21 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>535,"case_id"=>535,"firm_id"=>1,"incident_date"=>"6/4/04","statute_of_limitations"=>"6/4/07","property_damage"=>400,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>false,"insurance_provider"=>"State Farm"},
 {"id"=>536,"case_id"=>536,"firm_id"=>1,"incident_date"=>"12/27/05","statute_of_limitations"=>"12/27/08","property_damage"=>400,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>537,"case_id"=>537,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>false,"insurance_provider"=>"State Farm"},
-{"id"=>538,"case_id"=>538,"firm_id"=>1,"incident_date"=>"5/17/05","statute_of_limitations"=>"5/17/08","property_damage"=>400,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Maryland Automobile Insurance Fund"},
+{"id"=>538,"case_id"=>538,"firm_id"=>1,"incident_date"=>"5/17/05","statute_of_limitations"=>"5/17/08","property_damage"=>400,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Maryland Automobile Insurance Fund"},
 {"id"=>539,"case_id"=>539,"firm_id"=>1,"incident_date"=>"","statute_of_limitations"=>"12/31/02","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Maryland Automobile Insurance Fund"},
 {"id"=>540,"case_id"=>540,"firm_id"=>1,"incident_date"=>"12/19/10","statute_of_limitations"=>"12/19/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
 {"id"=>541,"case_id"=>541,"firm_id"=>1,"incident_date"=>"2/28/10","statute_of_limitations"=>"2/28/12","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Farmers"},
 {"id"=>542,"case_id"=>542,"firm_id"=>1,"incident_date"=>"12/7/11","statute_of_limitations"=>"12/7/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Mercury Insurance Group"},
 {"id"=>543,"case_id"=>543,"firm_id"=>1,"incident_date"=>"11/14/11","statute_of_limitations"=>"11/14/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Housing Authority Risk Retention Pool"},
 {"id"=>544,"case_id"=>544,"firm_id"=>1,"incident_date"=>"12/10/09","statute_of_limitations"=>"12/10/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"AAA"},
-{"id"=>545,"case_id"=>545,"firm_id"=>1,"incident_date"=>"7/3/12","statute_of_limitations"=>"7/3/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Mercury Insurance Group"},
+{"id"=>545,"case_id"=>545,"firm_id"=>1,"incident_date"=>"7/3/12","statute_of_limitations"=>"7/3/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Mercury Insurance Group"},
 {"id"=>546,"case_id"=>546,"firm_id"=>1,"incident_date"=>"2/2/11","statute_of_limitations"=>"2/2/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Farmers"},
 {"id"=>547,"case_id"=>547,"firm_id"=>1,"incident_date"=>"1/27/12","statute_of_limitations"=>"1/27/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Infinity Auto Insurance"},
 {"id"=>548,"case_id"=>548,"firm_id"=>1,"incident_date"=>"2/11/11","statute_of_limitations"=>"2/11/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>549,"case_id"=>549,"firm_id"=>1,"incident_date"=>"11/3/11","statute_of_limitations"=>"11/3/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Mercury Insurance Group"},
 {"id"=>550,"case_id"=>550,"firm_id"=>1,"incident_date"=>"11/3/11","statute_of_limitations"=>"11/3/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"21st Century"},
 {"id"=>551,"case_id"=>551,"firm_id"=>1,"incident_date"=>"10/15/10","statute_of_limitations"=>"10/15/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>552,"case_id"=>552,"firm_id"=>1,"incident_date"=>"9/19/10","statute_of_limitations"=>"9/19/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>552,"case_id"=>552,"firm_id"=>1,"incident_date"=>"9/19/10","statute_of_limitations"=>"9/19/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>553,"case_id"=>553,"firm_id"=>1,"incident_date"=>"12/14/10","statute_of_limitations"=>"12/14/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"California Casualty"},
 {"id"=>554,"case_id"=>554,"firm_id"=>1,"incident_date"=>"7/27/10","statute_of_limitations"=>"7/27/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>555,"case_id"=>555,"firm_id"=>1,"incident_date"=>"12/12/12","statute_of_limitations"=>"12/12/14","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Allstate"},
@@ -3521,11 +3521,11 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>599,"case_id"=>599,"firm_id"=>1,"incident_date"=>"10/6/11","statute_of_limitations"=>"10/6/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Self-insured"},
 {"id"=>600,"case_id"=>600,"firm_id"=>1,"incident_date"=>"8/13/10","statute_of_limitations"=>"8/13/12","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Farmers"},
 {"id"=>601,"case_id"=>601,"firm_id"=>1,"incident_date"=>"9/18/08","statute_of_limitations"=>"9/18/10","property_damage"=>5000,"airbag_deployed"=>true,"speed"=>nil,"police_report"=>nil,"towed"=>true,"insurance_provider"=>"Mercury Insurance Group"},
-{"id"=>602,"case_id"=>602,"firm_id"=>1,"incident_date"=>"11/1/09","statute_of_limitations"=>"11/1/11","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>>25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
+{"id"=>602,"case_id"=>602,"firm_id"=>1,"incident_date"=>"11/1/09","statute_of_limitations"=>"11/1/11","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>">25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>603,"case_id"=>603,"firm_id"=>1,"incident_date"=>"10/18/09","statute_of_limitations"=>"10/18/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"State Farm"},
 {"id"=>604,"case_id"=>604,"firm_id"=>1,"incident_date"=>"11/9/10","statute_of_limitations"=>"11/9/12","property_damage"=>5000,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"AAA"},
 {"id"=>605,"case_id"=>605,"firm_id"=>1,"incident_date"=>"3/27/11","statute_of_limitations"=>"3/27/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
-{"id"=>606,"case_id"=>606,"firm_id"=>1,"incident_date"=>"7/11/11","statute_of_limitations"=>"7/11/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=><25,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Self-insured"},
+{"id"=>606,"case_id"=>606,"firm_id"=>1,"incident_date"=>"7/11/11","statute_of_limitations"=>"7/11/13","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>"<25","police_report"=>nil,"towed"=>nil,"insurance_provider"=>"Self-insured"},
 {"id"=>607,"case_id"=>607,"firm_id"=>1,"incident_date"=>"6/16/09","statute_of_limitations"=>"6/16/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>608,"case_id"=>608,"firm_id"=>1,"incident_date"=>"1/16/09","statute_of_limitations"=>"1/16/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>609,"case_id"=>609,"firm_id"=>1,"incident_date"=>"1/7/09","statute_of_limitations"=>"1/7/11","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
@@ -5825,9 +5825,9 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>2903,"case_id"=>2903,"firm_id"=>1,"incident_date"=>"5/23/13","statute_of_limitations"=>"5/23/15","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""},
 {"id"=>2904,"case_id"=>2904,"firm_id"=>1,"incident_date"=>"6/27/13","statute_of_limitations"=>"6/27/15","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""}]
 
-incidents.each do |i| {
+incidents.each do |i| 
 	i.create
-}
+end
 
 
 
@@ -8737,9 +8737,9 @@ resolutions = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"settlement_demand"=>nil,"jury
 {"id"=>2903,"case_id"=>2903,"firm_id"=>1,"settlement_demand"=>nil,"jury_demand"=>nil,"resolution_amount"=>5000,"resolution_type"=>"Settlement"},
 {"id"=>2904,"case_id"=>2904,"firm_id"=>1,"settlement_demand"=>nil,"jury_demand"=>nil,"resolution_amount"=>20000,"resolution_type"=>"Settlement"}]
 
-resolutions.each do |r| {
+resolutions.each do |r|
 	r.create
-}
+end
 
 
 
@@ -8755,7 +8755,7 @@ medicals = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"total_med_bills"=>nil,"subrogate
 {"id"=>7,"case_id"=>7,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>2,"length_of_treatment_unit"=>"Month(s)","injury_summary"=>nil,"medical_summary"=>"Emergency Surgery","earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>true,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>"PT"}},
 {"id"=>8,"case_id"=>8,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>nil,"length_of_treatment_unit"=>nil,"injury_summary"=>"ligamentous, Disc displacement, Headaches, muscle spasms","medical_summary"=>nil,"earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>nil,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>nil}},
 {"id"=>9,"case_id"=>9,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>nil,"length_of_treatment_unit"=>nil,"injury_summary"=>nil,"medical_summary"=>"Emergency Day of Accident","earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>true,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>nil}},
-{"id"=>10,"case_id"=>10,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>2,"length_of_treatment_unit"=>"Month(s)","injury_summary"=>"Muscle Spasms, cervicobrachial syndrome","medical_summary"=>nil,"earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>nil,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>"PT", "Chiro"}},
+{"id"=>10,"case_id"=>10,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>2,"length_of_treatment_unit"=>"Month(s)","injury_summary"=>"Muscle Spasms, cervicobrachial syndrome","medical_summary"=>nil,"earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>nil,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>{"PT", "Chiro"}}},
 {"id"=>11,"case_id"=>11,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>nil,"length_of_treatment_unit"=>nil,"injury_summary"=>"degenerative disc disease","medical_summary"=>"discectomy and fusion","earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>nil,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>"PT"}},
 {"id"=>12,"case_id"=>12,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>3,"length_of_treatment_unit"=>"Month(s)","injury_summary"=>"Loss of independence","medical_summary"=>"2 surgeries","earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>true,"hospital_stay_length"=>16,"hospital_stay_length_unit"=>"Day(s)","data"=>{"treatment_type"=>nil}},
 {"id"=>13,"case_id"=>13,"firm_id"=>1,"total_med_bills"=>nil,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>nil,"length_of_treatment_unit"=>nil,"injury_summary"=>"Fractured tibia and fibula on both legs","medical_summary"=>"2 surgeries","earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>nil,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil,"data"=>{"treatment_type"=>"PT"}},
@@ -11652,10 +11652,10 @@ medicals = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"total_med_bills"=>nil,"subrogate
 {"id"=>2904,"case_id"=>2904,"firm_id"=>1,"total_med_bills"=>11463.67,"subrogated_amount"=>nil,"injuries_within_three_days"=>nil,"length_of_treatment"=>nil,"length_of_treatment_unit"=>nil,"injury_summary"=>nil,"medical_summary"=>nil,"earnings_lost"=>nil,"treatment_gap"=>nil,"injections"=>nil,"hospitalization"=>nil,"hospital_stay_length"=>nil,"hospital_stay_length_unit"=>nil},"data"=>{"treatment_type"=>nil}]
 
 
-medicals.each do |m| {
+medicals.each do |m|
 	#m.data.treatment_type  "Other" if m.data.treatment_type.include? "MT" || m.data.treatment_type.include? "Massage Therapy" || m.data.treatment_type.include? "Medication" || m.data.treatment_type.include? "Electro" || m.data.treatment_type.include? "Ortho"
 	m.create
-}
+end
 
 
 
@@ -15374,6 +15374,6 @@ injuries = [{"id"=>1,"medical_id"=>1,"firm_id"=>1,"region"=>"Neck","injury_type"
 {"id"=>3711,"medical_id"=>2903,"firm_id"=>1,"region"=>"Back","injury_type"=>"Strain/Sprain","dominant_side"=>nil,"joint_fracture"=>nil,"displaced_fracture"=>nil,"disfigurement"=>nil,"impairment"=>nil,"permanance"=>nil,"disabled"=>nil,"disabled_percent"=>nil},
 {"id"=>3712,"medical_id"=>2904,"firm_id"=>1,"region"=>"Foot","injury_type"=>"Fracture","dominant_side"=>nil,"joint_fracture"=>nil,"displaced_fracture"=>nil,"disfigurement"=>nil,"impairment"=>nil,"permanance"=>nil,"disabled"=>nil,"disabled_percent"=>nil}]
 
-injuries.each do |inj| {
+injuries.each do |inj|
 	inj.create
-}
+end

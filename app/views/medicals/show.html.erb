@@ -47,30 +47,17 @@
   <%= @medical.length_of_treatment %>
 </p>
 
-<% 
-=begin 
-%>
-<%= @medical.data.each do |k,v| %>
-<p>
-  <strong><%= k.dup.gsub!(/_/, ' ').titleize -%>:</strong>
-  <%= v.gsub(/[^0-9A-Za-z]/, '') %>
-</p>
-<%  end %>
-<% 
-=end 
-%>
-<% if @medical.doctor_type %>
+
 <p>
   <strong>Doctor Type:</strong>
-  <%= @medical.doctor_type.gsub(/[^0-9A-Za-z]/, ' ')%>
+  <%= @medical.doctor_type.map{|p| p}.join(", ") %>
+  
 </p>
-<% end %>
-<% if @medical.treatment_type %>
+
 <p>
   <strong>Treatment Type:</strong>
-  <%= @medical.treatment_type.gsub(/[^0-9A-Za-z]/, ' ')%>
+  <%= @medical.treatment_type.map{|p| p}.join(", ") %>
 </p>
-<% end %>
 
 <p>
   <strong>Gap(s) in Treatment?:</strong>

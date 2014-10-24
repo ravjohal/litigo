@@ -6,12 +6,8 @@
     <%= f.input :subrogated_amount %>
     <%= f.input :injuries_within_three_days, as: :radio_buttons %>
     <%= f.input :length_of_treatment %>
-    <% if @medical.data %>
-      <%= f.simple_fields_for :data, @medical.data do |d| %>
-        <%= d.input :doctor_type, as: :check_boxes, collection: Medical::DOCTOR_TYPE, :checked => @medical.data["doctor_type"].gsub(/[^0-9A-Za-z]/, ' ').gsub(/,*\s+/,',').split(',') %>
-        <%= d.input :treatment_type, as: :check_boxes, collection: Medical::TREATMENT_TYPE, :checked => @medical.data["treatment_type"].gsub(/[^0-9A-Za-z]/, ' ').gsub(/,*\s+/,',').split(',') %> 
-      <% end %>
-    <% end %>
+    <%= f.input :doctor_type, as: :check_boxes, collection: Medical::DOCTOR_TYPE, :include_hidden => false %>
+    <%= f.input :treatment_type, as: :check_boxes, collection: Medical::TREATMENT_TYPE, :include_hidden => false  %>
     <%= f.input :injury_summary %>
     <%= f.input :medical_summary %>
     <%= f.input :earnings_lost %>

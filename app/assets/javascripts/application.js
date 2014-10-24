@@ -21,9 +21,12 @@
 //= require jquery-ui
 //= require_tree .
 //= require select2
+//= require best_in_place
+//= require jquery.purr
 
 
 $(document).ready(function () {
+    $(".best_in_place").best_in_place();
 
     // $(window).on('hashchange', function(e){
     //     console.log("hola" + e);
@@ -110,3 +113,5 @@ $(document).ready(function () {
 //         success_color : undefined
 //     }
 // };
+
+

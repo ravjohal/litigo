@@ -7,96 +7,208 @@
 
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Case Name:</strong>
-  <%= @case.name %>
-</p>
+<div class="top-table-container">
+<table id="info-table1">
+<thead>
+  <tr class="right-top">
+    <td colspan="2">
+      Case Administration
+    </td>
+  </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td class="right">
+        <strong>Case Name:</strong>
+      </td>
+       <td>
+        <%= best_in_place @case, :name, :class => 'edit' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Date Opened:</strong>
+      </td>
+        <td>
+         <%= best_in_place @case, :created_at, :type => :date, :class => 'edit' %>
+        </td>
+     </tr>
+      <tr>
+        <td class="right">
+           <strong>Case Number:</strong>
+        </td>
+        <td>
+          <%= @case.case_number %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Docket Number:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :docket_number, :class => 'edit' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Court:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :court, :class => 'edit' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>County:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :county, :class => 'edit' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>State:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :state, :type => :select, :collection => us_states, :class => 'edit'  %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+<table id="info-table2">
+<thead>
+  <tr class="right-top">
+    <td colspan="2">
+      Contacts Assigned to Case
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+           <strong>Plaintiff(s):</strong>
+        </td>
+        <td>
+          <% @case.contacts.where("type = 'Plaintiff'").each do |p| %>
+          <%= p.first_name %> <%= p.last_name %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Defendant(s):</strong>
+        </td>
+        <td>
+          <% @case.contacts.where("type = 'Defendant'").each do |d| %>
+          <%= d.first_name %> <%= d.last_name %>
+           <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Assigned Attorney(s):</strong>
+        </td>
+        <td>
+          <%= @case.contacts.where("type = 'Attorney'").size %>
+          <% @case.contacts.where("type = 'Attorney'").each do |a| %>
+          <%= a.first_name %> <%= a.last_name %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Assigned Staff(s):</strong>
+        </td>
+        <td>
+          <% @case.contacts.where("type = 'Staff'").each do |s| %>
+          <%= s.first_name %> <%= s.last_name %>
+          <% end %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
 
-<p>
-  <strong>Case Number:</strong>
-  <%= @case.case_number %>
-</p>
+<div class="bottom-table-container">
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="4">
+      General Overview
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+           <strong>Type:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :case_type, :type => :select, :collection => Case::TYPES, :class => 'edit'  %>
+        </td>
+        <td class="right">
+          <strong>Sub-type:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :subtype, :type => :select, :collection => Case::SUB_TYPES, :class => 'edit'  %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Case Summary:</strong>
+        </td>
+        <td colspan="3">
+          <%= best_in_place @case, :description, :type => :textarea, :class => 'edit' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Status:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :status, :type => :select, :collection => {"1" => "Open", "2" => "Pending", "3" => "Closed"}, :class => 'edit' %>
+        </td>
+         <td class="right">
+          <strong>Date Closed:</strong>
+        </td>
+        <td>
+          <%= best_in_place @case, :closing_date, :type => :date, :class => 'edit' %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
 
-<p>
-  <strong>Docket Number:</strong>
-  <%= @case.docket_number %>
-</p>
-
-<p>
-  <strong>Court:</strong>
-  <%= @case.court %>
-</p>
-
-<p>
-  <strong>County:</strong>
-  <%= @case.county %>
-</p>
-
-<p>
-  <strong>State:</strong>
-  <%= @case.state %>
-</p>
-
-<p>
-  <strong>Plaintiff(s):</strong>
-  <% @case.contacts.where("type = 'Plaintiff'").each do |p| %>
-    <%= p.first_name %> <%= p.last_name %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Defendant(s):</strong>
-  <% @case.contacts.where("type = 'Defendant'").each do |d| %>
-    <%= d.first_name %> <%= d.last_name %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Assigned Attorney(s):</strong>
-  <%= @case.contacts.where("type = 'Attorney'").size %>
-  <% @case.contacts.where("type = 'Attorney'").each do |a| %>
-    <%= a.first_name %> <%= a.last_name %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Assigned Staff(s):</strong>
-  <% @case.contacts.where("type = 'Staff'").each do |s| %>
-    <%= s.first_name %> <%= s.last_name %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @case.case_type %>
-</p>
-
-<p>
-  <strong>Sub-type:</strong>
-  <%= @case.subtype %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @case.description %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @case.status %>
-</p>
-
-<p>
-  <strong>Creation date:</strong>
-  <%= @case.created_at.strftime("%m/%d/%y %I:%M %p") %>
-</p>
-
-<p>
-  <strong>Closing date:</strong>
-  <%= @case.closing_date %>
-</p>
 
 <div class="text-center link-pad">
-<%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %> |
-<%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %></td>
+    </tr>
+    <tbody>
+  </table>
 </div>
+
+<script>
+$( ".edit" ).hover(
+  function() {
+    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
+  }, function() {
+    $( this ).find( "span:last" ).remove();
+  }
+);
+</script>
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>
+

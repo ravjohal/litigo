@@ -22,7 +22,7 @@
         <strong>Case Name:</strong>
       </td>
        <td>
-        <%= best_in_place @case, :name, :class => 'edit' %>
+        <%= best_in_place @case, :name, :class => 'edit', :nil => "Click to edit" %>
       </td>
     </tr>
     <tr>
@@ -30,7 +30,7 @@
         <strong>Date Opened:</strong>
       </td>
         <td>
-         <%= best_in_place @case, :created_at, :type => :date, :class => 'edit' %>
+         <%= @case.created_at %>
         </td>
      </tr>
       <tr>
@@ -46,7 +46,7 @@
           <strong>Docket Number:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :docket_number, :class => 'edit' %>
+          <%= best_in_place @case, :docket_number, :class => 'edit', :nil => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -54,7 +54,7 @@
           <strong>Court:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :court, :class => 'edit' %>
+          <%= best_in_place @case, :court, :class => 'edit', :nil => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -62,7 +62,7 @@
           <strong>County:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :county, :class => 'edit' %>
+          <%= best_in_place @case, :county, :class => 'edit', :nil => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -158,7 +158,7 @@
             <strong>Case Summary:</strong>
         </td>
         <td colspan="3">
-          <%= best_in_place @case, :description, :type => :textarea, :class => 'edit' %>
+          <%= best_in_place @case, :description, :type => :textarea, :class => 'edit', :nil => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -172,7 +172,7 @@
           <strong>Date Closed:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :closing_date, :type => :date, :class => 'edit' %>
+          <%= best_in_place @case, :closing_date, :type => :date, :class => 'edit', :nil => "Click to edit" %>
         </td>
       </tr>
   </tbody>

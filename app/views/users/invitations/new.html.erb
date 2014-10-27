@@ -1,0 +1,6 @@
+<h2><%= t "devise.invitations.new.header" %></h2>
+<%= form_tag user_invitation_path, :method => :post do %>
+  <%= label_tag "Email ids of people you'd like to invite, separated by coma(,)." %><br/>
+  <%= text_area_tag :user_emails %><br/>
+  <%= submit_tag "Invite!" %>
+<% end %>

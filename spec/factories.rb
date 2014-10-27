@@ -42,8 +42,8 @@ FactoryGirl.define do
 
   factory :case do
     case_number "#{Random.rand(5)}"
-    case_type :some_case_type
-    subtype :some_subtype
+    case_type "case type #{Faker::Lorem.characters(7)}"
+    subtype "subtype #{Faker::Lorem.characters(7)}"
     name "#{Faker::Lorem.characters(8)}"
     description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
   end

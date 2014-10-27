@@ -2,9 +2,6 @@ require 'spec_helper'
 
 describe Document do
 
-  let!(:cas) { create(:case, case_type: 'CType', subtype: 'SubType', name: 'Case1',
-                      description: 'Description') }
-
   let!(:user) { create(:user) }
   let!(:doc) { create(:document, author: 'John Doh', doc_type: 'Doc Type', template: 'tpl', user: user) }
 

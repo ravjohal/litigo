@@ -86,7 +86,7 @@ $(document).ready(function () {
 
 $(document).on('page:change', function (e) {
     if(e.currentTarget.location.pathname == "/insights") {
-        $("#btnFilterReset").click();
+        $("#btnFilterSearch").click();
     }
 });
 

@@ -43,5 +43,5 @@ Rails.application.configure do
 
   ENV['PUBLISHABLE_KEY'] = 'pk_test_bdNUNhdPuw421zThmcq5qAmA'
   ENV['SECRET_KEY'] = 'sk_test_sUhYz929KV8ZvJ1rvesMzyBp'
-  ENV['EXPIRE_HOURS'] = '8' 
+  ENV['EXPIRE_HOURS'] = '8'
 end

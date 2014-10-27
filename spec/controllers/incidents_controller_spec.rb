@@ -2,10 +2,10 @@ require "spec_helper"
 
 describe IncidentsController, type: :controller do
   describe "GET show" do
+    # binding.pry
 
     let(:case_var) { FactoryGirl.create(:case_with_incident) }
     let(:incident) { case_var.incident }
-    let!(:firm) {FactoryGirl.create(:firm)}
 
     it "has a 200 status code" do
       sign_in

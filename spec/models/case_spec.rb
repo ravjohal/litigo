@@ -2,15 +2,6 @@ require 'spec_helper'
 
 describe Case do
 
-  let!(:user) { create(:user) }
-  let!(:attorney) { create(:attorney, :attorney_type => 'Lawyer') }
-  let!(:contact) { create(:contact, :first_name=> 'John', :last_name => 'Doh') }
-  let!(:cas) { create(:case, case_number: 7, case_type: 'CType', subtype: 'SubType', name: 'Case1',
-                       description: 'Description') }
-  let!(:event) { create(:event) }
-  let!(:doc) { create(:document) }
-  let!(:task) { create(:task) }
-
   context 'Relationships' do
     # it { should define_enum_for(:status) }
     it { should have_many(:contacts) }

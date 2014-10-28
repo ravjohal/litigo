@@ -5,7 +5,7 @@ class CasesController < ApplicationController
   before_action :set_user, :set_firm
 
   def index
-    @cases = @user.cases
+    @cases = @user.cases.includes(:medical)
   end
 
   def show

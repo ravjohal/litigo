@@ -6,67 +6,138 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
-<p>
-  <strong>Incident date:</strong>
-  <%= @incident.incident_date %>
-</p>
 
-<p>
-  <strong>Statute of limitations:</strong>
-  <%= @incident.statute_of_limitations %>
-</p>
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      Resolution Summary
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+        <strong>Incident date:</strong>
+        </td>
+        <td>
+          <%= @incident.incident_date %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Statute of limitations:</strong>
+        </td>
+        <td>
+          <%= @incident.statute_of_limitations %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Defendant Liability:</strong>
+        </td>
+        <td>
+          <%= @incident.defendant_liability %>%
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Alcohol Involved?:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.alcohol_involved  %>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Weather a factor:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.weather_factor %>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Property Damage:</strong>
+        </td>
+        <td>
+          $ <%= number_to_currency(@incident.property_damage) %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Insurance Company:</strong>
+        </td>
+        <td>
+           <%= @incident.insurance_provider %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Airbag Deployed:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.airbag_deployed %>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Speed of Bullet Car:</strong>
+        </td>
+        <td>
+          <%= @incident.speed %> m.p.h.
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Police Report:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.police_report %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Towed:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.towed %>
+        </td>
+      </tr>
+  </tbody>
+</table>
 
-<p>
-  <strong>Defendant Liability:</strong>
-  <%= @incident.defendant_liability %>%
-</p>
 
-<p>
-  <strong>Alcohol Involved?:</strong>
-  <%= boolean_as_yesno @incident.alcohol_involved  %>
-</p>
-
-<p>
-  <strong>Weather a factor:</strong>
-  <%= boolean_as_yesno @incident.weather_factor %>
-</p>
-
-<p>
-  <strong>Complaint at Scene:</strong>
-  <%= boolean_as_yesno @incident.complaint_at_scene %>
-</p>
-
-<p>
-  <strong>Property Damage:</strong>
-  <%= number_to_currency(@incident.property_damage, precision: 0) %>
-</p>
-
-<p>
-  <strong>Insurance Company:</strong>
-  <%= @incident.insurance_provider %>
-</p>
-
-<p>
-  <strong>Airbag Deployed:</strong>
-  <%= boolean_as_yesno @incident.airbag_deployed %>
-</p>
-
-<p>
-  <strong>Speed of Bullet Car:</strong>
-  <%= @incident.speed %>
-</p>
-
-<p>
-  <strong>Police Report:</strong>
-  <%= @incident.police_report %>
-</p>
-
-<p>
-  <strong>Towed:</strong>
-  <%= @incident.towed %>
-</p>
 
 <div class="text-center link-pad">
-<%= link_to 'Edit', edit_case_incident_path(@case, @incident), :class => 'dark' %> | 
-<%= link_to 'Back to Cases', cases_path, :class => 'dark' %>
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %></td>
+    </tr>
+    <tbody>
+  </table>
 </div>
+
+<script>
+$( ".edit" ).hover(
+  function() {
+    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
+  }, function() {
+    $( this ).find( "span:last" ).remove();
+  }
+);
+</script>
+
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>

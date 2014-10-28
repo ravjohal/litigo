@@ -11,7 +11,7 @@
 <table id="info-table1">
 <thead>
   <tr class="right-top">
-    <td colspan="2">
+    <td colspan="2" class="gray-back">
       Case Administration
     </td>
   </tr>
@@ -78,8 +78,8 @@
 <table id="info-table2">
 <thead>
   <tr class="right-top">
-    <td colspan="2">
-      Contacts Assigned to Case
+    <td colspan="2" class="gray-back">
+      Key Contacts
     </td>
   </tr>
 </thead>
@@ -133,7 +133,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="4">
+    <td colspan="4" class="gray-back">
       General Overview
     </td>
   </tr>
@@ -154,10 +154,10 @@
         </td>
       </tr>
       <tr>
-        <td class="right">
+        <td class="right big-row">
             <strong>Case Summary:</strong>
         </td>
-        <td colspan="3">
+        <td colspan="3" class="big-row">
           <%= best_in_place @case, :description, :type => :textarea, :class => 'edit', :nil => "Click to edit" %>
         </td>
       </tr>

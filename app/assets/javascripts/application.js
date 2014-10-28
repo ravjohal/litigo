@@ -41,7 +41,6 @@
 
 
 $(document).ready(function () {
-    $(".best_in_place").best_in_place();
 
     // $(window).on('hashchange', function(e){
     //     console.log("hola" + e);

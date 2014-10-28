@@ -170,7 +170,7 @@ section {
 
 
 #error_explanation {
-  @extend .alert;
+  @extend .table;
   @extend .alert-danger;
 }
 #error_explanation h2 {
@@ -414,7 +414,7 @@ input:focus {
 
 #info-table3{
   table-layout: fixed;
-  margin: 0 auto;
+  margin: 50px auto;
   width: 900px;
   font-size: 14px;
   border: 1px solid #E8ECF1;

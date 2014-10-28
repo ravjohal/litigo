@@ -131,11 +131,11 @@ ActiveRecord::Schema.define(version: 20141028061241) do
 
   create_table "event_attendees", force: true do |t|
     t.integer  "event_id"
-    t.string   "display_name"
     t.boolean  "creator"
     t.string   "response_status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "display_name"
     t.integer  "contact_id"
   end
 
@@ -153,7 +153,6 @@ ActiveRecord::Schema.define(version: 20141028061241) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "owner_id"
-    t.integer  "firm_id"
     t.string   "google_id"
     t.string   "etag"
     t.string   "status"
@@ -166,6 +165,7 @@ ActiveRecord::Schema.define(version: 20141028061241) do
     t.string   "visibility"
     t.string   "iCalUID"
     t.integer  "sequence"
+    t.integer  "firm_id"
     t.string   "google_calendar_id"
   end
 
@@ -260,6 +260,7 @@ ActiveRecord::Schema.define(version: 20141028061241) do
     t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
+    t.hstore   "treatment_type"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost"
@@ -273,7 +274,6 @@ ActiveRecord::Schema.define(version: 20141028061241) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "doctor_type",                default: [], array: true
-    t.string   "treatment_type",             default: [], array: true
   end
 
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree

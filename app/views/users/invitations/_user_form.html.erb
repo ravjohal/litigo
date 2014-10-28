@@ -1,0 +1,14 @@
+<label for="email">Email</label>
+<input type="email" class="inv_email" name="users[0][email]"/>
+<label for="role">Role</label>
+<select class="inv_role" name="users[0][role]">
+  <option value="stuff">stuff</option>
+  <option selected="selected" value="attorney">attorney</option>
+</select>
+<a class="remove_invitee" href="#">Remove</a><br/>
+<script type="text/javascript" charset="utf-8">
+  $('.remove_invitee').click(function(e){
+    e.preventDefault();
+    $(e.currentTarget).parent().remove();
+  });
+</script>

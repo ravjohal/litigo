@@ -211,6 +211,9 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.2)
       railties (>= 3.2.16)
+    jquery-validation-rails (1.12.0)
+      railties (>= 3.2, < 5.0)
+      thor (~> 0.14)
     json (1.8.1)
     jwt (1.0.0)
     kgio (2.9.2)
@@ -429,6 +432,7 @@ DEPENDENCIES
   jquery-datetimepicker-rails (~> 2.3.7.0)
   jquery-rails
   jquery-ui-rails (~> 5.0.0)
+  jquery-validation-rails (~> 1.12.0)
   minitest (~> 5.4.0)
   omniauth-google-oauth2 (~> 0.2.5)
   pg

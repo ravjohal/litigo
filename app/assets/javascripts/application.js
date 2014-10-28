@@ -19,6 +19,8 @@
 //= require gcal
 //= require jquery.datetimepicker
 //= require jquery-ui
+//= require jquery.validate
+//= require jquery.validate.additional-methods
 //= require d3/lib/d3.v3
 //= require d3/topojson.v1.min
 //= require d3/datamaps.usa.min

@@ -34,6 +34,7 @@ gem 'cancancan'
 gem 'devise_invitable'
 gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
 gem "best_in_place"
+gem 'jquery-validation-rails', '~> 1.12.0'
 
 group :development do
   gem 'better_errors'

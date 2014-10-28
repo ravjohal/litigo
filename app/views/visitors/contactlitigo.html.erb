@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo | About Us" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Contact Us" %>">
+    <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+ </head>
+ <body>
+<header>
+    <div class="home-nav-banner">
+      <div class="wrapper">
+        <a href="index"class="navlogo marge"></a>
+        <% if user_signed_in? %>
+            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
+        <% else %>
+        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
+        <% end %>
+        <div id="header-links">
+                      <ul id="header-links">
+                          <li><%= link_to 'About', about_path %></li>
+                          <li><%= link_to 'Pricing', pricing_path %></li>
+                          <li><%= link_to 'Contact Us', contactlitigo_path %></li>
+                      </ul>
+              </div>
+      </div>
+    </div>
+    </header>
+    <div class="contact-container">
+        <br><h2>Contact Us</h2><br>
+        <div class="contact-us">
+        <p>We are here to reply to any questions or comments you may have about our product or your experience. Please reach out to us and we will respond as soon as we possibly can.</p><p>
+
+        We are always trying to make the Litigo experience better. If you have a product suggestion please send it to us or simply drop as a line to say hi!</p>
+            <form>
+          Name:<input>
+          Email:<input type="email">
+          Message:<input type="text">
+
+          <input type="submit" value="SEND MESSAGE" name="message" id="message" class="sub2 pull-right marge">
+        </form>
+        </div>
+    
+        <div class="contact-info">
+
+        </div>
+    </div>
+
+     <div class="ending">
+              <div class="footer-container">
+                  &copy 2014 Litigo Inc.
+                  <div id="footer-links">
+                      <ul id="footer-links">
+                          <li><%= link_to 'About', about_path %></li>
+                          <li><%= link_to 'Pricing', pricing_path %></li>
+                          <li><%= link_to 'Contact Us', contactlitigo_path %></li>
+                      </ul>
+                  </div>
+                    <p>
+                      <%= link_to 'Terms of Service', terms_path %>
+                      <%= link_to 'Privacy Policy', privacy_path %>
+                    </p>
+              </div>
+        </div>
+ </body>
+</html>

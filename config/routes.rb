@@ -39,10 +39,10 @@ Rails.application.routes.draw do
   get "/about" => 'visitors#about', as: :about
   get "/terms" => 'visitors#terms', as: :terms
   get "index" => 'visitors', as: :index
-  get "contacts" => 'visitors#contactlitigo', as: :contactlitigo
-  get "privacy" => 'visitors#privacy', as: :privacy
-  get "pricing" => 'visitors#pricing', as: :pricing
-  get "partners" => 'visitors#partners', as: :partners
+  get "/contact" => 'visitors#contactlitigo', as: :contactlitigo
+  get "/privacy" => 'visitors#privacy', as: :privacy
+  get "/pricing" => 'visitors#pricing', as: :pricing
+  get "/partners" => 'visitors#partners', as: :partners
 
   resources :dashboards, path: "dashboard"
 

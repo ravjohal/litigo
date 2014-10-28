@@ -40,6 +40,13 @@
         <% else %>
         <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
         <% end %>
+              <div id="header-links">
+                      <ul id="header-links">
+                          <li><%= link_to 'About', about_path %></li>
+                          <li><%= link_to 'Pricing', pricing_path %></li>
+                          <li><%= link_to 'Contact Us', contactlitigo_path %></li>
+                      </ul>
+              </div>
       </div>
     </div>
     </header>
@@ -80,43 +87,48 @@
 
       </div>
       <div class="mission">
-    Empowering attorneys to attain higher verdicts and settlements with <span style= 'text-decoration:underline'>FREE</span> case management and analytics
-      <a id="main_home"></a>
+          Empowering attorneys to attain higher verdicts and settlements with <span style= 'text-decoration:underline'>FREE</span> case management and analytics
       </div>
-      <div class="main_home">
-          <span class="valueprop-photo">
-          </span>
-          <div class="valueprop">"Firms implementing practice management included a four to eight hour per month reduction in non-billable activity"<br><p class="small">- David Houlihan, Esq. of Blue Hill Research</div>
-          <div class="submain">
+        <div class="quote-container">
+          <span class="valueprop-photo"></span>
+              <div class="valueprop">"Firms implementing practice management included a four to eight hour per month reduction in non-billable activity"<br><p class="small">- David Houlihan, Esq. of Blue Hill Research</p>
+              </div>
+        </div>
+        <!--
+          <div class="icon-container">
               <div class="imgbox1">
                   <%= image_tag 'mag2.png' %>
-                  </div>
-                      <div class="imgbox2">
+              </div>
+              <div class="imgbox2">
                       <%= image_tag 'folder2.png' %>
-                      </div>
-                  <div class="imgbox3">
+              </div>
+              <div class="imgbox3">
                   <%= image_tag 'chart2.png' %>
-                  </div>
+              </div>
               <div class="firstbox">
-              Case Evaluation<p>
-      <p class="boxes">Save time on client intake while inputting pertinent case details for Litigo to analyze them against 100,000 historical cases to return a possible value range.</p>
+                  Case Evaluation<p>
+                  <p class="boxes">Save time on client intake while inputting pertinent case details for Litigo to analyze them against 100,000 historical cases to return a possible value range.</p>
               </div>
               <div class="secondbox">
-              Case Management<p>
-              <p class="boxes">Designed from the ground up for personal injury lawyers, Litigo enables users to track events, add documents, manage contacts and track litigation.</p>
+                    Case Management<p>
+                        <p class="boxes">Designed from the ground up for personal injury lawyers, Litigo enables users to track events, add documents, manage contacts and track litigation.</p>
               </div>
               <div class="thirdbox">
-              Lit Research<p>
-      <p class="boxes">Insights lets attorneys quickly and visually research case values and determine how the insurer, judge, injury, or county impacts the value and outcome.</p>
+                  Lit Research<p>
+                  <p class="boxes">Insights lets attorneys quickly and visually research case values and determine how the insurer, judge, injury, or county impacts the value and outcome.</p>
               </div>
           </div>
-      </div>
+      </div> -->
+
+
     <div class="screens">
+
       <div class="screen-container">
+
        <div class="screen-left2">
           </div>
           <div class="text-left">
-              <h5>Case Management<h5>
+              <h5>Case Management</h5>
               <div class="text-body-alt">
                 <ul>
                 <li class="features">Free - no cost ever</li>
@@ -134,20 +146,22 @@
           <div class="screen-left">
           </div>
           <div class="text-left">
-              <h5>Case Evaluation<h5>
+              <h5>Case Evaluation</h5>
               <div class="text-body">Enter case information and our propreietary software will analyze your case against thousands of past cases and give you an estimated value. Use the presentation quality report for client meetings or save for your own piece of mind.</div>
           </div>
       </div>
        <div class="screen-container">
          <div class="screen-left1">
           </div>
-          <div class="text-left">
-              <h5>Lit Research<h5>
+            <div class="text-left">
+              <h5>Lit Research</h5>
               <div class="text-body">Litigo's visual research tool allows use to quickly understand what drives case value and read case details for similar cases. <br><br>
               <p>Gain data driven insights into individual judges, counties, or opposing attorneys to help build your litigation strategy.</p>
               </div>
-          </div>
+            </div>
       </div>
+    </div>
+  </div>
       
   </main>  
         <div class="request">

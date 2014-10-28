@@ -24,12 +24,18 @@
         <input type="text" id="f_judge" class="full-width" />
       </div>
     </div>
-    <div class="col-md-2 box center">
-      <a id="btnFilterReset" class="action-button" href="javascript:void(0)" id="btnReset">SEARCH</a>
+    <div class="col-md-2 box">
+      <div class="full-width center" style="margin-top:10px;">
+        <a id="btnFilterSearch" class="action-button" href="javascript:void(0)">SEARCH</a>
+      </div>
+      <div class="full-width center" style="margin-top:30px;">
+        <a id="btnFilterReset" class="action-button" href="javascript:void(0)">RESET</a>  
+      </div>
     </div>
   </div>
 </div>
-<div class="col-md-12 with-3d-shadow with-transitions">
+<p id="notice" style="display:none;">No data</p>
+<div id="chart_container" class="col-md-12 with-3d-shadow with-transitions">
   <div id="stackedArea_chart" style="height:300px;width:100%;">
     <svg></svg>
   </div>

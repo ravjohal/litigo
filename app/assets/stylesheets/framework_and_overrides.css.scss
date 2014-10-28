@@ -387,6 +387,9 @@ input:focus {
 #info-table1 tr:nth-child(even){
  background: #fdfeff;
 }
+#info-table1 th {
+ background: #ccc;
+}
 #info-table1 tr:nth-child(odd){
  background: white;
 }
@@ -438,13 +441,21 @@ input:focus {
   margin: 0 auto;
   width: 900px;
 }
-
 #info-table4 tr:nth-child(even){
  background: transparent;
 }
 #info-table4 tr:nth-child(odd){
  background: transparent;
 }
+
+td.gray-back {
+  background-color: #ccc;
+}
+td.big-row {
+  height: 140px;
+  vertical-align: top;
+}
+
 #left-td{
   float: left;
   margin-left: 20px;

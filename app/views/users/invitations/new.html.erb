@@ -1,8 +1,30 @@
 <% if current_user.admin? %>
   <h2><%= t "devise.invitations.new.header" %></h2>
-  <%= form_tag user_invitation_path, :method => :post do %>
-    <%= label_tag "Email ids of people you'd like to invite, separated by coma(,)." %><br/>
-    <%= text_area_tag :user_emails %><br/>
-    <%= submit_tag "Invite!" %>
+  <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
+    <div class="invitees"><%= render 'user_form' %></div>
+    <%= submit_tag "Invite!", id: "inv_submit" %>
+    <%= link_to "Add invitee", '#', class: "action-button", id: "add_invitee" %>
   <% end %>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function () {
+    var inv = 1;
+    $('#add_invitee').click(function (e) {
+      e.preventDefault();
+      $('.invitees').append("<%= j(render :partial => 'user_form').html_safe %>");
+      $('.inv_email').last().attr('name', 'users['+ inv + '][email]');
+      $('.inv_role').last().attr('name', 'users['+ inv + '][role]');
+      inv ++;
+    });
+    $( ".invitee_form" ).validate();
+    $(".inv_email").rules("add", {
+      required:true,
+      email: true
+    });
+
+    function IsEmail(email) {
+      var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+      return regex.test(email);
+    }
+  });
+</script>

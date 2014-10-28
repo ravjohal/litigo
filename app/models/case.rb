@@ -23,19 +23,19 @@ class Case < ActiveRecord::Base
   has_many :events, :through => :case_events
   has_many :notes
 
-  searchable do
-    text :state
-    text :court
-    text :injury_type do
-      medical.injuries.map { |injury| injury.injury_type } if medical
-    end
-    text :region do
-      medical.injuries.map { |injury| injury.region } if medical
-    end
-    text :insurer do
-      incident.insurance_provider if incident
-    end
-  end
+  # searchable do
+  #   text :state
+  #   text :court
+  #   text :injury_type do
+  #     medical.injuries.map { |injury| injury.injury_type } if medical
+  #   end
+  #   text :region do
+  #     medical.injuries.map { |injury| injury.region } if medical
+  #   end
+  #   text :insurer do
+  #     incident.insurance_provider if incident
+  #   end
+  # end
 
   accepts_nested_attributes_for :documents
   accepts_nested_attributes_for :medical, :allow_destroy => true

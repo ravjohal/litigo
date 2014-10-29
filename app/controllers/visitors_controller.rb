@@ -1,5 +1,7 @@
 class VisitorsController < ApplicationController
 	layout "homepage"
+
+  set caches_page :about, :terms, :index, :privacy, :contactlitigo, :partners, :pricing
   	#...
   	def about
 

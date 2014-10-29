@@ -1,4 +1,4 @@
-Then(/^I create the note$/) do
+Then(/^I create a note$/) do
   visit '/notes'
   click_on 'NEW NOTE'
   find("option[value='Medical/Review']").click

@@ -11,5 +11,5 @@ Feature: Note tab
     And when I fill in the modal window
     And I should logged in
     And I create a case
-    And I create the note
+    And I create a note
     Then The note for user with email "artem.suchov@gmail.com" should be saved to the db

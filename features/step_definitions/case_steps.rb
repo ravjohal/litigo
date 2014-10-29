@@ -26,3 +26,22 @@ end
 Then(/^I verify required fields for case for user with email "(.*?)" are changed$/) do |arg1|
   pending # express the regexp above with the code you wish you had
 end
+
+Then(/^all tabs are created$/) do
+  click_on 'RESOLUTION'
+  expect(page).to have_content('Resolution Summary')
+  click_on 'MEDICAL'
+  expect(page).to have_content('Medical Overview')
+  click_on 'INCIDENT'
+  expect(page).to have_content('Resolution Summary')
+  click_on 'DETAILS'
+  expect(page).to have_content('Case Administration')
+  click_on 'DOCUMENTS'
+  expect(page).to have_content('NEW DOCUMENT')
+  click_on 'NOTES'
+  expect(page).to have_content('NEW NOTE')
+  click_on 'CONTACTS'
+  expect(page).to have_content('NEW CONTACT')
+  click_on 'TASKS'
+  expect(page).to have_content('NEW TASK')
+end

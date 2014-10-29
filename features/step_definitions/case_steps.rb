@@ -18,3 +18,11 @@ Then(/^I verify required fields for case for user with email "(.*?)"$/) do |arg1
   expect(Case.where(id: u.id).last.name).to eq 'some case'
   expect(Case.where(id: u.id).last.case_number).to eq 1
 end
+
+Then(/^I change the case fields$/) do
+  pending # express the regexp above with the code you wish you had
+end
+
+Then(/^I verify required fields for case for user with email "(.*?)" are changed$/) do |arg1|
+  pending # express the regexp above with the code you wish you had
+end

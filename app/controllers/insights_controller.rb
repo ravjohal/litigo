@@ -28,18 +28,21 @@ class InsightsController < ApplicationController
       cases = cases.where(incidents: {insurance_provider: params[:insurer]} )
     end
 
+    lines = cases.joins(:resolution).group('resolutions.resolution_amount').order('resolutions.resolution_amount').count('cases.id')
     pie = cases.joins(:resolution).group('resolutions.resolution_type').count()
     map = cases.joins(:resolution).group('cases.state').average("resolutions.resolution_amount")
 
     render json: { 
-      lines: cases.to_json(
-                include: {
-                  :resolution => {
-                    only: [:resolution_amount]
-                  }
-                }, 
-                only: [:state, :court]
-              ),
+      totals: cases.size,
+      lines: lines,
+      # lines: cases.to_json(
+      #           include: {
+      #             :resolution => {
+      #               only: [:resolution_amount]
+      #             }
+      #           }, 
+      #           only: [:state, :court]
+      #         ),
       pie: pie,
       map: map
     }

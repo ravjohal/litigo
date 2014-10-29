@@ -66,42 +66,23 @@ $(document).ready ->
 
 
 initData = ->
-  searchData = []
-  # search data
-  searchData = $.parseJSON(casesData.lines)
+  total_count = casesData.totals
+  
+  max_limit = 100000
+  increments = 1000
+  searchData = {}
+  $.each casesData.lines, (k, v) ->
+    k = parseFloat(k)
+    if k > max_limit
+      k = max_limit
+    k = Math.round(k / increments)
+    if searchData.hasOwnProperty(k)
+      searchData[k] += v
+    else
+      searchData[k] = v
 
-  tData = []
-  total_count = searchData.length
-  console.log "Filter Length: " + total_count
-
-  searchData.forEach (c, i) ->
-    # bar Data
-    if c.hasOwnProperty("resolution")
-      # line Data
-      if c.resolution.resolution_amount?
-        tData.push { value: parseFloat(c.resolution.resolution_amount), total: 1 }
-
-  # rearrange line Data
-  linq = Enumerable.From(tData)
-  gData = linq.GroupBy((v) ->
-    v.value
-  ).Select((v) ->
-    value: v.Key()
-    total: v.Sum((t) ->
-      t.total | 0
-    )
-  ).ToArray()
-  line_result = gData.sort((a, b) ->
-    a.value - b.value
-  )
-
-  lineData[0].values.push([0, 0])
-  line_result.forEach (c, i) ->
-    x_val = c.value
-    x_val = 0 if x_val < 0
-    y_val = parseFloat(c.total / total_count * 100)
-    y_val = 0 if y_val < 0
-    lineData[0].values.push([x_val, y_val]);
+  $.each searchData, (k, v) ->
+    lineData[0].values.push([parseInt(k) * increments, v])
 
   # pie Data
   pieData[0].value = casesData.pie.Settlement if casesData.pie.hasOwnProperty("Settlement")
@@ -123,56 +104,56 @@ renderChart = ->
     $("#notice").hide()
     $("#chart_container").show()
 
+  $("#stackedArea_chart svg").empty()
+  $("#pie_chart svg").empty()
+  $("#map_chart").empty()
+
   colors = d3.scale.category20()
   keyColor = (d, i) ->
     colors d.key
 
   commasFormatter = d3.format(",.0f")
-
-  nv.addGraph ->
-    chart_line = nv.models.stackedAreaChart().margin(right: 100).x((d) ->
-        d[0]
-      ).y((d) ->
-        d[1]
-      )
-      .rightAlignYAxis(false)
-      .transitionDuration(500)
-      .showControls(false)
-      .clipEdge(true)
-    
-    #Format x-axis labels with custom function.
-    #chart_line.xAxis.tickFormat d3.format(",.2f")
-    chart_line.xAxis.tickFormat (d) ->
-      unless d is 0
-        "$" + commasFormatter(d)
-      else
-        ""
-
-    chart_line.yAxis.tickFormat (d) ->
-      unless d is 0
-        commasFormatter(d) + "%"
-      else
-        ""
-
-    chart_line.tooltips(true).tooltipContent((key, x, y, e, graph) ->
-        "<p>" + x + "</p>"
-      )
-
-    d3.select("#stackedArea_chart svg").datum(lineData).call chart_line
-    nv.utils.windowResize chart_line.update
-    chart_line
-
-  nv.addGraph ->
-    chart_pie = nv.models.pieChart().x((d) -> #Configure how big you want the donut hole size to be.
-      d.label
+  chart_line = null
+  chart_line = nv.models.stackedAreaChart().margin(right: 100).x((d) ->
+      d[0]
     ).y((d) ->
-      d.value
-    ).showLabels(true).labelThreshold(.05).labelType("percent").donut(true).donutRatio(0.35).tooltips(false)
-    d3.select("#pie_chart svg").datum(pieData).transition().duration(350).call chart_pie
-    chart_pie
+      d[1]
+    )
+    .rightAlignYAxis(false)
+    .transitionDuration(500)
+    .showControls(false)
+    .clipEdge(true)
+    .interpolate("monotone")
+  
+  #chart_line.xAxis.tickFormat d3.format(",.2f")
+  chart_line.xAxis.tickFormat (d) ->
+    unless d is 0
+      "$" + commasFormatter(d)
+    else
+      ""
+
+  chart_line.yAxis.tickFormat (d) ->
+    unless d is 0
+      commasFormatter(d)
+    else
+      ""
+
+  chart_line.tooltips(true).tooltipContent((key, x, y, e, graph) ->
+      "<p>" + x + "</p>"
+    )
+  d3.select("#stackedArea_chart svg").datum(lineData).call chart_line
+
+
+  chart_pie = nv.models.pieChart().x((d) -> #Configure how big you want the donut hole size to be.
+    d.label
+  ).y((d) ->
+    d.value
+  ).showLabels(true).labelThreshold(.05).labelType("percent").donut(true).donutRatio(0.35).tooltips(false)
+  d3.select("#pie_chart svg").datum(pieData).transition().duration(350).call chart_pie
+
 
   cur_format = d3.format(",.2f")
-  $("#map_chart").html("")
+  
   map = new Datamap(
     element: document.getElementById("map_chart")
     scope: "usa"

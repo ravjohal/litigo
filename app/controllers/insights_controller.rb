@@ -11,7 +11,7 @@ class InsightsController < ApplicationController
   end
 
   def filter_cases
-    cases = Case.includes(:resolution).includes(:incident).includes(medical: :injuries)
+    cases = Case.includes(:resolution).includes(:incident).includes(:contacts).includes(medical: :injuries)
     unless params[:state].blank?
       cases = cases.where(cases: {state: params[:state]})
     end
@@ -26,6 +26,9 @@ class InsightsController < ApplicationController
     end
     unless params[:insurer].blank?
       cases = cases.where(incidents: {insurance_provider: params[:insurer]} )
+    end
+    unless params[:judge].blank?
+      cases = cases.where(contacts: {type: params[:judge]} )
     end
 
     lines = cases.joins(:resolution).group('resolutions.resolution_amount').order('resolutions.resolution_amount').count('cases.id')

@@ -21,7 +21,7 @@
         <label>COURT:</label>
         <input type="text" id="f_court" class="full-width" />
         <label>JUDEGE:</label>
-        <input type="text" id="f_judge" class="full-width" />
+        <%= select_tag "f_judge", options_for_select(Contact::TYPES), :include_blank => true, class: 'optional full-width' %>
       </div>
     </div>
     <div class="col-md-2 box">

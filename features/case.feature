@@ -12,3 +12,7 @@ Feature: Case feature
     And I should logged in
     And I create a case step by step
     Then I verify required fields for case for user with email "artem.suchov@gmail.com"
+
+  @javascript
+  Scenario: I can edit the details
+    When I visit sign up page

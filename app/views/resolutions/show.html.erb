@@ -56,7 +56,6 @@
 
 
 <div class="text-center link-pad">
-<!-- <%= link_to 'Edit', edit_case_resolution_path(@case, @resolution), :class => 'dark' %> | -->
 <table id="info-table4">
   <tbody>
     <tr>
@@ -65,7 +64,8 @@
       </td>
       <td>
       </td>
-      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %></td>
+      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_case_resolution_path(@case, @resolution), :class => 'dark' %></td>
     </tr>
     <tbody>
   </table>

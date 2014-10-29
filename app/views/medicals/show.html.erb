@@ -6,121 +6,333 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
-<div class="meds">
-<p>
-  <strong>Total Medical Bills ($):</strong>
-  <%= @medical.total_med_bills %>
-</p>
+<div class="top-table-container">
+<table id="info-table1">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      Medical Overview
+    </td>
+  </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td class="col-one">
+        <strong>Total Medical Bills:</strong>
+      </td>
+       <td>
+        $ <%= @medical.total_med_bills %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Subrogated Amount:</strong>
+      </td>
+        <td>
+          <%= @medical.subrogated_amount %>
+        </td>
+     </tr>
+      <tr>
+        <td class="col-one">
+        <strong>Injuries Treated within 3 days of Incident?:</strong>
+        </td>
+        <td>
+        <%= boolean_as_yesno @medical.injuries_within_three_days %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Lost Earnings:</strong>
+        </td>
+        <td>
+          <%= @medical.earnings_lost %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Was Plaintiff Hospitalized?:</strong>
+                  <p class="indent">If yes, for how long?:</p>
+        </td>
+        <td>
+          <%= boolean_as_yesno @medical.hospitalization %><p>
+          <%= @medical.hospital_stay_length %></p>
+          <%= @medical.hospital_stay_length_unit %>
+        </td>
+      </tr>
+  </tbody>
+</table>
 
-<p>
-  <strong>Subrogated Amount:</strong>
-  <%= @medical.subrogated_amount %>
-</p>
 
-<p>
-  <strong>Injuries Treated within 3 days of Incident?:</strong>
-  <%= boolean_as_yesno @medical.injuries_within_three_days %>
-</p>
-
-<p>
-  <strong>Lost Earnings:</strong>
-  <%= @medical.earnings_lost %>
-</p>
-
-
-<p>
-  <strong>Was Plaintiff Hospitalized?:</strong>
-  <%= boolean_as_yesno @medical.hospitalization %>
-</p>
-  <p class="indent">If yes, for how long?:
-  <%= @medical.hospital_stay_length %>
-  </p>
-
-<p>
-  <strong>Hospital Stay Length Unit:</strong>
-  <%= @medical.hospital_stay_length_unit %>
-</p>
-
- 
-<p>
-  <strong>Total Length of Treatment (months):</strong>
-  <%= @medical.length_of_treatment %>
-</p>
-
-
-<p>
-  <strong>Doctor Type:</strong>
-  <%= @medical.doctor_type.map{|p| p}.join(", ") %>
-  
-</p>
-
-<p>
-  <strong>Treatment Type:</strong>
-  <%= @medical.treatment_type.map{|p| p}.join(", ") %>
-</p>
-
-<p>
-  <strong>Gap(s) in Treatment?:</strong>
-  <%= boolean_as_yesno @medical.treatment_gap %>
-</p>
-
-<p>
-  <strong>Were there Injections?:</strong>
-  <%= boolean_as_yesno @medical.injections %>
-</p>
+<table id="info-table2">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      Treatment Overview
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+           <strong>Total Length of Treatment (months):</strong>
+        </td>
+        <td>
+          <%= @medical.length_of_treatment %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Doctor Type:</strong>
+        </td>
+        <td>
+          <%= @medical.doctor_type.map{|p| p}.join(", ") %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Treatment Type:</strong>
+        </td>
+        <td>
+          <%= @medical.treatment_type.map{|p| p}.join(", ") %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Gap(s) in Treatment?:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @medical.treatment_gap %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Were there Injections?:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @medical.injections %>
+        </td>
+      </tr>
+  </tbody>
+</table>
 </div>
-<br>
-<p>
-  <strong>Injury Summary:</strong>
-  <%= @medical.injury_summary %>
-</p>
-<br>
-<p>
-  <strong>Medical Summary:</strong>
-  <%= @medical.medical_summary %>
-</p>
 
-<br><hr>
+<hr class="invis">
 
-<div >
+
+<div class="bottom-table-container">
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      Medical / Injury Summaries
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right big-row">
+           <strong>Injury Summary:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= @medical.injury_summary %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right big-row">
+             <strong>Medical Summary:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= @medical.medical_summary %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+
+<div class="pad-left">
   <%= link_to 'ADD INJURY', new_medical_injury_path(@medical), {:class => "action-button", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 </div>
 
-<br />
-<div class="injury">
+
+
 <% @medical.injuries.each.with_index(1) do |injury, i|%>
-<p>
-  <h4>Injury #<%= i %> </h4>
-</p>
-<p>
-  Injury Type: <%= injury.injury_type %> <br />
-  Region: <%= injury.region %> <br />
-  Injury: <%= injury.code %> <br />
-  Dominant Side: <%= boolean_as_yesno injury.dominant_side %> <br />
-  Fracture Through Joint: <%= boolean_as_yesno injury.joint_fracture %> <br />
-  Displaced Fracture: <%= boolean_as_yesno injury.displaced_fracture %> <br />
-  Likely to leave disfigurement: <%= boolean_as_yesno injury.disfigurement %> <br />
-  In Doctor's Opinion: <br />
-  Injury Permanent: <%= boolean_as_yesno injury.permanence %> <br />
-  Prior Complaint: <%= boolean_as_yesno injury.prior_complaint %> <br />
-  Plaintiff Disabled: <%= boolean_as_yesno injury.disabled %> <br />
-  If yes, what %: <%= injury.disabled_percent %>% <br />
-<h4> Treatment </h4>
-  Was there Surgery or is Surgery Scheduled: <%= boolean_as_yesno injury.surgery %> <br />
-  Number of Surgeries: <%= injury.surgery_count %> <br />
-  Type of Surgery: <%= injury.surgery_type %> <br />
-  Fracture can be Casted: <%= boolean_as_yesno injury.casted_fracture %> <br />
-  Stitches: <%= boolean_as_yesno injury.stitches %> <br />
-  Is future surgery likely? 
-  (>75% likelihood): <%= boolean_as_yesno injury.future_surgery %> <br />
-  Estimate of Future 
-  Medical Bills: <%= injury.future_medicals %> <br />
-</p>
-<% end %>
+<hr class="invis">
+<div class="injury-table-container">
+<table class="injury-table">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      Injury #<%= i %>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+     <tr>
+      <td>
+        <strong>Region:</strong>
+      </td>
+      <td>
+        <%= injury.region %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Injury Type:</strong>
+      </td>
+      <td>
+        <%= injury.injury_type %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>ICD-9 Injury Code:</strong>
+      </td>
+      <td>
+        <%= injury.code %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>On Dominant Side:</strong>
+      </td>
+      <td>
+        <%= boolean_as_yesno injury.dominant_side %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Fracture Through Joint (if applicable):</strong>
+      </td>
+      <td>
+        <%= boolean_as_yesno injury.joint_fracture %>
+      </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Displaced Fracture (if applicable):</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno injury.displaced_fracture %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <strong>Likely to leave disfigurement:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno injury.disfigurement %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <strong>In a Doctor's Opinion (objective):<p>
+            Is the Injury Permanent: </p></strong>
+        </td>
+        <td>
+          <p>
+          <%= boolean_as_yesno injury.permanence %></p>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <strong>Is Plaintiff Disabled:</strong>
+        </td>
+        <td>
+            <%= boolean_as_yesno injury.disabled %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          If yes, what %:
+        </td>
+        <td>
+          <%= injury.disabled_percent %>%
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <strong>Prior Complaints in Same Area:</strong>
+        </td>
+        <td>
+            <%= boolean_as_yesno injury.prior_complaint %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<table class="treatment-table">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      Treatment #<%= i %>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+    <tr>
+      <td>
+        <strong>Was there Surgery or is Surgery Scheduled:</strong>
+      </td>
+      <td>
+        <%= boolean_as_yesno injury.surgery %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Number of Surgeries:</strong>
+      </td>
+      <td>
+        <%= injury.surgery_count %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Type of Surgery:</strong>
+      </td>
+      <td>
+         <%= injury.surgery_type %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Can Fracture be Casted:</strong>
+      </td>
+      <td>
+         <%= boolean_as_yesno injury.casted_fracture %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Stitches Required:</strong>
+      </td>
+      <td>
+         <%= boolean_as_yesno injury.stitches %>
+      </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Is future surgery likely? (>75% likelihood):</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno injury.future_surgery %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Estimate of Future Medical Bills:</strong>
+        </td>
+        <td>
+           <%= injury.future_medicals %>
+        </td>
+      </tr>
+  </tbody>
+</table>
 </div>
+<% end %>
+
 
 <div class="text-center link-pad">
-<!-- <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %> -->
 <table id="info-table4">
   <tbody>
     <tr>
@@ -129,7 +341,8 @@
       </td>
       <td>
       </td>
-      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %></td>
+      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %></td>
     </tr>
     <tbody>
   </table>
@@ -144,5 +357,22 @@ $(document).ready(function() {
     $("#modal-window").html("<%= escape_javascript(render '/injuries/form', new_injury: [@medical, Injury.new] ) %>");
   });
 });
+</script>
+
+<script>
+$( ".edit" ).hover(
+  function() {
+    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
+  }, function() {
+    $( this ).find( "span:last" ).remove();
+  }
+);
+</script>
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
 </script>
 

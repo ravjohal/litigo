@@ -528,7 +528,7 @@ td.col-one {
 .case-table-head {
   margin-left: 20px;
   background-color: #EFF2F7;
-  color: #69788C;
+  color: #708DAC;
 }
 
 
@@ -912,9 +912,9 @@ select {
   display: inline;
 }
 .table-responsive{
-  position: relative;
-  left: -15px;
-  width: 101%;
+  width: 100%;
+  table-layout: fixed;
+
 }
 
 

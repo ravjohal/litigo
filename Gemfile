@@ -35,8 +35,10 @@ gem 'devise_invitable'
 gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
 gem "best_in_place"
 gem 'jquery-validation-rails', '~> 1.12.0'
+gem 'pg_search'
 
 group :development do
+  gem "disable_assets_logger", "~> 1.0.0"
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_21]
   gem 'hub', :require=>nil

@@ -12,7 +12,7 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = []
-    @events = @user.firm.events if @user.firm
+    @events = @user.firm.events.where(owner_id: @user.id)
     @events_list = []
     @events.each do |event|
       hash = {}

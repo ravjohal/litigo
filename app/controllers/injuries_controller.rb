@@ -15,9 +15,11 @@ class InjuriesController < ApplicationController
   # end
 
   # # GET /injuries/new
-  # def new
-  #   @injury = Injury.new
-  # end
+  def new
+    @injury = Injury.new
+    @medical = get_medical
+    new_injury = [@medical, @injury]
+  end
 
   # # GET /injuries/1/edit
   # def edit

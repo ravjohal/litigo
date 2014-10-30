@@ -50,140 +50,17 @@ class UsersController < ApplicationController
 
   def save_google_oauth
     create_google_oauth
-    client = init_client
-    calendar = client.discovered_api('calendar', 'v3')
-    page_token = nil
-    result = client.execute(:api_method => calendar.calendar_list.list)
-    while true
-      entries = result.data.items
-      entries.each do |e|
-        google_calendar = GoogleCalendar.find_or_initialize_by(google_id: e['id'])
-        next if google_calendar.etag.present? && google_calendar.etag == e['etag']
-        google_calendar.user_id = current_user.id
-        google_calendar.firm_id = current_user.firm_id
-        google_calendar.google_id = e['id']
-        google_calendar.etag = e['etag']
-        google_calendar.summary = e['summary']
-        google_calendar.description = e['description']
-        google_calendar.timeZone = e['timeZone']
-        google_calendar.selected = e['selected']
-        google_calendar.primary = e['primary']
-        google_calendar.save
-
-      end
-      if !(page_token = result.data.next_page_token)
-        break
-      end
-    end
-    @calendars = []
-    GoogleCalendar.all.each do |cal|
-      @calendars.push({id: cal.google_id, summary: cal.summary})
-    end
+    GoogleCalendars.get_calendars_list(current_user)
     #getting google contacts
-    contacts = RestClient.get("https://www.google.com/m8/feeds/contacts/#{current_user.google_email}/full?alt=json&max-results=99999",
-                                      {:content_type => :json, :authorization => "Bearer #{current_user.oauth_token}"})
-    jsonObj = JSON.parse contacts
-    jsonObj['feed']['entry'].each do |e|
-      logger.info "contact: #{e}\n\n"
-      contact_email = e['gd$email'][0]['address'] if e['gd$email']
-      if contact_email.nil? or contact_email.empty?
-        next
-      end
-      contact_name = e['title']['$t'] if e['title']
-      if contact_name.nil? or contact_name.empty?
-        next
-      end
-      name_list = contact_name.split(' ',2)
-      first_name = name_list[0]
-      last_name = 'Unknown'
-      if name_list.length > 1
-        last_name = name_list[1]
-      end
-      new_contact = Contact.new(
-          :email => contact_email,
-          :first_name => first_name,
-          :last_name => last_name,
-          :type => "General")
-      # logger.info "new_contact: #{new_contact.inspect}\n\n\n"
-      #TODO Save properly contacts with connection to User
-      # new_contact.save
-      #binding.pry
-    end
-    # render json: @calendars.to_json
     redirect_to user_path({id: current_user.id, google_auth: true})
   end
 
   def select_calendar
-    client = init_client
-    calendar = client.discovered_api('calendar', 'v3')
     if params[:select_calendar].present?
-      params[:select_calendar].each do |key, val|
+      params[:select_calendar].each do |calendar_id, val|
         if val == '1'
-          @google_calendar = client.execute(
-              :api_method => calendar.events.list,
-              :parameters => {'calendarId' => key.to_s},
-              :headers => {'Content-Type' => 'application/json'})
-          while true
-            events = @google_calendar.data.items
-            events.each do |e|
-              google_event = Event.find_or_initialize_by(google_id: e['id'])
-              next if google_event.etag.present? && google_event.etag == e['etag']
-              google_event.update(
-                  {
-                      etag: e['etag'],
-                      google_calendar_id: key.to_s,
-                      google_id: e['id'],
-                      status: e['status'],
-                      htmlLink: e['htmlLink'],
-                      summary: e['summary'],
-                      all_day: !e['start']['dateTime'].present?,
-                      start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
-                      end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
-                      endTimeUnspecified: e['endTimeUnspecified'],
-                      transparency: e['transparency'],
-                      visibility: e['visibility'],
-                      location: e['location'],
-                      iCalUID: e['iCalUID'],
-                      sequence: e['sequence'],
-                      owner_id: current_user.id,
-                      firm_id: current_user.firm.id
-                  }
-              )
-              creator = Contact.find_or_initialize_by(email: e['creator']['email'])
-              creator.update({email: e['creator']['email'], type: 'General'})
-              event_attandee = EventAttendee.create({
-                                                        event_id: google_event.id,
-                                                        display_name: e['creator']['displayName'],
-                                                        contact_id: creator.id,
-                                                        creator: true
-                                                    })
-
-
-              e['attendees'].each do |attrs|
-                if attrs['email'] != creator.email
-                  contact = Contact.find_or_initialize_by(email: e['creator']['email'])
-                  contact.update_attributes(
-                      {
-                          email: e['creator']['email'],
-                          type: 'General',
-                      }
-                  )
-
-                  attendee = EventAttendee.create({
-                                                      event_id: google_event.id,
-                                                      display_name: e['creator']['displayName'],
-                                                      contact_id: contact.id,
-                                                      response_status: attrs['responseStatus']
-                                                  })
-                end
-              end
-            end
-            if !(page_token = @google_calendar.data.next_page_token)
-              break
-            end
-          end
+        GoogleCalendars.get_events(current_user, calendar_id.to_s)
         end
-
       end
     end
     render :nothing => true, :status => 200
@@ -217,12 +94,4 @@ class UsersController < ApplicationController
     current_user.save
   end
 
-  def init_client
-    client = Google::APIClient.new
-    client.authorization.access_token = current_user.oauth_token
-    client.authorization.client_id = ENV["GOOGLE_CLIENT_ID"]
-    client.authorization.client_secret = ENV["GOOGLE_CLIENT_SECRET"]
-    client.authorization.refresh_token = current_user.oauth_refresh_token
-    return client
-  end
 end

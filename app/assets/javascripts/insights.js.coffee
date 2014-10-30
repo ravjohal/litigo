@@ -6,12 +6,9 @@ searchData = null
 total_count = 0
 total_average = null
 filter_average = null
-avg_k = null
-avg_k_f = null
-avg_v = null
-avg_vmax = 0
-avg_index = 0
-avg_index_f = 0
+median_k = null
+median_vmax = 0
+median_index = 0
 
 initDashboard = ->
   pieData = [
@@ -32,11 +29,9 @@ initDashboard = ->
   ]
 
   mapData = {}
-  avg_k_f = null
-  avg_v = null
-  avg_vmax = 0
-  avg_index = 0
-  avg_index_f = 0
+  median_k = null
+  median_vmax = 0
+  median_index = 0
   total_count = 0
 
 $(document).ready ->
@@ -86,8 +81,11 @@ initData = ->
   increments = 1000
   searchData = {}
   total = 0
+  median_cnt = 0
+  median_k = 0
   $.each casesData.lines, (k, v) ->
     k = parseFloat(k)
+    temp_k = k
     if k > max_limit
       k = max_limit
     total += k * v
@@ -97,26 +95,23 @@ initData = ->
     else
       searchData[k] = v
 
-    avg_vmax = v if v > avg_vmax
+    median_vmax = v if v > median_vmax
+
+    median_cnt += v
+    if median_cnt >= (total_count/2) and median_k is 0
+      median_k = temp_k
 
   # average lines
-  avg_k_f = Math.round(total / total_count)
-  avg_v = 0
+  median_cnt = 0
 
   $.each searchData, (k, v) ->
     # put line data
     k = parseInt(k) * increments
+    median_cnt += v
     lineData[0].values.push([k, v])
 
-    if k >= avg_k_f and avg_index_f is 0
-      avg_index_f = lineData[0].values.length
-
-    if avg_k? and k >= avg_k and avg_index is 0
-      avg_index = lineData[0].values.length
-
-  if not avg_k?
-    avg_k = avg_k_f
-    avg_index = avg_index_f
+    if median_cnt >= (total_count/2) and median_index is 0
+      median_index = lineData[0].values.length
 
   # pie Data
   pieData[0].value = casesData.pie.Settlement if casesData.pie.hasOwnProperty("Settlement")
@@ -186,14 +181,14 @@ renderChart = ->
     yScale d.y
   ).interpolate("linear")
 
-  x1 = lineData[0].values[avg_index - 1]
-  if avg_index is 1
+  x1 = lineData[0].values[median_index - 1]
+  if median_index is 1
     y1 = x1
   else
-    y1 = lineData[0].values[avg_index - 2]
+    y1 = lineData[0].values[median_index - 2]
 
-  # cp = checkLineIntersection(xScale(x1[0]), yScale(x1[1]), xScale(y1[0]), yScale(y1[1]), xScale(avg_k), yScale(0), xScale(avg_k), yScale(avg_vmax))
-  cp = checkLineIntersection(x1[0], x1[1], y1[0], y1[1], avg_k, 0, avg_k, avg_vmax)
+  # cp = checkLineIntersection(xScale(x1[0]), yScale(x1[1]), xScale(y1[0]), yScale(y1[1]), xScale(median_k), yScale(0), xScale(median_k), yScale(median_vmax))
+  cp = checkLineIntersection(x1[0], x1[1], y1[0], y1[1], median_k, 0, median_k, median_vmax)
 
   avg_lines = [
     {
@@ -213,31 +208,11 @@ renderChart = ->
     .attr("stroke-width", 2)
     .attr("fill", "none")
 
-  if avg_k_f isnt avg_k
-    x1 = lineData[0].values[avg_index_f - 1]
-    if avg_index_f is 1
-      y1 = x1
-    else
-      y1 = lineData[0].values[avg_index_f - 2]
-    
-    cp = checkLineIntersection(x1[0], x1[1], y1[0], y1[1], avg_k_f, 0, avg_k_f, avg_vmax)
-    avg_lines = [
-      {
-        x: cp.x
-        y: 0
-      }
-      {
-        x: cp.x
-        y: cp.y
-      }
-    ]
-
-    d3.select("#stackedArea_chart svg g")
-      .append("svg:path")
-      .attr("d", lineFunc(avg_lines))
-      .attr("stroke", "black")
-      .attr("stroke-width", 2)
-      .attr("fill", "none")    
+  d3.select("#stackedArea_chart svg g")
+    .append("text")
+    .attr("x", xScale(cp.x))
+    .attr("y", yScale(cp.y) - 10)
+    .text("Median: $" + commasFormatter(median_k))
 
   chart_pie = nv.models.pieChart().x((d) -> #Configure how big you want the donut hole size to be.
     d.label

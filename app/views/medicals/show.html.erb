@@ -85,7 +85,7 @@
             <strong>Doctor Type:</strong>
         </td>
         <td>
-          <%= @medical.doctor_type.map{|p| p}.join(", ") %>
+          <%= @medical.doctor_type.map{|p| p}.join(", ") if @medical.doctor_type %>
         </td>
       </tr>
       <tr>
@@ -93,7 +93,7 @@
           <strong>Treatment Type:</strong>
         </td>
         <td>
-          <%= @medical.treatment_type.map{|p| p}.join(", ") %>
+          <%= @medical.treatment_type.map{|p| p}.join(", ") if @medical.treatment_type %>
         </td>
       </tr>
       <tr>

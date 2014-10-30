@@ -61,8 +61,8 @@ class MedicalsController < ApplicationController
     #   end
     #   @medical.data << {:treatment_type => treatment_type}
     # end
-    params[:medical][:doctor_type].reject! { |c| c.empty? }
-    params[:medical][:treatment_type].reject! { |c| c.empty? }
+    # params[:medical][:doctor_type].reject! { |c| c.empty? }
+    # params[:medical][:treatment_type].reject! { |c| c.empty? }
 
     respond_to do |format|
       if @medical.update(medical_params)

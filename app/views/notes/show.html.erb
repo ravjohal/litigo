@@ -1,30 +1,92 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Author:</strong>
-  <%= @note.author %>
-</p>
-<p>
-  <strong>Date:</strong>
-   <%= @note.created_at.strftime("%m/%d/%Y") %>
 
-</p>
-<p>
-  <strong>Case:</strong>
-  <%= @note.case.name %>
-</p>
-<p>
-  <strong>Type:</strong>
-  <%= @note.note_type %>
-</p>
-<p>
-  <strong>Note:</strong>
-  <%= @note.note %>
-</p>
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      Note
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+        <strong>Author:</strong>
+        </td>
+        <td>
+        <%= @note.author %>    
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Date:</strong>
+        </td>
+        <td>
+          <%= @note.created_at.strftime("%m/%d/%Y") %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Case:</strong>
+        </td>
+        <td>
+          <%= @note.case.name %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Type:</strong>
+        </td>
+        <td>
+          <%= @note.note_type %>
+        </td>
+      </tr>
+        <tr>
+        <td class="right big-row">
+          <strong>Note:</strong>
+        </td>
+        <td class="big-row">
+          <%= @note.note %>
+        </td>
+      </tr>
+        
+  </tbody>
+</table>
+
+
 
 
 <div class="text-center link-pad">
-<%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %> |
-<%= link_to 'Delete', @note, method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the note information from storage and you will not be able to retrieve it. Would you like to delete anyway?' }, :class => 'dark', :id => 'delete_button' %>
-<%= link_to 'Back to Notes', notes_path, :class => 'dark' %>
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %></td>
+    </tr>
+    <tbody>
+  </table>
 </div>
+
+</div>
+
+<script>
+$( ".edit" ).hover(
+  function() {
+    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
+  }, function() {
+    $( this ).find( "span:last" ).remove();
+  }
+);
+</script>
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>

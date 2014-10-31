@@ -10,7 +10,6 @@
    <% if @case.contacts %>
      <li><%= active_link_to 'CONTACTS', case_contacts_path(@case), :class_active => 'navigated' %></li>
   <% end %>
-  <li><%= link_to 'CALENDAR', '#' %></li>
   <% if @case.tasks %>
      <li><%= active_link_to 'TASKS', case_tasks_path(@case), :class_active => 'navigated' %></li>
   <% end %>

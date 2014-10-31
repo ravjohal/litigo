@@ -3,12 +3,8 @@ class InvitationsController < Devise::InvitationsController
     users_params = params[:users]
     emails = []
     users_params.each_value do |attrs|
-      email_match = attrs['email'].match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i)
-      return false unless  email_match.present?
-      email = email_match[0]
-      role = attrs['role'] == 'stuff' ? 0 : 2
-      if User.invite!({email: email, firm_id: current_user.firm_id, role: role }, current_user)
-        emails << email
+      if User.invite!({email: attrs['email'], firm_id: current_user.firm_id, role: attrs['role'].to_i }, current_user)
+        emails << attrs['email']
       end
     end
 

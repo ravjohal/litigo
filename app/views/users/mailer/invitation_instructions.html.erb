@@ -1,19 +1,9 @@
-
-
-
-
 <p><%= I18n.t("devise.mailer.invitation_instructions.hello", email: @resource.email) %></p>
-
-
-<%= email: @admin.email) %> would like you to join their firm admin.firm_name on Litigo.<br>
-
+<p><%= I18n.t("devise.mailer.invitation_instructions.someone_invited_you", admin_email: @resource.invited_by.email, url: root_url, firm: @resource.invited_by.firm.name) %></p>
 Please click the link below to sign up for your free account and begin collaborating.<br>
-
-<%= link_to accept_invitation_url(@resource, :invitation_token => @token) %><br>
-
+<%= link_to 'Litigo', accept_invitation_url(@resource, :invitation_token => @token) %><br>
 For secuirty reasons, after you sign up we will send an email to verify your email address before you can log in.<br>
-
 Cheers,<br>
 The Litigo Team
-
 <p><%= I18n.t("devise.mailer.invitation_instructions.ignore").html_safe %></p>
+

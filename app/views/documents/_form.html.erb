@@ -27,7 +27,7 @@
                 <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, :class => 'sel2' %>
               <% end %>
 
-              <%= render partial: 'dropbox_chooser' %>
+            <!--  <%= render partial: 'dropbox_chooser' %> -->
             </div>
 
         <% if action_name == "index" %>            
@@ -40,7 +40,7 @@
         <% end %>
 
               <div class="form-actions">
-                  <%= f.button :submit, :class =>"sub" %>
+                  <%= f.button :submit, :class =>"sub2-small" %>
               </div>
 
     <% if action_name == "index" %>        

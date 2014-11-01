@@ -1,25 +1,8 @@
-<div class="grey">
-  <div class="buttons">
-    <%= link_to 'NEW EVENT', new_event_path, {:class => "action-button", :id => "event_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
-    <div class="btn-group">
-      <button type="button" class="btn btn-default">FILTER BY ATTORNEY</button>
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        <span class="caret"></span>
-        <span class="sr-only">Toggle Dropdown</span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
 
-        <li><a href="#">Action</a></li>
-        <li><a href="#">Another action</a></li>
-        <li><a href="#">Something else here</a></li>
-        <li class="divider"></li>
-        <li><a href="#">Separated link</a></li>
-      </ul>
-    </div>
-    <%= form_tag(users_path, :method => "get", class: "case-filter") do %>
-      <%= text_field_tag :search, params[:search], placeholder: "FILTER BY CASE"%>
-    <% end %>
-  </div>
+<div id="top-custom">
+<ul id="top-custom">
+  <li><%= link_to 'NEW EVENT', new_event_path, {:class => "action-button", :id => "event_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+</ul>
 </div>
 
 
@@ -49,9 +32,9 @@ $(document).ready(function() {
       });
     },
     header: {
-      left:   'prev, title, next',
+      left:   '',
       center: '',
-      right:  ''
+      right:  'prev, title, next'
     },
     events: <%= @events_list.to_json.html_safe %>
   })

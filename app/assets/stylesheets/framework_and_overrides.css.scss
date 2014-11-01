@@ -531,6 +531,24 @@ td.col-one {
   color: #708DAC;
 }
 
+  input.sub2-small{
+  font-weight: normal;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid #3FC2D8;
+  cursor:pointer;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  color: #3FC2D8;
+  height: 35px;
+  }
+  input.sub2-small:hover{
+  background:#3FC2D8;
+  border: 1px solid #3FC2D8;
+  transition: .2s;
+  color: white;
+  }
+
 
 .pad-left{
   margin-left: 72px;

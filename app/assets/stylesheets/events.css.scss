@@ -17,6 +17,7 @@
 }
 .calendar-table {
   #calendar {
+  z-index: -10;
   position: relative;
   top: -40px;
     width: 100%;
@@ -29,4 +30,9 @@
       color: #ccc;
     }
   }
+}
+
+.fc-header{
+z-index: -10;
+  
 }

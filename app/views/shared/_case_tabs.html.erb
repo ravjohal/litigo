@@ -5,7 +5,7 @@
     <li<%= is_active('incidents') %>><%= active_link_to 'INCIDENT', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
  <% if @case.medical %>
-    <li<%= is_active('medicals') %>><%= active_link_to 'MEDICAL', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
+    <li<%= is_active('medicals') %>><%= active_link_to 'MEDICALS', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
    <% if @case.contacts %>
      <li><%= active_link_to 'CONTACTS', case_contacts_path(@case), :class_active => 'navigated' %></li>

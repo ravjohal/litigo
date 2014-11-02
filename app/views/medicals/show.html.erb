@@ -21,7 +21,7 @@
         <strong>Total Medical Bills:</strong>
       </td>
        <td>
-        $ <%= @medical.total_med_bills %>
+        <%= number_to_currency @medical.total_med_bills, precision: 0 %>
       </td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@
         <strong>Subrogated Amount:</strong>
       </td>
         <td>
-          <%= @medical.subrogated_amount %>
+          <%= number_to_currency @medical.subrogated_amount, precision: 0 %>
         </td>
      </tr>
       <tr>

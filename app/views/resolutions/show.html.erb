@@ -20,26 +20,26 @@
   <tbody>
       <tr>
         <td class="right">
-          <strong>Settlement demand:</strong>
+          <strong>Final Settlement Demand:</strong>
         </td>
         <td>
-          <%= @resolution.settlement_demand %>
+          <%= number_to_currency @resolution.settlement_demand, precision: 0 %>
         </td>
       </tr>
       <tr>
         <td class="right">
-          <strong>Jury demand:</strong>
+          <strong>Jury Ask:</strong>
         </td>
         <td>
-          <%= @resolution.jury_demand %>
+          <%= number_to_currency @resolution.jury_demand, precision: 0 %>
         </td>
       </tr>
       <tr>
         <td class="right">
-          <strong>Resolution amount:</strong>
+          <strong>Resolution Amount:</strong>
         </td>
         <td>
-          <%= @resolution.resolution_amount %>
+          <%= number_to_currency @resolution.resolution_amount, precision: 0 %>
         </td>
       </tr>
       <tr>

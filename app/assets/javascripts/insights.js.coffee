@@ -13,11 +13,11 @@ median_index = 0
 initDashboard = ->
   pieData = [
     {
-      label: "SETTLEMENTS"
+      label: "Settlement"
       value: 0
     }
     {
-      label: "JURY VERDICTS"
+      label: "Jury Verdict"
       value: 0
     }
   ]

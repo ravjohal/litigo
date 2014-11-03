@@ -9,7 +9,7 @@
     <div class="col-md-8 box right_whiteborder">
       <div class="col-md-3">
         <br/>
-        <label>INSUER:</label>
+        <label>INSURANCE PROVIDER:</label>
         <%= select_tag "f_insuer", options_for_select(Incident::INSURANCE_PROVIDERS), :include_blank => true, class: 'optional full-width' %>
       </div>
       <div class="col-md-6">
@@ -20,7 +20,7 @@
       <div class="col-md-3">
         <label>COURT:</label>
         <input type="text" id="f_court" class="full-width" />
-        <label>JUDEGE:</label>
+        <label>JUDGE:</label>
         <%= select_tag "f_judge", options_for_select(Contact::TYPES), :include_blank => true, class: 'optional full-width' %>
       </div>
     </div>
@@ -34,7 +34,7 @@
     </div>
   </div>
 </div>
-<p id="notice" style="display:none;">No data</p>
+<p id="notice" style="display:none;">Sorry, there are no cases that match your search criteria, please try again.</p>
 <div id="chart_container" class="col-md-12 with-3d-shadow with-transitions">
   <div id="stackedArea_chart" style="height:300px;width:100%;">
     <svg></svg>

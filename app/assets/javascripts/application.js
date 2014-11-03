@@ -36,10 +36,18 @@
 //= require d3/src/models/stackedAreaChart
 //= require d3/src/models/pie
 //= require d3/src/models/pieChart
-//= require_tree .
 //= require select2
 //= require best_in_place
 //= require jquery.purr
+//= require hopscotch
+//= require jasny-bootstrap
+//= require jquery.collapsible.js
+//= require jquery.feedback_me
+//= require linq.min
+//= require sugar.min
+//= require tipr
+//= require welcome_tour
+//= require_tree .
 
 
 $(document).ready(function () {
@@ -54,18 +62,18 @@ $(document).ready(function () {
         show_email: true,
         email_required: true,
         position: "right-bottom",
- 
+
         name_placeholder: "",
         email_placeholder: "",
         message_placeholder: "Enter your comments here",
- 
+
         name_required: true,
         message_required: true,
- 
+
         show_asterisk_for_required: true,
- 
+
         feedback_url: "send_feedback_clean",
- 
+
         custom_params: {
             csrf: "my_secret_token",
             user_id: "john_doe",
@@ -76,14 +84,14 @@ $(document).ready(function () {
             send_success : "Sent successfully :) , now go ahead and star/watch the project"
         }
     };
-     
+
         //init feedback_me plugin
 
-// every page has class welcome-link on the page somewhere when the USER is Logged IN 
-// when not logged in the class does not exsist 
+// every page has class welcome-link on the page somewhere when the USER is Logged IN
+// when not logged in the class does not exsist
     if ($(".welcome-link").length !== 0) {
        fm.init(fm_options);
-       
+
       }
 });
 

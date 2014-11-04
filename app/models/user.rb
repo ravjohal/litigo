@@ -4,8 +4,8 @@ class User < ActiveRecord::Base
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-
-  enum role: [:staff, :admin, :attorney]
+  USER_ROLES = [:staff, :admin, :attorney]
+  enum role: USER_ROLES
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_show_onboarding, :if => :new_record?
 
@@ -24,6 +24,8 @@ class User < ActiveRecord::Base
   belongs_to :firm
   validates_presence_of :first_name, :last_name
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }
+
+  attr_reader :raw_invitation_token
 
   def set_default_role
     self.role ||= :staff 

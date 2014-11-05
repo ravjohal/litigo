@@ -23,4 +23,4 @@ $ ->
  
 # simple case: attach to a usual select
 $ ->
-  $('#note_select').select2()
+  $('.select2').select2()

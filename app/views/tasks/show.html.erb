@@ -1,41 +1,107 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Task:</strong>
-  <%= @task.name %>
-</p>
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="3" class="gray-back">
+      Task
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+            <strong>Task:</strong>
+        </td>
+        <td colspan="2">
+            <%= best_in_place @task, :name, :class => 'edit' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Case(s):</strong>
+        </td>
+        <td colspan="2">
+          <%= @task.cases.map {|c| c.name}.join(', ') %>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Due date:</strong>
+        </td>
+        <td colspan="2">
+          <%= best_in_place @task, :due_date, :as => :date, :class => 'edit' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Completed:</strong>
+        </td>
+        <td colspan="2">
+          <%= best_in_place @task, :completed, :class => 'edit' %>
+        </td>
+      </tr>
+        <tr>
+        <!-- <td class="right">
+          <strong>Sms reminder:</strong>
+        </td>
+        <td colspan="2">
+          <%= best_in_place @task, :sms_reminder, :as => :checkbox, :class => 'edit' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Email reminder:</strong>
+        </td>
+        <td colspan="2">
+          <%= @task.email_reminder %>
+        </td>
+      </tr> -->
+       <tr>
+        <td class="right big-row">
+          <strong>Description:</strong>
+        </td>
+        <td colspan="2" class="big-row">
+          <%= best_in_place @task, :description, :class =>'edit', :as => :textarea %>
+        </td>
+      </tr>
+        
+  </tbody>
+</table>
 
-<p>
-  <strong>Case(s):</strong>
-  <%= @task.cases.map {|c| c.name}.join(', ') %>
-</p>
 
-<p>
-  <strong>Due date:</strong>
-  <%= @task.due_date %>
-</p>
-
-<p>
-  <strong>Completed:</strong>
-  <%= @task.completed %>
-</p>
-
-<p>
-  <strong>Sms reminder:</strong>
-  <%= @task.sms_reminder %>
-</p>
-
-<p>
-  <strong>Email reminder:</strong>
-  <%= @task.email_reminder %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
 
 <div class="text-center link-pad">
-<%= link_to 'Edit', edit_task_path(@task), :class => 'dark' %> |
-<%= link_to 'Back To Tasks', tasks_path, :class => 'dark' %>
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @task, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_task_path(@task), :class => 'dark' %></td>
+    </tr>
+    <tbody>
+  </table>
 </div>
+
+<script>
+$( ".edit" ).hover(
+  function() {
+    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
+  }, function() {
+    $( this ).find( "span:last" ).remove();
+  }
+);
+</script>
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>
+
+

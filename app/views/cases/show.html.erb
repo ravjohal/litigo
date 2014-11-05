@@ -20,7 +20,7 @@
         <strong>Case Name:</strong>
       </td>
        <td>
-        <%= best_in_place @case, :name, :class => 'edit', :nil => "Click to edit" %>
+        <%= best_in_place @case, :name, :class => 'edit', :place_holder => "Click to edit" %>
       </td>
     </tr>
     <tr>
@@ -44,7 +44,7 @@
           <strong>Docket Number:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :docket_number, :class => 'edit', :nil => "Click to edit" %>
+          <%= best_in_place @case, :docket_number, :class => 'edit', :place_holder => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -52,7 +52,7 @@
           <strong>Court:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :court, :class => 'edit', :nil => "Click to edit" %>
+          <%= best_in_place @case, :court, :class => 'edit', :place_holder => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -60,7 +60,7 @@
           <strong>County:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :county, :class => 'edit', :nil => "Click to edit" %>
+          <%= best_in_place @case, :county, :class => 'edit', :place_holder => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -68,7 +68,7 @@
            <strong>State:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :state, :type => :select, :collection => us_states, :class => 'edit'  %>
+          <%= best_in_place @case, :state, :as => :select, :collection => us_states, :class => 'edit', :place_holder => @case.state  %>
         </td>
       </tr>
   </tbody>
@@ -144,13 +144,13 @@
            <strong>Type:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :case_type, :type => :select, :collection => Case::TYPES, :class => 'edit'  %>
+          <%= best_in_place @case, :case_type, :as => :select, :collection => Case::TYPES, :class => 'edit'  %>
         </td>
         <td class="right">
           <strong>Sub-type:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :subtype, :type => :select, :collection => Case::SUB_TYPES, :class => 'edit'  %>
+          <%= best_in_place @case, :subtype, :as => :select, :collection => Case::SUB_TYPES, :class => 'edit'  %>
         </td>
       </tr>
       <tr>
@@ -158,7 +158,7 @@
             <strong>Case Summary:</strong>
         </td>
         <td colspan="3" class="big-row">
-          <%= best_in_place @case, :description, :type => :textarea, :class => 'edit', :nil => "Click to edit" %>
+          <%= best_in_place @case, :description, :as => :textarea, :class => 'edit', :place_holder => "Click to edit" %>
         </td>
       </tr>
       <tr>
@@ -166,13 +166,13 @@
           <strong>Status:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :status, :type => :select, :collection => {"1" => "Open", "2" => "Pending", "3" => "Closed"}, :class => 'edit' %>
+          <%= best_in_place @case, :status, :as => :select, :collection => {"1" => "Open", "2" => "Pending", "3" => "Closed"}, :class => 'edit' %>
         </td>
          <td class="right">
           <strong>Date Closed:</strong>
         </td>
         <td>
-          <%= best_in_place @case, :closing_date, :type => :date, :class => 'edit', :nil => "Click to edit" %>
+          <%= best_in_place @case, :closing_date, :as => :date, :class => 'edit', :place_holder => "Click to edit" %>
         </td>
       </tr>
   </tbody>

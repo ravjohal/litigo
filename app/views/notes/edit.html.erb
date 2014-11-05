@@ -1,12 +1,92 @@
+<%= form_for :note, url: note_path(@note), method: :patch do |f| %>
 
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="3" class="gray-back">
+      Note
+    </td>
+  </tr>
+</thead>
+<tbody>
+      <tr>
+        <td class="right">
+        <strong>Author:</strong>
+        </td>
+        <td colspan="2">
+           <%= f.text_field :author %>
+        </td>
+      </tr>
+	<tr>
+        <td class="right">
+          <strong>Creation Date:</strong>
+        </td>
+        <td colspan="2">
+          <%= @note.created_at.strftime("%m/%d/%Y") %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Case:</strong>
+        </td>
+        <td colspan="2">
+      		<%= f.select  :case, Case.all.collect { |c| c.name }, :value => @note.case.name %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Type:</strong>
+        </td>
+        <td colspan="2">
+           <%= f.select :note_type,  ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'] %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right big-row">
+          <strong>Note:</strong>
+        </td >
+        <td colspan="2" class="big-row">
+          <%= f.text_area :note %>
+        </td>
+      </tr>
+    
+  </tbody>
+</table>
 
-
-
-
-
-<%= render 'form', new_note: @note %>
-  
 
 <div class="text-center link-pad">
-<%= link_to 'Cancel', @note, :class => 'dark' %>
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to 'Cancel', @note, :class => 'dark-right' %>
+      </td>
+      <td><%= f.submit :class => 'sub2 dark-right', :value => 'Save'%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<% end %>
+
+
+
+  <script>
+    $(document).ready(function() { $("#note_select").select2(); });
+  </script>
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>
+
+  
+      
+      
+   
+        

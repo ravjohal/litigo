@@ -1,4 +1,5 @@
 class NotesController < ApplicationController
+  respond_to :html, :json
   before_filter :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm 
@@ -33,7 +34,7 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
-
+    @note = Note.find(params[:id])
   end
 
   # POST /notes
@@ -69,7 +70,7 @@ class NotesController < ApplicationController
     @note.user = @user
     respond_to do |format|
       if @note.update(note_params)
-        format.html { redirect_to @note, notice: 'Note was successfully updated.' }
+        format.html { respond_with @note, notice: 'Note was successfully updated.' }
         format.json { render :show, status: :ok, location: @note }
       else
         format.html { render :edit }

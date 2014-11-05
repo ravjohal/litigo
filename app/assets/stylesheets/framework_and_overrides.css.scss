@@ -800,9 +800,11 @@ font-weight: lighter;
 border: none;
 letter-spacing: 1px;
 text-indent: 10px;
+padding: 5px 5px;
 }
 
 input {
+  text-indent: 5px;
   width: 200px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -836,6 +838,7 @@ border-radius: 4px;
 }
 
 
+
 textarea {
   color: inherit;
   font: inherit;
@@ -851,8 +854,8 @@ textarea {
 select {
   color: inherit;
   font: inherit;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border-radius: 4px;
   border: 1px solid #ccc;
   width: 112px;

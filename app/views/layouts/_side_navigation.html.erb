@@ -13,9 +13,9 @@
           <li><%= active_link_to "NOTES", notes_path, :class_active => 'enabled' %></li>
       </ul>
     </li>
-    <li>
+    <!-- <li>
         <%= link_to "CASE EVALUATION", user_path(current_user), :class => 'nav-sidebar__cev', :id => 'CaseEval' %>
-    </li>
+    </li> -->
     <li id="second">
       <%= active_link_to " LEGAL INSIGHTS", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
     <ul>
@@ -24,9 +24,9 @@
         <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li>
     </ul>
     </li>
-     <li>
+     <!-- <li>
       <%= active_link_to " BILLING", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
-    </li>
+    </li> -->
     <li>
       <%= active_link_to "PROFILE", edit_user_registration_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :id => 'profile' %>
     </li>

@@ -3,7 +3,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="2" class="gray-back">
+    <td colspan="3" class="gray-back">
       Note
     </td>
   </tr>
@@ -13,15 +13,15 @@
         <td class="right">
         <strong>Author:</strong>
         </td>
-        <td>
+        <td colspan="2">
         <%= @note.author %>    
         </td>
       </tr>
       <tr>
         <td class="right">
-          <strong>Date:</strong>
+          <strong>Creation Date:</strong>
         </td>
-        <td>
+        <td colspan="2">
           <%= @note.created_at.strftime("%m/%d/%Y") %>
         </td>
       </tr>
@@ -29,24 +29,26 @@
         <td class="right">
           <strong>Case:</strong>
         </td>
-        <td>
-          <%= @note.case.name %>
+        <td colspan="2">
+          <!-- <%= @note.case.name %> -->
+
+          <%= best_in_place @note, :case, :type => :select, :collection => Case.all.collect { |c| c.name }, :class => 'edit', :place_holder => @note.case.name %>
         </td>
       </tr>
       <tr>
         <td class="right">
           <strong>Type:</strong>
         </td>
-        <td>
-          <%= @note.note_type %>
+        <td colspan="2">
+          <%= best_in_place @note, :note_type, :as => :select, :collection => ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], :class => 'edit' %>
         </td>
       </tr>
         <tr>
         <td class="right big-row">
           <strong>Note:</strong>
-        </td>
-        <td class="big-row">
-          <%= @note.note %>
+        </td >
+        <td colspan="2" class="big-row">
+          <%= best_in_place @note, :note, :as => :textarea, :class => 'edit' %>
         </td>
       </tr>
         
@@ -68,7 +70,7 @@
       <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
       <%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %></td>
     </tr>
-    <tbody>
+    </tbody>
   </table>
 </div>
 

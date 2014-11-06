@@ -30,7 +30,7 @@
           <strong>Case:</strong>
         </td>
         <td colspan="2">
-      		<%= f.select  :case, Case.all.collect { |c| c.name }, :value => @note.case.name %>
+      		<%= f.select  :case_id, Case.all.collect { |c| [c.name, c.id ]} %>
         </td>
       </tr>
          <tr>

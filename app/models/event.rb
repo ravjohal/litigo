@@ -10,4 +10,12 @@ class Event < ActiveRecord::Base
 	belongs_to :firm
 
   validates_presence_of :start, :end
+  validate :end_after_start
+
+  def end_after_start
+    if self.end < self.start
+      errors.add(:start, "Date Later Than End Date")
+    end
+  end
+
 end

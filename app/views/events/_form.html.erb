@@ -13,7 +13,7 @@
                 <%= f.input :summary %>
                 <%= f.input :subject %>
                 <%= f.input :location %>
-                <%= f.association :contacts, :label => "Lawyer", :collection => Contact.all.where("type = 'Attorney'"), :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+                <%= f.association :users, :label => "Lawyer", :collection => @firm.users, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
                 <div class="control-group string optional event_subject">
                   <%= f.label :start%>
                   <div class="controls"><%= f.text_field :start, :class => 'datetimepicker'%></div>
@@ -23,12 +23,11 @@
                   <div class="controls"><%= f.text_field :end, :class => 'datetimepicker'%></div>
                 </div>
                 <%= f.input :all_day %>
-                <%= f.association :users, :label => "Invitees", :input_html => {:id => "invitee_select"}, :class => 'sel2' %>
-                <%= f.association :contacts, :label => "Attendee", :label_method => lambda { |contact| contact.email }, :input_html => {:id => "attendee_select"}, :class => 'sel2' %>
+                <%= f.input :contacts, as: :text, :label => "Invitees", :input_html => {:id => "invitee_select", :value => "#{new_event.contacts.map {|contact| contact.email}.join(',')}"} %>
                 <%= f.input :reminder %>
                 <div class="control-group string optional event_subject">
                   <%= f.label :status%>
-                  <div class="controls"><%= f.select :status, ['confirmed', 'tentative', 'cancelled'] %></div>
+                  <div class="controls"><%= f.select :status, ['tentative', 'confirmed', 'cancelled'] %></div>
                 </div>
                 <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"}, :class => 'sel2' %>
                 <%= f.input :notes %>
@@ -58,9 +57,13 @@
 <% end %>
 <script>
 $(document).ready(function() {
-  $('#case_select, #attorney_select, #invitee_select, #attendee_select').select2();
+  $('#case_select, #attorney_select').select2();
   $('.datetimepicker').datetimepicker({
     format: 'Y-m-d H:i'
+  });
+  $('#invitee_select').tagsInput({
+    defaultText:'add email',
+    autocomplete_url: "<%= emails_autocomplete_path %>"
   });
 });
 </script>

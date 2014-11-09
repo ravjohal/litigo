@@ -65,5 +65,5 @@ Rails.application.routes.draw do
   resources :medicals do
     resources :injuries
   end
-
+  get "emails_autocomplete" => "events#emails_autocomplete"
 end

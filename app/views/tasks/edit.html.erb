@@ -33,7 +33,7 @@
             <strong>Task:</strong>
         </td>
         <td colspan="2">
-            <%= f.text_field :name %>
+            <%= f.text_field :name, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -42,7 +42,7 @@
         </td>
         <td colspan="2">
         
-          <%= f.select :case_ids, Case.all.collect { |c| [c.name, c.id ]}, :input_html => {:id => "task_select"} %>
+          <%= f.select :case_ids, Case.all.collect { |c| [c.name, c.id ]}, :id => "task_select", :class => 'table-input' %>
         
         </td>
       </tr>
@@ -51,7 +51,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-          <%= f.date_field :due_date %>
+          <%= f.date_field :due_date, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -59,7 +59,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-        <%= f.date_field :completed %>
+        <%= f.date_field :completed, :class => 'table-input' %>
         </td>
       </tr>
         <tr>
@@ -83,7 +83,7 @@
           <strong>Description:</strong>
         </td>
         <td colspan="2" class="big-row">
-          <%= f.text_field :description  %>
+          <%= f.text_field :description, :class => 'table-text'  %>
         </td>
       </tr>
         

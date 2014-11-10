@@ -38,6 +38,10 @@ class InsightsController < ApplicationController
     pie = cases.joins(:resolution).group('resolutions.resolution_type').count()
     map = cases.joins(:resolution).group('cases.state').average("resolutions.resolution_amount")
 
+    puts " LINES: " + lines.inspect
+    puts " PIE: " + pie.inspect
+    puts " MAP: " + map.inspect
+
     render json: { 
       totals: cases.size,
       lines: lines,

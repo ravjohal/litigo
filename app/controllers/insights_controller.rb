@@ -32,6 +32,8 @@ class InsightsController < ApplicationController
       cases = cases.where(contacts: {type: params[:judge]} )
     end
 
+    puts " CASES from FILTER CASES: " + cases.inspect
+
     lines = cases.joins(:resolution).group('resolutions.resolution_amount').order('resolutions.resolution_amount').count('cases.id')
     pie = cases.joins(:resolution).group('resolutions.resolution_type').count()
     map = cases.joins(:resolution).group('cases.state').average("resolutions.resolution_amount")

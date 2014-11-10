@@ -458,7 +458,7 @@ CREATE TABLE incidents (
     weather_factor boolean DEFAULT false,
     property_damage numeric(8,2),
     airbag_deployed boolean DEFAULT false,
-    speed character varying,
+    speed character varying(255),
     police_report boolean,
     case_id integer,
     created_at timestamp without time zone,

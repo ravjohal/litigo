@@ -1,6 +1,6 @@
 class Resolution < ActiveRecord::Base
 	
-	TYPES = ['SETTLEMENTS', 'JURY VERDICTS']
+	TYPES = ['Settlement', 'Verdict']
 
 	belongs_to :case
 	belongs_to :firm

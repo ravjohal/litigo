@@ -119,8 +119,9 @@ initData = ->
 
   # rearrange Map Data
   $.each casesData.map, (k, v) ->
-    mapData[k].average = parseFloat(v).toFixed(2)
-    mapData[k].fillKey = "Group2"
+    if mapData[k]
+      mapData[k].average = parseFloat(v).toFixed(2)
+      mapData[k].fillKey = "Group2"
 
   renderChart()
 

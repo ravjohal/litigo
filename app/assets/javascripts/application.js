@@ -37,7 +37,7 @@
 //= require d3/src/models/pie
 //= require d3/src/models/pieChart
 //= require select2
-//= require jquery.tagsinput
+//= require tag-it
 //= require best_in_place
 //= require jquery.purr
 //= require hopscotch

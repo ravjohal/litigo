@@ -7,9 +7,70 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
-<%= render 'form' %>
+<%= form_for @resolution, url: {action: "update"}, method: :patch do |f| %>
 
-
-<div class = "text-center link-pad">
-<%= link_to 'Cancel', [@case, @resolution], :class => 'dark' %>
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to case_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to 'Cancel', [@case, @resolution], :class => 'dark-right' %>
+      </td>
+      <td><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+     <strong> Resolution Summary</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+          <strong>Final Settlement Demand:</strong>
+        </td>
+        <td>
+        <%= f.number_field :settlement_demand %>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Jury Ask:</strong>
+        </td>
+        <td>
+        <%= f.number_field :jury_demand %>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Resolution Amount:</strong>
+        </td>
+        <td>
+        <%= f.number_field :resolution_amount %>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Resolution type:</strong>
+        </td>
+        <td>
+        <%= f.select :resolution_type, Resolution::TYPES  %><br>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<% end %>

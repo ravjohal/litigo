@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 ready = ->
-  $('.best_in_place').best_in_place()
+  $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2()
 
  $(document).ready(ready)
  $(document).on('page:load', ready)

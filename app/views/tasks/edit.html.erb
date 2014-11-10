@@ -1,8 +1,106 @@
 
+<%= form_for :task, url: task_path(@task), method: :patch do |f| %>
 
-<%= render 'form', new_task: @tasks_a %>
-
-
-<div class="text-center link-pad">
-<%= link_to 'Cancel', @task, :class => 'dark' %>
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to @tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to 'Cancel', @task, :class => 'dark-right' %>
+      </td>
+      <td>
+      		<%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="3" class="gray-back">
+     <strong>Task</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+            <strong>Task:</strong>
+        </td>
+        <td colspan="2">
+            <%= f.text_field :name %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Case(s):</strong>
+        </td>
+        <td colspan="2">
+        
+          <%= f.select :case_ids, Case.all.collect { |c| [c.name, c.id ]}, :input_html => {:id => "task_select"} %>
+        
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Due date:</strong>
+        </td>
+        <td colspan="2">
+          <%= f.date_field :due_date %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Completed:</strong>
+        </td>
+        <td colspan="2">
+        <%= f.date_field :completed %>
+        </td>
+      </tr>
+        <tr>
+        <!-- <td class="right">
+          <strong>Sms reminder:</strong>
+        </td>
+        <td colspan="2">
+          <%= best_in_place @task, :sms_reminder, :as => :checkbox, :class => 'edit' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Email reminder:</strong>
+        </td>
+        <td colspan="2">
+          <%= @task.email_reminder %>
+        </td>
+      </tr> -->
+       <tr>
+        <td class="right big-row">
+          <strong>Description:</strong>
+        </td>
+        <td colspan="2" class="big-row">
+          <%= f.text_field :description  %>
+        </td>
+      </tr>
+        
+  </tbody>
+</table>
+
+<% end %>
+
+  <script>
+    $(document).ready(function() { $("#task_select").select2(); });
+  </script>
+
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>
+

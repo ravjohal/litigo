@@ -1,9 +1,26 @@
 
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @task, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_task_path(@task), :class => 'dark' %></td>
+    </tr>
+    <tbody>
+  </table>
+</div>
+
+
 <table id="info-table3">
 <thead>
   <tr class="right-top">
     <td colspan="3" class="gray-back">
-      Task
+     <strong>Task</strong>
     </td>
   </tr>
 </thead>
@@ -13,7 +30,7 @@
             <strong>Task:</strong>
         </td>
         <td colspan="2">
-            <%= best_in_place @task, :name, :class => 'edit' %>
+            <%= @task.name %>
         </td>
       </tr>
       <tr>
@@ -30,7 +47,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-          <%= best_in_place @task, :due_date, :as => :date, :class => 'edit' %>
+          <%= @task.due_date %>
         </td>
       </tr>
       <tr>
@@ -38,7 +55,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-          <%= best_in_place @task, :completed, :class => 'edit' %>
+          <%= @task.completed  %>
         </td>
       </tr>
         <tr>
@@ -62,40 +79,13 @@
           <strong>Description:</strong>
         </td>
         <td colspan="2" class="big-row">
-          <%= best_in_place @task, :description, :class =>'edit', :as => :textarea %>
+          <%= @task.description  %>
         </td>
       </tr>
         
   </tbody>
 </table>
 
-
-
-<div class="text-center link-pad">
-<table id="info-table4">
-  <tbody>
-    <tr>
-      <td id="left-td"><%= link_to tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
-      <td>
-      </td>
-      <td>
-      </td>
-      <td><%= link_to @task, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
-      <%= link_to 'Edit', edit_task_path(@task), :class => 'dark' %></td>
-    </tr>
-    <tbody>
-  </table>
-</div>
-
-<script>
-$( ".edit" ).hover(
-  function() {
-    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
-  }, function() {
-    $( this ).find( "span:last" ).remove();
-  }
-);
-</script>
 
 <script>
      $('.tip').tipr({

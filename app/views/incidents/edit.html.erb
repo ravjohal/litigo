@@ -7,9 +7,149 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
-<%= render 'form' %>
 
-
-<div class = "text-center link-pad">
-<%= link_to 'Cancel', [@case, @incident], :class => 'dark' %>
+<%= form_for :incident, url: [@case, @incident], method: :patch do |f| %>
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to @cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to 'Cancel', [@case, @incident], :class => 'dark' %>
+      </td>
+      <td>
+      		<%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Incident Summary</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+        <strong>Incident date:</strong>
+        </td>
+        <td>
+          <%= f.date_field :incident_date %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Statute of limitations:</strong>
+        </td>
+        <td>
+          <%= @incident.statute_of_limitations %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Defendant Liability:</strong>
+        </td>
+        <td>
+        <%= f.text_field :defendant_liability, :value => '100' %>%
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Alcohol Involved?:</strong>
+        </td>
+        <td>
+        <%= f.radio_button :alcohol_involved, 'true' %> 
+  		<%= label :alcohol_involved, 'Yes', :value => 'Yes' %>
+  		<%= f.radio_button :alcohol_involved, 'false' %>
+  		<%= f.label :alcohol_involved, 'No', :value => 'No'%>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Weather a factor:</strong>
+        </td>
+        <td>
+        <%= f.radio_button :weather_factor, 'true' %> 
+  		<%= label :weather_factor, 'Yes', :value => 'Yes' %>
+  		<%= f.radio_button :weather_factor, 'false' %>
+  		<%= f.label :weather_factor, 'No', :value => 'No'%>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Property Damage ($):</strong>
+        </td>
+        <td>
+          <%= f.text_field :property_damage %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Insurance Company:</strong>
+        </td>
+        <td>
+           <%= f.select :insurance_provider, Incident::INSURANCE_PROVIDERS %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Airbag Deployed:</strong>
+        </td>
+        <td>
+        <%= f.radio_button :airbag_deployed, 'true' %> 
+  		<%= label :airbag_deployed, 'Yes', :value => 'Yes' %>
+  		<%= f.radio_button :airbag_deployed, 'false' %>
+  		<%= f.label :airbag_deployed, 'No', :value => 'No'%>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Speed of Bullet Car:</strong>
+        </td>
+        <td>
+          <%= f.text_field :speed %> m.p.h.
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Police Report:</strong>
+        </td>
+        <td>
+        <%= f.radio_button :police_report, 'true' %> 
+  		<%= label :police_report, 'Yes', :value => 'Yes' %>
+  		<%= f.radio_button :police_report, 'false' %>
+  		<%= f.label :police_report, 'No', :value => 'No'%>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Towed:</strong>
+        </td>
+        <td>
+        <%= f.radio_button :towed, 'true' %> 
+  		<%= label :towed, 'Yes', :value => 'Yes' %>
+  		<%= f.radio_button :towed, 'false' %>
+  		<%= f.label :towed, 'No', :value => 'No'%>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<% end %>
+
+
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>
+

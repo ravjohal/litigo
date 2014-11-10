@@ -1,10 +1,25 @@
 
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
 
 <table id="info-table3">
 <thead>
   <tr class="right-top">
     <td colspan="3" class="gray-back">
-      Note
+      <strong>Note</strong>
     </td>
   </tr>
 </thead>
@@ -30,9 +45,7 @@
           <strong>Case:</strong>
         </td>
         <td colspan="2">
-          <!-- <%= @note.case.name %> -->
-
-          <%= best_in_place @note, :case, :type => :select, :collection => Case.all.collect { |c| c.name }, :class => 'edit', :place_holder => @note.case.name %>
+          <%= @note.case.name %>
         </td>
       </tr>
       <tr>
@@ -40,7 +53,7 @@
           <strong>Type:</strong>
         </td>
         <td colspan="2">
-          <%= best_in_place @note, :note_type, :as => :select, :collection => ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], :class => 'edit' %>
+          <%= @note.note_type %>
         </td>
       </tr>
         <tr>
@@ -48,7 +61,7 @@
           <strong>Note:</strong>
         </td >
         <td colspan="2" class="big-row">
-          <%= best_in_place @note, :note, :as => :textarea, :class => 'edit' %>
+          <%= @note.note %>
         </td>
       </tr>
         
@@ -58,33 +71,9 @@
 
 
 
-<div class="text-center link-pad">
-<table id="info-table4">
-  <tbody>
-    <tr>
-      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
-      <td>
-      </td>
-      <td>
-      </td>
-      <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
-      <%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 
-</div>
 
-<script>
-$( ".edit" ).hover(
-  function() {
-    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
-  }, function() {
-    $( this ).find( "span:last" ).remove();
-  }
-);
-</script>
+
 
 <script>
      $('.tip').tipr({

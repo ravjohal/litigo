@@ -67,6 +67,6 @@ class IncidentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def incident_params
-      params.require(:incident).permit(:incident_date, :insurance_provider, :statute_of_limitations, :defendant_liability, :alcohol_involved, :weather_factor, :complaint_at_scene, :property_damage, :airbag_deployed, :speed, :police_report, :case_id)
+      params.require(:incident).permit(:incident_date, :insurance_provider, :statute_of_limitations, :defendant_liability, :alcohol_involved, :weather_factor, :complaint_at_scene, :property_damage, :airbag_deployed, :speed, :police_report, :case_id, :towed)
     end
 end

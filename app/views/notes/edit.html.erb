@@ -1,10 +1,27 @@
 <%= form_for :note, url: note_path(@note), method: :patch do |f| %>
 
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to 'Cancel', @note, :class => 'dark-right' %>
+      </td>
+      <td><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
 <table id="info-table3">
 <thead>
   <tr class="right-top">
     <td colspan="3" class="gray-back">
-      Note
+    <strong>  Note</strong>
     </td>
   </tr>
 </thead>
@@ -30,7 +47,7 @@
           <strong>Case:</strong>
         </td>
         <td colspan="2">
-      		<%= f.select  :case_id, Case.all.collect { |c| [c.name, c.id ]} %>
+      		<%= f.select  :case_id, @firm.cases.all.collect { |c| [c.name, c.id ]} %>
         </td>
       </tr>
          <tr>
@@ -53,23 +70,6 @@
   </tbody>
 </table>
 
-
-<div class="text-center link-pad">
-<table id="info-table4">
-  <tbody>
-    <tr>
-      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
-      </td>
-      <td>
-      </td>
-      <td><%= link_to 'Cancel', @note, :class => 'dark-right' %>
-      </td>
-      <td><%= f.submit :class => 'sub2 dark-right', :value => 'Save'%>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
 
 <% end %>
 

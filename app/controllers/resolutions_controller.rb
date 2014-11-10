@@ -16,7 +16,7 @@ class ResolutionsController < ApplicationController
   end
 
   def edit
-    @resolution = @case.resolution
+    @resolution = Resolution.find(params[:id])
   end
 
   def create
@@ -34,7 +34,7 @@ class ResolutionsController < ApplicationController
 
     respond_to do |format|
       if @resolution.update(resolution_params)
-        format.html { redirect_to [@case, @resolution], notice: 'resolution was successfully updated.' }
+        format.html { redirect_to [@case, @resolution], notice: 'Resolution successfully updated.' }
         format.json { render :show, status: :ok, location: @resolution }
       else
         format.html { render :edit }

@@ -6,19 +6,35 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %></td>
+    </tr>
+    <tbody>
+  </table>
+</div>
+
 <div class="top-table-container">
 <table id="info-table1">
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      Medical Overview
+      <strong> Medical Overview </strong>
     </td>
   </tr>
 </thead>
   <tbody>
     <tr>
       <td class="col-one">
-        <strong>Total Medical Bills:</strong>
+        <strong>Total Medical Bills ($):</strong>
       </td>
        <td>
         <%= number_to_currency @medical.total_med_bills, precision: 0 %>
@@ -26,7 +42,7 @@
     </tr>
     <tr>
       <td class="col-one">
-        <strong>Subrogated Amount:</strong>
+        <strong>Subrogated Amount ($):</strong>
       </td>
         <td>
           <%= number_to_currency @medical.subrogated_amount, precision: 0 %>
@@ -67,7 +83,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      Treatment Overview
+      <strong>Treatment Overview</strong>
     </td>
   </tr>
 </thead>
@@ -124,7 +140,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="4" class="gray-back">
-      Medical / Injury Summaries
+      <Strong>Medical / Injury Summaries</Strong>
     </td>
   </tr>
 </thead>
@@ -163,7 +179,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      Injury #<%= i %>
+     <strong> Injury #<%= i %> </strong>
     </td>
   </tr>
 </thead>
@@ -265,7 +281,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      Treatment #<%= i %>
+      <strong> Treatment #<%= i %> </strong>
     </td>
   </tr>
 </thead>
@@ -320,7 +336,7 @@
       </tr>
       <tr>
         <td>
-          <strong>Estimate of Future Medical Bills:</strong>
+          <strong>Estimate of Future Medical Bills ($):</strong>
         </td>
         <td>
            <%= injury.future_medicals %>
@@ -332,21 +348,7 @@
 <% end %>
 
 
-<div class="text-center link-pad">
-<table id="info-table4">
-  <tbody>
-    <tr>
-      <td id="left-td"><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
-      <td>
-      </td>
-      <td>
-      </td>
-      <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
-      <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %></td>
-    </tr>
-    <tbody>
-  </table>
-</div>
+
 
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

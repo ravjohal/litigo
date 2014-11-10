@@ -24,6 +24,7 @@ class EventsController < ApplicationController
       @events_list << hash
     end
     @firm = @user.firm
+    @emails_autocomplete = emails_autocomplete
   end
 
   # GET /events/1
@@ -42,6 +43,7 @@ class EventsController < ApplicationController
   def edit
     @event.start = @event.start.to_datetime
     @event.end = @event.end.to_datetime
+    @emails_autocomplete = emails_autocomplete
     if @event.owner_id == current_user.id
       render partial: 'events/edit'
     else
@@ -104,13 +106,7 @@ class EventsController < ApplicationController
     @user.events.map do |event|
       event.contacts.map {|contact| users_emails << contact.email}
     end
-    @autocomplete_emails = []
-    users_emails.each do |users_email|
-      @autocomplete_emails << {label: users_email, value: users_email}
-    end
-    respond_to do |format|
-      format.json {render json: @autocomplete_emails.uniq}
-    end
+    return users_emails.uniq
   end
 
   private

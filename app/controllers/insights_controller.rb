@@ -41,6 +41,7 @@ class InsightsController < ApplicationController
     puts " LINES: " + lines.inspect
     puts " PIE: " + pie.inspect
     puts " MAP: " + map.inspect
+    puts " CASES SIZE: " + cases.size.to_s
 
     render json: { 
       totals: cases.size,

@@ -1,34 +1,82 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Author:</strong>
-  <%= @document.author %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @document.doc_type %>
-</p>
-
-<p>
-  <strong>Document:</strong>
-  <% if @document.document.file %>
-    <%= link_to @document.document.file.filename, @document.document_url, :class => 'dark' %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Creation Date:</strong>
-  <%= @document.created_at.strftime("%m/%d/%y %I:%M %p")%>
-</p>
-
-<p>
-  <strong>Case(s):</strong>
-  <%= @document.cases.map {|c| c.name}.join(', ') %>
-</p>
-
-
-<div class="text-center link-pad">
-<%= link_to 'Edit', edit_document_path(@document), :class => 'dark' %> |
-<%= link_to 'Back to Documents', documents_path, :class => 'dark' %>
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to documents_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @document, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to 'Edit', edit_document_path(@document), :class => 'dark' %></td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="3" class="gray-back">
+      <strong>Document</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+        <strong>Author:</strong>
+        </td>
+        <td colspan="2">
+        <%= @document.author %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Creation Date:</strong>
+        </td>
+        <td colspan="2">
+          <%= @document.created_at.strftime("%m/%d/%y %I:%M %p")%>
+        </td>
+      </tr>     
+       <tr>
+        <td class="right">
+          <strong>Case(s):</strong>
+        </td >
+        <td colspan="2">
+          <%= @document.cases.map {|c| c.name}.join(', ') %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Type:</strong>
+        </td>
+        <td colspan="2">
+          <%= @document.doc_type %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Document:</strong>
+        </td>
+        <td colspan="2">
+            <div class="doc-link">
+                <% if @document.document.file %>
+                    <%= link_to @document.document.file.filename, @document.document_url %>
+                <% end %>
+            </div>
+        </td>
+      </tr>
+      
+  </tbody>
+</table>
+
+
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>

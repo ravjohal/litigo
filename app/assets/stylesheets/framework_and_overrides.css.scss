@@ -360,6 +360,11 @@ input:focus {
  margin-right: 20px;
  float: right;
 }
+.dark-small {
+ color: #323A45; 
+ font-size: 20px;
+ margin-right: 20px;
+}
 
 .top-table-container{
   margin: 0 auto;
@@ -851,6 +856,15 @@ select {
 .table-input{
   width: 100%;
 }
+.table-input-95{
+  width: 95%;
+}
+.table-input-small{
+  width: 65px;
+}
+.table-input-file{
+  border: none;
+}
 
 .table-text{
   width: 100%;
@@ -907,9 +921,6 @@ select {
   position: relative;
   z-index: 8000;
   width: 100%;
-}
-.sel2{
-  width: 300px;
 }
 
 

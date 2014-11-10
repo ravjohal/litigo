@@ -40,7 +40,7 @@
           <strong>Final Settlement Demand:</strong>
         </td>
         <td>
-        <%= f.number_field :settlement_demand %>
+        <%= f.number_field :settlement_demand, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -49,7 +49,7 @@
           <strong>Jury Ask:</strong>
         </td>
         <td>
-        <%= f.number_field :jury_demand %>
+        <%= f.number_field :jury_demand, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -58,7 +58,7 @@
           <strong>Resolution Amount:</strong>
         </td>
         <td>
-        <%= f.number_field :resolution_amount %>
+        <%= f.number_field :resolution_amount, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -67,7 +67,7 @@
           <strong>Resolution type:</strong>
         </td>
         <td>
-        <%= f.select :resolution_type, Resolution::TYPES  %><br>
+        <%= f.select :resolution_type, Resolution::TYPES, :class => 'table-input'  %><br>
         </td>
       </tr>
   </tbody>

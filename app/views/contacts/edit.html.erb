@@ -32,7 +32,7 @@
         <strong>Contact Type:</strong>
         </td>
         <td>
-          <%= f.select :type, Contact::TYPES %>      
+          <%= f.select :type, Contact::TYPES, :class => 'table-input' %>      
         </td>
       </tr>
       <tr>
@@ -40,7 +40,7 @@
           <strong>Company Name:</strong>
         </td>
         <td>
-          <%= f.text_field :company %>
+          <%= f.text_field :company, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -48,7 +48,7 @@
           <strong>First Name:</strong>
         </td>
         <td>
-          <%= f.text_field :first_name %>
+          <%= f.text_field :first_name, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -56,7 +56,7 @@
           <strong>Middle Name:</strong>
         </td>
         <td>
-        <%= f.text_field :middle_name %>
+        <%= f.text_field :middle_name, :class => 'table-input' %>
         </td>
       </tr>
         <tr>
@@ -64,7 +64,7 @@
           <strong>Last Name:</strong>
         </td>
         <td>
-        <%= f.text_field :last_name %>
+        <%= f.text_field :last_name, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -73,7 +73,7 @@
           <strong>Address:</strong>
         </td>
         <td>
-        <%= f.text_field :address %>
+        <%= f.text_field :address, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -82,7 +82,7 @@
           <strong>City:</strong>
         </td>
         <td>
-        <%= f.text_field :city %>
+        <%= f.text_field :city, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -90,7 +90,7 @@
           <strong>State:</strong>
         </td>
         <td>
-        <%= f.select :state, us_states %>
+        <%= f.select :state, us_states, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -100,7 +100,7 @@
           <strong>Phone Number:</strong>
         </td>
         <td>
-        <%= f.text_field :phone_number %>
+        <%= f.text_field :phone_number, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -109,7 +109,7 @@
           <strong>Fax Number:</strong>
         </td>
         <td>
-        <%= f.text_field :fax_number %>
+        <%= f.text_field :fax_number, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -118,7 +118,7 @@
           <strong>Email Address:</strong>
         </td>
         <td>
-        <%= f.email_field :email %>
+        <%= f.email_field :email, :class => 'table-input' %>
           
         </td>
       </tr>
@@ -127,12 +127,10 @@
           <strong>Gender:</strong>
         </td>
         <td>
-        <div class="radio">
         <%= f.radio_button :gender, 'M' %> 
   		<%= label :gender, 'Male' %>
   		<%= f.radio_button :gender, 'F' %>
   		<%= f.label :gender, 'Female', :value => 'Female'%>
-  		</div>
         </td>
       </tr>
        <tr>
@@ -140,7 +138,7 @@
           <strong>Age:</strong>
         </td>
         <td>
-        <%= f.number_field :age %>
+        <%= f.number_field :age, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>

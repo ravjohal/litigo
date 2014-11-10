@@ -1,8 +1,89 @@
+<%= form_for :document, url: document_path(@document), method: :patch do |f| %>
 
-
-<%= render 'form', new_document: @documents_a %>
-
-
-<div class="text-center link-pad">
-<%= link_to 'Cancel', @document, :class => 'dark' %>
+<div class="text-center">
+<table id="info-table4">
+  <tbody>
+    <tr>
+      <td id="left-td"><%= link_to documents_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to 'Cancel', @document, :class => 'dark-right' %>
+      </td>
+      <td><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
+
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="3" class="gray-back">
+      <strong>Document</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+        <strong>Author:</strong>
+        </td>
+        <td colspan="2">
+        <%= @document.author %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Creation Date:</strong>
+        </td>
+        <td colspan="2">
+          <%= @document.created_at.strftime("%m/%d/%y %I:%M %p")%>
+        </td>
+      </tr>     
+       <tr>
+        <td class="right">
+          <strong>Case(s):</strong>
+        </td >
+        <td colspan="2">
+          <%= @document.cases.map {|c| c.name}.join(', ') %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Type:</strong>
+        </td>
+        <td colspan="2">
+          <%= f.text_field :doc_type, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Document:</strong>
+        </td>
+        <td colspan="2">
+            <div class="doc-link">
+                <% if @document.document.file %>
+                	<%= f.file_field :doc_type, :class => 'table-input-file' %>
+                <% end %>
+            </div>
+        </td>
+      </tr>
+      
+  </tbody>
+</table>
+
+<% end %>
+
+
+
+  <script>
+    $(document).ready(function() { $("#doc_select").select2(); });
+  </script>
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
+</script>

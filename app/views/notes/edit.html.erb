@@ -31,7 +31,7 @@
         <strong>Author:</strong>
         </td>
         <td colspan="2">
-           <%= f.text_field :author %>
+           <%= @note.author %>
         </td>
       </tr>
 	<tr>
@@ -47,7 +47,7 @@
           <strong>Case:</strong>
         </td>
         <td colspan="2">
-      		<%= f.select  :case_id, @firm.cases.all.collect { |c| [c.name, c.id ]} %>
+      		<%= f.select  :case_id, @firm.cases.all.collect { |c| [c.name, c.id ]}, :class => 'table-input', :id => 'note_select' %>
         </td>
       </tr>
          <tr>
@@ -55,7 +55,7 @@
           <strong>Type:</strong>
         </td>
         <td colspan="2">
-           <%= f.select :note_type,  ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'] %>
+           <%= f.select :note_type,  ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -63,7 +63,7 @@
           <strong>Note:</strong>
         </td >
         <td colspan="2" class="big-row">
-          <%= f.text_area :note %>
+          <%= f.text_area :note, :class => 'table-text' %>
         </td>
       </tr>
     

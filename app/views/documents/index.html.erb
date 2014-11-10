@@ -20,7 +20,7 @@
           <th>Author</th>
           <th>Document Type</th>
           <th>Document Title</th>
-          <th>Template</th>
+          <th>Creation Date</th>
           <th>Case</th>
           <th></th>
           <th></th>
@@ -33,14 +33,18 @@
             <td><%= document.author %></td>
             <td><%= document.doc_type %></td>
             <td>
+            <div class="doc-link">
               <%= if !document.document_url.blank?
-                  link_to document.document.file.filename, document.document_url, :class => 'dark'
-                  end %></td>
+                  link_to document.document.file.filename, document.document_url
+                  end %></div></td>
             <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
-            <td><%= link_to 'Show', document_path(document), :class => 'dark' %></td>
-            <td><%= link_to 'Edit', edit_document_path(document), :class => 'dark' %></td>
-            <td><%= link_to 'Delete',  document,  method: :delete, data: { confirm: 'Are you sure?' }, :class => 'dark'  %></td>
+            <td><%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="Show" class="glyphicon glyphicon-eye-open tip"></i> <% end %>
+            </td>
+            <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></i> <% end %>
+            </td>
+            <td><%= link_to  document,  method: :delete, data: { confirm: 'Are you sure you want to delete this document?' }, :class => 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+           </td>
           </tr>
         <% end %>
         </tbody>
@@ -65,4 +69,11 @@ $(document).ready(function() {
     }
   });
 });
+</script>
+
+<script>
+     $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+     });
 </script>

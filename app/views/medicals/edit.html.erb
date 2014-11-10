@@ -40,7 +40,7 @@
         <strong>Total Medical Bills ($):</strong>
       </td>
        <td>
-        <%= f.text_field :total_med_bills %>
+        <%= f.text_field :total_med_bills, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -48,7 +48,7 @@
         <strong>Subrogated Amount ($):</strong>
       </td>
         <td>
-        <%= f.text_field :subrogated_amount %>
+        <%= f.text_field :subrogated_amount, :class => 'table-input' %>
         </td>
      </tr>
       <tr>
@@ -67,22 +67,22 @@
           <strong>Lost Earnings:</strong>
         </td>
         <td>
-          <%= f.text_field :earnings_lost %>
+          <%= f.text_field :earnings_lost, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
         <td class="col-one">
           <strong>Was Plaintiff Hospitalized?:</strong>
-                  <p class="indent">If yes, for how long?:</p>
+                  <p>If yes, for how long?:</p>
         </td>
         <td>
         <%= f.radio_button :hospitalization, 'true' %> 
   		<%= label :hospitalization, 'Yes', :value => 'Yes' %>
   		<%= f.radio_button :hospitalization, 'false' %>
   		<%= f.label :hospitalization, 'No', :value => 'No'%>
-          <p>
-          <%= f.text_field :hospital_stay_length %></p>
-          <%= f.select :hospital_stay_length_unit, ['day(s)','week(s)','month(s)'] %>
+          <br>
+          <%= f.text_field :hospital_stay_length, :class => 'table-input-small' %>
+          <%= f.select :hospital_stay_length_unit, ['day(s)','week(s)','month(s)'], :class => 'table-input' %>
         </td>
       </tr>
   </tbody>
@@ -103,7 +103,7 @@
            <strong>Total Length of Treatment (months):</strong>
         </td>
         <td>
-          <%= f.text_field :length_of_treatment %>
+          <%= f.text_field :length_of_treatment, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -111,7 +111,7 @@
             <strong>Doctor Type:</strong>
         </td>
         <td>
-          <%= check_box_tag :doctor_type %>
+          <%= f.check_box :doctor_type %>
           <%= label_tag @medical.doctor_type.map{|p| p}.join(", ") if @medical.doctor_type %>
         </td>
       </tr>
@@ -167,7 +167,7 @@
            <strong>Injury Summary:</strong>
         </td>
         <td colspan="3" class="big-row">
-          <%= f.text_area :injury_summary %>
+          <%= f.text_area :injury_summary, :class => 'table-text' %>
         </td>
       </tr>
       <tr>
@@ -175,7 +175,7 @@
              <strong>Medical Summary:</strong>
         </td>
         <td colspan="3" class="big-row">
-          <%= f.text_area :medical_summary %>
+          <%= f.text_area :medical_summary, :class => 'table-text' %>
         </td>
       </tr>
   </tbody>
@@ -200,7 +200,7 @@
         <strong>Region:</strong>
       </td>
       <td>
-        <%= f.select :region, Injury::REGION_TYPE %>
+        <%= f.select :region, Injury::REGION_TYPE, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -208,7 +208,7 @@
         <strong>Injury Type:</strong>
       </td>
       <td>
-        <%= f.select :injury_type, Injury::INJURY_TYPE %>
+        <%= f.select :injury_type, Injury::INJURY_TYPE, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -258,9 +258,9 @@
         </td>
         <td>
         <%= f.radio_button :disfigurement, 'true' %> 
-  		<%= label :disfigurement, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :disfigurement, 'false' %>
-  		<%= f.label :disfigurement, 'No', :value => 'No'%>
+  		  <%= label :disfigurement, 'Yes', :value => 'Yes' %>
+  		  <%= f.radio_button :disfigurement, 'false' %>
+  		  <%= f.label :disfigurement, 'No', :value => 'No'%>
         </td>
       </tr>
       <tr>
@@ -271,9 +271,9 @@
         <td>
           <p>
           <%= f.radio_button :permanence, 'true' %> 
-  		<%= label :permanence, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :permanence, 'false' %>
-  		<%= f.label :permanence, 'No', :value => 'No'%>
+  		    <%= label :permanence, 'Yes', :value => 'Yes' %>
+  		    <%= f.radio_button :permanence, 'false' %>
+  		    <%= f.label :permanence, 'No', :value => 'No'%>
           </p>
         </td>
       </tr>
@@ -293,7 +293,7 @@
           If yes, what %:
         </td>
         <td>
-          <%= f.text_field :disabled_percent %>%
+          <%= f.text_field :disabled_percent, :class => 'table-input-95'%>%
         </td>
       </tr>
       <tr>
@@ -335,7 +335,7 @@
         <strong>Number of Surgeries:</strong>
       </td>
       <td>
-        <%= f.text_field :surgery_count %>
+        <%= f.text_field :surgery_count, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -343,7 +343,7 @@
         <strong>Type of Surgery:</strong>
       </td>
       <td>
-         <%= f.select :surgery_type, ['Arthroscopic', 'Open'] %>
+         <%= f.select :surgery_type, ['Arthroscopic', 'Open'], :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -384,7 +384,7 @@
           <strong>Estimate of Future Medical Bills ($):</strong>
         </td>
         <td>
-           <%= f.text_field :future_medicals %>
+           <%= f.text_field :future_medicals, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>

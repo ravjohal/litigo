@@ -40,7 +40,7 @@
         <strong>Case Name:</strong>
       </td>
        <td>
-        <%= f.text_field :name %>
+        <%= f.text_field :name, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -64,7 +64,7 @@
           <strong>Docket Number:</strong>
         </td>
         <td>
-          <%=  f.text_field :docket_number %>
+          <%=  f.text_field :docket_number, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -72,7 +72,7 @@
           <strong>Court:</strong>
         </td>
         <td>
-          <%= f.text_field :court %>
+          <%= f.text_field :court, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -80,7 +80,7 @@
           <strong>County:</strong>
         </td>
         <td>
-          <%= f.text_field :county %>
+          <%= f.text_field :county, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -88,7 +88,7 @@
            <strong>State:</strong>
         </td>
         <td>
-        <%= f.select :state, us_states %>
+        <%= f.select :state, us_states, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>
@@ -108,7 +108,7 @@
         </td>
         <td>
 
-		<%= f.select  :contacts, @firm.contacts.where("type = 'Plaintiff'").collect { |c| [c.first_name + ' ' + c.last_name ]}, :id => "plaintiff_select", :class => 'sel2'%>
+		<%= f.select  :contacts, @firm.contacts.where("type = 'Plaintiff'").collect { |c| [c.first_name + ' ' + c.last_name ]}, :id => "plaintiff_select", :class => 'table-input'%>
         
         </td>
       </tr>
@@ -165,13 +165,13 @@
            <strong>Type:</strong>
         </td>
         <td>
-          <%= f.select :case_type, Case::TYPES %>
+          <%= f.select :case_type, Case::TYPES, :class => 'table-input' %>
         </td>
         <td class="right">
           <strong>Sub-type:</strong>
         </td>
         <td>
-          <%= f.select :subtype, Case::SUB_TYPES %>
+          <%= f.select :subtype, Case::SUB_TYPES, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -179,7 +179,7 @@
             <strong>Case Summary:</strong>
         </td>
         <td colspan="3" class="big-row">
-          <%= f.text_area :description %>
+          <%= f.text_area :description, :class => 'table-text' %>
         </td>
       </tr>
       <tr>
@@ -187,13 +187,13 @@
           <strong>Status:</strong>
         </td>
         <td>
-          <%= f.select :status, Case::STATUS %>
+          <%= f.select :status, Case::STATUS, :class => 'table-input' %>
         </td>
          <td class="right">
           <strong>Date Closed:</strong>
         </td>
         <td>
-          <%= f.date_field :closing_date %>
+          <%= f.date_field :closing_date, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>

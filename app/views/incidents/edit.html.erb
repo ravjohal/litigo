@@ -41,7 +41,7 @@
         <strong>Incident date:</strong>
         </td>
         <td>
-          <%= f.date_field :incident_date %>
+          <%= f.date_field :incident_date, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -57,7 +57,7 @@
           <strong>Defendant Liability:</strong>
         </td>
         <td>
-        <%= f.text_field :defendant_liability, :value => '100' %>%
+        <%= f.text_field :defendant_liability, :value => '100', :class => 'table-input' %>%
         </td>
       </tr>
       <tr>
@@ -87,7 +87,7 @@
           <strong>Property Damage ($):</strong>
         </td>
         <td>
-          <%= f.text_field :property_damage %>
+          <%= f.text_field :property_damage, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -95,7 +95,7 @@
           <strong>Insurance Company:</strong>
         </td>
         <td>
-           <%= f.select :insurance_provider, Incident::INSURANCE_PROVIDERS %>
+           <%= f.select :insurance_provider, Incident::INSURANCE_PROVIDERS, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -114,7 +114,7 @@
           <strong>Speed of Bullet Car:</strong>
         </td>
         <td>
-          <%= f.text_field :speed %> m.p.h.
+          <%= f.text_field :speed, :class => 'table-input' %> m.p.h.
         </td>
       </tr>
          <tr>

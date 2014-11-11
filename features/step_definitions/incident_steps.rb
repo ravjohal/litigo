@@ -19,13 +19,14 @@ Then(/^I create the incident$/) do
   click_on 'CASES'
   click_on 'some'
   click_on 'INCIDENT'
+  sleep 0.5
   click_on 'Edit'
-  find("option[value='Progressive']").click
-  click_on 'Update Incident'
+  find("option[value='GIECO']").click
+  click_on 'Save'
   expect(page).to have_content 'incident was successfully updated.'
 end
 
 Then(/^The incident for user with email "(.*?)" should be saved to the db$/) do |arg1|
   u = User.where(email: arg1).last
-  expect(Incident.where(id: u.id).last.insurance_provider).to eq 'Progressive'
+  expect(Incident.where(id: u.id).last.insurance_provider).to eq 'GIECO'
 end

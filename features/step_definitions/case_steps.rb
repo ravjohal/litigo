@@ -33,8 +33,6 @@ Then(/^all tabs are created$/) do
   click_on 'MEDICAL'
   expect(page).to have_content('Medical Overview')
   click_on 'INCIDENT'
-  # sleep 3
-  # binding.pry
   expect(page).to have_content('Incident date:')
   click_on 'DETAILS'
   expect(page).to have_content('Case Administration')

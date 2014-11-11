@@ -66,12 +66,13 @@
       </tr>
       <tr>
         <td class="col-one">
-          <strong>Was Plaintiff Hospitalized?:</strong>
-                  <p class="indent">If yes, for how long?:</p>
+          <strong>Was Plaintiff Hospitalized?:</strong><br>
+                  <em>If yes, for how long?:</em>
         </td>
         <td>
-          <%= boolean_as_yesno @medical.hospitalization %><p>
-          <%= @medical.hospital_stay_length %></p>
+          <%= boolean_as_yesno @medical.hospitalization %><br>
+          <br>
+          <%= @medical.hospital_stay_length %>
           <%= @medical.hospital_stay_length_unit %>
         </td>
       </tr>
@@ -218,7 +219,7 @@
     </tr>
     <tr>
       <td>
-        <strong>Fracture Through Joint (if applicable):</strong>
+        <strong>Fracture Through Joint:</strong>
       </td>
       <td>
         <%= boolean_as_yesno injury.joint_fracture %>
@@ -226,7 +227,7 @@
       </tr>
       <tr>
         <td>
-          <strong>Displaced Fracture (if applicable):</strong>
+          <strong>Displaced Fracture:</strong>
         </td>
         <td>
           <%= boolean_as_yesno injury.displaced_fracture %>
@@ -241,9 +242,13 @@
         </td>
       </tr>
       <tr>
+        <td colspan='2'>
+          <strong>In a Doctor's Opinion:</strong>
+        </td>
+      </tr>
+      <tr>
         <td>
-            <strong>In a Doctor's Opinion (objective):<p>
-            Is the Injury Permanent: </p></strong>
+            <strong>Is the Injury Permanent: </p></strong>
         </td>
         <td>
           <p>
@@ -260,7 +265,7 @@
       </tr>
       <tr>
         <td>
-          If yes, what %:
+          <em>If yes, what %:</em>
         </td>
         <td>
           <%= injury.disabled_percent %>%
@@ -328,7 +333,8 @@
       </tr>
       <tr>
         <td>
-          <strong>Is future surgery likely? (>75% likelihood):</strong>
+          <strong>Is future surgery likely?:</strong><br>
+          <em class="small">(>75% likelihood)</em>
         </td>
         <td>
           <%= boolean_as_yesno injury.future_surgery %>

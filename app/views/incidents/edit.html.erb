@@ -8,7 +8,8 @@
 <%= render partial: 'shared/case_tabs' %>
 
 
-<%= form_for :incident, url: [@case, @incident], method: :patch do |f| %>
+<!-- <%= form_for :incident, url: [@case, @incident], method: :patch do |f| %> -->
+<%= simple_form_for([@case, @incident]) do |f| %>
 <div class="text-center">
 <table id="info-table4">
   <tbody>
@@ -41,7 +42,7 @@
         <strong>Incident date:</strong>
         </td>
         <td>
-          <%= f.date_field :incident_date, :class => 'table-input' %>
+        <%= f.date_field :incident_date, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -49,7 +50,7 @@
           <strong>Statute of limitations:</strong>
         </td>
         <td>
-          <%= @incident.statute_of_limitations %>
+        <%= @incident.statute_of_limitations %>
         </td>
       </tr>
       <tr>
@@ -57,7 +58,7 @@
           <strong>Defendant Liability:</strong>
         </td>
         <td>
-        <%= f.text_field :defendant_liability, :value => '100', :class => 'table-input-95' %>%
+        <%= f.text_field :defendant_liability, :value => '100', :class => 'table-input-small', label: false %>%
         </td>
       </tr>
       <tr>
@@ -65,10 +66,14 @@
           <strong>Alcohol Involved?:</strong>
         </td>
         <td>
-        <%= f.radio_button :alcohol_involved, 'true' %> 
-  		<%= label :alcohol_involved, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :alcohol_involved, 'false' %>
-  		<%= f.label :alcohol_involved, 'No', :value => 'No'%>
+          <div class='radio'>
+              <%= f.radio_button :alcohol_involved, 'true' %> 
+  		        <%= label :alcohol_involved, 'Yes', :value => 'Yes' %>
+          </div>
+          <div class='radio'>
+  		      <%= f.radio_button :alcohol_involved, 'false' %>
+  		      <%= f.label :alcohol_involved, 'No', :value => 'No'%>
+            </div>
         </td>
       </tr>
         <tr>
@@ -76,10 +81,14 @@
           <strong>Weather a factor:</strong>
         </td>
         <td>
-        <%= f.radio_button :weather_factor, 'true' %> 
-  		<%= label :weather_factor, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :weather_factor, 'false' %>
-  		<%= f.label :weather_factor, 'No', :value => 'No'%>
+          <div class='radio'>
+            <%= f.radio_button :weather_factor, 'true' %> 
+  		      <%= label :weather_factor, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+  		      <%= f.radio_button :weather_factor, 'false' %>
+  		      <%= f.label :weather_factor, 'No', :value => 'No'%>
+            </div>
         </td>
       </tr>
         <tr>
@@ -103,10 +112,14 @@
           <strong>Airbag Deployed:</strong>
         </td>
         <td>
-        <%= f.radio_button :airbag_deployed, 'true' %> 
-  		<%= label :airbag_deployed, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :airbag_deployed, 'false' %>
-  		<%= f.label :airbag_deployed, 'No', :value => 'No'%>
+          <div class='radio'>
+            <%= f.radio_button :airbag_deployed, 'true' %> 
+  		      <%= label :airbag_deployed, 'Yes', :value => 'Yes' %>
+          </div>
+          <div class='radio'>
+  		      <%= f.radio_button :airbag_deployed, 'false' %>
+  		      <%= f.label :airbag_deployed, 'No', :value => 'No'%>
+          </div>
         </td>
       </tr>
           <tr>
@@ -114,7 +127,7 @@
           <strong>Speed of Bullet Car:</strong>
         </td>
         <td>
-          <%= f.text_field :speed, :class => 'table-input-95' %> m.p.h.
+          <%= f.text_field :speed, :class => 'table-input-small' %> m.p.h.
         </td>
       </tr>
          <tr>
@@ -122,10 +135,14 @@
           <strong>Police Report:</strong>
         </td>
         <td>
-        <%= f.radio_button :police_report, 'true' %> 
-  		<%= label :police_report, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :police_report, 'false' %>
-  		<%= f.label :police_report, 'No', :value => 'No'%>
+          <div class='radio'>
+              <%= f.radio_button :police_report, 'true' %> 
+  		        <%= label :police_report, 'Yes', :value => 'Yes' %>
+          </div>
+          <div class='radio'>
+  		        <%= f.radio_button :police_report, 'false' %>
+  		        <%= f.label :police_report, 'No', :value => 'No'%>
+          </div>
         </td>
       </tr>
          <tr>
@@ -133,15 +150,20 @@
           <strong>Towed:</strong>
         </td>
         <td>
-        <%= f.radio_button :towed, 'true' %> 
-  		<%= label :towed, 'Yes', :value => 'Yes' %>
-  		<%= f.radio_button :towed, 'false' %>
-  		<%= f.label :towed, 'No', :value => 'No'%>
+            <div class='radio'>
+                <%= f.radio_button :towed, 'true' %> 
+  		          <%= label :towed, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+  		          <%= f.radio_button :towed, 'false' %>
+  		          <%= f.label :towed, 'No', :value => 'No'%>
+            </div>
         </td>
       </tr>
   </tbody>
 </table>
 
+<% end %>
 <% end %>
 
 

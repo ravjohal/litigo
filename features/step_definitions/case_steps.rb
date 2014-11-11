@@ -29,11 +29,13 @@ end
 
 Then(/^all tabs are created$/) do
   click_on 'RESOLUTION'
-  expect(page).to have_content('Resolution Summary')
+  expect(page).to have_content('Resolution Amount:')
   click_on 'MEDICAL'
   expect(page).to have_content('Medical Overview')
   click_on 'INCIDENT'
-  expect(page).to have_content('Resolution Summary')
+  # sleep 3
+  # binding.pry
+  expect(page).to have_content('Incident date:')
   click_on 'DETAILS'
   expect(page).to have_content('Case Administration')
   click_on 'DOCUMENTS'

@@ -1,4 +1,4 @@
-<%= form_for :contact, url: contact_path(@contact), method: :patch do |f| %>
+<%= simple_form_for @contact do |f| %>
 
 <div class="text-center">
 <table id="info-table4">
@@ -127,10 +127,14 @@
           <strong>Gender:</strong>
         </td>
         <td>
-        <%= f.radio_button :gender, 'M' %> 
-  		<%= label :gender, 'Male' %>
-  		<%= f.radio_button :gender, 'F' %>
-  		<%= f.label :gender, 'Female', :value => 'Female'%>
+            <div class="radio">
+                <%= f.radio_button :gender, 'M' %> 
+  		          <%= label :gender, 'Male' %>
+            </div>
+            <div class="radio">
+  		          <%= f.radio_button :gender, 'F' %>
+  		          <%= f.label :gender, 'Female', :value => 'Female'%>
+            </div>
         </td>
       </tr>
        <tr>
@@ -138,7 +142,7 @@
           <strong>Age:</strong>
         </td>
         <td>
-        <%= f.number_field :age, :class => 'table-input' %>
+        <%= f.number_field :age, :class => 'table-input-small' %>
         </td>
       </tr>
   </tbody>
@@ -147,11 +151,6 @@
 
 <% end %>
 
-
-
-  <script>
-    $(document).ready(function() { $("#note_select").select2(); });
-  </script>
 
 
 <script>

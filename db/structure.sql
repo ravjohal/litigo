@@ -44,6 +44,48 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: attorneys; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE attorneys (
+    id integer NOT NULL,
+    attorney_type character varying(255),
+    firm character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: attorneys_events; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE attorneys_events (
+    attorney_id integer,
+    event_id integer
+);
+
+
+--
+-- Name: attorneys_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE attorneys_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: attorneys_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE attorneys_id_seq OWNED BY attorneys.id;
+
+
+--
 -- Name: case_documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -145,19 +187,19 @@ ALTER SEQUENCE case_tasks_id_seq OWNED BY case_tasks.id;
 
 CREATE TABLE cases (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     case_number integer,
     description text,
     medical_bills numeric,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    case_type character varying,
-    subtype character varying,
+    case_type character varying(255),
+    subtype character varying(255),
     user_id integer,
     closing_date date,
     state character varying(2),
-    status character varying DEFAULT 0,
-    court character varying,
+    status character varying DEFAULT '0'::character varying,
+    court character varying(255),
     firm_id integer,
     county character varying,
     docket_number character varying,
@@ -185,24 +227,54 @@ ALTER SEQUENCE cases_id_seq OWNED BY cases.id;
 
 
 --
+-- Name: clients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE clients (
+    id integer NOT NULL,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE clients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: clients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE clients_id_seq OWNED BY clients.id;
+
+
+--
 -- Name: contacts; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE contacts (
     id integer NOT NULL,
-    first_name character varying,
-    middle_name character varying,
-    last_name character varying,
-    address character varying,
-    city character varying,
-    state character varying,
-    country character varying,
-    phone_number character varying,
+    first_name character varying(255),
+    middle_name character varying(255),
+    last_name character varying(255),
+    address character varying(255),
+    city character varying(255),
+    state character varying(255),
+    country character varying(255),
+    phone_number character varying(255),
     fax_number integer,
-    email character varying,
-    gender character varying,
+    email character varying(255),
+    gender character varying(255),
     age integer,
-    type character varying,
+    type character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_id integer,
@@ -216,11 +288,11 @@ CREATE TABLE contacts (
     felony_convictions boolean,
     last_ten_years boolean,
     jury_likeability integer,
-    witness_type character varying,
-    witness_subtype character varying,
-    witness_doctype character varying,
-    attorney_type character varying,
-    staff_type character varying,
+    witness_type character varying(255),
+    witness_subtype character varying(255),
+    witness_doctype character varying(255),
+    attorney_type character varying(255),
+    staff_type character varying(255),
     event_id integer,
     firm_id integer,
     user_account_id integer,
@@ -248,18 +320,56 @@ ALTER SEQUENCE contacts_id_seq OWNED BY contacts.id;
 
 
 --
+-- Name: defendants; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE defendants (
+    id integer NOT NULL,
+    married boolean,
+    employed boolean,
+    job_description text,
+    salary double precision,
+    parent boolean,
+    felony_convictions boolean,
+    last_ten_years boolean,
+    jury_likeability integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: defendants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE defendants_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: defendants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE defendants_id_seq OWNED BY defendants.id;
+
+
+--
 -- Name: documents; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE documents (
     id integer NOT NULL,
-    author character varying,
-    doc_type character varying,
-    template character varying,
+    author character varying(255),
+    doc_type character varying(255),
+    template character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_id integer,
-    document character varying,
+    document character varying(255),
     firm_id integer
 );
 
@@ -290,11 +400,11 @@ ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
 CREATE TABLE event_attendees (
     id integer NOT NULL,
     event_id integer,
+    display_name character varying,
     creator boolean,
     response_status character varying,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    display_name character varying,
     contact_id integer
 );
 
@@ -324,8 +434,8 @@ ALTER SEQUENCE event_attendees_id_seq OWNED BY event_attendees.id;
 
 CREATE TABLE events (
     id integer NOT NULL,
-    subject character varying,
-    location character varying,
+    subject character varying(255),
+    location character varying(255),
     date date,
     "time" time without time zone,
     all_day boolean,
@@ -334,6 +444,7 @@ CREATE TABLE events (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     owner_id integer,
+    firm_id integer,
     google_id character varying,
     etag character varying,
     status character varying,
@@ -346,7 +457,6 @@ CREATE TABLE events (
     visibility character varying,
     "iCalUID" character varying,
     sequence integer,
-    firm_id integer,
     google_calendar_id character varying
 );
 
@@ -376,14 +486,14 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 CREATE TABLE firms (
     id integer NOT NULL,
-    name character varying,
-    address character varying,
-    phone character varying,
-    fax character varying,
+    name character varying(255),
+    address character varying(255),
+    phone character varying(255),
+    fax character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    zip character varying,
-    tenant character varying
+    zip character varying(255),
+    tenant character varying(255)
 );
 
 
@@ -463,7 +573,7 @@ CREATE TABLE incidents (
     case_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    insurance_provider character varying,
+    insurance_provider character varying(255),
     firm_id integer,
     towed boolean,
     complaint_at_scene boolean
@@ -495,9 +605,13 @@ ALTER SEQUENCE incidents_id_seq OWNED BY incidents.id;
 
 CREATE TABLE injuries (
     id integer NOT NULL,
-    injury_type character varying,
-    region character varying,
-    code character varying,
+    injury_type character varying(255),
+    region character varying(255),
+    code character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    medical_id integer,
+    firm_id integer,
     dominant_side boolean,
     joint_fracture boolean,
     displaced_fracture boolean,
@@ -513,11 +627,8 @@ CREATE TABLE injuries (
     stitches boolean,
     future_surgery boolean,
     future_medicals numeric,
-    firm_id integer,
-    medical_id integer,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone,
-    prior_complaint boolean
+    prior_complaint boolean,
+    "primary" boolean DEFAULT false
 );
 
 
@@ -551,7 +662,6 @@ CREATE TABLE medicals (
     injuries_within_three_days boolean,
     length_of_treatment integer,
     length_of_treatment_unit character varying,
-    treatment_type hstore,
     injury_summary text,
     medical_summary text,
     earnings_lost numeric,
@@ -564,7 +674,8 @@ CREATE TABLE medicals (
     case_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    doctor_type character varying[] DEFAULT '{}'::character varying[]
+    doctor_type character varying[] DEFAULT '{}'::character varying[],
+    treatment_type character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -598,8 +709,8 @@ CREATE TABLE notes (
     updated_at timestamp without time zone,
     case_id integer,
     user_id integer,
-    note_type character varying,
-    author character varying,
+    note_type character varying(255),
+    author character varying(255),
     firm_id integer
 );
 
@@ -621,6 +732,44 @@ CREATE SEQUENCE notes_id_seq
 --
 
 ALTER SEQUENCE notes_id_seq OWNED BY notes.id;
+
+
+--
+-- Name: plantiffs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE plantiffs (
+    id integer NOT NULL,
+    married boolean,
+    employed boolean,
+    job_description text,
+    salary double precision,
+    parent boolean,
+    felony_convictions boolean,
+    last_ten_years boolean,
+    jury_likeability integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: plantiffs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE plantiffs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: plantiffs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE plantiffs_id_seq OWNED BY plantiffs.id;
 
 
 --
@@ -669,12 +818,43 @@ CREATE TABLE schema_migrations (
 
 
 --
+-- Name: staffs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE staffs (
+    id integer NOT NULL,
+    staff_type character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: staffs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE staffs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: staffs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE staffs_id_seq OWNED BY staffs.id;
+
+
+--
 -- Name: tasks; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE tasks (
     id integer NOT NULL,
-    name character varying,
+    name character varying(255),
     due_date date,
     completed date,
     sms_reminder boolean,
@@ -704,6 +884,45 @@ CREATE SEQUENCE tasks_id_seq
 --
 
 ALTER SEQUENCE tasks_id_seq OWNED BY tasks.id;
+
+
+--
+-- Name: treatments; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE treatments (
+    id integer NOT NULL,
+    injury_id integer,
+    firm_id integer,
+    surgery boolean,
+    surgery_count integer,
+    surgery_type character varying,
+    casted_fracture boolean,
+    stitches boolean,
+    future_surgery boolean,
+    future_medicals numeric,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: treatments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE treatments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: treatments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE treatments_id_seq OWNED BY treatments.id;
 
 
 --
@@ -744,32 +963,32 @@ ALTER SEQUENCE user_events_id_seq OWNED BY user_events.id;
 
 CREATE TABLE users (
     id integer NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
-    encrypted_password character varying DEFAULT ''::character varying,
-    reset_password_token character varying,
+    email character varying(255) DEFAULT ''::character varying NOT NULL,
+    encrypted_password character varying(255) DEFAULT ''::character varying,
+    reset_password_token character varying(255),
     reset_password_sent_at timestamp without time zone,
     remember_created_at timestamp without time zone,
     sign_in_count integer DEFAULT 0 NOT NULL,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying,
-    last_sign_in_ip character varying,
+    current_sign_in_ip character varying(255),
+    last_sign_in_ip character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    name character varying,
-    confirmation_token character varying,
+    name character varying(255),
+    confirmation_token character varying(255),
     confirmed_at timestamp without time zone,
     confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying,
+    unconfirmed_email character varying(255),
     role integer,
     show_onboarding boolean DEFAULT true,
-    oauth_refresh_token character varying,
-    oauth_token character varying,
+    oauth_refresh_token character varying(255),
+    oauth_token character varying(255),
     oauth_expires_at timestamp without time zone,
-    google_email character varying,
+    google_email character varying(255),
     firm_id integer,
-    first_name character varying,
-    last_name character varying,
+    first_name character varying(255),
+    last_name character varying(255),
     time_zone character varying DEFAULT 'Pacific Time (US & Canada)'::character varying,
     invitation_token character varying,
     invitation_created_at timestamp without time zone,
@@ -800,6 +1019,46 @@ CREATE SEQUENCE users_id_seq
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: witnesses; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE witnesses (
+    id integer NOT NULL,
+    witness_type character varying(255),
+    witness_subtype character varying(255),
+    witness_doctype character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+--
+-- Name: witnesses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE witnesses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: witnesses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE witnesses_id_seq OWNED BY witnesses.id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY attorneys ALTER COLUMN id SET DEFAULT nextval('attorneys_id_seq'::regclass);
 
 
 --
@@ -834,7 +1093,21 @@ ALTER TABLE ONLY cases ALTER COLUMN id SET DEFAULT nextval('cases_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY clients ALTER COLUMN id SET DEFAULT nextval('clients_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY contacts ALTER COLUMN id SET DEFAULT nextval('contacts_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY defendants ALTER COLUMN id SET DEFAULT nextval('defendants_id_seq'::regclass);
 
 
 --
@@ -904,6 +1177,13 @@ ALTER TABLE ONLY notes ALTER COLUMN id SET DEFAULT nextval('notes_id_seq'::regcl
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY plantiffs ALTER COLUMN id SET DEFAULT nextval('plantiffs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY resolutions ALTER COLUMN id SET DEFAULT nextval('resolutions_id_seq'::regclass);
 
 
@@ -911,7 +1191,21 @@ ALTER TABLE ONLY resolutions ALTER COLUMN id SET DEFAULT nextval('resolutions_id
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY staffs ALTER COLUMN id SET DEFAULT nextval('staffs_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY tasks ALTER COLUMN id SET DEFAULT nextval('tasks_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY treatments ALTER COLUMN id SET DEFAULT nextval('treatments_id_seq'::regclass);
 
 
 --
@@ -926,6 +1220,21 @@ ALTER TABLE ONLY user_events ALTER COLUMN id SET DEFAULT nextval('user_events_id
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY witnesses ALTER COLUMN id SET DEFAULT nextval('witnesses_id_seq'::regclass);
+
+
+--
+-- Name: attorneys_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY attorneys
+    ADD CONSTRAINT attorneys_pkey PRIMARY KEY (id);
 
 
 --
@@ -961,11 +1270,27 @@ ALTER TABLE ONLY cases
 
 
 --
+-- Name: clients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY clients
+    ADD CONSTRAINT clients_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY contacts
     ADD CONSTRAINT contacts_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: defendants_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY defendants
+    ADD CONSTRAINT defendants_pkey PRIMARY KEY (id);
 
 
 --
@@ -1041,6 +1366,14 @@ ALTER TABLE ONLY notes
 
 
 --
+-- Name: plantiffs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY plantiffs
+    ADD CONSTRAINT plantiffs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: resolutions_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1049,11 +1382,27 @@ ALTER TABLE ONLY resolutions
 
 
 --
+-- Name: staffs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY staffs
+    ADD CONSTRAINT staffs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: tasks_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY tasks
     ADD CONSTRAINT tasks_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: treatments_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY treatments
+    ADD CONSTRAINT treatments_pkey PRIMARY KEY (id);
 
 
 --
@@ -1070,6 +1419,14 @@ ALTER TABLE ONLY user_events
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: witnesses_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY witnesses
+    ADD CONSTRAINT witnesses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1622,4 +1979,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141028061241');
 INSERT INTO schema_migrations (version) VALUES ('20141104174546');
 
 INSERT INTO schema_migrations (version) VALUES ('20141109225218');
+
+INSERT INTO schema_migrations (version) VALUES ('20141111080118');
 

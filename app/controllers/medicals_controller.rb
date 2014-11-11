@@ -14,6 +14,8 @@ class MedicalsController < ApplicationController
   # GET /medicals/1.json
   def show
     @medical = @case.medical
+    puts "PRIMARY INJURY ------> " + @medical.injuries.first.inspect
+    @injuries = @medical.injuries.order(:id)
   end
 
   # GET /medicals/new

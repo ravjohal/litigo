@@ -6,7 +6,8 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
-<%= form_for :case, url: case_path(@case), method: :patch do |f| %>
+
+<%= simple_form_for @case do |f| %>
 
 <div class="text-center">
 <table id="info-table4">
@@ -40,7 +41,8 @@
         <strong>Case Name:</strong>
       </td>
        <td>
-        <%= f.text_field :name, :class => 'table-input' %>
+       <%= f.text_field :name, label: false, :class => 'table-input' %>
+        <!-- <%= f.text_field :name, :class => 'table-input' %> -->
       </td>
     </tr>
     <tr>
@@ -64,7 +66,8 @@
           <strong>Docket Number:</strong>
         </td>
         <td>
-          <%=  f.text_field :docket_number, :class => 'table-input' %>
+        <%= f.text_field :docket_number, label: false, :class => 'table-input' %>
+          <!-- <%=  f.text_field :docket_number, :class => 'table-input' %> -->
         </td>
       </tr>
       <tr>
@@ -72,7 +75,8 @@
           <strong>Court:</strong>
         </td>
         <td>
-          <%= f.text_field :court, :class => 'table-input' %>
+          <%= f.text_field :court, label: false, :class => 'table-input' %>
+        <!--  <%= f.text_field :court, :class => 'table-input' %> -->
         </td>
       </tr>
       <tr>
@@ -80,7 +84,8 @@
           <strong>County:</strong>
         </td>
         <td>
-          <%= f.text_field :county, :class => 'table-input' %>
+          <%= f.text_field :county, label: false, :class => 'table-input' %>
+          <!-- <%= f.text_field :county, :class => 'table-input' %> -->
         </td>
       </tr>
       <tr>
@@ -88,7 +93,7 @@
            <strong>State:</strong>
         </td>
         <td>
-        <%= f.select :state, us_states, :class => 'table-input' %>
+        <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>
@@ -107,9 +112,7 @@
            <strong>Plaintiff(s):</strong>
         </td>
         <td>
-
-		<%= f.select  :contacts, @firm.contacts.where("type = 'Plaintiff'").collect { |c| [c.first_name + ' ' + c.last_name ]}, :id => "plaintiff_select", :class => 'table-input'%>
-        
+           <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -117,10 +120,7 @@
             <strong>Defendant(s):</strong>
         </td>
         <td>
-    
-          <% @case.contacts.where("type = 'Defendant'").each do |d| %>
-          <%= d.first_name %> <%= d.last_name %>
-           <% end %>
+          <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -128,10 +128,7 @@
             <strong>Assigned Attorney(s):</strong>
         </td>
         <td>
-          <%= @case.contacts.where("type = 'Attorney'").size %>
-          <% @case.contacts.where("type = 'Attorney'").each do |a| %>
-          <%= a.first_name %> <%= a.last_name %>
-          <% end %>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -139,9 +136,7 @@
            <strong>Assigned Staff(s):</strong>
         </td>
         <td>
-          <% @case.contacts.where("type = 'Staff'").each do |s| %>
-          <%= s.first_name %> <%= s.last_name %>
-          <% end %>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>
@@ -165,13 +160,13 @@
            <strong>Type:</strong>
         </td>
         <td>
-          <%= f.select :case_type, Case::TYPES, :class => 'table-input' %>
+          <%= f.input :case_type, label: false, collection: Case::TYPES, selected: 'Personal Injury', :class => 'table-input' %>
         </td>
         <td class="right">
           <strong>Sub-type:</strong>
         </td>
         <td>
-          <%= f.select :subtype, Case::SUB_TYPES, :class => 'table-input' %>
+          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, selected: 'Motor Vehicle', :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -179,7 +174,7 @@
             <strong>Case Summary:</strong>
         </td>
         <td colspan="3" class="big-row">
-          <%= f.text_area :description, :class => 'table-text' %>
+          <%= f.text_area :description, label: false, :class => 'table-text' %>
         </td>
       </tr>
       <tr>
@@ -187,13 +182,13 @@
           <strong>Status:</strong>
         </td>
         <td>
-          <%= f.select :status, Case::STATUS, :class => 'table-input' %>
+          <%= f.input :status, collection: Case::STATUS, selected: 'open', :class => 'table-input', label: false %>
         </td>
          <td class="right">
           <strong>Date Closed:</strong>
         </td>
         <td>
-          <%= f.date_field :closing_date, :class => 'table-input' %>
+        <%= f.date_field :closing_date, label: false, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>

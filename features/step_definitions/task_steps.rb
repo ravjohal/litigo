@@ -3,7 +3,7 @@ Then(/^I create the task$/) do
   click_on 'NEW TASK'
   fill_in 'task_name', with: 'My firs task'
   click_on 'Create Task'
-  expect(page).to have_content('Task was successfully created.')
+  expect(page).to have_content('Task successfully created.')
 end
 
 Then(/^The task for user with email "(.*?)" should be saved to the db$/) do |arg1|
@@ -17,7 +17,7 @@ Then(/^I create the task through case management$/) do
   click_on 'NEW TASK'
   fill_in 'task_name', with: 'some name'
   click_on 'Create Task'
-  expect(page).to have_content('Task was successfully created.')
+  expect(page).to have_content('Task successfully created.')
 end
 
 Then(/^The task for user with email "(.*?)" should be saved to the db with the right fields$/) do |arg1|

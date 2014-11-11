@@ -3,10 +3,11 @@ Then(/^I create the medical$/) do
   click_on 'CASES'
   click_on 'some'
   click_on 'MEDICAL'
+  sleep 0.5
   click_on 'Edit'
   fill_in 'medical_total_med_bills', with: 2
   fill_in 'medical_subrogated_amount', with: 3
-  click_on 'Update Medical'
+  click_on 'Save'
   expect(page).to have_content('Medical was successfully updated.')
 end
 

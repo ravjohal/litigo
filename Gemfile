@@ -38,6 +38,7 @@ gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
 gem "best_in_place"
 gem 'jquery-validation-rails', '~> 1.12.0'
 gem 'pg_search'
+gem "rails_best_practices"                    #https://github.com/railsbp/rails_best_practices
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

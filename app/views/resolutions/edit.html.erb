@@ -7,7 +7,7 @@
 
 <%= render partial: 'shared/case_tabs' %>
 
-<%= form_for @resolution, url: {action: "update"}, method: :patch do |f| %>
+<%= simple_form_for([@case, @resolution]) do |f| %>
 
 <div class="text-center">
 <table id="info-table4">
@@ -40,7 +40,7 @@
           <strong>Final Settlement Demand:</strong>
         </td>
         <td>
-        <%= f.number_field :settlement_demand, :class => 'table-input' %>
+        <%= f.number_field :settlement_demand, :class => 'table-input', label: false %>
           
         </td>
       </tr>
@@ -49,7 +49,7 @@
           <strong>Jury Ask:</strong>
         </td>
         <td>
-        <%= f.number_field :jury_demand, :class => 'table-input' %>
+        <%= f.number_field :jury_demand, :class => 'table-input', label: false %>
           
         </td>
       </tr>
@@ -58,7 +58,7 @@
           <strong>Resolution Amount:</strong>
         </td>
         <td>
-        <%= f.number_field :resolution_amount, :class => 'table-input' %>
+        <%= f.number_field :resolution_amount, :class => 'table-input', label: false %>
           
         </td>
       </tr>
@@ -67,7 +67,7 @@
           <strong>Resolution type:</strong>
         </td>
         <td>
-        <%= f.select :resolution_type, Resolution::TYPES, :class => 'table-input'  %><br>
+        <%= f.select :resolution_type, Resolution::TYPES, :class => 'table-input', label: false  %><br>
         </td>
       </tr>
   </tbody>

@@ -10,4 +10,16 @@ class UserEmails < ActionMailer::Base
          subject: "Invitation instructions",
          content_type: "text/html") unless Rails.env.test?
   end
+
+  def event_invitation(options)
+    @user = options[:user]
+    @send_to_contact = options[:send_to_contact]
+    @contacts = options[:contacts]
+    @event = options[:event]
+    from = @user.name.present? ? "\"#{@user.name}\" <#{@user.email}>" : @user.email
+    mail(to: @send_to_contact.email,
+         from: from,
+         subject: "Litigo Event Invitation",
+         content_type: "text/html") unless Rails.env.test? || @send_to_contact.email.include?("gmail.com")
+  end
 end

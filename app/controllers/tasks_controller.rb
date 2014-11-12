@@ -6,14 +6,13 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    
     if get_case
       @tasks = @case.tasks
-      @new_path_tasks = new_case_task_path(@case)
+      @new_path = new_case_task_path(@case)
       @tasks_a = [@case, Task.new] #for modal partial rendering
     else
       @tasks = @user.tasks
-      @new_path_tasks = new_task_path
+      @new_path = new_task_path
       @tasks_a = Task.new #for modal partial rendering
     end
   end

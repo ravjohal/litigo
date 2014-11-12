@@ -8,11 +8,8 @@
   <%= render partial: 'shared/case_tabs' %>
 <% end %>
 
-<div id="top-custom">
-<ul id="top-custom">
-    <li><%= link_to 'NEW NOTE', @new_path_notes, {:class => "action-button", :id => "note_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> </li>
-    </ul>
-</div>
+<%= render 'new_button' %>
+
     <div class="table-responsive">
       <table id="tasks" class="table table-striped table-hover rowlink">
         <thead>
@@ -42,7 +39,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#note_modal').click(function(event){
+  $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @notes_a ) %>");
   });
   <%= render 'datatable.js' %>

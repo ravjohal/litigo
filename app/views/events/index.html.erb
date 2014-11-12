@@ -1,12 +1,7 @@
-
-<div id="top-custom">
-<ul>
-  <li><%= link_to 'NEW EVENT', new_event_path, {:class => "action-button", :id => "event_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
-</ul>
-</div>
+<%= render 'new_button' %>
 
 
-  <div class="table-responsive calendar-table">
+  <div class="calendar-table">
     <div id="calendar"></div>
   </div>
 
@@ -15,7 +10,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#event_modal').click(function(event){
+  $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
   });
   $('#calendar').fullCalendar({

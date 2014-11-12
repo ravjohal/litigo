@@ -25,6 +25,7 @@ class EventsController < ApplicationController
     end
     @firm = @user.firm
     @emails_autocomplete = emails_autocomplete
+    @new_path = new_event_path
   end
 
   # GET /events/1
@@ -41,6 +42,7 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @model = @event
     @event.start = @event.start.to_datetime
     @event.end = @event.end.to_datetime
     @emails_autocomplete = emails_autocomplete

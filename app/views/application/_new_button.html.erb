@@ -1,0 +1,5 @@
+<div id="top-custom">
+  <ul>
+    <li><%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+  </ul>
+</div>

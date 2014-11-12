@@ -21,9 +21,12 @@ class CasesController < ApplicationController
   
   def create
     inj_type = params[:case][:medical_attributes][:injuries_attributes]["0"][:injury_type]
-    
-    if inj_type
+
+    if inj_type != ''
+      puts "INJURY TYPEE -----> " + inj_type
       params[:case][:medical_attributes][:injuries_attributes]["0"][:primary] = true
+    else
+      params[:case][:medical_attributes].delete(:injuries_attributes)
     end
 
     @case = Case.new(case_params)

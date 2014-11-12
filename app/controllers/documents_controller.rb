@@ -8,11 +8,11 @@ class DocumentsController < ApplicationController
   def index
     if get_case
       @documents = @case.documents
-      @new_path_documents = new_case_document_path(@case)
+      @new_path = new_case_document_path(@case)
       @documents_a = [@case, Document.new] #for modal partial rendering
     else
       @documents = @user.documents
-      @new_path_documents = new_document_path
+      @new_path = new_document_path
       @documents_a = Document.new #for modal partial rendering
     end
   end

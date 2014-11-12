@@ -8,11 +8,8 @@
   <%= render partial: 'shared/case_tabs' %>
 <% end %>
 
-<div id="top-custom">
-<ul id="top-custom">
-  <li><%= link_to 'NEW DOCUMENT', @new_path_documents, {:class => "action-button", :id => "document_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %> </li>
-    </ul>
-</div>
+<%= render 'new_button' %>
+
     <div class="table-responsive">
       <table id="tasks" class="table table-striped">
         <thead>
@@ -56,7 +53,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#document_modal').click(function(event){
+  $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: @documents_a ) %>");
   });
   var table = $('.table').dataTable({

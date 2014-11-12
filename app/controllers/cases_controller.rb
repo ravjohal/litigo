@@ -6,6 +6,7 @@ class CasesController < ApplicationController
 
   def index
     @cases = @user.cases.includes(:medical)
+    @new_path = new_case_path
   end
 
   def show

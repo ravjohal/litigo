@@ -8,11 +8,11 @@ class ContactsController < ApplicationController
   def index
     if get_case
       @contacts = @case.contacts
-      @new_path_contacts = new_case_contact_path(@case)
+      @new_path = new_case_contact_path(@case)
       @contacts_a = [@case, Contact.new] #for modal partial rendering
     else
       @contacts = @user.contacts
-      @new_path_contacts = new_contact_path
+      @new_path = new_contact_path
       @contacts_a = Contact.new #for modal partial rendering
     end
   end

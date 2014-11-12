@@ -11,11 +11,11 @@ class NotesController < ApplicationController
 
     if get_case
       @notes = @case.notes
-      @new_path_notes = new_case_note_path(@case)
+      @new_path = new_case_note_path(@case)
       @notes_a = [@case, Note.new] #for modal partial rendering
     else
       @notes = @user.notes.order("created_at desc")
-      @new_path_notes = new_note_path
+      @new_path = new_note_path
       @notes_a = Note.new #for modal partial rendering
     end
 

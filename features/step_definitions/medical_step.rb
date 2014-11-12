@@ -23,9 +23,12 @@ Then(/^I create the injury$/) do
   find("option[value='Strain/Sprain']").click
   find("option[value='Head']").click
   click_on 'Create Injury'
+  expect(page).to have_content('Injury was successfully created.')
 end
 
 Then(/^The injury for user with email "(.*?)" should be saved to the db$/) do |arg1|
-  u = User.where(email: arg1).last
-  expect(Injury.find_by_id(u.id)).to eq 'Face'
+  u = User.find_by_email(arg1)
+  m = Medical.find_by_id(u.id)
+  expect(Injury.find_by_medical_id(m.id).region).to eq 'Head'
+  expect(Injury.find_by_medical_id(m.id).injury_type).to eq 'Strain/Sprain'
 end

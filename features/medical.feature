@@ -23,5 +23,5 @@ Feature: Medical tab
     And when I fill in the modal window
     And I should logged in
     And I create a case
-#    And I create the injury
-#    Then The injury for user with email "artem.suchov@gmail.com" should be saved to the db
+    And I create the injury
+    Then The injury for user with email "artem.suchov@gmail.com" should be saved to the db

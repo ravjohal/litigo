@@ -20,11 +20,18 @@ Then(/^I verify required fields for case for user with email "(.*?)"$/) do |arg1
 end
 
 Then(/^I change the case fields$/) do
-  pending # express the regexp above with the code you wish you had
+  click_on 'Edit'
+  sleep 0.5
+  fill_in 'case_name', with: 'some other case'
+  fill_in 'case_docket_number', with: '11'
+  click_on 'Save'
 end
 
 Then(/^I verify required fields for case for user with email "(.*?)" are changed$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+  u = User.where(email: arg1).last
+  expect(Case.where(id: u.id).last.name).to eq 'some other case'
+  expect(Case.where(id: u.id).last.docket_number).to eq '11'
+  expect(Case.where(id: u.id).last.case_number).to eq 1
 end
 
 Then(/^all tabs are created$/) do

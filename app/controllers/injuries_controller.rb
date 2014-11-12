@@ -31,13 +31,16 @@ class InjuriesController < ApplicationController
 
     @medical = get_medical
     @case = @medical.case
+    primary = false
+
+    #set primary to true before creating an injury if there are no existing injuries
+    if !@medical.injuries.present?
+      primary = true  
+    end
 
     @injury = @medical.injuries.create(injury_params)
     @injury.firm = @firm
-
-    if !@medical.injuries
-      @injury.primary = true  
-    end
+    @injury.primary = primary
 
     respond_to do |format|
       if @injury.save
@@ -67,9 +70,19 @@ class InjuriesController < ApplicationController
   # DELETE /injuries/1
   # DELETE /injuries/1.json
   def destroy
+    @medical = get_medical
+    @case = @medical.case
+
     @injury.destroy
+
+    if @medical.injuries.first
+      old_inj = @medical.injuries.first
+      old_inj.primary = true
+      old_inj.save!
+    end
+    
     respond_to do |format|
-      format.html { redirect_to injuries_url, notice: 'Injury was successfully destroyed.' }
+      format.html { redirect_to case_medical_path(@case, @medical), notice: 'Injury was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

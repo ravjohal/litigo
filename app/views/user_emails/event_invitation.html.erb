@@ -1,0 +1,13 @@
+<p>Hello, <%= @send_to_contact.first_name.present? && @send_to_contact.last_name.present? ? "#{@send_to_contact.first_name} #{@send_to_contact.last_name}" : @send_to_contact.email %></p>
+<p><%= @user.name %> invited you to the event <%= @event.try(:summary) %> from Litigo.co</p>
+<p>When: <%= @event.start.strftime("%a, %e %b %Y %H:%M %Z") %> - <%= @event.end.strftime("%a, %e %b %Y %H:%M %Z") %></p>
+<% if @event.location.present? %><p>Where: <%= @event.location%></p> <% end %>
+<p>Attendees:
+  <ul>
+    <% @contacts.each do |email| %>
+    <li><%= email %></li>
+    <% end %>
+  </ul>
+</p>
+<p>Cheers,</p>
+<p>The Litigo Team</p>

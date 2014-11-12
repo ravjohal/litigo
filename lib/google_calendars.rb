@@ -146,6 +146,15 @@ class GoogleCalendars
                           visibility: response['visibility'],
                           sequence: response['sequence']
                       })
+        event.contacts.each do |contact|
+          options = {
+              user: user,
+              send_to_contact: contact,
+              contacts: event.contacts.pluck(:email),
+              event: event
+          }
+          UserEmails.event_invitation(options).deliver
+        end
       else
         errors = []
         response['error']['errors'].map {|error| errors << error['message']}

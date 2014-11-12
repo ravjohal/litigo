@@ -1,5 +1,5 @@
 
-<%= form_for :task, url: task_path(@task), method: :patch do |f| %>
+<%= simple_form_for @task do |f| %>
 
 <div class="text-center">
 <table id="info-table4">
@@ -41,9 +41,9 @@
           <strong>Case(s):</strong>
         </td>
         <td colspan="2">
-        
-          <%= f.select :case_ids, Case.all.collect { |c| [c.name, c.id ]}, :id => "task_select", :class => 'table-input' %>
-        
+              <% if !@case %>
+                  <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'table-input', label: false  %>
+                <% end %>
         </td>
       </tr>
       <tr>

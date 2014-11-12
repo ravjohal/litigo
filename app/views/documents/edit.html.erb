@@ -68,7 +68,6 @@
           <td colspan="2">
               <div class="doc-link">
                   <%= link_to @document.document.file.filename, @document.document_url %>
-                
               </div>
           </td>
         </tr>
@@ -79,10 +78,7 @@
         </td>
         <td colspan="2">
             <div class="doc-link">
-
               <%= f.input :document, as: :file, :class => 'table-input-file'%>
-              
-              
             </div>
         </td>
       </tr>

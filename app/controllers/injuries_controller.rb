@@ -35,6 +35,10 @@ class InjuriesController < ApplicationController
     @injury = @medical.injuries.create(injury_params)
     @injury.firm = @firm
 
+    if !@medical.injuries
+      @injury.primary = true  
+    end
+
     respond_to do |format|
       if @injury.save
         format.html { redirect_to case_medical_path(@case, @medical), notice: 'Injury was successfully created.' }

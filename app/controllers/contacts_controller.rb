@@ -107,7 +107,7 @@ class ContactsController < ApplicationController
     def contact_params
       params.require(:contact).permit(:first_name, :middle_name, :last_name, :company, :address, :city, :state,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id,
-                                      :user_id, :contact_user_id, :firm, :firms_attributes => [:name, :address, :zip])
+                                      :user_id, :contact_user_id, :corporation, :firm, :firms_attributes => [:name, :address, :zip])
     end
 
 end

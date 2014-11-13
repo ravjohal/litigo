@@ -42,7 +42,6 @@
       </td>
        <td>
        <%= f.text_field :name, label: false, :class => 'table-input' %>
-        <!-- <%= f.text_field :name, :class => 'table-input' %> -->
       </td>
     </tr>
     <tr>
@@ -67,7 +66,6 @@
         </td>
         <td>
         <%= f.text_field :docket_number, label: false, :class => 'table-input' %>
-          <!-- <%=  f.text_field :docket_number, :class => 'table-input' %> -->
         </td>
       </tr>
       <tr>
@@ -76,7 +74,6 @@
         </td>
         <td>
           <%= f.text_field :court, label: false, :class => 'table-input' %>
-        <!--  <%= f.text_field :court, :class => 'table-input' %> -->
         </td>
       </tr>
       <tr>
@@ -85,7 +82,6 @@
         </td>
         <td>
           <%= f.text_field :county, label: false, :class => 'table-input' %>
-          <!-- <%= f.text_field :county, :class => 'table-input' %> -->
         </td>
       </tr>
       <tr>
@@ -112,7 +108,7 @@
            <strong>Plaintiff(s):</strong>
         </td>
         <td>
-           <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'table-input' %>
+           <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'table-input sel2-100' %>
         </td>
       </tr>
       <tr>

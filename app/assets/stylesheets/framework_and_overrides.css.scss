@@ -371,6 +371,12 @@ input:focus {
  font-size: 20px;
  margin-right: 20px;
 }
+.dark-right-small {
+ color: #323A45; 
+ font-size: 20px;
+ margin-right: 10px;
+ float: right;
+}
 
 .top-table-container{
   margin: 0 auto;
@@ -460,67 +466,7 @@ input:focus {
  background: transparent;
 }
 
-.injury-table{
-  table-layout: fixed;
-  width: 400px;
-  font-size: 14px;
-  border: 1px solid #E8ECF1;
-  border-radius: 5px;
-  float: left;
-}
-.injury-table-container {
-  position: relative;
-  display: block;
-  margin: 40px auto;
-  width: 900px;
-}
-.injury-table tr{
- padding: 5px;
- border: 1px solid #E8ECF1;
-}
-.injury-table td{
- border: 1px solid #E8ECF1;
-}
-.injury-table tr:nth-child(even){
- background: #fdfeff;
-}
-.injury-table tr:nth-child(odd){
- background: white;
-}
-.treatment-table{
-  table-layout: fixed;
-  width: 400px;
-  font-size: 14px;
-  border: 1px solid #E8ECF1;
-  border-radius: 5px;
-  float: right;
-}
-.treatment-table tr{
- padding: 5px;
- border: 1px solid #E8ECF1;
-}
-.treatment-table td{
- border: 1px solid #E8ECF1;
-}
-.treatment-table tr:nth-child(even){
- background: #fdfeff;
-}
-.treatment-table tr:nth-child(odd){
- background: white;
-}
 
-td.gray-back {
-  background-color: #ccc;
-}
-td.big-row {
-  height: 140px;
-  vertical-align: top;
-}
-
-hr.invis {
-  border: 0;
-  height: 0;
-}
 
 #left-td{
   float: left;
@@ -842,6 +788,7 @@ input {
 }
 .radio {
   width: 40px;
+  
 }
 
 
@@ -900,7 +847,9 @@ select {
   cursor: text;
   overflow: auto;
   background-color: #fff;
-  width: 100%;
+}
+.sel2-100{
+  
 }
 
 .select2-container{

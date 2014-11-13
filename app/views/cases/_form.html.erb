@@ -12,44 +12,143 @@
           <div class="modal-body">
      <% end %>
 
-            <div class="form-inputs">
-              <%= f.input :name %>
-              <%= f.input :case_number, :readonly => true, :input_html => {:value =>  Case.increment_number(@firm, action_name.to_s, new_case)} %>
-
-               <% if action_name == "edit" %>
-                  <%= f.input :docket_number, :label => "Docket Number"%>
-                <% end %>
-
-              <%= f.association :contacts, label: "Plaintiff(s)", :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'sel2' %>
-              <%= f.association :contacts, label: "Defendant(s)", :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'sel2' %>
-              <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, :label => "Attorney(s)", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
-              <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, :label => "Staff", :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
-              <%= f.input :court %>
-              <%= f.input :county %>
-              <%= f.input :state, as: :select, collection: us_states %>
-              <%= f.input :case_type, label: "Case Type" , collection: Case::TYPES, selected: 'Personal Injury'%>
-              <%= f.input :subtype, label: "Sub-type", collection: Case::SUB_TYPES, selected: 'Motor Vehicle' %>
-
-              <% if action_name != "edit" %>
-                <%= f.simple_fields_for :incident, new_case.build_incident do |i| %>
-                  <%= i.input :incident_date %>
-                  <%= i.input :statute_of_limitations %> <!-- TODO: make this read-only and calculated according to some rules that need to be defined -->
-                  <%= i.input :insurance_provider, collection: Incident::INSURANCE_PROVIDERS %>
-                <% end %>
-                <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
-                  <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
-                  <%= inj.input :injury_type, collection: Injury::INJURY_TYPE %>
-                  <%= inj.input :region, collection: Injury::REGION_TYPE %>
-                <% end %>
-                  <%= m.input :total_med_bills, label: "Medical Bills" %>
-                <% end %>
+      <table class="case-form">
+        <tbody>
+          <tr>
+            <td>
+            <Strong>*Case Name:</Strong>
+            </td>
+            <td colspan="3">
+               <%= f.text_field :name, label: false, :class =>'table-input' %>
+            </td>
+          </tr>
+           <tr>
+            <td>
+            <Strong>Case Number:</Strong>
+            </td>
+            <td colspan="3">
+            <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input' %>
+            </td>
+          </tr>
+           <tr>
+            <td>
+            <Strong>Plaintiff(s):</Strong>
+            </td>
+            <td colspan="3">
+            <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"} %>
+            </td>
+          </tr>
+            <tr>
+            <td>
+            <Strong>Defendant(s):</Strong>
+            </td>
+            <td colspan="3">
+              <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"} %>
+            </td>
+          </tr>
+             <tr>
+            <td>
+            <Strong>Attorney(s):</Strong>
+            </td>
+            <td colspan="3">
+            <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+            </td>
+          </tr>
+             <tr>
+            <td>
+            <Strong>Staff:</Strong>
+            </td>
+            <td colspan="3">
+              <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"} %>
+            </td>
+          </tr>
+           <tr>
+            <td>
+            <Strong>Court:</Strong>
+            </td>
+            <td colspan="3">
+              <%= f.text_field :court, label: false, :class => 'table-input' %>
+            </td>
+          </tr>
+            <tr>
+                <td>
+                  <Strong>County:</Strong>
+            </td>
+                <td>
+              <%= f.text_field :county, label: false, :class => 'table-input' %>
+                </td>
+                <td>
+                  <Strong>State:</Strong>
+                </td>
+                <td>
+                 <%= f.select :state, us_states, label: false, :class => 'table-input' %>
+                </td>
+          </tr>
+          <tr>
+                <td>
+                  <Strong>Case Type:</Strong>
+                </td>
+                <td>
+                  <%= f.select :case_type, Case::TYPES, label: false, selected: 'Personal Injury', :class => 'table-input'%>
+                </td>
+                <td>
+                  <strong>Subtype:</strong>
+                </td>
+               <td>
+                  <%= f.select :subtype, Case::SUB_TYPES, label: false,  selected: 'Motor Vehicle' %>
+            </td>
+          </tr>
+           <% if action_name != "edit" %>
+            <%= f.simple_fields_for :incident, new_case.build_incident do |i| %>
+              <tr>
+                  <td>
+                    <Strong>Incident Date:</Strong>
+                  </td>
+                  <td>
+                      <%= i.input :incident_date, label: false, :class =>'table-input' %>
+                  </td>
+            <% end %>
+          <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
+              <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
+                        <td>
+                          <strong>Total Medical Bills:</strong>
+                        </td>
+                        <td>
+                              <%= m.text_field :total_med_bills, label: false, :class => 'table-input' %>
+                
+                        </td>
+    
+              <tr>
+                        <td>
+                            <strong>Primary Injury:</strong>
+                        </td>
+                        <td>
+                              <%= inj.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input' %>
+                        </td>
+                        <td>
+                            <strong>Region:</strong>
+                        </td>
+                        <td>
+                              <%= inj.select :region, Injury::REGION_TYPE, label: false, :class => 'table-input' %>
+                        </td>
+                            <% end %>
+             </tr>
+                     
+<% end %>
+          <tr>
+          <td>
+            <strong>Case Summary:</strong>
+          </td>
+          <td class="big-row" colspan="3">
               <% end %><!-- end of if -->
-              <%= f.input :description, type: 'text-area', label: "Case Summary" %>
-              <%= f.input :status, collection: Case::STATUS, selected: 'open' %>
-              <%= f.input :closing_date %>
+              <%= f.text_area :description, label: false, :class => 'table-text' %>
+          </td>
+          </tr>
+          
+        </tbody>
+      </table>
 
 
-            </div>
      <% if action_name == "index" %>
           </div><!--end of modal-body-->
           <div class="modal-footer">
@@ -68,6 +167,7 @@
       </div><!--end of modal-dialog-->
      <% end %>
 <% end %>
+
   <script>
     $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2(); });
   </script>

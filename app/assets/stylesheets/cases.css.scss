@@ -2,3 +2,89 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.case-form {
+	width: 100%;
+}
+
+.case-form tr:nth-child(even){
+ background: white;
+}
+
+.injury-table{
+  table-layout: fixed;
+  width: 400px;
+  font-size: 14px;
+  border: 1px solid #E8ECF1;
+  border-radius: 5px;
+  float: left;
+  margin-bottom: 40px;
+}
+.injury-table-container {
+  position: relative;
+  display: block;
+  margin: 40px auto;
+  width: 900px;
+}
+.injury-table tr{
+ padding: 5px;
+ border: 1px solid #E8ECF1;
+}
+.injury-table td{
+ border: 1px solid #E8ECF1;
+}
+.injury-table tr:nth-child(even){
+ background: #fdfeff;
+}
+.injury-table tr:nth-child(odd){
+ background: white;
+}
+.treatment-table{
+  table-layout: fixed;
+  width: 400px;
+  font-size: 14px;
+  border: 1px solid #E8ECF1;
+  border-radius: 5px;
+  float: right;
+}
+.treatment-table tr{
+ padding: 5px;
+ border: 1px solid #E8ECF1;
+}
+.treatment-table td{
+ border: 1px solid #E8ECF1;
+}
+.treatment-table tr:nth-child(even){
+ background: #fdfeff;
+}
+.treatment-table tr:nth-child(odd){
+ background: white;
+}
+
+td.gray-back {
+  background-color: #ccc;
+}
+td.big-row {
+  height: 140px;
+  vertical-align: top;
+}
+
+hr.invis {
+  border: 0;
+  height: 0;
+}
+
+.injury-form {
+	width: 90%;
+	margin: 0 auto;
+}
+
+.injury-form tr:nth-child(even){
+ background: white;
+}
+.injury-form tr{
+ vertical-align: top;
+}
+.injury-form td{
+ vertical-align: top;
+}
+

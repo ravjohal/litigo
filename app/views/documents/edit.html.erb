@@ -57,7 +57,7 @@
           <strong>Type:</strong>
         </td>
         <td colspan="2">
-          <%= f.input :doc_type, :class => 'table-input' %>
+          <%= f.text_field :doc_type, :class => 'table-input', label: false %>
         </td>
       </tr>
       <% if @document.document.file %>
@@ -77,9 +77,7 @@
           <strong>Choose Document to Upload:</strong>
         </td>
         <td colspan="2">
-            <div class="doc-link">
-              <%= f.input :document, as: :file, :class => 'table-input-file'%>
-            </div>
+              <%= f.input :document, as: :file, :class => 'table-input-file', label: false %>
         </td>
       </tr>
       

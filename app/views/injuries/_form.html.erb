@@ -7,30 +7,248 @@
             <h2>New Injury</h2>
           </div>
           <div class="modal-body">
-            <div class="form-inputs">
-              <%= f.input :injury_type, collection: Injury::INJURY_TYPE %>
-              <%= f.input :region, collection: Injury::REGION_TYPE %>
-              <%= f.input :code %>
-              <%= f.input :dominant_side %>
-              <%= f.input :joint_fracture %>
-              <%= f.input :displaced_fracture %>
-              <%= f.input :disfigurement %>
-              <%= f.input :impairment %>
-              <%= f.input :permanence %>
-              <%= f.input :prior_complaint %>
-              <%= f.input :disabled %>
-              <%= f.input :disabled_percent %>
-
-          TREATMENT:
-              <%= f.input :surgery %>
-              <%= f.input :surgery_count %>
-              <%= f.input :surgery_type, collection: Injury::SURGERY_TYPE %>
-              <%= f.input :casted_fracture %>
-              <%= f.input :stitches %>
-              <%= f.input :future_surgery %>
-              <%= f.input :future_medicals %>
-
+            <table class="table-condensed injury-form">
+              <tr>
+                <td>
+                  <strong>Region:</strong>
+                </td>
+                <td>
+                  <%= f.select :region, Injury::REGION_TYPE, label: false, :class => 'table-input' %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Injury Type:</strong>
+                </td>
+                <td>
+                  <%= f.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input' %>
+                </td>
+              </tr>
+              <tr>
+                 <td>
+                   <strong>ICD-9 Code</strong>
+                  </td>
+                  <td>
+                      <%= f.text_field :code, label: false, :class => 'table-input' %>
+                  </td>
+              </tr>
+           <tr>
+        <td>
+          <strong>On Dominant Side:</strong>
+        </td>
+        <td>
+            <div class='radio'>
+                <%= f.radio_button :dominant_side, 'true' %> 
+                <%= label :dominant_side, 'Yes', :value => 'Yes' %>
             </div>
+            <div class='radio'>
+                <%= f.radio_button :dominant_side, 'false' %>
+                <%= label :dominant_side, 'No', :value => 'No'%>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Fracture Through Joint:</strong><br>
+              <em class='small'>(if applicable)</em>
+        </td>
+        <td>
+            <div class='radio'>
+                <%= f.radio_button :joint_fracture, 'true' %> 
+                <%= label :joint_fracture, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :joint_fracture, 'false' %>
+                <%= label :joint_fracture, 'No', :value => 'No'%>
+            </div>
+        </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Displaced Fracture:</strong>
+            <br>
+              <em class='small'>(if applicable)</em>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= f.radio_button :displaced_fracture, 'true' %> 
+                  <%= label :displaced_fracture, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :displaced_fracture, 'false' %>
+                  <%= label :displaced_fracture, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <strong>Likely to leave disfigurement:</strong>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= f.radio_button :disfigurement, 'true' %> 
+                  <%= label :disfigurement, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :disfigurement, 'false' %>
+                  <%= label :disfigurement, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <strong>In a Doctor's Opinion:</strong>
+            </td>
+        </tr>
+        <tr>
+          <td>
+              <strong>Is the Injury Permanent:</strong>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= f.radio_button :permanence, 'true' %> 
+                  <%= label :permanence, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :permanence, 'false' %>
+                  <%= label :permanence, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <strong>Is Plaintiff Disabled:</strong>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= f.radio_button :disabled, 'true' %> 
+                  <%= label :disabled, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :disabled, 'false' %>
+                  <%= label :disabled, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <em>If yes, what %:</em>
+          </td>
+          <td>
+            <%= f.text_field :disabled_percent, :class => 'table-input-small'%>%
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <strong>Prior Complaints in Same Area:</strong>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= f.radio_button :prior_complaint, 'true' %> 
+                  <%= label :prior_complaint, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :prior_complaint, 'false' %>
+                  <%= label :prior_complaint, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+            
+            <tr>
+              <td colspan="2" class="gray-back">
+                  <strong>TREATMENT:</strong>
+              </td>
+            </tr>
+             <tr>
+        <td>
+          <strong>Was there Surgery or is Surgery Scheduled:</strong>
+        </td>
+        <td>
+            <div class='radio'>
+                <%= f.radio_button :surgery, 'true' %> 
+                <%= label :surgery, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :surgery, 'false' %>
+                <%= label :surgery, 'No', :value => 'No'%>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Number of Surgeries:</strong>
+        </td>
+        <td>
+          <%= f.text_field :surgery_count, :class => 'table-input-small' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Type of Surgery:</strong>
+        </td>
+        <td>
+           <%= f.select :surgery_type, ['Arthroscopic', 'Open'], :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Can Fracture be Casted:</strong>
+          <br>
+              <em class='small'>(if applicable)</em>
+        </td>
+        <td>
+            <div class='radio'>
+                <%= f.radio_button :casted_fracture, 'true' %> 
+                <%= label :casted_fracture, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :casted_fracture, 'false' %>
+                <%= label :casted_fracture, 'No', :value => 'No'%>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Stitches Required:</strong>
+        </td>
+        <td>
+            <div class='radio'>
+                <%= f.radio_button :stitches, 'true' %> 
+                <%= label :stitches, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :stitches, 'false' %>
+                <%= label :stitches, 'No', :value => 'No'%>
+            </div>
+        </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Is future surgery likely?:</strong>
+            <br>
+            <em class='small'> (>75% likelihood)</em>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= f.radio_button :future_surgery, 'true' %> 
+                  <%= label :future_surgery, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :future_surgery, 'false' %>
+                  <%= label :future_surgery, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Estimate of Future Medical Bills ($):</strong>
+          </td>
+          <td>
+             <%= f.text_field :future_medicals, :class => 'table-input' %>
+          </td>
+        </tr>
+              
+          </table>
          </div><!--end of modal-body-->
         <div class="modal-footer">
           <div class="pull-left">

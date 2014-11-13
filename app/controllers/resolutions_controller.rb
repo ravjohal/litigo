@@ -54,6 +54,6 @@ class ResolutionsController < ApplicationController
     end
 
     def resolution_params
-      params.require(:resolution).permit(:case_id, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type)
+      params.require(:resolution).permit(:case_id, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type, :note)
     end
 end

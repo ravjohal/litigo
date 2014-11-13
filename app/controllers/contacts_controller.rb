@@ -24,18 +24,9 @@ class ContactsController < ApplicationController
   end
 
   # GET /contacts/new
-  # def new
-
-  #   if get_case
-  #     @contact = @case.contacts.build
-  #     @contacts_a = [@case, @contact]
-  #   else
-  #     @contact = Contact.new
-  #     @contacts_a = @contact
-  #   end
-
-  #   puts " CASE CONTACTS array " + @create_case_contacts_array.to_s
-  # end
+  def new
+    @contact = Contact.new
+  end
 
   # GET /contacts/1/edit
   def edit
@@ -62,10 +53,10 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to path_contacts, notice: 'Contact was successfully created.' }
-        format.json { render :show, status: :created, location: @contact }
+        # format.html { redirect_to path_contacts, notice: 'Contact was successfully created.' }
+        format.json { render :show, status: :created, contact: @contact }
       else
-        format.html { render :new }
+        # format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end

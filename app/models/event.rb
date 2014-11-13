@@ -13,7 +13,7 @@ class Event < ActiveRecord::Base
   validate :end_after_start
 
   def end_after_start
-    if self.end < self.start
+    if self.start.present? && self.start.present? && self.end < self.start
       errors.add(:start, "Date Later Than End Date")
     end
   end

@@ -1,4 +1,4 @@
-<%= simple_form_for(new_contact) do |f| %>
+<%= simple_form_for(new_contact, :remote => true) do |f| %>
   <%= f.error_notification %>
      <% if action_name == "index" %>
       <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
@@ -11,7 +11,6 @@
           <div class="modal-body">
      <% end %>
 
-<<<<<<< HEAD
      <table class="contact-form table-condensed">
         <tbody>
             <tr>
@@ -154,3 +153,24 @@
       </div><!--end of modal-dialog-->
      <% end %>
 <% end %>
+<script>
+  $("#new_contact").bind("ajax:error", function(evt, xhr, status, error){
+    var error_text = "";
+    var error_list = $.parseJSON(xhr.responseText);
+    $.each(error_list, function(key, value){
+      error_text = error_text + key + ": " + value.join(', ') + "</br>";
+    });
+    $('.alert').remove();
+    $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + error_text + "</div>");
+  });
+  $("#new_contact").bind("ajax:success", function(e, data, status, xhr){
+    $('#modal-window').modal('hide');
+    $('.alert').remove();
+    $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>Contact was successfully created.</div>");
+    var tr = $('.table').DataTable().row.add( [
+          "<a href='contacts/"+data.id+"'>"+data.last_name+" "+data.first_name+"</a>",
+          data.type,
+          data.email,
+          data.phone_number
+    ] ).draw();
+  });</script>

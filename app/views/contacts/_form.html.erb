@@ -11,21 +11,123 @@
           <div class="modal-body">
      <% end %>
 
-            <div class="form-inputs">
-                <%= f.input :type, :label => 'Contact Type', :collection => Contact::TYPES %>
-                <%= f.input :first_name %>
-                <%= f.input :middle_name %>
-                <%= f.input :last_name %>
-                <%= f.input :company %>
-                <%= f.input :address %>
-                <%= f.input :city %>
-                <%= f.input :state, as: :select, collection: us_states %>
-                <%= f.input :phone_number %>
-                <%= f.input :fax_number %>
-                <%= f.input :email %>
-                <%= f.input :gender, :collection => ['M', 'F'], as: :radio_buttons %>
-                <%= f.input :age %>
-            </div>  
+     <table class="contact-form table-condensed">
+        <tbody>
+            <tr>
+                <td>
+                    <strong>Contact Type:</strong>
+                </td>
+                <td>
+                   <%= f.select :type, Contact::TYPES, :class => 'table-input' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>First Name:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :first_name, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Middle Name:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :middle_name, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Last Name:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :last_name, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+               <tr>
+                <td>
+                    <strong>Company</strong>
+                </td>
+                <td>
+                    <%= f.text_field :company, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+               <tr>
+                <td>
+                    <strong>Address:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :address, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>City:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :city, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <strong>State:</strong>
+                </td>
+                <td>
+                    <%= f.select :state, us_states, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <strong>Phone:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :phone_number, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Fax:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :fax_number, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+             <tr>
+                <td>
+                    <strong>Email:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :email, label: false, :class => 'table-input' %>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>Gender:</strong>
+                </td>
+                <td>
+                    <div class="radio">
+                        <%= f.radio_button :gender, 'M' %> 
+                        <%= label :gender, 'Male' %>
+                    </div>
+                    <div class="radio">
+                        <%= f.radio_button :gender, 'F' %>
+                        <%= f.label :gender, 'Female', :value => 'Female'%>
+                    </div>
+                
+                </td>
+            </tr>
+             <tr>
+                <td>
+                  <strong>Age:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :age, label: false, :class => 'table-input' %>
+                </td>
+            </tr>  
+         
+        </tbody>
+      </table>
      <% if action_name == "index" %>        
           </div><!--end of modal-body-->
           <div class="modal-footer">

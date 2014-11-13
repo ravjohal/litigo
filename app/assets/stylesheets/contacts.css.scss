@@ -6,3 +6,15 @@
 margin-left: 20px;
 	width: 20px;
 }
+
+.contact-form {
+	width: 90%;
+	margin: 0 auto;
+}
+.contact-form td:nth-child(1) {
+  float: right;
+}
+
+.contact-form tr:nth-child(even){
+ background: white;
+}

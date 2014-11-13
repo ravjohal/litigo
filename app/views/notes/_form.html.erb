@@ -1,0 +1,84 @@
+<%= simple_form_for(new_note) do |f| %>
+      <%= f.error_notification %>
+
+    <% if action_name == "index" %>
+      <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+             <a class="close" data-dismiss="modal">×</a>
+              <h2>New Note</h2>
+            </div>
+         <div class="modal-body">
+    <% end %>
+
+    <table class="case-form">
+        <tbody>
+          <tr>
+              <td>
+                  <strong>Author:</strong>
+              </td>
+              <td>
+                  <%= f.text_field :author, :readonly => true, :value => @user.name, label: false, :class => 'table-input' %>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>Created At:</strong>
+              </td>
+              <td>
+                  <%= f.date_field :created_at, :readonly => true, :value => Date.today, label: false, :class => 'table-input' %>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>Case:</strong>
+              </td>
+              <td>
+               <% if !@case %>
+                  <%= f.association :case, :collection => @user.cases, :input_html => {:id => "note_select"}, label: false %>
+              <% end %>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                  <strong>Note Type;</strong>
+              </td>
+              <td>
+                  <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input' %>
+              </td>
+          </tr>
+          <tr>
+              <td class="big-row">
+                  <Strong>Note:</Strong>
+              </td>
+              <td class="big-row">
+                  <%= f.text_area :note, label: false, :class => 'table-text' %>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+            
+        <% if action_name == "index" %>            
+          </div><!--end of modal-body-->
+          
+           <div class="modal-footer">
+              <div class="pull-left">
+                <a class="close" data-dismiss="modal">Cancel</a> 
+              </div>
+        <% end %>
+
+              <div class="form-actions">
+                  <%= f.button :submit, :class =>"sub2-small" %>
+              </div>
+
+    <% if action_name == "index" %>        
+            </div><!--end of modal-footer-->
+        </div><!--end of modal-content-->
+      </div><!--end of modal-dialog-->
+    <% end %>
+
+<% end %>
+  <script>
+    $(document).ready(function() { $("#note_select").select2(); });
+  </script>

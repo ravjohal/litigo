@@ -40,7 +40,7 @@
           <strong>Final Settlement Demand:</strong>
         </td>
         <td>
-        <%= f.number_field :settlement_demand, :class => 'table-input', label: false %>
+        <%= f.input :settlement_demand, :class => 'table-input', label: false %>
           
         </td>
       </tr>
@@ -49,7 +49,7 @@
           <strong>Jury Ask:</strong>
         </td>
         <td>
-        <%= f.number_field :jury_demand, :class => 'table-input', label: false %>
+        <%= f.input :jury_demand, :class => 'table-input', label: false %>
           
         </td>
       </tr>
@@ -58,16 +58,24 @@
           <strong>Resolution Amount:</strong>
         </td>
         <td>
-        <%= f.number_field :resolution_amount, :class => 'table-input', label: false %>
+        <%= f.input :resolution_amount, :class => 'table-input', label: false %>
           
         </td>
       </tr>
       <tr>
         <td class="right">
-          <strong>Resolution type:</strong>
+          <strong>Resolution Type:</strong>
         </td>
         <td>
         <%= f.select :resolution_type, Resolution::TYPES, :class => 'table-input', label: false  %><br>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Resolution Note:</strong>
+        </td>
+        <td>
+        <%= f.input :note, :class => 'table-input', label: false  %><br>
         </td>
       </tr>
   </tbody>

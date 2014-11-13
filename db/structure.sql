@@ -190,7 +190,7 @@ CREATE TABLE cases (
     name character varying(255),
     case_number integer,
     description text,
-    medical_bills numeric,
+    medical_bills numeric(10,2),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     case_type character varying(255),
@@ -296,7 +296,8 @@ CREATE TABLE contacts (
     event_id integer,
     firm_id integer,
     user_account_id integer,
-    company character varying
+    company character varying,
+    corporation character varying
 );
 
 
@@ -566,7 +567,7 @@ CREATE TABLE incidents (
     defendant_liability integer,
     alcohol_involved boolean DEFAULT false,
     weather_factor boolean DEFAULT false,
-    property_damage numeric(8,2),
+    property_damage numeric(10,2),
     airbag_deployed boolean DEFAULT false,
     speed character varying(255),
     police_report boolean,
@@ -619,14 +620,14 @@ CREATE TABLE injuries (
     impairment boolean,
     permanence boolean,
     disabled boolean,
-    disabled_percent numeric,
+    disabled_percent numeric(5,2),
     surgery boolean,
     surgery_count integer,
     surgery_type character varying,
     casted_fracture boolean,
     stitches boolean,
     future_surgery boolean,
-    future_medicals numeric,
+    future_medicals numeric(10,2),
     prior_complaint boolean,
     "primary" boolean DEFAULT false
 );
@@ -657,14 +658,14 @@ ALTER SEQUENCE injuries_id_seq OWNED BY injuries.id;
 
 CREATE TABLE medicals (
     id integer NOT NULL,
-    total_med_bills numeric,
-    subrogated_amount numeric,
+    total_med_bills numeric(10,2),
+    subrogated_amount numeric(10,2),
     injuries_within_three_days boolean,
     length_of_treatment integer,
     length_of_treatment_unit character varying,
     injury_summary text,
     medical_summary text,
-    earnings_lost numeric,
+    earnings_lost numeric(10,2),
     treatment_gap boolean,
     injections boolean,
     hospitalization boolean,
@@ -780,9 +781,9 @@ CREATE TABLE resolutions (
     id integer NOT NULL,
     case_id integer,
     firm_id integer,
-    settlement_demand numeric,
-    jury_demand numeric,
-    resolution_amount numeric,
+    settlement_demand numeric(10,2),
+    jury_demand numeric(10,2),
+    resolution_amount numeric(10,2),
     resolution_type character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1984,4 +1985,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141109225218');
 INSERT INTO schema_migrations (version) VALUES ('20141111080118');
 
 INSERT INTO schema_migrations (version) VALUES ('20141113031247');
+
+INSERT INTO schema_migrations (version) VALUES ('20141113083514');
+
+INSERT INTO schema_migrations (version) VALUES ('20141113085804');
 

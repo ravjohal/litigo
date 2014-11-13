@@ -11,6 +11,7 @@
           <div class="modal-body">
      <% end %>
 
+<<<<<<< HEAD
      <table class="contact-form table-condensed">
         <tbody>
             <tr>
@@ -125,7 +126,14 @@
                     <%= f.text_field :age, label: false, :class => 'table-input' %>
                 </td>
             </tr>  
-         
+            <tr>
+                <td>
+                  <strong>Age:</strong>
+                </td>
+                <td>
+                    <%= f.input :corporation, label: false, :class => 'table-input', label: false %>
+                </td>
+            </tr>  
         </tbody>
       </table>
      <% if action_name == "index" %>        

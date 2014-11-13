@@ -5,39 +5,114 @@
         <div class="modal-content">
             <div class="modal-header">
              <a class="close" data-dismiss="modal">×</a>
-              <h1>Calendar Event</h1>
+              <h2>Calendar Event</h2>
             </div>
          <div class="modal-body">
 
-               <div class="form-inputs">
-                <%= f.input :summary %>
-                <%= f.input :subject %>
-                <%= f.input :location %>
-                <%= f.association :users, :label => "Lawyer", :collection => @firm.users, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
-                <div class="control-group string optional event_subject">
-                  <%= f.label :start%>
-                  <div class="controls"><%= f.text_field :start, :class => 'datetimepicker'%></div>
-                </div>
-                <div class="control-group string optional event_subject">
-                  <%= f.label :end%>
-                  <div class="controls"><%= f.text_field :end, :class => 'datetimepicker'%></div>
-                </div>
-                <%= f.input :all_day %>
-                <%= f.input :contacts, :label => "Invitees", :input_html => {:id => "invitee_select", :value => "#{new_event.contacts.map {|contact| contact.email}.join(',')}"} %>
-                <%= f.input :reminder %>
-                <div class="control-group string optional event_subject">
-                  <%= f.label :status%>
-                  <div class="controls"><%= f.select :status, ['tentative', 'confirmed', 'cancelled'] %></div>
-                </div>
-                <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"}, :class => 'sel2' %>
-                <%= f.input :notes %>
-                 <% if action_name == 'index' %>
-                   <div class="control-group string optional event_subject">
-                     <%= f.label :google_calendar_id%>
-                     <div class="controls"><%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]} %></div>
-                   </div>
-                 <% end %>
-               </div>
+         <table class="case-form table-condensed">
+            <tbody>
+                <tr>
+                    <td>
+                        <strong>Summary:</strong>
+                    </td>
+                    <td>
+                        <%= f.text_field :summary, label: false, :class => 'table-input' %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Subject:</strong>
+                    </td>
+                    <td> 
+                        <%= f.text_field :subject, label: false, :class => 'table-input' %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Location:</strong>
+                    </td>
+                    <td>
+                        <%= f.text_field :location, label: false, :class => 'table-input' %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Assign Attorney(s):</strong>
+                    </td>
+                    <td>
+                        <%= f.association :users, label: false, :collection => @firm.users, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Invitees:</strong>
+                    </td>
+                    <td>
+                        <%= f.input :contacts, label: false, :input_html => {:id => "invitee_select", :value => "#{new_event.contacts.map {|contact| contact.email}.join(',')}"}, :class => 'table-input' %>
+                    </td>
+                </tr>
+                  <tr>
+                    <td>
+                        <strong>Case(s):</strong>
+                    </td>
+                    <td>
+                        <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "case_select"}, :class => 'sel2', label: false %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Start:</strong>
+                    </td>
+                    <td>
+                        <%= f.date_field :start, :class => 'datetimepicker', label: false %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>End:</strong>
+                    </td>
+                    <td>
+                        <%= f.date_field :end, :class => 'datetimepicker', label: false %>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>All day Event:</strong>
+                    </td>
+                    <td>
+                        <%= f.check_box :all_day, label: false, :class => 'table-input' %>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td>
+                        <strong>Reminder:</strong>
+                    </td>
+                    <td>
+                        <%= f.check_box :reminder, label: false, :class => 'table-input'%>
+                    </td>
+                </tr>
+               <!-- <tr>
+                    <td>
+                      Status:
+                    </td>
+                    <td>
+                        <%= f.select :status, ['tentative', 'confirmed', 'cancelled'], label: false %>
+                    </td>
+                </tr> -->
+              
+                <% if action_name == 'index' %>
+                 <tr>
+                    <td>
+                        <strong>Google Calendar:</strong>
+                    </td>
+                    <td>
+                       <%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]}, :class => 'table-input' %>
+                    </td>
+                </tr>
+                <% end %>
+            </tbody>
+         </table>
 
           </div><!--end of modal-body-->
           

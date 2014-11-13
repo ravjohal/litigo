@@ -5,6 +5,9 @@
 .case-form {
 	width: 100%;
 }
+.case-form td:nth-child(1) {
+  float: right;
+}
 
 .case-form tr:nth-child(even){
  background: white;

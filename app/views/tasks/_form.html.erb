@@ -12,15 +12,56 @@
          <div class="modal-body">
     <% end %>
 
-              <div class="form-inputs">
-                <%= f.input :name, :label => "Task", :class => 'box-form' %>
-                <% if !@case %>
-                  <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'sel2'  %>
-                <% end %>
-                <%= f.input :due_date %>
-                <%= f.input :completed %>
-                <%= f.input :description %>
-              </div>
+          <table class="case-form">
+              <tbody>
+                  <tr>
+                    <td>
+                        <strong>Task:</strong>
+                    </td>
+                    <td>
+                        <%= f.text_field :name, label: false, :class => 'table-input' %>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>
+                      <strong>Case:</strong>
+                    </td>
+                    <td>
+                    <% if !@case %>
+                    <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, label: false %>
+                    <% end %>
+
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                      <td> 
+                          <strong>Due Date:</strong>
+                      </td>
+                      <td>
+                          <%= f.date_field :due_date, label: false, :class => 'table-input' %>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td> 
+                          <strong>Completed:</strong>
+                      </td>
+                      <td>
+                          <%= f.date_field :completed, label: false, :class => 'table-input' %>
+                      </td>
+                  </tr>
+                  <tr>
+                      <td> 
+                          <strong>Task Description:</strong>
+                      </td>
+                      <td class="big-row">
+                          <%= f.text_area :description, label: false, :class => 'table-text' %>
+                      </td>
+                  </tr>
+                    
+              </tbody>
+          </table>
 
         <% if action_name == "index" %>            
           </div><!--end of modal-body-->

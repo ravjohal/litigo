@@ -12,7 +12,7 @@
           <div class="modal-body">
      <% end %>
 
-      <table class="case-form">
+      <table class="case-form table-condensed">
         <tbody>
           <tr>
             <td>
@@ -75,13 +75,13 @@
                   <Strong>County:</Strong>
             </td>
                 <td>
-              <%= f.text_field :county, label: false, :class => 'table-input' %>
+                    <%= f.text_field :county, label: false, :class => 'table-input' %>
                 </td>
                 <td>
                   <Strong>State:</Strong>
                 </td>
                 <td>
-                 <%= f.select :state, us_states, label: false, :class => 'table-input' %>
+                     <%= f.select :state, us_states, label: false, :class => 'table-input' %>
                 </td>
           </tr>
           <tr>
@@ -89,7 +89,7 @@
                   <Strong>Case Type:</Strong>
                 </td>
                 <td>
-                  <%= f.select :case_type, Case::TYPES, label: false, selected: 'Personal Injury', :class => 'table-input'%>
+                      <%= f.select :case_type, Case::TYPES, label: false, selected: 'Personal Injury', :class => 'table-input'%>
                 </td>
                 <td>
                   <strong>Subtype:</strong>

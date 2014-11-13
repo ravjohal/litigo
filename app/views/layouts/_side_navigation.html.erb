@@ -6,11 +6,11 @@
       <%= active_link_to " CASE MANAGEMENT", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions'], []] %>
       <ul>
           <li><%= active_link_to "CASES", cases_path, :class_active => 'enabled' %></li>
-          <li><%= active_link_to "CALENDAR", events_path, :class_active => 'enabled' %></li>
-          <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled' %></li>
           <li><%= active_link_to "CONTACTS", contacts_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled' %></li>
           <li><%= active_link_to "DOCUMENTS", documents_path, :class_active => 'enabled' %></li>
           <li><%= active_link_to "NOTES", notes_path, :class_active => 'enabled' %></li>
+          <li><%= active_link_to "CALENDAR", events_path, :class_active => 'enabled' %></li>
       </ul>
     </li>
     <!-- <li>

@@ -498,7 +498,7 @@ td.col-one {
   border-radius: 4px;
   color: #3FC2D8;
   height: 35px;
-  width: 175px;
+  width: 200px;
   }
   input.sub2-small:hover{
   background:#3FC2D8;
@@ -529,8 +529,6 @@ thead{
 #top-custom{
   margin-top: 5px;
   margin-bottom: 20px;
-  position: absolute;
-  z-index: 2;
 }
 #top-custom ul{
 
@@ -788,7 +786,6 @@ input {
 }
 .radio {
   width: 40px;
-  
 }
 
 
@@ -826,7 +823,9 @@ select {
   width: 65px;
 }
 .table-input-file{
+width: 100%;
   border: none;
+  text-align: left;
 }
 
 .table-text{
@@ -834,7 +833,6 @@ select {
   height: 100%;
   vertical-align: top;
 }
-
 
 .select2-container-multi .select2-choices {
   height: auto !important;
@@ -848,9 +846,7 @@ select {
   overflow: auto;
   background-color: #fff;
 }
-.sel2-100{
-  
-}
+
 
 .select2-container{
   border-radius: 4px;
@@ -903,8 +899,6 @@ select {
 
 #document_document{
   position: relative;
-  top: -20px;
-  margin-left: 250px;
   border: none;
   display: inline;
 }

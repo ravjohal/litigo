@@ -9,6 +9,7 @@ filter_average = null
 median_k = null
 median_vmax = 0
 median_index = 0
+injury_type_filter = "only"
 
 initDashboard = ->
   pieData = [
@@ -33,6 +34,8 @@ initDashboard = ->
   median_vmax = 0
   median_index = 0
   total_count = 0
+
+  injury_type_filter = $(".rdobtn.active").data("val")
 
 setCounties = ->
   $.ajax
@@ -61,6 +64,10 @@ $(document).ready ->
   $(document).on "change", "#f_state", ->
     setCounties()
 
+  $(document).on "click", ".rdobtn", ->
+    $(".rdobtn").removeClass("active")
+    $(this).addClass("active")
+
   $(document).on "click", "#btnFilterSearch", ->
     initDashboard()
 
@@ -68,7 +75,7 @@ $(document).ready ->
         state: $("#f_state").val()
         county: $("#f_county").val()
         injury_type: $("#f_injury").val()
-        injury_type_filter: $('input:radio[name=rdoInjury]:checked').val(),
+        injury_type_filter: injury_type_filter,
         region: $("#f_region").val()
         insurer: $("#f_insuer").val()
         judge: $("#f_judge").val()

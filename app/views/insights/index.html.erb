@@ -18,8 +18,8 @@
         <%= select_tag "f_state", options_from_collection_for_select(@us_states, "last", "first"), :include_blank => true, class: 'optional full-width' %>
       </div>
       <div class="col-md-3">
-        <label>COURT:</label>
-        <input type="text" id="f_court" class="full-width" />
+        <label>COUNTY:</label>
+        <select id="f_county" class="optional full-width"></select>
         <label>JUDGE:</label>
         <%= select_tag "f_judge", options_for_select(Contact::TYPES), :include_blank => true, class: 'optional full-width' %>
       </div>
@@ -36,6 +36,12 @@
 </div>
 <p id="notice" style="display:none;">Sorry, there are no cases that match your search criteria, please try again.</p>
 <div id="chart_container" class="col-md-12 with-3d-shadow with-transitions">
+  <div>
+    <input type="radio" id="rdoInjury_only" name="rdoInjury" checked value="only" />
+    <label for="rdoInjury_only">Injury Only</label>
+    <input type="radio" id="rdoInjury_any" name="rdoInjury" value="any" />
+    <label for="rdoInjury_any">Any Injury</label>
+  </div>
   <div id="stackedArea_chart" style="height:300px;width:100%;">
     <svg></svg>
   </div>

@@ -34,7 +34,21 @@ initDashboard = ->
   median_index = 0
   total_count = 0
 
+setCounties = ->
+  $.ajax
+    url: "/get_counties_by_state"
+    method: "get"
+    data: { state: $("#f_state").val() }
+    success: (response) ->
+      $('#f_county').empty().append('<option selected="selected" value=""></option>')
+      $.each response, (k, v) ->
+        $('#f_county').append('<option value="' + v.county + '">' + v.county + '</option>') unless v.county is ""
+    error: ->
+      console.log "Something failed"
+
 $(document).ready ->
+  setCounties()
+
   $(document).on "click", "#btnFilterReset", ->
     $("#f_state").val("")
     $("#f_court").val("")
@@ -44,13 +58,17 @@ $(document).ready ->
     $("#f_judge").val("")
     $("#btnFilterSearch").click()
 
+  $(document).on "change", "#f_state", ->
+    setCounties()
+
   $(document).on "click", "#btnFilterSearch", ->
     initDashboard()
 
     ajaxData = {
         state: $("#f_state").val()
-        court: $("#f_court").val()
+        county: $("#f_county").val()
         injury_type: $("#f_injury").val()
+        injury_type_filter: $('input:radio[name=rdoInjury]:checked').val(),
         region: $("#f_region").val()
         insurer: $("#f_insuer").val()
         judge: $("#f_judge").val()
@@ -62,12 +80,15 @@ $(document).ready ->
           fillKey: "Group1"
           average: 0
 
+    console.log "Ajax params"
+    console.log ajaxData
     $.ajax
       url: "/insights/filter_cases"
       method: "get"
       data: ajaxData
       success: (response) ->
         console.log response
+
         casesData = response
         initData()
       error: ->
@@ -106,22 +127,29 @@ initData = ->
 
   $.each searchData, (k, v) ->
     # put line data
-    k = parseInt(k) * increments
-    median_cnt += v
-    lineData[0].values.push([k, v])
+    if 0 <= k and k <= max_limit
+      k = parseInt(k) * increments
+      median_cnt += v
+      lineData[0].values.push([k, v])
 
-    if median_cnt >= (total_count/2) and median_index is 0
-      median_index = lineData[0].values.length
+      if median_cnt >= (total_count/2) and median_index is 0
+        median_index = lineData[0].values.length
+  console.log "Line Data"
+  console.log lineData
 
   # pie Data
   pieData[0].value = casesData.pie.Settlement if casesData.pie.hasOwnProperty("Settlement")
   pieData[1].value = casesData.pie.Verdict if casesData.pie.hasOwnProperty("Verdict")
+  console.log "Pie Data"
+  console.log pieData
 
   # rearrange Map Data
   $.each casesData.map, (k, v) ->
     if mapData[k]
       mapData[k].average = parseFloat(v).toFixed(2)
       mapData[k].fillKey = "Group2"
+  console.log "Map Data"
+  console.log mapData
 
   renderChart()
 

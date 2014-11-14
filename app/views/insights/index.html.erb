@@ -3,14 +3,16 @@
     <div class="col-md-2 box right_whiteborder">
       <label>INJURY:</label>
       <%= select_tag "f_injury", options_for_select(Injury::INJURY_TYPE), :include_blank => true, class: 'optional full-width' %>
-      <label>REGION:</label>
-      <%= select_tag "f_region", options_for_select(Injury::REGION_TYPE), :include_blank => true, class: 'optional full-width' %>
+      <div style="padding-top:10px;">
+        <span class="rdobtn left active" data-val="only">Primary only</span><span class="rdobtn right" data-val="any">Any Injury</span>
+      </div>
     </div>
     <div class="col-md-8 box right_whiteborder">
       <div class="col-md-3">
-        <br/>
         <label>INSURANCE PROVIDER:</label>
         <%= select_tag "f_insuer", options_for_select(Incident::INSURANCE_PROVIDERS), :include_blank => true, class: 'optional full-width' %>
+        <label>REGION:</label>
+        <%= select_tag "f_region", options_for_select(Injury::REGION_TYPE), :include_blank => true, class: 'optional full-width' %>
       </div>
       <div class="col-md-6">
         <br/>
@@ -36,12 +38,6 @@
 </div>
 <p id="notice" style="display:none;">Sorry, there are no cases that match your search criteria, please try again.</p>
 <div id="chart_container" class="col-md-12 with-3d-shadow with-transitions">
-  <div>
-    <input type="radio" id="rdoInjury_only" name="rdoInjury" checked value="only" />
-    <label for="rdoInjury_only">Injury Only</label>
-    <input type="radio" id="rdoInjury_any" name="rdoInjury" value="any" />
-    <label for="rdoInjury_any">Any Injury</label>
-  </div>
   <div id="stackedArea_chart" style="height:300px;width:100%;">
     <svg></svg>
   </div>

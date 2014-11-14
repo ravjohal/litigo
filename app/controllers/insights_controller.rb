@@ -32,7 +32,7 @@ class InsightsController < ApplicationController
       cases = cases.includes(medical: :injuries)
       cases = cases.where(injuries: {injury_type: params[:injury_type]})
 
-      if params[:injury_type_filter] = "only"
+      if params[:injury_type_filter] == "only"
         u2 = Injury.where.not(injury_type: params[:injury_type]).pluck(:medical_id)
         cases = cases.where.not(medicals: {id: u2})
       end

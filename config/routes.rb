@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   root :to => "visitors#index"
   get '/onboarding' => 'dashboards#new'
   get '/dashboard/:id' => 'dashboards#show'
+  get '/get_counties_by_state' => 'insights#get_counties_by_state'
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'

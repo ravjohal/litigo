@@ -57,8 +57,9 @@ class DashboardsController < ApplicationController
     if class_string_name == "Staff/Paralegal"
       class_string_name = "Staff"
     end
-    
-    contact = class_string_name.constantize.new
+    klass=class_string_name
+    contact =klass.constantize_with_care(Contact::TYPES).new(class_string_name)
+    #contact = class_string_name.constantize.new
     
     puts " FIRST NAME: " + @user.first_name
 
@@ -67,5 +68,15 @@ class DashboardsController < ApplicationController
     contact.user = @user
     contact.firm = @firm
     contact.save! 
+  end
+end
+
+# Security vulnerability fix where constantize can be injected and changed through urls; http://blog.littleimpact.de/index.php/2008/08/13/constantize-with-care/
+class String
+  def constantize_with_care(list_of_klasses=[])
+    list_of_klasses.each do |klass|
+      return self.constantize if self == klass.to_s
+    end
+    raise "I'm not allowed to constantize #{self}!"
   end
 end

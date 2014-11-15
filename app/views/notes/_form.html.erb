@@ -12,6 +12,7 @@
          <div class="modal-body">
     <% end %>
 
+
     <table class="case-form">
         <tbody>
           <tr>
@@ -42,7 +43,7 @@
           </tr>
           <tr>
               <td>
-                  <strong>Note Type;</strong>
+                  <strong>Note Type:</strong>
               </td>
               <td>
                   <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input' %>

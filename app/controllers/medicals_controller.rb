@@ -26,6 +26,7 @@ class MedicalsController < ApplicationController
   # GET /medicals/1/edit
   def edit
     @medical = @case.medical
+    @injuries = @medical.injuries.order(:id)
   end
 
   # POST /medicals

@@ -52,17 +52,17 @@ class DashboardsController < ApplicationController
 
   def create_contact
     # contact = Contact.new
-    class_string_name = params[:firm][:contact][:type]
+    class_string_name = params[:firm][:contact][:type].to_s
 
     if class_string_name == "Staff/Paralegal"
       class_string_name = "Staff"
     end
     klass=class_string_name
-    contact =klass.constantize_with_care(Contact::TYPES).new(class_string_name)
-    #contact = class_string_name.constantize.new
+    hash_ = {:type => class_string_name} #need to pass in hash for new method
+    puts "HASH =====>> " + hash_.inspect
+    contact =klass.constantize_with_care(Contact::TYPES).new(hash_)
+    #contact = class_string_name.constantize.new #old way, security vulnerability
     
-    puts " FIRST NAME: " + @user.first_name
-
     contact.first_name = @user.first_name
     contact.last_name = @user.last_name
     contact.user = @user

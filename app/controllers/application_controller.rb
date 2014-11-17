@@ -57,4 +57,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def restrict_access(where_to)
+    case where_to
+    when "cases"
+      redirect_to cases_path, :alert => "Please choose a case that belongs to you"
+    when "contacts"
+      redirect_to contacts_path, :alert => "Please choose a contact that belongs to you"
+    when "documents"
+      redirect_to documents_path, :alert => "Please choose a document that belongs to you"
+    when "events"
+      redirect_to events_path, :alert => "Please choose an event that belongs to you"
+    when "notes"
+      redirect_to notes_path, :alert => "Please choose a note that belongs to you"
+    when "tasks"
+      redirect_to tasks_path, :alert => "Please choose a task that belongs to you"
+    else
+      redirect_to root_path, :alert => "Access denied"
+    end
+  end
+
 end

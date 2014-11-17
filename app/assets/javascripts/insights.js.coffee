@@ -54,7 +54,8 @@ $(document).ready ->
 
   $(document).on "click", "#btnFilterReset", ->
     $("#f_state").val("")
-    $("#f_court").val("")
+    $("#f_state").change()
+    $("#f_county").val("")
     $("#f_injury").val("")
     $("#f_region").val("")
     $("#f_insuer").val("")
@@ -114,8 +115,14 @@ initData = ->
   $.each casesData.lines, (k, v) ->
     k = parseFloat(k)
     temp_k = k
+
+    # recalculate the max_limit
+    if parseInt(total_count * 0.95) > median_cnt and k > max_limit
+      max_limit = k
+
     if k > max_limit
       k = max_limit
+
     total += k * v
     k = Math.round(k / increments)
     if searchData.hasOwnProperty(k)

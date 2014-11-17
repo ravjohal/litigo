@@ -20,10 +20,13 @@
         <%= select_tag "f_state", options_from_collection_for_select(@us_states, "last", "first"), :include_blank => true, class: 'optional full-width' %>
       </div>
       <div class="col-md-3">
+        <br/>
         <label>COUNTY:</label>
         <select id="f_county" class="optional full-width"></select>
-        <label>JUDGE:</label>
-        <%= select_tag "f_judge", options_for_select(Contact::TYPES), :include_blank => true, class: 'optional full-width' %>
+        <div style="display:none;">
+          <label>JUDGE:</label>
+          <%= select_tag "f_judge", options_for_select(Contact::TYPES), :include_blank => true, class: 'optional full-width' %>
+        </div>
       </div>
     </div>
     <div class="col-md-2 box">

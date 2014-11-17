@@ -3,6 +3,9 @@ var table = $('.table').dataTable({
     search: "_INPUT_",
     searchPlaceholder: "Search or Filter"
   }
+  <% if sort_column && sort_order %>
+  , aaSorting: [[ <%= sort_column %>, "<%= sort_order %>" ]]
+  <% end %>
 });
 $('.table tbody').on( 'click', 'tr', function (e) {
   var id = $(e.currentTarget).data('id');

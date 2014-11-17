@@ -7,20 +7,20 @@ gem 'sprockets-rails', '~> 3.0.0.beta1'
 gem 'sass-rails', '~> 5.0.0.beta1'
 gem 'uglifier', '~> 2.5.3'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'turbolinks'
+gem 'jquery-rails', '~> 3.1.2'
+gem 'turbolinks', '~> 2.4.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bootstrap-sass', '~> 3.2.0.2'
-gem 'autoprefixer-rails'
-gem 'devise'
-gem 'pg'
-gem 'pundit'
-gem 'simple_form'
-gem 'unicorn'
-gem 'carrierwave'
-gem 'figaro'
-gem 'font-awesome-rails'
+gem 'autoprefixer-rails', '~> 3.1.2'
+gem 'devise', '~> 3.4.0'
+gem 'pg', '~> 0.17.1'
+gem 'pundit', '~> 0.3.0'
+gem 'simple_form', '~> 3.0.2'
+gem 'unicorn', '~> 4.8.3'
+gem 'carrierwave', '~> 0.10.0'
+gem 'figaro', '~> 1.0.0'
+gem 'font-awesome-rails', '~> 4.2.0.0'
 gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google
 gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.7.1'               # Replacement for curl commands to grab contacts from google
@@ -28,27 +28,27 @@ gem 'active_link_to', '~> 1.0.2'
 gem 'jquery-datatables-rails', '~> 2.2.3'
 gem "select2-rails", '3.5.9.1'
 gem 'jquery-ui-rails', '~> 5.0.0'
-gem 'fullcalendar-rails'
+gem 'fullcalendar-rails', '~> 1.6.4.0'
 gem 'google-api-client', '~> 0.7.1'
-gem 'dropbox-sdk'
-gem 'fog'
-gem 'cancancan'
-gem 'devise_invitable'
+gem 'dropbox-sdk', '~> 1.6.4'
+gem 'fog', '~> 1.24.0'
+gem 'cancancan', '~> 1.9.2'
+gem 'devise_invitable', '~> 1.3.6'
 gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
-gem "best_in_place"
+gem 'best_in_place', '~> 3.0.0'
 gem 'jquery-validation-rails', '~> 1.12.0'
-gem 'pg_search'
-gem "rails_best_practices"                    #https://github.com/railsbp/rails_best_practices
-gem 'brakeman'
+gem 'pg_search', '~> 0.7.8'
+gem 'rails_best_practices', '~> 1.15.4'                   #https://github.com/railsbp/rails_best_practices
+gem 'brakeman', '~> 2.6.3'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"
-  gem 'better_errors'
-  gem 'binding_of_caller', :platforms=>[:mri_21]
-  gem 'hub', :require=>nil
-  gem 'quiet_assets'
-  gem 'rails_layout'
-  gem 'awesome_print'       # Nicely formatted data structures in console, for example 'ap User.first'
+  gem 'better_errors', '~> 2.0.0'
+  gem 'binding_of_caller', '~> 0.7.2', :platforms=>[:mri_21]
+  gem 'hub', '~> 1.12.2', :require=>nil
+  gem 'quiet_assets', '~> 1.0.3'
+  gem 'rails_layout', '~> 1.0.23'
+  gem 'awesome_print', '~> 1.2.0'       # Nicely formatted data structures in console, for example 'ap User.first'
 end
 
 group :development, :test, :staging do
@@ -67,8 +67,8 @@ group :test do
   gem 'selenium-webdriver', '~> 2.43.0'
   gem 'capybara-firebug', '~> 2.0.0'
   gem 'cucumber-rails', '~> 1.4.0', :require => false  # Cucumber Generator and Runtime for Rails
-  gem 'action_mailer_cache_delivery'
-  gem 'simplecov', :require => false                   # https://github.com/colszowka/simplecov
+  gem 'action_mailer_cache_delivery', '~> 0.3.7'
+  gem 'simplecov', '~> 0.9.1', :require => false                   # https://github.com/colszowka/simplecov
 end
 
 group :development, :test do
@@ -81,5 +81,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'rails_12factor'
+  gem 'rails_12factor', '~> 0.0.3'
 end

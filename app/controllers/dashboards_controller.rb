@@ -39,7 +39,7 @@ class DashboardsController < ApplicationController
       if @firm.save
         @user.save!
         create_contact
-        format.html { render :show, notice: 'Firm and Contact were successfully created.' }
+        format.html { redirect_to dashboard_path(@user), notice: 'Firm and Contact were successfully created.' }
         #format.json { render :show, status: :created, location: @firm }
       else
         format.html { render :new }

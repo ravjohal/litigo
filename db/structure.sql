@@ -198,7 +198,7 @@ CREATE TABLE cases (
     user_id integer,
     closing_date date,
     state character varying(2),
-    status character varying DEFAULT '0'::character varying,
+    status character varying DEFAULT 'open'::character varying,
     court character varying(255),
     firm_id integer,
     county character varying,
@@ -1989,4 +1989,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141113031247');
 INSERT INTO schema_migrations (version) VALUES ('20141113083514');
 
 INSERT INTO schema_migrations (version) VALUES ('20141113085804');
+
+INSERT INTO schema_migrations (version) VALUES ('20141117033617');
 

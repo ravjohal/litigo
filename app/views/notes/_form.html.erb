@@ -38,12 +38,14 @@
               <td>
                <% if !@case %>
                   <%= f.association :case, :collection => @user.cases, :input_html => {:id => "note_select"}, label: false %>
-              <% end %>
+               <% else %>
+                  <%= @case.name %>
+               <% end %>
               </td>
           </tr>
           <tr>
               <td>
-                  <strong>Note Type:</strong>
+                  <strong>Type:</strong>
               </td>
               <td>
                   <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input' %>

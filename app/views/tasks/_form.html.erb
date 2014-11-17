@@ -30,8 +30,9 @@
                     <td>
                     <% if !@case %>
                     <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, label: false %>
+                    <% else %>
+                      <%= @case.name %>
                     <% end %>
-
                     </td>
                   </tr>
                   

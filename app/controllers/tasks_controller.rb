@@ -70,7 +70,6 @@ class TasksController < ApplicationController
       @task = @case.tasks.create(task_params)
       path_tasks = case_tasks_path
     else
-      @task = Task.new(task_params)
       path_tasks = tasks_path
     end
 

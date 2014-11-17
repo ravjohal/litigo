@@ -296,7 +296,8 @@ CREATE TABLE contacts (
     event_id integer,
     firm_id integer,
     user_account_id integer,
-    company character varying
+    company character varying,
+    corporation boolean
 );
 
 
@@ -1984,4 +1985,8 @@ INSERT INTO schema_migrations (version) VALUES ('20141109225218');
 INSERT INTO schema_migrations (version) VALUES ('20141111080118');
 
 INSERT INTO schema_migrations (version) VALUES ('20141113031247');
+
+INSERT INTO schema_migrations (version) VALUES ('20141113083514');
+
+INSERT INTO schema_migrations (version) VALUES ('20141113085804');
 

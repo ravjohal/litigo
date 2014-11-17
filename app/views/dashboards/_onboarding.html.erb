@@ -16,7 +16,10 @@
                   <%= p.input :type, :label => 'Role', :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false %>
                 <% end %>
                 <%= f.input :phone, :required => false %>
-            </div>   
+                <%= f.simple_fields_for :user do |u| %>
+                  <%= u.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)", class: 'form-control' %>
+                <% end %>
+            </div>
           
           </div><!--end of modal-body-->
           

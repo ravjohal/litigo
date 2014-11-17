@@ -31,7 +31,8 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    
+    @event = Event.find(params[:id])
+    restrict_access("events") if @event.user_id != current_user.id     
   end
 
   # GET /events/new
@@ -42,6 +43,9 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
+    @event = Event.find(params[:id])
+    restrict_access("events") if @event.user_id != current_user.id 
+        
     @model = @event
     @event.start = @event.start.to_datetime
     @event.end = @event.end.to_datetime

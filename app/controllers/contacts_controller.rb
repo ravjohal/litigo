@@ -20,7 +20,8 @@ class ContactsController < ApplicationController
   # GET /contacts/1
   # GET /contacts/1.json
   def show
-   
+    @contact = Contact.find(params[:id])
+    restrict_access("contacts") if @contact.user_id != current_user.id
   end
 
   # GET /contacts/new
@@ -30,7 +31,8 @@ class ContactsController < ApplicationController
 
   # GET /contacts/1/edit
   def edit
-    
+    @contact = Contact.find(params[:id])
+    restrict_access("contacts") if @contact.user_id != current_user.id    
   end
 
   # POST /contacts

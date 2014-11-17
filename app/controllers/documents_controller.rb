@@ -20,7 +20,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1
   # GET /documents/1.json
   def show
-    
+    @document = Document.find(params[:id])
+    restrict_access("documents") if @document.user_id != current_user.id   
   end
 
   # GET /documents/new
@@ -30,6 +31,8 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1/edit
   def edit
+    @document = Document.find(params[:id])
+    restrict_access("documents") if @document.user_id != current_user.id 
     if get_case
       @documents_a = [@case, @document] #for modal partial rendering
     else

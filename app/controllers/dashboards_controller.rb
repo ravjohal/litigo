@@ -14,7 +14,7 @@ class DashboardsController < ApplicationController
   end
 
   def create
-
+    time_zone = params[:firm][:user][:time_zone]
     firm_name = params[:firm][:name]
     firm_from_db = Firm.find_by(:name => firm_name)
     #if !firm_from_db
@@ -29,6 +29,7 @@ class DashboardsController < ApplicationController
 
       @user.firm = @firm
       @user.role = :admin
+      @user.time_zone = time_zone
    # else
    #   @firm = firm_from_db
    #   @user.firm = @firm

@@ -205,7 +205,7 @@
 </table>
 </div>
 
-<% @medical.injuries.each.with_index(1) do |injury,index| %>
+<% @injuries.each.with_index(1) do |injury,index| %>
   <%= f.simple_fields_for :injuries, injury do |i| %>
   <hr class="invis">
   <div class="injury-table-container">

@@ -43,6 +43,8 @@
         <td colspan="2">
               <% if !@case %>
                   <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "task_select"}, :class => 'table-input', label: false  %>
+                <% else %>
+                  <%= @case.name %>
                 <% end %>
         </td>
       </tr>

@@ -1,4 +1,4 @@
-<%= form_for :note, url: note_path(@note), method: :patch do |f| %>
+<%= simple_form_for @note do |f| %>
 
 <div class="text-center">
 <table id="info-table4">
@@ -47,7 +47,11 @@
           <strong>Case:</strong>
         </td>
         <td colspan="2">
-      		<%= f.select  :case_id, @firm.cases.all.collect { |c| [c.name, c.id ]}, :class => 'table-input', :id => 'note_select' %>
+      		 <% if !@case %>
+              <%= f.association :case, :collection => @user.cases, :input_html => {:id => "note_select"}, label: false %>
+           <% else %>
+              <%= @case.name %>
+           <% end %>
         </td>
       </tr>
          <tr>
@@ -55,7 +59,7 @@
           <strong>Type:</strong>
         </td>
         <td colspan="2">
-           <%= f.select :note_type,  ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], :class => 'table-input' %>
+           <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input' %>
         </td>
       </tr>
       <tr>

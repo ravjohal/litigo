@@ -24,7 +24,8 @@ class NotesController < ApplicationController
   # GET /notes/1
   # GET /notes/1.json
   def show
-   
+    @note = Note.find(params[:id])
+    restrict_access("notes") if @note.user_id != current_user.id    
   end
 
   # GET /notes/new
@@ -35,6 +36,7 @@ class NotesController < ApplicationController
   # GET /notes/1/edit
   def edit
     @note = Note.find(params[:id])
+    restrict_access("notes") if @note.user_id != current_user.id     
   end
 
   # POST /notes

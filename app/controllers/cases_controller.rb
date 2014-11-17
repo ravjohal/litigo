@@ -10,6 +10,8 @@ class CasesController < ApplicationController
   end
 
   def show
+    @case = Case.find(params[:id])
+    restrict_access("cases") if @case.user_id != current_user.id
   end
 
   def new
@@ -18,6 +20,8 @@ class CasesController < ApplicationController
   end
 
   def edit
+    @case = Case.find(params[:id])
+    restrict_access("cases") if @case.user_id != current_user.id
   end
   
   def create

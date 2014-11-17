@@ -20,7 +20,8 @@ class TasksController < ApplicationController
   # GET /tasks/1
   # GET /tasks/1.json
   def show
-    
+    @task = Task.find(params[:id])
+    restrict_access("tasks") if @task.user_id != current_user.id     
   end
 
   # GET /tasks/new
@@ -30,6 +31,8 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
+    @task = Task.find(params[:id])
+    restrict_access("tasks") if @task.user_id != current_user.id     
     if get_case
       @tasks_a = [@case, @task] #for modal partial rendering
     else
@@ -70,7 +73,6 @@ class TasksController < ApplicationController
       @task = @case.tasks.create(task_params)
       path_tasks = case_tasks_path
     else
-      @task = Task.new(task_params)
       path_tasks = tasks_path
     end
 

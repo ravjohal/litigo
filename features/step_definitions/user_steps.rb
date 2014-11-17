@@ -40,7 +40,6 @@ end
 
 Then(/^I should logged in$/) do
   expect(page).to have_content('Welcome, Artem Suchov')
-  expect(current_path).to eq dashboards_path
 end
 
 When(/^I fill in the sign up form with invalid data$/) do

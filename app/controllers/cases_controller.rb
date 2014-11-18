@@ -7,6 +7,10 @@ class CasesController < ApplicationController
   def index
     @cases = @user.cases.includes(:medical)
     @new_path = new_case_path
+    respond_to do |format|
+      format.html
+      format.json { render json: CasesDatatable.new(view_context) }
+    end
   end
 
   def show

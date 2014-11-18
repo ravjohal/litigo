@@ -45,9 +45,17 @@
                     <%= f.text_field :last_name, label: false, :class => 'table-input' %>
                 </td>
             </tr>
+              <tr>
+                <td>
+                  <strong>Corporation:</strong>
+                </td>
+                <td>
+                    <%= f.check_box :corporation, label: false, :class => 'table-input' %>
+                </td>
+            </tr>  
                <tr>
                 <td>
-                    <strong>Company</strong>
+                    <strong>Company or Firm:</strong>
                 </td>
                 <td>
                     <%= f.text_field :company, label: false, :class => 'table-input' %>
@@ -125,14 +133,7 @@
                     <%= f.text_field :age, label: false, :class => 'table-input' %>
                 </td>
             </tr>  
-            <tr>
-                <td>
-                  <strong>Corporation:</strong>
-                </td>
-                <td>
-                    <%= f.input :corporation, label: false, :class => 'table-input' %>
-                </td>
-            </tr>  
+          
         </tbody>
       </table>
      <% if action_name == "index" %>        

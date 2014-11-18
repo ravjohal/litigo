@@ -32,15 +32,7 @@
         <strong>Contact Type:</strong>
         </td>
         <td>
-          <%= f.select :type, Contact::TYPES, :class => 'table-input' %>      
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Company Name:</strong>
-        </td>
-        <td>
-          <%= f.text_field :company, :class => 'table-input' %>
+          <%= f.select :type, Contact::TYPES, :class => 'table-input'  %>      
         </td>
       </tr>
       <tr>
@@ -68,6 +60,22 @@
           
         </td>
       </tr>
+      <tr>
+            <td>
+                  <strong>Corporation:</strong>
+                </td>
+                <td>
+                    <%= f.check_box :corporation, label: false, :class => 'table-input' %>
+                </td>
+            </tr>  
+      <tr>
+        <td class="right">
+          <strong>Company or Firm:</strong>
+        </td>
+        <td>
+          <%= f.text_field :company, :class => 'table-input' %>
+        </td>
+      </tr>
         <tr>
         <td class="right">
           <strong>Address:</strong>
@@ -90,7 +98,7 @@
           <strong>State:</strong>
         </td>
         <td>
-        <%= f.select :state, us_states, :class => 'table-input' %>
+        <%= f.select :state, us_states, :class => 'table-input', :include_blank => true  %>
           
         </td>
       </tr>
@@ -145,14 +153,7 @@
         <%= f.number_field :age, :class => 'table-input-small' %>
         </td>
       </tr>
-      <tr>
-        <td class="right">
-          <strong>Corporation:</strong>
-        </td>
-        <td>
-        <%= f.input :corporation, :class => 'table-input-small', label: false %>
-        </td>
-      </tr>
+      
   </tbody>
 </table>
 

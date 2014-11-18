@@ -33,14 +33,6 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Company Name:</strong>
-        </td>
-        <td>
-          <%= @contact.company %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
           <strong>First Name:</strong>
         </td>
         <td>
@@ -63,6 +55,22 @@
           <%= @contact.last_name %>
         </td>
       </tr>
+       <tr>
+        <td class="right">
+          <strong>Corporation:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @contact.corporation %>
+        </td>
+      </tr> 
+        <tr>
+        <td class="right">
+          <strong>Company or Firm:</strong>
+        </td>
+        <td>
+          <%= @contact.company %>
+        </td>
+      </tr>      
         <tr>
         <td class="right">
           <strong>Address:</strong>
@@ -127,14 +135,7 @@
           <%= @contact.age %>
         </td>
       </tr>
-       <tr>
-        <td class="right">
-          <strong>Age:</strong>
-        </td>
-        <td>
-          <%= @contact.corporation %>
-        </td>
-      </tr>      
+      
   </tbody>
 </table>
 

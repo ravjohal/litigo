@@ -48,7 +48,7 @@
                   <strong>Type:</strong>
               </td>
               <td>
-                  <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input' %>
+                  <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input', :include_blank => '' %>
               </td>
           </tr>
           <tr>

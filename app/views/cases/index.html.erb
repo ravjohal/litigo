@@ -19,7 +19,7 @@
             <td><%= one_case.case_number %></td>
             <td><%= one_case.case_type %></td>
             <td><%= number_to_currency one_case.medical.total_med_bills, precision: 0 if one_case.medical %></td>
-            <td><%= one_case.description %></td>
+            <td><div class="table-row-max-h"><%= one_case.description %></div></td>
             <td><%= one_case.status %></td>
           </tr>
         <% end %>

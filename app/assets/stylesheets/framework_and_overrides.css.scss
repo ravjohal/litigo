@@ -36,20 +36,17 @@ main {
   @extend .container;
   background-image: image-url("wood.jpg");
   padding-bottom: 500px;
- // width: 100%;
-  //margin-top: 11px; // accommodate the navbar
   background-color: #E5E5E5;
   background-repeat: no-repeat;
   background-position: left top;
   background-size: 100% 550px;
   width: auto;
   margin: 0 auto;
-  }
+}
 section {
   @extend .row;
   margin-top: 20px;
-  }
-
+}
 
 // Styles for Devise views
 // using Bootstrap
@@ -143,8 +140,7 @@ section {
     border-radius: 4px;
     cursor: pointer;
     transition: .2s;
-    }
-
+}
 
 .form-actions{
   float: right;
@@ -168,7 +164,6 @@ section {
 .authform fieldset {
   @extend .well;
 }
-
 
 #error_explanation {
   @extend .table;
@@ -199,7 +194,6 @@ section {
 .navbar {
   margin-bottom: 0px;
 }
-
 
 a.action-button{
   font-family: sans-serif;
@@ -436,7 +430,6 @@ input:focus {
 #info-table2 tr:nth-child(odd){
  background: white;
 }
-
 #info-table3{
   table-layout: fixed;
   margin: 0 auto 40px auto;
@@ -512,7 +505,6 @@ td.col-one {
   color: white;
   }
 
-
 .pad-left{
   margin-left: 72px;
 }
@@ -546,7 +538,6 @@ vertical-align: middle;
   display: inline-block;
   font-family: sans-serif;
 }
-
 
 #nav-tabs-custom{
   position: fixed;
@@ -727,7 +718,6 @@ color: #323A45;
   top: 55px;
 }
 
-
 /* FORMS */
 
 .case-inputs-head{
@@ -793,7 +783,6 @@ input {
   width: 40px;
 }
 
-
 textarea {
   text-indent: 5px;
   color: inherit;
@@ -852,7 +841,6 @@ width: 100%;
   background-color: #fff;
 }
 
-
 .select2-container{
   border-radius: 4px;
   border: none;
@@ -899,8 +887,6 @@ width: 100%;
   z-index: 8000;
   width: 100%;
 }
-
-
 
 #document_document{
   position: relative;

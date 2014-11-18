@@ -104,7 +104,7 @@
           <strong>Insurance Company:</strong>
         </td>
         <td>
-           <%= f.select :insurance_provider, Incident::INSURANCE_PROVIDERS, :class => 'table-input' %>
+           <%= f.select :insurance_provider, Incident::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
         </td>
       </tr>
       <tr>

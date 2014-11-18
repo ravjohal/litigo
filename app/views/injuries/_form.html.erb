@@ -13,7 +13,7 @@
                   <strong>Region:</strong>
                 </td>
                 <td>
-                  <%= f.select :region, Injury::REGION_TYPE, label: false, :class => 'table-input' %>
+                  <%= f.select :region, Injury::REGION_TYPE, label: false, :class => 'table-input', :include_blank => '' %>
                 </td>
               </tr>
               <tr>
@@ -21,7 +21,7 @@
                   <strong>Injury Type:</strong>
                 </td>
                 <td>
-                  <%= f.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input' %>
+                  <%= f.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input', :include_blank => '' %>
                 </td>
               </tr>
               <tr>
@@ -187,7 +187,7 @@
           <strong>Type of Surgery:</strong>
         </td>
         <td>
-           <%= f.select :surgery_type, ['Arthroscopic', 'Open'], :class => 'table-input' %>
+           <%= f.select :surgery_type, ['Arthroscopic', 'Open'], :include_blank => '', :class => 'table-input' %>
         </td>
       </tr>
       <tr>

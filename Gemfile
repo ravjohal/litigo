@@ -4,7 +4,7 @@ gem 'rails', '~> 4.2.0.beta2'
 gem 'ffi', '~> 1.9.5'
 #Rack-based asset packaging system
 gem 'sprockets-rails', '~> 3.0.0.beta1'
-gem 'sass-rails', '~> 5.0.0.beta1'
+gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => 'master'
 gem 'uglifier', '~> 2.5.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.2'

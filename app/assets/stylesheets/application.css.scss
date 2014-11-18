@@ -20,6 +20,7 @@
  *= require select2
  *= require jquery.tagit
  *= require d3/nv.d3
+ *= require tagit/tagit.ui-zendesk
  */
  @import "font-awesome";
 $icon-font-path: "/assets/";
@@ -37,3 +38,4 @@ $icon-font-path: "/assets/";
 .alert {
   z-index: 1100;
 }
+

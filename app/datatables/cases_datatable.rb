@@ -1,5 +1,6 @@
 class CasesDatatable
   delegate :params, :h, :link_to, :number_to_currency, to: :@view
+  include ActionView::Helpers::TagHelper
 
   def initialize(view, user)
     @view = view
@@ -25,7 +26,7 @@ class CasesDatatable
           one_case.case_number,
           one_case.case_type,
           total_med_bills,
-          one_case.description,
+          content_tag(:div, one_case.description, class: "case-description").html_safe,
           one_case.status
       ]
     end

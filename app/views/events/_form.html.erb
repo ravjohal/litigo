@@ -11,14 +11,7 @@
 
          <table class="case-form table-condensed">
             <tbody>
-                <tr>
-                    <td>
-                        <strong>Summary:</strong>
-                    </td>
-                    <td>
-                        <%= f.text_field :summary, label: false, :class => 'table-input' %>
-                    </td>
-                </tr>
+               
                 <tr>
                     <td>
                         <strong>Subject:</strong>
@@ -84,7 +77,7 @@
                     </td>
                 </tr>
                 
-                <tr>
+               <!-- <tr>
                     <td>
                         <strong>Reminder:</strong>
                     </td>
@@ -92,7 +85,7 @@
                         <%= f.check_box :reminder, label: false, :class => 'table-input'%>
                     </td>
                 </tr>
-               <!-- <tr>
+                <tr>
                     <td>
                       Status:
                     </td>
@@ -108,6 +101,14 @@
                     </td>
                     <td>
                        <%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]}, :class => 'table-input' %>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="big-row">
+                        <strong>Note:</strong>
+                    </td>
+                    <td class="big-row">
+                        <%= f.text_area :summary, label: false, :class => 'table-text' %>
                     </td>
                 </tr>
                 <% end %>

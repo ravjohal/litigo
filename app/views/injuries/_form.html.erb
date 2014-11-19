@@ -252,7 +252,14 @@
             <strong>Ongoing Pain:</strong>
           </td>
           <td>
-             <%= f.input :ongoing_pain, :class => 'table-input', label: false %>
+             <div class='radio'>
+                  <%= f.radio_button :ongoing_pain, 'true' %> 
+                  <%= label :ongoing_pain, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= f.radio_button :ongoing_pain, 'false' %>
+                  <%= label :ongoing_pain, 'No', :value => 'No'%>
+              </div>
           </td>
         </tr>
               

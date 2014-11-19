@@ -11,7 +11,7 @@ task :setbooleans => :environment do
 			table = model.to_s.downcase.pluralize.underscore
 			puts "MODEL UNDERSCORED ;;;;;;;;;;;; " + table
 			if v.type.to_s == "boolean"
-				sql = "ALTER TABLE #{model} ALTER COLUMN #{k} SET DEFAULT false;"
+				sql = "ALTER TABLE #{table} ALTER COLUMN #{k} SET DEFAULT false;"
 				bool_false = ActiveRecord::Base.connection.execute(sql)
 				puts sql
 				puts k

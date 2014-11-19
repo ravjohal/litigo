@@ -81,7 +81,7 @@
                   <Strong>State:</Strong>
                 </td>
                 <td>
-                     <%= f.select :state, us_states, label: false, :class => 'table-input' %>
+                     <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
                 </td>
           </tr>
           <tr>
@@ -123,7 +123,7 @@
                             <strong>Primary Injury:</strong>
                         </td>
                         <td>
-                              <%= inj.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input' %>
+                              <%= inj.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input',  %>
                         </td>
                         <td>
                             <strong>Region:</strong>

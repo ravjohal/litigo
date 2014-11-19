@@ -91,3 +91,9 @@ hr.invis {
  vertical-align: top;
 }
 
+.case-description {
+  max-width: 150px;
+  overflow: hidden; /* this is what fixes the expansion */
+  text-overflow: ellipsis; /* not supported in all browsers, but I accepted the tradeoff */
+  white-space: nowrap;
+}

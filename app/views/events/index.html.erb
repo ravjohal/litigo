@@ -27,9 +27,9 @@ $(document).ready(function() {
       });
     },
     header: {
-      left:   '',
-      center: '',
-      right:  'prev, title, next'
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,basicWeek,basicDay'
     },
     events: <%= @events_list.to_json.html_safe %>
   })

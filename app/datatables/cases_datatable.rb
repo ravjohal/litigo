@@ -10,8 +10,8 @@ class CasesDatatable
   def as_json(options = {})
     {
         sEcho: params[:sEcho].to_i,
-        iTotalRecords: Case.count,
-        iTotalDisplayRecords: cases.total_entries,
+        iTotalRecords: cases.count(:all),
+        iTotalDisplayRecords: cases.count(:all),
         aaData: data
     }
   end
@@ -44,7 +44,7 @@ class CasesDatatable
     end
     cases = cases.page(page).per_page(per_page)
     if params[:sSearch].present?
-      cases = cases.where("name like :search or case_type like :search", search: "%#{params[:sSearch]}%")
+      cases = @user.cases.search_case(params[:sSearch])
     end
     cases
   end

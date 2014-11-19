@@ -1,0 +1,78 @@
+<%= simple_form_for @case do |f| %>
+  <%= f.error_notification %>
+     <% if action_name == "index" %>
+      <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+           <a class="close" data-dismiss="modal">×</a>
+            <h2>Assign Contacts</h2>
+          </div>
+          <div class="modal-body">
+     <% end %>
+
+     <table class="contact-form table-condensed">
+       <tbody>
+      <tr>
+        <td class="right">
+           <strong>Plaintiff(s):</strong>
+        </td>
+        <td>
+           <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Defendant(s):</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Judge:</strong>
+        </td>
+        <td>
+          <%= f.select :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Assigned Attorney(s):</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Assigned Staff:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+  </tbody>
+      </table>
+     <% if action_name == "index" %>        
+          </div><!--end of modal-body-->
+          <div class="modal-footer">
+            <div class="pull-left">
+              <a class="close" data-dismiss="modal">Cancel</a> 
+            </div>
+     <% end %>
+
+            <div class="form-actions">
+                <%= f.button :submit, :class =>"sub2-small" %>
+            </div>
+
+     <% if action_name == "index" %>
+            </div><!--end of modal-footer-->
+        </div><!--end of modal-content-->
+      </div><!--end of modal-dialog-->
+     <% end %>
+<% end %>
+ <script>
+    $(document).ready(function() { $("#judge_select, #attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2(); });
+  </script>

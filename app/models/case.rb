@@ -6,8 +6,6 @@ class Case < ActiveRecord::Base
 
   #enum status: { open: 0, pending: 1, closed: 2 }
 
-  has_many :contacts
-
   has_one :incident, dependent: :destroy
   has_one :medical, dependent: :destroy
   has_one :resolution, dependent: :destroy
@@ -15,12 +13,18 @@ class Case < ActiveRecord::Base
   belongs_to :user
   belongs_to :firm
 
+  has_many :case_contacts, :dependent => :destroy
+  has_many :contacts, :through => :case_contacts
+
   has_many :case_documents, :dependent => :destroy
   has_many :documents, :through => :case_documents
+
   has_many :case_tasks, :dependent => :destroy
   has_many :tasks, :through => :case_tasks
+
   has_many :case_events, :dependent => :destroy
   has_many :events, :through => :case_events
+  
   has_many :notes
 
   # searchable do

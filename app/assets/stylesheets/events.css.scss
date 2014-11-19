@@ -18,7 +18,7 @@
 .calendar-table {
   position: relative;
   #calendar {
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
     .fc-header {
       margin-bottom: 15px;
@@ -28,6 +28,10 @@
       color: #ccc;
     }
   }
+}
+
+.calendar-table tr:nth-child(even){
+ background: white;
 }
 
 .fc-header{

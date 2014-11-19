@@ -6,9 +6,11 @@
   </ol>
 
   <%= render partial: 'shared/case_tabs' %>
-<% end %>
 
+<%= render 'new_contacts_button' %>
+<% else %>
 <%= render 'new_button' %>
+<% end %>
 
   <div class="table-responsive">
     <table id="tasks" class="table table-striped table-hover rowlink">
@@ -38,8 +40,9 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $('#new_modal').click(function(event){
+  $('#new_modal, #assign_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
+    $("#modal-window2").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
   });
   <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
 

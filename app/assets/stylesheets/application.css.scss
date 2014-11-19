@@ -36,10 +36,12 @@ $icon-font-path: "/assets/";
 
 .table-responsive {
 //  position: relative;
-  margin-top: 40px;
+  margin-top: 43px;
+  margin-left: -15px;
+  width: 103%;
 }
 
 .alert {
-  z-index: 1100;
+  z-index: 1000;
 }
 

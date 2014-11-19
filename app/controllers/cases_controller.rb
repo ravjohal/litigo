@@ -9,7 +9,7 @@ class CasesController < ApplicationController
     @new_path = new_case_path
     respond_to do |format|
       format.html
-      format.json { render json: CasesDatatable.new(view_context) }
+      format.json { render json: CasesDatatable.new(view_context, current_user) }
     end
   end
 

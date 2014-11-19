@@ -27,6 +27,11 @@ class Case < ActiveRecord::Base
   
   has_many :notes
 
+  include PgSearch
+  pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
+                  using: {tsearch: {dictionary: "english", prefix: true}},
+                  associated_against: { :medical => :total_med_bills }
+
   # searchable do
   #   text :state
   #   text :court

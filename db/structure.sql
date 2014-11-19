@@ -208,13 +208,13 @@ CREATE TABLE contacts (
     user_id integer,
     contact_user_id integer,
     case_id integer,
-    married boolean,
-    employed boolean,
+    married boolean DEFAULT false,
+    employed boolean DEFAULT false,
     job_description text,
     salary numeric,
-    parent boolean,
-    felony_convictions boolean,
-    last_ten_years boolean,
+    parent boolean DEFAULT false,
+    felony_convictions boolean DEFAULT false,
+    last_ten_years boolean DEFAULT false,
     jury_likeability integer,
     witness_type character varying,
     witness_subtype character varying,
@@ -225,7 +225,7 @@ CREATE TABLE contacts (
     firm_id integer,
     user_account_id integer,
     company character varying,
-    corporation character varying
+    corporation boolean DEFAULT false
 );
 
 
@@ -329,8 +329,8 @@ CREATE TABLE events (
     location character varying,
     date date,
     "time" time without time zone,
-    all_day boolean,
-    reminder boolean,
+    all_day boolean DEFAULT false,
+    reminder boolean DEFAULT false,
     notes text,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
@@ -338,11 +338,11 @@ CREATE TABLE events (
     google_id character varying,
     etag character varying,
     status character varying,
-    "htmlLink" character varying,
+    html_link character varying,
     summary character varying,
     start timestamp without time zone,
     "end" timestamp without time zone,
-    "endTimeUnspecified" boolean,
+    end_time_unspecified boolean DEFAULT false,
     transparency character varying,
     visibility character varying,
     "iCalUID" character varying,
@@ -459,15 +459,15 @@ CREATE TABLE incidents (
     weather_factor boolean DEFAULT false,
     property_damage numeric(10,2),
     airbag_deployed boolean DEFAULT false,
-    speed character varying,
-    police_report boolean,
+    speed character varying(255),
+    police_report boolean DEFAULT false,
     case_id integer,
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     insurance_provider character varying,
     firm_id integer,
-    towed boolean,
-    complaint_at_scene boolean
+    towed boolean DEFAULT false,
+    complaint_at_scene boolean DEFAULT false
 );
 
 
@@ -496,30 +496,30 @@ ALTER SEQUENCE incidents_id_seq OWNED BY incidents.id;
 
 CREATE TABLE injuries (
     id integer NOT NULL,
-    injury_type character varying,
-    region character varying,
-    code character varying,
-    dominant_side boolean,
-    joint_fracture boolean,
-    displaced_fracture boolean,
-    disfigurement boolean,
-    impairment boolean,
-    permanence boolean,
-    disabled boolean,
-    disabled_percent numeric(5,2),
-    surgery boolean,
-    surgery_count integer,
-    surgery_type character varying,
-    casted_fracture boolean,
-    stitches boolean,
-    future_surgery boolean,
-    future_medicals numeric(10,2),
-    firm_id integer,
-    medical_id integer,
+    injury_type character varying(255),
+    region character varying(255),
+    code character varying(255),
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
-    prior_complaint boolean,
-    "primary" boolean DEFAULT false,
+    medical_id integer,
+    firm_id integer,
+    dominant_side boolean DEFAULT false,
+    joint_fracture boolean DEFAULT false,
+    displaced_fracture boolean DEFAULT false,
+    disfigurement boolean DEFAULT false,
+    impairment boolean DEFAULT false,
+    permanence boolean DEFAULT false,
+    disabled boolean DEFAULT false,
+    disabled_percent numeric(5,2),
+    surgery boolean DEFAULT false,
+    surgery_count integer,
+    surgery_type character varying,
+    casted_fracture boolean DEFAULT false,
+    stitches boolean DEFAULT false,
+    future_surgery boolean DEFAULT false,
+    future_medicals numeric(10,2),
+    prior_complaint boolean DEFAULT false,
+    primary_injury boolean DEFAULT false,
     ongoing_pain boolean
 );
 
@@ -766,9 +766,9 @@ CREATE TABLE users (
     confirmation_sent_at timestamp without time zone,
     unconfirmed_email character varying,
     role integer,
-    show_onboarding boolean DEFAULT true,
-    oauth_refresh_token character varying,
-    oauth_token character varying,
+    show_onboarding boolean DEFAULT false,
+    oauth_refresh_token character varying(255),
+    oauth_token character varying(255),
     oauth_expires_at timestamp without time zone,
     google_email character varying,
     firm_id integer,
@@ -1638,4 +1638,6 @@ INSERT INTO schema_migrations (version) VALUES ('20141113085804');
 INSERT INTO schema_migrations (version) VALUES ('20141117033617');
 
 INSERT INTO schema_migrations (version) VALUES ('20141118073552');
+
+INSERT INTO schema_migrations (version) VALUES ('20141118091648');
 

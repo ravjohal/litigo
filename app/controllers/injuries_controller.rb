@@ -31,16 +31,16 @@ class InjuriesController < ApplicationController
 
     @medical = get_medical
     @case = @medical.case
-    primary = false
+    primary_injury = false
 
     #set primary to true before creating an injury if there are no existing injuries
     if !@medical.injuries.present?
-      primary = true  
+      primary_injury = true  
     end
 
     @injury = @medical.injuries.create(injury_params)
     @injury.firm = @firm
-    @injury.primary = primary
+    @injury.primary_injury = primary_injury
 
     respond_to do |format|
       if @injury.save
@@ -77,7 +77,7 @@ class InjuriesController < ApplicationController
 
     if @medical.injuries.first
       old_inj = @medical.injuries.first
-      old_inj.primary = true
+      old_inj.primary_injury = true
       old_inj.save!
     end
     

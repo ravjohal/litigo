@@ -98,6 +98,16 @@
   </tr>
 </thead>
   <tbody>
+    <tr>
+        <td class="right">
+            <strong>Judge:</strong>
+        </td>
+        <td>
+          <% @case.contacts.where("type = 'Judge'").each do |d| %>
+          <%= d.first_name %> <%= d.last_name %>
+           <% end %>
+        </td>
+      </tr>
       <tr>
         <td class="right">
            <strong>Plaintiff(s):</strong>
@@ -119,6 +129,7 @@
            <% end %>
         </td>
       </tr>
+    
       <tr>
         <td class="right">
             <strong>Assigned Attorney(s):</strong>

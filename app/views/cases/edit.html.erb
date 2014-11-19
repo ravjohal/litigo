@@ -103,6 +103,14 @@
   </tr>
 </thead>
   <tbody>
+  <tr>
+        <td class="right">
+            <strong>Judge:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
       <tr>
         <td class="right">
            <strong>Plaintiff(s):</strong>
@@ -119,6 +127,7 @@
           <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'table-input' %>
         </td>
       </tr>
+       
       <tr>
         <td class="right">
             <strong>Assigned Attorney(s):</strong>
@@ -129,7 +138,7 @@
       </tr>
       <tr>
         <td class="right">
-           <strong>Assigned Staff(s):</strong>
+           <strong>Assigned Staff:</strong>
         </td>
         <td>
           <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
@@ -178,7 +187,7 @@
           <strong>Status:</strong>
         </td>
         <td>
-          <%= f.input :status, collection: Case::STATUS, selected: 'open', :class => 'table-input', label: false %>
+          <%= f.input :status, collection: Case::STATUS, :class => 'table-input', label: false %>
         </td>
          <td class="right">
           <strong>Date Closed:</strong>
@@ -194,7 +203,7 @@
 <% end %>
 
   <script>
-    $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2(); });
+    $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select, #judge_select").select2(); });
   </script>
 
 

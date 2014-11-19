@@ -51,12 +51,12 @@ class GoogleCalendars
                   google_calendar_id: calendar_id,
                   google_id: e['id'],
                   status: e['status'],
-                  htmlLink: e['htmlLink'],
+                  html_link: e['htmlLink'],
                   summary: e['summary'],
                   all_day: !e['start']['dateTime'].present?,
                   start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
                   end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
-                  endTimeUnspecified: e['endTimeUnspecified'],
+                  end_time_unspecified: e['endTimeUnspecified'],
                   transparency: e['transparency'],
                   visibility: e['visibility'],
                   location: e['location'],
@@ -139,9 +139,9 @@ class GoogleCalendars
         event.update({
                           etag: response['etag'],
                           google_id: response['id'],
-                          htmlLink: response['htmlLink'],
+                          html_link: response['htmlLink'],
                           iCalUID: response['iCalUID'],
-                          endTimeUnspecified: response['endTimeUnspecified'],
+                          end_time_unspecified: response['endTimeUnspecified'],
                           transparency: response['transparency'],
                           visibility: response['visibility'],
                           sequence: response['sequence']
@@ -202,9 +202,9 @@ class GoogleCalendars
         event.update({
                          etag: response['etag'],
                          google_id: response['id'],
-                         htmlLink: response['htmlLink'],
+                         html_link: response['htmlLink'],
                          iCalUID: response['iCalUID'],
-                         endTimeUnspecified: response['endTimeUnspecified'],
+                         end_time_unspecified: response['endTimeUnspecified'],
                          transparency: response['transparency'],
                          visibility: response['visibility'],
                          sequence: response['sequence']

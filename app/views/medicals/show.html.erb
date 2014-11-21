@@ -243,6 +243,14 @@
         </td>
       </tr>
       <tr>
+        <td>
+            <strong>Prior Complaints in Same Area:</strong>
+        </td>
+        <td>
+            <%= boolean_as_yesno injury.prior_complaint %>
+        </td>
+      </tr>
+      <tr>
         <td colspan='2'>
           <strong>In a Doctor's Opinion:</strong>
         </td>
@@ -270,14 +278,6 @@
         </td>
         <td>
           <%= injury.disabled_percent %>%
-        </td>
-      </tr>
-      <tr>
-        <td>
-            <strong>Prior Complaints in Same Area:</strong>
-        </td>
-        <td>
-            <%= boolean_as_yesno injury.prior_complaint %>
         </td>
       </tr>
   </tbody>

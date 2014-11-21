@@ -1,40 +1,34 @@
 <div id="insights_filter" class="well">
   <div class="row">
     <div class="col-md-2 box right_whiteborder">
-      <label>INJURY:</label>
-      <%= select_tag "f_injury", options_for_select(Injury::INJURY_TYPE), :include_blank => true, class: 'optional full-width' %>
-      <div style="padding-top:10px;">
-        <span class="rdobtn left active" data-val="only">Primary only</span><span class="rdobtn right" data-val="any">Any Injury</span>
-      </div>
+     <label>STATE:</label>
+        <%= select_tag "f_state", options_from_collection_for_select(@us_states, "last", "first"), :include_blank => true, class: 'optional full-width' %>
+      <label style="margin-top:10px;">COUNTY:</label>
+        <select id="f_county" class="optional full-width"></select>
+      
     </div>
     <div class="col-md-8 box right_whiteborder">
-      <div class="col-md-3">
-        <label>INSURANCE PROVIDER:</label>
-        <%= select_tag "f_insuer", options_for_select(Incident::INSURANCE_PROVIDERS), :include_blank => true, class: 'optional full-width' %>
-        <label>REGION:</label>
-        <%= select_tag "f_region", options_for_select(Injury::REGION_TYPE), :include_blank => true, class: 'optional full-width' %>
+      <div class="col-md-6">
+          <label>INJURY:</label>
+        <%= select_tag "f_injury", options_for_select(Injury::INJURY_TYPE), :include_blank => true, class: 'optional full-width' %>
+      <div style="padding-top:8px; margin-left: 5px;">
+        <span class="rdobtn left active full-width" data-val="only">Primary Only</span><span class="rdobtn right full-width" data-val="any">Any Injury</span>
+      </div>
+        
       </div>
       <div class="col-md-6">
-        <br/>
-        <label>STATE(S):</label>
-        <%= select_tag "f_state", options_from_collection_for_select(@us_states, "last", "first"), :include_blank => true, class: 'optional full-width' %>
-      </div>
-      <div class="col-md-3">
-        <br/>
-        <label>COUNTY:</label>
-        <select id="f_county" class="optional full-width"></select>
-        <div style="display:none;">
-          <label>JUDGE:</label>
-          <%= select_tag "f_judge", options_for_select(Contact::TYPES), :include_blank => true, class: 'optional full-width' %>
-        </div>
+          <label>REGION:</label>
+        <%= select_tag "f_region", options_for_select(Injury::REGION_TYPE), :include_blank => true, class: 'optional full-width' %><p>
+        <label style="margin-top:10px;">INSURANCE PROVIDER:</label>
+        <%= select_tag "f_insuer", options_for_select(Incident::INSURANCE_PROVIDERS), :include_blank => true, class: 'optional full-width' %>
       </div>
     </div>
     <div class="col-md-2 box">
-      <div class="full-width center" style="margin-top:10px;">
+      <div class="full-width center" style="margin-top:25px;">
         <a id="btnFilterSearch" class="action-button" href="javascript:void(0)">SEARCH</a>
       </div>
       <div class="full-width center" style="margin-top:30px;">
-        <a id="btnFilterReset" class="action-button" href="javascript:void(0)">RESET</a>  
+        <a id="btnFilterReset" class="reset" href="javascript:void(0)">Reset</a>  
       </div>
     </div>
   </div>

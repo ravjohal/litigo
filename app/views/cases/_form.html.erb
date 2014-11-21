@@ -30,22 +30,6 @@
             <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input' %>
             </td>
           </tr>
-           <tr>
-            <td>
-            <Strong>Plaintiff(s):</Strong>
-            </td>
-            <td colspan="3">
-            <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"} %>
-            </td>
-          </tr>
-            <tr>
-            <td>
-            <Strong>Defendant(s):</Strong>
-            </td>
-            <td colspan="3">
-              <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"} %>
-            </td>
-          </tr>
              <tr>
             <td>
             <Strong>Attorney(s):</Strong>
@@ -95,7 +79,7 @@
                   <strong>Subtype:</strong>
                 </td>
                <td>
-                  <%= f.select :subtype, Case::SUB_TYPES, label: false,  selected: 'Motor Vehicle' %>
+                  <%= f.select :subtype, Case::SUB_TYPES, label: false,  selected: 'Motor Vehicle', :include_blank => true %>
             </td>
           </tr>
            <% if action_name != "edit" %>
@@ -105,7 +89,7 @@
                     <Strong>Incident Date:</Strong>
                   </td>
                   <td>
-                      <%= i.input :incident_date, label: false, :class =>'table-input' %>
+                      <%= i.date_field :incident_date, label: false, :class =>'table-input' %>
                   </td>
             <% end %>
           <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
@@ -123,13 +107,13 @@
                             <strong>Primary Injury:</strong>
                         </td>
                         <td>
-                              <%= inj.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input'  %>
+                              <%= inj.select :injury_type, Injury::INJURY_TYPE, label: false, :class => 'table-input', :include_blank => true  %>
                         </td>
                         <td>
                             <strong>Region:</strong>
                         </td>
                         <td>
-                              <%= inj.select :region, Injury::REGION_TYPE, label: false, :class => 'table-input' %>
+                              <%= inj.select :region, Injury::REGION_TYPE, label: false, :class => 'table-input', :include_blank => true %>
                         </td>
               </tr>
                <% end %> <!-- end of m.simple_fields_for :injuries -->          

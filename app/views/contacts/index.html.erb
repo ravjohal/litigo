@@ -7,7 +7,7 @@
 
   <%= render partial: 'shared/case_tabs' %>
 
-<%= render 'new_contacts_button' %>
+<%= render 'assign_button' %>
 <% else %>
 <%= render 'new_button' %>
 <% end %>
@@ -37,12 +37,15 @@
 
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<% if @case %>
+  <div id="modal-window2" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div> <!-- Modal for assign contacts -->
+<% end %>
 
 <script type="text/javascript">
 $(document).ready(function() {
   $('#new_modal, #assign_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
-    $("#modal-window2").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
+    $("#modal-window2").html("<%= escape_javascript( render 'cases/assign_contacts' ) %>");
   });
   <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
 

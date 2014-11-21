@@ -1,3 +1,4 @@
+<% if @case %>
 <%= simple_form_for @case do |f| %>
   <%= f.error_notification %>
      <% if action_name == "index" %>
@@ -34,7 +35,7 @@
             <strong>Judge:</strong>
         </td>
         <td>
-          <%= f.select :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -72,6 +73,7 @@
         </div><!--end of modal-content-->
       </div><!--end of modal-dialog-->
      <% end %>
+<% end %>
 <% end %>
  <script>
     $(document).ready(function() { $("#judge_select, #attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2(); });

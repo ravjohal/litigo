@@ -80,6 +80,7 @@ class CasesController < ApplicationController
     redirect_to cases_url, notice: 'Case was successfully deleted.'
   end
 
+
   private
     def set_case
       @case = Case.find(params[:id])

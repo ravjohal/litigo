@@ -1,6 +1,6 @@
 <div id="top-custom">
   <ul>
     <li><%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
-    <li><%= link_to "ASSIGN CONTACTS", @edit_contacts_path, {:class => "action-button", :id => "assign_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window2'}  %></li>
+    <li><%= link_to "ASSIGN CONTACTS", @cases_path, {:class => "action-button", :id => "assign_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window2'}  %></li>
   </ul>
 </div>

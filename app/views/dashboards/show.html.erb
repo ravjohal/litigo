@@ -1,4 +1,4 @@
-
+	
 <% if @user.show_onboarding %>
 <div class="text-center">
  	</div>
@@ -18,11 +18,11 @@
   </div>
    
 <% else %>
-
   <h3>User</h3>
   <p>Name: <%= @user.name if @user.name %></p>
   <p>Email: <%= @user.email if @user.email %></p>
   <p>Show Onboarding: <%= @user.show_onboarding if @user.show_onboarding %></p>
-
-<p><button id="startTourBtn" class="btn btn-large btn-primary" onclick="hopscotch.startTour(tour)" >Take a tour</button></p>
 <% end %>
+
+<script src="/assets/javascripts/lib/hopscotch.js"></script>
+<script src="/assets/javascripts/lib/welcome_tour.js"></script>

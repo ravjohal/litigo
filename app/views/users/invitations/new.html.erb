@@ -1,11 +1,38 @@
 <% if current_user.admin? %>
-  <h2><%= t "devise.invitations.new.header" %></h2>
+<div style="width: 600px; margin: 0 auto;">
+  <strong>Invite users to your firm</strong><%= link_to "+ ADD EMPLOYEES", '#', :class => 'add-btn', id: "add_invitee" %>
+  <div class="invite-form">
   <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
     <div class="invitees"><%= render 'user_form' %></div>
-    <%= submit_tag "Invite!", id: "inv_submit" %>
-    <%= link_to "Add invitee", '#', class: "action-button", id: "add_invitee" %>
+    <%= submit_tag "Invite!", id: "inv_submit", :class => "sub2" %>
+    </div>
   <% end %>
 <% end %>
+</div>
+
+<table class="user-table table-striped">
+  <thead class="user-table-head">
+    <tr>
+        <td>Name
+        </td>
+        <td>Email
+        </td>
+        <td>Role
+        </td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+      </td> 
+       <td>
+      </td> 
+       <td>
+      </td> 
+    </tr>
+  </tbody>
+</table>
+
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function () {
     var inv = 1;

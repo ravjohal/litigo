@@ -306,6 +306,21 @@
           </td>
         </tr>
         <tr>
+          <td>
+              <strong>Prior Complaints in Same Area:</strong>
+          </td>
+          <td>
+              <div class='radio'>
+                  <%= i.radio_button :prior_complaint, 'true' %> 
+                  <%= label :prior_complaint, 'Yes', :value => 'Yes' %>
+              </div>
+              <div class='radio'>
+                  <%= i.radio_button :prior_complaint, 'false' %>
+                  <%= label :prior_complaint, 'No', :value => 'No'%>
+              </div>
+          </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <strong>In a Doctor's Opinion:</strong>
             </td>
@@ -348,21 +363,7 @@
             <%= i.text_field :disabled_percent, :class => 'table-input-small'%>%
           </td>
         </tr>
-        <tr>
-          <td>
-              <strong>Prior Complaints in Same Area:</strong>
-          </td>
-          <td>
-              <div class='radio'>
-                  <%= i.radio_button :prior_complaint, 'true' %> 
-    		          <%= label :prior_complaint, 'Yes', :value => 'Yes' %>
-              </div>
-              <div class='radio'>
-    		          <%= i.radio_button :prior_complaint, 'false' %>
-    		          <%= label :prior_complaint, 'No', :value => 'No'%>
-              </div>
-          </td>
-        </tr>
+        
     </tbody>
   </table>
 

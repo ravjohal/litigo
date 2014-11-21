@@ -53,9 +53,12 @@
             </tr>
              <tr>
                 <th></th>
-                <th class="cent"><a href='#' class="cta-alt">Sign Up</a></th>
-                <th class="cent"><a href='#' class="cta">Start Free Trial</a></th>
-                <th class="cent"><a href='#' class="cta">Start Free Trial</a></th>
+                <th class="cent"><%= link_to new_user_registration_path, :class => 'cta-alt' do %>Sign Up
+                <% end %></th>
+                <th class="cent"><%= link_to new_user_registration_path, :class => 'cta' do %>Start Free Trial
+                <% end %></th>
+                <th class="cent"><%= link_to new_user_registration_path, :class => 'cta' do %>Start Free Trial
+                <% end %></th>
             </tr>
         </thead>
          <tfoot>

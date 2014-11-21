@@ -23,12 +23,17 @@
   </thead>
   <tbody>
     <tr>
+      <% @firm.users.each do |user| %>
       <td>
+        <%= user.name %>
       </td> 
        <td>
+        <%= user.email %>
       </td> 
        <td>
+        <%= user.role %>
       </td> 
+      <% end %>
     </tr>
   </tbody>
 </table>

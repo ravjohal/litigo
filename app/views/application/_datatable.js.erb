@@ -1,7 +1,8 @@
 var table = $('.table').dataTable({
   language: {
     search: "_INPUT_",
-    searchPlaceholder: "Search or Filter"
+    searchPlaceholder: "Search or Filter",
+    lengthMenu: "Show _MENU_"
   }
   <% if sort_column && sort_order %>
   , aaSorting: [[ <%= sort_column %>, "<%= sort_order %>" ]]

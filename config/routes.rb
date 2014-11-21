@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :tasks
 
-  resources :contacts  
+  resources :contacts
 
   resources :insights do
     collection do

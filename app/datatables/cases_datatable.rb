@@ -26,7 +26,7 @@ class CasesDatatable
           one_case.case_number,
           one_case.case_type,
           total_med_bills,
-          content_tag(:div, one_case.description, class: "case-description").html_safe,
+          content_tag(:div, one_case.description, class: "table-row-max-h").html_safe,
           one_case.status
       ]
     end

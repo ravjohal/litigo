@@ -27,7 +27,8 @@ $(document).ready(function() {
   var table = $('.table').dataTable({
     language: {
       search: "_INPUT_",
-      searchPlaceholder: "Search or Filter"
+      searchPlaceholder: "Search or Filter",
+      lengthMenu: "Show _MENU_"
     },
     aaSorting: [[ 1, "desc" ]],
     bProcessing: true,

@@ -90,10 +90,6 @@ hr.invis {
 .injury-form td{
  vertical-align: top;
 }
-
-.case-description {
-  max-width: 150px;
-  overflow: hidden; /* this is what fixes the expansion */
-  text-overflow: ellipsis; /* not supported in all browsers, but I accepted the tradeoff */
-  white-space: nowrap;
+#cases > tbody > tr > td:nth-of-type(5) {
+  width: 500px;
 }

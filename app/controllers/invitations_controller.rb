@@ -1,4 +1,9 @@
 class InvitationsController < Devise::InvitationsController
+
+  def new
+    @firm = current_user.firm
+  end
+
   def create
     users_params = params[:users]
     emails = []

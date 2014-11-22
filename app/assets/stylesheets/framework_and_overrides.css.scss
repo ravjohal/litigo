@@ -505,6 +505,27 @@ td.col-one {
   color: white;
   }
 
+  input.sub2-invite{
+  font-weight: normal;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid #3FC2D8;
+  cursor:pointer;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  color: #3FC2D8;
+  height: 35px;
+  width: 200px;
+  margin-bottom: 30px;
+
+  }
+  input.sub2-invite:hover{
+  background:#3FC2D8;
+  border: 1px solid #3FC2D8;
+  transition: .2s;
+  color: white;
+  }
+
 .pad-left{
   margin-left: 72px;
 }
@@ -718,7 +739,7 @@ color: #323A45;
   top: 55px;
 }
 .dataTables_length{
-margin-right: 10px;
+margin-right: 12px;
 }
 
 /* FORMS */

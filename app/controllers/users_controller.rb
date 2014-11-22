@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    @firm = current_user.firm
     authorize @users
   end
 

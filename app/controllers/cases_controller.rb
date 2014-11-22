@@ -5,7 +5,7 @@ class CasesController < ApplicationController
   before_action :set_user, :set_firm
 
   def index
-    @cases = @user.cases.includes(:medical)
+    #@cases = @firm.cases.includes(:medical)
     @new_path = new_case_path
     respond_to do |format|
       format.html
@@ -15,7 +15,7 @@ class CasesController < ApplicationController
 
   def show
     @case = Case.find(params[:id])
-    restrict_access("cases") if @case.user_id != current_user.id
+    restrict_access("cases") if @case.firm_id != @firm.id
   end
 
   def new
@@ -25,7 +25,7 @@ class CasesController < ApplicationController
 
   def edit
     @case = Case.find(params[:id])
-    restrict_access("cases") if @case.user_id != current_user.id
+    restrict_access("cases") if @case.firm_id != @firm.id
   end
   
   def create

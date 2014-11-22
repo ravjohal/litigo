@@ -5,6 +5,7 @@ class CasesDatatable
   def initialize(view, user)
     @view = view
     @user = user
+    @firm = @user.firm
   end
 
   def as_json(options = {})
@@ -38,13 +39,13 @@ class CasesDatatable
 
   def fetch_cases
     if params[:iSortCol_0].to_i == 3
-      cases = @user.cases.joins(:medical).order("total_med_bills #{sort_direction}")
+      cases = @firm.cases.joins(:medical).order("total_med_bills #{sort_direction}")
     else
-      cases = @user.cases.order("#{sort_column} #{sort_direction}")
+      cases = @firm.cases.order("#{sort_column} #{sort_direction}")
     end
     cases = cases.page(page).per_page(per_page)
     if params[:sSearch].present?
-      cases = @user.cases.search_case(params[:sSearch])
+      cases = @firm.cases.search_case(params[:sSearch])
     end
     cases
   end

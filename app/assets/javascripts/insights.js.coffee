@@ -277,8 +277,8 @@ renderChart = ->
       highlightBorderWidth: 3
     fills:
       "Group1": "#C8C8C8"
-      "Group2": "#A9C0DE"
-      "Group3": "#CA5E5B"
+      "Group2": "#0483A0"
+      "Group3": "#0483A0"
       defaultFill: "#C8C8C8"
     data: mapData
 

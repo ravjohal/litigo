@@ -11,7 +11,7 @@ class DocumentsController < ApplicationController
       @new_path = new_case_document_path(@case)
       @documents_a = [@case, Document.new] #for modal partial rendering
     else
-      @documents = @user.documents
+      @documents = @firm.documents
       @new_path = new_document_path
       @documents_a = Document.new #for modal partial rendering
     end
@@ -21,7 +21,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1.json
   def show
     @document = Document.find(params[:id])
-    restrict_access("documents") if @document.user_id != current_user.id   
+    restrict_access("documents") if @document.firm_id != @firm.id   
   end
 
   # GET /documents/new
@@ -32,7 +32,7 @@ class DocumentsController < ApplicationController
   # GET /documents/1/edit
   def edit
     @document = Document.find(params[:id])
-    restrict_access("documents") if @document.user_id != current_user.id 
+    restrict_access("documents") if @document.firm_id != @firm.id 
     if get_case
       @documents_a = [@case, @document] #for modal partial rendering
     else

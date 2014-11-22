@@ -11,7 +11,7 @@ class ContactsController < ApplicationController
       @new_path = new_case_contact_path(@case)
       @contacts_a = [@case, Contact.new] #for modal partial rendering
     else
-      @contacts = @user.contacts
+      @contacts = @firm.contacts
       @new_path = new_contact_path
       @contacts_a = Contact.new #for modal partial rendering
     end
@@ -21,7 +21,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1.json
   def show
     @contact = Contact.find(params[:id])
-    restrict_access("contacts") if @contact.user_id != current_user.id
+    restrict_access("contacts") if @contact.firm_id != @firm.id
   end
 
   # GET /contacts/new
@@ -32,7 +32,7 @@ class ContactsController < ApplicationController
   # GET /contacts/1/edit
   def edit
     @contact = Contact.find(params[:id])
-    restrict_access("contacts") if @contact.user_id != current_user.id    
+    restrict_access("contacts") if @contact.firm_id != @firm.id    
   end
 
   # POST /contacts

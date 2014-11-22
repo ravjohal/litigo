@@ -14,7 +14,7 @@ class NotesController < ApplicationController
       @new_path = new_case_note_path(@case)
       @notes_a = [@case, Note.new] #for modal partial rendering
     else
-      @notes = @user.notes.order("created_at desc")
+      @notes = @firm.notes.order("created_at desc")
       @new_path = new_note_path
       @notes_a = Note.new #for modal partial rendering
     end
@@ -25,7 +25,7 @@ class NotesController < ApplicationController
   # GET /notes/1.json
   def show
     @note = Note.find(params[:id])
-    restrict_access("notes") if @note.user_id != current_user.id    
+    restrict_access("notes") if @note.firm_id != @firm.id    
   end
 
   # GET /notes/new
@@ -36,7 +36,7 @@ class NotesController < ApplicationController
   # GET /notes/1/edit
   def edit
     @note = Note.find(params[:id])
-    restrict_access("notes") if @note.user_id != current_user.id     
+    restrict_access("notes") if @note.firm_id != @firm.id     
   end
 
   # POST /notes

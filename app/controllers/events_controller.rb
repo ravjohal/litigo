@@ -115,6 +115,16 @@ class EventsController < ApplicationController
     return users_emails.uniq
   end
 
+  def refresh_google_events
+    calendar_ids = current_user.google_calendars.where(active: true).map {|calendar| calendar.google_id}.compact
+    calendar_ids.each do |google_id|
+      GoogleCalendars.get_events(current_user, google_id) if google_id.present?
+    end
+    respond_to do |format|
+      format.html {redirect_to request.referrer , notice: 'Google events were refreshed.'}
+    end
+  end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_event

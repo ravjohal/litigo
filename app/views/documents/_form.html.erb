@@ -52,7 +52,7 @@
                       </td>
                       <td>
                         <% if !@case %>
-                                <%= f.association :cases, :collection => @user.cases, :input_html => {:id => "doc_select"}, label: false, :class => 'table-input' %>
+                                <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "doc_select"}, label: false, :class => 'table-input' %>
                         <% end %>
                       </td>
 

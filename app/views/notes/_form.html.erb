@@ -37,7 +37,7 @@
               </td>
               <td>
                <% if !@case %>
-                  <%= f.association :case, :collection => @user.cases, :input_html => {:id => "note_select"}, label: false %>
+                  <%= f.association :case, :collection => @firm.cases, :input_html => {:id => "note_select"}, label: false %>
                <% else %>
                   <%= @case.name %>
                <% end %>

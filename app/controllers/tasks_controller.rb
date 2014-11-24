@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @task = Task.find(params[:id])
-    restrict_access("tasks") if @task.firm_id != firm.id     
+    restrict_access("tasks") if @task.firm_id != @firm.id     
   end
 
   # GET /tasks/new
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
-    restrict_access("tasks") if @task.firm_id != firm.id     
+    restrict_access("tasks") if @task.firm_id != @firm.id     
     if get_case
       @tasks_a = [@case, @task] #for modal partial rendering
     else

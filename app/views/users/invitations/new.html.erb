@@ -1,7 +1,8 @@
 <% if current_user.admin? %>
 <div style="width: 600px; margin: 0 auto;">
   <strong>Invite additional users to your firm</strong><%= link_to "+ ADD EMPLOYEE", '#', :class => 'add-btn pull-right', id: "add_invitee" %>
-  <div class="invite-form">
+  <div class="invite_form">
+  <br>
   <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
     <div class="invitees" style="margin-bottom: 30px;"><%= render 'user_form' %></div>
     </div>

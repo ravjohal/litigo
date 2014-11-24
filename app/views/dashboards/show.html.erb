@@ -1,21 +1,23 @@
 	
 <% if @user.show_onboarding %>
-<div class="text-center">
- 	</div>
-<br>
-  <div class="config">
-		<div class="title"><span class="glyph-cog glyphicon glyphicon-cog"></span>Practice Configuration</div>
-		
-	<ul>
-		<li><%= link_to "/auth/google_oauth2" do %>Sync your Google Calendar<span class="glyph-ok glyphicon glyphicon-ok-sign"></i> 
-<% end %></li>
-<% if @user.admin? %>
-		<li><%= link_to new_invitation_path(@user) do %>Add users to your firm<span class="glyph-ok glyphicon glyphicon-ok-sign"></i> 
-	<% end %></li>
-<% end %>
-		<li><a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)">Take a quick tour<span class="glyph-ok glyphicon glyphicon-ok-sign"></span></a></li>
-	</ul>
+
+<div class="row">
+  <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to "/auth/google_oauth2" do %><div class="tile-new"><div class="tile-top">Google Calendar Sync</div><div class="tile-icon-new"><br><span class="glyphicon glyphicon-calendar"></span></div></div><br><% end %>
   </div>
+  <div class="col-xs-6 col-sm-4 col-md-3">
+  		<a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)">
+  				<div class="tile-new">
+  					<div class="tile-top">Take a Quick Tour</div>
+  				
+  		<div class="tile-icon-new"><br><span class="glyphicon glyphicon-facetime-video"></span>
+
+  				</div>
+  		</div><br></a>
+  </div>
+  <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to new_invitation_path(@user) do %><div class="tile-admin"><div class="tile-top-admin">Add Users to your Firm</div><div class="tile-icon-admin"><br><span class="glyphicon glyphicon-user"></span></div></div><br><% end %>
+  </div>
+</div>
+
    
 <% else %>
   <h3>User</h3>

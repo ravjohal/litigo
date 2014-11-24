@@ -11,7 +11,7 @@ class TasksController < ApplicationController
       @new_path = new_case_task_path(@case)
       @tasks_a = [@case, Task.new] #for modal partial rendering
     else
-      @tasks = @user.tasks
+      @tasks = @firm.tasks
       @new_path = new_task_path
       @tasks_a = Task.new #for modal partial rendering
     end
@@ -21,7 +21,7 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     @task = Task.find(params[:id])
-    restrict_access("tasks") if @task.user_id != current_user.id     
+    restrict_access("tasks") if @task.firm_id != firm.id     
   end
 
   # GET /tasks/new
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
   # GET /tasks/1/edit
   def edit
     @task = Task.find(params[:id])
-    restrict_access("tasks") if @task.user_id != current_user.id     
+    restrict_access("tasks") if @task.firm_id != firm.id     
     if get_case
       @tasks_a = [@case, @task] #for modal partial rendering
     else

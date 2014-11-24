@@ -34,6 +34,8 @@ class GoogleCalendars
     end
     
     def get_events(user, calendar_id)
+      calendar = GoogleCalendar.find_by(google_id: calendar_id)
+      calendar.update(active: true) if calendar
       client = init_client(user)
       calendar = client.discovered_api('calendar', 'v3')
       google_calendar = client.execute(

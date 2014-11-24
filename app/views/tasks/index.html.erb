@@ -26,7 +26,7 @@
       <% @tasks.each do |task| %>
         <tr data-id="<%= task.id %>">
           <td><%= link_to task.name, task_path(task) %></td>
-          <td><%= task.cases.map {|c| c.name}.join(', ') %></td>
+          <td><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
           <td><%= task.description %></td>
           <td><%= task.due_date %></td>
           <td><%= task.completed %></td>
@@ -44,6 +44,5 @@ $(document).ready(function() {
   $('#new_modal').click(function (event) {
     $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
   });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => false, :sort_order => false} %>
 });
 </script>

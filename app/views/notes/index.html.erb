@@ -25,7 +25,7 @@
         <% @notes.each do |note| %>
           <tr data-id="<%= note.id %>">
             <td><%= link_to note.author, note_path(note)  %></td>
-            <td><%= note.case.name if note.case.present? %></td>
+            <td><%= link_to note.case.name,  case_path(note.case) if note.case.present? %></td>
             <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
             <td><%= note.note_type %></td>
             <td><%= note.note %></td>
@@ -42,6 +42,5 @@ $(document).ready(function() {
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @notes_a ) %>");
   });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => false, :sort_order => false} %>
 });
 </script>

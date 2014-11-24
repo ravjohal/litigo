@@ -10,7 +10,7 @@ end
 def gethostforurl
 	hostname_envs   = case
     when Rails.env.production?
-      'litigo.co'
+      'www.litigo.co'
     when Rails.env.staging?
       'litigorav.herokuapp.com'
     else

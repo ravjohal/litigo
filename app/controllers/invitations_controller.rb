@@ -39,12 +39,14 @@ class InvitationsController < Devise::InvitationsController
     invitation_token = Devise.token_generator.digest(User, :invitation_token, params[:invitation_token])
     user = User.find_by(invitation_token: invitation_token)
     if user.present? && user.encrypted_password.present?
+      puts "WHERE AM I ?  ------ Looks like EDIT ------ "
       user.accept_invitation
       inviter = User.find(user.invited_by_id)
       user.firm_id = inviter.firm_id
       user.role = user.invitation_role
       user.invitation_role = nil
       user.save!
+
       redirect_to root_path, notice: 'Invitation accepted.'
     else
       super
@@ -55,5 +57,9 @@ class InvitationsController < Devise::InvitationsController
     super
     resource.name = resource.first_name + " " + resource.last_name
     resource.save
+
+    # class_string_name = User::USER_ROLES[current_user.role].humanize
+    # puts "CONTACT TYPE ------> " + class_string_name
+    # create_contact(class_string_name, current_user, current_user.firm)
   end
 end

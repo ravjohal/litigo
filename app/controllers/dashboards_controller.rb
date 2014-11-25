@@ -4,6 +4,10 @@ class DashboardsController < ApplicationController
   
   def new
     if current_user.firm
+      if !current_user.contact_user
+        puts " WHAT IS CURRENT_USER ROLE -> " + User::USER_ROLES[current_user.role.to_i].to_s
+         create_contact(User::USER_ROLES[current_user.role.to_i].to_s.humanize, current_user, current_user.firm)
+      end
       render :show
     else
       @firm = Firm.new
@@ -39,7 +43,7 @@ class DashboardsController < ApplicationController
     respond_to do |format|
       if @firm.save
         @user.save!
-        create_contact
+        create_contact_from_parms
         format.html { redirect_to dashboard_path(@user), notice: 'Firm and Contact were successfully created.' }
         #format.json { render :show, status: :created, location: @firm }
       else
@@ -51,24 +55,27 @@ class DashboardsController < ApplicationController
 
   private
 
-  def create_contact
+  def create_contact_from_parms
     # contact = Contact.new
     class_string_name = params[:firm][:contact][:type].to_s
 
     if class_string_name == "Staff/Paralegal"
       class_string_name = "Staff"
     end
-    klass=class_string_name
-    hash_ = {:type => class_string_name} #need to pass in hash for new method
-    puts "HASH =====>> " + hash_.inspect
-    contact =klass.constantize_with_care(Contact::TYPES).new(hash_)
+    # klass=class_string_name
+    # hash_ = {:type => class_string_name} #need to pass in hash for new method
+    # puts "HASH =====>> " + hash_.inspect
+    # contact = klass.constantize_with_care(Contact::TYPES).new(hash_)
     #contact = class_string_name.constantize.new #old way, security vulnerability
     
-    contact.first_name = @user.first_name
-    contact.last_name = @user.last_name
-    contact.user = @user
-    contact.firm = @firm
-    contact.save! 
+    # contact.first_name = @user.first_name
+    # contact.last_name = @user.last_name
+    # contact.user = @user
+    # contact.firm = @firm
+    # contact.save!
+
+    create_contact(class_string_name, @user, @firm)
+    #contact.save!
   end
 end
 

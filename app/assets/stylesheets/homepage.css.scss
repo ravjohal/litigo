@@ -99,6 +99,13 @@ section {
     font-size: 16px;
   }
 }
+.form-group {
+  .field_with_errors{
+    input {
+      width: 270px;
+    }
+  }
+}
 .button-xs {
   @extend .btn;
   @extend .btn-primary;

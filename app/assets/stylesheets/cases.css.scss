@@ -4,9 +4,21 @@
 
 .case-form {
 	width: 100%;
+    padding: 0;
+  tr {
+    width: 100%;
+    td:first-of-type {
+      strong {
+        float: right;
+      }
+    }
+    td:nth-of-type(2){
+      width: 55%;
+    }
+  }
 }
 .case-form td:nth-child(1) {
-  float: right;
+  vertical-align: top;
 }
 
 .case-form tr:nth-child(even){

@@ -129,6 +129,7 @@ main {
 }
 
 .computer-text {
+  margin-top: 5px;
   color: #666666;
   padding: 0 10px 0 10px;
   font-size: 175%;
@@ -259,20 +260,7 @@ h1 {
   }
   
 
-.sbox {
-  height: 24px;
-  width: 250px;
-  right: 60px;
-  font-family: sans-serif;
-  font-size: 11px;
-  color: #666666;
-  padding-top: 5px;
-  margin-top: 4px;
-  border-radius: 4px;
-  border: none;
-  text-indent: 8px;
-  letter-spacing: 1px;
-}
+
   .home-nav-banner {
   width: 100%;
   height: 60px;
@@ -348,26 +336,7 @@ h1 {
   transition: .2s;
   color: white;
   }
-  input.sub2{
-  font-weight: normal;
-  padding-right: 25px;
-  padding-left: 25px;
-  font-size: 14px;
-  background: transparent;
-  border: 2px solid #3FC2D8;
-  cursor:pointer;
-  letter-spacing: 2px;
-  border-radius: 4px;
-  color: #3FC2D8;
-  height: 45px;
-  margin-left: 10px;
-  }
-  input.sub2:hover{
-  background:#3FC2D8;
-  border: 2px solid #3FC2D8;
-  transition: .2s;
-  color: white;
-  }
+
   .mission{
   font-family: serif;
   font-size: 30px;
@@ -409,29 +378,6 @@ h1 {
   margin-top: 10px;
    margin-bottom: 90px;
   }
-
-    p.valueprop2{
-    font-weight: lighter;
-    padding-top:15px;
-    font-family: sans-serif;
-    font-size: 16px;
-    line-height: 23px;
-    letter-spacing: 1px;
-    text-align: center;
-    margin: 0 auto;
-    color: #666666;
-    max-width: 800px;
-  }
-
-  
-.short-sentence {
-  font-size: 32px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  padding-top: 300px;
-  margin: 0 auto;
-  text-align: center;
-}
 
 
 
@@ -535,88 +481,6 @@ margin-bottom: 10px;
   text-decoration: none;
   padding-right: 15px;
 }
-
-
-
-
-
-a.request-button{
-  margin: 0 auto;
-  font-family: sans-serif;
-  padding-right: 30px;
-  padding-left: 30px;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  font-size: 14px;
-  background:#0483A0;
-  border: none;
-  cursor:pointer;
-  letter-spacing: 1px;
-  border-radius: 4px;
-  color: White;
-  text-decoration: none;
-  font-weight: lighter;
-  }
-  
-a.request-button:hover{
-  font-family: sans-serif;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  font-size: 14px;
-  background:#3FC2D8;
-  border: none;
-  cursor:pointer;
-  letter-spacing: 1px;  
-  border-radius: 4px;
-  color: white;
-  transition: .2s;
-  text-decoration: none;
-  font-weight: lighter;
-}
-.request{
-  position: relative;
-  top: -30px;
-  text-align: center;
-  margin: 50px auto;
-  padding-bottom: 30px;
-}
-
-  .button1{
-  text-align: center;
-  position: relative;
-  margin: 0 auto;
-  font-family: sans-serif;
-  padding-right: 20px;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  font-size: 13px;
-  background:#0483A0;
-  border: none;
-  cursor:pointer;
-  letter-spacing: 1px;
-  border-radius: 4px;
-  color: White;
-  height: 40px;
-  text-decoration: none;
-  font-weight: lighter;
-  }
-  
-.button1:hover{
-  color: White;
-  height: 40px;
-  text-decoration: none;
-  background:#3FC2D8;
-  height: 40px;
-  transition: .2s;
-}
-
-  p.con{
-    font-family: serif;
-    font-size: 16px;
-    text-align: justify;
-    line-height: 18px;
-  }
 
 .nav-second-level li a {
   padding-left: 37px;

@@ -53,6 +53,8 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.3.6)
     arel (6.0.0.beta1)
+    attr_encrypted (1.3.3)
+      encryptor (>= 1.3.0)
     autoparse (0.3.3)
       addressable (>= 2.3.1)
       extlib (>= 0.9.15)
@@ -148,6 +150,7 @@ GEM
     docile (1.1.5)
     dropbox-sdk (1.6.4)
       json
+    encryptor (1.3.0)
     erubis (2.7.0)
     excon (0.40.0)
     execjs (2.2.2)
@@ -460,6 +463,7 @@ PLATFORMS
 DEPENDENCIES
   action_mailer_cache_delivery (~> 0.3.7)
   active_link_to (~> 1.0.2)
+  attr_encrypted (~> 1.3.3)
   autoprefixer-rails (~> 3.1.2)
   awesome_print (~> 1.2.0)
   best_in_place (~> 3.0.0)

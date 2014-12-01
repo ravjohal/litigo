@@ -133,7 +133,15 @@
                     <%= f.text_field :age, label: false, :class => 'table-input' %>
                 </td>
             </tr>  
-          
+            </tr>
+             <tr>
+                <td>
+                  <strong>SSN:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :ssn, label: false, class: 'table-input' %>
+                </td>
+            </tr> 
         </tbody>
       </table>
      <% if action_name == "index" %>        

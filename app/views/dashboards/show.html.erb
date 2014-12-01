@@ -2,7 +2,7 @@
 <% if @user.show_onboarding %>
 
 <div class="row">
-  <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to "/auth/google_oauth2" do %><div class="tile-new"><div class="tile-top">Google Calendar Sync</div><div class="tile-icon-new"><br><span class="glyphicon glyphicon-calendar"></span></div></div><br><% end %>
+  <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to "/auth/google_oauth2" do %><div class="tile-new"><div class="tile-top">Google Calendar Sync</div><div class="tile-icon-new"><br><span class="glyphicon glyphicon-calendar"></span></div></div><% end %>
   </div>
   <div class="col-xs-6 col-sm-4 col-md-3">
   		<a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)">
@@ -12,10 +12,10 @@
   		<div class="tile-icon-new"><br><span class="glyphicon glyphicon-facetime-video"></span>
 
   				</div>
-  		</div><br></a>
+  		</div></a>
   </div>
   <% if @user.admin? %>
-  <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to new_invitation_path(@user) do %><div class="tile-admin"><div class="tile-top-admin">Add Users to your Firm</div><div class="tile-icon-admin"><br><span class="glyphicon glyphicon-user"></span></div></div><br><% end %>
+  <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to new_invitation_path(@user) do %><div class="tile-admin"><div class="tile-top-admin">Add Users to your Firm</div><div class="tile-icon-admin"><br><span class="glyphicon glyphicon-user"></span></div></div><% end %>
   </div>
   <% end %>
 </div>

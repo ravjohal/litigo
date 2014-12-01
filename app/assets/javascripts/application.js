@@ -47,6 +47,7 @@
 //= require lib/linq.min
 //= require lib/sugar.min
 //= require lib/tipr
+//= require lib/slick
 //= require lib/welcome_tour
 //= require_tree .
 

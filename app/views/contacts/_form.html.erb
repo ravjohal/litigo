@@ -142,6 +142,15 @@
                     <%= f.text_field :ssn, label: false, class: 'table-input' %>
                 </td>
             </tr> 
+            <tr>
+                <td>
+                  <strong>Date of birth:</strong>
+                </td>
+                <td>
+                    <%= f.date_select :date_of_birth, label: false, class: 'table-input' %>
+                </td>
+            </tr> 
+
         </tbody>
       </table>
      <% if action_name == "index" %>        

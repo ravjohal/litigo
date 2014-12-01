@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141201121659) do
+ActiveRecord::Schema.define(version: 20141201134015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,6 +115,7 @@ ActiveRecord::Schema.define(version: 20141201121659) do
     t.string   "company"
     t.boolean  "corporation"
     t.string   "encrypted_ssn"
+    t.datetime "date_of_birth"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree

@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }
 
   attr_reader :raw_invitation_token
+  accepts_nested_attributes_for :firm
 
   def set_default_role
     self.role ||= :staff 

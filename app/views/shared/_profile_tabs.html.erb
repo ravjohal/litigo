@@ -1,0 +1,7 @@
+<div id="nav-tabs-custom">
+  <ul id="nav-tabs-custom" role="tablist">
+    <li><%= active_link_to 'PROFILE', users_profile_path, :class_active => 'navigated' %></li>
+    <li><%= active_link_to 'SETTINGS', users_settings_path, :class_active => 'navigated' %></li>
+    <% if current_user.admin? %><li><%= active_link_to 'ADMIN', users_admin_path, :class_active => 'navigated' %></li><% end %>
+  </ul>
+</div>

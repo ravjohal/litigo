@@ -3,7 +3,7 @@ Feature: Medical tab
   I create a case change the medical and the changes are saved
 
   @javascript
-  Scenario: I create a case and edit the medical
+  Scenario: I create a case and create the medical
     When I visit sign up page
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it

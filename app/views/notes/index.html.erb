@@ -42,5 +42,6 @@ $(document).ready(function() {
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @notes_a ) %>");
   });
+  <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
 });
 </script>

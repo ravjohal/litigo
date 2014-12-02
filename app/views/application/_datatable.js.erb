@@ -8,7 +8,4 @@ var table = $('.table').dataTable({
   , aaSorting: [[ <%= sort_column %>, "<%= sort_order %>" ]]
   <% end %>
 });
-$('.table tbody').on( 'click', 'tr', function (e) {
-  var id = $(e.currentTarget).data('id');
-  $('table.rowlink').rowlink()
-});
+

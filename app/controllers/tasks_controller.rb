@@ -97,6 +97,15 @@ class TasksController < ApplicationController
     end
   end
 
+  def complete_task
+    @task = current_user.tasks.find(params[:task][:task_id].to_i)
+    if @task.completed.blank? && @task.update({completed: Date.today})
+      render :json => { success: true, date: @task.completed, message: "Task completed." }
+    else
+      render :json => 'Task already completed.', status: 403
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_task
@@ -105,6 +114,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description, :user_id, :case_ids => [])
+      params.require(:task).permit(:name, :due_date, :sms_reminder, :email_reminder, :description, :user_id, :case_ids => [])
     end
 end

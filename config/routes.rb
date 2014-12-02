@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :events
 
   resources :tasks
+  post 'tasks/complete_task' => 'tasks#complete_task'
 
   resources :contacts
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Contact do
 
   context 'Relationships' do
-    it { should belong_to(:case) }
+    it { should have_many(:cases) }
     it { should belong_to(:user) }
     it { should belong_to(:event) }
     it { should belong_to(:user_account).class_name('User') }

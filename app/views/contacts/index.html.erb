@@ -48,7 +48,10 @@ $(document).ready(function() {
     $("#modal-window2").html("<%= escape_javascript( render 'cases/assign_contacts' ) %>");
   });
   <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
-
+  $('.table tbody').on( 'click', 'tr', function (e) {
+  var id = $(e.currentTarget).data('id');
+  $('table.rowlink').rowlink()
+});
 });
 </script>
 

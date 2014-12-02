@@ -3,7 +3,7 @@ Feature: Contact tab
   I create a case change the contact and the changes are saved
 
   @javascript
-  Scenario: I create a case and edit the contact
+  Scenario: I create a case and create the contact
     When I visit sign up page
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it

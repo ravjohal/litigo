@@ -9,7 +9,7 @@ class GoogleCalendars
       while true
         entries = result.data.items
         entries.each do |e|
-          google_calendar = GoogleCalendar.find_or_initialize_by(google_id: e['id'])
+          google_calendar = GoogleCalendar.where(google_id: e['id'], user_id: user.id).first_or_initialize
           next if google_calendar.etag.present? && google_calendar.etag == e['etag']
           google_calendar.user_id = user.id
           google_calendar.firm_id = user.firm_id
@@ -34,8 +34,8 @@ class GoogleCalendars
     end
     
     def get_events(user, calendar_id)
-      calendar = GoogleCalendar.find_by(google_id: calendar_id)
-      calendar.update(active: true) if calendar
+      cal = GoogleCalendar.find_by(google_id: calendar_id, user_id: user.id)
+      cal.update(active: true) if cal
       client = init_client(user)
       calendar = client.discovered_api('calendar', 'v3')
       google_calendar = client.execute(
@@ -45,7 +45,8 @@ class GoogleCalendars
       while true
         events = google_calendar.data.items
         events.each do |e|
-          google_event = Event.find_or_initialize_by(google_id: e['id'])
+          google_event = Event.where(google_id: e['id'], owner_id: user.id).first_or_initialize
+          p "google_event: #{google_event}\n\n\n"
           next if google_event.etag.present? && google_event.etag == e['etag']
           google_event.update(
               {

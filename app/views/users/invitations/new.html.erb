@@ -4,7 +4,7 @@
   <div class="invite_form">
   <br>
   <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
-    <div class="invitees" style="margin-bottom: 30px;"><%= render 'user_form' %></div>
+    <div class="invitees" style="margin-bottom: 30px;"><%= render 'users/invitations/user_form' %></div>
     </div>
     <%= submit_tag "Send Invitations", id: "inv_submit", :class => "sub2-invite pull-right"%>
   <% end %>
@@ -48,7 +48,7 @@
     var inv = 1;
     $('#add_invitee').click(function (e) {
       e.preventDefault();
-      $('.invitees').append("<%= j(render :partial => 'user_form').html_safe %>");
+      $('.invitees').append("<%= j(render :partial => 'users/invitations/user_form').html_safe %>");
       $('.inv_email').last().attr('name', 'users['+ inv + '][email]');
       $('.inv_role').last().attr('name', 'users['+ inv + '][role]');
       inv ++;

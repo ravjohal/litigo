@@ -2,7 +2,7 @@
 <html>
  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Litigo | About Us" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo | Contact Us" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Contact Us" %>">
     <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -48,7 +48,7 @@
               <label for="message">Message</label>
               <textarea class="form-control" rows="3" placeholder="Type message here"></textarea>
         </div>
-          <input type="submit" value="SEND MESSAGE" name="message" id="message" class="sub2 pull-right marge">
+          <input type="submit" value="SEND MESSAGE" name="message" id="message" class="sub-btn pull-right marge">
         </form>
         </div>
     

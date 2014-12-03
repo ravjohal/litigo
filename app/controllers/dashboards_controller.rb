@@ -43,6 +43,7 @@ class DashboardsController < ApplicationController
     respond_to do |format|
       if @firm.save
         @user.save!
+        UserSignedUpNotifier.send_notification(@user).deliver
         create_contact_from_parms
         format.html { redirect_to dashboard_path(@user), notice: 'Firm and Contact were successfully created.' }
         #format.json { render :show, status: :created, location: @firm }

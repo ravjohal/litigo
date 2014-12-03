@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>The following user has signed up on <%= (Rails.env.production? ? "Litigo.co: " : "Litigo: ") + @user.name + ' ' + @user.email %> </h1>
+    <p></p>
+  </body>
+</html>

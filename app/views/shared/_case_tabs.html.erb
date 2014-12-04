@@ -1,10 +1,10 @@
 <div id="nav-tabs-custom">
 <ul id="nav-tabs-custom" role="tablist">
   <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case)  %></li>
-  <% if @case.incident %>
+  <% if @case.incident && @case.case_type == 'Personal Injury' %>
     <li<%= is_active('incidents') %>><%= active_link_to 'INCIDENT', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
- <% if @case.medical %>
+ <% if @case.medical && @case.case_type == 'Personal Injury' %>
     <li<%= is_active('medicals') %>><%= active_link_to 'MEDICALS', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
    <% if @case.contacts %>

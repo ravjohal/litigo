@@ -134,7 +134,7 @@
                 </td>
             </tr>  
             </tr>
-             <tr>
+             <tr id="ssn_field">
                 <td>
                   <strong>SSN:</strong>
                 </td>
@@ -142,7 +142,7 @@
                     <%= f.text_field :ssn, label: false, class: 'table-input' %>
                 </td>
             </tr> 
-            <tr>
+            <tr id='date_of_birth_field'>
                 <td>
                   <strong>Date of birth:</strong>
                 </td>
@@ -191,4 +191,20 @@
           data.email,
           data.phone_number
     ] ).draw();
-  });</script>
+    });
+    $('#ssn_field').hide();
+    $('#date_of_birth_field').hide();
+    $('#contact_type').on('change', function() {
+        var conceptName = $('#contact_type').find(":selected").text();
+        if (conceptName == 'Defendant') {
+          $('#date_of_birth_field').show();
+          $('#ssn_field').show();
+        } else if (conceptName == 'Plaintiff') {
+          $('#ssn_field').show();
+          $('#date_of_birth_field').show();
+        } else {
+          $('#ssn_field').hide();
+          $('#date_of_birth_field').hide();
+        }
+      });
+</script>

@@ -47,7 +47,7 @@
           <strong>Owner:</strong>
         </td>
         <td colspan="2">
-          <%= @task.owner.name  %>
+          <%= @task.owner.name if @task.owner %>
         </td>
       </tr>
       <tr>

@@ -33,10 +33,6 @@ Rails.application.routes.draw do
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
   get 'refresh_google_events' => 'events#refresh_google_events'
   get '/users/select_calendar'
-  # get '/users/settings'
-  # get '/users/profile'
-  # patch '/users/update_profile'
-  # get '/users/admin'
   get  "dropbox/main"
   post "dropbox/upload"
   get  "dropbox/auth_start"
@@ -58,6 +54,8 @@ Rails.application.routes.draw do
     get 'users/profile' => 'registrations#profile'
     get 'users/settings' => 'registrations#settings'
     get 'users/admin' => 'registrations#admin'
+    patch '/users/update_profile' => 'registrations#update_profile'
+
   end
 
   resources :users

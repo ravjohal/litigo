@@ -15,16 +15,19 @@ initDashboard = ->
   pieData = [
     {
       label: "Settlement"
+      color: "#323A45"
       value: 0
     }
     {
       label: "Jury Verdict"
+      color: "#3FC2D8"
       value: 0
     }
   ]
 
   lineData = [
-    key: "Case"
+    key: "Past Cases"
+    color: "#0483A0"
     values: [
     ]
   ]
@@ -261,6 +264,8 @@ renderChart = ->
     d.label
   ).y((d) ->
     d.value
+  ).color((d) ->
+    d.data.color
   ).showLabels(true).labelThreshold(.05).labelType("percent").donut(true).donutRatio(0.35).tooltips(false)
   d3.select("#pie_chart svg").datum(pieData).transition().duration(350).call chart_pie
 
@@ -277,8 +282,8 @@ renderChart = ->
       highlightBorderWidth: 3
     fills:
       "Group1": "#C8C8C8"
-      "Group2": "#0483A0"
-      "Group3": "#0483A0"
+      "Group2": "#A9C0DE"
+      "Group3": "#CA5E5B"
       defaultFill: "#C8C8C8"
     data: mapData
 

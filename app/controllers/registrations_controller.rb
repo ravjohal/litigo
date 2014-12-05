@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-	before_filter :configure_devise_permitted_parameters, :only => [:create, :update]
+	before_filter :configure_devise_permitted_parameters, :only => [:create, :update, :update_profile]
 
 
   def after_sign_up_path_for(resource)
@@ -56,6 +56,15 @@ class RegistrationsController < Devise::RegistrationsController
     @firm = @user.firm
   end
 
+  def update_profile
+    @user = current_user
+    if @user.update_attributes(profile_update_params)
+      redirect_to root_path, :notice => "Profile updated."
+    else
+      redirect_to request.referrer, :alert => @user.errors.full_messages.to_sentence
+    end
+  end
+
   protected
 
   def after_inactive_sign_up_path_for(resource)
@@ -63,7 +72,8 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_devise_permitted_parameters
-    registration_params = [:first_name, :last_name, :name, :email, :password, :password_confirmation, :time_zone, :role, :firm_attributes => [:name, :id, :phone]]
+    update_profile_params = [:first_name, :last_name, :email, :role, :firm_attributes => [:name, :id, :phone]]
+    registration_params = [:first_name, :last_name, :name, :email, :password, :password_confirmation, :time_zone]
 
     if params[:action] == 'update'
       devise_parameter_sanitizer.for(:account_update) { 
@@ -73,7 +83,15 @@ class RegistrationsController < Devise::RegistrationsController
       devise_parameter_sanitizer.for(:sign_up) { 
         |u| u.permit(registration_params) 
       }
+    elsif params[:action] == 'update_profile'
+      devise_parameter_sanitizer.for(:update_profile) {
+          |u| u.permit(update_profile_params)
+      }
     end
+  end
+
+  def profile_update_params
+    devise_parameter_sanitizer.sanitize(:update_profile)
   end
 
   def update_resource(resource, params)

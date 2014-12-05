@@ -49,6 +49,14 @@
         </td>
       </tr>
       <tr>
+        <td>
+          <strong>Owner:</strong>
+        </td>
+        <td>
+        <%= f.association :owner, :collection => @firm.users, :input_html => {:id => "task_select"}, label: false %>
+        </td>
+      </tr>
+      <tr>
         <td class="right">
           <strong>Due date:</strong>
         </td>

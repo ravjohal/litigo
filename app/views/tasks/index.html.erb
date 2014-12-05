@@ -17,6 +17,7 @@
       <tr>
         <th>Task</th>
         <th>Case(s)</th>
+        <th>Owner </th>
         <th>Description</th>
         <th>Due Date</th>
         <th>Completed</th>
@@ -27,6 +28,7 @@
         <tr data-id="<%= task.id %>">
           <td><%= link_to task.name, task_path(task) %></td>
           <td><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+          <td><%= task.owner.name if task.owner %></td>
           <td><%= task.description %></td>
           <td><%= task.due_date %></td>
           <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>

@@ -34,6 +34,14 @@
                     <% end %>
                     </td>
                   </tr>
+                  <tr>
+                    <td>
+                      <strong>Owner: <%= puts 'CURRENT USER: =====> ' + current_user.name %></strong>
+                    </td>
+                    <td>
+                    <%= f.association :owner, :collection => @firm.users, :selected => current_user, :input_html => {:id => "task_select"}, label: false %>
+                    </td>
+                  </tr>
                   
                   <tr>
                       <td> 

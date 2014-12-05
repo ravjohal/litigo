@@ -3,4 +3,5 @@ class Task < ActiveRecord::Base
 	has_many :cases, :through => :case_tasks
 	belongs_to :user
 	belongs_to :firm
+	belongs_to :owner, class_name: 'User'
 end

@@ -51,9 +51,15 @@ class UsersController < ApplicationController
 
   def save_google_oauth
     create_google_oauth
-    GoogleCalendars.get_calendars_list(current_user)
-    #getting google contacts
-    redirect_to user_path({id: current_user.id, google_auth: true})
+    sync_param = params[:state]
+    if sync_param == "calendar"
+      GoogleCalendars.get_calendars_list(current_user)
+      redirect_to user_path({id: current_user.id, google_auth: true})
+    elsif sync_param == "contacts"
+      contacts = GoogleContacts.contacts(current_user)
+      logger.info "contacts: #{contacts.ai}\n\n\n"
+      redirect_to root_path, notice: "Contacts successfully imported"
+    end
   end
 
   def select_calendar
@@ -65,6 +71,15 @@ class UsersController < ApplicationController
       end
     end
     render :nothing => true, :status => 200
+  end
+
+  def import_contacts
+    @user = current_user
+    create_google_oauth if @user.oauth_token.blank?
+    contacts = GoogleContacts.contacts(@user)
+    logger.info "contacts: #{contacts.ai}\n\n\n"
+    message = @user.errors.present? ? {error: @user.errors.full_messages.to_sentence} : {notice: 'Contacts were successfully imported.'}
+    redirect_to root_path, :flash => message
   end
 
   protected

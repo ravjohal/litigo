@@ -84,7 +84,7 @@
           </tr>
            <% if action_name != "edit" %>
             <%= f.simple_fields_for :incident, new_case.build_incident do |i| %>
-              <tr>
+              <tr id="incident_date">
                   <td>
                     <Strong>Incident Date:</Strong>
                   </td>
@@ -102,7 +102,7 @@
                 
                         </td>
               </tr>
-              <tr>
+              <tr id="private_injury">
                         <td>
                             <strong>Primary Injury:</strong>
                         </td>
@@ -152,5 +152,16 @@
 <% end %>
 
   <script>
-    $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2(); });
+    $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select").select2(); 
+        });
+    $('#case_case_type').on('change', function() {
+      var conceptName = $('#case_case_type').find(":selected").text();
+        if (conceptName == "Personal Injury") {
+          $('#incident_date').show();
+          $('#private_injury').show();
+        } else {
+          $('#incident_date').hide();
+          $('#private_injury').hide();
+        }
+      });
   </script>

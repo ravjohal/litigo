@@ -11,8 +11,8 @@ class Contact < ActiveRecord::Base
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
 
-  validates :phone_number, length: { maximum: 10 }
-  validates :fax_number, length: { maximum: 10 }
+  # validates :phone_number, length: { maximum: 10 }
+  # validates :fax_number, length: { maximum: 10 }
 
   def self.inherited(child)
     child.instance_eval do

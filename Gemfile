@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.1.3'
-gem 'rails', '~> 4.2.0.beta2'
+gem 'rails', '~> 4.2.0.rc2'
 gem 'ffi', '~> 1.9.5'
 #Rack-based asset packaging system
 gem 'sprockets-rails', '~> 3.0.0.beta1'

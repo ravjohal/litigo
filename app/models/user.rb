@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :events, :through => :user_events
 
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id'
-  has_one :owned_task, class_name: 'Task', foreign_key: 'owner_id'
+  has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id'
   has_many :contacts
   has_one :contact_user, class_name: 'Contact', foreign_key: 'contact_user_id'
   has_many :cases

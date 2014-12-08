@@ -11,19 +11,8 @@ class Contact < ActiveRecord::Base
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
 
-	# validates_presence_of :type
-  # validates :first_name, presence: true
-  # validates :last_name, presence: true
   validates :phone_number, length: { maximum: 10 }
   validates :fax_number, length: { maximum: 10 }
-
-  def self.search(search)
-    if search
-      where('lower(email) LIKE ?', "%#{search}%")
-    else
-      scoped
-    end
-  end
 
   def self.inherited(child)
     child.instance_eval do

@@ -20,7 +20,7 @@ describe Contact do
 
   context 'Accessible attributes' do
     it { should respond_to(:first_name, :last_name, :middle_name, :address, :city, 
-                           :state, :country, :phone_number, :fax_number, :email, :gender, :age, :case, :user, :event, :phone_number, :fax_number ) }
+                           :state, :country, :phone_number, :fax_number, :email, :gender, :age, :user, :event, :phone_number, :fax_number ) }
   end
 
 end

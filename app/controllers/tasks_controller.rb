@@ -8,9 +8,11 @@ class TasksController < ApplicationController
   def index
     if get_case
       @tasks = @case.tasks
+      @my_tasks = @case.tasks.where(:owner => current_user)
       @new_path = new_case_task_path(@case)
       @tasks_a = [@case, Task.new] #for modal partial rendering
     else
+      @my_tasks = @user.owned_tasks
       @tasks = @firm.tasks
       @new_path = new_task_path
       @tasks_a = Task.new #for modal partial rendering

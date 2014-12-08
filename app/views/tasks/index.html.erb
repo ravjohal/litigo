@@ -10,7 +10,39 @@
 
 
 <%= render 'new_button' %>
+<h2>My Tasks</h2>
+  <div class="table-responsive">
+    <table id="tasks" class="table table-striped">
+      <thead class="user-table-head">
+      <tr>
+        <th>Task</th>
+        <th>Case(s)</th>
+        <th>Owner </th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Completed</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @my_tasks.each do |task| %>
+        <tr data-id="<%= task.id %>">
+          <td><%= link_to task.name, task_path(task) %></td>
+          <td><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+          <td><%= task.owner.name if task.owner %></td>
+          <td><%= task.description %></td>
+          <td><%= task.due_date %></td>
+          <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
+          <td><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<br />
+<br />
 
+<h2>Firm Tasks</h2>
   <div class="table-responsive">
     <table id="tasks" class="table table-striped">
       <thead class="user-table-head">

@@ -73,4 +73,5 @@ Rails.application.routes.draw do
     resources :injuries
   end
   get "emails_autocomplete" => "events#emails_autocomplete"
+  post "event_drag" => "events#event_drag"
 end

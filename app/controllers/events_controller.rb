@@ -44,7 +44,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    restrict_access("events") if @event.user_id != current_user.id 
+    restrict_access("events") if @event.owner.firm != current_user.firm
         
     @model = @event
     @event.start = @event.start.to_datetime
@@ -96,6 +96,17 @@ class EventsController < ApplicationController
     end
   end
 
+  def event_drag
+    @event = current_user.firm.events.find(params[:id].to_i)
+    if @event.update(event_drag_params)
+      GoogleCalendars.update_event(current_user, @event)
+      message = @event.errors.present? ? @event.errors.full_messages.to_sentence : 'Event was successfully updated.'
+      render :json => { success: true, message: message }
+    else
+      render :json => "Event isn't found", status: 404
+    end
+  end
+
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
@@ -136,6 +147,10 @@ class EventsController < ApplicationController
     params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :summary,
                                   :google_calendar_id, :start, :end, :status, :contacts, :user_ids => [], :case_ids => [],
                                   :event_attendee_ids => [])
+  end
+
+  def event_drag_params
+    params.require(:event).permit(:start, :end)
   end
 
   def user_time_zone(&block)

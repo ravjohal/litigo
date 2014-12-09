@@ -10,7 +10,7 @@
 
 
 <%= render 'new_button' %>
-<h2>My Tasks</h2>
+<h3>My Tasks</h3>
   <div class="table-responsive">
     <table id="tasks" class="table table-striped">
       <thead class="user-table-head">
@@ -27,8 +27,8 @@
       <tbody>
       <% @my_tasks.each do |task| %>
         <tr data-id="<%= task.id %>">
-          <td><%= link_to task.name, task_path(task) %></td>
-          <td class="case_name"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+          <td><%= task.name %></td>
+          <td class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
           <td><%= task.owner.name if task.owner %></td>
           <td><%= task.description %></td>
           <td><%= task.due_date %></td>
@@ -42,7 +42,7 @@
 <br />
 <br />
 
-<h2>Firm Tasks</h2>
+<h3>Firm Tasks</h3>
   <div class="table-responsive">
     <table id="tasks" class="table table-striped">
       <thead class="user-table-head">
@@ -59,8 +59,8 @@
       <tbody>
       <% @tasks.each do |task| %>
         <tr data-id="<%= task.id %>">
-          <td><%= link_to task.name, task_path(task) %></td>
-          <td class="case_name"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+          <td><%= task.name %></td>
+          <td class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
           <td><%= task.owner.name if task.owner %></td>
           <td><%= task.description %></td>
           <td><%= task.due_date %></td>

@@ -81,13 +81,15 @@ $(document).ready(function() {
     $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
   });
   $(".complete-task").click(function(e){
+    var id = $(e.currentTarget).data('task-completed');
     $.ajax({
       type: "post",
       url: '/tasks/complete_task',
-      data: {'task': {"task_id" : $(e.currentTarget).data('task-completed')}},
+      data: {'task': {"task_id" : id}},
       success: function(data) {
-        $(e.currentTarget).attr('disabled', 'disabled');
-        $(e.currentTarget).after(' ' + data.date);
+        $('[data-task-completed='+id+']').prop('checked', true);
+        $('[data-task-completed='+id+']').attr('disabled', 'disabled');
+        $('[data-task-completed='+id+']').after(' ' + data.date);
         $('.alert').remove();
         $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
       },

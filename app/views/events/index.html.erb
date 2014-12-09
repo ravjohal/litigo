@@ -35,7 +35,29 @@ $(document).ready(function() {
       center: 'title',
       right: 'month,basicWeek,basicDay'
     },
-    events: <%= @events_list.to_json.html_safe %>
+    events: <%= @events_list.to_json.html_safe %>,
+    editable: true,
+    eventDrop: function(event, delta, revertFunc) {
+      console.log(event.start)
+//      alert(event.title + " was dropped on " + event.start.format());
+
+      if (confirm("Are you sure about this change?")) {
+        $.ajax({
+          type: "POST",
+          url: '/event_drag/',
+          data: {event: {start: event.start, end: event.end}, id: event.id},
+          success: function(data)
+          {
+            $('.alert').remove();
+            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+          }
+        });
+      }
+      else {
+        revertFunc();
+      }
+
+    }
   });
   $('.tip').tipr({
     'speed': 500,

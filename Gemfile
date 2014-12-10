@@ -41,6 +41,7 @@ gem 'jquery-validation-rails', '~> 1.12.0'
 gem 'pg_search', '~> 0.7.8'
 gem 'rails_best_practices', '~> 1.15.4'                   #https://github.com/railsbp/rails_best_practices
 gem 'brakeman', '~> 2.6.3'
+gem 'slick_rails', '~> 1.3.15'
 #http://rubygems.org/gems/attr_encrypted
 gem 'attr_encrypted', '~> 1.3.3'
 

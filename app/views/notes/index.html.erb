@@ -10,29 +10,57 @@
 
 <%= render 'new_button' %>
 
-    <div class="table-responsive">
-      <table id="tasks" class="table table-striped table-hover rowlink">
-        <thead class="user-table-head">
-        <tr>
-          <th>Author</th>
-          <th>Case</th>
-          <th>Date</th>
-          <th>Type</th>
-          <th>Note</th>
+<h2>My Notes</h2>
+  <div class="table-responsive">
+    <table id="tasks" class="table table-striped table-hover rowlink">
+      <thead class="user-table-head">
+      <tr>
+        <th>Author</th>
+        <th>Case</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Note</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @my_notes.each do |note| %>
+        <tr data-id="<%= note.id %>">
+          <td><%= link_to note.author, note_path(note)  %></td>
+          <td><%= link_to note.case.name,  case_path(note.case) if note.case.present? %></td>
+          <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
+          <td><%= note.note_type %></td>
+          <td><%= note.note %></td>
         </tr>
-        </thead>
-        <tbody>
-        <% @notes.each do |note| %>
-          <tr data-id="<%= note.id %>">
-            <td><%= note.author %></td>
-            <td class="doc-link"><%= link_to note.case.name,  case_path(note.case) if note.case.present? %></td>
-            <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
-            <td><%= note.note_type %></td>
-            <td><%= note.note %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+<br />
+<br />
+<h2>Firm Notes</h2>
+  <div class="table-responsive">
+    <table id="tasks" class="table table-striped table-hover rowlink">
+      <thead class="user-table-head">
+      <tr>
+        <th>Author</th>
+        <th>Case</th>
+        <th>Date</th>
+        <th>Type</th>
+        <th>Note</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @notes.each do |note| %>
+        <tr data-id="<%= note.id %>">
+          <td><%= link_to note.author, note_path(note)  %></td>
+          <td><%= link_to note.case.name,  case_path(note.case) if note.case.present? %></td>
+          <td><%= note.created_at.strftime("%m/%d/%Y") %></td>
+          <td><%= note.note_type %></td>
+          <td><%= note.note %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
   </div>
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>

@@ -44,6 +44,7 @@ gem 'brakeman', '~> 2.6.3'
 gem 'slick_rails', '~> 1.3.15'
 #http://rubygems.org/gems/attr_encrypted
 gem 'attr_encrypted', '~> 1.3.3'
+gem 'bootbox-rails', '~>0.4'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

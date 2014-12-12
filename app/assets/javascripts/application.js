@@ -41,6 +41,7 @@
 //= require best_in_place
 //= require jquery.purr
 //= require hopscotch
+//= require bootbox
 //= require lib/jasny-bootstrap
 //= require lib/jquery.collapsible
 //= require lib/jquery.feedback_me

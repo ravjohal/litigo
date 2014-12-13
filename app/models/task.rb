@@ -4,4 +4,5 @@ class Task < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :firm
 	belongs_to :owner, class_name: 'User'
+	belongs_to :task_list
 end

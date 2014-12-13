@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :task_lists
+
   resources :firms
 
   resources :notes

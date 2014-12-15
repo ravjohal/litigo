@@ -2,10 +2,11 @@ class CasesDatatable
   delegate :params, :h, :link_to, :number_to_currency, to: :@view
   include ActionView::Helpers::TagHelper
 
-  def initialize(view, user)
+  def initialize(view, user, user_cases)
     @view = view
     @user = user
     @firm = @user.firm
+    @user_cases = user_cases
   end
 
   def as_json(options = {})
@@ -38,14 +39,15 @@ class CasesDatatable
   end
 
   def fetch_cases
+    fetch_model = @user_cases ? @user : @firm
     if params[:iSortCol_0].to_i == 3
-      cases = @firm.cases.joins(:medical).order("total_med_bills #{sort_direction}")
+      cases = fetch_model.cases.joins(:medical).order("total_med_bills #{sort_direction}")
     else
-      cases = @firm.cases.order("#{sort_column} #{sort_direction}")
+      cases = fetch_model.cases.order("#{sort_column} #{sort_direction}")
     end
     cases = cases.page(page).per_page(per_page)
     if params[:sSearch].present?
-      cases = @firm.cases.search_case(params[:sSearch])
+      cases = fetch_model.cases.search_case(params[:sSearch])
     end
     cases
   end

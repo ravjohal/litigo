@@ -71,6 +71,8 @@ Rails.application.routes.draw do
     resources :medicals
   end
 
+  get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
+
   resources :medicals do
     resources :injuries
   end

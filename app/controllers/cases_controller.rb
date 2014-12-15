@@ -9,7 +9,7 @@ class CasesController < ApplicationController
     @new_path = new_case_path
     respond_to do |format|
       format.html
-      format.json { render json: CasesDatatable.new(view_context, current_user) }
+      format.json { render json: CasesDatatable.new(view_context, current_user, false) }
     end
   end
 
@@ -80,6 +80,11 @@ class CasesController < ApplicationController
     redirect_to cases_url, notice: 'Case was successfully deleted.'
   end
 
+  def user_cases
+    respond_to do |format|
+      format.json { render json: CasesDatatable.new(view_context, current_user, true) }
+    end
+  end
 
   private
     def set_case

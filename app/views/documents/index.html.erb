@@ -15,10 +15,10 @@
         <thead class="user-table-head">
         <tr>
           <th>Author</th>
+          <th>Case</th>
           <th>Document Type</th>
           <th>Document Title</th>
           <th>Creation Date</th>
-          <th>Case</th>
           <th></th>
           <th></th>
           <th></th>
@@ -28,6 +28,7 @@
         <% @documents.each do |document| %>
           <tr data-id="<%= document.id %>">
             <td><%= document.author %></td>
+            <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= document.doc_type %></td>
             <td>
             <div class="doc-link">
@@ -35,7 +36,6 @@
                   link_to document.document.file.filename, document.document_url
                   end %></div></td>
             <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
-            <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
             </td>
             <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>

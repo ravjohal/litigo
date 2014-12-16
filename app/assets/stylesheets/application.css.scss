@@ -13,7 +13,6 @@
  *= require font-awesome
  *= require dataTables/src/demo_table_jui
  *= require fullcalendar
- *= require jquery.datetimepicker
  *= require jquery-ui
  *= require_tree .
  *= require_self
@@ -27,6 +26,7 @@
  *= require jquery.tagit
  */
  @import "font-awesome";
+@import 'bootstrap-datetimepicker';
 $icon-font-path: "/assets/";
 .invitees {
   a {

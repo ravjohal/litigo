@@ -45,6 +45,8 @@ gem 'slick_rails', '~> 1.3.15'
 #http://rubygems.org/gems/attr_encrypted
 gem 'attr_encrypted', '~> 1.3.3'
 gem 'bootbox-rails', '~>0.4'
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

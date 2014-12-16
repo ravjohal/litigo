@@ -109,7 +109,7 @@ class GoogleCalendars
       return if !event.valid?
       google_attendees = []
       google_event = {
-          status: event.status,
+          # status: event.status,
           summary: event.summary,
           location: event.location,
           start: {},
@@ -125,7 +125,7 @@ class GoogleCalendars
       end
       event.event_attendees.each do |attendee|
         google_attendees << {email: attendee.contact.email,
-                             displayName: attendee.display_name.present? ? attendee.display_name : "#{attendee.contact.first_name} #{attendee.contact.last_name}"}
+                             displayName: attendee.display_name.present? ? attendee.display_name : attendee.contact.email}
       end
 
       client = init_client(user)

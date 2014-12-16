@@ -16,4 +16,10 @@ class Firm < ActiveRecord::Base
 	validates_uniqueness_of :name
 
   accepts_nested_attributes_for :users
+
+
+
+  def more_than_one_admin
+    self.users.where(:role => 1).size > 1
+  end
 end

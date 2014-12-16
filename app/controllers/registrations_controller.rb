@@ -40,7 +40,26 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def destroy
+    @firm = current_user.firm
+    if current_user.admin?
+      unless @firm.more_than_one_admin
+        @firm.users.each do |user|
+          user.delete
+        end
+        @firm.delete
+        message = "Firm and all users deleted."
+      end
+    end
 
+    resource.destroy
+    Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+    set_flash_message :notice, :destroyed if is_flashing_format?
+    yield resource if block_given?
+    #respond_with_navigational(resource){ redirect_to after_sign_out_path_for(resource_name) }
+
+    redirect_to root_path, :notice => "Account has been canceled. " + message.to_s
+  end
 
   def settings
     @user = current_user
@@ -49,6 +68,11 @@ class RegistrationsController < Devise::RegistrationsController
   def profile
     @user = current_user
     @firm = @user.firm
+    if @user.admin? && !@firm.more_than_one_admin
+      @confirm_message = "You are the only admin for firm: " + @firm.name + ". You sure you want to delete the account?  It will delete Firm and all users as well!"
+    else
+      @confirm_message = "Are you sure you want to cancel your account?"
+    end
   end
 
   def admin

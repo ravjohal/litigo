@@ -16,10 +16,12 @@ class InvitationsController < Devise::InvitationsController
         user.invitation_created_at = Time.now.utc
         user.invitation_sent_at = user.invitation_created_at
         user.invitation_role = attrs['role'].to_i
+        puts "INVITATION ROLE ============> " + user.invitation_role.to_s
         user.invited_by = current_user
         options = {user: user, admin: current_user, token: @raw_invitation_token[0], role: User::USER_ROLES[attrs['role'].to_i]}
         UserEmails.invite_existing_user(options).deliver if user.save(:validate => false)
       else
+        puts " I AM IN INVITATIONS AND WANT TO KNOW THE ROLE!!!!!!!!!!!!! " + attrs['role'].to_i.to_s + "  user: " + current_user.to_s
         user = User.invite!({email: attrs['email'], firm_id: current_user.firm_id, role: attrs['role'].to_i }, current_user)
       end
       emails << attrs['email']
@@ -44,6 +46,7 @@ class InvitationsController < Devise::InvitationsController
       inviter = User.find(user.invited_by_id)
       user.firm_id = inviter.firm_id
       user.role = user.invitation_role
+      puts "INVITATION ROLE WHEN SIGNED UP -------------> " + user.role.to_s
       user.invitation_role = nil
       user.save!
 

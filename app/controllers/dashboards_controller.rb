@@ -5,6 +5,7 @@ class DashboardsController < ApplicationController
   def new
     if current_user.firm
       if !current_user.contact_user
+        puts " Role? -------------------- " + current_user.role.to_i.to_s 
         puts " WHAT IS CURRENT_USER ROLE -> " + User::USER_ROLES[current_user.role.to_i].to_s
          create_contact(User::USER_ROLES[current_user.role.to_i].to_s.humanize, current_user, current_user.firm)
       end

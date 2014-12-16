@@ -1,4 +1,3 @@
-
 <div class="text-center">
 <table id="info-table4">
   <tbody>
@@ -45,7 +44,7 @@
           <strong>Case:</strong>
         </td>
         <td class="doc-link" colspan="2">
-          <%= link_to note.case.name,  case_path(note.case) if note.case.present? %>
+          <%= link_to @note.case.name,  case_path(@note.case) if @note.case.present? %>
           
         </td>
       </tr>

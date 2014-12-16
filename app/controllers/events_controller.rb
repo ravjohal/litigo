@@ -47,8 +47,6 @@ class EventsController < ApplicationController
     restrict_access("events") if @event.owner.firm != current_user.firm
         
     @model = @event
-    @event.start = @event.start.to_datetime
-    @event.end = @event.end.to_datetime
     @emails_autocomplete = emails_autocomplete
     if @event.owner_id == current_user.id
       render partial: 'events/edit'
@@ -60,6 +58,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
+    logger.info "params:#{params}\n\n\n"
     @event = Event.new(event_params.except!('contacts'))
     @event.owner = @user
     @event.firm = @firm

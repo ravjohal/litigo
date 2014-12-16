@@ -17,7 +17,6 @@
 //= require turbolinks
 //= require fullcalendar
 //= require gcal
-//= require jquery.datetimepicker
 //= require jquery-ui
 //= require jquery.validate
 //= require jquery.validate.additional-methods
@@ -50,6 +49,8 @@
 //= require lib/tipr
 //= require slick
 //= require lib/welcome_tour
+//= require moment
+//= require bootstrap-datetimepicker
 //= require_tree .
 
 

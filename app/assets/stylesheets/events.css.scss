@@ -41,3 +41,11 @@ div.tagsinput input {
 .ui-autocomplete {
   z-index: 9000;
 }
+.picker-switch, .table-condensed{
+  a.btn {
+    color: #428bca;
+    &:hover {
+      color: #000;
+    }
+  }
+}

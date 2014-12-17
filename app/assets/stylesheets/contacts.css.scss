@@ -7,17 +7,30 @@
 	width: 20px;
 }
 
+
 .contact-form {
-	width: 90%;
-	margin: 0 auto;
+  width: 100%;
+    padding: 0;
+  tr {
+    width: 100%;
+    td:first-of-type {
+      strong {
+        float: right;
+      }
+    }
+    td:nth-of-type(2){
+      width: 70%;
+    }
+  }
 }
 .contact-form td:nth-child(1) {
-  	float: right;
+  vertical-align: middle;
 }
 
 .contact-form tr:nth-child(even){
- 	background: white;
+ background: white;
 }
+
 
 .case-assigne-contact{
 	tr {
@@ -28,7 +41,7 @@
       }
     }
     td:nth-of-type(2){
-      width: 55%;
+      width: 65%;
     }
   }
 }

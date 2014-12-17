@@ -3,3 +3,25 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 
+.dash-form {
+	width: 100%;
+    padding: 0;
+  tr {
+    width: 100%;
+    td:first-of-type {
+      strong {
+        float: right;
+      }
+    }
+    td:nth-of-type(2){
+      width: 50%;
+    }
+  }
+}
+.dash-form td:nth-child(1) {
+  vertical-align: top;
+}
+
+.dash-form tr:nth-child(even){
+ background: white;
+}

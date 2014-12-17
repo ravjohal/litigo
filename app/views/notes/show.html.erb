@@ -2,12 +2,12 @@
 <table id="info-table4">
   <tbody>
     <tr>
-      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td id="left-td"><%= link_to notes_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span> <% end %></td>
       <td>
       </td>
       <td>
       </td>
-      <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
       <%= link_to 'Edit', edit_note_path(@note), :class => 'dark' %></td>
     </tr>
     </tbody>

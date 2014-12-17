@@ -53,7 +53,7 @@ class CasesDatatable
     end
     cases = cases.page(page).per_page(per_page)
     if params[:sSearch].present?
-      cases = fetch_model.cases.search_case(params[:sSearch])
+      cases = cases.search_case(params[:sSearch])
     end
     cases
   end

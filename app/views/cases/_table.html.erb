@@ -19,7 +19,7 @@
     $('#<%= id %>').dataTable({
       language: {
         search: "_INPUT_",
-        searchPlaceholder: "Search or Filter",
+        searchPlaceholder: "<%= id.humanize.titleize %> Search",
         lengthMenu: "Show _MENU_"
       },
       aaSorting: [[ 1, "desc" ]],

@@ -3,12 +3,12 @@
 <table id="info-table4">
   <tbody>
     <tr>
-      <td id="left-td"><%= link_to tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td id="left-td"><%= link_to tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span> <% end %></td>
       <td>
       </td>
       <td>
       </td>
-      <td><%= link_to @task, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <td><%= link_to @task, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
       <%= link_to 'Edit', edit_task_path(@task), :class => 'dark' %></td>
     </tr>
     <tbody>
@@ -37,8 +37,8 @@
         <td class="right">
           <strong>Case(s):</strong>
         </td>
-        <td colspan="2">
-          <%= @task.cases.map {|c| c.name}.join(', ') %>
+        <td colspan="2" class="doc-link">
+          <%= raw(@task.cases.map {|c| link_to c.name, case_path(c).html_safe}.join(', ')) %>
           
         </td>
       </tr>

@@ -57,7 +57,7 @@
                         <strong>Start:</strong>
                     </td>
                     <td>
-                        <%= f.datetime_field :start, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.end.strftime('%Y-%m-%d %I:%M %p') if f.object.end)   %>
+                        <%= f.datetime_field :start, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.start.strftime('%Y-%m-%d %I:%M %p') if f.object.start)   %>
                     </td>
                 </tr>
                 <tr>

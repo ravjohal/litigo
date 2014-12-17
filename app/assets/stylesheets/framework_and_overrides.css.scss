@@ -533,10 +533,6 @@ td.col-one {
   color: white;
   }
 
-.pad-left{
-  margin-left: 72px;
-}
-
 table th {
 width: auto !important;
 }
@@ -569,7 +565,7 @@ vertical-align: middle;
 
 #nav-tabs-custom{
   position: fixed;
-  top: 64px;
+  top: 62px;
   z-index: 1000;
   width: 100%;
 }
@@ -583,7 +579,7 @@ vertical-align: middle;
 }
 #nav-tabs-custom a{
   font-weight: lighter;
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 1px;
   text-decoration: none;
   padding-right: 10px;
@@ -591,7 +587,6 @@ vertical-align: middle;
 #nav-tabs-custom a:hover{
   font-weight: lighter;
   cursor: pointer;
-  font-size: 12px;
   letter-spacing: 1px;
   color: #323A45;
   text-decoration: none;
@@ -600,7 +595,7 @@ vertical-align: middle;
 #nav-tabs-custom a:active{
   font-weight: lighter;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 15px;
   letter-spacing: 1px;
   color: #323A45;
   text-decoration: none;

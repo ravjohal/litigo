@@ -26,7 +26,7 @@
  *= require jquery.tagit
  */
  @import "font-awesome";
-@import 'bootstrap-datetimepicker';
+ @import 'bootstrap-datetimepicker';
 $icon-font-path: "/assets/";
 .invitees {
   a {
@@ -52,4 +52,10 @@ width: 200px;
 .alert {
   z-index: 1000;
 }
-
+//.modal-body {
+//  input {
+//    min-height: 35px;
+//    background-image: linear-gradient(to bottom, #eee 1%, #fff 15%);
+//    border: 1px solid #aaa;
+//  }
+//}

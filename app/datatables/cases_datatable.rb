@@ -39,11 +39,17 @@ class CasesDatatable
   end
 
   def fetch_cases
-    fetch_model = @user_cases ? @user : @firm
-    if params[:iSortCol_0].to_i == 3
-      cases = fetch_model.cases.joins(:medical).order("total_med_bills #{sort_direction}")
+    #fetch_model = @user_cases ? @user : @firm
+    if @user_cases
+      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:contact_user_id => @user.id})
     else
-      cases = fetch_model.cases.order("#{sort_column} #{sort_direction}")
+      cases = @firm.cases
+    end
+
+    if params[:iSortCol_0].to_i == 3
+      cases = cases.joins(:medical).order("total_med_bills #{sort_direction}")
+    else
+      cases = cases.order("#{sort_column} #{sort_direction}")
     end
     cases = cases.page(page).per_page(per_page)
     if params[:sSearch].present?

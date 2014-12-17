@@ -5,8 +5,8 @@
   <br>
   <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
     <div class="invitees" style="margin-bottom: 30px;"><%= render 'users/invitations/user_form' %></div>
-    </div>
-    <%= submit_tag "Send Invitations", id: "inv_submit", :class => "sub2-invite pull-right"%>
+  <%= submit_tag "Send Invitations", id: "inv_submit", :class => "sub2-invite pull-right"%>
+  </div>
   <% end %>
 <% end %>
 <br>

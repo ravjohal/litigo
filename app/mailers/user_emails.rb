@@ -22,4 +22,14 @@ class UserEmails < ActionMailer::Base
          subject: "Litigo Event Invitation",
          content_type: "text/html") unless Rails.env.test? || @send_to_contact.email.include?("gmail.com")
   end
+
+  def user_feedback(options)
+    @email = options[:email]
+    @user_name = options[:user].name
+    @message = options[:message]
+    mail(to: 'ben@litigo.co',
+         from: @email,
+         subject: "User Feedback about Litigo.co",
+         content_type: "text/html") unless Rails.env.test?
+  end
 end

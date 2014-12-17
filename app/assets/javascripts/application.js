@@ -78,11 +78,6 @@ $(document).ready(function () {
 
         feedback_url: "send_feedback_clean",
 
-        custom_params: {
-            csrf: "my_secret_token",
-            user_id: "john_doe",
-            feedback_type: "clean_complex"
-        },
         delayed_options: {
             delay_success_milliseconds: 3500,
             send_success : "Sent successfully :) , now go ahead and star/watch the project"

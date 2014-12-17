@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, except: [:save_google_oauth]
   before_filter :update_last_sign_in_at
-  after_action :verify_authorized, except: [:show,:save_google_oauth, :select_calendar]
+  after_action :verify_authorized, except: [:show,:save_google_oauth, :select_calendar, :send_feedback_clean]
   require 'google/api_client'
   require 'google/api_client/client_secrets'
   require 'google/api_client/auth/installed_app'
@@ -80,6 +80,17 @@ class UsersController < ApplicationController
     logger.info "contacts: #{contacts.ai}\n\n\n"
     message = @user.errors.present? ? {error: @user.errors.full_messages.to_sentence} : {notice: 'Contacts were successfully imported.'}
     redirect_to root_path, :flash => message
+  end
+
+  def send_feedback_clean
+    logger.info"params:#{params.ai}\n\n\n"
+    options = {
+        user: current_user,
+        email: params[:email],
+        message: params[:message]
+    }
+    UserEmails.user_feedback(options).deliver
+    render :nothing => true, :status => 200
   end
 
   protected

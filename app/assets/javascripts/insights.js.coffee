@@ -41,16 +41,16 @@ initDashboard = ->
   injury_type_filter = $(".rdobtn.active").data("val")
 
 setCounties = ->
-#   $.ajax
-#     url: "/get_counties_by_state"
-#     method: "get"
-#     data: { state: $("#f_state").val() }
-#     success: (response) ->
-#       $('#f_county').empty().append('<option selected="selected" value=""></option>')
-#       $.each response, (k, v) ->
-#         $('#f_county').append('<option value="' + v.county + '">' + v.county + '</option>') unless v.county is ""
-#     error: ->
-#       console.log "Something failed"
+   $.ajax
+     url: "/get_counties_by_state"
+     method: "get"
+     data: { state: $("#f_state").val() }
+     success: (response) ->
+       $('#f_county').empty().append('<option selected="selected" value=""></option>')
+       $.each response, (k, v) ->
+         $('#f_county').append('<option value="' + v.county + '">' + v.county + '</option>') unless v.county is ""
+     error: ->
+       console.log "Something failed"
 
 $(document).ready ->
   setCounties()

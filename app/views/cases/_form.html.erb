@@ -12,7 +12,7 @@
           <div class="modal-body">
      <% end %>
 
-      <table class="case-form table-condensed">
+      <table class="new-case-form table-condensed">
         <tbody>
           <tr>
             <td>
@@ -35,7 +35,7 @@
             <Strong>Attorney(s):</Strong>
             </td>
             <td colspan="3">
-            <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+            <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :class => 'table-input' %>
             </td>
           </tr>
              <tr>
@@ -43,15 +43,7 @@
             <Strong>Staff:</Strong>
             </td>
             <td colspan="3">
-              <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"} %>
-            </td>
-          </tr>
-           <tr>
-            <td>
-            <Strong>Court:</Strong>
-            </td>
-            <td colspan="3">
-              <%= f.text_field :court, label: false, :class => 'table-input' %>
+              <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :class => 'table-input' %>
             </td>
           </tr>
             <tr>

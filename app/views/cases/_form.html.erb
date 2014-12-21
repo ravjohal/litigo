@@ -19,7 +19,7 @@
             <Strong>*Case Name:</Strong>
             </td>
             <td colspan="3">
-               <%= f.text_field :name, label: false, :class =>'table-input' %>
+               <%= f.text_field :name, label: false, :class =>'table-input', placeholder: 'e.g. Smith v. Doe' %>
             </td>
           </tr>
            <tr>
@@ -87,10 +87,10 @@
           <%= f.simple_fields_for :medical, new_case.build_medical do |m| %>
               <%= m.simple_fields_for :injuries, m.object.injuries.build do |inj| %>
                         <td>
-                          <strong>Total Medical Bills:</strong>
+                          <strong>Medicals:</strong>
                         </td>
                         <td>
-                              <%= m.text_field :total_med_bills, label: false, :class => 'table-input' %>
+                              <%= m.text_field :total_med_bills, label: false, :class => 'table-input', placeholder: 'e.g. $1,000'%>
                 
                         </td>
               </tr>
@@ -116,7 +116,7 @@
           </td>
           <td class="big-row" colspan="3">
      <% end %><!-- end of if -->
-              <%= f.text_area :description, label: false, :class => 'table-text' %>
+              <%= f.text_area :description, label: false, :class => 'table-text', placeholder: 'Enter a highlevel summary of the case' %>
           </td>
           </tr>
           

@@ -90,7 +90,7 @@
                     <strong>Phone:</strong>
                 </td>
                 <td>
-                    <%= f.text_field :phone_number, label: false, :class => 'table-input' %>
+                    <%= f.text_field :phone_number, label: false, :class => 'table-input', placeholder: '(XXX) XXX-XXXX' %>
                 </td>
             </tr>
             <tr>
@@ -98,7 +98,7 @@
                     <strong>Fax:</strong>
                 </td>
                 <td>
-                    <%= f.text_field :fax_number, label: false, :class => 'table-input' %>
+                    <%= f.text_field :fax_number, label: false, :class => 'table-input', placeholder: '(XXX) XXX-XXXX'  %>
                 </td>
             </tr>
              <tr>
@@ -106,7 +106,7 @@
                     <strong>Email:</strong>
                 </td>
                 <td>
-                    <%= f.text_field :email, label: false, :class => 'table-input' %>
+                    <%= f.text_field :email, label: false, :class => 'table-input', placeholder: 'john.smith@gmail.com'  %>
                 </td>
             </tr>
             <tr>
@@ -125,7 +125,7 @@
                 
                 </td>
             </tr>
-             <tr>
+             <tr id="age">
                 <td>
                   <strong>Age:</strong>
                 </td>
@@ -144,10 +144,10 @@
             </tr> 
             <tr id='date_of_birth_field'>
                 <td>
-                  <strong>Date of birth:</strong>
+                  <strong>Date of Birth:</strong>
                 </td>
                 <td>
-                    <%= f.date_select :date_of_birth, label: false, class: 'table-input' %>
+                    <%= f.date_field :date_of_birth, label: false, :class =>'table-input' %>
                 </td>
             </tr> 
 
@@ -194,18 +194,22 @@
     ] ).draw();
     });
     $('#ssn_field').hide();
+    $('#age').hide();
     $('#date_of_birth_field').hide();
     $('#contact_type').on('change', function() {
         var conceptName = $('#contact_type').find(":selected").text();
         if (conceptName == 'Defendant') {
           $('#date_of_birth_field').show();
           $('#ssn_field').show();
+          $('#age').show();
         } else if (conceptName == 'Plaintiff') {
           $('#ssn_field').show();
           $('#date_of_birth_field').show();
+          $('#age').show();
         } else {
           $('#ssn_field').hide();
           $('#date_of_birth_field').hide();
+          $('#age').hide();
         }
       });
 </script>

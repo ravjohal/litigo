@@ -655,17 +655,16 @@ color: #323A45;
   color: white;
 }
 .dataTables_length{
-  text-align: right;
-  position: absolute;
-  right: 8px;
-  top: -40px;
+float: left;
+margin-top: 10px;
+ margin-left: 20px;
+ margin-bottom: 0px;
 }
 .dataTables_filter{
-  width: 200px;
-  position: fixed;
-  right: 16px;
-  z-index: 1000;
-  top: 55px;
+  width: 210px;
+  margin-right: 20px;
+  margin-bottom: 15px;
+  
 }
 .dataTables_length{
 margin-right: 12px;
@@ -776,10 +775,9 @@ input[type="search"] {
 width: 200px;
 -webkit-appearance: none;
 font-weight: lighter;
-border: none;
+border: 1px solid #aaa;
+padding: 4px 2px;
 letter-spacing: 1px;
-text-indent: 10px;
-padding: 5px 5px;
 }
 
 input {

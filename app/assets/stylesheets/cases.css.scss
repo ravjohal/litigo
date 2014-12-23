@@ -111,7 +111,8 @@ td.big-row {
 
 hr.invis {
   border: 0;
-  height: 0;
+  height: 1px;
+  background-color: white;
 }
 
 .injury-form {

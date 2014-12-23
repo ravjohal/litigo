@@ -71,7 +71,7 @@ class EventsController < ApplicationController
       end
     end
 
-    GoogleCalendars.create_event(@user, @event)
+    GoogleCalendars.create_event(@user, @event) if !params[:event][:google_calendar_id].empty?
     message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
     respond_to do |format|
       format.html {redirect_to request.referrer , :flash => message}

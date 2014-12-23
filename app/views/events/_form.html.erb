@@ -100,7 +100,7 @@
                         <strong>Google Calendar:</strong>
                     </td>
                     <td>
-                       <%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]}, :class => 'table-input' %>
+                       <%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]}, :include_blank => true, :class => 'table-input' %>
                     </td>
                 </tr>
                  <tr>

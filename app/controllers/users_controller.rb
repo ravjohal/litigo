@@ -64,17 +64,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # def select_calendar
-  #   if params[:select_calendar].present?
-  #     params[:select_calendar].each do |calendar_id, val|
-  #       if val == '1'
-  #       GoogleCalendars.get_events(current_user, calendar_id.to_s)
-  #       end
-  #     end
-  #   end
-  #   render :nothing => true, :status => 200
-  # end
-
   def import_contacts
     @user = current_user
     create_google_oauth if @user.oauth_token.blank?

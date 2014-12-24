@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141212084937) do
+ActiveRecord::Schema.define(version: 20141224104552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20141212084937) do
     t.string   "state",              limit: 255
     t.string   "country",            limit: 255
     t.string   "phone_number",       limit: 255
-    t.integer  "fax_number"
+    t.string   "fax_number"
     t.string   "email",              limit: 255
     t.string   "gender",             limit: 255
     t.integer  "age"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20141212084937) do
     t.boolean  "corporation",                    default: false
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
+    t.string   "zip_code"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -364,7 +365,6 @@ ActiveRecord::Schema.define(version: 20141212084937) do
 
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
-
 
   create_table "staffs", force: true do |t|
     t.string   "staff_type", limit: 255

@@ -1,7 +1,6 @@
 <% if @user.show_onboarding %>
   <h3>Welcome to Litigo!</h3>
   <p>Click <%= link_to "Sign in with Google", "/auth/google_oauth2" %> to import your google contacts and calendar.</p>
-  <%= render 'calendars_modal' if @calendars %>
 <% else %>
 
   <h3>User</h3>
@@ -10,8 +9,3 @@
   <p>Show Onboarding: <%= @user.show_onboarding if @user.show_onboarding %></p>
 
 <% end %>
-<script type="text/javascript" charset="utf-8">
-  <% if @calendars %>
-    $("#modal-window").modal('show');
-  <% end %>
-</script>

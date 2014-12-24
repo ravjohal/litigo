@@ -9,6 +9,10 @@ class DashboardsController < ApplicationController
         puts " WHAT IS CURRENT_USER ROLE -> " + User::USER_ROLES[current_user.role.to_i].to_s
          create_contact(User::USER_ROLES[current_user.role.to_i].to_s.humanize, current_user, current_user.firm)
       end
+      if params[:google_auth]
+        @calendars = @user.google_calendars
+      end
+      #p "CALENDARS ---------------> " + @calendars.first.summary.to_s
       render :show
     else
       @firm = Firm.new
@@ -16,6 +20,17 @@ class DashboardsController < ApplicationController
   end
 
   def show
+  end
+
+  def select_calendar
+    if params[:select_calendar].present?
+      params[:select_calendar].each do |calendar_id, val|
+        if val == '1'
+        GoogleCalendars.get_events(current_user, calendar_id.to_s)
+        end
+      end
+    end
+    render :nothing => true, :status => 200
   end
 
   def create

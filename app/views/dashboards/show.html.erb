@@ -1,5 +1,5 @@
 <% if @user.show_onboarding %>
-
+<%= render 'calendars_modal' if @calendars %>
   <div class="row">
     <div class="col-xs-6 col-sm-4 col-md-3"><%= link_to "/auth/google_oauth2?state=calendar" do %>
         <div class="tile-new">
@@ -42,4 +42,10 @@
   <p>Email: <%= @user.email if @user.email %></p>
   <p>Show Onboarding: <%= @user.show_onboarding if @user.show_onboarding %></p>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  <% if @calendars %>
+    $("#modal-window2").modal('show');
+  <% end %>
+</script>
 

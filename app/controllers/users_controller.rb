@@ -17,6 +17,7 @@ class UsersController < ApplicationController
     if params[:google_auth]
       @calendars = @user.google_calendars
     end
+    #p "CALENDARS ---------------> " + @calendars.to_s
     unless current_user.admin?
       unless @user == current_user
         redirect_to :back, :alert => "Access denied."
@@ -54,7 +55,8 @@ class UsersController < ApplicationController
     sync_param = params[:state]
     if sync_param == "calendar"
       GoogleCalendars.get_calendars_list(current_user)
-      redirect_to user_path({id: current_user.id, google_auth: true})
+      #redirect_to user_path({id: current_user.id, google_auth: true})
+      redirect_to root_path({id: current_user.id, google_auth: true}), notice: "Calendars successfully imported"
     elsif sync_param == "contacts"
       contacts = GoogleContacts.contacts(current_user)
       logger.info "contacts: #{contacts.ai}\n\n\n"
@@ -62,16 +64,16 @@ class UsersController < ApplicationController
     end
   end
 
-  def select_calendar
-    if params[:select_calendar].present?
-      params[:select_calendar].each do |calendar_id, val|
-        if val == '1'
-        GoogleCalendars.get_events(current_user, calendar_id.to_s)
-        end
-      end
-    end
-    render :nothing => true, :status => 200
-  end
+  # def select_calendar
+  #   if params[:select_calendar].present?
+  #     params[:select_calendar].each do |calendar_id, val|
+  #       if val == '1'
+  #       GoogleCalendars.get_events(current_user, calendar_id.to_s)
+  #       end
+  #     end
+  #   end
+  #   render :nothing => true, :status => 200
+  # end
 
   def import_contacts
     @user = current_user

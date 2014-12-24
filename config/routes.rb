@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
   get 'refresh_google_events' => 'events#refresh_google_events'
-  get '/users/select_calendar'
+  get '/dashboards/select_calendar'
   get  "dropbox/main"
   post "dropbox/upload"
   get  "dropbox/auth_start"

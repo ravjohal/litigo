@@ -52,7 +52,7 @@
         <td>
           <strong>Owner:</strong>
         </td>
-        <td>
+        <td colspan="2">
         <%= f.association :owner, :collection => @firm.users, :input_html => {:id => "task_select"}, label: false %>
         </td>
       </tr>

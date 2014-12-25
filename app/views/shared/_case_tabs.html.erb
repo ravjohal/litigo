@@ -1,4 +1,4 @@
-<div id="nav-tabs-custom">
+
 <ul id="nav-tabs-custom" role="tablist">
   <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case)  %></li>
   <% if @case.incident && @case.case_type == 'Personal Injury' %>
@@ -23,4 +23,3 @@
      <li><%= active_link_to 'RESOLUTION', case_resolution_path(@case, @case.resolution) , :class_active => 'navigated' %></li>
   <% end %>
 </ul>
-</div>

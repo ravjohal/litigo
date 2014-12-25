@@ -32,19 +32,27 @@
     <header>
       <%= render 'layouts/navigation' %>
     </header> 
-        <div class="container-fluid">
-          <div class = "row">
-           
-            <div class = "col-sm-3 col-md-2 col-lg-2 sidebar">
-                   <%= render 'layouts/side_navigation' %>
-            </div> 
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 col-lg-10 main">
-                  <%= render 'layouts/messages' %>
-                  <%= yield %>
+        <div id="wrapper">
+            <div id="sidebar-wrapper">
+                  <%= render 'layouts/side_navigation' %>
             </div>
-          </div>
+            <div id="page-content-wrapper">
+                <div class="page-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <%= render 'layouts/messages' %>
+                                <%= yield %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                 <!-- <button href="#menu-toggle" class="side-menu-toggle" id="menu-toggle"> 
+                          <span class="glyphicon glyphicon-th-list"></span>        
+                    </button> -->
+            </div>
         </div>
-      <% else %>
+         <% else %>
 
           <div class="main">
                 <%= render 'layouts/messages' %>
@@ -54,12 +62,21 @@
       </div>
       <% end %>
 
+
+
   <script>
       $('document').ready(function() {
           setTimeout(function() {
-      $('.alert').fadeOut();
+      $('.alert, .alert-success').fadeOut();
         }, 2000);
       });
+  </script>
+
+  <script>
+    $('#menu-toggle').click(function(e) {
+        e.preventDefault();
+        $('#wrapper').toggleClass("toggled");
+    });
   </script>
 
   </body>

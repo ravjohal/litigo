@@ -501,6 +501,18 @@ margin-bottom: 10px;
   top: 110px;
   right: 80px;
 }
+.alert-fixed {
+  background-color: black;
+  position: fixed;
+  width: 300px;
+  z-index: 10;
+  border: none;
+  border-radius: 4px;
+  padding-top: 15px;
+  padding-right: 10px;
+  text-align: center;
+  top: 110px;
+}
 
 .navbar-inverse {
   background-color: #0483A0;
@@ -612,13 +624,14 @@ width: 0;
     width: 0;
   }
 }
-
 @media (max-width: 767px) {
-    #wrapper.toggle
-    #sidebar-wrapper {
-      width: 230px;
-    }
-  }
+#wrapper.toggled {
+padding-left: 230px;
+}
+#wrapper.toggled #sidebar-wrapper {
+width: 230px;
+}
+}
 
 #sidebar-wrapper {
   margin-top: -12px;

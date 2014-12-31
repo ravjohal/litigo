@@ -14,7 +14,7 @@ class Document < ActiveRecord::Base
 	    document.remove!
 	    #document.thumb.remove! # if you have thumb version or any other version
 	  rescue Excon::Errors::Error => error
-	    puts "Something gone wrong"
+	    puts "Something has gone wrong"
 	    false
 	  end
 end

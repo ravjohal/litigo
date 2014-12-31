@@ -2,7 +2,7 @@ class Case < ActiveRecord::Base
 
   TYPES = ['Personal Injury', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Real Estate', 'Wills', 'Trusts', 'Estates']
   SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action', 'Workers Compensation']
-  STATUS = ['open', 'pending', 'closed']
+  STATUS = ['Open', 'Pending', 'Closed']
 
   #enum status: { open: 0, pending: 1, closed: 2 }
 

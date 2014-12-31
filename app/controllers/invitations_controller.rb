@@ -31,7 +31,7 @@ class InvitationsController < Devise::InvitationsController
       if emails.present?
         format.html { redirect_to root_path, notice: "Invitations were sent to: #{emails.to_sentence}" }
       else
-        flash[:notice] = "Email weren't sent"
+        flash[:notice] = "Email was sent"
         format.html { render :new }
       end
     end

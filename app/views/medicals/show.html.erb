@@ -1,8 +1,7 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Cases', cases_path %></li>
-  <li><%= link_to @case.name, case_path(@case) %></li>
-  <li class="active">Medical</li>
-</ol>
+<ul class="breadcrumb">
+  <li><strong>Case Name: </strong><%= @case.name %></li>
+  <li class="active-breadcrumb"><strong>Case #: </strong><%= @case.id %></li>
+</ul>
 
 <%= render partial: 'shared/case_tabs' %>
 
@@ -16,6 +15,7 @@
       <td>
       </td>
       <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+       <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %>
       <%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %></td>
     </tr>
     <tbody>
@@ -179,7 +179,7 @@
 <table class="injury-table">
 <thead>
   <tr class="right-top">
-    <td colspan="2" class="gray-back">
+    <td colspan="2" class="gray-back" style="padding-bottom: 3px;">
      <strong> Injury #<%= i %> </strong>
      <%= link_to medical_injury_path(@medical, injury),  :class => 'dark-right-small', method: :delete, data: { confirm: 'WARNING! Deleting an injury will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
     </td>

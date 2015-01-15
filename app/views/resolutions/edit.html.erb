@@ -30,14 +30,30 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-     <strong> Resolution Summary</strong>
+     <strong> Resolution</strong>
     </td>
   </tr>
 </thead>
   <tbody>
       <tr>
         <td class="right">
-          <strong>Final Settlement Demand:</strong>
+          <strong>Expected Close Date:</strong>
+        </td>
+        <td>
+          <%= f.text_field :settlement_demand, :class => 'table-input', label: false %> <!-- change to date field -->
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Estimated Value:</strong>
+        </td>
+        <td>
+          <%= f.text_field :settlement_demand, :class => 'table-input', label: false %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Settlement Demand:</strong>
         </td>
         <td>
         <%= f.text_field :settlement_demand, :class => 'table-input', label: false %>
@@ -51,6 +67,18 @@
         <td>
         <%= f.text_field :jury_demand, :class => 'table-input', label: false %>
           
+        </td>
+      </tr>
+        <tr>
+        <td colspan="2">
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Actual Close Date:</strong>
+        </td>
+        <td>
+          <%= @case.closing_date %>
         </td>
       </tr>
       <tr>

@@ -1,8 +1,7 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Cases', cases_path %></li>
-  <li><%= link_to @case.name, case_path(@case) %></li>
-  <li class="active">Resolution</li>
-</ol>
+<ul class="breadcrumb">
+  <li><strong>Case Name: </strong><%= @case.name %></li>
+  <li class="active-breadcrumb"><strong>Case #: </strong><%= @case.id %></li>
+</ul>
 
 <%= render partial: 'shared/case_tabs' %>
 
@@ -17,6 +16,7 @@
       <td>
       </td>
       <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %>
       <%= link_to 'Edit', edit_case_resolution_path(@case, @resolution), :class => 'dark' %></td>
     </tr>
     <tbody>
@@ -28,14 +28,30 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong> Resolution Summary </strong>
+      <strong> Resolution</strong>
     </td>
   </tr>
 </thead>
   <tbody>
+       <tr>
+        <td class="right">
+          <strong>Expected Close Date:</strong>
+        </td>
+        <td>
+          
+        </td>
+      </tr>
       <tr>
         <td class="right">
-          <strong>Final Settlement Demand:</strong>
+          <strong>Estimated Value:</strong>
+        </td>
+        <td>
+          <!-- <%= number_to_currency @resolution.settlement_demand, precision: 0 %> -->
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Settlement Demand:</strong>
         </td>
         <td>
           <%= number_to_currency @resolution.settlement_demand, precision: 0 %>
@@ -49,7 +65,20 @@
           <%= number_to_currency @resolution.jury_demand, precision: 0 %>
         </td>
       </tr>
+
       <tr>
+        <td colspan="2">
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Actual Close Date:</strong>
+        </td>
+        <td>
+          <%= @case.closing_date %>
+        </td>
+      </tr>
+       <tr>
         <td class="right">
           <strong>Resolution Amount:</strong>
         </td>

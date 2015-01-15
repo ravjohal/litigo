@@ -8,6 +8,7 @@
       <td>
       </td>
       <td><%= link_to @contact, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a contact will remove all the contact  information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+       <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %>
       <%= link_to 'Edit', edit_contact_path(@contact), :class => 'dark' %></td>
     </tr>
     <tbody>

@@ -1,7 +1,7 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Cases', cases_path %></li>
-  <li class="active-breadcrumb"><%= @case.name %></li>
-</ol>
+<ul class="breadcrumb">
+  <li><strong>Case Name: </strong><%= @case.name %></li>
+  <li class="active-breadcrumb"><strong>Case #: </strong><%= @case.id %></li>
+</ul>
 
 <div class="container-fluid" style="padding: 0;">
       <div class="row">
@@ -21,6 +21,7 @@
       <td>
       </td>
       <td><%= link_to @case,  :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+      <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %>
       <%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %></td>
     </tr>
     <tbody>

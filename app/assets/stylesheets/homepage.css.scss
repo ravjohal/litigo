@@ -18,6 +18,35 @@ img {
   display: none;
 }
 }
+@media print {
+  #sidebar-wrapper{
+    display: none;
+  }
+  .side-menu-toggle {
+    display: none;
+  }
+  .nav-sidebar {
+    display: none;
+  }
+   .breadcrumb {
+    font-size: 24px;
+  }
+  #nav-tabs-custom {
+    display: none;
+  }
+  #nav-tabs-custom {
+    display: none;
+  }
+  #info-table4 {
+  display: none;
+  }
+   .feedback_trigger {
+    display: none;
+  }
+   .feedback_content {
+    display: none;
+  }
+}
 .column {
   @extend .col-md-6;
   @extend .text-center;
@@ -638,7 +667,7 @@ width: 230px;
   margin-left: -230px;
   left: 230px;
   width: 230px;
-  background: #000;
+  background: #313A45;
   position: fixed;
   height: 100%;
   overflow-x: hidden;
@@ -666,7 +695,7 @@ width: 230px;
   width: 30px;
   height: 30px;
   color: white;
-  background-color: #000;
+  background-color: #313A45;
     &:hover {
     color: white;
     background-color: #606060;
@@ -860,18 +889,10 @@ margin: 0 auto;
 }
 
 @media (max-width: 767px) {
-.welcome {
-  
+.welcome {  
 }
 }
-.navbar-brand {
-  background-image: url(/assets/darklogo.png);
-  background-repeat: no-repeat;
-  background-size: 90px 34px;
-  width: 100px;
-  height: 38px;
-  margin-top: 10px;
-}
+
 .navbar-brand2 {
   background-image: url(/assets/lightlogo.png);
   background-repeat: no-repeat;

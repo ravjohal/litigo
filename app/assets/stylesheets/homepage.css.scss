@@ -174,7 +174,7 @@ main {
   padding-left: 25px;
   font-size: 14px;
   background: transparent;
-  border: 2px solid #3FC2D8;
+  border: .2em solid #3FC2D8;
   cursor:pointer;
   letter-spacing: 2px;
   border-radius: 4px;
@@ -183,7 +183,7 @@ main {
   }
   input.sub-btn:hover{
   background:#3FC2D8;
-  border: 2px solid #3FC2D8;
+  border: .2em solid #3FC2D8;
   transition: .2s;
   color: white;
   }
@@ -349,7 +349,7 @@ h1 {
   padding-left: 25px;
   font-size: 14px;
   background: transparent;
-  border: 2px solid #3FC2D8;
+  border: .2em solid #3FC2D8;
   cursor:pointer;
   letter-spacing: 2px;
   border-radius: 4px;
@@ -359,7 +359,7 @@ h1 {
   }
   input.sub:hover{
   background:#3FC2D8;
-  border: 2px solid #3FC2D8;
+  border: .2em solid #3FC2D8;
   transition: .2s;
   color: white;
   }

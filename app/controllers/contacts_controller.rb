@@ -55,10 +55,10 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        # format.html { redirect_to path_contacts, notice: 'Contact was successfully created.' }
+        format.html { redirect_to path_contacts, notice: 'Contact was successfully created.' }
         format.json { render :show, status: :created, contact: @contact }
       else
-        # format.html { render :new }
+        format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end

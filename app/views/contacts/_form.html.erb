@@ -1,4 +1,4 @@
-<%= simple_form_for(new_contact, :remote => true) do |f| %>
+<%= simple_form_for(new_contact) do |f| %>
   <%= f.error_notification %>
      <% if action_name == "index" %>
       <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->

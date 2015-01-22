@@ -254,8 +254,6 @@ h1 {
   margin: 0 auto;
 }
   
-
-  
  .wrapper{
   max-width: 1080px;
   width: 1080px;
@@ -286,8 +284,6 @@ h1 {
   color: black;
   }
   
-
-
   .home-nav-banner {
   width: 100%;
   height: 60px;
@@ -624,7 +620,7 @@ margin-bottom: 10px;
   padding: 20px 15px;
 }
 .nav > li > a:hover {
-  background: #414242;
+  background: #272D33;
   position: relative;
   display: block;
   padding: 20px 15px;
@@ -755,6 +751,9 @@ width: 230px;
         display: block;
         padding: 20px 15px;
         color: white;
+        &:hover {
+        background: #6C6D6D !important;
+        }
 }
 .navigated {
        font-weight: lighter;

@@ -40,7 +40,7 @@
           <strong>Expected Close Date:</strong>
         </td>
         <td>
-          <%= f.text_field :settlement_demand, :class => 'table-input', label: false %> <!-- change to date field -->
+          <%= f.date_field :expected_close, :class => 'table-input', label: false %>
         </td>
       </tr>
       <tr>
@@ -48,7 +48,7 @@
           <strong>Estimated Value:</strong>
         </td>
         <td>
-          <%= f.text_field :settlement_demand, :class => 'table-input', label: false %>
+          <%= f.text_field :estimated_value, :class => 'table-input', label: false, placeholder: '$' %>
         </td>
       </tr>
       <tr>
@@ -56,7 +56,7 @@
           <strong>Settlement Demand:</strong>
         </td>
         <td>
-        <%= f.text_field :settlement_demand, :class => 'table-input', label: false %>
+        <%= f.text_field :settlement_demand, :class => 'table-input', label: false, placeholder: '$'  %>
           
         </td>
       </tr>
@@ -65,7 +65,7 @@
           <strong>Jury Ask:</strong>
         </td>
         <td>
-        <%= f.text_field :jury_demand, :class => 'table-input', label: false %>
+        <%= f.text_field :jury_demand, :class => 'table-input', label: false, placeholder: '$'  %>
           
         </td>
       </tr>
@@ -86,7 +86,7 @@
           <strong>Resolution Amount:</strong>
         </td>
         <td>
-        <%= f.text_field :resolution_amount, :class => 'table-input', label: false %>
+        <%= f.text_field :resolution_amount, :class => 'table-input', label: false, placeholder: '$'  %>
           
         </td>
       </tr>

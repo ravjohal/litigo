@@ -56,14 +56,6 @@
           <%= @contact.last_name %>
         </td>
       </tr>
-       <tr>
-        <td class="right">
-          <strong>Corporation:</strong>
-        </td>
-        <td>
-          <%= boolean_as_yesno @contact.corporation %>
-        </td>
-      </tr> 
       <tr>
         <td class="right">
           <strong>Date of Birth:</strong>
@@ -72,6 +64,14 @@
           <%= @contact.date_of_birth %>
         </td>
       </tr> 
+      <tr>
+        <td class="right">
+          <strong>Gender:</strong>
+        </td>
+        <td>
+          <%= @contact.gender %>
+        </td>
+      </tr>
         <tr>
         <td class="right">
           <strong>SSN:</strong>
@@ -80,6 +80,15 @@
           <%= @contact.ssn %>
         </td>
       </tr> 
+       <tr>
+        <td class="right">
+          <strong>Corporation:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @contact.corporation %>
+        </td>
+      </tr> 
+      
         <tr>
         <td class="right">
           <strong>Company or Firm:</strong>
@@ -122,7 +131,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Phone Number:</strong>
+          <strong>Phone:</strong>
         </td>
         <td>
           <%= @contact.phone_number %>
@@ -130,7 +139,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Fax Number:</strong>
+          <strong>Fax:</strong>
         </td>
         <td>
           <%= @contact.fax_number %>
@@ -138,26 +147,19 @@
       </tr>
        <tr>
         <td class="right">
-          <strong>Email Address:</strong>
+          <strong>Email:</strong>
         </td>
         <td>
           <%= @contact.email %>
         </td>
       </tr>
+       
        <tr>
-        <td class="right">
-          <strong>Gender:</strong>
+        <td class="right big-row">
+          <strong>Notes:</strong>
         </td>
-        <td>
-          <%= @contact.gender %>
-        </td>
-      </tr>
-       <tr>
-        <td class="right">
-          <strong>Age:</strong>
-        </td>
-        <td>
-          <%= @contact.age %>
+        <td class="big-row">
+          <%= @contact.note %>
         </td>
       </tr>
       

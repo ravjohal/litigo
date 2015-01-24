@@ -82,10 +82,42 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Insurance Company:</strong>
+          <strong>Insurance Company for Defendant:
         </td>
         <td>
            <%= @incident.insurance_provider %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 40px;">
+          Defendant Policy Limit:
+        </td>
+        <td>
+           <%= number_to_currency @incident.defendant_limits, precision: 0 %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 40px;">
+          Plaintiff Policy Limit:
+        </td>
+        <td>
+           <%= number_to_currency @incident.plaintiff_limits, precision: 0 %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 40px;">
+          UIM Policy Limit:
+        </td>
+        <td>
+           <%= number_to_currency @incident.uim_limits, precision: 0 %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 20px;">
+          <strong>Total Policy Limit(s):</strong>
+        </td>
+        <td>
+           <%= number_to_currency @incident.policy_limit, precision: 0 %>
         </td>
       </tr>
       <tr>

@@ -101,10 +101,42 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Insurance Company:</strong>
+          <strong>Insurance Company for Defendant:</strong>
         </td>
         <td>
            <%= f.select :insurance_provider, Incident::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 40px;">
+          Defendant Policy Limit:
+        </td>
+        <td>
+           <%= f.text_field :defendant_limits, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 40px;">
+          Plaintiff Policy Limit:
+        </td>
+        <td>
+           <%= f.text_field :plaintiff_limits, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right" style="text-indent: 40px;">
+          UIM Policy Limit:
+        </td>
+        <td>
+           <%= f.text_field :uim_limits, :class => 'table-input' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Total Policy Limit(s):</strong>
+        </td>
+        <td>
+           <%= f.text_field :policy_limit, :class => 'table-input' %>
         </td>
       </tr>
       <tr>

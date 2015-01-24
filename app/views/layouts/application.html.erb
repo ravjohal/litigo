@@ -48,7 +48,7 @@
                     </div>
                 </div>
                  <button href="#menu-toggle" class="side-menu-toggle" id="menu-toggle"> 
-                          <span class="glyphicon glyphicon-th-list"></span>        
+                          <span class="glyphicon glyphicon-chevron-left"></span>        
                     </button>
             </div>
         </div>
@@ -76,6 +76,8 @@
     $('#menu-toggle').click(function(e) {
         e.preventDefault();
         $('#wrapper').toggleClass("toggled");
+        $('.glyphicon-chevron-left').toggleClass("glyphicon-chevron-right");
+        $('.side-menu-toggle').toggleClass("side-menu-toggled");
     });
   </script>
 

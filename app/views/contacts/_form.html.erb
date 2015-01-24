@@ -45,6 +45,38 @@
                     <%= f.text_field :last_name, label: false, :class => 'table-input' %>
                 </td>
             </tr>
+               <tr id='date_of_birth_field'>
+                <td>
+                  <strong>Date of Birth:</strong>
+                </td>
+                <td>
+                    <%= f.date_field :date_of_birth, label: false, :class =>'table-input' %>
+                </td>
+            </tr>
+               <tr>
+                <td>
+                    <strong>Gender:</strong>
+                </td>
+                <td>
+                    <div class="radio">
+                        <%= f.radio_button :gender, 'M' %> 
+                        <%= label :gender, 'Male' %>
+                    </div>
+                    <div class="radio">
+                        <%= f.radio_button :gender, 'F' %>
+                        <%= f.label :gender, 'Female', :value => 'Female'%>
+                    </div>
+                </td>
+            </tr>
+            <tr id="ssn_field">
+                <td>
+                  <strong>SSN:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :ssn, label: false, class: 'table-input' %>
+                </td>
+            </tr> 
+           
               <tr>
                 <td>
                   <strong>Corporation:</strong>
@@ -53,6 +85,7 @@
                     <%= f.check_box :corporation, label: false %>
                 </td>
             </tr>  
+               
                <tr>
                 <td>
                     <strong>Company or Firm:</strong>
@@ -85,7 +118,7 @@
                     <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
                 </td>
             </tr>
-             <tr>
+             
               <tr>
                 <td>
                     <strong>Zipcode:</strong>
@@ -94,6 +127,7 @@
                     <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
                 </td>
             </tr>
+
              <tr>
                 <td>
                     <strong>Phone:</strong>
@@ -118,48 +152,6 @@
                     <%= f.text_field :email, label: false, :class => 'table-input', placeholder: 'john.smith@gmail.com'  %>
                 </td>
             </tr>
-            <tr>
-                <td>
-                    <strong>Gender:</strong>
-                </td>
-                <td>
-                    <div class="radio">
-                        <%= f.radio_button :gender, 'M' %> 
-                        <%= label :gender, 'Male' %>
-                    </div>
-                    <div class="radio">
-                        <%= f.radio_button :gender, 'F' %>
-                        <%= f.label :gender, 'Female', :value => 'Female'%>
-                    </div>
-                
-                </td>
-            </tr>
-             <tr id="age">
-                <td>
-                  <strong>Age:</strong>
-                </td>
-                <td>
-                    <%= f.text_field :age, label: false, :class => 'table-input' %>
-                </td>
-            </tr>  
-            </tr>
-             <tr id="ssn_field">
-                <td>
-                  <strong>SSN:</strong>
-                </td>
-                <td>
-                    <%= f.text_field :ssn, label: false, class: 'table-input' %>
-                </td>
-            </tr> 
-            <tr id='date_of_birth_field'>
-                <td>
-                  <strong>Date of Birth:</strong>
-                </td>
-                <td>
-                    <%= f.date_field :date_of_birth, label: false, :class =>'table-input' %>
-                </td>
-            </tr> 
-
         </tbody>
       </table>
      <% if action_name == "index" %>        

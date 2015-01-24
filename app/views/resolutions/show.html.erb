@@ -38,7 +38,7 @@
           <strong>Expected Close Date:</strong>
         </td>
         <td>
-          
+            <%= @resolution.expected_close %>
         </td>
       </tr>
       <tr>
@@ -46,7 +46,7 @@
           <strong>Estimated Value:</strong>
         </td>
         <td>
-          <!-- <%= number_to_currency @resolution.settlement_demand, precision: 0 %> -->
+          <%= number_to_currency @resolution.estimated_value, precision: 0 %>
         </td>
       </tr>
       <tr>

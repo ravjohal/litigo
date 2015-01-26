@@ -40,8 +40,11 @@
   </div>
 <br />
 <br />
-
-<h3>Firm Tasks</h3>
+<% if @case %>
+<h3>All Case Tasks</h3>
+<% else %>
+<h3>All Firm Tasks</h3>
+<% end %>
   <div class="table-responsive">
     <table id="tasks" class="table table-striped">
       <thead class="user-table-head">

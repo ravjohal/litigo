@@ -1,5 +1,9 @@
 <p>Welcome <%= @email %>!</p>
 
-<p>You can confirm your account email through the link below:</p>
+<p>For security reasons, to complete your registration please click on the link below to verify your email:</p>
 
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<p><%= link_to 'Verify my email address', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+<hr/>
+
+<p style="font-size: 10px; color: #ddd; text-align: center;">You're getting this email because you requested an account on litigoinsights.com using this email address. If you didn't intend to do this, just ignore this email; no account has been created yet.

@@ -7,9 +7,9 @@
               <%= f.error_notification %>
             </div>
          <div class="modal-body">
-            <p style="font-size:15px;">One last step before you are using your free case management software. We just need a few more details: </p>
+            <p style="font-size:16px;">We just need a few more details before using your case management software:</p>
 
-        <table class="dash-form">
+        <table class="dash-form table-condensed">
             <tbody>
                 <tr>
                     <td>
@@ -21,7 +21,7 @@
                 </tr>
                 <tr>
                   <td>
-                      <strong>Role:</strong>
+                      <strong>Your Role:</strong>
                   </td>
                   <td>
                       <%= f.simple_fields_for :contact, Contact.new do |p| %>

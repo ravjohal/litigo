@@ -1,7 +1,7 @@
 <p>Hello, <%= @user.email %></p>
 <p><%= @admin.email %> would like you to join their firm <%= @admin.firm.name %> as <%= @role %> on Litigo.co</p>
-<p>Please click the link below to sign up for your free account and begin collaborating.</p>
-<%= link_to 'Litigo', accept_invitation_url(@user, :invitation_token => @token) %><br>
+<p>Please click the link below to sign up for your account and join your firm.</p>
+<%= link_to 'Accept Invitation', accept_invitation_url(@user, :invitation_token => @token) %><br>
 
 <p>Cheers,</p>
 <p>The Litigo Team</p>

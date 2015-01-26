@@ -49,8 +49,11 @@
   </div>
 <br />
 <br />
-
-<h3>Firm Documents</h3>
+<% if @case %>
+<h3>All Case Documents</h3>
+<% else %>
+<h3>All Firm Documents</h3>
+<% end %>
     <div class="table-responsive">
       <table id="tasks" class="table table-striped">
         <thead class="user-table-head">

@@ -2,7 +2,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
 // make all images responsive by default
 img {
   @extend .img-responsive;
@@ -169,21 +168,22 @@ main {
 }
 
  input.sub-btn{
+  text-shadow: 0px 1px 1px #555;
   font-weight: normal;
   padding-right: 25px;
   padding-left: 25px;
   font-size: 14px;
-  background: transparent;
+  background: #3FC2D8;
   border: .2em solid #3FC2D8;
   cursor:pointer;
   letter-spacing: 2px;
   border-radius: 4px;
-  color: #3FC2D8;
+  color: white;
   height: 45px;
   }
   input.sub-btn:hover{
-  background:#3FC2D8;
-  border: .2em solid #3FC2D8;
+  background:#0483A0;
+  border: .2em solid #0483A0;
   transition: .2s;
   color: white;
   }
@@ -298,7 +298,7 @@ h1 {
   div.tagline{
     z-index: 1;
     font-family: Nexa, serif;
-    font-size: 52px;
+    font-size: 60px;
     color: white;
     Margin: 0 auto;
     max-width: 1080px;
@@ -340,11 +340,12 @@ h1 {
     text-indent: 10px;
   }
   input.sub{
+  text-shadow: 0px 1px 1px #555;
   font-weight: normal;
   padding-right: 25px;
   padding-left: 25px;
   font-size: 14px;
-  background: transparent;
+  background: #3FC2D8;
   border: .2em solid #3FC2D8;
   cursor:pointer;
   letter-spacing: 2px;
@@ -354,8 +355,8 @@ h1 {
   margin-left: 10px;
   }
   input.sub:hover{
-  background:#3FC2D8;
-  border: .2em solid #3FC2D8;
+  background:#0483A0;
+  border: .2em solid #0483A0;
   transition: .2s;
   color: white;
   }
@@ -670,7 +671,8 @@ width: 230px;
   overflow-y: auto;
   z-index: 1000;
   transition: all 0.4s ease 0s;
-  border-right: 1px solid #38393A;
+  border-right: 1px solid #313A45;
+  border-top: 1px solid #313A45;
   text-decoration: none;
   padding: 0;
 }
@@ -786,6 +788,7 @@ width: 230px;
 .nav-sidebar__dsh {
 color: #fff;
 font-family: sans-serif;
+text-shadow: 0px 1px 1px #555;
 font-weight: lighter;
 font-size: 15px;
 letter-spacing: 1px;
@@ -801,6 +804,7 @@ letter-spacing: 1px;
 .nav-sidebar__cm {
 color: #fff;
 font-family: sans-serif;
+text-shadow: 0px 1px 1px #555;
 font-weight: lighter;
 font-size: 15px;
 letter-spacing: 1px;
@@ -815,6 +819,7 @@ letter-spacing: 1px;
 .nav-sidebar__cev {
 color: #fff;
 font-family: sans-serif;
+text-shadow: 0px 1px 1px #555;
 font-weight: lighter;
 font-size: 15px;
 letter-spacing: 1px;
@@ -830,6 +835,7 @@ letter-spacing: 1px;
 .nav-sidebar__li {
 color: #fff;
 font-family: sans-serif;
+text-shadow: 0px 1px 1px #555;
 font-weight: lighter;
 font-size: 15px;
 letter-spacing: 1px;
@@ -844,6 +850,7 @@ letter-spacing: 1px;
 .nav-sidebar__bil {
 color: #fff;
 font-family: sans-serif;
+text-shadow: 0px 1px 1px #555;
 font-weight: lighter;
 font-size: 15px;
 letter-spacing: 1px;
@@ -858,6 +865,7 @@ letter-spacing: 1px;
 .nav-sidebar__prf {
 color: #fff;
 font-family: sans-serif;
+text-shadow: 0px 1px 1px #555;
 font-weight: lighter;
 font-size: 15px;
 letter-spacing: 1px;

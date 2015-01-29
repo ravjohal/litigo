@@ -397,7 +397,8 @@ input:focus {
  float: right;
 }
 .table-row-max-h {
-  max-height: 90px;
+  min-height: 65px;
+  max-height: 65px;
   overflow: hidden;
 }
 

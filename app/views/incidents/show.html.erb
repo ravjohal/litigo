@@ -77,47 +77,7 @@
           <strong>Property Damage ($):</strong>
         </td>
         <td>
-          <%= number_to_currency(@incident.property_damage, precision: 0) %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Insurance Company for Defendant:
-        </td>
-        <td>
-           <%= @incident.insurance_provider %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right" style="text-indent: 40px;">
-          Defendant Policy Limit:
-        </td>
-        <td>
-           <%= number_to_currency @incident.defendant_limits, precision: 0 %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right" style="text-indent: 40px;">
-          Plaintiff Policy Limit:
-        </td>
-        <td>
-           <%= number_to_currency @incident.plaintiff_limits, precision: 0 %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right" style="text-indent: 40px;">
-          UIM Policy Limit:
-        </td>
-        <td>
-           <%= number_to_currency @incident.uim_limits, precision: 0 %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right" style="text-indent: 20px;">
-          <strong>Total Policy Limit(s):</strong>
-        </td>
-        <td>
-           <%= number_to_currency @incident.policy_limit, precision: 0 %>
+          <%= number_to_currency(@incident.property_damage, precision: 2) %>
         </td>
       </tr>
       <tr>
@@ -152,6 +112,60 @@
           <%= boolean_as_yesno @incident.towed %>
         </td>
       </tr>
+  </tbody>
+</table>
+
+<table id="insurance-table">
+<thead>
+  <tr class="right-top">
+    <td colspan="5" class="gray-back">
+      <strong>Insurance Summary</strong>
+    </td>
+  </tr>
+</thead>
+<tfoot>
+<tr class="right-top">
+    <td colspan="4">
+      <strong>Total Policy Limits</strong>
+    </td>
+    <td>
+      <strong></strong>
+    </td>
+  </tr>
+</tfoot>
+  <tbody>
+      <tr>
+        <td class="right">
+            <strong>Insurance Provider</strong>
+        </td>
+        <td>
+            <strong>Insurance Type</strong>
+        </td>
+        <td class="right">
+          <strong>Policy Holder</strong>
+        </td>
+        <td>
+            <strong>Claim Number</strong>
+        </td>
+         <td>
+            <strong>Policy Limit</strong>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+            
+        </td>
+        <td>
+            
+        </td>
+        <td class="right">
+          
+        </td>
+        <td>
+            
+        </td>
+      </tr>
+      
   </tbody>
 </table>
 

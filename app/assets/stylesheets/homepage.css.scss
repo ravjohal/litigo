@@ -16,6 +16,15 @@ img {
 .sidebar {
   display: none;
 }
+.homepage-email {
+ display: none; 
+}
+.mission {
+ display: none; 
+}
+.quote-container{
+display: none; 
+}
 }
 @media print {
   #sidebar-wrapper{
@@ -295,7 +304,7 @@ h1 {
   }
 
   
-  div.tagline{
+  .tagline{
     z-index: 1;
     font-family: Nexa, serif;
     font-size: 60px;
@@ -682,7 +691,6 @@ width: 230px;
   z-index: 1000;
   transition: all 0.4s ease 0s;
   border-right: 1px solid #313A45;
-  border-top: 1px solid #313A45;
   text-decoration: none;
   padding: 0;
 }
@@ -785,6 +793,7 @@ width: 230px;
         background: #6C6D6D !important;
         }
 }
+
 .navigated {
        font-weight: lighter;
       cursor: pointer;

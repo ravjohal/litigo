@@ -8,7 +8,7 @@
 <%= render partial: 'shared/case_tabs' %>
 
 
-<!-- <%= form_for :incident, url: [@case, @incident], method: :patch do |f| %> -->
+
 <%= simple_form_for([@case, @incident]) do |f| %>
 <div class="text-center">
 <table id="info-table4">
@@ -50,7 +50,7 @@
           <strong>Statute of limitations:</strong>
         </td>
         <td>
-        <%= @incident.statute_of_limitations %>
+        <%= f.date_field :statute_of_limitations, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -195,8 +195,35 @@
   </tbody>
 </table>
 
+<table id="insurance-table">
+<thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>Insurance Summary</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+            <strong>Insurance Provider</strong>
+        </td>
+        <td>
+            <strong>Insurance Type</strong>
+        </td>
+        <td class="right">
+          <strong>Policy Holder</strong>
+        </td>
+        <td>
+            <strong>Claim Number</strong>
+        </td>
+      </tr>
+      
+  </tbody>
+</table>
+
 <% end %>
-<% end %>
+
 
 
 

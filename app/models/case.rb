@@ -24,7 +24,7 @@ class Case < ActiveRecord::Base
 
   has_many :case_events, :dependent => :destroy
   has_many :events, :through => :case_events
-  
+  has_many :leads
   has_many :notes
 
   include PgSearch

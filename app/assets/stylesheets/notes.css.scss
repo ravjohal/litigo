@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.note-form {
+.note-form, .lead-form{
 	width: 100%;
     padding: 0;
   tr {
@@ -17,10 +17,14 @@
     }
   }
 }
-.note-form td:nth-child(1) {
+.note-form, .lead-form {
+  td:nth-child(1) {
   vertical-align: top;
+  }
 }
 
-.note-form tr:nth-child(even){
- background: white;
+.note-form, .lead-form {
+  tr:nth-child(even){
+   background: white;
+ }
 }

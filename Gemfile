@@ -47,6 +47,7 @@ gem 'attr_encrypted', '~> 1.3.3'
 gem 'bootbox-rails', '~>0.4'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
+gem 'maskedinput-rails', '~> 1.3.1.0'                 # mask used for phone formatting
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

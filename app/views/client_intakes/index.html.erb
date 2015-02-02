@@ -1,0 +1,70 @@
+<% if @case %>
+  <ul class="breadcrumb">
+    <li><strong>Case Name: </strong><%= @case.name %></li>
+    <li class="active-breadcrumb"><strong>Case #: </strong><%= @case.id %></li>
+  </ul>
+
+  <%= render partial: 'shared/case_tabs' %>
+<% end %>
+
+<div id="top-custom">
+  <ul>
+    <li><%= link_to "NEW LEAD", new_client_intake_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+  </ul>
+</div>
+
+<h3>My Leads</h3>
+<div class="table-responsive">
+  <table id="leads" class="table table-striped table-hover rowlink">
+    <thead class="user-table-head">
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @my_leads.each do |lead| %>
+      <tr data-id="<%= lead.id %>">
+        <td><%= lead.first_name%></td>
+        <td><%= lead.last_name%></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<% if @case %>
+  <h3>All Case Leads</h3>
+<% else %>
+  <h3>All Firm Leads</h3>
+<% end %>
+<div class="table-responsive">
+  <table id="leads" class="table table-striped table-hover rowlink">
+    <thead class="user-table-head">
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @leads.each do |lead| %>
+      <tr data-id="<%= lead.id %>">
+        <td><%= lead.first_name%></td>
+        <td><%= lead.last_name%></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#new_modal').click(function(event){
+      $("#modal-window").html("<%= escape_javascript(render 'client_intakes/form', new_lead: @lead ) %>");
+    });
+    <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
+  });
+</script>

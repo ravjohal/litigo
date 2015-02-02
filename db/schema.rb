@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124062824) do
+ActiveRecord::Schema.define(version: 20150128122856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,13 +96,13 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.integer  "user_id"
     t.integer  "contact_user_id"
     t.integer  "case_id"
-    t.boolean  "married",            default: false
-    t.boolean  "employed",           default: false
+    t.boolean  "married"
+    t.boolean  "employed"
     t.text     "job_description"
     t.decimal  "salary"
-    t.boolean  "parent",             default: false
-    t.boolean  "felony_convictions", default: false
-    t.boolean  "last_ten_years",     default: false
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
     t.integer  "jury_likeability"
     t.string   "witness_type"
     t.string   "witness_subtype"
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.string   "location"
     t.date     "date"
     t.time     "time"
-    t.boolean  "all_day",              default: false
-    t.boolean  "reminder",             default: false
+    t.boolean  "all_day"
+    t.boolean  "reminder"
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.string   "summary"
     t.datetime "start"
     t.datetime "end"
-    t.boolean  "end_time_unspecified", default: false
+    t.boolean  "end_time_unspecified"
     t.string   "transparency"
     t.string   "visibility"
     t.string   "iCalUID"
@@ -225,14 +225,14 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.decimal  "property_damage",        precision: 10, scale: 2
     t.boolean  "airbag_deployed",                                 default: false
     t.string   "speed"
-    t.boolean  "police_report",                                   default: false
+    t.boolean  "police_report"
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "insurance_provider"
     t.integer  "firm_id"
-    t.boolean  "towed",                                           default: false
-    t.boolean  "complaint_at_scene",                              default: false
+    t.boolean  "towed"
+    t.boolean  "complaint_at_scene"
     t.decimal  "policy_limit"
     t.decimal  "defendant_limits"
     t.decimal  "plaintiff_limits"
@@ -246,53 +246,94 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.string   "injury_type"
     t.string   "region"
     t.string   "code"
-    t.boolean  "dominant_side",                               default: false
-    t.boolean  "joint_fracture",                              default: false
-    t.boolean  "displaced_fracture",                          default: false
-    t.boolean  "disfigurement",                               default: false
-    t.boolean  "impairment",                                  default: false
-    t.boolean  "permanence",                                  default: false
-    t.boolean  "disabled",                                    default: false
+    t.boolean  "dominant_side"
+    t.boolean  "joint_fracture"
+    t.boolean  "displaced_fracture"
+    t.boolean  "disfigurement"
+    t.boolean  "impairment"
+    t.boolean  "permanence"
+    t.boolean  "disabled"
     t.decimal  "disabled_percent",   precision: 5,  scale: 2
-    t.boolean  "surgery",                                     default: false
+    t.boolean  "surgery"
     t.integer  "surgery_count"
     t.string   "surgery_type"
-    t.boolean  "casted_fracture",                             default: false
-    t.boolean  "stitches",                                    default: false
-    t.boolean  "future_surgery",                              default: false
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
     t.decimal  "future_medicals",    precision: 10, scale: 2
     t.integer  "firm_id"
     t.integer  "medical_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "prior_complaint",                             default: false
+    t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain",                                default: false
+    t.boolean  "ongoing_pain"
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
   add_index "injuries", ["medical_id"], name: "index_injuries_on_medical_id", using: :btree
 
+  create_table "leads", force: true do |t|
+    t.integer  "screener_id"
+    t.date     "call_date"
+    t.integer  "attorney_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "marketing_channel"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip_code"
+    t.string   "email"
+    t.string   "phone"
+    t.date     "dob"
+    t.string   "ssn"
+    t.boolean  "decreased"
+    t.string   "referred_by"
+    t.boolean  "attorney_already"
+    t.string   "attorney_name"
+    t.date     "incident_date"
+    t.string   "case_type"
+    t.string   "sub_type"
+    t.string   "primary_injury"
+    t.string   "primary_region"
+    t.boolean  "hospitalized"
+    t.boolean  "police_report"
+    t.text     "case_summary"
+    t.integer  "estimated_value"
+    t.string   "lead_insurance"
+    t.integer  "lead_policy_limit"
+    t.string   "other_insurance"
+    t.integer  "other_policy_limit"
+    t.string   "status"
+    t.date     "appointment_date"
+    t.text     "note"
+    t.integer  "firm_id"
+    t.integer  "case_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
   create_table "medicals", force: true do |t|
     t.decimal  "total_med_bills",            precision: 10, scale: 2
     t.decimal  "subrogated_amount",          precision: 10, scale: 2
-    t.boolean  "injuries_within_three_days",                          default: false
+    t.boolean  "injuries_within_three_days"
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost",              precision: 10, scale: 2
-    t.boolean  "treatment_gap",                                       default: false
-    t.boolean  "injections",                                          default: false
-    t.boolean  "hospitalization",                                     default: false
+    t.boolean  "treatment_gap"
+    t.boolean  "injections"
+    t.boolean  "hospitalization"
     t.integer  "hospital_stay_length"
     t.string   "hospital_stay_length_unit"
     t.integer  "firm_id"
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "doctor_type",                                         default: [],    array: true
-    t.string   "treatment_type",                                      default: [],    array: true
+    t.string   "doctor_type",                                         default: [], array: true
+    t.string   "treatment_type",                                      default: [], array: true
   end
 
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree
@@ -340,8 +381,8 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.string   "name"
     t.date     "due_date"
     t.date     "completed"
-    t.boolean  "sms_reminder",   default: false
-    t.boolean  "email_reminder", default: false
+    t.boolean  "sms_reminder"
+    t.boolean  "email_reminder"
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -382,7 +423,7 @@ ActiveRecord::Schema.define(version: 20150124062824) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "role"
-    t.boolean  "show_onboarding",        default: false
+    t.boolean  "show_onboarding",        default: true
     t.string   "oauth_refresh_token"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"

@@ -51,6 +51,7 @@
 //= require lib/welcome_tour
 //= require moment
 //= require bootstrap-datetimepicker
+//= require maskedinput
 //= require_tree .
 
 var ready = function(){

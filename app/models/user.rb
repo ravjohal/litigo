@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :cases
   has_many :notes
   has_many :google_calendars
+  has_many :leeds
   belongs_to :firm
   validates_presence_of :first_name, :last_name
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }

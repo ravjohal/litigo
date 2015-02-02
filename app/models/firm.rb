@@ -11,6 +11,7 @@ class Firm < ActiveRecord::Base
 	has_many :tasks
 	has_many :resolutions
 	has_many :google_calendars
+	has_many :leads
 
 	validates_presence_of :name
 	validates_uniqueness_of :name
@@ -21,5 +22,9 @@ class Firm < ActiveRecord::Base
 
   def more_than_one_admin
     self.users.where(:role => 1).size > 1
+  end
+
+  def attorneys
+    self.users.where(role: 2)
   end
 end

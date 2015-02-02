@@ -2,9 +2,9 @@
     <li>
         <%= active_link_to "DASHBOARD", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
     </li>
-    <!-- <li>
-        <%= active_link_to "CLIENT INTAKE", cases_path, :class_active => 'tester', :class => 'nav-sidebar__cev', :id => 'CaseEval' %>
-    </li> -->
+    <li>
+        <%= active_link_to "CLIENT INTAKE", client_intakes_path, :class_active => 'tester', :class => 'nav-sidebar__cev', :id => 'client-intake' %>
+    </li>
     <li id="first">
       <%= active_link_to " CASE MANAGEMENT", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions'], []] %>
       <ul>

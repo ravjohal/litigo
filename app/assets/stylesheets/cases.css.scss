@@ -132,3 +132,23 @@ hr.invis {
 .cases_table > tbody > tr > td:nth-of-type(5) {
   width: 500px;
 }
+.status-circle {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}
+.green {
+  background: green;
+}
+.blue {
+  background: blue;
+}
+.orange {
+  background: orange;
+}
+.red {
+  background: red;
+}
+.red {
+  background: grey;
+}

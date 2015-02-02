@@ -65,6 +65,7 @@
     $('#new_modal').click(function(event){
       $("#modal-window").html("<%= escape_javascript(render 'client_intakes/form', new_lead: @lead ) %>");
     });
+    $("select").select2();
     <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
   });
 </script>

@@ -29,7 +29,7 @@ class CasesDatatable
           one_case.case_type,
           total_med_bills,
           content_tag(:div, one_case.description, class: "table-row-max-h").html_safe,
-          one_case.status
+          content_tag(:div, '', class: "status-circle #{Case::STATUS[one_case.status.to_sym]}", title: "#{one_case.status.capitalize}").html_safe,
       ]
     end
   end

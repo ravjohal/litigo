@@ -16,6 +16,12 @@
 </div>
 <script type="text/javascript" charset="utf-8">
   $(document).ready(function() {
+    $('table').on('mouseenter mouseleave', 'tr', function(){
+      $('.status-circle').tipr({
+        'speed': 500,
+        'mode': 'top'
+      });
+    });
     $('#<%= id %>').dataTable({
       language: {
         search: "_INPUT_",

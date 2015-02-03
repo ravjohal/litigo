@@ -1,6 +1,8 @@
 <div class="authform">
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f| %>
+  <div>
     <h3>SIGN UP</h3>
+    </div>
     <%= devise_error_messages! %>
     <div class="form-group">
       <%= f.label :first_name %>

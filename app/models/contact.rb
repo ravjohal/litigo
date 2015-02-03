@@ -1,6 +1,8 @@
 class Contact < ActiveRecord::Base
   attr_encrypted :ssn, :key => 'zU8CYfjkHEQbghnwQzXeJA=='
 
+  ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
+
   TYPES = ['Attorney', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'General']
   has_many :event_attendees
 	belongs_to :user

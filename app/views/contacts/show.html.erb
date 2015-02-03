@@ -26,12 +26,22 @@
   <tbody>
       <tr>
         <td class="right">
-        <strong>Contact Type:</strong>
+          <strong>Contact Type:</strong>
         </td>
         <td>
           <%= @contact.type %>      
         </td>
       </tr>
+      <% if @contact.type == 'Attorney' %>
+        <tr>
+          <td class="right">
+            <strong>Attorney Type:</strong>
+          </td>
+          <td>
+            <%= @contact.attorney_type %>      
+          </td>
+        </tr>
+      <% end %>
       <tr>
         <td class="right">
           <strong>First Name:</strong>

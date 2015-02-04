@@ -1,4 +1,4 @@
-<%= simple_form_for(new_lead, :url => '/client_intakes', :method => :post) do |f| %>
+<%= simple_form_for @lead do |f| %>
   <%= f.error_notification %>
 
   <% if action_name == "index" %>
@@ -36,7 +36,7 @@
         <strong>Attorney:</strong>
       </td>
       <td>
-        <%= f.select :attorney_id, @firm.attorneys.map{ |c| ["#{c.name} #{c.email} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
+        <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} #{c.email} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
       </td>
     </tr>
     <tr>

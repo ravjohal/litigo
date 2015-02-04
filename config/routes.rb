@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :events
 
-  resources :client_intakes
+  resources :client_intakes, as: 'leads'
 
   resources :tasks
   post 'tasks/complete_task' => 'tasks#complete_task'
@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   end
 
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
+  get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
 
   resources :medicals do
     resources :injuries

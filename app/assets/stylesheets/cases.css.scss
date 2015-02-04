@@ -137,18 +137,18 @@ hr.invis {
   height: 15px;
   border-radius: 50%;
 }
-.green {
+.negotiation, .pending_review {
   background: green;
 }
-.blue {
+.litigation, .appointment_scheduled {
   background: blue;
 }
-.orange {
+.appeal, .accepted {
   background: orange;
 }
-.red {
+.closed, .rejected {
   background: red;
 }
-.red {
+.inactive {
   background: grey;
 }

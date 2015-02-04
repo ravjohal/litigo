@@ -18,7 +18,7 @@ img {
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
-// to make views framework-neutral
+// to make views framework-n feutral
 .column {
   @extend .col-md-6;
   @extend .text-center;
@@ -410,6 +410,11 @@ input:focus {
 .table-row-max-h {
   min-height: 65px;
   max-height: 65px;
+  overflow: hidden;
+}
+.larger-td {
+  min-height:55px;
+  max-height:55px;
   overflow: hidden;
 }
 
@@ -1001,9 +1006,11 @@ width: 100%;
   width: 100%;
 }
 .modal-header {
-background: #3FC2D8;
-border-top-right-radius: 6px;
-border-top-left-radius: 6px;
+background: #0483A0;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+color: rgba(50,58,69,1);
+text-shadow: 0 1px 0 rgba(9,161,186,.5);
 }
 
 #document_document{

@@ -814,10 +814,12 @@ width: 230px;
         color: white;
         box-shadow: 4px 0px 0px 0px #3FC2D8 inset;
         &:hover {
-        
         box-shadow: 4px 0px 0px 0px #3FC2D8 inset !important;
+        background: #3F5362 !important;
+        color: #3B4D59;
         }
 }
+
 
 .navigated {
        font-weight: lighter;
@@ -831,7 +833,7 @@ width: 230px;
 
 .nav-sidebar__dsh {
 color: #fff;
-text-shadow: 0px 1px 1px #555;
+text-shadow: 0px 1px 0 #3A4E5D;
 font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;
@@ -846,7 +848,7 @@ letter-spacing: 1px;
 
 .nav-sidebar__cm {
 color: #fff;
-text-shadow: 0px 1px 1px #555;
+text-shadow: 0px 1px 0 #3A4E5D;
 font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;
@@ -860,7 +862,7 @@ letter-spacing: 1px;
 
 .nav-sidebar__cev {
 color: #fff;
-text-shadow: 0px 1px 1px #555;
+text-shadow: 0px 1px 0 #3A4E5D;
 font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;
@@ -875,7 +877,7 @@ letter-spacing: 1px;
 
 .nav-sidebar__li {
 color: #fff;
-text-shadow: 0px 1px 1px #555;
+text-shadow: 0px 1px 0 #3A4E5D;
 font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;
@@ -889,7 +891,7 @@ letter-spacing: 1px;
 
 .nav-sidebar__bil {
 color: #fff;
-text-shadow: 0px 1px 1px #555;
+text-shadow: 0px 1px 0 #3A4E5D;
 font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;
@@ -903,7 +905,7 @@ letter-spacing: 1px;
 
 .nav-sidebar__prf {
 color: #fff;
-text-shadow: 0px 1px 1px #555;
+text-shadow: 0px 1px 0 #3A4E5D;
 font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;

@@ -51,6 +51,10 @@ class ContactsController < ApplicationController
     @contact.user = @user
     @contact.firm = @firm
 
+    if @contact.type != 'Attorney'
+      @contact.attorney_type = ''
+    end
+
     #@case.contacts << @contact
 
     respond_to do |format|
@@ -68,6 +72,10 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1.json
   def update
     @contact.user = @user
+
+    #TODO: Not sure why, but attorney_type is NOT beign emptied out when Contact Type is of something
+    # else besides Attorney. Need to look into this when there is a chance since Attorney Type can be
+    # persisted once and then never emptied if the Contact Type is changed (which doesn't happen often luckily)
 
     respond_to do |format|
       if @contact.update(contact_params)
@@ -100,7 +108,7 @@ class ContactsController < ApplicationController
     def contact_params
       params.require(:contact).permit(:first_name, :middle_name, :last_name, :company, :address, :city, :state, :ssn,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id,
-                                      :user_id, :contact_user_id, :corporation, :note, :firm, :firms_attributes => [:name, :address, :zip])
+                                      :user_id, :contact_user_id, :corporation, :note, :firm, :attorney_type, :firms_attributes => [:name, :address, :zip])
     end
 
 end

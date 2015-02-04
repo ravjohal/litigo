@@ -4,7 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= content_for?(:title) ? yield(:title) : "Litigo | Legal Software" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <link href='http://fonts.googleapis.com/css?family=Arimo:400,700|Changa+One' rel='stylesheet' type='text/css'>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag 'application', 'http://fonts.googleapis.com/css?family=Arimo:400,700|Changa+One' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
 
@@ -67,7 +69,7 @@
   <script>
       $('document').ready(function() {
           setTimeout(function() {
-      $('.alert, .alert-success').fadeOut();
+      $('.alert-success').fadeOut();
         }, 2000);
       });
   </script>

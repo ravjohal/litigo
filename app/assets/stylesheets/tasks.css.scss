@@ -1,3 +1,24 @@
 // Place all the styles related to the tasks controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.tasks_table > tbody > tr > td:nth-of-type(1) {
+  width: 150px;
+}
+.tasks_table > tbody > tr > td:nth-of-type(2) {
+  width: 140px;
+}
+.tasks_table > tbody > tr > td:nth-of-type(3) {
+  overflow: hidden;
+  min-width: 250px;
+}
+.tasks_table > tbody > tr > td:nth-of-type(4) {
+  width: 120px;
+}
+.tasks_table > tbody > tr > td:nth-of-type(5) {
+  width: 120px;
+}
+.tasks_table > tbody > tr > td:nth-of-type(6) {
+  width: 30px;
+}

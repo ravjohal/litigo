@@ -11,13 +11,12 @@
 <%= render 'new_button' %>
 <h3>My Tasks</h3>
   <div class="table-responsive">
-    <table id="my_tasks" class="table table-striped">
+    <table id="my_tasks" class="table table-striped tasks_table">
       <thead class="user-table-head">
       <tr>
-        <th>Task</th>
-        <th>Case(s)</th>
+        <th style="vertical-align:middle;">Case(s)</th>
         <th>Owner </th>
-        <th>Description</th>
+        <th>Task</th>
         <th>Due Date</th>
         <th>Completed On</th>
         <th>View</th>
@@ -26,13 +25,12 @@
       <tbody>
       <% @my_tasks.each do |task| %>
         <tr data-id="<%= task.id %>">
-          <td><%= task.name %></td>
-          <td class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
-          <td><%= task.owner.name if task.owner %></td>
-          <td><%= task.description %></td>
-          <td><%= task.due_date %></td>
-          <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
-          <td style="text-align: center;"><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
+          <td style="vertical-align:middle;" class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+          <td style="vertical-align:middle;"><%= task.owner.name if task.owner %></td>
+          <td style="vertical-align:middle;"><div class="larger-td"><%= task.name %></div></td>
+          <td style="vertical-align:middle;"><%= task.due_date %></td>
+          <td style="vertical-align:middle;"><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
+          <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
         </tr>
       <% end %>
       </tbody>
@@ -46,13 +44,12 @@
 <h3>All Firm Tasks</h3>
 <% end %>
   <div class="table-responsive">
-    <table id="tasks" class="table table-striped">
+    <table id="tasks" class="table table-striped tasks_table">
       <thead class="user-table-head">
       <tr>
-        <th>Task</th>
         <th>Case(s)</th>
         <th>Owner </th>
-        <th>Description</th>
+        <th>Task</th>
         <th>Due Date</th>
         <th>Completed</th>
         <th>View</th>
@@ -61,13 +58,12 @@
       <tbody>
       <% @tasks.each do |task| %>
         <tr data-id="<%= task.id %>">
-          <td><%= task.name %></td>
-          <td class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
-          <td><%= task.owner.name if task.owner %></td>
-          <td><%= task.description %></td>
-          <td><%= task.due_date %></td>
-          <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
-          <td style="text-align: center;"><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
+          <td style="vertical-align:middle;" class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+          <td style="vertical-align:middle;"><%= task.owner.name if task.owner %></td>
+          <td><div class="larger-td"><%= task.name %></div></td>
+          <td style="vertical-align:middle;"><%= task.due_date %></td>
+          <td style="vertical-align:middle;"><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
+          <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
         </tr>
       <% end %>
       </tbody>
@@ -101,7 +97,7 @@ $(document).ready(function() {
       }
     });
   });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
+  <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
 });
 </script>
 <script>

@@ -18,7 +18,7 @@ img {
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
 // create your own classes
-// to make views framework-neutral
+// to make views framework-n feutral
 .column {
   @extend .col-md-6;
   @extend .text-center;
@@ -121,7 +121,6 @@ section {
 }
 
 .authform .btn-block {
-  font-family: sans-serif;
  font-weight: normal;
   font-size: 16px;
   background:#3FC2D8;  
@@ -246,6 +245,17 @@ text-shadow: 0px 1px 1px #555;
   text-decoration: none;
   font-weight: lighter;
   outline: none;
+}
+
+.alert {
+  background-color: rgba(0,0,0,.5);
+  color: #fff;
+  width: 300px;
+  z-index: 10;
+  border: 1px solid black;
+  border-radius: 4px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 
@@ -399,6 +409,11 @@ input:focus {
 .table-row-max-h {
   min-height: 65px;
   max-height: 65px;
+  overflow: hidden;
+}
+.larger-td {
+  min-height:55px;
+  max-height:55px;
   overflow: hidden;
 }
 
@@ -602,7 +617,6 @@ thead{
 vertical-align: middle;
   padding-right: 15px;
   display: inline-block;
-  font-family: sans-serif;
 }
 
 #nav-tabs-custom{
@@ -619,17 +633,16 @@ vertical-align: middle;
 }
 #nav-tabs-custom li{
   display: inline-block;
-  font-family: sans-serif;
 }
 #nav-tabs-custom a{
-  font-weight: lighter;
+  font-weight: 400;
   font-size: 15px;
   letter-spacing: 1px;
   text-decoration: none;
   padding-right: 10px;
 }
 #nav-tabs-custom a:hover{
-  font-weight: lighter;
+  font-weight: 400;
   cursor: pointer;
   letter-spacing: 1px;
   color: #323A45;
@@ -637,7 +650,7 @@ vertical-align: middle;
   padding-right: 10px;
 }
 #nav-tabs-custom a:active{
-  font-weight: lighter;
+  font-weight: 400;
   cursor: pointer;
   font-size: 15px;
   letter-spacing: 1px;
@@ -988,6 +1001,13 @@ width: 100%;
   position: relative;
   z-index: 8000;
   width: 100%;
+}
+.modal-header {
+background: #0483A0;
+border-top-right-radius: 5px;
+border-top-left-radius: 5px;
+color: rgba(50,58,69,1);
+text-shadow: 0 1px 0 rgba(9,161,186,.5);
 }
 
 #document_document{

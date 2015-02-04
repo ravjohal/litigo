@@ -121,7 +121,6 @@ section {
 }
 
 .authform .btn-block {
-  font-family: sans-serif;
  font-weight: normal;
   font-size: 16px;
   background:#3FC2D8;  
@@ -618,7 +617,6 @@ thead{
 vertical-align: middle;
   padding-right: 15px;
   display: inline-block;
-  font-family: sans-serif;
 }
 
 #nav-tabs-custom{
@@ -635,17 +633,16 @@ vertical-align: middle;
 }
 #nav-tabs-custom li{
   display: inline-block;
-  font-family: sans-serif;
 }
 #nav-tabs-custom a{
-  font-weight: lighter;
+  font-weight: 400;
   font-size: 15px;
   letter-spacing: 1px;
   text-decoration: none;
   padding-right: 10px;
 }
 #nav-tabs-custom a:hover{
-  font-weight: lighter;
+  font-weight: 400;
   cursor: pointer;
   letter-spacing: 1px;
   color: #323A45;
@@ -653,7 +650,7 @@ vertical-align: middle;
   padding-right: 10px;
 }
 #nav-tabs-custom a:active{
-  font-weight: lighter;
+  font-weight: 400;
   cursor: pointer;
   font-size: 15px;
   letter-spacing: 1px;

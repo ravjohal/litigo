@@ -804,18 +804,18 @@ width: 230px;
         font-weight: lighter;
           text-decoration: none;
           background-color: transparent;
-          box-shadow: 8px 0px 0px 0px #3FC2D8 inset;
           color: #3FC2D8 !important; 
 }
 .tester {
-        background: #3B4D59;
+        background: #3F5362;
         position: relative;
         display: block;
         padding: 20px 15px;
         color: white;
+        box-shadow: 4px 0px 0px 0px #3FC2D8 inset;
         &:hover {
-        background: #3B4D59 !important;
-        box-shadow: 8px 0px 0px 0px rgba(81,103,120,0) inset !important;
+        
+        box-shadow: 4px 0px 0px 0px #3FC2D8 inset !important;
         }
 }
 

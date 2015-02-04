@@ -3,5 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .doc-link a {
-	color: blue!important;
+	color: #3FC2D8!important;
+&:hover{
+	color: #0483A0!important;	
 }
+}
+

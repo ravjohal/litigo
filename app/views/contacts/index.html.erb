@@ -12,7 +12,7 @@
 <% end %>
 
   <div class="table-responsive">
-    <table id="tasks" class="table table-striped table-hover rowlink">
+    <table id="tasks" class="table table-striped table-hover rowlink contacts_table">
       <thead class="user-table-head">
       <tr>
         <th>Name</th>
@@ -24,10 +24,10 @@
       <tbody>
       <% @contacts.each do |contact| %>
         <tr data-id="<%= contact.id %>">
-          <td><%= link_to "#{contact.last_name} #{contact.first_name}", contact_path(contact) %></td>
-          <td><%= contact.type %></td>
-          <td><%= contact.email %></td>
-          <td><%= contact.phone_number %></td>
+          <td  style="vertical-align: middle;"><%= link_to "#{contact.last_name} #{contact.first_name}", contact_path(contact) %></td>
+          <td style="vertical-align: middle;"><%= contact.type %></td>
+          <td style="vertical-align: middle;"><div class="larger-td"><%= contact.email %></td>
+          <td style="vertical-align: middle;"><%= contact.phone_number %></td>
         </tr>
       <% end %>
       </tbody>
@@ -46,7 +46,7 @@ $(document).ready(function() {
     $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
     $("#modal-window2").html("<%= escape_javascript( render 'cases/assign_contacts' ) %>");
   });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'asc'} %>
+  <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
   });
 </script>
 

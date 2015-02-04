@@ -1,13 +1,18 @@
 class ClientIntakesController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_client_intake, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
 
   # GET /client_intakes
   # GET /client_intakes.json
   def index
-    @leads = @firm.leads
-    @my_leads = @leads.where(attorney_id: current_user.id)
+    # @leads = @firm.leads
+    # @my_leads = @leads.where(attorney_id: current_user.id)
     @lead = Lead.new
+    respond_to do |format|
+      format.html
+      format.json { render json: LeadsDatatable.new(view_context, current_user, false) }
+    end
   end
 
   # GET /client_intakes/1
@@ -29,9 +34,10 @@ class ClientIntakesController < ApplicationController
   def create
     @lead = Lead.new(client_intake_params)
     @lead.firm = @firm
+    @lead.screener_id = current_user.id
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to client_intakes_path, notice: 'Client intake was successfully created.' }
+        format.html { redirect_to leads_path, notice: 'Client intake was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }
@@ -59,8 +65,14 @@ class ClientIntakesController < ApplicationController
   def destroy
     @lead.destroy
     respond_to do |format|
-      format.html { redirect_to client_intakes_url, notice: 'Client intake was successfully destroyed.' }
+      format.html { redirect_to leads_url, notice: 'Client intake was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def user_leads
+    respond_to do |format|
+      format.json { render json: LeadsDatatable.new(view_context, current_user, true) }
     end
   end
 
@@ -72,6 +84,6 @@ class ClientIntakesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_intake_params
-      params.require(:lead).permit(:first_name, :last_name)
+      params.require(:lead).permit(:first_name, :last_name, :attorney_id, :note, :phone)
     end
 end

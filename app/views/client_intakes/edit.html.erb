@@ -1,6 +1,99 @@
-<h1>Editing Client Intake</h1>
+<%= simple_form_for @lead do |f| %>
 
-<%= render 'form' %>
+  <div class="text-center">
+    <table id="info-table4">
+      <tbody>
+      <tr>
+        <td id="left-td"><%= link_to leads_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span> <% end %>
+        </td>
+        <td>
+        </td>
+        <td><%= link_to 'Cancel', @lead, :class => 'dark-right' %>
+        </td>
+        <td><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<%= link_to 'Show', @client_intake %> |
-<%= link_to 'Back', client_intakes_path %>
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="3" class="gray-back">
+        <strong>Client Intake</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>Call date:</strong>
+      </td>
+      <td colspan="2">
+        <%= @lead.created_at.strftime("%b %d/%Y at %I:%M%p") %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Attorney:</strong>
+      </td>
+      <td colspan="2">
+        <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} #{c.email} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Injured Party First Name:</strong>
+      </td>
+      <td colspan="2">
+        <%= f.text_field :first_name, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Injured Party Last Name:</strong>
+      </td>
+      <td colspan="2">
+        <%= f.text_field :last_name, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Phone number:</strong>
+      </td>
+      <td colspan="2">
+        <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right big-row">
+        <strong>Note:</strong>
+      </td >
+      <td colspan="2" class="big-row">
+        <%= f.text_area :note, label: false, :class => 'table-area' %>
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+
+
+<% end %>
+
+
+
+<script>
+  $(document).ready(function() { $("#note_select, select").select2(); });
+</script>
+<script>
+  $('.tip').tipr({
+    'speed': 500,
+    'mode': 'top'
+  });
+</script>
+
+  
+      
+      
+   
+        

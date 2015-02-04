@@ -27,4 +27,8 @@ class Firm < ActiveRecord::Base
   def attorneys
     self.users.where(role: 2)
   end
+
+  def admin_n_attorneys
+    self.users.where.not(role: 0)
+  end
 end

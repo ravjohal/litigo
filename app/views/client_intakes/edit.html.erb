@@ -53,13 +53,13 @@
         <strong>Screener:</strong>
     </td>
     <td>
-      <%= f.select :attorney_id, @firm.users.map{ |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %> 
+      <%= f.select :screener_id, @firm.users.map{ |c| ["#{c.name}", c.id] }, label: false, :class => 'table-input' %>
     </td>
     <td class="right">
       <strong>Assigned Attorney:</strong>
     </td>
     <td>
-       <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %> 
+       <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name}", c.id] }, label: false, :class => 'table-input' %>
     </td>
   </tr>
     <tr>
@@ -125,7 +125,7 @@
       <strong>Status:</strong>
     </td>
     <td colspan="3">
-    <%= f.input :status, label: false, collection: Lead::STATUS, :class => 'table-input', :include_blank => false %>
+      <%= f.select :status, Lead::STATUS.map { |k,v| [v, k] }, label: false, :class => 'table-input' %>
     </td>
   </tr>
     <tr>

@@ -18,7 +18,6 @@ class ClientIntakesController < ApplicationController
   # GET /client_intakes/1
   # GET /client_intakes/1.json
   def show
-    p "#{@lead.case.present?}\n\n\n\n"
   end
 
   # GET /client_intakes/new

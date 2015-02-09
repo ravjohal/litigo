@@ -15,53 +15,231 @@
   </table>
 </div>
 
+<table id="insurance-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>Lead Information</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  
+  <tr>
+    <td class="right">
+      <strong>Call Date:</strong>
+    </td>
+    <td  colspan="3">
+      <%= @lead.created_at.strftime("%b %d, %Y at %I:%M%p") %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <strong>Marketing Channel:</strong>
+    </td>
+    <td>
+        <%= @lead.marketing_channel %>
+    </td>
+        <td class="right">
+      <strong>Referred by:</strong>
+    </td>
+    <td>
+      <%= @lead.referred_by %>
+    </td>
+  </tr>
+  <tr>
+  <td>
+        <strong>Screener:</strong>
+    </td>
+    <td>
+      <%= @lead.screener.try(:name) %>
+    </td>
+    <td class="right">
+      <strong>Assigned Attorney:</strong>
+    </td>
+    <td>
+      <%= @lead.attorney.try(:name) %>
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>Case Type:</strong>
+    </td>
+    <td>
+      <%= @lead.case_type %>
+    </td>
+    <td class="right">
+      <strong>Sub-type:</strong>
+    </td>
+    <td>
+      <%= @lead.sub_type %>
+    </td>
+  </tr>
+    <tr>
+      <td class="right">
+      <strong>Estimated Value:</strong>
+    </td>
+    <td>
+      <%= number_to_currency @lead.estimated_value, precision: 0 %>
+    </td>
+    <td class="right">
+      <strong>Total Insurance:</strong>
+    </td>
+    <td>
+      <%= number_to_currency @lead.lead_policy_limit, precision: 0 %>
+    </td>
+  </tr>
+   <tr>
+      <td class="right">
+      <strong>Primary Injury:</strong>
+    </td>
+    <td>
+      <%= @lead.primary_injury %>
+    </td>
+    <td class="right">
+      <strong>Injury Region:</strong>
+    </td>
+    <td>
+      <%= @lead.primary_region %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Incident Date:</strong>
+    </td>
+    <td colspan="3">
+      <%= @lead.incident_date %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right big-row">
+      <strong>Case Summary:</strong>
+    </td>
+    <td colspan="3" class="right big-row">
+      <%= @lead.case_summary %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right">
+      <strong>Status:</strong>
+    </td>
+    <td colspan="3">
+      <%= @lead.status %>
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>Appointment Date:</strong>
+    </td>
+    <td colspan="3">
+      <%= @lead.appointment_date %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right big-row">
+      <strong>Notes:</strong>
+    </td >
+    <td colspan="3" class="big-row">
+      <%= @lead.note %>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
 <table id="info-table3">
   <thead>
   <tr class="right-top">
-    <td colspan="3" class="gray-back">
-      <strong>Client Intake</strong>
+    <td colspan="4" class="gray-back">
+      <strong>Contact Information</strong>
     </td>
   </tr>
   </thead>
   <tbody>
   <tr>
     <td class="right">
-      <strong>Call date:</strong>
+      <strong>First Name:</strong>
     </td>
-    <td colspan="2">
-      <%= @lead.created_at.strftime("%b %d/%Y at %I:%M%p") %>
+    <td>
+      <%= @lead.first_name %>
+    </td>
+    <td class="right">
+      <strong>Last Name:</strong>
+    </td>
+    <td>
+      <%= @lead.last_name %>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <strong>Has Representation?</strong>
+    </td>
+    <td>
+      <%= boolean_as_yesno @lead.attorney_already %>
+    </td>
+    <td class="right">
+      <strong>Attorney Name:</strong>
+    </td>
+    <td>
+      <%= @lead.attorney_name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Date of Birth:</strong>
+    </td>
+    <td>
+      <%= @lead.dob %>
+    </td>
+    <td class="right">
+      <strong>SSN:</strong>
+    </td>
+    <td>
+      <%= @lead.ssn %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right">
+      <strong>Phone:</strong>
+    </td>
+    <td>
+      <%= @lead.phone %>
+    </td>
+    <td class="right">
+      <strong>Email:</strong>
+    </td>
+    <td>
+      <%= @lead.email %>
     </td>
   </tr>
   <tr>
     <td class="right">
-      <strong>Attorney:</strong>
+      <strong>Address:</strong>
     </td>
-    <td colspan="2">
-      <%= @lead.attorney.try(:name) %>
-    </td>
-  </tr>
-  <tr>
-    <td class="right">
-      <strong>Case:</strong>
-    </td>
-    <td class="doc-link" colspan="2">
-      <%= link_to @lead.case.try(:name), case_path(@lead.case) if @lead.case.present? %>
+    <td colspan="3">
+      <%= @lead.address %>
     </td>
   </tr>
   <tr>
     <td class="right">
-      <strong>Injured Party Name:</strong>
+      <strong>City:</strong>
     </td>
-    <td colspan="2">
-      <%= @lead.name %>
+    <td colspan="3">
+      <%= @lead.city %>
     </td>
   </tr>
-  <tr>
-    <td class="right big-row">
-      <strong>Note:</strong>
-    </td >
-    <td colspan="2" class="big-row">
-      <%= @lead.note %>
+    <tr>
+    <td class="right">
+      <strong>State:</strong>
+    </td>
+    <td>
+      <%= @lead.state %>
+    </td>
+    <td class="right">
+      <strong>Zip:</strong>
+    </td>
+    <td>
+      <%= @lead.zip_code %>
     </td>
   </tr>
 

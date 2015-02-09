@@ -4,6 +4,7 @@
 
 body{
   font-family: 'Arimo', sans-serif;
+  background-color: #F2F2F2;
 }
 
 // make all images responsive by default
@@ -34,19 +35,20 @@ display: none;
   #sidebar-wrapper{
     display: none;
   }
+  .navbar-inverse {
+    display: none;
+  }
   .side-menu-toggle {
     display: none;
   }
   .nav-sidebar {
     display: none;
   }
-   .breadcrumb {
-    font-size: 24px;
-  }
+  
   #nav-tabs-custom {
     display: none;
   }
-  #nav-tabs-custom {
+  #case-buttons{
     display: none;
   }
   #info-table4 {
@@ -274,6 +276,11 @@ h1 {
   background: #323A45; 
   }
   
+.table > thead > tr > th {
+vertical-align: middle;
+border-bottom: 1px solid #ddd;
+}
+
   .navlogo {
   position: absolute;
   text-decoration: none;
@@ -569,16 +576,8 @@ margin-bottom: 10px;
 .navbar-fixed-top {
   top: 0;
   border-width: 0 0 0px;
-  z-index: 10;
-}
-.navbar-default {
-  position: fixed;
-  margin-top: 48px;
-  background-color: #3FC2D8;
-  border-color: #3FC2D8;
-  z-index: -5000;
-   -webkit-box-shadow: 100px -1px 10px #888888;
-  -moz-box-shadow: 100px -1px 10px #888888;
+  z-index: 1001;
+  height: 64px;
   box-shadow: 0 -1px 10px #888888;
 }
 
@@ -678,7 +677,6 @@ width: 230px;
 
 
 #sidebar-wrapper {
-  margin-top: -12px;
   margin-left: -230px;
   left: 230px;
   width: 230px;
@@ -687,7 +685,7 @@ width: 230px;
   height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  z-index: 1000;
+  z-index: 1002;
   transition: all 0.4s ease 0s;
   border-right: 1px solid #495A6F;
   border-left: 1px solid #495A6F;
@@ -706,7 +704,7 @@ width: 230px;
   position: fixed;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 1003;
   border: 1px solid #606060;
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
@@ -727,7 +725,7 @@ width: 230px;
   position: fixed;
   bottom: 0;
   left: 200px;
-  z-index: 1000;
+  z-index: 1003;
   border: none;
   margin-left: 0px;
   width: 30px;
@@ -789,7 +787,7 @@ width: 230px;
         font-weight: lighter;
         background-color: transparent;
         &:hover {
-        font-weight: lighter;
+          font-weight: 400;
           text-decoration: none;
           background-color: transparent;
           color: #3FC2D8 !important; 
@@ -826,9 +824,11 @@ width: 230px;
       cursor: pointer;
       font-size: 12px;
       letter-spacing: 1px;
-      color: #323A45;
+      color: #323A45 !important;
       text-decoration: none;
-      padding-right: 10px;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-bottom: 3px solid rgb(63,194,216);;
 }
 
 .nav-sidebar__dsh {
@@ -1079,7 +1079,7 @@ margin: 0 auto;
 
 thead {
   margin: 0 auto;
-  padding: 10px;
+  
   border: 0;
   font-size: 100%;
   font: inherit;
@@ -1112,7 +1112,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
   margin: 0;
   padding: 10px;
   font-size: 100%;
-  
 }
 table {
   border-collapse: collapse;
@@ -1126,6 +1125,11 @@ tbody tr:nth-child(even) {
 
 .green{
   color: #46C151;
+}
+
+.modal-header {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
 }
 
  a.cta {

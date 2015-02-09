@@ -1,31 +1,30 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Cases', cases_path %></li>
-  <li><%= link_to @case.name, case_path(@case) %></li>
-  <li class="active">Resolution</li>
-</ol>
-
-
-<%= render partial: 'shared/case_tabs' %>
 
 <%= simple_form_for([@case, @resolution]) do |f| %>
 
-<div class="text-center">
-<table id="info-table4">
-  <tbody>
-    <tr>
-      <td id="left-td"><%= link_to case_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span> <% end %>
-      </td>
-      <td>
-      </td>
-      <td><%= link_to 'Cancel', [@case, @resolution], :class => 'dark-right' %>
-      </td>
-      <td><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong><%= @case.name %></strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li><%= link_to 'Cancel', [@case, @resolution], :class => 'dark' %></li>
+                  <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
+              </ul>
+          </div>
+    </div>
+    <strong>Case #: </strong><%= @case.id %>
+    
+        <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+                      <div class="col-md-12">
+                            <%= render partial: 'shared/case_tabs' %>
+                      </div>
+              </div>
+        </div>
 </div>
 
+<div style="margin-top: 182px;" class="top-table-container">
 <table id="info-table3">
 <thead>
   <tr class="right-top">
@@ -108,6 +107,7 @@
       </tr>
   </tbody>
 </table>
+</div>
 
 <% end %>
 <script>

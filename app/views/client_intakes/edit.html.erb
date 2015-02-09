@@ -16,67 +16,243 @@
       </tbody>
     </table>
   </div>
+<table id="insurance-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>Lead Information</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  
+  <tr>
+    <td class="right">
+      <strong>Call Date:</strong>
+    </td>
+    <td  colspan="3">
+      <%= @lead.created_at.strftime("%b %d, %Y at %I:%M%p") %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+        <strong>Marketing Channel:</strong>
+    </td>
+    <td>
+        <%= f.select :marketing_channel, ['Google', 'Word of mouth', 'Referral', 'Radio', 'Newspaper', 'Other'], label: false, :class => 'table-input', :include_blank => '' %>
+    </td>
+        <td class="right">
+      <strong>Referred by:</strong>
+    </td>
+    <td>
+      <%= f.text_field :referred_by, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+  <td>
+        <strong>Screener:</strong>
+    </td>
+    <td>
+      <%= f.select :attorney_id, @firm.users.map{ |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %> 
+    </td>
+    <td class="right">
+      <strong>Assigned Attorney:</strong>
+    </td>
+    <td>
+       <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %> 
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>Case Type:</strong>
+    </td>
+    <td>
+      <%= f.input :case_type, label: false, collection: Case::TYPES, selected: 'Personal Injury', :class => 'table-input', :include_blank => true %>
+    </td>
+    <td class="right">
+      <strong>Sub-type:</strong>
+    </td>
+    <td>
+       <%= f.input :sub_type, label: false, collection: Case::SUB_TYPES, selected: 'Motor Vehicle', :class => 'table-input', :include_blank => true %>
+    </td>
+  </tr>
+    <tr>
+      <td class="right">
+      <strong>Estimated Value:</strong>
+    </td>
+    <td>
+      <%= f.text_field :estimated_value, label: false, :class => 'table-input' %>
+    </td>
+    <td class="right">
+      <strong>Total Insurance:</strong>
+    </td>
+    <td>
+    <%= f.text_field :lead_policy_limit, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+      <td class="right">
+      <strong>Primary Injury:</strong>
+    </td>
+    <td>
+      <%= f.select :primary_injury, Injury::INJURY_TYPE, label: false, :class => 'table-input', :include_blank => true  %>
+    </td>
+    <td class="right">
+      <strong>Injury Region:</strong>
+    </td>
+    <td>
+      <%= f.select :primary_region, Injury::REGION_TYPE, label: false, :class => 'table-input', :include_blank => true %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Incident Date:</strong>
+    </td>
+    <td colspan="3">
+      <%= f.date_field :incident_date, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right big-row">
+      <strong>Case Summary:</strong>
+    </td>
+    <td colspan="3" class="right big-row">
+      <%= f.text_area :case_summary, label: false, :class => 'table-text' %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right">
+      <strong>Status:</strong>
+    </td>
+    <td colspan="3">
+    <%= f.input :status, label: false, collection: Lead::STATUS, :class => 'table-input', :include_blank => false %>
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>Appointment Date:</strong>
+    </td>
+    <td colspan="3">
+      <%= f.date_field :appointment_date, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right big-row">
+      <strong>Notes:</strong>
+    </td >
+    <td colspan="3" class="big-row">
+      <%= f.text_area :note, label: false, :class => 'table-text' %>
+    </td>
+  </tr>
 
-  <table id="info-table3">
-    <thead>
-    <tr class="right-top">
-      <td colspan="3" class="gray-back">
-        <strong>Client Intake</strong>
-      </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td class="right">
-        <strong>Call date:</strong>
-      </td>
-      <td colspan="2">
-        <%= @lead.created_at.strftime("%b %d/%Y at %I:%M%p") %>
-      </td>
-    </tr>
-    <tr>
-      <td class="right">
-        <strong>Attorney:</strong>
-      </td>
-      <td colspan="2">
-        <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} #{c.email} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>      </td>
-    </tr>
-    <tr>
-      <td class="right">
-        <strong>Injured Party First Name:</strong>
-      </td>
-      <td colspan="2">
-        <%= f.text_field :first_name, label: false, :class => 'table-input' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="right">
-        <strong>Injured Party Last Name:</strong>
-      </td>
-      <td colspan="2">
-        <%= f.text_field :last_name, label: false, :class => 'table-input' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="right">
-        <strong>Phone number:</strong>
-      </td>
-      <td colspan="2">
-        <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="right big-row">
-        <strong>Note:</strong>
-      </td >
-      <td colspan="2" class="big-row">
-        <%= f.text_area :note, label: false, :class => 'table-area' %>
-      </td>
-    </tr>
+  </tbody>
+</table>
 
-    </tbody>
-  </table>
+<table id="info-table3">
+  <thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>Contact Information</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="right">
+      <strong>First Name:</strong>
+    </td>
+    <td>
+      <%= f.text_field :first_name, label: false, :class => 'table-input' %>
+    </td>
+        <td class="right">
+      <strong>Last Name:</strong>
+    </td>
+    <td>
+      <%= f.text_field :last_name, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <strong>Has Representation?</strong>
+    </td>
+    <td>
+      <div class='radio'>
+                <%= f.radio_button :attorney_already, 'true' %> 
+                <%= label :attorney_already, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :attorney_already, 'false' %>
+                <%= f.label :attorney_already, 'No', :value => 'No'%>
+            </div>
+    </td>
+    <td class="right">
+      <strong>Attorney Name:</strong>
+    </td>
+    <td>
+      <%= f.text_field :attorney_name, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Date of Birth:</strong>
+    </td>
+    <td>
+      <%= f.date_field :dob, label: false, :class => 'table-input' %>
+    </td>
+    <td class="right">
+      <strong>SSN:</strong>
+    </td>
+    <td>
+      <%= f.text_field :ssn, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right">
+      <strong>Phone:</strong>
+    </td>
+    <td>
+      <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+    </td>
+    <td class="right">
+      <strong>Email:</strong>
+    </td>
+    <td>
+      <%= f.text_field :email, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Address:</strong>
+    </td>
+    <td colspan="3">
+      <%= f.text_field :address, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>City:</strong>
+    </td>
+    <td colspan="3">
+      <%= f.text_field :city, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>State:</strong>
+    </td>
+    <td>
+      <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
+    </td>
+    <td class="right">
+      <strong>Zip:</strong>
+    </td>
+    <td>
+      <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
 
+  </tbody>
+</table>
 
 <% end %>
 

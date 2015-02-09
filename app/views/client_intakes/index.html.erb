@@ -1,4 +1,8 @@
-<%= render 'new_button' %>
+ <div id="index-buttons">
+              <ul>
+                  <li><%= render 'new_button' %></li>
+              </ul>
+   </div>
 <h3>My Leads</h3>
 <%= render :partial => 'table', :locals => { :id => 'user_leads'} %>
 <br/>

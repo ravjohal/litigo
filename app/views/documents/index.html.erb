@@ -1,14 +1,35 @@
 <% if @case %>
-   <ul class="breadcrumb">
-    <li><strong>Case Name: </strong><%= @case.name %></li>
-    <li class="active-breadcrumb"><strong>Case #: </strong><%= @case.id %></li>
-  </ul> 
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong><%= @case.name %></strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li><%= render 'new_button' %></li>
+              </ul>
+          </div>
+    </div>
+    <strong>Case #: </strong><%= @case.id %>
+    
+        <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+                      <div class="col-md-12">
+                            <%= render partial: 'shared/case_tabs' %>
+                      </div>
+              </div>
+        </div>
+</div>
+<div class="incase-tabs-gap">
+</div>
 
-  <%= render partial: 'shared/case_tabs' %>
+<% else %>
+ <div id="index-buttons">
+              <ul>
+                  <li><%= render 'new_button' %></li>
+              </ul>
+   </div>
 <% end %>
-
-<%= render 'new_button' %>
-
 <h3>My Documents</h3>
 <div class="table-responsive">
       <table id="tasks" class="table table-striped">
@@ -27,7 +48,7 @@
         <tbody>
         <% @my_documents.each do |document| %>
           <tr data-id="<%= document.id %>">
-            <td><%= document.author %></td>
+            <td><div class="larger-td"><%= document.author %></div></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= document.doc_type %></td>
             <td>
@@ -71,7 +92,7 @@
         <tbody>
         <% @documents.each do |document| %>
           <tr data-id="<%= document.id %>">
-            <td><%= document.author %></td>
+            <td><div class="larger-td"><%= document.author %></div></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
             <td><%= document.doc_type %></td>
             <td>

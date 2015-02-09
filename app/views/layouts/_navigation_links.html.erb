@@ -1,7 +1,7 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
  	<%= link_to 'Welcome, ' + current_user.name, edit_user_registration_path, :class => 'welcome-link' %>
- 	<%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign' %>
+ 	<%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
  	<!-- <%= link_to :id => "page_tour" do %><span class="glyphicon glyphicon-facetime-video tour-link tip-tour" data-tip="Tour"></span><% end %> -->
 <% else %>
   <li><%= link_to 'Sign in', new_user_session_path %></li>

@@ -163,6 +163,16 @@ font-family: sans-serif;
   padding-left: 10px;
 }
 
+.nav-dropdown-btn {
+  color: #fff;
+  font-size: 14px;
+  height: 64px;
+  background: #22272B;
+  min-width: 150px;
+  max-width: 170px;
+  border: none;
+}
+
 .checkbox {
   margin-left: 20px;
 }
@@ -253,13 +263,13 @@ display: none;
   border-color: #0483A0;
 }
 .navbar-brand {
-  background-image: url(/assets/darklogo.png);
+  background-image: url(/assets/lightlogo.png);
   background-repeat: no-repeat;
-  background-size: 88px 33px;
+  background-size: 95px 40px;
   width: 100px;
   height: 33px;
-  margin-top: 16px;
-  margin-left: 50px !important;
+  margin-top: 14px;
+  margin-left: 40px !important;
 }
 
 .navbar-fixed-top {

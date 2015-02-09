@@ -1,3 +1,28 @@
-<%= render partial: 'shared/profile_tabs' %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Account Settings</strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li></li>
+
+              </ul>
+          </div>
+    </div>
+    <strong style="color: white;">A</strong>
+    
+        <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+                      <div class="col-md-12">
+                            <%= render partial: 'shared/profile_tabs' %>
+                      </div>
+              </div>
+        </div>
+</div>
+<div class="incase-tabs-gap">
+</div>
+<br>
+<br>
 
 <%= render template: 'users/invitations/new' %>

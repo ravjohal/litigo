@@ -18,6 +18,7 @@ class ClientIntakesController < ApplicationController
   # GET /client_intakes/1
   # GET /client_intakes/1.json
   def show
+    p "#{@lead.case.present?}\n\n\n\n"
   end
 
   # GET /client_intakes/new
@@ -77,16 +78,9 @@ class ClientIntakesController < ApplicationController
   end
 
   def accept_case
-    case_attrs = {
-        name: "#{@lead.last_name} dd #{@lead.incident_date}",
-        case_number: Case.increment_number(@firm, 'accept_case', @case),
-        case_type: @lead.case_type,
-        subtype: @lead.sub_type,
-        firm_id: @firm.id,
-        user_id: @user.id,
-        state: @lead.state
-    }
-    @case = Case.new(case_attrs)
+    return redirect_to lead_path(@lead), alert: "Case already creaded from that lead" if @lead.case.present?
+    case_attributes = @lead.generate_case_attrs(@user)
+    @case = Case.new(case_attributes)
     respond_to do |format|
       if @case.save
         @lead.update(case_id: @case.id)

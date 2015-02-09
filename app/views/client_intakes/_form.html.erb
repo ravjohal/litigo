@@ -17,7 +17,7 @@
     <tbody>
     <tr>
       <td>
-        <strong>First name:</strong>
+        <strong>Caller First Name:</strong>
       </td>
       <td>
         <%= f.text_field :first_name, label: false, :class => 'table-input' %>
@@ -25,7 +25,7 @@
     </tr>
     <tr>
       <td>
-        <strong>Last name:</strong>
+        <strong>Caller Last Name:</strong>
       </td>
       <td>
         <%= f.text_field :last_name, label: false, :class => 'table-input' %>
@@ -33,18 +33,27 @@
     </tr>
     <tr>
       <td>
-        <strong>Attorney:</strong>
+        <strong>Assign Attorney:</strong>
       </td>
       <td>
-        <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} #{c.email} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
+        <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
       <td>
-        <strong>Phone number:</strong>
+        <strong>Caller Phone Number:</strong>
       </td>
       <td>
         <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+      </td>
+    </tr>
+    <tr>
+        <tr>
+      <td>
+        <strong>How did you hear about us?</strong>
+      </td>
+      <td>
+         <%= f.select :marketing_channel, ['Google', 'Word of mouth', 'Referral', 'Radio', 'Newspaper', 'Other'], label: false, :class => 'table-input', :include_blank => '' %>
       </td>
     </tr>
     <tr>

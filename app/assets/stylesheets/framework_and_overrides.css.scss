@@ -3,7 +3,7 @@
 @import "bootstrap";
 
 body{
-padding-top: 110px;
+padding-top: 64px;
 font-family: verdana, arial, helvetica, sans-serif;
 font-size: 13px;
 background-color: #F2F2F2;
@@ -209,42 +209,31 @@ font-family: sans-serif;
 }
 
 a.action-button{
-  text-shadow: 0px 1px 1px #555;
-  font-family: sans-serif;
   padding-right: 1.5em;
   padding-left: 1.5em;
   padding-top: .75em;
   padding-bottom: .75em;
   font-size: 12px;
-  background-color:rgba(0, 0, 0, 0.4);  
-  border: .2em solid #323A45;
+  background-color: #7B8CA4;  
+  border-top: 1px solid #8494AB;
+  border-bottom: 1px solid #6E7D93;
   cursor:pointer;
-  letter-spacing: 2px;
-  border-radius: 5px;
+  letter-spacing: 1px;
+  border-radius: 4px;
   color: #fff;
   text-decoration: none;
-  font-weight: lighter;
+  font-weight: 700;
   outline: none;
+  transition: .4s;
+  &:hover{
+  background-color: #6E7D93;
+  color: #fff;
+  transition: .4s;
   }
-  
-a.action-button:hover{
-text-shadow: 0px 1px 1px #555;
-  font-family: sans-serif;
-  padding-right: 18px;
-  padding-left: 18px;
-  padding-top: .75em;
-  padding-bottom: .75em;
-  font-size: 12px;
-  background:#323A45;
-  border: .2em  solid #323A45;
-  cursor:pointer;
-  letter-spacing: 2px;
-  border-radius: 5px;
-  color: white;
-  transition: .2s;
-  text-decoration: none;
-  font-weight: lighter;
-  outline: none;
+  }
+
+.dataTables_info{
+display: none;
 }
 
 .alert {
@@ -269,8 +258,8 @@ text-shadow: 0px 1px 1px #555;
   background-size: 88px 33px;
   width: 100px;
   height: 33px;
-  margin-top: 8px;
-  margin-left: 15px !important;
+  margin-top: 16px;
+  margin-left: 50px !important;
 }
 
 .navbar-fixed-top {
@@ -283,6 +272,45 @@ text-shadow: 0px 1px 1px #555;
   margin-top: 48px;
   background-color: #3FC2D8;
   border-color: #3FC2D8;
+}
+
+.case-title {
+  color: #323A45;
+  margin: 0; 
+}
+
+.case-header {
+position: absolute;
+left: 0;
+right: 0;
+top: -20px;
+padding: 20px 15px 0 15px;
+width: 100%;
+background: #fff;
+border-bottom: 1px solid #ccc;
+height: 138px;
+margin-bottom: 62px;
+}
+#case-buttons{
+  float: right;
+  margin-right: 10px;
+}
+#case-buttons ul{
+  padding: 0 0;
+  margin: -26px 0 0 0;
+}
+#case-buttons li{
+  display: inline;
+}
+#index-buttons{
+  float: right;
+}
+#index-buttons ul{
+  padding: 0 0;
+  margin-top: 10px;
+}
+#index-buttons li{
+  display: inline;
 }
 
 /*Sign out button*/
@@ -380,14 +408,15 @@ input:focus {
   color: white; 
   border: none;
 }
-.breadcrumb a{
-  color: #323A45;
-  margin-bottom: 0px;
+.incase-tabs-gap{
+  margin-bottom: 95px;
 }
+
+
 .dark {
  color: #323A45; 
- font-size: 25px;
- margin-right: 20px;
+ font-size: 24px;
+ margin: 8px;
 }
 .dark-right {
  color: #323A45; 
@@ -412,9 +441,10 @@ input:focus {
   overflow: hidden;
 }
 .larger-td {
-  min-height:55px;
-  max-height:55px;
+  min-height:45px;
+  max-height:45px;
   overflow: hidden;
+  vertical-align: middle;
 }
 
 .top-table-container{
@@ -597,6 +627,7 @@ thead{
   border-top: 1px solid #ccc;
   border-bottom: 1px solid #ccc;
 }
+
 .sorting {
   background: none;
 }
@@ -605,8 +636,9 @@ thead{
 }
 
 #top-custom{
-  margin-top: 5px;
+  float: right;
   margin-bottom: 20px;
+  margin-right: 10px;
 }
 #top-custom ul{
 
@@ -621,8 +653,8 @@ vertical-align: middle;
 
 #nav-tabs-custom{
   margin-left: -10px;
-  position: fixed;
-  top: 62px;
+  position: relative;
+  margin-top: 34px;
   z-index: 1000;
   width: 100%;
   padding: 0 0 0 15px;
@@ -635,11 +667,14 @@ vertical-align: middle;
   display: inline-block;
 }
 #nav-tabs-custom a{
+  color: #B1B8C2;
   font-weight: 400;
   font-size: 15px;
   letter-spacing: 1px;
   text-decoration: none;
-  padding-right: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-bottom: 8px;
 }
 #nav-tabs-custom a:hover{
   font-weight: 400;
@@ -647,7 +682,7 @@ vertical-align: middle;
   letter-spacing: 1px;
   color: #323A45;
   text-decoration: none;
-  padding-right: 10px;
+  transition: .3s;
 }
 #nav-tabs-custom a:active{
   font-weight: 400;
@@ -656,7 +691,7 @@ vertical-align: middle;
   letter-spacing: 1px;
   color: #323A45;
   text-decoration: none;
-  padding-right: 10px;
+  border-bottom: 3px solid #323A45;
 }
 
 .bo {

@@ -1,6 +1,6 @@
 class ClientIntakesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_client_intake, only: [:show, :edit, :update, :destroy]
+  before_action :set_client_intake, only: [:show, :edit, :update, :destroy, :accept_case]
   before_action :set_user, :set_firm
 
   # GET /client_intakes
@@ -73,6 +73,29 @@ class ClientIntakesController < ApplicationController
   def user_leads
     respond_to do |format|
       format.json { render json: LeadsDatatable.new(view_context, current_user, true) }
+    end
+  end
+
+  def accept_case
+    case_attrs = {
+        name: "#{@lead.last_name} dd #{@lead.incident_date}",
+        case_number: Case.increment_number(@firm, 'accept_case', @case),
+        case_type: @lead.case_type,
+        subtype: @lead.sub_type,
+        firm_id: @firm.id,
+        user_id: @user.id,
+        state: @lead.state
+    }
+    @case = Case.new(case_attrs)
+    respond_to do |format|
+      if @case.save
+        @lead.update(case_id: @case.id)
+        format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
+        format.json { render :show, status: :created, location: @case }
+      else
+        format.html { redirect_to request.referer, alert: "#{@case.errors.full_messages.join('. ')}" }
+        format.json { render json: @lead.errors, status: :unprocessable_entity }
+      end
     end
   end
 

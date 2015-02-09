@@ -7,9 +7,11 @@
       </td>
       <td>
       </td>
-      <td><%= link_to @note, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a lead will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
+      <td>
+        <%= link_to @lead, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a lead will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
         <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %>
-        <%= link_to 'Edit', edit_lead_path(@lead), :class => 'dark' %></td>
+        <%= link_to 'Edit', edit_lead_path(@lead), :class => 'dark' %>
+        <%= link_to accept_case_path(@lead), :class => 'dark' do %><span class="glyphicon glyphicon-folder-close tip" data-tip="Accept Case"></span><% end %></td>
     </tr>
     </tbody>
   </table>
@@ -124,7 +126,7 @@
       <strong>Status:</strong>
     </td>
     <td colspan="3">
-      <%= @lead.status %>
+      <%= Lead::STATUS[@lead.status.to_sym] %>
     </td>
   </tr>
     <tr>

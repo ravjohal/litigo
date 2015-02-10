@@ -128,9 +128,11 @@ $(document).ready(function() {
     language: {
       search: "_INPUT_",
       searchPlaceholder: "Search or Filter",
-      lengthMenu: "Show _MENU_"
-    }
+      lengthMenu: "View _MENU_"
+    },
+    sDom: 'Rfrtlip'
   });
+  $("select").select2();
 });
 </script>
 
@@ -139,4 +141,5 @@ $(document).ready(function() {
       'speed': 500,
       'mode': 'top'
      });
+
 </script>

@@ -4,9 +4,12 @@ var table = $('.table').dataTable({
     searchPlaceholder: "Search or Filter",
     lengthMenu: "View _MENU_"
   }
+  , sDom: 'Rfrtlip'
+//  ,  dom: '<"top"i>rt<"bottom"flp><"clear">'
   <% if sort_column && sort_order %>
   , aaSorting: [[ <%= sort_column %>, "<%= sort_order %>" ]]
   <% end %>
+
 });
 $('.table tbody').on( 'click', 'td', function (e) {
   if (!/case_name/i.test(e.currentTarget.className)) {
@@ -14,3 +17,4 @@ $('.table tbody').on( 'click', 'td', function (e) {
     $('table.rowlink').rowlink()
   }
 });
+$("select").select2();

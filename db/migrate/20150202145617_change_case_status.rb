@@ -7,6 +7,8 @@ class ChangeCaseStatus < ActiveRecord::Migration
         elsif one_case.status.downcase == 'pending'
           one_case.status = 'litigation'
         end
+      else
+        one_case.status = 'negotiation'
       end
       one_case.save!
     end

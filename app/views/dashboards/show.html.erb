@@ -9,49 +9,46 @@
 </div>  
   <div class="row">
    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_lead_path do %>
-        <div class="tile-new-green">
-          <div class="tile-top">New Client Intake</div>
-          <div class="tile-icon-new"><br><span class="glyphicon glyphicon-edit"></span></div>
-        </div>
-      <% end %>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-edit"></span></div>
+                  <div class="tile-text">New Client Intake</div>
+            </div>
+    <% end %>
     </div>
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_case_path do %>
-        <div class="tile-new-green">
-          <div class="tile-top">New Case</div>
-          <div class="tile-icon-new"><br><span class="glyphicon glyphicon-folder-close"></span></div>
-        </div>
-      <% end %>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-close"></span></div>
+                  <div class="tile-text">New Case</div>
+            </div>
+    <% end %>
     </div>
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_contact_path do %>
-        <div class="tile-new-green">
-          <div class="tile-top">New Contact</div>
-          <div class="tile-icon-new"><br><span class="glyphicon glyphicon-user"></span>
-          </div>
-        </div>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
+                  <div class="tile-text">New Contact</div>
+            </div>
       <% end %>
-    </div>
+      </div>
+    
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_task_path do %>
-        <div class="tile-new-green">
-          <div class="tile-top">New Task</div>
-          <div class="tile-icon-new"><br><span class="glyphicon glyphicon-list-alt"></span>
-          </div>
-        </div>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-list-alt"></span></div>
+                  <div class="tile-text">New Task</div>
+            </div>
       <% end %>
     </div>
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_document_path do %>
-        <div class="tile-new-green">
-          <div class="tile-top">New Document</div>
-          <div class="tile-icon-new"><br><span class="glyphicon glyphicon-file"></span>
-          </div>
-        </div>
-      <% end %>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-file"></span></div>
+                  <div class="tile-text">New Document</div>
+            </div>
+    <% end %>
     </div>
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_note_path do %>
-        <div class="tile-new-green">
-          <div class="tile-top">New Note</div>
-          <div class="tile-icon-new"><br><span class="glyphicon glyphicon-pencil"></span>
-          </div>
-        </div>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-pencil"></span></div>
+                  <div class="tile-text">New Note</div>
+            </div>
       <% end %>
     </div>
   </div>
@@ -59,7 +56,7 @@
 
 <div class="row">
     <div class="col-md-12">
-          <div style="font-size: 24px; margin-top: 20px;">
+          <div style="font-size: 24px; margin-top: -8px;">
                 Getting Started
           </div>
     </div>
@@ -67,36 +64,35 @@
 
   <div class="row">
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to "/auth/google_oauth2?state=calendar" do %>
-        <div class="tile-new">
-          <div class="tile-top2">Google Calendar Sync</div>
-              <div class="tile-icon-new"><br><span class="glyphicon glyphicon-calendar"></span></div>
-        </div>
-      <% end %>
+            <div class="tile-new">
+                      <div class="tile-icon-new"><span class="glyphicon glyphicon-calendar"></span></div>
+                      <div class="tile-text">Google Calendar Sync</div>
+            </div>
+    <% end %>
     </div>
     <div class="col-xs-6 col-sm-3 col-md-2">
-      <a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)">
-        <div class="tile-new">
-          <div class="tile-top2">Take a Quick Tour</div>
-              <div class="tile-icon-new"><br><span class="glyphicon glyphicon-facetime-video"></span>
-          </div>
-        </div>
-      </a>
+          <a class="bo" href="#" id="startTourBtn" onclick="hopscotch.startTour(tour)">
+                <div class="tile-new">
+                      <div class="tile-icon-new"><span class="glyphicon glyphicon-facetime-video"></span></div>
+                      <div class="tile-text">Take a Quick Tour</div>
+                </div>
+          </a>
     </div>
     <% if @user.admin? %>
       <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_invitation_path(@user) do %>
-          <div class="tile-admin">
-            <div class="tile-top-admin">Add Users to your Firm</div>
-                <div class="tile-icon-admin"><br><span class="glyphicon glyphicon-user"></span></div>
-          </div>
-        <% end %>
+              <div class="tile-new">
+                    <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
+                    <div class="tile-text">Add Users to Firm</div>
+              </div>
+      <% end %>
       </div>
     <% end %>
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to "/auth/google_oauth2?state=contacts" do %>
-        <div class="tile-admin">
-          <div class="tile-top-admin">Google Contact Import</div>
-          <div class="tile-icon-admin"><br><span class="glyphicon glyphicon-download-alt"></span></div>
-        </div>
-      <% end %>
+            <div class="tile-new">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-download-alt"></span></div>
+                  <div class="tile-text">Google Contact Import</div>
+            </div>
+    <% end %>
     </div>   
   </div>
 

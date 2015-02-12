@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
   attr_reader :raw_invitation_token
   accepts_nested_attributes_for :firm
 
+  def name
+    self.first_name.present? && self.last_name.present? ? "#{self.first_name} #{self.last_name}" : ""
+  end
+
   def set_default_role
     self.role ||= :staff 
   end

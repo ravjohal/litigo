@@ -19,15 +19,34 @@ describe User do
     it { should have_many :cases }
     it { should have_many :notes }
     it { should have_many :google_calendars }
+    it { should have_many(:leads).class_name('Lead').with_foreign_key('attorney_id') }
 
     it { should belong_to :firm }
   end
 
   context 'Validations' do
-    it {should ensure_inclusion_of(:time_zone).in_array(ActiveSupport::TimeZone.all.map { |m| m.name }) }
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it {should validate_inclusion_of(:time_zone).in_array(ActiveSupport::TimeZone.all.map { |m| m.name }) }
   end
 
   context 'Accessible attributes' do
-
+    it { should accept_nested_attributes_for(:firm) }
   end
+
+  #factories
+  let!(:user) { create(:user, first_name: 'Ben', last_name: 'Smalley') }
+
+  describe "#name" do
+    it "returns the correct full name" do
+      user.name.should == "Ben Smalley"
+    end
+  end
+
+  describe "#set_default_role" do
+    it "sets staff default role" do
+      user.role.should == "staff"
+    end
+  end
+
 end

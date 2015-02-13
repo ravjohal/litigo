@@ -97,6 +97,11 @@ RSpec.configure do |config|
   # order dependency and want to debug it, you can fix the order by providing
   # the seed, which is printed after each run.
   #     --seed 1234
+
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+
   config.order = "ans"
   # Capybara stuff
   config.include Rails.application.routes.url_helpers

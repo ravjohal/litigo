@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :cases
   has_many :notes
   has_many :google_calendars
-  has_many :leads
+  has_many :leads, class_name: 'Lead', foreign_key: 'attorney_id'
   belongs_to :firm
   validates_presence_of :first_name, :last_name
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }

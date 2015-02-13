@@ -40,8 +40,11 @@ Rails.application.configure do
 
   # Adding this because tests bomb out if I don't have it :(
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-
+  config.active_record.raise_in_transactional_callbacks = true
   ENV['PUBLISHABLE_KEY'] = 'pk_test_bdNUNhdPuw421zThmcq5qAmA'
   ENV['SECRET_KEY'] = 'sk_test_sUhYz929KV8ZvJ1rvesMzyBp'
   ENV['EXPIRE_HOURS'] = '8'
+  ENV['S3_KEY'] = 'TEST'
+  ENV['S3_SECRET'] = 'TEST'
+  ENV['S3_BUCKET_NAME'] = 'TEST'
 end

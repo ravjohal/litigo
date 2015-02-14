@@ -3,11 +3,15 @@
                   <li><%= render 'new_button' %></li>
               </ul>
    </div>
+   <div style="margin-top: 70px;">
 <h3>My Cases</h3>
+</div>
 <%= render :partial => 'table', :locals => { :id => 'user_cases'} %>
 <br/>
 <br/>
+<div style="margin-top: 70px;">
 <h3>All Firm Cases</h3>
+</div>
 <%= render :partial => 'table', :locals => { :id => 'cases'} %>
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 

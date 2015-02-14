@@ -34,6 +34,9 @@
 .calendar-table tr:nth-child(even){
  background: white;
 }
+.calendar-table tr:nth-child(1) {
+  background: transparent;
+}
 
 div.tagsinput input {
   padding: 0!important;
@@ -52,4 +55,8 @@ div.tagsinput input {
 
 ul.tagit {
   border: 1px solid #aaa!important;
+}
+
+.fc-header{
+  width: 90%
 }

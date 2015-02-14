@@ -422,7 +422,7 @@ input:focus {
   border: none;
 }
 .incase-tabs-gap{
-  padding-bottom: 70px;
+  padding-bottom: 64px;
 }
 
 
@@ -661,7 +661,7 @@ thead{
 }
 #top-custom li{
 vertical-align: middle;
-  padding-right: 15px;
+  padding-left: 15px;
   display: inline-block;
 }
 
@@ -769,8 +769,9 @@ margin-top: 10px;
 }
 .dataTables_filter{
   width: 210px;
+  margin-top: 5px;
   margin-right: 20px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   
 }
 .dataTables_length{

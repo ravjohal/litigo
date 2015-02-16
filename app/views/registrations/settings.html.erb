@@ -23,7 +23,7 @@
 <div class="incase-tabs-gap">
 </div>
 
-<div class="authform">
+<div class="profile">
   <h3>Settings</h3>
   <%= form_for @user, :url => registration_path(@user) do |f| %>
     <div class="form-group">
@@ -43,6 +43,6 @@
       <%= f.label :current_password %>
       <%= f.password_field :current_password, class: 'form-control' %>
     </div>
-    <%= f.submit 'Update', :class => 'button right' %>
+    <%= f.submit 'Update', :class => "sub2-invite pull-right" %>
   <% end %>
 </div>

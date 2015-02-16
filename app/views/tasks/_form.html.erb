@@ -11,7 +11,7 @@
             </div>
          <div class="modal-body">
     <% end %>
-<table class="case-form table-condensed">
+<table class="task-form table-condensed">
               <tbody>
                   <tr>
                     <td>
@@ -36,7 +36,7 @@
                   </tr>
                   <tr>
                     <td>
-                      <strong>Owner: </strong>
+                      <strong>Task Owner: </strong>
                     </td>
                     <td>
                     <%= f.association :owner, :collection => @firm.users, :selected => current_user.id, :input_html => {:id => "task_select"}, label: false %>

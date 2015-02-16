@@ -74,6 +74,12 @@ display: none;
    .feedback_content {
     display: none;
   }
+  .action-button {
+    display: none;
+  }
+  .dark-right-small {
+    display: none;
+  }
 }
 .column {
   @extend .col-md-6;

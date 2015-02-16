@@ -80,7 +80,15 @@ display: none;
   .dark-right-small {
     display: none;
   }
+  #index-buttons {
+    display: none;
+  }
+  #case-buttons {
+    display: none;
+  }
 }
+ a, a:after { content: normal !important; }
+ 
 .column {
   @extend .col-md-6;
   @extend .text-center;

@@ -73,7 +73,7 @@ var ready = function(){
 
         delayed_options: {
             delay_success_milliseconds: 3500,
-            send_success : "Sent successfully :) , now go ahead and star/watch the project"
+            send_success : "Successfully Sent"
         }
     };
     if ($(".welcome-link").length !== 0) {

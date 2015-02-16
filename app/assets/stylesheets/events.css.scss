@@ -34,8 +34,11 @@
 .calendar-table tr:nth-child(even){
  background: white;
 }
+.calendar-table tr:nth-child(odd){
+ background: white;
+}
 .calendar-table tr:nth-child(1) {
-  background: transparent;
+  background: transparent !important;
 }
 
 div.tagsinput input {

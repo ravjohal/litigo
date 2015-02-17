@@ -8,21 +8,21 @@
     </div>
 </div>  
   <div class="row">
-   <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_lead_path do %>
+   <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_lead_path, class: 'new-modal', data: {id: 'lead'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-edit"></span></div>
                   <div class="tile-text">New Client Intake</div>
             </div>
     <% end %>
     </div>
-    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_case_path do %>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_case_path, class: 'new-modal', data: {id: 'case'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-close"></span></div>
                   <div class="tile-text">New Case</div>
             </div>
     <% end %>
     </div>
-    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_contact_path do %>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_contact_path, class: 'new-modal', data: {id: 'contact'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
                   <div class="tile-text">New Contact</div>
@@ -30,21 +30,21 @@
       <% end %>
       </div>
     
-    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_task_path do %>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_task_path, class: 'new-modal', data: {id: 'task'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-list-alt"></span></div>
                   <div class="tile-text">New Task</div>
             </div>
       <% end %>
     </div>
-    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_document_path do %>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_document_path, class: 'new-modal', data: {id: 'document'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-file"></span></div>
                   <div class="tile-text">New Document</div>
             </div>
     <% end %>
     </div>
-    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_note_path do %>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_note_path, class: 'new-modal', data: {id: 'note'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-pencil"></span></div>
                   <div class="tile-text">New Note</div>
@@ -104,10 +104,35 @@
   <p>Email: <%= @user.email if @user.email %></p>
   <p>Show Onboarding: <%= @user.show_onboarding if @user.show_onboarding %></p>
 <% end %>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <script type="text/javascript" charset="utf-8">
   <% if @calendars %>
     $("#modal-window2").modal('show');
   <% end %>
+    $('.new-modal').click(function (e) {
+      e.preventDefault();
+      var instance = $(e.currentTarget).data('id');
+      switch(instance) {
+        case 'lead':
+          $("#modal-window").html("<%= escape_javascript(render 'client_intakes/form') %>").modal('show');
+          break;
+        case 'case':
+          $("#modal-window").html("<%= escape_javascript(render 'cases/form', new_case: Case.new) %>").modal('show');
+          break;
+        case 'contact':
+          $("#modal-window").html("<%= escape_javascript(render 'contacts/form', new_contact: Contact.new) %>").modal('show');
+          break;
+        case 'task':
+          $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: Task.new) %>").modal('show');
+          break;
+        case 'document':
+          $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: Document.new) %>").modal('show');
+          break;
+        case 'note':
+          $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: Note.new) %>").modal('show');
+          break;
+      }
+    });
 </script>
 

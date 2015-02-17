@@ -1,8 +1,9 @@
 class DashboardsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_user
+  before_action :set_user, :set_firm
   
   def new
+    @lead = Lead.new
     if current_user.firm
       if !current_user.contact_user
         puts " Role? -------------------- " + current_user.role.to_i.to_s 

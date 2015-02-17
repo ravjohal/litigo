@@ -64,7 +64,7 @@ class CasesController < ApplicationController
     if @case.save
       redirect_to @case, notice: 'Case was successfully created.'
     else
-      render :new
+      redirect_to :back, alert: "Please review the problems below: #{@case.errors.full_messages.join('. ')}"
     end
   end
 

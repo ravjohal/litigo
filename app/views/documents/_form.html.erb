@@ -1,7 +1,7 @@
 <%= simple_form_for(new_document) do |f| %>
       <%= f.error_notification %>
 
-    <% if action_name == "index" %>
+    <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
       <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
       <div class="modal-dialog">
         <div class="modal-content">
@@ -37,7 +37,7 @@
 
                     <td>
                         <% new_document = new_document[1] if @case %>
-                        <% if new_document.document_url.blank? %>
+                        <% if new_document.blank? || new_document.document_url.blank? %>
                         <%= f.file_field :document, label: false, :class => 'table-input-file' %>
                         <% else %>
                         Existing Document:
@@ -56,12 +56,11 @@
                         <% end %>
                       </td>
 
-            <!--  <%= render partial: 'dropbox_chooser' %> -->
-           
+
             </tbody>
         </table> 
 
-        <% if action_name == "index" %>            
+        <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
           </div><!--end of modal-body-->
           
            <div class="modal-footer">
@@ -74,7 +73,7 @@
                   <%= f.button :submit, :class =>"sub2-small" %>
               </div>
 
-    <% if action_name == "index" %>        
+    <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
             </div><!--end of modal-footer-->
         </div><!--end of modal-content-->
       </div><!--end of modal-dialog-->

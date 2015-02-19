@@ -2,6 +2,7 @@ class TaskListsController < ApplicationController
   before_action :set_task_list, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   before_action :set_user, :set_firm
+  respond_to :html, :xml, :json
 
   def index
     @task_lists = TaskList.all

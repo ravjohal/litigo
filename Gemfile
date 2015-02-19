@@ -75,6 +75,7 @@ group :test do
   gem 'selenium-webdriver', '~> 2.43.0'
   gem 'capybara-firebug', '~> 2.0.0'
   gem 'cucumber-rails', '~> 1.4.0', :require => false  # Cucumber Generator and Runtime for Rails
+  gem 'cucumber_factory', '~> 1.10.0'                  # allows you to create ActiveRecord models from your Cucumber features without writing step definitions for each model
   gem 'action_mailer_cache_delivery', '~> 0.3.7'
   gem 'simplecov', '~> 0.9.1', :require => false                   # https://github.com/colszowka/simplecov
 end

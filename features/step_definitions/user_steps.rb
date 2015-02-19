@@ -20,7 +20,7 @@ Then(/^I should be logged in user$/) do
   fill_in 'user_password', with: 'password'
   click_on 'SIGN IN'
   expect(page).to have_content('Welcome!')
-  expect(page).to have_content('One last step before you are using your free case management software. We just need a few more details:')
+  expect(page).to have_content('We just need a few more details before using your case management software:')
 end
 
 Then(/^I get the confirmation email and confirm it$/) do
@@ -39,7 +39,7 @@ Then(/^when I fill in the modal window$/) do
 end
 
 Then(/^I should logged in$/) do
-  expect(page).to have_content('Welcome, Artem Suchov')
+  expect(page).to have_content('Firm and Contact were successfully created.')
 end
 
 When(/^I fill in the sign up form with invalid data$/) do
@@ -71,4 +71,14 @@ Given(/^I am a logged in user with email "(.*?)" and password "(.*?)"$/) do |arg
   fill_in 'user_password', with: arg2
   fill_in 'user_password_confirmation', with: 'password'
   click_on 'SIGN UP'
+end
+
+
+When (/^I log in with email "(.*?)" and password "(.*?)"$/) do |arg1, arg2|
+  visit '/users/sign_in'
+  fill_in 'user_email', with: arg1
+  fill_in 'user_password', with: arg2
+  click_on 'SIGN IN'
+  expect(page).to have_content('Welcome!')
+  expect(page).to have_content('We just need a few more details before using your case management software:')
 end

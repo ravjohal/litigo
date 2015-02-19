@@ -1,9 +1,43 @@
 <%= simple_form_for(@task_list) do |f| %>
   <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-  </div>
+  <table class="task-form table-condensed">
+              <tbody>
+                  <tr>
+                    <td>
+                        <strong>LIST NAME:</strong>
+                    </td>
+                    <td>
+                        <%= f.text_field :name, label: false, :class => 'table-input' %>
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>
+                      <strong>PERMISSIONS:</strong>
+                    </td>
+                    <td>
+                    	Who can view this list?
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+                    	Who can make changes to this list?
+                    </td>
+                    <td>
+
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>SETTINGS </strong>
+                    </td>
+                    <td>
+                    
+                  </tr>      
+              </tbody>
+    </table>
 
   <div class="form-actions">
     <%= f.button :submit %>

@@ -86,4 +86,17 @@ end
 
 Then (/^case should be created$/) do
   expect(Case.where(name: 'Case', county: 'County')).to exist
+  one_case = Case.last
+  expect(one_case.name).to eq('Case')
+  expect(one_case.county).to eq('County')
+  expect(one_case.state).to eq('AL')
+  expect(one_case.case_type).to eq('Personal Injury')
+  expect(one_case.subtype).to eq('Negligence')
+  expect(one_case.description).to eq('Case summary')
+  expect(one_case.contacts.last.first_name).to eq('Andrew')
+  expect(one_case.contacts.last.last_name).to eq('Goncharenko')
+  expect(one_case.incident.incident_date.strftime('%F')).to eq('2014-12-12')
+  expect(one_case.medical.total_med_bills).to eq('5000'.to_f)
+  expect(one_case.medical.injuries.last.injury_type).to eq('TBI')
+  expect(one_case.medical.injuries.last.region).to eq('Skull')
 end

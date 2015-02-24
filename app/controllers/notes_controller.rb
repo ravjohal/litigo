@@ -11,14 +11,16 @@ class NotesController < ApplicationController
 
     if get_case
       @notes = @case.notes.order("created_at desc")
-      @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      # @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      @my_notes = @case.notes.where(:user => current_user)
       @new_path = new_case_note_path(@case)
       @notes_a = [@case, Note.new] #for modal partial rendering
+      # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect
     else
       @notes = @firm.notes.order("created_at desc")
 
-      @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
-
+      # @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      @my_notes = @user.notes
       # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect
       @new_path = new_note_path
       @notes_a = Note.new #for modal partial rendering

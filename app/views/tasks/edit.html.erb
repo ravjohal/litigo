@@ -64,6 +64,17 @@
           <%= f.date_field :due_date, :class => 'table-input' %>
         </td>
       </tr>
+       <tr>
+        <td class="right">
+          <strong>Estimated Time to Complete:</strong>
+        </td>
+        <td>
+          <%= f.number_field :estimated_time, :class => 'table-input' %>
+        </td>
+        <td>
+          <%= f.select :estimated_time_unit, ['hour(s)','week(s)','month(s)'], :class => 'table-input' %>
+        </td>
+      </tr>
       <tr>
         <td class="right">
           <strong>Completed:</strong>

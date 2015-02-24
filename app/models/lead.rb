@@ -8,7 +8,7 @@ class Lead < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search_lead, against: [:first_name, :last_name, :estimated_value, :status],
                   using: {tsearch: {dictionary: "english", prefix: true}},
-                  associated_against: { :user => [:name, :email]  }
+                  associated_against: { :screener => [:name, :email]  }
 
   def name
     return "#{self.first_name} #{self.last_name}"

@@ -8,12 +8,14 @@ class DocumentsController < ApplicationController
   def index
     if get_case
       @documents = @case.documents
-      @my_documents = @documents.joins(:cases => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      # @my_documents = @documents.joins(:cases => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      @my_documents = @case.documents.where(:user => current_user)
       @new_path = new_case_document_path(@case)
       @documents_a = [@case, Document.new] #for modal partial rendering
     else
       @documents = @firm.documents
-      @my_documents = @documents.joins(:cases => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      # @my_documents = @documents.joins(:cases => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+      @my_documents = @user.documents
       @new_path = new_document_path
       @documents_a = Document.new #for modal partial rendering
     end

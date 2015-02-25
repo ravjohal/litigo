@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   resources :events
 
   resources :client_intakes, as: 'leads'
+  get '/client_intakes_contacts/:id' => 'client_intakes#show_lead_contact', as: :lead_contact
+  get '/client_intakes_contacts/:id/edit' => 'client_intakes#edit_lead_contact', as: :edit_lead_contact
+  get '/client_intakes_documents/:id' => 'client_intakes#lead_documents', as: :lead_documents
 
   resources :tasks
   post 'tasks/complete_task' => 'tasks#complete_task'

@@ -54,6 +54,9 @@ class DocumentsController < ApplicationController
       @document = Document.new(document_params)
       path_documents = documents_path
     end
+    if document_params[:lead_id].present?
+      path_documents = lead_documents_path(document_params[:lead_id])
+    end
 
     @document.user = @user
     @document.firm = @firm
@@ -95,7 +98,12 @@ class DocumentsController < ApplicationController
   # DELETE /documents/1
   # DELETE /documents/1.json
   def destroy
-    @document.destroy
+    if @document.lead.present? && params[:case_id].present?
+      @document.case_documents.where(case_id: params[:case_id]).delete_all
+    else
+      @document.destroy
+    end
+
     respond_to do |format|
       format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
       format.json { head :no_content }
@@ -110,6 +118,6 @@ class DocumentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_params
-      params.require(:document).permit(:author, :doc_type, :user_id, :template, :document, :case_ids => [])
+      params.require(:document).permit(:author, :doc_type, :user_id, :lead_id, :template, :document, :case_ids => [])
     end
 end

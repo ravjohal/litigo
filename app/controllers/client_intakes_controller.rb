@@ -1,6 +1,6 @@
 class ClientIntakesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_client_intake, only: [:show, :edit, :update, :destroy, :accept_case]
+  before_action :set_client_intake
   before_action :set_user, :set_firm
 
   # GET /client_intakes
@@ -20,6 +20,14 @@ class ClientIntakesController < ApplicationController
   def show
   end
 
+  def show_lead_contact
+  end
+
+  def lead_documents
+    @my_documents = @lead.documents.where(user_id: @user.id)
+    @documents = @lead.documents
+  end
+
   # GET /client_intakes/new
   def new
     @lead = Lead.new
@@ -27,6 +35,9 @@ class ClientIntakesController < ApplicationController
 
   # GET /client_intakes/1/edit
   def edit
+  end
+
+  def edit_lead_contact
   end
 
   # POST /client_intakes
@@ -83,6 +94,11 @@ class ClientIntakesController < ApplicationController
     respond_to do |format|
       if @case.save
         @lead.update(case_id: @case.id)
+        if @lead.documents.present?
+          @lead.documents.each do |doc|
+            CaseDocument.create(case_id: @case.id, document_id: doc.id)
+          end
+        end
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }
       else
@@ -95,7 +111,7 @@ class ClientIntakesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_client_intake
-      @lead = Lead.find(params[:id])
+      @lead = Lead.find(params[:id]) if params[:id]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

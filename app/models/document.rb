@@ -1,7 +1,8 @@
 class Document < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :firm
-	
+	belongs_to :lead
+
 	has_many :case_documents, :dependent => :destroy
 	has_many :cases, :through => :case_documents
 

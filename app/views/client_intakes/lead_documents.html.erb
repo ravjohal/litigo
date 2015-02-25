@@ -1,0 +1,142 @@
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= @lead.name %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to "NEW LEAD DOCUMENT", "", {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %></li>
+        <li><%= link_to @lead,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %></li>
+        <li>
+          <% unless @lead.case.present? %>
+            <%= link_to accept_case_path(@lead), :class => 'dark' do %><span class="glyphicon glyphicon-folder-close tip" data-tip="Accept Case"></span><% end %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <strong>Lead #: </strong><%= @lead.id %>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/lead_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div style="margin-top: 70px;">
+  <h3>My Documents</h3>
+</div>
+<div class="table-responsive">
+  <table id="tasks" class="table table-striped">
+    <thead class="user-table-head">
+    <tr>
+      <th>Author</th>
+      <th>Case</th>
+      <th>Document Type</th>
+      <th>Document Title</th>
+      <th>Creation Date</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @my_documents.each do |document| %>
+      <tr data-id="<%= document.id %>">
+        <td><div class="larger-td"><%= document.author %></div></td>
+        <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
+        <td><%= document.doc_type %></td>
+        <td>
+          <div class="doc-link">
+            <%= if !document.document_url.blank?
+                  link_to document.document.file.filename, document.document_url
+                end %></div></td>
+        <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
+        <td><%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
+        </td>
+        <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>
+        </td>
+        <td><%= link_to  document,  method: :delete, data: { confirm: 'Are you sure you want to delete this document?' }, :class => 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<div style="margin-top: 70px;">
+  <h3>Lead Documents</h3>
+</div>
+<div class="table-responsive">
+  <table id="tasks" class="table table-striped">
+    <thead class="user-table-head">
+    <tr>
+      <th>Author</th>
+      <th>Case</th>
+      <th>Document Type</th>
+      <th>Document Title</th>
+      <th>Creation Date</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @documents.each do |document| %>
+      <tr data-id="<%= document.id %>">
+        <td><div class="larger-td"><%= document.author %></div></td>
+        <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
+        <td><%= document.doc_type %></td>
+        <td>
+          <div class="doc-link">
+            <%= if !document.document_url.blank?
+                  link_to document.document.file.filename, document.document_url
+                end %></div></td>
+        <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
+        <td><%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
+        </td>
+        <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>
+        </td>
+        <td><%= link_to  document,  method: :delete, data: { confirm: 'Are you sure you want to delete this document?' }, :class => 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+  <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#new_modal').click(function(event){
+        $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: Document.new ) %>");
+      });
+      var table = $('.table').dataTable({
+        aoColumnDefs: [
+          { 'bSortable': false, 'aTargets': [ 5,6,7 ] }
+        ],
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search or Filter",
+          lengthMenu: "View _MENU_"
+        },
+        sDom: 'Rfrtlip'
+      });
+      $("select").select2();
+    });
+  </script>
+
+  <script>
+    $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+    });
+  </script>

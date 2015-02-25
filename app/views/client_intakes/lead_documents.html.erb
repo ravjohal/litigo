@@ -6,13 +6,6 @@
     <div id="case-buttons">
       <ul>
         <li><%= link_to "NEW LEAD DOCUMENT", "", {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
-        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %></li>
-        <li><%= link_to @lead,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %></li>
-        <li>
-          <% unless @lead.case.present? %>
-            <%= link_to accept_case_path(@lead), :class => 'dark' do %><span class="glyphicon glyphicon-folder-close tip" data-tip="Accept Case"></span><% end %>
-          <% end %>
-        </li>
       </ul>
     </div>
   </div>
@@ -27,7 +20,8 @@
   </div>
 </div>
 
-
+<div class="incase-tabs-gap">
+</div>
 <div style="margin-top: 70px;">
   <h3>My Documents</h3>
 </div>

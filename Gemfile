@@ -57,6 +57,7 @@ group :development do
   gem 'quiet_assets', '~> 1.0.3'
   gem 'rails_layout', '~> 1.0.23'
   gem 'awesome_print', '~> 1.2.0'       # Nicely formatted data structures in console, for example 'ap User.first'
+  gem 'meta_request'
 end
 
 group :development, :test, :staging do

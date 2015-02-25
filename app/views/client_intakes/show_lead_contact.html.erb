@@ -1,0 +1,134 @@
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= @lead.name %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Edit', edit_lead_contact_path(@lead), :class => 'dark' %></li>
+        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %></li>
+        <li><%= link_to @lead,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %></li>
+        <li>
+          <% unless @lead.case.present? %>
+            <%= link_to accept_case_path(@lead), :class => 'dark' do %><span class="glyphicon glyphicon-folder-close tip" data-tip="Accept Case"></span><% end %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <strong>Lead #: </strong><%= @lead.id %>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/lead_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table id="info-table3" class="lead-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>Contact Information</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="right">
+      <strong>First Name:</strong>
+    </td>
+    <td>
+      <%= @lead.first_name %>
+    </td>
+    <td class="right">
+      <strong>Last Name:</strong>
+    </td>
+    <td>
+      <%= @lead.last_name %>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <strong>Has Representation?</strong>
+    </td>
+    <td>
+      <%= boolean_as_yesno @lead.attorney_already %>
+    </td>
+    <td class="right">
+      <strong>Attorney Name:</strong>
+    </td>
+    <td>
+      <%= @lead.attorney_name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Date of Birth:</strong>
+    </td>
+    <td>
+      <%= @lead.dob %>
+    </td>
+    <td class="right">
+      <strong>SSN:</strong>
+    </td>
+    <td>
+      <%= @lead.ssn %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right">
+      <strong>Phone:</strong>
+    </td>
+    <td>
+      <%= @lead.phone %>
+    </td>
+    <td class="right">
+      <strong>Email:</strong>
+    </td>
+    <td>
+      <%= @lead.email %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Address:</strong>
+    </td>
+    <td colspan="3">
+      <%= @lead.address %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>City:</strong>
+    </td>
+    <td colspan="3">
+      <%= @lead.city %>
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>State:</strong>
+    </td>
+    <td>
+      <%= @lead.state %>
+    </td>
+    <td class="right">
+      <strong>Zip:</strong>
+    </td>
+    <td>
+      <%= @lead.zip_code %>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
+<script>
+  $('.tip').tipr({
+    'speed': 500,
+    'mode': 'top'
+  });
+</script>

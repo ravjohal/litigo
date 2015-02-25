@@ -3,6 +3,7 @@ class Lead < ActiveRecord::Base
   belongs_to :attorney, class_name: 'User', :foreign_key => 'attorney_id'
   belongs_to :firm
   belongs_to :case
+  has_many :documents
   STATUS = {pending_review: "New Lead - Pending Review", appointment_scheduled: "Appt. Scheduled", rejected: "Rejected", accepted: "Accepted", inactive: "Inactive"}
 
   include PgSearch

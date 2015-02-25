@@ -38,7 +38,7 @@ class MedicalsController < ApplicationController
 
     respond_to do |format|
       if @medical.save
-        format.html { redirect_to [@case, @medical], notice: 'Medical was successfully created.' }
+        format.html { redirect_to [@case, @medical], notice: 'Medicals tab was successfully created.' }
         format.json { render :show, status: :created, location: @medical }
       else
         format.html { render :new }
@@ -83,7 +83,7 @@ class MedicalsController < ApplicationController
   def destroy
     @medical.destroy
     respond_to do |format|
-      format.html { redirect_to medicals_url, notice: 'Medical was successfully destroyed.' }
+      format.html { redirect_to medicals_url, notice: 'Medicals tab was successfully deleted.' }
       format.json { head :no_content }
     end
   end

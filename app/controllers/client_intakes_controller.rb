@@ -37,7 +37,7 @@ class ClientIntakesController < ApplicationController
     @lead.screener_id = current_user.id
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to leads_path, notice: 'Client intake was successfully created.' }
+        format.html { redirect_to @lead, notice: 'Client intake was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }

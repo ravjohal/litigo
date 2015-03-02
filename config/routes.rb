@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+
   resources :task_lists
 
   resources :firms
@@ -75,6 +76,7 @@ Rails.application.routes.draw do
     resources :incidents
     resources :resolutions
     resources :medicals
+    resources :insurances
   end
 
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }

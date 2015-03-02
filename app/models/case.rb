@@ -1,13 +1,14 @@
 class Case < ActiveRecord::Base
 
   TYPES = ['Personal Injury', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Real Estate', 'Wills', 'Trusts', 'Estates']
-  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action', 'Workers Compensation']
+  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action', 'Workers Compensation', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
   STATUS = ['Negotiation', 'Litigation', 'Appeal', 'Closed', 'Inactive']
 
   #enum status: { open: 0, pending: 1, closed: 2 }
 
   has_one :incident, dependent: :destroy
+  has_one :insurance, dependent: :destroy
   has_one :medical, dependent: :destroy
   has_one :resolution, dependent: :destroy
 
@@ -55,7 +56,7 @@ class Case < ActiveRecord::Base
   accepts_nested_attributes_for :resolution, :allow_destroy => true
 
   validates :name, presence: true
-  validates :case_number, presence: true
+  # validates :case_number, presence: true
   validates :case_type, presence: true
   validates :subtype, presence: true
   validates :state, length: { is: 2 }, allow_blank: true

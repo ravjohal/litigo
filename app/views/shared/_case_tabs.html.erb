@@ -4,8 +4,11 @@
   <% if @case.incident && @case.case_type == 'Personal Injury' %>
     <li<%= is_active('incidents') %>><%= active_link_to 'INCIDENT', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
- <% if @case.medical && @case.case_type == 'Personal Injury' %>
+  <% if @case.medical && @case.case_type == 'Personal Injury' %>
     <li<%= is_active('medicals') %>><%= active_link_to 'MEDICALS', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
+  <% end %>
+  <% if @case.insurance && @case.case_type == 'Personal Injury' %>
+    <li<%= is_active('insurance') %>><%= active_link_to 'INSURANCE', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
   <% end %>
    <% if @case.contacts %>
      <li><%= active_link_to 'CONTACTS', case_contacts_path(@case), :class_active => 'navigated' %></li>

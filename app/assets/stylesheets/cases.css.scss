@@ -27,6 +27,28 @@
 .new-case-form tr:nth-child(even){
  background: white;
 }
+.new_case_form {
+  width: 100%;
+    padding: 0;
+  tr {
+    width: 100%;
+    td:first-of-type {
+      strong {
+        float: right;
+      }
+    }
+    td:nth-of-type(2){
+      width: 75%;
+    }
+  }
+}
+.new_case_form td:nth-child(1) {
+  vertical-align: top;
+}
+
+.new_case_form tr:nth-child(even){
+ background: white;
+}
 
 .case-form {
 	width: 100%;

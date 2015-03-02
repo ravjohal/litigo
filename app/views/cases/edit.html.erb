@@ -36,14 +36,6 @@
   <tbody>
     <tr>
       <td class="col-one">
-        <strong>Case Name:</strong>
-      </td>
-       <td>
-       <%= f.text_field :name, label: false, :class => 'table-input' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="col-one">
         <strong>Date Opened:</strong>
       </td>
         <td>
@@ -52,10 +44,10 @@
      </tr>
       <tr>
         <td class="col-one">
-           <strong>Case Number:</strong>
+           <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= @case.case_number %>
+            <%= f.date_field :trial_date, label: false, :class => 'table-input' %>  
         </td>
       </tr>
       <tr>

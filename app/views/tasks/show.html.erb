@@ -56,7 +56,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-          <%= @task.due_date %>
+            <%= @task.due_date.strftime("%m/%d/%Y") %>
         </td>
       </tr>
          <tr>
@@ -75,7 +75,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-          <%= @task.completed  %>
+          <%= @task.completed.strftime("%m/%d/%Y") %>
         </td>
       </tr>
         <tr>

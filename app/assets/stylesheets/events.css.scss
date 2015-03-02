@@ -31,6 +31,9 @@
   }
 }
 
+.calendar-table td {
+ width: 12.86%;
+}
 .calendar-table tr:nth-child(even){
  background: white;
 }
@@ -38,7 +41,7 @@
  background: white;
 }
 .calendar-table tr:nth-child(1) {
-  background: transparent !important;
+  background: white;
 }
 
 div.tagsinput input {
@@ -61,5 +64,18 @@ ul.tagit {
 }
 
 .fc-header{
-  width: 90%
+  width: 90%;
+}
+.fc-header-left{
+  background-color: #f2f2f2;
+}
+.fc-header-center{
+  background-color: #f2f2f2;
+  text-shadow: 0 1px 0 #fff;
+}
+.fc-header-right{
+  background-color: #f2f2f2;
+}
+.fc-day-header {
+  background-color: #38393A;
 }

@@ -29,32 +29,36 @@ class CasesController < ApplicationController
   end
   
   def create
-    inj_type = params[:case][:medical_attributes][:injuries_attributes]["0"][:injury_type]
+    # inj_type = params[:case][:medical_attributes][:injuries_attributes]["0"][:injury_type]
 
-    if inj_type != ''
-      puts "INJURY TYPEE -----> " + inj_type
-      params[:case][:medical_attributes][:injuries_attributes]["0"][:primary_injury] = true
-    else
-      params[:case][:medical_attributes].delete(:injuries_attributes)
-    end
+    # if inj_type != ''
+    #   puts "INJURY TYPEE -----> " + inj_type
+    #   params[:case][:medical_attributes][:injuries_attributes]["0"][:primary_injury] = true
+    # else
+    #   params[:case][:medical_attributes].delete(:injuries_attributes)
+    # end
 
     @case = Case.new(case_params)
     @case.user = @user
     @case.firm = @firm
 
+    if @case.case_type == "Personal Injury"
+      incident = @case.build_incident
+      incident.firm = @firm
+      incident.save
 
-    # incident = @case.build_incident
-    # incident.firm = @firm
-    # incident.save
+      medical = @case.build_medical
+      medical.firm = @firm
+      medical.save
+
+      insurance = @case.build_insurance
+      insurance.firm = @firm
+      insurance.save
+    end
 
     resolution = @case.build_resolution
     resolution.firm = @firm
     resolution.save
-
-    # medical = @case.build_medical
-    # medical.firm = @firm
-    # medical.save
-
 
 
     # injury = medical.tasks.create
@@ -92,12 +96,13 @@ class CasesController < ApplicationController
     end
 
     def case_params
-      params.require(:case).permit(:name, :case_number, :docket_number, :description, :case_type, :subtype,
+      params.require(:case).permit(:name, :trial_date, :case_number, :docket_number, :description, :case_type, :subtype,
         :court, :county, :plaintiff, :defendant, :corporation, :status,
         :creation_date, :closing_date, :state, :medical_bills,
         :medical_attributes => [:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, :doctor_type, :treatment_type, :created_at, :updated_at, :id, 
         :injuries_attributes => [:injury_type, :region, :code, :created_at, :updated_at, :primary_injury, :id]], 
         :incident_attributes => [:incident_date, :statute_of_limitations, :defendant_liability, :alcohol_involved, :weather_factor, :property_damage, :airbag_deployed, :speed, :police_report, :insurance_provider, :created_at, :updated_at, :id], 
+        :insurance_attributes => [:insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id], 
         :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
         :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [])
     end

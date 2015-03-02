@@ -10,12 +10,13 @@
     width: 100%;
     td:first-of-type {
       strong {
+        width: 100px;
         float: right;
         text-align: right;
       }
     }
     td:nth-of-type(2){
-      width: 80%;
+      width: 65%;
     }
   }
 }

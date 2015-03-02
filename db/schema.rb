@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150224202921) do
+ActiveRecord::Schema.define(version: 20150302003712) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,10 +72,17 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.string   "county"
     t.string   "docket_number"
     t.integer  "total_hours"
+    t.string   "topic"
+    t.date     "trial_date"
   end
 
   add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
   add_index "cases", ["user_id"], name: "index_cases_on_user_id", using: :btree
+
+  create_table "cases_insurances", id: false, force: true do |t|
+    t.integer "case_id",      null: false
+    t.integer "insurance_id", null: false
+  end
 
   create_table "contacts", force: true do |t|
     t.string   "first_name"
@@ -96,13 +103,13 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.integer  "user_id"
     t.integer  "contact_user_id"
     t.integer  "case_id"
-    t.boolean  "married"
-    t.boolean  "employed"
+    t.boolean  "married",            default: false
+    t.boolean  "employed",           default: false
     t.text     "job_description"
     t.decimal  "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
+    t.boolean  "parent",             default: false
+    t.boolean  "felony_convictions", default: false
+    t.boolean  "last_ten_years",     default: false
     t.integer  "jury_likeability"
     t.string   "witness_type"
     t.string   "witness_subtype"
@@ -160,8 +167,8 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.string   "location"
     t.date     "date"
     t.time     "time"
-    t.boolean  "all_day"
-    t.boolean  "reminder"
+    t.boolean  "all_day",              default: false
+    t.boolean  "reminder",             default: false
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -173,7 +180,7 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.string   "summary"
     t.datetime "start"
     t.datetime "end"
-    t.boolean  "end_time_unspecified"
+    t.boolean  "end_time_unspecified", default: false
     t.string   "transparency"
     t.string   "visibility"
     t.string   "iCalUID"
@@ -196,6 +203,7 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.datetime "updated_at"
     t.string   "zip"
     t.string   "tenant"
+    t.string   "state"
   end
 
   create_table "google_calendars", force: true do |t|
@@ -226,18 +234,21 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.decimal  "property_damage",        precision: 10, scale: 2
     t.boolean  "airbag_deployed",                                 default: false
     t.string   "speed"
-    t.boolean  "police_report"
+    t.boolean  "police_report",                                   default: false
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "insurance_provider"
     t.integer  "firm_id"
-    t.boolean  "towed"
-    t.boolean  "complaint_at_scene"
+    t.boolean  "towed",                                           default: false
+    t.boolean  "complaint_at_scene",                              default: false
     t.decimal  "policy_limit"
     t.decimal  "defendant_limits"
     t.decimal  "plaintiff_limits"
     t.decimal  "uim_limits"
+    t.string   "insurance_type"
+    t.string   "policy_holder"
+    t.string   "claim_number"
   end
 
   add_index "incidents", ["case_id"], name: "index_incidents_on_case_id", using: :btree
@@ -247,32 +258,46 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.string   "injury_type"
     t.string   "region"
     t.string   "code"
-    t.boolean  "dominant_side"
-    t.boolean  "joint_fracture"
-    t.boolean  "displaced_fracture"
-    t.boolean  "disfigurement"
-    t.boolean  "impairment"
-    t.boolean  "permanence"
-    t.boolean  "disabled"
+    t.boolean  "dominant_side",                               default: false
+    t.boolean  "joint_fracture",                              default: false
+    t.boolean  "displaced_fracture",                          default: false
+    t.boolean  "disfigurement",                               default: false
+    t.boolean  "impairment",                                  default: false
+    t.boolean  "permanence",                                  default: false
+    t.boolean  "disabled",                                    default: false
     t.decimal  "disabled_percent",   precision: 5,  scale: 2
-    t.boolean  "surgery"
+    t.boolean  "surgery",                                     default: false
     t.integer  "surgery_count"
     t.string   "surgery_type"
-    t.boolean  "casted_fracture"
-    t.boolean  "stitches"
-    t.boolean  "future_surgery"
+    t.boolean  "casted_fracture",                             default: false
+    t.boolean  "stitches",                                    default: false
+    t.boolean  "future_surgery",                              default: false
     t.decimal  "future_medicals",    precision: 10, scale: 2
     t.integer  "firm_id"
     t.integer  "medical_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "prior_complaint"
+    t.boolean  "prior_complaint",                             default: false
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
   add_index "injuries", ["medical_id"], name: "index_injuries_on_medical_id", using: :btree
+
+  create_table "insurances", force: true do |t|
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "insurance_provider"
+    t.integer  "policy_limits"
+    t.string   "claim_number"
+    t.string   "policy_holder"
+    t.integer  "case_id"
+    t.integer  "user_id"
+    t.integer  "firm_id"
+    t.string   "adjuster"
+    t.string   "insurance_type"
+  end
 
   create_table "leads", force: true do |t|
     t.integer  "screener_id"
@@ -317,23 +342,23 @@ ActiveRecord::Schema.define(version: 20150224202921) do
   create_table "medicals", force: true do |t|
     t.decimal  "total_med_bills",            precision: 10, scale: 2
     t.decimal  "subrogated_amount",          precision: 10, scale: 2
-    t.boolean  "injuries_within_three_days"
+    t.boolean  "injuries_within_three_days",                          default: false
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost",              precision: 10, scale: 2
-    t.boolean  "treatment_gap"
-    t.boolean  "injections"
-    t.boolean  "hospitalization"
+    t.boolean  "treatment_gap",                                       default: false
+    t.boolean  "injections",                                          default: false
+    t.boolean  "hospitalization",                                     default: false
     t.integer  "hospital_stay_length"
     t.string   "hospital_stay_length_unit"
     t.integer  "firm_id"
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "doctor_type",                                         default: [], array: true
-    t.string   "treatment_type",                                      default: [], array: true
+    t.string   "doctor_type",                                         default: [],    array: true
+    t.string   "treatment_type",                                      default: [],    array: true
   end
 
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree
@@ -381,8 +406,8 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.string   "name"
     t.date     "due_date"
     t.date     "completed"
-    t.boolean  "sms_reminder"
-    t.boolean  "email_reminder"
+    t.boolean  "sms_reminder",        default: false
+    t.boolean  "email_reminder",      default: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -425,7 +450,7 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
     t.integer  "role"
-    t.boolean  "show_onboarding",        default: true
+    t.boolean  "show_onboarding",        default: false
     t.string   "oauth_refresh_token"
     t.string   "oauth_token"
     t.datetime "oauth_expires_at"
@@ -443,6 +468,7 @@ ActiveRecord::Schema.define(version: 20150224202921) do
     t.string   "invited_by_type"
     t.integer  "invitations_count",      default: 0
     t.integer  "invitation_role"
+    t.integer  "hourly_rate"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,0 +1,35 @@
+  <tr class="nested-fields task-draft-field">
+    <td>
+      <%= f.text_field :name, label: false, :class => 'table-input' %>
+    </td>
+    <td>
+      <%= f.number_field :due_term, label: false, :class => 'table-input' %>
+    </td>
+    <td>
+      <%= f.select :conjunction, ['before', 'after'], label: false %>
+    </td>
+    <td>
+      <%= f.select :anchor_date, ['case open', 'incident date', 'statute of limitations', 'trial date', 'previous task'], label: false %>
+    </td>
+    <td>
+      <%= f.text_area :description, label: false, :class => 'table-text' %>
+    </td>
+    <td class="task-icon">
+      <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".task-draft-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span class="glyphicon glyphicon-plus tip" data-tip="Add Dependent Task"></span><% end %>
+    </td>
+    <td class="task-icon">
+      <%= link_to_remove_association f, class: 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span><% end %>
+    </td>
+    <%= f.simple_fields_for :children do |child| %>
+      <%= render 'child_fields', :f => child %>
+    <% end %>
+  </tr>
+
+<script type="text/javascript" charset="utf-8">
+  $("select").select2();
+  $('.tip').tipr({
+    'speed': 500,
+    'mode': 'top'
+  });
+    
+</script>

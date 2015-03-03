@@ -52,6 +52,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 //= require maskedinput
+//= require cocoon
 //= require_tree .
 
 var ready = function(){

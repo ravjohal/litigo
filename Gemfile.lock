@@ -111,6 +111,7 @@ GEM
       mime-types (>= 1.16)
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
+    cocoon (1.2.6)
     code_analyzer (0.4.5)
       sexp_processor
     coderay (1.1.0)
@@ -495,6 +496,7 @@ DEPENDENCIES
   capybara (~> 2.4.1)
   capybara-firebug (~> 2.0.0)
   carrierwave (~> 0.10.0)
+  cocoon (~> 1.2.6)
   coffee-rails (~> 4.0.0)
   cucumber-rails (~> 1.4.0)
   cucumber_factory (~> 1.10.0)

@@ -76,41 +76,6 @@
 
 <br/>
 <br/>
-<% if @result.present? %>
-<div class="table-responsive">
-  <table id="my_tasks" class="table table-striped tasks_table">
-    <thead class="user-table-head">
-    <tr>
-      <th>Number</th>
-      <th>Task</th>
-      <th>Task Description</th>
-      <th>Due Date</th>
-      <th>Dependent To</th>
-      <th></th>
-    </tr>
-    </thead>
-    <tbody>
-
-    <% @result.each do |task| %>
-      <tr data-id="<%= task.id %>">
-        <td><%= task.number %></td>
-        <td><%= task.name %></td>
-        <td><%= task.description %></td>
-        <td><%= "#{task.due_term} #{task.conjunction} #{task.anchor_date}" %></td>
-        <td><%= task.parent.name if task.parent_id.present? %></td>
-        <td style="text-align: center; vertical-align:middle;">
-          <%= link_to '#', :class => 'dark-small' do %>
-            <span data-tip="Delete" class="glyphicon glyphicon-trash tip"></span>
-          <% end %>
-
-        </td>
-      </tr>
-      <% end %>
-
-    </tbody>
-  </table>
-</div>
-<% end %>
   <div class="clearfix"></div>
   <div id="tasks">
     <table class="task-nested-table">

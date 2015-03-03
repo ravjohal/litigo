@@ -114,6 +114,14 @@
       if ($(insertedItem[0]).hasClass('task-draft-field')) {
         $(insertedItem[0]).attr('id', last_id);
         $(insertedItem[0]).find($('.add_child')).attr('data-association-insertion-node', '#'+last_id);
+      } else if ($(insertedItem[0]).hasClass('child_task_draft')) {
+        var parent_task_id = $(insertedItem[0]).prev('tr.task-draft-field').attr('id');
+        $(insertedItem[0]).addClass('parent_'+parent_task_id);
+      }
+    }).on('cocoon:before-remove', function (e, deletedItem) {
+      if($(deletedItem[0]).hasClass('task-draft-field')) {
+        var parent_task_id = $(deletedItem[0]).attr('id');
+        $('.parent_'+parent_task_id).remove();
       }
     });
   });

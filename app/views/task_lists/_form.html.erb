@@ -1,45 +1,157 @@
 <%= simple_form_for(@task_list) do |f| %>
+
+  <div class="text-center">
+    <table id="info-table4">
+      <tbody>
+      <tr>
+        <td id="left-td"><%= link_to request.referrer, :class => 'dark' do %>
+            <span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span>
+          <% end %>
+        </td>
+        <td>
+        </td>
+        <td><%= link_to 'Cancel', request.referrer, :class => 'dark-right' %>
+        </td>
+        <td><%= f.submit :class => 'sub2-small dark-right', :value => 'Save' %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <%= f.error_notification %>
 
-  <table class="task-form table-condensed">
-              <tbody>
-                  <tr>
-                    <td>
-                        <strong>LIST NAME:</strong>
-                    </td>
-                    <td>
-                        <%= f.text_field :name, label: false, :class => 'table-input' %>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td>
-                      <strong>PERMISSIONS:</strong>
-                    </td>
-                    <td>
-                    	Who can view this list?
-                    </td>
-                    <td>
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="3" class="gray-back">
+        <strong>Tasks List</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>List Name</strong>
+      </td>
+      <td colspan="2">
+        <%= f.text_field :name %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">PERMISSIONS</td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Who can view this list?</strong>
+      </td>
+      <td colspan="2">
+        <%= f.select :view_permission, TaskList::VIEW_PERMISSIONS.values, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Who can make changes to this list?</strong>
+      </td>
+      <td colspan="2">
+        <%= f.select :amend_permission, TaskList::AMEND_PERMISSIONS.values, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">SETTINGS</td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <div class="radio-bloc">
+          <%= f.radio_button :task_import, 'automatic' %>
+          <%= label :treatment_gap, 'Automatically import task list when case is created', :value => 'automatic' %>
+        </div>
+        <div class="radio-bloc">
+          <%= f.radio_button :task_import, 'manual' %>
+          <%= f.label :treatment_gap, 'Manually import task list on adhoc basis', :value => 'manual' %>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
-                    </td>
-                    <td>
-                    	Who can make changes to this list?
-                    </td>
-                    <td>
+<br/>
+<br/>
+<% if @result.present? %>
+<div class="table-responsive">
+  <table id="my_tasks" class="table table-striped tasks_table">
+    <thead class="user-table-head">
+    <tr>
+      <th>Number</th>
+      <th>Task</th>
+      <th>Task Description</th>
+      <th>Due Date</th>
+      <th>Dependent To</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
 
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>SETTINGS </strong>
-                    </td>
-                    <td>
-                    
-                  </tr>      
-              </tbody>
+    <% @result.each do |task| %>
+      <tr data-id="<%= task.id %>">
+        <td><%= task.number %></td>
+        <td><%= task.name %></td>
+        <td><%= task.description %></td>
+        <td><%= "#{task.due_term} #{task.conjunction} #{task.anchor_date}" %></td>
+        <td><%= task.parent.name if task.parent_id.present? %></td>
+        <td style="text-align: center; vertical-align:middle;">
+          <%= link_to '#', :class => 'dark-small' do %>
+            <span data-tip="Delete" class="glyphicon glyphicon-trash tip"></span>
+          <% end %>
+
+        </td>
+      </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
+<% end %>
+  <div class="clearfix"></div>
+  <div id="tasks">
+    <table class="task-nested-table">
+      <thead>
+        <th>Task</th>
+        <th>Due Date</th>
+        <th>Conjunction</th>
+        <th>Anchor Date</th>
+        <th>Description</th>
+        <th>Add Dependent Task</th>
+        <th>Remove Task</th>
+      </thead>
+      <tbody id="task_drafts">
+      <%= f.simple_fields_for :task_drafts do |task| %>
+        <%= render 'task_draft_fields', :f => task %>
+      <% end %>
+      <%= link_to_add_association 'ADD TASK', f, :task_drafts, :"data-association-insertion-node" => "tbody#task_drafts", :"data-association-insertion-method" => "append", :partial => "task_draft_fields", class: 'action-button' %>
+      </tbody>
     </table>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
   </div>
 <% end %>
+<script>
+  $(document).ready(function () {
+    $("#note_select, select").select2();
+    $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+    });
+    <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
+    $('.add_fields').click(function () {
+      $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+
+    $('#task_drafts').on('cocoon:after-insert', function (e, insertedItem) {
+      var last_id = 'task_draft_'+$('.task-draft-field').length;
+      if ($(insertedItem[0]).hasClass('task-draft-field')) {
+        $(insertedItem[0]).attr('id', last_id);
+        $(insertedItem[0]).find($('.add_child')).attr('data-association-insertion-node', '#'+last_id);
+      }
+    });
+  });
+
+</script>
+

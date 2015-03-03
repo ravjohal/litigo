@@ -48,6 +48,7 @@ gem 'bootbox-rails', '~>0.4'
 gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 gem 'maskedinput-rails', '~> 1.3.1.0'                 # mask used for phone formatting
+gem 'cocoon', '~> 1.2.6'                              # Unobtrusive nested forms handling
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

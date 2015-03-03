@@ -1,38 +1,25 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
-<div class="dropdown">
+  <div class="dropdown">
 
     <button class="nav-dropdown-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
       <%= current_user.name %>
       <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-        <!-- <li role="presentation"><%= link_to 'Page Tour', :id => "page_tour" %></li> -->
+      <!-- <li role="presentation"><%= link_to 'Page Tour', :id => "page_tour" %></li> -->
       <li role="presentation"><%= link_to 'Account Setting', users_profile_path %></li>
-      <li role="presentation"><%= link_to 'Sign Out', destroy_user_session_path, :method=>'delete' %></li>
+      <li role="presentation"><%= link_to 'Sign Out', destroy_user_session_path, :method => 'delete' %></li>
     </ul>
-</div>
- 
+  </div>
+
 <% else %>
   <li><%= link_to 'Sign in', new_user_session_path %></li>
   <li><%= link_to 'Sign up', new_user_registration_path %></li>
 <% end %>
-<%
-=begin
-%>
-<% if user_signed_in? %>
-  <% if current_user.admin? %>
-    <li><%= link_to 'Users', users_path %></li>
-  <% end %>
-<% end %>
-<%
-=end
-%>
-
-
-  <script>
-     $('.tip-tour').tipr({
-      'speed': 500,
-      'mode': 'bottom'
-     });
+<script>
+  $('.tip-tour').tipr({
+    'speed': 500,
+    'mode': 'bottom'
+  });
 </script>

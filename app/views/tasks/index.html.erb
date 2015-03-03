@@ -1,150 +1,169 @@
 <% if @case %>
- <div class="case-header">
+  <div class="case-header">
     <div class="case-title">
-          <div style="font-size: 24px;">
-                <strong><%= @case.name %></strong><br>
-          </div>
-            <div id="case-buttons">
-              <ul>
-                  <li><%= render 'new_button' %></li>
+      <div style="font-size: 24px;">
+        <strong><%= @case.name %></strong><br>
+      </div>
+      <div id="case-buttons">
+        <div id="top-custom" class="top-custom">
+          <ul>
+            <li class="dropdown task-list">
+              <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown"} do %>
+                Task List
+                <span class="caret"></span>
+              <% end %>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                <li role="presentation"><%= link_to 'Create New List', new_task_list_path %></li>
+                <li role="presentation"><%= link_to 'Import Saved List', new_task_list_path %></li>
+                <li role="presentation"><%= link_to 'Modify Saved List', task_lists_path %></li>
               </ul>
-          </div>
+            </li>
+            <li><%= link_to "NEW TASK", @new_path, {:class => "action-button", :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
+          </ul>
+        </div>
+      </div>
     </div>
     <strong>Case #: </strong><%= @case.id %>
-    
-        <div class="container-fluid" style="padding: 0;">
-              <div class="row">
-                      <div class="col-md-12">
-                            <%= render partial: 'shared/case_tabs' %>
-                      </div>
-              </div>
+
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <%= render partial: 'shared/case_tabs' %>
         </div>
-</div>
-<div class="incase-tabs-gap">
-</div>
-<% else %>
- <div id="index-buttons">
-              <ul>
-                   <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %></li> 
-                  <li><%= render 'new_button' %></li>
-              </ul>
-   </div>
-<% end %>
-<div style="margin-top: 70px;">
-<h3>My Tasks</h3>
- <!-- <div class="row">
-      <div class="col-sm-3">
-         <div class="panel panel-default">
-            <div class="panel-body">
-               <div class="btn-group">
-                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                   <span data-bind="label">Task List</span>&nbsp;<span class="caret"></span>
-                 </button>
-                 <ul class="dropdown-menu" role="menu">
-
-                 </ul>
-               </div>
-             </div>
-          </div>
       </div>
-   </div> -->
+    </div>
+  </div>
+  <div class="incase-tabs-gap">
+  </div>
+<% else %>
+  <div id="index-buttons">
+    <ul>
+      <li><%= link_to "javascript:window.print()", :class => 'dark' do %>
+          <span class="glyphicon glyphicon-print tip" data-tip="Print"></span>
+        <% end %></li>
+      <li class="dropdown task-list">
+        <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown"} do %>
+          Task List
+          <span class="caret"></span>
+        <% end %>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation"><%= link_to 'Create New List', new_task_list_path %></li>
+          <li role="presentation"><%= link_to 'Import Saved List', new_task_list_path %></li>
+          <li role="presentation"><%= link_to 'Modify Saved List', task_lists_path %></li>
+        </ul>
+      </li>
+      <li><%= link_to "NEW TASK", @new_path, {:class => "action-button", :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
+
+    </ul>
+  </div>
+<% end %>
+<div style="margin-top: 70px;">
+  <h3>My Tasks</h3>
 </div>
 
-  <div class="table-responsive">
-    <table id="my_tasks" class="table table-striped tasks_table">
-      <thead class="user-table-head">
-      <tr>
-        <th style="vertical-align:middle;">Case(s)</th>
-        <th>Owner </th>
-        <th>Task</th>
-        <th>Due Date</th>
-        <th>Completed On</th>
-        <th>View</th>
+<div class="table-responsive">
+  <table id="my_tasks" class="table table-striped tasks_table">
+    <thead class="user-table-head">
+    <tr>
+      <th style="vertical-align:middle;">Case(s)</th>
+      <th>Owner</th>
+      <th>Task</th>
+      <th>Due Date</th>
+      <th>Completed On</th>
+      <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @my_tasks.each do |task| %>
+      <tr data-id="<%= task.id %>">
+        <td class="doc-link"><%= raw(task.cases.map { |c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+        <td><%= task.owner.name if task.owner %></td>
+        <td>
+          <div class="larger-td"><%= task.name %></div>
+        </td>
+        <td><%= task.due_date.strftime("%m/%d/%Y") if task.due_date.present? %></td>
+        <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
+        <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task), :class => 'dark-small' do %>
+            <span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span>
+          <% end %></td>
       </tr>
-      </thead>
-      <tbody>
-      <% @my_tasks.each do |task| %>
-        <tr data-id="<%= task.id %>">
-          <td class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
-          <td><%= task.owner.name if task.owner %></td>
-          <td><div class="larger-td"><%= task.name %></div></td>
-          <td><%= task.due_date.strftime("%m/%d/%Y") %></td>
-          <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
-          <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-<br />
-<br />
-<div style="margin-top: 70px;">
-<% if @case %>
-<h3>Case Tasks</h3>
-<% else %>
-<h3>All Firm Tasks</h3>
-<% end %>
+    <% end %>
+    </tbody>
+  </table>
 </div>
-  <div class="table-responsive">
-    <table id="tasks" class="table table-striped tasks_table">
-      <thead class="user-table-head">
-      <tr>
-        <th>Case(s)</th>
-        <th>Owner </th>
-        <th>Task</th>
-        <th>Due Date</th>
-        <th>Completed</th>
-        <th>View</th>
+<br/>
+<br/>
+<div style="margin-top: 70px;">
+  <% if @case %>
+    <h3>Case Tasks</h3>
+  <% else %>
+    <h3>All Firm Tasks</h3>
+  <% end %>
+</div>
+<div class="table-responsive">
+  <table id="tasks" class="table table-striped tasks_table">
+    <thead class="user-table-head">
+    <tr>
+      <th>Case(s)</th>
+      <th>Owner</th>
+      <th>Task</th>
+      <th>Due Date</th>
+      <th>Completed</th>
+      <th>View</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @tasks.each do |task| %>
+      <tr data-id="<%= task.id %>">
+        <td class="doc-link"><%= raw(task.cases.map { |c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+        <td><%= task.owner.name if task.owner %></td>
+        <td>
+          <div class="larger-td"><%= task.name %></div>
+        </td>
+        <td><%= task.due_date.strftime("%m/%d/%Y") if task.due_date.present? %></td>
+        <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
+        <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task), :class => 'dark-small' do %>
+            <span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span>
+          <% end %></td>
       </tr>
-      </thead>
-      <tbody>
-      <% @tasks.each do |task| %>
-        <tr data-id="<%= task.id %>">
-          <td class="doc-link"><%= raw(task.cases.map {|c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
-          <td><%= task.owner.name if task.owner %></td>
-          <td><div class="larger-td"><%= task.name %></div></td>
-          <td><%= task.due_date.strftime("%m/%d/%Y") %></td>
-          <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: { "task-completed" => "#{task.id}" } %> <%= task.completed if task.completed.present? %></td>
-          <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 
 
 <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <script type="text/javascript">
-$(document).ready(function() {
-  $('#new_modal').click(function (event) {
-    $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
-  });
-  $(".complete-task").click(function(e){
-    var id = $(e.currentTarget).data('task-completed');
-    $.ajax({
-      type: "post",
-      url: '/tasks/complete_task',
-      data: {'task': {"task_id" : id}},
-      success: function(data) {
-        $('[data-task-completed='+id+']').prop('checked', true);
-        $('[data-task-completed='+id+']').attr('disabled', 'disabled');
-        $('[data-task-completed='+id+']').after(' ' + data.date);
-        $('.alert').remove();
-        $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
-      },
-      error: function(responce, status, error) {
-        $('.alert').remove();
-        $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + responce.responseText + "</div>");
-      }
+  $(document).ready(function () {
+    $('#new_modal').click(function (event) {
+      $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
     });
+    $(".complete-task").click(function (e) {
+      var id = $(e.currentTarget).data('task-completed');
+      $.ajax({
+        type: "post",
+        url: '/tasks/complete_task',
+        data: {'task': {"task_id": id}},
+        success: function (data) {
+          $('[data-task-completed=' + id + ']').prop('checked', true);
+          $('[data-task-completed=' + id + ']').attr('disabled', 'disabled');
+          $('[data-task-completed=' + id + ']').after(' ' + data.date);
+          $('.alert').remove();
+          $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+        },
+        error: function (responce, status, error) {
+          $('.alert').remove();
+          $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + responce.responseText + "</div>");
+        }
+      });
+    });
+    <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
   });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
-});
 </script>
 <script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
+  $('.tip').tipr({
+    'speed': 500,
+    'mode': 'top'
+  });
 </script>

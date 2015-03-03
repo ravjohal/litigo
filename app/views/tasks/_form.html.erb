@@ -1,99 +1,102 @@
 <%= simple_form_for(new_task) do |f| %>
-      <%= f.error_notification %>
+  <%= f.error_notification %>
 
-    <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
-      <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-             <a class="close" data-dismiss="modal">×</a>
-              <h2>New Task</h2>
-            </div>
-         <div class="modal-body">
-    <% end %>
-<table class="task-form table-condensed">
-              <tbody>
-                  <tr>
-                    <td>
-                        <strong>Task:</strong>
-                    </td>
-                    <td colspan="2">
-                        <%= f.text_field :name, label: false, :class => 'table-input' %>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                    <td>
-                      <strong>Case:</strong>
-                    </td>
-                    <td colspan="2">
-                    <% if !@case %>
-                    <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "task_select"}, label: false %>
-                    <% else %>
-                      <%= @case.name %>
-                    <% end %>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <strong>Task Owner: </strong>
-                    </td>
-                    <td colspan="2">
-                    <%= f.association :owner, :collection => @firm.users, :selected => current_user.id, :input_html => {:id => "task_select"}, label: false %>
-                    </td>
-                  </tr>
-                  
-                  <tr>
-                      <td> 
-                          <strong>Due Date:</strong>
-                      </td>
-                      <td colspan="2">
-                          <%= f.date_field :due_date, label: false, :class => 'table-input' %>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td> 
-                          <strong>Estimated Time:</strong>
-                      </td>
-                      <td>
-                          <%= f.number_field :estimated_time, label: false, :class => 'table-input' %>
-                      </td>
-                      <td>
-                          <%= f.select :estimated_time_unit, ['Hour(s)','Day(s)','Week(s)', 'Month(s)'], label: false %>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td> 
-                          <strong>Task Description:</strong>
-                      </td>
-                      <td class="big-row" colspan="2">
-                          <%= f.text_area :description, label: false, :class => 'table-text' %>
-                      </td>
-                  </tr>
-                    
-              </tbody>
-    </table>
+  <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') || (controller_name == 'task_lists' && action_name == 'new') %>
+    <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">×</a>
 
-        <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
-          </div><!--end of modal-body-->
-          
-           <div class="modal-footer">
-              <div class="pull-left">
-                <a class="close" data-dismiss="modal">Cancel</a> 
-              </div>
+          <h2>New Task</h2>
+        </div>
+        <div class="modal-body">
+  <% end %>
+  <table class="task-form table-condensed">
+    <tbody>
+    <tr>
+      <td>
+        <strong>Task:</strong>
+      </td>
+      <td colspan="2">
+        <%= f.text_field :name, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <strong>Case:</strong>
+      </td>
+      <td colspan="2">
+        <% if !@case %>
+          <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "task_select"}, label: false %>
+        <% else %>
+          <%= @case.name %>
         <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Task Owner: </strong>
+      </td>
+      <td colspan="2">
+        <%= f.association :owner, :collection => @firm.users, :selected => current_user.id, :input_html => {:id => "task_select"}, label: false %>
+      </td>
+    </tr>
 
-              <div class="form-actions">
-                  <%= f.button :submit, :class =>"sub2-small" %>
-              </div>
+    <tr>
+      <td>
+        <strong>Due Date:</strong>
+      </td>
+      <td colspan="2">
+        <%= f.date_field :due_date, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Estimated Time:</strong>
+      </td>
+      <td>
+        <%= f.number_field :estimated_time, label: false, :class => 'table-input' %>
+      </td>
+      <td>
+        <%= f.select :estimated_time_unit, ['Hour(s)', 'Day(s)', 'Week(s)', 'Month(s)'], label: false %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Task Description:</strong>
+      </td>
+      <td class="big-row" colspan="2">
+        <%= f.text_area :description, label: false, :class => 'table-text' %>
+      </td>
+    </tr>
 
-    <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
-            </div><!--end of modal-footer-->
-        </div><!--end of modal-content-->
-      </div><!--end of modal-dialog-->
-    <% end %>
+    </tbody>
+  </table>
+
+  <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
+    </div><!--end of modal-body-->
+
+    <div class="modal-footer">
+      <div class="pull-left">
+        <a class="close" data-dismiss="modal">Cancel</a>
+      </div>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => "sub2-small" %>
+  </div>
+
+  <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
+    </div><!--end of modal-footer-->
+    </div><!--end of modal-content-->
+    </div><!--end of modal-dialog-->
+  <% end %>
 
 <% end %>
-  <script>
-    $(document).ready(function() { $("#task_select, select").select2(); });
-  </script>
+<script>
+  $(document).ready(function () {
+    $("#task_select, select").select2();
+  });
+</script>

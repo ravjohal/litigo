@@ -31,6 +31,36 @@
       <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)", class: 'form-control' %>
     </div>
     <div class="form-group">
+      <%= f.fields_for :firm do |firm| %>
+        <%= firm.label :name, 'Firm Name' %>
+        <%= firm.text_field :name, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.fields_for :firm do |firm| %>
+        <%= firm.label :phone, 'Firm Phone'%>
+        <%= firm.text_field :phone, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
+      <% end %>
+    </div> 
+    <div class="form-group">
+      <%= f.fields_for :firm do |firm| %>
+        <%= firm.label :address, 'Firm Address'%>
+        <%= firm.text_field :address, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.fields_for :firm do |firm| %>
+        <%= firm.label :state, 'Firm State'%>
+        <%= firm.select(:state, us_states, {}, {:disabled => !@user.admin?, :class => "selectpicker"}) %>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <%= f.fields_for :firm do |firm| %>
+        <%= firm.label :zip, 'Firm Zipcode'%>
+        <%= firm.text_field :zip, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
+      <% end %>
+    </div>              
+    <div class="form-group">
       <%= f.label :password %>
       <%= f.password_field :password, :autocomplete => 'off', class: 'form-control' %>
     </div>

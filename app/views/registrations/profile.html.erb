@@ -41,20 +41,8 @@
       <%= f.email_field :email, class: 'form-control' %>
     </div>
     <div class="form-group">
-      <%= f.fields_for :firm do |firm| %>
-        <%= firm.label :name, 'Firm Name' %>
-        <%= firm.text_field :name, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
-      <% end %>
-    </div>
-    <div class="form-group">
       <%= f.label :role, 'Firm Role' %>
       <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, {:disabled => !@user.admin?, :class => "selectpicker"}) %>
-    </div>
-    <div class="form-group">
-      <%= f.fields_for :firm do |firm| %>
-        <%= firm.label :phone, 'Firm Phone'%>
-        <%= firm.text_field :phone, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
-      <% end %>
     </div>
     <%= f.submit 'Update', :class => "sub2-invite pull-right" %>
   <% end %>

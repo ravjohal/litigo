@@ -65,6 +65,33 @@ class TaskListsController < ApplicationController
       message = 'Please select task lists to import'
     else
       # TODO create tasks from task_drafts
+      affair = Case.find(import_to_case_params[:case_id])
+      import_to_case_params[:task_lists_ids].each do |task_list_id|
+        TaskList.find(task_list_id).task_drafts.each do |task_draft|
+          task_attrs = {
+              name: task_draft.name,
+              description: task_draft.description,
+              firm_id: @firm.id,
+              user_id: @user.id,
+              due_date: task_draft.return_due_date(affair)
+          }
+          parent_task = Task.create(task_attrs)
+          CaseTask.create(case_id: affair.id, task_id: parent_task.id)
+          if task_draft.children.present?
+            task_draft.children.each do |child|
+              child_attrs = {
+                  name: child.name,
+                  description: child.description,
+                  firm_id: @firm.id,
+                  user_id: @user.id,
+                  due_date: child.return_due_date(affair, parent_task)
+              }
+              child_task = Task.create(child_attrs)
+              CaseTask.create(case_id: affair.id, task_id: child_task.id)
+            end
+          end
+        end
+      end
       message = 'Task lists were imported'
     end
 

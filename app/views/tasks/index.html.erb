@@ -14,7 +14,7 @@
               <% end %>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                 <li role="presentation"><%= link_to 'Create New List', new_task_list_path %></li>
-                <li role="presentation"><%= link_to 'Import Saved List', new_task_list_path %></li>
+                <li role="presentation"><%= link_to 'Import Saved List', task_lists_path(case_id: @case.id) %></li>
                 <li role="presentation"><%= link_to 'Modify Saved List', task_lists_path %></li>
               </ul>
             </li>
@@ -48,7 +48,6 @@
         <% end %>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
           <li role="presentation"><%= link_to 'Create New List', new_task_list_path %></li>
-          <li role="presentation"><%= link_to 'Import Saved List', new_task_list_path %></li>
           <li role="presentation"><%= link_to 'Modify Saved List', task_lists_path %></li>
         </ul>
       </li>

@@ -9,7 +9,7 @@
       <%= f.select :conjunction, ['before', 'after'], label: false %>
     </td>
     <td>
-      <%= f.select :anchor_date, ['case open', 'incident date', 'statute of limitations', 'trial date', 'previous task'], label: false %>
+      <%= f.select :anchor_date, TaskDraft::ANCHOR_DATE, label: false %>
     </td>
     <td>
       <%= f.text_area :description, label: false, :class => 'table-text' %>

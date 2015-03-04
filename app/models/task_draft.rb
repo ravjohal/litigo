@@ -1,5 +1,5 @@
 class TaskDraft < ActiveRecord::Base
-  has_many :children, class_name: "TaskDraft", foreign_key: "parent_id"
+  has_many :children, class_name: "TaskDraft", foreign_key: "parent_id", :dependent => :destroy
   belongs_to :parent, class_name: "TaskDraft"
 	belongs_to :user
 	belongs_to :firm

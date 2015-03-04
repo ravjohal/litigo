@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150302101350) do
+ActiveRecord::Schema.define(version: 20150303214400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -385,8 +385,6 @@ ActiveRecord::Schema.define(version: 20150302101350) do
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
 
   create_table "task_drafts", force: true do |t|
-    t.integer "user_id"
-    t.integer "firm_id"
     t.integer "task_list_id"
     t.string  "name"
     t.integer "parent_id"
@@ -405,6 +403,7 @@ ActiveRecord::Schema.define(version: 20150302101350) do
     t.string   "amend_permission"
     t.string   "task_import"
     t.integer  "user_id"
+    t.integer  "firm_id"
   end
 
   create_table "tasks", force: true do |t|

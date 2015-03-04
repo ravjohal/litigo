@@ -45,7 +45,7 @@
         <strong>Who can view this list?</strong>
       </td>
       <td colspan="2">
-        <%= f.select :view_permission, TaskList::VIEW_PERMISSIONS.values, label: false, :class => 'table-input' %>
+        <%= f.select :view_permission, TaskList::VIEW_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -53,7 +53,7 @@
         <strong>Who can make changes to this list?</strong>
       </td>
       <td colspan="2">
-        <%= f.select :amend_permission, TaskList::AMEND_PERMISSIONS.values, label: false, :class => 'table-input' %>
+        <%= f.select :amend_permission, TaskList::AMEND_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
       </td>
     </tr>
     <tr>

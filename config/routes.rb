@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
   resources :task_lists
-
+  post 'task_lists/import_to_case' => 'task_lists#import_to_case', as: :task_lists_import_to_case
   resources :firms
 
   resources :notes

@@ -12,6 +12,7 @@ class Firm < ActiveRecord::Base
 	has_many :resolutions
 	has_many :google_calendars
 	has_many :leads
+	has_many :task_lists
 
 	validates_presence_of :name
 	validates_uniqueness_of :name

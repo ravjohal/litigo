@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :notes
   has_many :google_calendars
   has_many :leads, class_name: 'Lead', foreign_key: 'attorney_id'
+  has_many :task_lists
   belongs_to :firm
   validates_presence_of :first_name, :last_name
   validates :time_zone, inclusion: { in: ActiveSupport::TimeZone.all.map { |m| m.name } }
@@ -44,5 +45,17 @@ class User < ActiveRecord::Base
 
   def to_label
     self.first_name.blank? || self.last_name.blank? ? self.email : "#{self.first_name} #{self.last_name}"
+  end
+
+  def is_admin?
+    self.role == 'admin'
+  end
+
+  def is_attorney?
+    self.role == 'attorney'
+  end
+
+  def is_staff?
+    self.role == 'staff'
   end
 end

@@ -1,0 +1,21 @@
+<% if task_list.view_permission == 'author' && task_list.user == @user || task_list.view_permission == 'all_firm' %>
+  <tr>
+    <td><%= task_list.name %></td>
+    <td><%= TaskList::VIEW_PERMISSIONS[task_list.view_permission.to_sym] if task_list.view_permission.present? %></td>
+    <td><%= TaskList::AMEND_PERMISSIONS[task_list.amend_permission.to_sym] if task_list.amend_permission.present? %></td>
+    <td><%= TaskList::TASK_IMPORT[task_list.task_import.to_sym] if task_list.task_import.present? %></td>
+    <% if params[:case_id].present? %>
+    <td><%= check_box_tag "task_list_#{task_list.id}", true, false, class: 'import_task_lists', data:{id: task_list.id} %></td>
+    <% end %>
+    <td>
+      <% if task_list.user == @user || task_list.amend_permission == 'all_firm' || ['admins', 'admins_attorneys'].include?(task_list.amend_permission) && @user.is_admin? || task_list.amend_permission == 'admins_attorneys' && @user.is_attorney? %>
+        <%= link_to edit_task_list_path(task_list), class: 'dark-small' do %> <span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span><% end %>
+      <% end %>
+    </td>
+    <td>
+      <% if task_list.user == @user || task_list.amend_permission == 'all_firm' || ['admins', 'admins_attorneys'].include?(task_list.amend_permission) && @user.is_admin? || task_list.amend_permission == 'admins_attorneys' && @user.is_attorney? %>
+        <%= link_to task_list, method: :delete, data: { confirm: 'Are you sure?' }, class: 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-trash tip"></span><% end %>
+      <% end %>
+    </td>
+  </tr>
+<% end %>

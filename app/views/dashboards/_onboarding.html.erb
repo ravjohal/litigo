@@ -16,7 +16,7 @@
                         <strong>Firm or Company Name:</strong>
                     </td>
                     <td>
-                        <%= f.input :name, label: false, :required => true, :class => 'table-input' %>
+                        <%= f.text_field :name, label: false, :required => true, :class => 'table-input' %>
                     </td>
                 </tr>
                 <tr>
@@ -25,7 +25,7 @@
                   </td>
                   <td>
                       <%= f.simple_fields_for :contact, Contact.new do |p| %>
-                      <%= p.input :type, label: false, :collection => ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false, :class => 'table-input' %>
+                      <%= p.select :type, ['Attorney', 'Staff/Paralegal'], :selected => 'Attorney', :include_blank => false, :class => 'table-input' %>
                       <% end %>
                   </td>
                 </tr>
@@ -35,7 +35,7 @@
                     </td>
 
                     <td>
-                        <%= f.input :phone, :required => false, label: false, :class => 'table-input' %>
+                        <%= f.text_field :phone, :required => false, label: false, :class => 'table-input' %>
                     </td>
                 </tr>
                       <tr>

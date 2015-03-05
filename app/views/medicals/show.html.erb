@@ -168,10 +168,9 @@
 </div>
 
 
-<div style="width:900px; margin: 0 auto;">
+<div style="width:900px; margin: 0 auto 30px auto;">
   <%= link_to 'ADD INJURY', new_medical_injury_path(@medical), {:class => "action-button", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 </div>
-
 
 
 <% @injuries.each.with_index(1) do |injury, i|%>

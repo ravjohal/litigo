@@ -28,59 +28,64 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="2" class="gray-back">
-      <strong>Insurance Summary</strong>
+    <td colspan="5" class="gray-back">
+      <strong>Insurance Summary</strong><%= link_to "+ ADD INSURANCE", '#', :class => 'add-btn pull-right', id: "add_insurance" %>
     </td>
   </tr>
 </thead>
   <tbody>
       <tr>
-        <td class="right">
-        <strong>Insurance type:</strong>
-        </td>
-        <td>
-        <%= f.input :insurance_type, :class => 'table-input' %>
-        </td>
+          <td class="right">
+              <strong>Insurance Provider</strong>
+          </td>
+          <td class="right">
+              <strong>Insurance Type</strong>
+          </td>
+          <td class="right">
+              <strong>Policy Limit</strong>
+          </td>
+           <td class="right">
+              <strong>Claim Number</strong>
+          </td>
+          <td class="right">
+              <strong>Policy Holder</strong>
+          </td>
       </tr>
       <tr>
-        <td class="right">
-          <strong>Insurance Provider:</strong>
-        </td>
-        <td>
-           <%= f.select :insurance_provider, Insurance::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
-        </td>
-      </tr>
-  	  <tr>
-        <td class="right">
-          <strong>Policy Limit:</strong>
-        </td>
-        <td>
-           <%= f.input :policy_limit, :class => 'table-input' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Claim Number:</strong>
-        </td>
-        <td>
-           <%= f.input :claim_number, :class => 'table-input' %>
-        </td>
-      </tr>
-  	  <tr>
-        <td class="right">
-          <strong>Policy Holder:</strong>
-        </td>
-        <td>
-           <%= f.input :policy_holder, :class => 'table-input' %>
+          <td>
+              <%= f.select :insurance_provider, Insurance::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
+          </td>
+          <td>
+              <%= f.text_field :insurance_type, :class => 'table-input' %>
+          </td>
+          <td>
+              <%= f.text_field :policy_limit, :class => 'table-input' %>
+          </td>
+          <td>
+              <%= f.text_field :claim_number, :class => 'table-input' %>
+          </td>
+          <td>
+              <%= f.text_field :policy_holder, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>
 </table>
 </div>
 
+
+
 <% end %>
 
 
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function () {
+    var inv = 1;
+    $('#add_insurance').click(function (e) {
+      e.preventDefault();
+      $('.invitees').append("<%= j(render :partial => 'insurances/insurance_form').html_safe %>");
+      inv ++;
+    });
+</script>
 
 
 <script>

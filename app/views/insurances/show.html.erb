@@ -27,51 +27,44 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="2" class="gray-back">
+    <td colspan="5" class="gray-back">
       <strong>Insurance Summary</strong>
     </td>
   </tr>
 </thead>
   <tbody>
-      <tr>
-        <td class="right">
-        <strong>Insurance type:</strong>
-        </td>
-        <td>
-        <%= @insurance.insurance_type %>
-          
-        </td>
+  <tr>
+          <td class="right">
+              <strong>Insurance Provider</strong>
+          </td>
+          <td class="right">
+              <strong>Insurance Type</strong>
+          </td>
+          <td class="right">
+              <strong>Policy Limit</strong>
+          </td>
+           <td class="right">
+              <strong>Claim Number</strong>
+          </td>
+          <td class="right">
+              <strong>Policy Holder</strong>
+          </td>
       </tr>
       <tr>
-        <td class="right">
-          <strong>Insurance Provider:</strong>
-        </td>
-        <td>
-          <%= @insurance.insurance_provider %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Policy Limit:</strong>
-        </td>
-        <td>
-          <%= @insurance.policy_limit %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Claim Number:</strong>
-        </td>
-        <td>
-          <%= @insurance.claim_number  %>
-        </td>
-      </tr>
-        <tr>
-        <td class="right">
-          <strong>Policy Holder:</strong>
-        </td>
-        <td>
-          <%= @insurance.policy_holder %>
+          <td>
+              <%= @insurance.insurance_provider %>
+          </td>
+          <td>
+              <%= @insurance.insurance_type %>
+          </td>
+          <td>
+              <%= number_to_currency @insurance.policy_limit, precision: 0 %>
+          </td>
+          <td>
+              <%= @insurance.claim_number  %>
+          </td>
+          <td>
+              <%= @insurance.policy_holder %>
         </td>
       </tr>
   </tbody>

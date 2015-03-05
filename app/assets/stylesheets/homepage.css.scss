@@ -865,14 +865,14 @@ width: 230px;
         padding-bottom: 10px;
         color: white;
         line-height: 13px;
-        font-weight: lighter;
+        font-weight: 400;
         background-color: transparent;
         &:hover {
           font-weight: 400;
           text-decoration: none;
           background-color: transparent;
           color: #3FC2D8 !important; 
-          transition: .5s;
+          transition: .3s;
         }
      }
     }
@@ -901,7 +901,7 @@ width: 230px;
 
 
 .navigated {
-       font-weight: lighter;
+      font-weight: lighter;
       cursor: pointer;
       font-size: 12px;
       letter-spacing: 1px;
@@ -909,7 +909,7 @@ width: 230px;
       text-decoration: none;
       padding-left: 5px;
       padding-right: 5px;
-      border-bottom: 3px solid rgb(63,194,216);;
+      border-bottom: 3px solid rgb(63,194,216);
 }
 
 .nav-sidebar__dsh {

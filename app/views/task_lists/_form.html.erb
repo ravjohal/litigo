@@ -63,11 +63,11 @@
       <td colspan="3">
         <div class="radio-bloc">
           <%= f.radio_button :task_import, 'automatic' %>
-          <%= label :treatment_gap, 'Automatically import task list when case is created', :value => 'automatic' %>
+          <%= f.label :task_import, 'Automatically import task list when case is created', :value => 'automatic' %>
         </div>
         <div class="radio-bloc">
           <%= f.radio_button :task_import, 'manual' %>
-          <%= f.label :treatment_gap, 'Manually import task list on adhoc basis', :value => 'manual' %>
+          <%= f.label :task_import, 'Manually import task list on adhoc basis', :value => 'manual' %>
         </div>
       </td>
     </tr>

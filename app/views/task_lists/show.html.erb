@@ -1,9 +1,106 @@
-<p id="notice"><%= notice %></p>
+<% if @task_list.view_permission == 'author' && @task_list.user == @user || @task_list.view_permission == 'all_firm' %>
 
-<p>
-  <strong>Name:</strong>
-  <%= @task_list.name %>
-</p>
+  <div class="text-center">
+    <table id="info-table4">
+      <tbody>
+      <tr>
+        <td id="left-td"><%= link_to request.referrer, :class => 'dark' do %>
+            <span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span>
+          <% end %>
+        </td>
+        <td></td>
+        <td></td>
+        <td><%= link_to @task_list, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
+          <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %>
+          <%= link_to 'Edit', edit_task_list_path(@task_list), :class => 'dark' %></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 
-<%= link_to 'Edit', edit_task_list_path(@task_list) %> |
-<%= link_to 'Back', task_lists_path %>
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="3" class="gray-back">
+        <strong>Tasks List</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>List Name</strong>
+      </td>
+      <td colspan="2">
+        <%= @task_list.name %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">PERMISSIONS</td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Who can view this list?</strong>
+      </td>
+      <td colspan="2">
+        <%= TaskList::VIEW_PERMISSIONS[@task_list.view_permission.to_sym] %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Who can make changes to this list?</strong>
+      </td>
+      <td colspan="2">
+        <%= TaskList::AMEND_PERMISSIONS[@task_list.amend_permission.to_sym] %>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">SETTINGS</td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <%= TaskList::TASK_IMPORT[@task_list.task_import.to_sym]%>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br/>
+  <br/>
+  <div class="clearfix"></div>
+  <div id="tasks">
+    <table class="task-nested-table table">
+      <thead>
+      <th>Task</th>
+      <th>Due Date</th>
+      <th>Conjunction</th>
+      <th>Anchor Date</th>
+      <th>Description</th>
+      </thead>
+      <tbody id="task_drafts">
+        <% @task_list.task_drafts.each do |td| %>
+        <td><%= td.name %></td>
+        <td><%= td.due_term %></td>
+        <td><%= td.conjunction %></td>
+        <td><%= td.anchor_date %></td>
+        <td><%= td.description %></td>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+<script>
+  $(document).ready(function () {
+    $("#note_select, select").select2();
+    $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+    });
+    <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
+    $('.add_fields').click(function () {
+      $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    });
+  });
+
+</script>
+<% end %>

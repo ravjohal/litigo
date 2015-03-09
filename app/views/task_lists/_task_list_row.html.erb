@@ -1,6 +1,6 @@
 <% if task_list.view_permission == 'author' && task_list.user == @user || task_list.view_permission == 'all_firm' %>
   <tr>
-    <td><%= task_list.name %></td>
+    <td><%= link_to task_list.name, task_list_path(task_list) %></td>
     <td><%= TaskList::VIEW_PERMISSIONS[task_list.view_permission.to_sym] if task_list.view_permission.present? %></td>
     <td><%= TaskList::AMEND_PERMISSIONS[task_list.amend_permission.to_sym] if task_list.amend_permission.present? %></td>
     <td><%= TaskList::TASK_IMPORT[task_list.task_import.to_sym] if task_list.task_import.present? %></td>

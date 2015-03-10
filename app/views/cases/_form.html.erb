@@ -54,6 +54,10 @@
                   <%= f.select :subtype, Case::SUB_TYPES, label: false, :include_blank => true %>
             </td>
           </tr>
+        
+          <!-- This is a hidden field that needs to be present so that the case_number can be incremented by 1, PLEASE DO NOT REMOVE without applying the incrementing-->
+            <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input', :hidden => true %>
+    
            <tr>
                 <td>
                   <strong>Topic:</strong>

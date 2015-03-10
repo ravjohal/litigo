@@ -58,7 +58,7 @@ class Case < ActiveRecord::Base
   validates :name, presence: true
   # validates :case_number, presence: true
   validates :case_type, presence: true
-  validates :subtype, presence: true
+  # validates :subtype, presence: true
   validates :state, length: { is: 2 }, allow_blank: true
   #validates :closing_date, presence: true , if: "self.closed?"
   #validates :closing_date, absence: true, if: "self.pending? || self.open?"

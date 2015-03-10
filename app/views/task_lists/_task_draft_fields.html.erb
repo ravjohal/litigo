@@ -3,7 +3,7 @@
       <%= f.text_field :name, label: false, :class => 'table-input' %>
     </td>
     <td>
-      <%= f.number_field :due_term, label: false, :class => 'table-input' %>
+      <%= f.number_field :due_term, label: false, min: 0, :class => 'table-input' %>
     </td>
     <td>
       <%= f.select :conjunction, ['before', 'after'], label: false %>

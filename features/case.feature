@@ -14,7 +14,7 @@ Feature: Case feature
     Then I verify required fields for case for user with email "artem.suchov@gmail.com"
 
   @javascript
-  Scenario: I can edit the details of the caise
+  Scenario: I can edit the details of the case
     When I visit sign up page
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it
@@ -27,7 +27,7 @@ Feature: Case feature
     Then I verify required fields for case for user with email "artem.suchov@gmail.com" are changed
 
   @javascript
-  Scenario: Verify that the tabs are created: Details, Incident, Medical, Contacts, Calendar, Tasks, Documents, Notes, Resolution
+  Scenario: Verify that the tabs are created: Details, Incident, Medical, Insurance, Contacts, Calendar, Tasks, Documents, Notes, Resolution
     When I visit sign up page
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it

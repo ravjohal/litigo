@@ -34,7 +34,7 @@ end
 Then(/^when I fill in the modal window$/) do
   fill_in 'firm_name', with: 'RubyRiders'
   #select("#Attorney", :from => "#firm_contact_type")
-  fill_in 'firm_phone', with: 'RubyRiders'
+  fill_in 'firm_phone', with: '4081234567'
   click_on 'Get Started'
 end
 
@@ -81,4 +81,13 @@ When (/^I log in with email "(.*?)" and password "(.*?)"$/) do |arg1, arg2|
   click_on 'SIGN IN'
   expect(page).to have_content('Welcome!')
   expect(page).to have_content('We just need a few more details before using your case management software:')
+end
+
+When(/^Signup and Login$/) do
+  step 'I visit sign up page'
+  step 'I am a logged in user with email #{artem.suchov@gmail.com} and password #{password}'
+  step 'I get the confirmation email and confirm it'
+  step 'I should be logged in user'
+  step 'I fill in the modal window'
+  step 'I should logged in'
 end

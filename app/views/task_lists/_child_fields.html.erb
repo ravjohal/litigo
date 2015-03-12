@@ -6,10 +6,10 @@
     <%= f.number_field :due_term, label: false, :class => 'table-input' %>
   </td>
   <td>
-    <%= f.select :conjunction, ['before', 'after'], label: false %>
+    <%= f.select :conjunction, ['before', 'after'], {}, { class: 'conjunction-select', label: false } %>
   </td>
   <td>
-    <%= f.select :anchor_date, ['case open', 'incident date', 'statute of limitations', 'trial date', 'previous task'], label: false %>
+    <%= f.select :anchor_date, TaskDraft::ANCHOR_DATE, label: false %>
   </td>
   <td>
     <%= f.text_area :description, label: false, :class => 'table-text' %>
@@ -21,4 +21,15 @@
 </tr>
 <script type="text/javascript" charset="utf-8">
   $("select").select2();
+  $('.conjunction-select').on('change', function (e) {
+    var after_options = "<%= raw TaskDraft::ANCHOR_DATE.map {|option| "<option value='#{option}'>#{option}</option>"}.join('') %>";
+    var before_options = "<%= raw TaskDraft::BEFORE_ANCHOR_DATE.map {|option| "<option value='#{option}'>#{option}</option>"}.join('') %>";
+    var raw_name = $(this).attr('name').replace('[conjunction]','');
+    var anchor_select = $("select[name='"+raw_name+"[anchor_date]']")
+    if($(this).val() == 'before') {
+      anchor_select.empty().append(before_options);
+    } else if($(this).val() == 'after') {
+      anchor_select.empty().append(after_options);
+    }
+  });
 </script>

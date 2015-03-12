@@ -79,11 +79,24 @@
       </thead>
       <tbody id="task_drafts">
         <% @task_list.task_drafts.each do |td| %>
-        <td><%= td.name %></td>
-        <td><%= td.due_term %></td>
-        <td><%= td.conjunction %></td>
-        <td><%= td.anchor_date %></td>
-        <td><%= td.description %></td>
+        <tr>
+          <td><%= td.name %></td>
+          <td><%= td.due_term %></td>
+          <td><%= td.conjunction %></td>
+          <td><%= td.anchor_date %></td>
+          <td><%= td.description %></td>
+        </tr>
+          <% if td.children.present? %>
+          <% td.children.each do |child| %>
+          <tr>
+            <td><%= child.name %></td>
+            <td><%= child.due_term %></td>
+            <td><%= child.conjunction %></td>
+            <td><%= child.anchor_date %></td>
+            <td><%= child.description %></td>
+          </tr>
+          <% end %>
+          <% end %>
         <% end %>
       </tbody>
     </table>

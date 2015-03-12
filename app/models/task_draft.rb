@@ -9,9 +9,10 @@ class TaskDraft < ActiveRecord::Base
   validates :due_term, :numericality => { :greater_than_or_equal_to => 0 }
 
   ANCHOR_DATE = ['case open', 'incident date', 'statute of limitations', 'trial date', 'previous task', 'close date']
+  BEFORE_ANCHOR_DATE = ['statute of limitations', 'trial date', 'previous task', 'close date']
 
   def return_due_date(affair, parent=nil)
-    due_date = Date.today
+    due_date = nil
     if self.conjunction == 'after'
       case self.anchor_date
         when 'case open'
@@ -26,8 +27,6 @@ class TaskDraft < ActiveRecord::Base
           due_date = parent.due_date + self.due_term.days
         when 'close date'
           due_date = affair.closing_date + self.due_term.days if affair.closing_date.present?
-        else
-          due_date = Date.today + 7.days
       end
     elsif self.conjunction == 'before'
       case self.anchor_date
@@ -39,8 +38,6 @@ class TaskDraft < ActiveRecord::Base
           due_date = affair.closing_date - self.due_term.days if affair.closing_date.present?
         when 'previous task'
           due_date = parent.due_date - self.due_term.days
-        else
-          due_date = Date.today + 7.days
       end
     end
     return due_date

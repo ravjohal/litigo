@@ -10,4 +10,4 @@ Feature: Create Task List
     And I click "Task List"
     And I click "Create New List"
     And I fill Task List form
-    Then task list should be created
+    Then task list with task_drafts should be created

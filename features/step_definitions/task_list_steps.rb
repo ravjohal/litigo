@@ -19,5 +19,5 @@ Then(/^I fill Task List form$/) do
   find(".select2-result-label", text: 'before').click
   page.execute_script(%($("textarea[name*='[description]']").val('Parent task description')))
   click_on 'Save'
-  sleep 5
+  sleep 1
 end

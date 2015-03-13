@@ -100,3 +100,15 @@ Then (/^case should be created$/) do
   expect(one_case.medical.injuries.last.injury_type).to eq('TBI')
   expect(one_case.medical.injuries.last.region).to eq('Skull')
 end
+
+Then (/^task list should be created$/) do
+  user = User.find_by(email: 'andrew@rubyriders.com')
+  firm = user.firm
+  expect(TaskList.where(name: 'Test Task List')).to exist
+  task_list = TaskList.last
+  expect(task_list.name).to eq('Test Task List')
+  expect(task_list.view_permission).to eq('author')
+  expect(task_list.amend_permission).to eq('author')
+  expect(task_list.user_id).to eq(user.id)
+  expect(task_list.firm_id).to eq(firm.id)
+end

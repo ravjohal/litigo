@@ -8,8 +8,8 @@ class TaskDraft < ActiveRecord::Base
   accepts_nested_attributes_for :children, :reject_if => :all_blank, :allow_destroy => true
   validates :due_term, :numericality => { :greater_than_or_equal_to => 0 }
 
-  ANCHOR_DATE = ['case open', 'incident date', 'statute of limitations', 'trial date', 'previous task', 'close date']
-  BEFORE_ANCHOR_DATE = ['statute of limitations', 'trial date', 'previous task', 'close date']
+  ANCHOR_DATE = ['close date', 'case open', 'incident date', 'statute of limitations', 'trial date', 'previous task']
+  BEFORE_ANCHOR_DATE = ['close date', 'statute of limitations', 'trial date', 'previous task']
 
   def return_due_date(affair, parent=nil)
     due_date = nil

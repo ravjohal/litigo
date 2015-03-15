@@ -1,99 +1,75 @@
 <% if @task_list.view_permission == 'author' && @task_list.user == @user || @task_list.view_permission == 'all_firm' %>
 
-  <div class="text-center">
+ <div class="text-center">
     <table id="info-table4">
       <tbody>
       <tr>
-        <td id="left-td"><%= link_to request.referrer, :class => 'dark' do %>
-            <span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span>
-          <% end %>
+        <td>
         </td>
         <td></td>
         <td></td>
         <td><%= link_to @task_list, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
           <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %>
-          <%= link_to 'Edit', edit_task_list_path(@task_list), :class => 'dark' %></td>
+          <%= link_to 'Edit', edit_task_list_path(@task_list), :class => 'dark' %>
+          <%= link_to tasks_path, :class => 'dark-right' do %><span class="glyphicon glyphicon-arrow-left tip" data-tip="Tasks"></span><% end %></td>
       </tr>
       </tbody>
     </table>
   </div>
 
-  <table id="info-table3">
-    <thead>
-    <tr class="right-top">
-      <td colspan="3" class="gray-back">
-        <strong>Tasks List</strong>
-      </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td class="right">
-        <strong>List Name</strong>
-      </td>
-      <td colspan="2">
-        <%= @task_list.name %>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">PERMISSIONS</td>
-    </tr>
-    <tr>
-      <td class="right">
+<div style="width:700px;">
+
+  <h3>List Name</h3>      
+        <div class="form-group">
+            <%= @task_list.name %>
+        </div>
+<h3>Permissions</h3>
+    <div class="form-group">
         <strong>Who can view this list?</strong>
-      </td>
-      <td colspan="2">
-        <%= TaskList::VIEW_PERMISSIONS[@task_list.view_permission.to_sym] %>
-      </td>
-    </tr>
-    <tr>
-      <td class="right">
+        <br><%= TaskList::VIEW_PERMISSIONS[@task_list.view_permission.to_sym] %>
+    </div>
+        <br>
         <strong>Who can make changes to this list?</strong>
-      </td>
-      <td colspan="2">
-        <%= TaskList::AMEND_PERMISSIONS[@task_list.amend_permission.to_sym] %>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="3">SETTINGS</td>
-    </tr>
-    <tr>
-      <td colspan="3">
-        <%= TaskList::TASK_IMPORT[@task_list.task_import.to_sym]%>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+        <br><%= TaskList::AMEND_PERMISSIONS[@task_list.amend_permission.to_sym] %>
+    <h3>Settings</h3>
+    <div class="form-group">
+       <strong>Import Settings</strong>
+       <br><%= TaskList::TASK_IMPORT[@task_list.task_import.to_sym]%>
+        <div class="radio-bloc">
+        
+        </div>
+        </div>
+        </div>
 
   <br/>
   <br/>
   <div class="clearfix"></div>
   <div id="tasks">
-    <table class="task-nested-table table">
-      <thead>
+    <table class="task-nested-table table table-striped" style="margin-bottom: 30px;">
+      <thead class="user-table-head">
       <th>Task</th>
+      <th>Description</th>
       <th>Due Date</th>
       <th>Conjunction</th>
       <th>Anchor Date</th>
-      <th>Description</th>
       </thead>
       <tbody id="task_drafts">
         <% @task_list.task_drafts.each do |td| %>
         <tr>
           <td><%= td.name %></td>
+          <td><%= td.description %></td>
           <td><%= td.due_term %></td>
           <td><%= td.conjunction %></td>
           <td><%= td.anchor_date %></td>
-          <td><%= td.description %></td>
         </tr>
           <% if td.children.present? %>
           <% td.children.each do |child| %>
           <tr>
             <td><%= child.name %></td>
+            <td><%= child.description %></td>
             <td><%= child.due_term %></td>
             <td><%= child.conjunction %></td>
             <td><%= child.anchor_date %></td>
-            <td><%= child.description %></td>
           </tr>
           <% end %>
           <% end %>

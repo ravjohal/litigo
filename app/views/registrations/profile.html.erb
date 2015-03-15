@@ -47,9 +47,3 @@
     <%= f.submit 'Update', :class => "sub2-invite pull-right" %>
   <% end %>
 </div>
-
-<div class="profile" style="padding-top: 30px;">
-  <h3>Cancel Account</h3>
-  <p>Unhappy? We'll be sad to see you go.</p>
-  <%= button_to "Delete my account", registration_path(resource_name), :data => { :confirm => @confirm_message }, :method => :delete, :class => "sub2-invite pull-right" %>
-</div>

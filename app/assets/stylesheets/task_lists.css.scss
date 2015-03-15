@@ -3,18 +3,6 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .task-list {
   display: inline!important;
-  #task-list-bnt {
-    margin-right: 5px;
-  }
-}
-.top-custom {
-  margin-bottom: 0!important;
-  .dropdown-menu {
-    li {
-      padding-left: 0!important;
-      display: inline!important;
-    }
-  }
 }
 
 .radio-bloc {
@@ -40,4 +28,51 @@
 
 .import-task-list {
   margin: 25px 10px;
+}
+
+
+
+.task_lists_table {
+  width: 100%;
+    tr:nth-child(odd){
+    vertical-align: top;
+ }
+ tr:nth-child(even){
+    vertical-align: top;
+ }
+}
+
+.task_lists_table > tbody > tr > td:nth-of-type(1) {
+  width: 23%;
+}
+.task_lists_table > tbody > tr > td:nth-of-type(2) {
+  width: 40%;
+}
+.task_lists_table > tbody > tr > td:nth-of-type(3) {
+  width: 7%;
+}
+.task_lists_table > tbody > tr > td:nth-of-type(4) {
+  width: 15%;
+}
+.task_lists_table > tbody > tr > td:nth-of-type(5) {
+ width: 15%;
+}
+
+.task_lists_table > tbody > tr > td:nth-of-type(6) {
+width: 5%;
+}
+.task_lists_table > tbody > tr > td:nth-of-type(7) {
+ width: 5%;
+}
+
+#tasklist-buttons{
+  float: right;
+  margin-right: 10px;
+}
+#tasklist-buttons ul{
+  padding: 0 0;
+  margin: 5px 0 0 0;
+}
+#tasklist-buttons li{
+  display: inline;
 }

@@ -3,18 +3,19 @@
     <%= f.text_field :name, label: false, :class => 'table-input' %>
   </td>
   <td>
+    <%= f.text_area :description, label: false, :class => 'table-input' %>
+  </td>
+  <td>
     <%= f.number_field :due_term, label: false, :class => 'table-input' %>
   </td>
   <td>
-    <%= f.select :conjunction, ['before', 'after'], {}, { class: 'conjunction-select', label: false } %>
+    <%= f.select :conjunction, ['Before', 'After'], {}, { class: 'conjunction-select', label: false } %>
   </td>
   <td>
     <%= f.select :anchor_date, TaskDraft::ANCHOR_DATE, label: false %>
   </td>
-  <td>
-    <%= f.text_area :description, label: false, :class => 'table-text' %>
-  </td>
-  <td class="task-icon">Dependent Task</td>
+  
+  <td class="task-icon"><span class="glyphicon glyphicon-link"></span></td>
   <td class="task-icon">
     <%= link_to_remove_association f, class: 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span><% end %>
   </td>

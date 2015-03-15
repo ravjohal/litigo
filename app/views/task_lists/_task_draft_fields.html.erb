@@ -2,17 +2,17 @@
     <td>
       <%= f.text_field :name, label: false, :class => 'table-input' %>
     </td>
+     <td>
+      <%= f.text_area :description, label: false, :class => 'table-input' %>
+    </td>
     <td>
       <%= f.number_field :due_term, label: false, min: 0, :class => 'table-input' %>
     </td>
     <td>
-      <%= f.select :conjunction, [ 'after', 'before'], {}, { class: 'conjunction-select', label: false } %>
+      <%= f.select :conjunction, [ 'After', 'Before'], {}, { class: 'conjunction-select', label: false } %>
     </td>
     <td>
       <%= f.select :anchor_date, TaskDraft::ANCHOR_DATE, label: false %>
-    </td>
-    <td>
-      <%= f.text_area :description, label: false, :class => 'table-text' %>
     </td>
     <td class="task-icon">
       <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".task-draft-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span class="glyphicon glyphicon-plus tip" data-tip="Add Dependent Task"></span><% end %>

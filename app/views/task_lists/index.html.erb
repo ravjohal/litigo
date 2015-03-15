@@ -1,8 +1,4 @@
-<% if params[:case_id].present? %>
-  <div class="import-task-list" id="index-buttons">
-    <%= link_to "Import to Case", '', {:class => "action-button", :id => "import_task_lists", :remote => true} %>
-  </div>
-<% end %>
+
 
 <div id="index-buttons">
               <ul>
@@ -11,6 +7,9 @@
                           <ul>
                               <li>
                                     <%= link_to 'NEW TASK LIST', new_task_list_path, :class =>'action-button' %></li>
+                                    <% if params[:case_id].present? %>
+                                          <%= link_to "IMPORT TASK LIST(S)", '', {:class => "action-button", :id => "import_task_lists", :remote => true} %>
+                                    <% end %>
                         </ul>
                       </div>
                   </li>
@@ -20,16 +19,16 @@
 <div style="margin-top: 70px;">
 <h3>Task Lists</h3>
 <div class="table-responsive">
-<table class="table table-striped table-hover rowlink">
+<table class="table table-striped table-hover rowlink imports">
   <thead class="user-table-head">
   <tr>
-    <th>Name</th>
-    <th>View Permission</th>
-    <th>Amend Permission</th>
-    <th>Task Importation</th>
     <% if params[:case_id].present? %>
       <th>Import to Case</th>
     <% end %>
+    <th>Name</th>
+    <th>View Permission</th>
+    <th>Amend Permission</th>
+    <th>Selection</th>
     <th>Edit</th>
     <th>Delete</th>
   </tr>

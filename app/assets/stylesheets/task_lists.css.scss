@@ -26,10 +26,6 @@
   text-align: center;
 }
 
-.import-task-list {
-  margin: 25px 10px;
-}
-
 
 
 .task_lists_table {
@@ -76,3 +72,14 @@ width: 5%;
 #tasklist-buttons li{
   display: inline;
 }
+
+.imports > tbody > tr > td:nth-of-type(5) {
+ text-align: center;
+}
+.imports > tbody > tr > td:nth-of-type(6) {
+ text-align: center;
+}
+.imports > tbody > tr > td:nth-of-type(7) {
+ text-align: center;
+}
+

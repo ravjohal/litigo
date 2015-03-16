@@ -32,7 +32,7 @@ class VisitorsController < ApplicationController
     end
 
     def confirm_email
-
+       
     end
 
 end

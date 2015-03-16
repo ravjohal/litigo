@@ -2,7 +2,7 @@
 <html>
  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Litigo Terms of Service" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo Registration" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
     <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -10,72 +10,30 @@
  </head>
  <body>
 <header>
-    <div class="home-nav-banner">
-      <div class="wrapper">
-        <a href="index"class="navlogo marge"></a>
-        <% if user_signed_in? %>
-            <%= link_to 'SIGN OUT', destroy_user_session_path, :method=>'delete', :class=> 'sign-home' %>
-        <% else %>
-        <%= link_to 'SIGN IN', new_user_session_path, :class => 'sign-home' %>
-        <% end %>
-                <div id="header-links">
-                      <ul id="header-links">
-                          <li><%= link_to 'About', about_path %></li>
-                          <li><%= link_to 'Pricing', pricing_path %></li>
-                          <li><%= link_to 'Contact', contactlitigo_path %></li>
-                          <li style="color:white; font-size:12px; font-weight: 400; padding-right: 15px; opacity: .6; letter-spacing: 1px;">Questions? (937) 272-7538</li>
-                      </ul>
-              </div>
+</header>
+<div style="width: 40px; height: 35px; margin: 0 auto;">
+<a href="index">
+  <img src="assets/small-building.png" alt="Return Home" style="margin-top:75px;width:35px;height:35px;border:0">
+</a>
+</div>
 
-      </div>
-    </div>
-    </header>
 
-  <div class="thankYou-container">
-        <br><h2 style="text-shadow: 0 1px 0 #fff;">Thank You for Registering</h2><br>
-        <div class="thank-you">
-        <p style="font-size: 20px;">We just sent you a confirmation email. For security reasons you msut verify your email address before logging in. If you didn't receive an email, check your spam folder!</p><br>
-        <p style="font-size: 20px;">Here are some of the great features that await:</p>
-        <ul style="font-size: 18px;">
-            <li>24/7 Access to data</li>
-            <li>SSL Encryption</li>
-            <li>Client Intake</li>
-            <li>Document Management</li>
-            <li>Task Manager</li>
-            <li>Time and Billing</li>
-            <li>And much more!</li>
-        </ul>
+  <div class="thankyou-container">
+      <div style="font-size: 36px; margin-bottom: 15px;">Thanks for signing up!</div>
+      <div style="font-size: 20px; color: #484848; margin-bottom: 10px;">Check your inbox.</div>
+      <div style="font-size: 14px; color: #aaa;">We sent an email that contains a special link to activate your account. After you click on the link, you can sign in.</div>
+      <hr class="divider">
+      <div style="width: 70%; margin: 0 auto;">
+        <div class="row">
+            <div class="col-md-4"><a href="https://twitter.com/LitigoInc" data-tip="Follow Us" target="_blank"><img src="/assets/twitter.png" class="icons"></img></a></div>
+            <div class="col-md-4"><a href="http://eepurl.com/3y99r"><span style="font-size: 24px;"class="glyphicon glyphicon-send"></span></a></div>
+            <div class="col-md-4"><a href=""><span style="font-size: 24px;" class="glyphicon glyphicon-retweet"></span></a></div>
         </div>
+        </div>
+  </div>
     
-        <div class="contact-info">
-        <p style="font-size: 20px;">In the meantime...</p><br>
-            <a style="font-size: 20px;" href="http://eepurl.com/3y99r">Subscribe to our Newsletter</a><br>
-            <br>
-            <a style="font-size: 20px;" href="https://twitter.com/LitigoInc">Follow Us on Twitter</a><br>
-            <br>
-            <%= link_to 'Back Home', root_path, {:style => 'font-size: 20px;'}%>
-                 
-                 
-                </div>
-            </div>
-        </div>
+    <div class="confirmed">
+        Already confirmed your email? <%= link_to 'Sign In', new_user_session_path, :class => 'center-link'  %>
     </div>
-
-     <div class="ending">
-              <div class="footer-container">
-                  &copy 2014 Litigo Inc.
-                  <div id="footer-links">
-                      <ul id="footer-links">
-                          <li><%= link_to 'About', about_path %></li>
-                          <li><%= link_to 'Pricing', pricing_path %></li>
-                          <li><%= link_to 'Contact', contactlitigo_path %></li>
-                      </ul>
-                  </div>
-                    <p>
-                      <%= link_to 'Terms of Service', terms_path %>
-                      <%= link_to 'Privacy Policy', privacy_path %>
-                    </p>
-              </div>
-        </div>
  </body>
 </html>

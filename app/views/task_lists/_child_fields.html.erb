@@ -1,18 +1,18 @@
 <tr class="nested-fields child_task_draft">
   <td>
-    <%= f.text_field :name, label: false, :class => 'table-input' %>
+    <%= f.input :name, label: false, :class => 'table-input' %>
   </td>
   <td>
     <%= f.text_area :description, label: false, :class => 'table-input' %>
   </td>
   <td>
-    <%= f.number_field :due_term, label: false, :class => 'table-input' %>
+    <%= f.input :due_term, label: false, :class => 'table-input' %>
   </td>
   <td>
-    <%= f.select :conjunction, ['Before', 'After'], {}, { class: 'conjunction-select', label: false } %>
+    <%= f.select :conjunction, ['After'], {}, { class: 'conjunction-select', label: false, disabled: true } %>
   </td>
   <td>
-    <%= f.select :anchor_date, TaskDraft::ANCHOR_DATE, label: false %>
+    <%= f.select :anchor_date, ['parent'], {}, {label: false, disabled: true} %>
   </td>
   
   <td class="task-icon"><span class="glyphicon glyphicon-link"></span></td>

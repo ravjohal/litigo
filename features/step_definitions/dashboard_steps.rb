@@ -101,7 +101,7 @@ Then (/^case should be created$/) do
   expect(one_case.medical.injuries.last.region).to eq('Skull')
 end
 
-Then (/^task list with task_drafts should be created$/) do
+Then (/^task list with task_draft should be created$/) do
   user = User.find_by(email: 'andrew@rubyriders.com')
   firm = user.firm
   expect(TaskList.where(name: 'Test Task List')).to exist
@@ -118,4 +118,28 @@ Then (/^task list with task_drafts should be created$/) do
   expect(task_draft.conjunction).to eq('before')
   expect(task_draft.anchor_date).to eq('close date')
   expect(task_draft.description).to eq('Parent task description')
+end
+
+Then (/^task list with dependent task_draft should be created$/) do
+  user = User.find_by(email: 'andrew@rubyriders.com')
+  firm = user.firm
+  expect(TaskList.where(name: 'Test Task List')).to exist
+  task_list = TaskList.last
+  task_draft = task_list.task_drafts.last
+  dependent_task_draft = task_draft.children.last
+  expect(task_list.name).to eq('Test Task List')
+  expect(task_list.view_permission).to eq('author')
+  expect(task_list.amend_permission).to eq('author')
+  expect(task_list.user_id).to eq(user.id)
+  expect(task_list.firm_id).to eq(firm.id)
+  expect(task_draft.name).to eq('Parent task')
+  expect(task_draft.due_term).to eq(3)
+  expect(task_draft.conjunction).to eq('before')
+  expect(task_draft.anchor_date).to eq('close date')
+  expect(task_draft.description).to eq('Parent task description')
+  expect(dependent_task_draft.name).to eq('Dependent task')
+  expect(dependent_task_draft.due_term).to eq(2)
+  expect(dependent_task_draft.conjunction).to eq('after')
+  expect(dependent_task_draft.anchor_date).to eq('previous task')
+  expect(dependent_task_draft.description).to eq('Dependent task description')
 end

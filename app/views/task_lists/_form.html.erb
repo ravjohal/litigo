@@ -12,7 +12,7 @@
   <div style="width:700px; margin-top: 50px;">
   <h3>List Name</h3>
         <div class="form-group">
-            <%= f.text_field :name, :class => 'table-input'%>
+            <%= f.input :name, label: false, :class => 'table-input'%>
         </div>
 
 <h3>Permissions</h3>
@@ -56,10 +56,7 @@
       </tbody>
     </table>
   </div>
- 
 <% end %>
-
-
 <script>
   $(document).ready(function () {
     $("#note_select, select").select2();

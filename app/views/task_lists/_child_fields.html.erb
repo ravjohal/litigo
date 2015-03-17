@@ -9,10 +9,10 @@
     <%= f.input :due_term, label: false, :class => 'table-input' %>
   </td>
   <td>
-    <%= f.select :conjunction, ['After'], {}, { class: 'conjunction-select', label: false, disabled: true } %>
+    <%= f.input :conjunction, collection: ['After'] , label: false, input_html: { class: 'conjunction-select', disabled: true }  %>
   </td>
   <td>
-    <%= f.select :anchor_date, ['parent'], {}, {label: false, disabled: true} %>
+    <%= f.input :anchor_date, collection: ['parent'] , label: false, input_html: { disabled: true }  %>
   </td>
   
   <td class="task-icon"><span class="glyphicon glyphicon-link"></span></td>

@@ -85,6 +85,8 @@
       }
     });
   });
-
+  $('form').bind('submit', function() {
+    $(this).find(':input').removeAttr('disabled');
+  });
 </script>
 

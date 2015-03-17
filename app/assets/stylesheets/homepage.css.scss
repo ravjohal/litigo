@@ -157,17 +157,19 @@ main {
   letter-spacing: 1px;
   color: white;
 }
+
 .feature-list {
   width: 80%;
   text-align: left;
-  margin: 20px auto 0 auto;
-  color: white;
-  font-size: 130%;
+  margin: 5px auto 0 auto;
+  color: #484848;
 }
 .feature-list li {
   display: block;
   margin-bottom: 5px;
 }
+
+
 .section-three{
   @extend .container;
  // width: 100%;
@@ -213,8 +215,6 @@ main {
 }
 
  input.sub-btn{
-  text-shadow: 0px 1px 1px #555;
-  font-weight: normal;
   padding-right: 25px;
   padding-left: 25px;
   font-size: 14px;
@@ -295,6 +295,22 @@ section {
   margin: 30px auto;
   width: 50%;
   border: 2px dashed #3FC2D8;
+}
+.price-divider {
+  margin: 30px auto;
+  width: 70%;
+  border: 1px solid #aaa;
+}
+
+.price-container {
+  text-align: center;
+  padding: 20px;
+  margin: 30px auto 0 auto;
+  width: 500px;
+  height: 440px;
+  background-color: white;
+  border-radius: 4px;
+  border: 1px solid #ccc;
 }
 
 .form-group {
@@ -412,7 +428,6 @@ border-bottom: 1px solid #ddd;
     text-indent: 10px;
   }
   input.sub{
-  text-shadow: 0px 1px 1px #555;
   font-weight: normal;
   padding-right: 25px;
   padding-left: 25px;
@@ -1279,6 +1294,29 @@ tbody tr:nth-child(even) {
       background: #323A45;
       transition: .2s;
     }
+  }
+
+  .price-tagline{
+    font-weight: bold;
+    z-index: 1;
+    font-family: 'Changa One', serif;
+    font-size: 60px;
+    color: #484848;
+    Margin: 0 auto;
+    max-width: 1080px;
+    text-align: center;
+    padding: 44px 0px 0 0;
+    letter-spacing: 1px;
+    text-shadow: 0 1px 0 #fff;
+  }
+  .price-sub-mission{
+  font-size: 30px;
+  color: #484848;
+  Margin: 0 auto 0 auto;
+  max-width: 700px;
+  text-align: center;
+  line-height: 36px;
+  text-shadow: 0 1px 0 #fff;
   }
 
 

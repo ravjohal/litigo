@@ -41,160 +41,39 @@
     </header>
 
 <div class="terms-container">
-    <table id="price-table">
-        <thead id="head">
-        <tr class="xlarge">
-                <th class="cent"></th>
-                <th class="cent">Basic</th>
-                <th class="cent">Pro</th>
-                <th class="cent">Premium</th>
-            </tr>
-            <tr class="large-star">
-                <th></th>
-                <th class="cent"><span class="glyphicon glyphicon-star yellow"></span></th>
-                <th class="cent"><span class="glyphicon glyphicon-star yellow"></span><span class="glyphicon glyphicon-star yellow"></span></th>
-                <th class="cent"><span class="glyphicon glyphicon-star yellow"></span><span class="glyphicon glyphicon-star yellow"></span><span class="glyphicon glyphicon-star yellow"></span></th>
-            </tr>
-          
-             <tr class="large">
-                <th></th>
-                <th class="cent">$15<br><div class="small">per User/mo.<br><span style="color:#bbb; font-weight:lighter;">$180 annually</span></div></th>
-                <th class="cent">$99<br><div class="small">per User/mo.<br><span style="color:#bbb; font-weight:lighter;">$1,188 annually</span></div></th>
-                <th class="cent">$199<br><div class="small">per User/mo.<br><span style="color:#bbb; font-weight:lighter;">$2,388 annually</span></div></th>
-            </tr>
-             <tr>
-                <th></th>
-                <th class="cent"><%= link_to new_user_registration_path, :class => 'cta' do %>Start Free Trial
-                <% end %></th>
-                <th class="cent"><%= link_to new_user_registration_path, :class => 'cta' do %>Start Free Trial
-                <% end %></th>
-                <th class="cent"><%= link_to new_user_registration_path, :class => 'cta' do %>Start Free Trial
-                <% end %></th>
-            </tr>
-        </thead>
-         <tfoot>
-            <tr>
-                <td colspan="4">
-                *Feature coming soon
-                </td>
-            </tr>
-          </tfoot>
-        <tbody>
-            <tr>
-                <td><br></td>
-                <td><br></td>
-                <td><br></td>
-                <td><br></td>
-            </tr>
-            <tr>
-                <th>100% web-based</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-            <tr>
-                <th>Mobile access</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-            <tr>
-                <th>SSL encryption</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-              <tr>
-                <th>Client and case management</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-              <tr>
-                <th>Google Calendar sync</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-              <tr>
-                <th>Search</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-              <tr>
-                <th>Note taking</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-              <tr>
-                <th>Multi-user access</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               <tr>
-                <th>Task management</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               <tr>
-                <th>Reporting</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-                <tr>
-                <th>Billing*</th>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               </tr>
-                <tr>
-                <th>Client intake*</th>
-                <td>
-                </td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               <tr>
-                <th>Litigation research</th>
-                <td>
-                </td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               <tr>
-                <th>Case evaluation*</th>
-                <td>
-                </td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-                <tr>
-                <th>Judge analytics*</th>
-                <td></td>
-                <td></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               <tr>
-                <th>Jury analytics*</th>
-                <td></td>
-                <td></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-               <tr>
-                <th>Firm bench marking*</th>
-                <td></td>
-                <td></td>
-                <td><span class="glyphicon glyphicon-ok green"></span></td>
-            </tr>
-          </tbody>
-    </table>
-</div>
+    <div class="price-tagline">
+        Try Litigo for free. 
+    </div>
+     <div class="price-sub-mission">
+        No committment - get started with just your email
+    </div>
+     <div style="margin: 50px auto; width: 300px; text-align: center;">
+                    <%= form_tag new_user_registration_path, :method => "get" do %>
+                   <%= submit_tag "START FREE TRIAL", :class => "sub-btn" %>
+                        <% end %>
+   </div>
+     <div class="price-container">
+        <div style="font-size: 36px; margin-bottom: 15px; margin-top: 15px;">$15 <span style="font-size:24px;">per user / month</span></div>
+        <div style="font-size: 14px; color: #aaa;">Clear and simple pricing.<p> Whether billed annually or month-to-month.</p></div>
+        <hr class="price-divider">
+         <div class="feature-list">
+                                  <ul style="margin-left: 70px;">
+                                    <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Case Management</li>
+                                    <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Saved Task Lists</li>
+                                    <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Google Calendar Sync</li>
+                                    <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Document Management</li>
+                                     <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Billing & Expenses</li>
+                                    <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Free Tech Support</li>
+                                     <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>100% Web-based</li>
+                                     <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>SSL Encryption</li>
+                                  </ul>
+                                </div>
+     </div>
+        <div style="margin: 50px auto; width: 300px; text-align: center;">
+                    Still have questions? Send us an <a href="mailto:support@litigo.co" class="doc-link">email</a> 
+   </div>
+   </div>
+    
  
   <div class="ending">
               <div class="footer-container">

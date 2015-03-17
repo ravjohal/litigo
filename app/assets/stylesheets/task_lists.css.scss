@@ -83,3 +83,21 @@ width: 5%;
  text-align: center;
 }
 
+.controls {
+  input {
+    width: 100%;
+  }
+  span.help-inline {
+    color: red;
+  }
+}
+.new_task_list {
+  .controls {
+    background-color: #F2F2F2;
+  }
+}
+.nested-fields {
+  .controls {
+    background-color: #F9F9F9;
+  }
+}

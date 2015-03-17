@@ -32,8 +32,8 @@ class TaskListsController < ApplicationController
       if @task_list.save
         format.html { redirect_to task_lists_path, notice: "Task List was successfully created." }
       else
-        format.html { render action: "new" }
-        format.json { render json: @task_list.errors.full_messages.join('. '), :status => :unprocessable_entity }
+        format.html { render "new" }
+        format.json { render json: @task_list.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -64,7 +64,6 @@ class TaskListsController < ApplicationController
     if import_to_case_params[:task_lists_ids].blank?
       message = 'Please select task lists to import'
     else
-      # TODO create tasks from task_drafts
       affair = Case.find(import_to_case_params[:case_id])
       import_to_case_params[:task_lists_ids].each do |task_list_id|
         TaskList.find(task_list_id).task_drafts.each do |task_draft|

@@ -40,6 +40,15 @@ class IncidentsController < ApplicationController
 
     respond_to do |format|
       if @incident.update(incident_params)
+        @case = @incident.case
+        tasks = @case.tasks.where(anchor_date: ['incident date', 'statute of limitations'])
+        tasks.each do |task|
+          if @incident.incident_date.present? && task.due_date.blank? && task.anchor_date == 'incident date'
+            task.set_due_date!(@incident.incident_date)
+          elsif @incident.statute_of_limitations.present? && task.due_date.blank? && task.anchor_date == 'statute of limitations'
+            task.set_due_date!(@incident.statute_of_limitations)
+          end
+        end
         format.html { redirect_to [@case, @incident], notice: 'incident was successfully updated.' }
         format.json { render :show, status: :ok, location: @incident }
       else

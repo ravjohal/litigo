@@ -34,6 +34,8 @@ class Case < ActiveRecord::Base
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
 
+  # after_save :set_tasks_due_dates
+
   # searchable do
   #   text :state
   #   text :court
@@ -83,4 +85,12 @@ class Case < ActiveRecord::Base
     end
   end
 
+  def set_tasks_due_dates
+    tasks = self.tasks.where(anchor_date: ['trial date', 'close date', 'case open'])
+    tasks.each do |task|
+      if self.trial_date.present? && task.due_date.blank? && task.anchor_date == 'trial date'
+        task.set_due_date!(self.trial_date)
+      end
+    end
+  end
 end

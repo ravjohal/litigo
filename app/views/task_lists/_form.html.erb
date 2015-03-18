@@ -25,15 +25,31 @@
         <%= f.select :amend_permission, TaskList::AMEND_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
     <h3>Settings</h3>
     <div class="form-group">
-        <div class="radio-bloc">
-          <%= f.radio_button :task_import, 'automatic' %>
-          <%= f.label :task_import, 'Automatically import task list when case is created', :value => 'automatic' %>
+      <div class="radio-bloc">
+        <%= f.radio_button :task_import, 'automatic' %>
+        <%= f.label :task_import, 'Automatically import task list when case is created', :value => 'automatic' %>
+      </div>
+      <div class="case-selector" <% if @task_list.task_import == 'automatic' %> style="display:block" <% end %>>
+        <div>
+          <strong>Case type for automatic import</strong>
+          <%= f.input :case_type, collection: Case::TYPES, label: false %>
         </div>
-        <div class="radio-bloc" style="margin-bottom: 40px;">
-          <%= f.radio_button :task_import, 'manual' %>
-          <%= f.label :task_import, 'Manually import task list on demand', :value => 'manual' %>
+        <div class=" case-creator">
+          <div class="radio-bloc">
+            <%= f.radio_button :case_creator, 'all_firm', disabled: !@user.is_admin? %>
+            <%= f.label :task_import, 'All cases created by firm', :value => 'all_firm'%>
+          </div>
+          <div class="radio-bloc">
+            <%= f.radio_button :case_creator, 'owner' %>
+            <%= f.label :task_import, 'Only cases created by me', :value => 'owner' %>
+          </div>
         </div>
-        </div>
+      </div>
+      <div class="radio-bloc" style="margin-bottom: 40px;">
+        <%= f.radio_button :task_import, 'manual' %>
+        <%= f.label :task_import, 'Manually import task list on demand', :value => 'manual' %>
+      </div>
+    </div>
     </div>
 
   <div class="clearfix"></div>
@@ -88,5 +104,20 @@
   $('form').bind('submit', function() {
     $(this).find(':input').removeAttr('disabled');
   });
+  $("input[name='task_list[task_import]']:radio").change(function (e) {
+    if($('#task_list_task_import_automatic').is(':checked')) {
+      $('.case-selector').show();
+      var user_admin = <%= @user.is_admin? %>;
+      if(!user_admin) {
+        $('#task_list_case_creator_owner').prop('checked', true);
+      }
+    } else {
+      $('.case-selector').hide();
+      var task_list_case_type = $('#task_list_case_type');
+      task_list_case_type.find("option:selected").removeAttr("selected");
+      task_list_case_type.select2('val', '');
+      $("input[name='task_list[case_creator]']:radio").prop('checked', false);
+    }
+  })
 </script>
 

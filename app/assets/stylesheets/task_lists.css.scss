@@ -101,3 +101,16 @@ width: 5%;
     background-color: #F9F9F9;
   }
 }
+.case-selector {
+  display: none;
+}
+.case-creator {
+  .radio + .radio {
+    margin-top: 10px;
+  }
+  .radio {
+    input {
+      margin-left: -95px;
+    }
+  }
+}

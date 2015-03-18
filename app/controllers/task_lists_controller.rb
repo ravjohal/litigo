@@ -64,32 +64,43 @@ class TaskListsController < ApplicationController
     if import_to_case_params[:task_lists_ids].blank?
       message = 'Please select task lists to import'
     else
-      affair = Case.find(import_to_case_params[:case_id])
+      # affair = Case.find(import_to_case_params[:case_id])
       import_to_case_params[:task_lists_ids].each do |task_list_id|
-        TaskList.find(task_list_id).task_drafts.each do |task_draft|
-          task_attrs = {
-              name: task_draft.name,
-              description: task_draft.description,
-              firm_id: @firm.id,
-              user_id: @user.id,
-              due_date: task_draft.return_due_date(affair)
-          }
-          parent_task = Task.create(task_attrs)
-          CaseTask.create(case_id: affair.id, task_id: parent_task.id)
-          if task_draft.children.present?
-            task_draft.children.each do |child|
-              child_attrs = {
-                  name: child.name,
-                  description: child.description,
-                  firm_id: @firm.id,
-                  user_id: @user.id,
-                  due_date: child.return_due_date(affair, parent_task)
-              }
-              child_task = Task.create(child_attrs)
-              CaseTask.create(case_id: affair.id, task_id: child_task.id)
-            end
-          end
-        end
+        task_list = TaskList.find(task_list_id)
+        task_list.import_to_case!(import_to_case_params[:case_id], @user.id)
+        # task_list.task_drafts.each do |task_draft|
+        #   task_attrs = {
+        #       name: task_draft.name,
+        #       description: task_draft.description,
+        #       firm_id: @firm.id,
+        #       user_id: @user.id,
+        #       conjunction: task_draft.conjunction,
+        #       due_term: task_draft.due_term,
+        #       anchor_date: task_draft.anchor_date,
+        #       due_date: task_draft.return_due_date(affair),
+        #       task_draft_id: task_draft.id
+        #   }
+        #   parent_task = Task.create(task_attrs)
+        #   CaseTask.create(case_id: affair.id, task_id: parent_task.id)
+        #   if task_draft.children.present?
+        #     task_draft.children.each do |child|
+        #       child_attrs = {
+        #           name: child.name,
+        #           description: child.description,
+        #           firm_id: @firm.id,
+        #           user_id: @user.id,
+        #           conjunction: child.conjunction,
+        #           due_term: child.due_term,
+        #           anchor_date: child.anchor_date,
+        #           parent_id: parent_task.id,
+        #           due_date: child.return_due_date(affair, parent_task),
+        #           task_draft_id: child.id
+        #       }
+        #       child_task = Task.create(child_attrs)
+        #       CaseTask.create(case_id: affair.id, task_id: child_task.id)
+        #     end
+        #   end
+        # end
       end
       message = 'Task lists were imported'
     end
@@ -105,7 +116,7 @@ class TaskListsController < ApplicationController
     end
 
     def task_list_params
-      params.require(:task_list).permit(:name, :view_permission, :amend_permission, :task_import,
+      params.require(:task_list).permit(:name, :view_permission, :amend_permission, :task_import, :case_type, :case_creator,
                                         task_drafts_attributes: [:id, :name, :parent_id, :description, :due_term, :conjunction, :anchor_date, :_destroy,
                                         children_attributes: [:id, :name, :parent_id, :task_list_id, :description, :due_term, :conjunction, :anchor_date, :_destroy]
                                         ])

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303214400) do
+ActiveRecord::Schema.define(version: 20150318102650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(version: 20150303214400) do
     t.integer  "firm_id"
     t.integer  "user_account_id"
     t.string   "company"
-    t.boolean  "corporation"
+    t.string   "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -269,7 +269,7 @@ ActiveRecord::Schema.define(version: 20150303214400) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain",                                default: false
+    t.boolean  "ongoing_pain"
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
@@ -404,6 +404,8 @@ ActiveRecord::Schema.define(version: 20150303214400) do
     t.string   "task_import"
     t.integer  "user_id"
     t.integer  "firm_id"
+    t.string   "case_type"
+    t.string   "case_creator"
   end
 
   create_table "tasks", force: true do |t|
@@ -420,6 +422,11 @@ ActiveRecord::Schema.define(version: 20150303214400) do
     t.integer  "owner_id"
     t.decimal  "estimated_time"
     t.string   "estimated_time_unit"
+    t.string   "conjunction"
+    t.integer  "due_term"
+    t.string   "anchor_date"
+    t.integer  "parent_id"
+    t.integer  "task_draft_id"
   end
 
   add_index "tasks", ["firm_id"], name: "index_tasks_on_firm_id", using: :btree

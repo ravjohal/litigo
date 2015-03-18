@@ -77,15 +77,6 @@
 <% end %>
 
 
-<script type="text/javascript" charset="utf-8">
-  $(document).ready(function () {
-    var inv = 1;
-    $('#add_insurance').click(function (e) {
-      e.preventDefault();
-      $('.invitees').append("<%= j(render :partial => 'insurances/insurance_form').html_safe %>");
-      inv ++;
-    });
-</script>
 
 
 <script>

@@ -66,6 +66,11 @@ class CasesController < ApplicationController
     # injury.save
 
     if @case.save
+      TaskList.where(case_type: @case.case_type, firm_id: @firm.id, task_import: 'automatic').each do |task_list|
+        if task_list.case_creator == 'all_firm' || task_list.case_creator == 'owner' && task_list.user_id == @user.id
+          task_list.import_to_case!(@case.id, @user.id)
+        end
+      end
       redirect_to @case, notice: 'Case was successfully created.'
     else
       redirect_to :back, alert: "Please review the problems below: #{@case.errors.full_messages.join('. ')}"
@@ -75,8 +80,19 @@ class CasesController < ApplicationController
   respond_to :html, :json
   def update
     @case.user = @user
-    @case.update_attributes(case_params)
-    respond_with @case, notice: 'Case was successfully updated.'
+    if @case.update_attributes(case_params)
+      tasks = @case.tasks.where(anchor_date: ['trial date', 'close date', 'case open'])
+      tasks.each do |task|
+        if @case.trial_date.present? && task.due_date.blank? && task.anchor_date == 'trial date'
+          task.set_due_date!(@case.trial_date)
+        elsif @case.closing_date.present? && task.due_date.blank? && task.anchor_date == 'close date'
+          task.set_due_date!(@case.closing_date)
+        elsif @case.created_at.present? && task.due_date.blank? && task.anchor_date == 'case open'
+          task.set_due_date!(@case.created_at)
+        end
+      end
+      respond_with @case, notice: 'Case was successfully updated.'
+    end
   end
 
   def destroy

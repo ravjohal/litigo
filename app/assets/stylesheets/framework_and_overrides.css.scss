@@ -868,6 +868,7 @@ select {
   border: 1px solid #aaa;
   background-image: linear-gradient(to bottom, #eee 1%, #fff 15%);
 }
+
 .table-area {
   height: 105px;
 }
@@ -879,6 +880,10 @@ select {
 }
 .table-input-small{
   width: 65px;
+}
+.table-input-case{
+  width: 250px;
+  padding: 0 !important;
 }
 .table-input-file{
 width: 100%;

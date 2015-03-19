@@ -30,7 +30,7 @@ class TaskListsController < ApplicationController
     @task_list.firm = @firm
     respond_to do |format|
       if @task_list.save
-        format.html { redirect_to task_lists_path, notice: "Task List was successfully created." }
+        format.html { redirect_to task_lists_path, notice: "Task List was successfully added" }
       else
         format.html { render "new" }
         format.json { render json: @task_list.errors, :status => :unprocessable_entity }
@@ -102,7 +102,7 @@ class TaskListsController < ApplicationController
         #   end
         # end
       end
-      message = 'Task lists were imported'
+      message = 'Task list(s) were successfully imported'
     end
 
     respond_to do |format|

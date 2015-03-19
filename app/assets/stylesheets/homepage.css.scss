@@ -622,21 +622,13 @@ margin-bottom: 10px;
   width: 300px;
   height: 50px;
   z-index: 10;
+  text-align: center;
 }
 .alert-danger {
-  position: fixed;
-  top: 15%;
-  left: 50%;
-  margin-top: -25px;
-  margin-left: -150px;
-  width: 300px;
-  height: 50px;
-  z-index: 10;
   background-color: rgba(0,0,0,.5);
   color: #fff;
   border: 1px solid black;
   border-radius: 4px;
-  text-align: center;
 }
 
 .navbar-inverse {

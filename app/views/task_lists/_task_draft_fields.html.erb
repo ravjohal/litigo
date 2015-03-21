@@ -18,7 +18,7 @@
       <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".task-draft-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span class="glyphicon glyphicon-plus tip" data-tip="Add Dependent Task"></span><% end %>
     </td>
     <td class="task-icon">
-      <%= link_to_remove_association f, class: 'dark-small remove_task_drafts' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span><% end %>
+      <%= link_to_remove_association f, class: 'dark-small remove_task_drafts' do %><span class="glyphicon glyphicon-trash tip" data-tip="Remove"></span><% end %>
     </td>
     <%= f.simple_fields_for :children do |child| %>
       <%= render 'child_fields', :f => child %>

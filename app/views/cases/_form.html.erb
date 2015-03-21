@@ -99,7 +99,7 @@
 <% end %>
 
   <script>
-    $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select, select").select2();
+    $(document).ready(function() { $("td select").select2();
         });
     $('#case_case_type').on('change', function() {
       var conceptName = $('#case_case_type').find(":selected").text();

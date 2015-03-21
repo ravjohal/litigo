@@ -181,7 +181,7 @@
      <% end %>
 <% end %>
 <script>
-  $(document).ready(function() { $("select").select2(); });
+  $(document).ready(function() { $("td select").select2(); });
   $("#new_contact").bind("ajax:error", function(evt, xhr, status, error){
     var error_text = "";
     var error_list = $.parseJSON(xhr.responseText);

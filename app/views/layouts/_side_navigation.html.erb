@@ -3,10 +3,10 @@
         <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
     </li>
     <li>
-        <%= active_link_to "Client Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cev', :id => 'client-intake' %>
+        <%= active_link_to "Client Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cev', :id => 'client-intake', :active => [['client_intakes'], []] %>
     </li>
     <li id="first">
-      <%= active_link_to " Case Management", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions'], []] %>
+      <%= active_link_to " Case Management", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions', 'insurances'], []] %>
       <ul>
           <li><%= active_link_to "CASES", cases_path, :class_active => 'enabled' %></li>
           <li><%= active_link_to "CONTACTS", contacts_path, :class_active => 'enabled' %></li>

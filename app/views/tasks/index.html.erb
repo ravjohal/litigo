@@ -79,22 +79,18 @@
       <th>Task</th>
       <th>Due Date</th>
       <th>Completed</th>
-      <th>View</th>
     </tr>
     </thead>
     <tbody>
     <% @my_tasks.each do |task| %>
       <tr data-id="<%= task.id %>">
-        <td class="doc-link"><%= raw(task.cases.map { |c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+        <td class="doc-link"><%= raw(task.cases.map { |c| c.name }.join(', ')) %></td>
         <td><%= task.owner.name if task.owner %></td>
         <td>
-          <div class="larger-td"><%= task.name %></div>
+          <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
         <td><%= task.due_date.strftime("%m/%d/%Y") if task.due_date.present? %></td>
         <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
-        <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task), :class => 'dark-small' do %>
-            <span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span>
-          <% end %></td>
       </tr>
     <% end %>
     </tbody>
@@ -118,22 +114,18 @@
       <th>Task</th>
       <th>Due Date</th>
       <th>Completed</th>
-      <th>View</th>
     </tr>
     </thead>
     <tbody>
     <% @tasks.each do |task| %>
       <tr data-id="<%= task.id %>">
-        <td class="doc-link"><%= raw(task.cases.map { |c| link_to(c.name, case_path(c)) }.join(', ')) %></td>
+        <td class="doc-link"><%= raw(task.cases.map { |c| c.name }.join(', ')) %></td>
         <td><%= task.owner.name if task.owner %></td>
         <td>
-          <div class="larger-td"><%= task.name %></div>
+          <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
         <td><%= task.due_date.strftime("%m/%d/%Y") if task.due_date.present? %></td>
         <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
-        <td style="text-align: center; vertical-align:middle;"><%= link_to task_path(task), :class => 'dark-small' do %>
-            <span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span>
-          <% end %></td>
       </tr>
     <% end %>
     </tbody>
@@ -168,6 +160,16 @@
       });
     });
     <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
+    $('.tasks_table tr').click(function(e) {
+      console.log($(this));
+      console.log($(e.target));
+      if(!$(e.target).hasClass('complete-task')){
+        var href = $(this).find("a").attr("href");
+        if(href) {
+        window.location = href;
+        }
+      }
+    });
   });
 </script>
 <script>

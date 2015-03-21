@@ -36,7 +36,7 @@
       <%= active_link_to " BILLING", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
     </li> -->
     <li>
-      <%= active_link_to "Profile", users_profile_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :id => 'profile' %>
+      <%= active_link_to "Profile", users_profile_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :active => [['registrations']], :id => 'profile' %>
     </li>
 </ul>
 

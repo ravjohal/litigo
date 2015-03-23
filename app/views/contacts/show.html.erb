@@ -71,7 +71,7 @@
           <strong>Date of Birth:</strong>
         </td>
         <td>
-          <%= @contact.date_of_birth.strftime("%m/%d/%Y") %>
+          <%= @contact.date_of_birth.strftime("%m/%d/%Y") if @contact.date_of_birth %>
         </td>
       </tr> 
       <tr>

@@ -27,7 +27,7 @@ class LeadsDatatable
           "#{lead.attorney.try(:name)} #{lead.attorney.try(:email)}",
           lead.name,
           lead.estimated_value,
-          "#{content_tag(:div, '', class: "status-circle #{lead.status}", data: {tip: "#{Lead::STATUS[lead.status.to_sym] if lead.status}"})} #{Lead::STATUS[lead.status.to_sym] if lead.status}".html_safe,
+          Lead::STATUS[lead.status.to_sym]
       ]
     end
   end

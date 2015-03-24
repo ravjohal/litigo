@@ -27,21 +27,21 @@
     <div class="form-group">
       <div class="radio-bloc">
         <%= f.radio_button :task_import, 'automatic' %>
-        <%= f.label :task_import, 'Automatically import task list when case is created', :value => 'automatic' %>
+        <%= f.label :task_import, 'Automatically import task list when a case is created', :value => 'automatic' %>
       </div>
       <div class="case-selector" <% if @task_list.task_import == 'automatic' %> style="display:block" <% end %>>
-        <div>
-          <strong>Case type for automatic import</strong>
+        <div style='margin-bottom: 5px;'>
+          <strong>When case type is:</strong>
           <%= f.input :case_type, collection: Case::TYPES, label: false %>
         </div>
         <div class=" case-creator">
           <div class="radio-bloc">
             <%= f.radio_button :case_creator, 'all_firm', disabled: !@user.is_admin? %>
-            <%= f.label :task_import, 'All cases created by firm', :value => 'all_firm'%>
+            <%= f.label :task_import, 'For any case created by firm', :value => 'all_firm'%>
           </div>
           <div class="radio-bloc">
             <%= f.radio_button :case_creator, 'owner' %>
-            <%= f.label :task_import, 'Only cases created by me', :value => 'owner' %>
+            <%= f.label :task_import, 'For only cases created by me', :value => 'owner' %>
           </div>
         </div>
       </div>

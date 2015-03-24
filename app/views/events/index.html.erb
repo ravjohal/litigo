@@ -1,6 +1,6 @@
 <div id="index-buttons" style="margin-right: 38px; margin-bottom: 10px;">
   <ul>
-    <li><%= link_to refresh_google_events_path,  :class => 'dark-small' do %><span data-tip="Refresh" class="glyphicon glyphicon-refresh tip"></span> <% end %></li>
+    <li><%= link_to refresh_google_events_path,  :class => 'dark-small' do %><span data-tip="Sync" class="glyphicon glyphicon-refresh tip"></span> <% end %></li>
     <li><%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
   </ul>
 </div>
@@ -21,7 +21,7 @@ $(document).ready(function() {
     e.preventDefault();
     bootbox.confirm("This can take a while, you sure you want to sync your calendar now?", function(result) {
       if (result) {
-        $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'>");
+        $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'style='margin-left: -50px; position: absolute; padding: 0;'>");
         window.location.href = "<%= refresh_google_events_path %>";
       }
     });

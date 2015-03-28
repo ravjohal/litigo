@@ -64,13 +64,8 @@ class CasesController < ApplicationController
     # injury = medical.tasks.create
     # injury.firm = @firm
     # injury.save
-
+    @case.current_user_id = @user.id
     if @case.save
-      TaskList.where(case_type: @case.case_type, firm_id: @firm.id, task_import: 'automatic').each do |task_list|
-        if task_list.case_creator == 'all_firm' || task_list.case_creator == 'owner' && task_list.user_id == @user.id
-          task_list.import_to_case!(@case.id, @user.id)
-        end
-      end
       redirect_to @case, notice: 'Case was successfully created.'
     else
       redirect_to :back, alert: "Please review the problems below: #{@case.errors.full_messages.join('. ')}"

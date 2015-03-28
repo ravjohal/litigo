@@ -33,7 +33,8 @@ class Case < ActiveRecord::Base
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
-
+  after_create :import_tasks
+  attr_accessor :current_user_id
   # after_save :set_tasks_due_dates
 
   # searchable do
@@ -91,6 +92,14 @@ class Case < ActiveRecord::Base
     tasks.each do |task|
       if self.trial_date.present? && task.due_date.blank? && task.anchor_date == 'trial date'
         task.set_due_date!(self.trial_date)
+      end
+    end
+  end
+
+  def import_tasks
+    TaskList.where(case_type: self.case_type, firm_id: self.firm_id, task_import: 'automatic').each do |task_list|
+      if task_list.case_creator == 'all_firm' || task_list.case_creator == 'owner' && task_list.user_id == @user.id
+        task_list.import_to_case!(self.id, self.current_user_id)
       end
     end
   end

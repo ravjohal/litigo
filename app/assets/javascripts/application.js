@@ -47,6 +47,7 @@
 //= require lib/linq.min
 //= require lib/sugar.min
 //= require lib/tipr
+//= require lib/clock
 //= require slick
 //= require lib/welcome_tour
 //= require moment

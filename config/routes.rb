@@ -79,6 +79,7 @@ Rails.application.routes.draw do
     resources :insurances
   end
 
+  get "cases/:id/summary" => 'cases#summary', as: :case_summary
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
   get "accept_case/:id" => 'client_intakes#accept_case', as: :accept_case

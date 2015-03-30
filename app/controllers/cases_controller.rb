@@ -101,6 +101,13 @@ class CasesController < ApplicationController
     end
   end
 
+  def summary
+    @case = Case.find(params[:id])
+    @last_3_notes = @case.notes.last(3).reverse
+    puts "LAST THREE NOTES " + @last_3_notes.to_s
+    restrict_access("cases") if @case.firm_id != @firm.id
+  end
+
   private
     def set_case
       @case = Case.find(params[:id])

@@ -717,9 +717,6 @@ margin-bottom: 10px;
   padding: 20px 15px;
   transition: .3s;
   color: white;
-  -webkit-box-shadow: inset 0px 0px 5px 1px rgba(81,103,120,0.6);
-  -moz-box-shadow: inset 0px 0px 5px 1px rgba(81,103,120,0.6);
-  box-shadow: inset 0px 0px 5px 1px rgba(81,103,120,0.6);
 }
 
  .nav > li > a:focus {
@@ -831,6 +828,7 @@ width: 230px;
 
 @media (min-width: 768px) {
 .side-menu-toggle {
+  display: none;
   transition: all 0.4s ease 0s;
   position: fixed;
   bottom: 0;
@@ -887,6 +885,7 @@ width: 230px;
     font-weight: lighter;
     padding: 0;
     list-style-type: none;
+    overflow: hidden;
     li {
       a {
         font-size: 13px;

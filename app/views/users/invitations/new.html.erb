@@ -1,5 +1,5 @@
 <% if current_user.admin? %>
-<div style="width: 600px; margin: 0 auto;">
+<div style="width: 900px; margin: 0 auto;">
   <strong>Invite additional users to your firm</strong><%= link_to "+ ADD EMPLOYEE", '#', :class => 'add-btn pull-right', id: "add_invitee" %>
   <div class="invite_form">
   <br>
@@ -24,6 +24,8 @@
         </td>
         <td><strong>Role</strong>
         </td>
+        <td>
+        </td>        
     </tr>
   </thead>
   <tbody>
@@ -35,9 +37,15 @@
        <td>
         <%= user.email %>
       </td> 
-       <td>
-        <%= user.role %>
-      </td> 
+      <td>
+  <%= form_for(user) do |f| %>
+    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+    <%= f.submit 'Change Role', :class => 'action-button' %>
+  <% end %>
+</td>
+<td>
+  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'delete') unless user == current_user %>
+</td>
     </tr>
      <% end %>
   </tbody>

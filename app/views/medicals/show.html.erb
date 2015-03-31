@@ -7,8 +7,7 @@
               <ul>
                   <li><%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %></li>
                   <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %></li>
-                  <li><%= link_to @case,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %></li>
+                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %></li>
               </ul>
           </div>
     </div>
@@ -361,6 +360,11 @@
 </table>
 </div>
 <% end %>
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'ne', fade: true});
+  });
+</script>
 
 
 

@@ -8,7 +8,7 @@
   
     <ul>
       <li><%= link_to "javascript:window.print()", :class => 'dark' do %>
-          <span class="glyphicon glyphicon-print tip" data-tip="Print"></span>
+          <span id="print" class="glyphicon glyphicon-print" title="Print Tasks"></span>
         <% end %></li>
         <div id="top-custom">
         <ul>
@@ -172,9 +172,8 @@
     });
   });
 </script>
-<script>
-  $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'ne', fade: true});
   });
 </script>

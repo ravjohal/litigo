@@ -1,6 +1,6 @@
 <div id="index-buttons" style="margin-right: 38px; margin-bottom: 10px;">
   <ul>
-    <li><%= link_to refresh_google_events_path,  :class => 'dark-small' do %><span data-tip="Sync" class="glyphicon glyphicon-refresh tip"></span> <% end %></li>
+    <li><%= link_to refresh_google_events_path,  :class => 'dark-small' do %><span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span> <% end %></li>
     <li><%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
   </ul>
 </div>
@@ -65,9 +65,10 @@ $(document).ready(function() {
 
     }
   });
-  $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
-  });
 });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#sync').tipsy({gravity: 'ne', fade: true});
+  });
 </script>

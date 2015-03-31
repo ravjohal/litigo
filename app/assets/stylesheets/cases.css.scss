@@ -205,3 +205,47 @@ hr.invis {
   background-image: -o-linear-gradient(top, #d1d1d1, #808080);
   background-image: linear-gradient(to bottom, #d1d1d1, #808080);
 }
+
+.recent-notes-table {
+  width: 900px;
+  margin-bottom: 50px;
+}
+
+.recent-notes-table > tbody > tr > td:nth-of-type(1) {
+  width: 100px;
+}
+.recent-notes-table > tbody > tr > td:nth-of-type(2) {
+  width: 150px;
+}
+.recent-notes-table > tbody > tr > td:nth-of-type(3) {
+overflow: hidden;
+  width: 500px;
+}
+.recent-notes-table > tbody > tr > td:nth-of-type(4) {
+  width: 150px;
+}
+
+
+#summary-table {
+  table-layout: fixed;
+  margin: 0 auto 10px auto;
+  width: 900px;
+  font-size: 14px;
+  border: 1px solid #E8ECF1;
+  border-radius: 5px; 
+}
+
+#summary-table tr{
+ padding: 5px;
+ border: 1px solid #E8ECF1;
+}
+#summary-table td{
+ border: 1px solid #E8ECF1;
+}
+#summary-table tr:nth-child(even){
+ background: #fdfeff;
+}
+#summary-table tr:nth-child(odd){
+ background: white;
+}
+

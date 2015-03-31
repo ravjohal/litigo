@@ -44,10 +44,10 @@
             <input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>
             </div>
             <ul class="timer-controls">
-            <li><a href='#' id="startstopbutton" type="button" onClick="startstop();" data-toggle="tooltip" data-placement="top" title="Start Timer">
-                      <span class='glyphicon glyphicon-play'></span></a></li>
-            <li><a href='#' id="resetbutton" type="button" onClick="resetclock();" data-toggle="tooltip" data-placement="top" title="Reset Timer"><span class='glyphicon glyphicon-repeat'></span></a></li>
-            <li><a href='#' id="assignbutton" type="button" data-toggle="tooltip" data-placement="top" title="Assign to Case"><span class='glyphicon glyphicon-paperclip'></span></a></li>
+            <li><a href='#' id="startstopbutton" type="button" onClick="startstop();" title="Start/Stop Timer">
+                      <span id="control" class='glyphicon glyphicon-play'></span></a></li>
+            <li><a href='#' id="resetbutton" type="button" onClick="resetclock();" title="Reset Timer"><span class='glyphicon glyphicon-repeat'></span></a></li>
+            <li><a href='#' id="assignbutton" type="button" title="Assign to Case"><span class='glyphicon glyphicon-paperclip'></span></a></li>
             <textarea id="output" style="height: 90%; display:none;"></textarea>
           </ul>
             </li>
@@ -85,5 +85,26 @@ $(function() {
       $(e.currentTarget).addClass('tester');
     })
 });
-
+</script>
+<!-- <script type="text/javascript">
+    $("#startstopbutton").click(function(){ 
+    if ( $('#control').hasClass('glyphicon-play')) {
+      $('#control').removeClass('glyphicon-play').addClass('glyphicon-stop');
+    }
+    else if ($('#control').hasClass('glyphicon-stop')) {
+      $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
+    }
+});
+    $("#resetbutton").click(function(){ 
+    if ( $('#control').hasClass('glyphicon-stop')) {
+      $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
+    }
+});
+</script> -->
+<script type='text/javascript'>
+  $(function() {
+    $('#startstopbutton').tipsy({gravity: 'sw', fade: true, delayIn: 1000});
+    $('#resetbutton').tipsy({gravity: 's', fade: true, delayIn: 1000});
+    $('#assignbutton').tipsy({gravity: 's', fade: true, delayIn: 1000});
+  });
 </script>

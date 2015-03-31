@@ -48,6 +48,7 @@
 //= require lib/sugar.min
 //= require lib/tipr
 //= require lib/clock
+//= require lib/tipsy
 //= require slick
 //= require lib/welcome_tour
 //= require moment

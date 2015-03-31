@@ -15,9 +15,9 @@
     <%= f.input :anchor_date, collection: ['parent'], include_blank: false, label: false, input_html: { disabled: true }  %>
   </td>
   
-  <td class="task-icon"><span class="glyphicon glyphicon-link"></span></td>
+  <td class="task-icon"><span id="dependent" title="Dependent Task" class="glyphicon glyphicon-link"></span></td>
   <td class="task-icon">
-    <%= link_to_remove_association f, class: 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span><% end %>
+    <%= link_to_remove_association f, class: 'dark-small' do %><span id="child" class="glyphicon glyphicon-trash" title="Remove Child"></span><% end %>
   </td>
 </tr>
 <script type="text/javascript" charset="utf-8">
@@ -32,5 +32,11 @@
     } else if($(this).val() == 'after') {
       anchor_select.empty().append(after_options);
     }
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#child').tipsy({gravity: 'se', fade: true});
+    $('#dependent').tipsy({gravity: 's', fade: true});
   });
 </script>

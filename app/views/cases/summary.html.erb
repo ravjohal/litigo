@@ -5,10 +5,7 @@
           </div>
             <div id="case-buttons">
               <ul>
-                  <li><%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %></li>
-                  <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %></li>
-                  <li><%= link_to @case,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %></li>
+                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
               </ul>
           </div>
     </div>
@@ -28,19 +25,27 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong>Case Summary</strong>
+      <strong>Key Information</strong>
     </td>
   </tr>
 </thead>
   <tbody>
-    <tr>
-      <td class="col-one">
-        <strong>Date Opened:</strong>
-      </td>
-        <td>
-         <%= @case.created_at %>
+   <tr>
+        <td class="col-one">
+          <strong>Case Status:</strong>
         </td>
-     </tr>
+        <td>
+          <%=  @case.status %>
+        </td>
+      </tr>
+       <tr>
+        <td class="col-one">
+          <strong>Statute of Limitations:</strong>
+        </td>
+        <td>
+          <%= @case.incident.statute_of_limitations %>
+        </td>
+      </tr>
       <tr>
         <td class="col-one">
            <strong>Trial Date:</strong>
@@ -49,20 +54,67 @@
           <%= @case.trial_date %>
         </td>
       </tr>
+     
       <tr>
         <td class="col-one">
-          <strong>Case Status:</strong>
+          <strong>Fee Agreement Signed?</strong>
         </td>
         <td>
-          <%=  @case.status %>
+          
+        </td>
+      </tr>
+  </tbody>
+</table>
+<table id="info-table2">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Key Contacts</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+           <strong>Plaintiff(s):</strong>
+        </td>
+        <td>
+        
+          <% @case.contacts.where("type = 'Plaintiff'").each do |p| %>
+          <%= p.first_name %> <%= p.last_name %>
+          <% end %>
         </td>
       </tr>
       <tr>
-        <td class="col-one">
-          <strong>Court:</strong>
+        <td class="right">
+            <strong>Defendant(s):</strong>
         </td>
         <td>
-          <%= @case.court %>
+          <% @case.contacts.where("type = 'Defendant'").each do |d| %>
+          <%= d.first_name %> <%= d.last_name %>
+           <% end %>
+        </td>
+      </tr>
+    
+      <tr>
+        <td class="right">
+            <strong>Assigned Attorney(s):</strong>
+        </td>
+        <td>
+          <%= @case.contacts.where("type = 'Attorney'").size %>
+          <% @case.contacts.where("type = 'Attorney'").each do |a| %>
+          <%= a.first_name %> <%= a.last_name %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Assigned Staff:</strong>
+        </td>
+        <td>
+          <% @case.contacts.where("type = 'Staff'").each do |s| %>
+          <%= s.first_name %> <%= s.last_name %>
+          <% end %>
         </td>
       </tr>
   </tbody>
@@ -71,38 +123,84 @@
 
 <hr class="invis">
 
+
+<table id="summary-table">
+<thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>General Overview</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+           <strong>Type:</strong>
+        </td>
+        <td>
+          <%=  @case.case_type %>
+        </td>
+        <td class="right">
+          <strong>Sub-type:</strong>
+        </td>
+        <td>
+          <%= @case.subtype %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Total Medicals:</strong>
+        </td>
+        <td>
+          <%= number_to_currency @case.medical.total_med_bills, precision: 0 %>
+        </td>
+        <td class="right">
+          <strong>Total Policy Limits:</strong>
+        </td>
+        <td>
+          <%= number_to_currency @case.insurance.policy_limit, precision: 0 %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right big-row">
+            <strong>Case Summary:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= @case.description %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+
+<hr class="invis">
+
 <% if @last_3_notes %>
   <div class="bottom-table-container">
-    <table id="info-table3">
-      <thead>
-        <tr class="right-top">
-          <td colspan="4" class="gray-back">
-            <strong>Last 3 Notes</strong>
-          </td>
-        </tr>
+  <h3>Recent Activity</h3>
+  <br>
+    <table class="table-striped recent-notes-table">
+     <thead class="user-table-head">
+        <th>Date</th>
+        <th>Type</th>
+        <th>Note</th>
+        <th>Author</th>
       </thead>
       <tbody>
-          <tr>
-            <td class="right">
-                <strong>Author</strong>
-            </td>
-            <td class="right">
-              <strong>Date</strong>
-            </td>
-            <td class="right">
-              <strong>Note</strong>
-            </td>            
-          </tr>
         <% @last_3_notes.each do |note| %>
           <tr>
-            <td>
-              <%= note.author %>
-            </td>
             <td>
               <%= note.created_at.strftime("%m/%d/%Y") %>
             </td>
             <td>
+              <%= note.note_type %>
+            </td>
+            <td>
+             <div class="larger-td">
               <%= note.note %>
+              </div>
+            </td>
+              <td>
+              <%= note.author %>
             </td>
           </tr>
         <% end %>
@@ -111,11 +209,9 @@
   </div>
 <% end %>
 
-
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'ne', fade: true});
+  });
 </script>
 

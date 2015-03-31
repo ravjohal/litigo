@@ -9,7 +9,7 @@
   </div>
   <br>
 
-  <div style="width:700px; margin-top: 50px;">
+  <div style="width:600px; margin-top: 50px;">
   <h3>List Name</h3>
         <div class="form-group">
             <%= f.input :name, label: false, :class => 'table-input'%>
@@ -27,7 +27,7 @@
     <div class="form-group">
       <div class="radio-bloc">
         <%= f.radio_button :task_import, 'automatic' %>
-        <%= f.label :task_import, 'Automatically import task list when a case is created', :value => 'automatic' %>
+        <%= f.label :task_import, 'Automatically import task list when a case is created', :value => 'automatic' %> <span id="auto" title="When a case of the selected type is created, this task list will automatically be imported to the case" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
       </div>
       <div class="case-selector" <% if @task_list.task_import == 'automatic' %> style="display:block" <% end %>>
         <div style='margin-bottom: 5px;'>
@@ -48,6 +48,7 @@
       <div class="radio-bloc" style="margin-bottom: 40px;">
         <%= f.radio_button :task_import, 'manual' %>
         <%= f.label :task_import, 'Manually import task list on demand', :value => 'manual' %>
+            <span id="man" title="After a case is created, users must go to Tasks > Import" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
       </div>
     </div>
     </div>
@@ -120,4 +121,8 @@
     }
   })
 </script>
-
+<script type='text/javascript'>
+  $(function() {
+    $('#man, #auto').tipsy({gravity: 'n', fade: true});
+  });
+</script>

@@ -296,6 +296,13 @@ section {
   width: 50%;
   border: 2px dashed #3FC2D8;
 }
+
+.confirm-icon-text {
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+}
+
 .price-divider {
   margin: 30px auto;
   width: 70%;
@@ -925,9 +932,9 @@ width: 230px;
         display: block;
         padding: 20px 15px;
         color: white;
-        box-shadow: 4px 0px 0px 0px #3FC2D8 inset;
+        box-shadow: 8px 0px 0px 0px #3FC2D8 inset;
         &:hover {
-        box-shadow: 4px 0px 0px 0px #3FC2D8 inset !important;
+        box-shadow: 8px 0px 0px 0px #3FC2D8 inset !important;
         background: #3F5362 !important;
         color: #3B4D59;
         }

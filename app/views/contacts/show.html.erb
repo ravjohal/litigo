@@ -2,13 +2,13 @@
 <table id="info-table4">
   <tbody>
     <tr>
-      <td id="left-td"><%= link_to contacts_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
+      <td id="left-td"><%= link_to contacts_path,  :class => 'dark' do %><span id="back" title="Back to Contacts" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></td>
       <td>
       </td>
       <td>
       </td>
-      <td><%= link_to @contact, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a contact will remove all the contact  information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
-       <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></i> <% end %>
+      <td><%= link_to @contact, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a contact will remove all the contact  information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Contact"></i> <% end %>
+       <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %>
       <%= link_to 'Edit', edit_contact_path(@contact), :class => 'dark' %></td>
     </tr>
     <tbody>
@@ -175,13 +175,10 @@
       
   </tbody>
 </table>
-
-
-
-
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'ne', fade: true});
+    $('#back').tipsy({gravity: 'n', fade: true});
+  });
 </script>

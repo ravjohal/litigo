@@ -6,7 +6,7 @@
     <div id="case-buttons">
       <ul>
         <li><%= link_to 'Edit', edit_lead_contact_path(@lead), :class => 'dark' %></li>
-        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %></li>
+        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
       </ul>
     </div>
   </div>
@@ -119,10 +119,8 @@
 
   </tbody>
 </table>
-
-<script>
-  $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'ne', fade: true});
   });
 </script>

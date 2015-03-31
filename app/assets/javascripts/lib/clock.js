@@ -18,6 +18,7 @@
       startstop.value = '';
       flagclock = 1;
       counter(starttime);
+      $('#control').removeClass('glyphicon-play').addClass('glyphicon-stop');
       }
     else
       {
@@ -25,6 +26,7 @@
       flagclock = 0;
       flagstop = 1;
       splitdate = '';
+      $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
       }
     }
 

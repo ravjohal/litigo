@@ -7,11 +7,11 @@
     <div id="case-buttons">
       <ul>
         <li><%= link_to 'Edit', edit_lead_path(@lead), :class => 'dark' %></li>
-        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %></li>
-        <li><%= link_to @lead,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %></li>
+        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
+        <li><%= link_to @lead,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Lead"></span> <% end %></li>
         <li>
           <% unless @lead.case.present? %>
-            <%= link_to accept_case_path(@lead), :class => 'dark' do %><span class="glyphicon glyphicon-folder-close tip" data-tip="Accept Case"></span><% end %>
+            <%= link_to accept_case_path(@lead), :class => 'dark' do %><span id="accept" class="glyphicon glyphicon-folder-close" title="Accept & Create Case"></span><% end %>
           <% end %>
         </li>
       </ul>
@@ -166,10 +166,10 @@
 
   </tbody>
 </table>
-
-<script>
-  $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'n', fade: true});
+    $('#accept').tipsy({gravity: 'ne', fade: true});
   });
 </script>

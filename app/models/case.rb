@@ -28,6 +28,7 @@ class Case < ActiveRecord::Base
   has_many :events, :through => :case_events
   has_one :lead
   has_many :notes
+  has_many :time_entries
 
   include PgSearch
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],

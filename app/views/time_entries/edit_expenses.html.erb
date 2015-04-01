@@ -1,0 +1,44 @@
+<%= simple_form_for @time_entry do |f| %>
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= "#{@time_entry.user.name} #{@time_entry.date}" %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Cancel', @time_entry, :class => 'dark' %></li>
+        <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
+      </ul>
+    </div>
+  </div>
+  <strong>Time Entry #: </strong><%= @time_entry.id %>
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'time_entries_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table id="insurance-table" class="time_entry-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Edit Time Entry Expenses</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<% end %>
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'n', fade: true});
+    $('#accept').tipsy({gravity: 'ne', fade: true});
+    $(".time_entry-table td #time_entry_case_id").select2();
+  });
+</script>

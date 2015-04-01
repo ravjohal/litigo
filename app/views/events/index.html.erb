@@ -10,8 +10,6 @@
   </div>
 
 
-<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-
 <script type="text/javascript">
 $(document).ready(function() {
   $('#new_modal').click(function(event){
@@ -42,7 +40,8 @@ $(document).ready(function() {
     header: {
       left: 'prev,next today',
       center: 'title',
-      right: 'month,basicWeek,basicDay'
+//      right: 'month,basicWeek,basicDay'
+      right: 'month,agendaWeek,agendaDay'
     },
     events: <%= @events_list.to_json.html_safe %>,
     editable: true,

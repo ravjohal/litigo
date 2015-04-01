@@ -1,0 +1,117 @@
+<%= simple_form_for @time_entry || TimeEntry.new do |f| %>
+  <%= f.error_notification %>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+
+        <h2>New Time Entry</h2>
+      </div>
+      <div class="modal-body">
+
+        <table class="note-form table-condensed">
+          <tbody>
+          <tr>
+            <td>
+              <strong>Date:</strong>
+            </td>
+            <td>
+              <%= f.date_field :date, :value => Date.today, label: false, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Hours:</strong>
+            </td>
+            <td>
+              <%= f.input :hours, label: false, :class => 'table-input', :step => 'any' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Hourly rate:</strong>
+            </td>
+            <td>
+              <%= f.number_field :hourly_rate, label: false, :class => 'table-input', :step => 'any' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Case:</strong>
+            </td>
+            <td>
+              <% if !@case %>
+                <%= f.association :case, :collection => @firm.cases, :input_html => {:id => "case_select"}, label: false %>
+              <% else %>
+                <%= f.association :case, :collection => @firm.cases, :selected => @case.id, :input_html => {:id => "case_select"}, label: false %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+          <tr>
+            <td>
+              <strong>Charge Type:</strong>
+            </td>
+            <td>
+              <div class="charge_block"><%= f.collection_radio_buttons :charge_type, TimeEntry::CHARGE_TYPES.map { |i| [i, i] }, :first, :last, label: false, :class => 'table-input' %></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Contingent Fee:</strong>
+            </td>
+            <td>
+              <%= f.number_field :contingent_fee, label: false, :class => 'table-input', :step => 'any' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Fixed Fee:</strong>
+            </td>
+            <td>
+              <%= f.number_field :fixed_fee, label: false, :class => 'table-input', :step => 'any' %>
+            </td>
+          </tr>
+          <tr>
+          <tr>
+            <td>
+              <strong>ABA Code:</strong>
+            </td>
+            <td>
+              <%= f.input :aba_code, label: false, :class => 'table-input', :step => 'any' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="big-row">
+              <Strong>Description:</Strong>
+            </td>
+            <td class="big-row">
+              <%= f.text_area :description, label: false, :class => 'table-text' %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+      <!--end of modal-body-->
+
+      <div class="modal-footer">
+        <div class="pull-left">
+          <a class="close" data-dismiss="modal">Cancel</a>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, :class => "sub2-small" %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<% end %>
+<script>
+  $(document).ready(function () {
+    $(".modal-dialog td #case_select").select2();
+  });
+</script>

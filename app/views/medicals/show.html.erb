@@ -7,7 +7,7 @@
               <ul>
                   <li><%= link_to 'Edit', edit_case_medical_path(@case, @medical), :class => 'dark' %></li>
                   <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %></li>
+                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
               </ul>
           </div>
     </div>
@@ -180,7 +180,7 @@
   <tr class="right-top">
     <td colspan="2" class="gray-back" style="padding-bottom: 3px;">
      <strong> Injury #<%= i %> </strong>
-     <%= link_to medical_injury_path(@medical, injury),  :class => 'dark-right-small', method: :delete, data: { confirm: 'WARNING! Deleting an injury will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></i> <% end %>
+     <%= link_to medical_injury_path(@medical, injury),  :class => 'dark-right-small', method: :delete, data: { confirm: 'WARNING! Deleting an injury will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
     </td>
   </tr>
 </thead>
@@ -256,7 +256,7 @@
       </tr>
       <tr>
         <td>
-            <strong>Is the Injury Permanent: </p></strong>
+            <strong>Is the Injury Permanent:</strong>
         </td>
         <td>
           <p>
@@ -365,13 +365,6 @@
     $('#print').tipsy({gravity: 'ne', fade: true});
   });
 </script>
-
-
-
-
-
-<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-
 <script type="text/javascript">
 $(document).ready(function() {
   $('#injury_modal').click(function(event){

@@ -36,6 +36,9 @@
       <%= active_link_to " BILLING", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
     </li> -->
     <li>
+      <%= active_link_to "Time Entries", time_entries_path, :class_active => 'tester',:class => 'nav-sidebar__time fa fa-clock-o', :active => [['time_entries']], :id => 'time_entries' %>
+    </li>
+    <li>
       <%= active_link_to "Profile", users_profile_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :active => [['registrations']], :id => 'profile' %>
     </li> 
         <div class="timer">
@@ -88,7 +91,6 @@ $(function() {
 </script>
 <script>
   $(document).ready(function () {
-    console.log('flagclock', flagclock);
     if(flagclock==1) {
       $('#control').removeClass('glyphicon-play').addClass('glyphicon-stop');
     } else {
@@ -102,6 +104,14 @@ $(function() {
       e.preventDefault();
       resetclock();
     });
+    $('#assignbutton').click(function (e) {
+      e.preventDefault();
+      var modal = $("#modal-window");
+      var hours_val = $('#clock').val().split(':');
+      modal.html("<%= escape_javascript(render 'time_entries/form') %>");
+      $('#time_entry_hours').val(hours_val[0]+':'+hours_val[1]);
+      modal.modal('show');
+    })
 
   });
 </script>

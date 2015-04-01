@@ -1,0 +1,123 @@
+<%= simple_form_for @time_entry do |f| %>
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= "#{@time_entry.user.name} #{@time_entry.date}" %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Cancel', @time_entry, :class => 'dark' %></li>
+        <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
+      </ul>
+    </div>
+  </div>
+  <strong>Time Entry #: </strong><%= @time_entry.id %>
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'time_entries_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table id="insurance-table" class="time_entry-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Time Entry Information</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <strong>Timekeeper:</strong>
+    </td>
+    <td>
+      <%= @time_entry.user.name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Date:</strong>
+    </td>
+    <td>
+      <%= f.date_field :date, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Hours:</strong>
+    </td>
+    <td>
+      <%= f.input :hours, label: false %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Case:</strong>
+    </td>
+    <td>
+      <%= f.association :case, :collection => @firm.cases, label: false %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Description:</strong>
+    </td>
+    <td>
+      <%= f.input :description, label: false %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Charge type:</strong>
+    </td>
+    <td>
+      <div class="charge_block"><%= f.collection_radio_buttons :charge_type, TimeEntry::CHARGE_TYPES.map { |i| [i, i] }, :first, :last, label: false %></div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Hourly Rate:</strong>
+    </td>
+    <td>
+      <%= f.input :hourly_rate, label: false %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Contingent Fee:</strong>
+    </td>
+    <td>
+      <%= f.input :contingent_fee, label: false %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Fixed Fee:</strong>
+    </td>
+    <td>
+      <%= f.input :fixed_fee, label: false %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>ABA Code:</strong>
+    </td>
+    <td>
+      <%= f.input :aba_code, label: false %>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<% end %>
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'n', fade: true});
+    $('#accept').tipsy({gravity: 'ne', fade: true});
+    $(".time_entry-table td #time_entry_case_id").select2();
+  });
+</script>

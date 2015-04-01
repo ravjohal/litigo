@@ -1,0 +1,121 @@
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= "#{@time_entry.user.name} #{@time_entry.date}" %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Edit', edit_time_entry_path(@time_entry), :class => 'dark' %></li>
+        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
+        <li><%= link_to @time_entry,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a time entry will remove all information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Lead"></span> <% end %></li>
+      </ul>
+    </div>
+  </div>
+  <strong>Time Entry #: </strong><%= @time_entry.id %>
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'time_entries_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table id="insurance-table" class="time_entry-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Time Entry Information</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <strong>Timekeeper:</strong>
+    </td>
+    <td>
+      <%= @time_entry.user.name %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Date:</strong>
+    </td>
+    <td>
+      <%= @time_entry.date %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Hours:</strong>
+    </td>
+    <td>
+      <%= @time_entry.hours%>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Case:</strong>
+    </td>
+    <td>
+      <%= @time_entry.case.try(:name) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Description:</strong>
+    </td>
+    <td>
+      <%= @time_entry.description %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Charge type:</strong>
+    </td>
+    <td>
+      <%= @time_entry.charge_type %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Hourly Rate:</strong>
+    </td>
+    <td>
+      <%= number_to_currency(@time_entry.hourly_rate) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Contingent Fee:</strong>
+    </td>
+    <td>
+      <%= number_to_currency(@time_entry.contingent_fee) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Fixed Fee:</strong>
+    </td>
+    <td>
+      <%= number_to_currency(@time_entry.fixed_fee) %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>ABA Code:</strong>
+    </td>
+    <td>
+      <%= @time_entry.aba_code %>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'n', fade: true});
+    $('#accept').tipsy({gravity: 'ne', fade: true});
+  });
+</script>

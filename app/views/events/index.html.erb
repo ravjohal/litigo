@@ -17,7 +17,7 @@ $(document).ready(function() {
   });
   $('.dark-small').click(function(e){
     e.preventDefault();
-    bootbox.confirm("This can take a while, you sure you want to sync your calendar now?", function(result) {
+    bootbox.confirm("This can take a few moments, would you still like to sync your calendar now?", function(result) {
       if (result) {
         $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'style='margin-left: -50px; position: absolute; padding: 0;'>");
         window.location.href = "<%= refresh_google_events_path %>";
@@ -40,7 +40,6 @@ $(document).ready(function() {
     header: {
       left: 'prev,next today',
       center: 'title',
-//      right: 'month,basicWeek,basicDay'
       right: 'month,agendaWeek,agendaDay'
     },
     events: <%= @events_list.to_json.html_safe %>,

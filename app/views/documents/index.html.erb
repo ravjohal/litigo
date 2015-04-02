@@ -109,7 +109,7 @@
               <%= if !document.document_url.blank?
                   link_to document.document.file.filename, document.document_url
                   end %></div></td>
-            <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
+            <td><%= document.created_at..strftime("%b %e, %Y")  %></td>
             <td><%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
             </td>
             <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>

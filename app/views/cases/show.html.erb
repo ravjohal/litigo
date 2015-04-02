@@ -38,7 +38,7 @@
         <strong>Date Opened:</strong>
       </td>
         <td>
-         <%= @case.created_at %>
+         <%= @case.created_at.strftime("%b %e, %Y") %>
         </td>
      </tr>
       <tr>

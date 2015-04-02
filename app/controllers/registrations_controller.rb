@@ -63,6 +63,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def settings
     @user = current_user
+    @firm = @user.firm
   end
 
   def profile

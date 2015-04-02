@@ -29,7 +29,6 @@
             </div>
       <% end %>
       </div>
-    
     <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_task_path, class: 'new-modal', data: {id: 'task'} do %>
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-list-alt"></span></div>
@@ -48,6 +47,13 @@
             <div class="tile-new-green">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-pencil"></span></div>
                   <div class="tile-text">New Note</div>
+            </div>
+      <% end %>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_event_path, class: 'new-modal', data: {id: 'event'} do %>
+            <div class="tile-new-green">
+                  <div class="tile-icon-new"><span class="glyphicon glyphicon-flag"></span></div>
+                  <div class="tile-text">New Event</div>
             </div>
       <% end %>
     </div>
@@ -127,6 +133,9 @@
           break;
         case 'document':
           $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: Document.new) %>").modal('show');
+          break;
+        case 'event':
+          $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new) %>").modal('show');
           break;
         case 'note':
           $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: Note.new) %>").modal('show');

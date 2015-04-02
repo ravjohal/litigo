@@ -23,20 +23,20 @@
     <!-- <li>
         <%= link_to "CASE EVALUATION", user_path(current_user), :class => 'nav-sidebar__cev', :id => 'CaseEval' %>
     </li> -->
-    <li id="second">
-  
-      <%= active_link_to " Legal Insights", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
-    <ul>
-        <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LIT RESEARCH<sup>  Beta</sup><% end %></li>
-       <!-- <li><%= active_link_to "STATISTICS", user_path(current_user), :class_active => 'enabled' %></li>
-        <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li> -->
-    </ul>
+     <li>
+      <%= active_link_to "Time & Expense", time_entries_path, :class_active => 'tester',:class => 'nav-sidebar__time', :active => [['time_entries']], :id => 'time_entries' %>
     </li>
      <!-- <li>
-      <%= active_link_to " BILLING", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
+      <%= active_link_to " Billing", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
     </li> -->
-    <li>
-      <%= active_link_to "Time Entries", time_entries_path, :class_active => 'tester',:class => 'nav-sidebar__time fa fa-clock-o', :active => [['time_entries']], :id => 'time_entries' %>
+    <li id="second">
+  
+      <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
+    <ul>
+        <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LEGAL INSIGHTS<sup>  Beta</sup><% end %></li>
+       <!-- 
+        <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li> -->
+    </ul>
     </li>
     <li>
       <%= active_link_to "Profile", users_profile_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :active => [['registrations']], :id => 'profile' %>

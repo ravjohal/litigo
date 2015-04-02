@@ -56,7 +56,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-            <%= @task.due_date.strftime("%m/%d/%Y") if @task.due_date %>
+            <%= @task.due_date.strftime("%b %e, %Y") if @task.due_date %>
         </td>
       </tr>
          <tr>
@@ -75,7 +75,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-          <%= @task.completed.strftime("%m/%d/%Y") if @task.completed.present? %>
+          <%= @task.completed.strftime("%b %e, %Y") if @task.completed.present? %>
         </td>
       </tr>
         <tr>

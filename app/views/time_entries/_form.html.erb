@@ -79,7 +79,7 @@
               <strong>ABA Code:</strong>
             </td>
             <td>
-              <%= f.input :aba_code, label: false, :class => 'table-input', :step => 'any' %>
+              <%= f.input :aba_code, collection: TimeEntry::ABA_CODES, as: :grouped_select, :group_method => :last, label: false, :class => 'table-input', :step => 'any' %>
             </td>
           </tr>
           <tr>
@@ -112,6 +112,6 @@
 <% end %>
 <script>
   $(document).ready(function () {
-    $(".modal-dialog td #case_select").select2();
+    $(".modal-dialog td #case_select, .modal-dialog td #time_entry_aba_code").select2();
   });
 </script>

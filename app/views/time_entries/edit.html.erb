@@ -107,7 +107,7 @@
       <strong>ABA Code:</strong>
     </td>
     <td>
-      <%= f.input :aba_code, label: false %>
+      <%= f.input :aba_code, collection: TimeEntry::ABA_CODES, as: :grouped_select, :group_method => :last, label: false %>
     </td>
   </tr>
   </tbody>
@@ -118,6 +118,6 @@
     $('#print').tipsy({gravity: 'n', fade: true});
     $('#delete').tipsy({gravity: 'n', fade: true});
     $('#accept').tipsy({gravity: 'ne', fade: true});
-    $(".time_entry-table td #time_entry_case_id").select2();
+    $(".time_entry-table td #time_entry_case_id, .time_entry-table td #time_entry_aba_code").select2();
   });
 </script>

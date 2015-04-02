@@ -83,11 +83,8 @@ class TimeEntry < ActiveRecord::Base
           'E124 Other' => 'E124',
       }
   }
-  # TimeEntry.last.full_aba_code
+
   def full_aba_code
-    if self.aba_code.present?
-      hash = ABA_CODES.select { |k, v| v.key(self.aba_code) }
-      return hash.values[0].key(self.aba_code)
-    end
+    ABA_CODES.select { |k, v| v.key(self.aba_code) }.values[0].key(self.aba_code) if self.aba_code.present?
   end
 end

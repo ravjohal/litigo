@@ -35,7 +35,7 @@
                     </td>
 
                     <td>
-                        <%= f.text_field :phone, :required => false, label: false, :class => 'table-input' %>
+                        <%= f.text_field :phone, :required => false, label: false, :class => 'table-input', :id => 'firm_phone' %>
                     </td>
                 </tr>
                       <tr>
@@ -62,6 +62,9 @@
             </div><!--end of modal-footer-->
         </div><!--end of modal-content-->
       </div><!--end of modal-dialog-->
-    
-
 <% end %>
+<script>
+  $(document).ready(function() {
+    $('#firm_phone').mask("(999) 999-9999");
+  });
+</script>

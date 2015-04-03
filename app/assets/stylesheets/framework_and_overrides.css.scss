@@ -589,20 +589,19 @@ td.col-one {
 
 
   input.sub2-small{
-  font-weight: normal;
   font-size: 16px;
-  background: transparent;
+  background: #3FC2D8;
   border: .18em solid #3FC2D8;
   cursor:pointer;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   border-radius: 4px;
-  color: #3FC2D8;
+  color: white;
   height: 35px;
   width: 200px;
   }
   input.sub2-small:hover{
-  background:#3FC2D8;
-  border: .18em solid #3FC2D8;
+  background: #0483A0;
+  border: .18em solid #0483A0;
   transition: .2s;
   color: white;
   }
@@ -991,9 +990,6 @@ a.add-btn:hover {
   border-radius: 4px;
   color: #000000;
   padding: 4px 5px;
-}
-.btn {
-  padding: 0;
 }
 
 .timer {

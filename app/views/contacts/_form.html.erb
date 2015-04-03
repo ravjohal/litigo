@@ -141,7 +141,7 @@
                     <strong>Phone:</strong>
                 </td>
                 <td>
-                    <%= f.telephone_field :phone_number, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+                    <%= f.telephone_field :phone_number, label: false, :class => 'table-input', :id => 'contact_phone', placeholder: '(415) 555-1234' %>
                 </td>
             </tr>
             <tr>
@@ -149,7 +149,7 @@
                     <strong>Fax:</strong>
                 </td>
                 <td>
-                    <%= f.telephone_field :fax_number, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+                    <%= f.telephone_field :fax_number, label: false, :class => 'table-input', :id => 'contact_fax', placeholder: '(415) 555-1234' %>
                 </td>
             </tr>
              <tr>
@@ -227,4 +227,10 @@
           $('#attorney_type_field').hide();
         }
       });
+</script>
+<script>
+  $(document).ready(function() {
+    $('#contact_phone').mask("(999) 999-9999");
+    $('#contact_fax').mask("(999) 999-9999");
+  });
 </script>

@@ -121,16 +121,13 @@ class TimeEntriesController < ApplicationController
   end
 
   def get_timer
-    logger.info "session['timer']: #{session["timer"]}\n\n\n"
     respond_to do |format|
       format.json { render json: {timer: session[:timer], status: :ok} }
     end
   end
 
   def reset_timer
-    logger.info "session['timer']: #{session["timer"]}\n"
     session.delete("timer")
-    logger.info "session['timer'].delete: #{session["timer"]}\n\n\n"
     respond_to do |format|
       format.json { render json: {status: :ok} }
     end

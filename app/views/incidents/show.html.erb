@@ -34,19 +34,11 @@
   <tbody>
       <tr>
         <td class="right">
-        <strong>Incident date:</strong>
+        <strong>Date of Incident:</strong>
         </td>
         <td>
         <%= @incident.incident_date %>
           
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Statute of limitations:</strong>
-        </td>
-        <td>
-          <%= @incident.statute_of_limitations %>
         </td>
       </tr>
       <tr>
@@ -57,23 +49,7 @@
           <%= @incident.defendant_liability %>%
         </td>
       </tr>
-      <tr>
-        <td class="right">
-          <strong>Alcohol Involved?:</strong>
-        </td>
-        <td>
-          <%= boolean_as_yesno @incident.alcohol_involved  %>
-        </td>
-      </tr>
-        <tr>
-        <td class="right">
-          <strong>Weather a factor:</strong>
-        </td>
-        <td>
-          <%= boolean_as_yesno @incident.weather_factor %>
-        </td>
-      </tr>
-        <tr>
+       <tr>
         <td class="right">
           <strong>Property Damage ($):</strong>
         </td>
@@ -81,15 +57,7 @@
           <%= number_to_currency(@incident.property_damage, precision: 2) %>
         </td>
       </tr>
-      <tr>
-        <td class="right">
-          <strong>Airbag Deployed:</strong>
-        </td>
-        <td>
-          <%= boolean_as_yesno @incident.airbag_deployed %>
-        </td>
-      </tr>
-          <tr>
+        <tr>
         <td class="right">
           <strong>Speed of Bullet Car:</strong>
         </td>
@@ -97,9 +65,34 @@
           <%= @incident.speed %> m.p.h.
         </td>
       </tr>
+      <tr>
+        <td class="right">
+          <strong>Alcohol Involved?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.alcohol_involved  %>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Weather a factor?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.weather_factor %>
+        </td>
+      </tr>
+       
+      <tr>
+        <td class="right">
+          <strong>Airbag Deployed?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.airbag_deployed %>
+        </td>
+      </tr>
          <tr>
         <td class="right">
-          <strong>Police Report:</strong>
+          <strong>Is there a Police Report?</strong>
         </td>
         <td>
           <%= boolean_as_yesno @incident.police_report %>
@@ -107,7 +100,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Towed:</strong>
+          <strong>Vehicle towed from scene?</strong>
         </td>
         <td>
           <%= boolean_as_yesno @incident.towed %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331122608) do
+ActiveRecord::Schema.define(version: 20150405043158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,15 +58,15 @@ ActiveRecord::Schema.define(version: 20150331122608) do
     t.string   "name"
     t.integer  "case_number"
     t.text     "description"
-    t.decimal  "medical_bills",           precision: 10, scale: 2
+    t.decimal  "medical_bills",             precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "case_type"
     t.string   "subtype"
     t.integer  "user_id"
     t.date     "closing_date"
-    t.string   "state",         limit: 2
-    t.string   "status",                                           default: "open"
+    t.string   "state",           limit: 2
+    t.string   "status",                                             default: "open"
     t.string   "court"
     t.integer  "firm_id"
     t.string   "county"
@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20150331122608) do
     t.integer  "total_hours"
     t.string   "topic"
     t.date     "trial_date"
+    t.date     "hearing_date"
+    t.date     "filed_suit_date"
   end
 
   add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
@@ -115,11 +117,23 @@ ActiveRecord::Schema.define(version: 20150331122608) do
     t.integer  "firm_id"
     t.integer  "user_account_id"
     t.string   "company"
-    t.string   "corporation"
+    t.boolean  "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
     t.text     "note"
+    t.boolean  "minor"
+    t.date     "major_date"
+    t.boolean  "deceased"
+    t.date     "date_of_death"
+    t.string   "company_address"
+    t.string   "company_zipcode"
+    t.string   "company_city"
+    t.string   "company_state"
+    t.string   "website"
+    t.string   "mobile"
+    t.string   "company_phone"
+    t.string   "company_fax"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -269,7 +283,7 @@ ActiveRecord::Schema.define(version: 20150331122608) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
@@ -347,6 +361,7 @@ ActiveRecord::Schema.define(version: 20150331122608) do
     t.datetime "updated_at"
     t.string   "doctor_type",                                         default: [], array: true
     t.string   "treatment_type",                                      default: [], array: true
+    t.date     "injury_date"
   end
 
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree

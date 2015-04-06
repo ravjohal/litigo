@@ -35,19 +35,11 @@
 </thead>
   <tbody>
     <tr>
-      <td class="col-one">
-        <strong>Date Opened:</strong>
-      </td>
-        <td>
-         <%= @case.created_at %>
-        </td>
-     </tr>
-      <tr>
         <td class="col-one">
-           <strong>Trial Date:</strong>
+          <strong>Case Name:</strong>
         </td>
         <td>
-            <%= f.date_field :trial_date, label: false, :class => 'table-input' %>  
+              <%= f.text_field :name, label: false, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -55,7 +47,15 @@
           <strong>Docket Number:</strong>
         </td>
         <td>
-        <%= f.text_field :docket_number, label: false, :class => 'table-input' %>
+              <%= f.text_field :docket_number, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Judge:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -88,50 +88,65 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong>Key Contacts</strong>
+      <strong>Key Dates</strong>
     </td>
   </tr>
 </thead>
   <tbody>
+     <tr>
+      <td class="col-one">
+        <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+      </td>
+        <td>
+            <%= @case.incident.incident_date %>
+        </td>
+     </tr>
+    <tr>
+      <td class="col-one">
+        <strong>SOL:</strong>
+      </td>
+        <td>
+         
+        </td>
+     </tr>
   <tr>
         <td class="right">
-            <strong>Judge:</strong>
+            <strong>Date of Intake:</strong>
         </td>
         <td>
-          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
+          
+        </td>
+      </tr>
+      <tr>
+      <td class="col-one">
+        <strong>Case Open Date:</strong>
+      </td>
+        <td>
+         <%= @case.created_at.strftime("%b %e, %Y") %>
+        </td>
+     </tr>
+      <tr>
+        <td class="right">
+           <strong>Hearing Date:</strong>
+        </td>
+        <td>
+              <%= f.date_field :hearing_date, label: false, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
         <td class="right">
-           <strong>Plaintiff(s):</strong>
+            <strong>Date Filed Suit:</strong>
         </td>
         <td>
-           <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Plaintiff'"), :label_method => :name, :include_blank => false, :input_html => {:id => "plaintiff_select"}, :class => 'table-input sel2-100' %>
+            <%= f.date_field :filed_suit_date, label: false, :class => 'table-input' %>  
         </td>
       </tr>
-      <tr>
-        <td class="right">
-            <strong>Defendant(s):</strong>
+           <tr>
+        <td class="col-one">
+           <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= f.association :contacts, label: false, :collection => @firm.contacts.where("type = 'Defendant'"), :label_method => :name, :include_blank => false, :input_html => {:id => "defendant_select"}, :class => 'table-input' %>
-        </td>
-      </tr>
-       
-      <tr>
-        <td class="right">
-            <strong>Assigned Attorney(s):</strong>
-        </td>
-        <td>
-          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-           <strong>Assigned Staff:</strong>
-        </td>
-        <td>
-          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
+            <%= f.date_field :trial_date, label: false, :class => 'table-input' %>  
         </td>
       </tr>
   </tbody>
@@ -195,12 +210,9 @@
   <script>
     $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select, #judge_select, select").select2(); });
   </script>
-
-
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
+<script type='text/javascript'>
+  $(function() {
+    $('#doi').tipsy({gravity: 'n', fade: true});
+  });
 </script>
 

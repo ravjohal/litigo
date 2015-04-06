@@ -1,9 +1,9 @@
 class Case < ActiveRecord::Base
 
   TYPES = ['Personal Injury', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Real Estate', 'Wills', 'Trusts', 'Estates']
-  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Negligence', 'Class Action', 'Workers Compensation', 'Wrongful Death']
+  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Product Liability', 'General Liability', 'Product Liability', 'Class Action', 'Workers Compensation', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
-  STATUS = ['Negotiation', 'Litigation', 'Appeal', 'Closed', 'Inactive']
+  STATUS = ['Active', 'Discovery', 'Negotiation', 'Litigation', 'Appeal', 'Closed', 'Inactive']
 
   #enum status: { open: 0, pending: 1, closed: 2 }
 

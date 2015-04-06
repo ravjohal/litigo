@@ -28,6 +28,22 @@
               <%= f.input :hours, label: false, :class => 'table-input', :step => 'any' %>
             </td>
           </tr>
+           <tr>
+            <td class="big-row">
+              <Strong>Description:</Strong>
+            </td>
+            <td class="big-row">
+              <%= f.text_area :description, label: false, :class => 'table-text' %>
+            </td>
+          </tr>
+             <tr>
+            <td>
+              <strong>ABA Code:</strong>
+            </td>
+            <td>
+              <%= f.input :aba_code, collection: TimeEntry::ABA_CODES, as: :grouped_select, :group_method => :last, label: false, :class => 'table-input', :step => 'any' %>
+            </td>
+          </tr>
           <tr>
             <td>
               <strong>Hourly rate:</strong>
@@ -74,22 +90,8 @@
             </td>
           </tr>
           <tr>
-          <tr>
-            <td>
-              <strong>ABA Code:</strong>
-            </td>
-            <td>
-              <%= f.input :aba_code, collection: TimeEntry::ABA_CODES, as: :grouped_select, :group_method => :last, label: false, :class => 'table-input', :step => 'any' %>
-            </td>
-          </tr>
-          <tr>
-            <td class="big-row">
-              <Strong>Description:</Strong>
-            </td>
-            <td class="big-row">
-              <%= f.text_area :description, label: false, :class => 'table-text' %>
-            </td>
-          </tr>
+       
+         
           </tbody>
         </table>
 

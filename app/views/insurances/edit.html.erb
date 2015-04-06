@@ -28,6 +28,7 @@
   <tr class="right-top">
     <td colspan="5" class="gray-back">
       <strong>Insurance Summary</strong>
+      <%= link_to root_path, :class => 'pull-right', :id => 'add-action', :title => 'Add Row' do %>Add Provider <span class="glyphicon glyphicon-plus" data-tip="Add Insurance"></span> <% end %>
     </td>
   </tr>
 </thead>
@@ -70,11 +71,3 @@
 </table>
 </div>
 <% end %>
-
-<script>
-   $(document).ready(function() { $("select").select2(); });
-   $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
-   });
-</script>

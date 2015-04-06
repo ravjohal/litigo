@@ -33,20 +33,12 @@
   </tr>
 </thead>
   <tbody>
-    <tr>
-      <td class="col-one">
-        <strong>Date Opened:</strong>
-      </td>
-        <td>
-         <%= @case.created_at.strftime("%b %e, %Y") %>
-        </td>
-     </tr>
-      <tr>
+   <tr>
         <td class="col-one">
-           <strong>Trial Date:</strong>
+          <strong>Case Name:</strong>
         </td>
         <td>
-          <%= @case.trial_date %>
+          <%=  @case.name %>
         </td>
       </tr>
       <tr>
@@ -56,6 +48,16 @@
         <td>
           <%=  @case.docket_number %>
         </td>
+      </tr>
+      <tr>
+      <td class="col-one">
+          <strong>Judge:</strong>
+        </td>
+      <td>
+          <% @case.contacts.where("type = 'Judge'").each do |d| %>
+          <%= d.first_name %> <%= d.last_name %>
+           <% end %>
+      </td>
       </tr>
       <tr>
         <td class="col-one">
@@ -87,62 +89,65 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong>Key Contacts</strong>
+      <strong>Key Dates</strong>
     </td>
   </tr>
 </thead>
   <tbody>
-    <tr>
+       <tr>
+      <td class="col-one">
+        <strong>Date of Incident:</strong>
+      </td>
+        <td>
+            <%= @case.incident.incident_date %>
+        </td>
+     </tr>
+  <tr>
+      <td class="col-one">
+        <strong>SOL:</strong>
+      </td>
+        <td>
+         
+        </td>
+     </tr>
+  <tr>
+      <td class="col-one">
+        <strong>Date of Intake:</strong>
+      </td>
+        <td>
+         
+        </td>
+     </tr>
+   <tr>
+      <td class="col-one">
+        <strong>Case Open Date:</strong>
+      </td>
+        <td>
+         <%= @case.created_at.strftime("%b %e, %Y") %>
+        </td>
+     </tr> 
+      <tr>
         <td class="right">
-            <strong>Judge:</strong>
+           <strong>Hearing Date:</strong>
         </td>
         <td>
-          <% @case.contacts.where("type = 'Judge'").each do |d| %>
-          <%= d.first_name %> <%= d.last_name %>
-           <% end %>
+            <%= @case.hearing_date %>
         </td>
       </tr>
       <tr>
         <td class="right">
-           <strong>Plaintiff(s):</strong>
+            <strong>Date Filed Suit:</strong>
         </td>
         <td>
-        
-          <% @case.contacts.where("type = 'Plaintiff'").each do |p| %>
-          <%= p.first_name %> <%= p.last_name %>
-          <% end %>
+              <%= @case.filed_suit_date %>
         </td>
       </tr>
       <tr>
-        <td class="right">
-            <strong>Defendant(s):</strong>
+        <td class="col-one">
+           <strong>Trial Date:</strong>
         </td>
         <td>
-          <% @case.contacts.where("type = 'Defendant'").each do |d| %>
-          <%= d.first_name %> <%= d.last_name %>
-           <% end %>
-        </td>
-      </tr>
-    
-      <tr>
-        <td class="right">
-            <strong>Assigned Attorney(s):</strong>
-        </td>
-        <td>
-          <%= @case.contacts.where("type = 'Attorney'").size %>
-          <% @case.contacts.where("type = 'Attorney'").each do |a| %>
-          <%= a.first_name %> <%= a.last_name %>
-          <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-           <strong>Assigned Staff:</strong>
-        </td>
-        <td>
-          <% @case.contacts.where("type = 'Staff'").each do |s| %>
-          <%= s.first_name %> <%= s.last_name %>
-          <% end %>
+          <%= @case.trial_date %>
         </td>
       </tr>
   </tbody>

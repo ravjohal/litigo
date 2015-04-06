@@ -42,10 +42,10 @@
     </tr>
     <tr>
       <td class="col-one">
-        <strong>Subrogated Amount ($):</strong>
+        <strong>Date of Injury:</strong>
       </td>
         <td>
-          <%= number_to_currency @medical.subrogated_amount, precision: 0 %>
+          <%= @medical.injury_date %>
         </td>
      </tr>
       <tr>
@@ -56,14 +56,7 @@
         <%= boolean_as_yesno @medical.injuries_within_three_days %>
         </td>
       </tr>
-      <tr>
-        <td class="col-one">
-          <strong>Lost Earnings:</strong>
-        </td>
-        <td>
-          <%= number_to_currency @medical.earnings_lost %>
-        </td>
-      </tr>
+      
       <tr>
         <td class="col-one">
           <strong>Was Plaintiff Hospitalized?:</strong><br>
@@ -74,6 +67,14 @@
           <br>
           <%= @medical.hospital_stay_length %>
           <%= @medical.hospital_stay_length_unit %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Lost Earnings:</strong>
+        </td>
+        <td>
+          <%= number_to_currency @medical.earnings_lost %>
         </td>
       </tr>
   </tbody>
@@ -99,7 +100,7 @@
       </tr>
       <tr>
         <td class="right">
-            <strong>Doctor Type:</strong>
+            <strong>Doctors Seen:</strong>
         </td>
         <td>
           <%= @medical.doctor_type.map{|p| p}.join(", ") if @medical.doctor_type %>
@@ -165,6 +166,63 @@
   </tbody>
 </table>
 </div>
+
+
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="5" class="gray-back">
+      <strong>Medicals</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+          <td class="right">
+              <strong>Provider</strong>
+          </td>
+          <td class="right">
+              <strong>Company</strong>
+          </td>
+          <td class="right">
+              <strong>Date of Service</strong>
+          </td>
+           <td class="right">
+              <strong>Billed Amount</strong>
+          </td>
+          <td class="right">
+              <strong>Paid Amount</strong>
+          </td>
+      </tr>
+      <tr>
+          <td>
+             
+          </td>
+          <td>
+             
+          </td>
+          <td>
+             
+          </td>
+          <td>
+             
+          </td>
+          <td>
+             
+        </td>
+      </tr>
+         <tr>
+          <td colspan="3" style="text-align: right;">
+              <strong>Totals</strong>
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+      </tr>
+  </tbody>
+</table>
+
 
 
 <div style="width:900px; margin: 0 auto 30px auto;">

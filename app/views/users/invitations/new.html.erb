@@ -5,7 +5,7 @@
   <br>
   <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
     <div class="invitees" style="margin-bottom: 30px;"><%= render 'users/invitations/user_form' %></div>
-  <%= submit_tag "Send Invitations", id: "inv_submit", :class => "sub2-invite pull-right"%>
+  <%= submit_tag "Send Invitations", id: "inv_submit", :class => "sub2-small pull-right"%>
   </div>
   <% end %>
 <% end %>
@@ -44,7 +44,7 @@
   <% end %>
 </td>
 <td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'delete') unless user == current_user %>
+  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'delete btn-danger') unless user == current_user %>
 </td>
     </tr>
      <% end %>

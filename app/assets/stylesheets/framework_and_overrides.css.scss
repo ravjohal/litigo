@@ -452,7 +452,7 @@ input:focus {
 
 .top-table-container{
   margin: 0 auto;
-  padding-top: 182px;
+  padding-top: 181px;
   width: 900px;
 }
 .bottom-table-container{
@@ -604,6 +604,19 @@ td.col-one {
   border: .18em solid #0483A0;
   transition: .2s;
   color: white;
+  }
+  @media (max-width: 767px) {
+    input.sub2-small{
+      font-size: 16px;
+      background: #3FC2D8;
+      border: .18em solid #3FC2D8;
+      cursor:pointer;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      color: white;
+      height: 35px;
+      width: 100px;
+        }
   }
 
   input.sub2-invite{
@@ -772,7 +785,18 @@ margin-right: 12px;
   width: 400px;
   margin: 70px 0 0 10px;
 }
+@media (max-width: 767px) {
+.profile {
+  width: 300px;
+  margin: 70px 0 0 10px;
+}
+}
 
+@media (max-width: 767px) {
+#print {
+  display: none;
+}
+}
 
 
 /* FORMS */

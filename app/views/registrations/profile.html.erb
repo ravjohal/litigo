@@ -26,7 +26,6 @@
 
 <div class="profile">
   <h3>Profile</h3>
-  
   <%= form_for @user, :url => users_update_profile_path(@user) do |f| %>
      <div class="form-group">
       <%= f.label :first_name %>
@@ -44,6 +43,6 @@
       <%= f.label :role, 'Firm Role' %>
       <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, {:disabled => !@user.admin?, :class => "selectpicker"}) %>
     </div>
-    <%= f.submit 'Update', :class => "sub2-invite pull-right" %>
+    <%= f.submit 'Update', :class => "sub2-small pull-right" %>
   <% end %>
 </div>

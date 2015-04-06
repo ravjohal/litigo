@@ -67,19 +67,19 @@ ActiveRecord::Schema.define(version: 20150405043158) do
   add_index "case_tasks", ["task_id"], name: "index_case_tasks_on_task_id", using: :btree
 
   create_table "cases", force: true do |t|
-    t.string   "name",          limit: 255
+    t.string   "name",            limit: 255
     t.integer  "case_number"
     t.text     "description"
-    t.decimal  "medical_bills",             precision: 10, scale: 2
+    t.decimal  "medical_bills",               precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "case_type",     limit: 255
-    t.string   "subtype",       limit: 255
+    t.string   "case_type",       limit: 255
+    t.string   "subtype",         limit: 255
     t.integer  "user_id"
     t.date     "closing_date"
-    t.string   "state",         limit: 2
-    t.string   "status",                                             default: "open"
-    t.string   "court",         limit: 255
+    t.string   "state",           limit: 2
+    t.string   "status",                                               default: "open"
+    t.string   "court",           limit: 255
     t.integer  "firm_id"
     t.string   "county"
     t.string   "docket_number"
@@ -389,8 +389,8 @@ ActiveRecord::Schema.define(version: 20150405043158) do
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "doctor_type",                                         default: [], array: true
-    t.string   "treatment_type",                                      default: [], array: true
+    t.string   "doctor_type",                                         default: [],    array: true
+    t.string   "treatment_type",                                      default: [],    array: true
     t.date     "injury_date"
   end
 

@@ -31,8 +31,8 @@ class VisitorsController < ApplicationController
 
     end
 
-    def confirm_email
-       
+    def confirm_signin_email
+
     end
 
 end

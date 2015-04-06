@@ -90,10 +90,14 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def confirm_signup_email
+    @user = User.find(params[:id]) 
+  end
+
   protected
 
   def after_inactive_sign_up_path_for(resource)
-    confirm_email_path
+    confirm_signup_email_path(resource)
   end
 
   def configure_devise_permitted_parameters

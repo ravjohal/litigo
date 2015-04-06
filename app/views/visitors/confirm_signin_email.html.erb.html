@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo Registration" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+ </head>
+ <body>
+<header>
+</header>
+<div style="width: 40px; height: 35px; margin: 0 auto;">
+<a href="index">
+  <img src="assets/small-building.png" alt="Return Home" style="margin-top:75px;width:35px;height:35px;border:0">
+</a>
+</div>
+
+  <div class="thankyou-container">
+      <div style="font-size: 36px; margin-bottom: 15px;">Thanks for signing up!</div>
+      <div style="font-size: 20px; color: #484848; margin-bottom: 10px;">Check your inbox.</div>
+      <div style="font-size: 14px; color: #aaa;">We sent an email that contains a special link to activate your account. After you click on the link, you can sign in.</div>
+      <hr class="divider">
+      <div style="width: 70%; margin: 0 auto;">
+        <div class="row">
+            <div class="col-md-4"><a href="https://twitter.com/LitigoInc" data-tip="Follow Us" target="_blank"><img src="/assets/twitter.png" class="icons"></img></a>
+                    <div class="confirm-icon-text" style="margin-top: 5px;">
+                          Follow Us
+                    </div>
+            </div>
+            <div class="col-md-4"><a href="http://eepurl.com/3y99r"><span style="font-size: 24px;"class="glyphicon glyphicon-envelope"></span></a>
+                    <div class="confirm-icon-text">
+                          Our Newsletter
+                    </div>
+            </div>
+            <div class="col-md-4"><span style="font-size: 24px;" class="glyphicon glyphicon-send"></span></a>
+                    <div class="confirm-icon-text">
+                          Resend Email
+                    </div>
+            </div>
+        </div>
+        </div>
+  </div>
+    
+    <div class="confirmed">
+        Already confirmed your email? <%= link_to 'Sign In', new_user_session_path, :class => 'center-link'  %>
+    </div>
+ </body>
+</html>

@@ -41,7 +41,6 @@ Rails.application.routes.draw do
   root :to => "visitors#index"
   get '/onboarding' => 'dashboards#new'
   get '/dashboard/:id' => 'dashboards#show'
-  get '/confirm' => 'visitors#confirm_email', as: :confirm_email
   get '/get_counties_by_state' => 'insights#get_counties_by_state'
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
@@ -61,6 +60,7 @@ Rails.application.routes.draw do
   get "/privacy" => 'visitors#privacy', as: :privacy
   get "/pricing" => 'visitors#pricing', as: :pricing
   get "/partners" => 'visitors#partners', as: :partners
+  get "/confirm" => 'visitors#confirm_signin_email', as: :confirm_signin_email
 
   resources :dashboards, path: "dashboard"
 
@@ -69,6 +69,7 @@ Rails.application.routes.draw do
     get 'users/profile' => 'registrations#profile'
     get 'users/settings' => 'registrations#settings'
     get 'users/admin' => 'registrations#admin'
+    get '/confirm/:id' => 'registrations#confirm_signup_email', as: :confirm_signup_email
     patch '/users/update_profile' => 'registrations#update_profile'
 
   end

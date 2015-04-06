@@ -33,7 +33,7 @@
                         <strong>Assign Attorney(s):</strong>
                     </td>
                     <td>
-                        <%= f.association :users, label: false, :collection => @firm.users, :input_html => {:id => "attorney_select"}, :class => 'sel2' %>
+                        <%= f.association :user_events, :collection => @firm.users.map { |u| [u.email, u.id] }, :input_html => {:id => "attorney_select"}, :class => 'sel2', label: false %>
                     </td>
                 </tr>
                 <tr>

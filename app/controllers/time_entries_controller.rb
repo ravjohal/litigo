@@ -63,7 +63,7 @@ class TimeEntriesController < ApplicationController
   def destroy
     @time_entry.destroy
     respond_to do |format|
-      format.html { redirect_to time_entries_url, notice: 'Time entry was successfully destroyed.' }
+      format.html { redirect_to time_entries_url, notice: 'Time entry was successfully deleted.' }
       format.json { head :no_content }
     end
   end

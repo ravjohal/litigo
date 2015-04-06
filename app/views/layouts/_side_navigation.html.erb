@@ -164,6 +164,14 @@ $(function() {
     $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
   });
 
+  $('#assignbutton').click(function (e) {
+    e.preventDefault();
+    var modal = $("#modal-window");
+    var hours_val = $('#clock').text().split(':');
+    modal.html("<%= escape_javascript(render 'time_entries/form') %>");
+    $('#time_entry_hours').val(hours_val[0]+'.'+hours_val[1]);
+    modal.modal('show');
+  })
 
 
 </script>

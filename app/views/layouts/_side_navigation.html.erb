@@ -43,8 +43,9 @@
     </li> 
         <div class="timer">
         <li style="border-top: 1px solid #4B6172; border-bottom: 1px solid #33424E;">
-        <div style="width: 230px;">
-            <input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>
+        <div style="width: 230px;" class="clock-block">
+            <!--<input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>-->
+            <div id="clock" class="timer-clock">00:00:00</div>
             </div>
             <ul class="timer-controls">
             <li><a href='#' id="startstopbutton" type="button" title="Start/Stop Timer">
@@ -90,32 +91,82 @@ $(function() {
 });
 </script>
 <script>
-  $(document).ready(function () {
-    if(flagclock==1) {
-      $('#control').removeClass('glyphicon-play').addClass('glyphicon-stop');
-    } else {
-      $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
+  var flagclock = 'stopped';
+
+  var get_timer = function () {
+    $('#clock').html("<img src='/assets/ajaxSpinner.gif' style='height: 25px; width:25px;'>")
+    $.ajax({
+      url: "/get_timer",
+      type: 'PUT',
+      dataType: "json",
+      success: function(data){
+        var timer = data.timer;
+        if(timer != null) {
+          if(timer.flagclock == 'stopped') {
+            time_diff = timer.stop_time - timer.init_timer_time - timer.stop_duration;
+            $('#clock').stopwatch({startTime: time_diff});
+            $('#clock').text(timer.clock_value);
+          } else if(timer.flagclock == 'running') {
+            time_diff = new Date().getTime() - parseInt(timer.init_timer_time);
+            if(timer.stop_duration != null){
+              time_diff = time_diff - parseInt(timer.stop_duration)
+            }
+            flagclock = timer.flagclock;
+            $('#clock').stopwatch({startTime: time_diff}).stopwatch('start');
+            $('#control').toggleClass('glyphicon-play glyphicon-stop');
+          }
+        } else {
+          $('#clock').text('00:00:00')
+        }
+      }
+    });
+  }
+  get_timer();
+
+  $('#startstopbutton').click(function (e) {
+    e.preventDefault();
+    var data;
+    if($('#clock').text() == '00:00:00' && flagclock == 'stopped') {
+      flagclock = 'running';
+      var current_time = new Date().getTime()
+      data = {timer: {init_timer_time: current_time, flagclock: flagclock }}
+      $('#clock').stopwatch().stopwatch('reset');
+    } else if($('#clock').text() != '00:00:00' && flagclock == 'stopped'){
+      flagclock = 'running';
+      data = {timer: {start_time: new Date().getTime(), flagclock: flagclock }}
+    } else if (flagclock == 'running') {
+      flagclock = 'stopped';
+      data = {timer: {stop_time: new Date().getTime(), flagclock: flagclock}}
     }
-    $('#startstopbutton').click(function (e) {
-      e.preventDefault();
-      startstop();
-    });
-    $('#resetbutton').click(function (e) {
-      e.preventDefault();
-      resetclock();
-    });
-    $('#assignbutton').click(function (e) {
-      e.preventDefault();
-      var modal = $("#modal-window");
-      var hours_val = $('#clock').val().split(':');
-      modal.html("<%= escape_javascript(render 'time_entries/form') %>");
-      $('#time_entry_hours').val(hours_val[0]+'.'+hours_val[1]);
-      modal.modal('show');
-    })
-
+    data.timer.clock_value = $('#clock').text();
+    $.ajax({
+          url: "/set_timer",
+          type: 'PUT',
+          dataType: "json",
+          data: data
+        });
+    $('#clock').stopwatch().stopwatch('toggle');
+    $('#control').toggleClass('glyphicon-play glyphicon-stop');
   });
-</script>
 
+  $('#resetbutton').click(function (e) {
+    e.preventDefault();
+    $('#clock').stopwatch().stopwatch('stop');
+    $('#clock').stopwatch().stopwatch('reset');
+    $.ajax({
+      url: "/reset_timer",
+      type: 'PUT',
+      dataType: "json"
+    });
+    flagclock = 'stopped';
+    $('#clock').remove();
+    $('.clock-block').append("<div id='clock' class='timer-clock'>00:00:00</div>")
+    $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
+  });
+
+
+
+</script>
 <script type='text/javascript'>
   $(function() {
     $('#startstopbutton').tipsy({gravity: 'sw', fade: true, delayIn: 1000});

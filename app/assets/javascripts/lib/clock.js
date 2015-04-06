@@ -1,4 +1,4 @@
-  
+
   var flagclock = 0;
   var flagstop = 0;
   var stoptime = 0;
@@ -10,13 +10,19 @@
 
   function startstop()
     {
-    var startstop = document.getElementById('startstopbutton');
+    var startstop = $('#startstopbutton');
     var startdate = new Date();
     var starttime = startdate.getTime();
     if(flagclock==0)
       {
       startstop.value = '';
       flagclock = 1;
+      $.ajax({
+            url: "/set_timer",
+            type: 'PUT',
+            dataType: "json",
+            data: {starttime: starttime}
+          });
       counter(starttime);
       $('#control').removeClass('glyphicon-play').addClass('glyphicon-stop');
       }
@@ -32,8 +38,19 @@
 
   function counter(starttime)
     {
-    output = document.getElementById('output');
-    clock = document.getElementById('clock');
+    $.ajax({
+          url: "/set_timer",
+          type: 'PUT',
+          dataType: "json",
+          success: function(data){
+          if(data.starttime != nil) {
+
+          }
+            starttime = data.starttime;
+          }
+        });
+    output = $('#output')[0];
+    clock = $('#clock')[0];
     currenttime = new Date();
     var timediff = currenttime.getTime() - starttime;
     if(flagstop == 1)

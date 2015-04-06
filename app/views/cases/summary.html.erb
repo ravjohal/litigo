@@ -80,7 +80,7 @@
           <strong>Statute of Limitations:</strong>
         </td>
         <td>
-          <%= @case.incident.statute_of_limitations %>
+          <%= @case.incident.try(:statute_of_limitations) %>
         </td>
       </tr>
       <tr>
@@ -189,13 +189,13 @@
            <strong>Total Medicals:</strong>
         </td>
         <td>
-          <%= number_to_currency @case.medical.total_med_bills, precision: 0 %>
+          <%= number_to_currency(@case.medical.try(:total_med_bills), precision: 0) %>
         </td>
         <td class="right">
           <strong>Total Policy Limits:</strong>
         </td>
         <td>
-          <%= number_to_currency @case.insurance.policy_limit, precision: 0 %>
+          <%= number_to_currency(@case.insurance.try(:policy_limit), precision: 0) %>
         </td>
       </tr>
       <tr>

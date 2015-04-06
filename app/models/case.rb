@@ -99,7 +99,7 @@ class Case < ActiveRecord::Base
 
   def import_tasks
     TaskList.where(case_type: self.case_type, firm_id: self.firm_id, task_import: 'automatic').each do |task_list|
-      if task_list.case_creator == 'all_firm' || task_list.case_creator == 'owner' && task_list.user_id == @user.id
+      if task_list.case_creator == 'all_firm' || task_list.case_creator == 'owner' && task_list.user_id == self.current_user_id
         task_list.import_to_case!(self.id, self.current_user_id)
       end
     end

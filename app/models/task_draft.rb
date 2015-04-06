@@ -19,9 +19,9 @@ class TaskDraft < ActiveRecord::Base
         when 'Case Open Date'
           due_date = affair.created_at + self.due_term.days
         when 'Incident Date'
-          due_date = affair.incident.incident_date + self.due_term.days if affair.incident.incident_date.present?
+          due_date = affair.incident.incident_date + self.due_term.days if affair.incident.present? && affair.incident.incident_date.present?
         when 'Statute of Limitations'
-          due_date = affair.incident.statute_of_limitations + self.due_term.days if affair.incident.incident_date.present?
+          due_date = affair.incident.statute_of_limitations + self.due_term.days if affair.incident.present? && affair.incident.statute_of_limitations.present?
         when 'Trial Date'
           due_date = affair.trial_date + self.due_term.days if affair.trial_date.present?
         when 'Parent'
@@ -34,7 +34,7 @@ class TaskDraft < ActiveRecord::Base
         when 'Trial Date'
           due_date = affair.trial_date - self.due_term.days if affair.trial_date.present?
         when 'Statute of Limitations'
-          due_date = incident.statute_of_limitations - self.due_term.days if incident.incident_date.present?
+          due_date = affair.incident.statute_of_limitations - self.due_term.days if affair.incident.present? && affair.incident.statute_of_limitations.present?
         when 'Case Close Date'
           due_date = affair.closing_date - self.due_term.days if affair.closing_date.present?
         when 'previous task'

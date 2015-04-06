@@ -6,8 +6,10 @@ class Event < ActiveRecord::Base
   has_many :event_attendees, :dependent => :destroy
 	has_many :contacts, :through => :event_attendees
 
-	belongs_to :owner, class_name: 'User'
+	belongs_to :owner, class_name: 'User', :foreign_key => 'owner_id'
 	belongs_to :firm
+
+  accepts_nested_attributes_for :user_events
 
   validates_presence_of :start, :end
   validate :end_after_start

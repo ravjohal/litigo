@@ -17,7 +17,7 @@ class EventsController < ApplicationController
     @events.each do |event|
       hash = {}
       hash[:id] = event.id
-      hash[:title] = event.summary
+      hash[:title] = event.subject
       hash[:start] = event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}"
       hash[:end] = event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"
       hash[:allDay] = event.all_day
@@ -144,8 +144,8 @@ class EventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :summary,
-                                  :google_calendar_id, :start, :end, :status, :contacts, :user_ids => [], :case_ids => [],
-                                  :event_attendee_ids => [])
+                                  :google_calendar_id, :start, :end, :status, :contacts, :user_ids => [],
+                                  :user_event_ids => [], :case_ids => [],  :event_attendee_ids => [])
   end
 
   def event_drag_params

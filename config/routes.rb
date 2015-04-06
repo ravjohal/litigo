@@ -2,10 +2,13 @@ Rails.application.routes.draw do
 
 
   resources :time_entries, :except => [:new]
-  get 'client_intakes/expenses/:id' => 'time_entries#expenses', as: :time_entries_expenses
-  get 'client_intakes/expenses/:id/edit' => 'time_entries#edit_expenses', as: :edit_time_entries_expenses
-  get 'client_intakes/invoices/:id' => 'time_entries#invoices', as: :time_entries_invoices
-  get 'client_intakes/invoices/:id/edit' => 'time_entries#edit_invoices', as: :edit_time_entries_invoices
+  get 'time_entries/expenses/:id' => 'time_entries#expenses', as: :time_entries_expenses
+  get 'time_entries/expenses/:id/edit' => 'time_entries#edit_expenses', as: :edit_time_entries_expenses
+  get 'time_entries/invoices/:id' => 'time_entries#invoices', as: :time_entries_invoices
+  get 'time_entries/invoices/:id/edit' => 'time_entries#edit_invoices', as: :edit_time_entries_invoices
+  put 'set_timer' => 'time_entries#set_timer', as: :set_timer
+  put 'get_timer' => 'time_entries#get_timer', as: :get_timer
+  put 'reset_timer' => 'time_entries#reset_timer', as: :reset_timer
 
   resources :task_lists
   post 'task_lists/import_to_case' => 'task_lists#import_to_case', as: :task_lists_import_to_case

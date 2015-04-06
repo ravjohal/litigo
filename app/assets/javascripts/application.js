@@ -47,7 +47,6 @@
 //= require lib/linq.min
 //= require lib/sugar.min
 //= require lib/tipr
-//= require lib/clock
 //= require lib/jquery.stopwatch
 //= require lib/tipsy
 //= require slick

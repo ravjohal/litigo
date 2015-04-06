@@ -20,7 +20,44 @@
         </div>
 </div>
 
-<div class="top-table-container">
+<div class="recent-update-container">
+<% if @last_3_notes %>
+  <div class="bottom-table-container">
+  <h3>Recent Activity</h3>
+  <br>
+    <table class="table-striped recent-notes-table">
+     <thead class="user-table-head">
+        <th>Date</th>
+        <th>Type</th>
+        <th>Note</th>
+        <th>Author</th>
+      </thead>
+      <tbody>
+        <% @last_3_notes.each do |note| %>
+          <tr>
+            <td>
+              <%= note.created_at.strftime("%m/%d/%Y") %>
+            </td>
+            <td>
+              <%= note.note_type %>
+            </td>
+            <td>
+             <div class="larger-td">
+              <%= note.note %>
+              </div>
+            </td>
+              <td>
+              <%= note.author %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+</div>
+
+<div style="width: 900px; margin: 0 auto;">
 <table id="info-table1">
 <thead>
   <tr class="right-top">
@@ -174,40 +211,7 @@
 
 <hr class="invis">
 
-<% if @last_3_notes %>
-  <div class="bottom-table-container">
-  <h3>Recent Activity</h3>
-  <br>
-    <table class="table-striped recent-notes-table">
-     <thead class="user-table-head">
-        <th>Date</th>
-        <th>Type</th>
-        <th>Note</th>
-        <th>Author</th>
-      </thead>
-      <tbody>
-        <% @last_3_notes.each do |note| %>
-          <tr>
-            <td>
-              <%= note.created_at.strftime("%m/%d/%Y") %>
-            </td>
-            <td>
-              <%= note.note_type %>
-            </td>
-            <td>
-             <div class="larger-td">
-              <%= note.note %>
-              </div>
-            </td>
-              <td>
-              <%= note.author %>
-            </td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-<% end %>
+
 
 <script type='text/javascript'>
   $(function() {

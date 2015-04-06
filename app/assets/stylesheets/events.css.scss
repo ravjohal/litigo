@@ -31,6 +31,24 @@
   }
 }
 
+@media (max-width: 767px) {
+.calendar-table {
+  position: relative;
+  #calendar {
+  width: 100%;
+  margin: 5px auto;
+    .fc-header {
+      margin-bottom: 10px;
+      z-index: -10;
+    }
+    .fc-border-separate > thead {
+      background-color: #6C6D6D;
+      color: #ccc;
+    }
+  }
+}
+}
+
 .calendar-table td {
  width: 12.86%;
 }

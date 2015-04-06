@@ -3,14 +3,14 @@
                   <li><%= render 'new_button' %></li>
               </ul>
    </div>
-   <div style="margin-top: 70px;">
+   <div class="case-spacer">
 <h3>My Leads</h3>
 </div>
 <%= render :partial => 'table', :locals => { :id => 'user_leads'} %>
 <br/>
 <br/>
-<div style="margin-top: 70px;">
-<h3>All Firm Leads</h3>
+<div class="case-spacer2">
+    <h3>All Firm Leads</h3>
 </div>
 <%= render :partial => 'table', :locals => { :id => 'leads'} %>
 

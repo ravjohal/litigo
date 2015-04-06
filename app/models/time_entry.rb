@@ -2,7 +2,7 @@ class TimeEntry < ActiveRecord::Base
   belongs_to :user
   belongs_to :case
   has_one :firm
-  CHARGE_TYPES = ['hourly', 'fixed fee', 'contingent', 'no charge', 'non-billable']
+  CHARGE_TYPES = ['Hourly', 'Fixed fee', 'Contingent', 'No charge', 'Non-billable']
   ABA_CODES = {
       'L100 Case Assessment, Development and Administration' => {
           'L110 Fact Investigation/Development' => 'L110',

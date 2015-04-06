@@ -13,7 +13,7 @@
               </ul>
           </div>
     </div>
-    <strong>Case #: </strong><%= @case.case_number %><div><%= @case.topic %></div>
+    <strong>Case #: </strong><%= @case.case_number %>
     
         <div class="container-fluid" style="padding: 0;">
               <div class="row">
@@ -35,14 +35,6 @@
   </tr>
 </thead>
   <tbody>
-    <tr>
-      <td class="col-one">
-        <strong>Total Medical Bills ($):</strong>
-      </td>
-       <td>
-        <%= f.text_field :total_med_bills, :class => 'table-input' %>
-      </td>
-    </tr>
     <tr>
       <td class="col-one">
         <strong>Date of Injury:</strong>
@@ -193,14 +185,6 @@
           <%= f.text_area :injury_summary, :class => 'table-text' %>
         </td>
       </tr>
-     <!-- <tr>
-        <td class="right big-row">
-             <strong>Medical Summary:</strong>
-        </td>
-        <td colspan="3" class="big-row">
-          <%= f.text_area :medical_summary, :class => 'table-text' %>
-        </td>
-      </tr> -->
   </tbody>
 </table>
 </div>
@@ -234,24 +218,24 @@
       </tr>
       <tr>
           <td>
-             
+              
           </td>
           <td>
-             
+              
           </td>
           <td>
-             
+              
           </td>
           <td>
-             
+              
           </td>
           <td>
-             
+              
         </td>
       </tr>
          <tr>
           <td colspan="3" style="text-align: right;">
-              <strong>Totals</strong>
+              <strong>Total Medical Bills</strong>
           </td>
           <td>
           </td>

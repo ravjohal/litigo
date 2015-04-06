@@ -106,7 +106,7 @@
         <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
       </td>
         <td>
-            <%= @case.incident.incident_date %>
+            <%= @case.incident.try(:incident_date) %>
         </td>
      </tr>
     <tr>

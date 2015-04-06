@@ -107,7 +107,7 @@
         <strong>Date of Incident:</strong>
       </td>
         <td>
-            <%= @case.incident.incident_date %>
+            <%= @case.incident.try(:incident_date) %>
         </td>
      </tr>
   <tr>

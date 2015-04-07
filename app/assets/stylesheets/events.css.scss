@@ -105,3 +105,34 @@ ul.tagit {
   background: transparent;
 }
 
+div.fc-view-agendaWeek {
+  table.fc-agenda-allday, table.fc-agenda-slots {
+    tr {
+      background-color: transparent!important;
+    }
+    th.fc-agenda-axis {
+      width: 1%!important;
+      border-right: transparent;
+    }
+  }
+}
+
+div.fc-view-agendaDay {
+  table.fc-agenda-days {
+    th.fc-agenda-axis {
+      width: 1%!important;
+    }
+  }
+  table.fc-agenda-allday, table.fc-agenda-slots {
+    tr {
+      background-color: transparent!important;
+    }
+    th.fc-agenda-axis {
+      width: 1%!important;
+      border-right: transparent;
+    }
+  }
+}
+
+
+

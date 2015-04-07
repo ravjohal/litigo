@@ -13,7 +13,7 @@
 </header>
 <div style="width: 40px; height: 35px; margin: 0 auto;">
 <a href="index">
-  <img src="assets/small-building.png" alt="Return Home" style="margin-top:75px;width:35px;height:35px;border:0">
+  <div class='build-home'></div>
 </a>
 </div>
 
@@ -37,10 +37,10 @@
             <div class="col-md-4">
               <%= link_to user_confirmation_path(user: {:email => @user.email}), :method => :post do %> 
                 <span style="font-size: 24px;" class="glyphicon glyphicon-send"></span>
+                <% end %>
                     <div class="confirm-icon-text">
                           Resend Email
                     </div>
-              <% end %>
             </div>
         </div>
         </div>

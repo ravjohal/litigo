@@ -1,16 +1,57 @@
-<h2>Resend confirmation instructions</h2>
-
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo Confirmation" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+ </head>
+ <body>
+<header>
+</header>
 <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
   <%= f.error_notification %>
-  <%= f.full_error :confirmation_token %>
 
-  <div class="form-inputs">
-    <%= f.input :email, required: true, autofocus: true %>
+<div style="width: 40px; height: 35px; margin: 0 auto;">
+<a href="index">
+  <div class="build-home"></div>
+</a>
+</div>
+
+  <div class="thankyou-container">
+      <div style="font-size: 36px; margin-bottom: 15px;">You haven't confirmed your email</div>
+      <div style="font-size: 20px; color: #484848; margin-bottom: 10px;">Resend confirmation.</div>
+      <div class="row">
+            <div class="col-md-6">
+      			<%= f.input :email, required: true, autofocus: true, :class => 'table-input' %>
+      		</div>
+      		 <div class="col-md-6">
+      			<%= f.button :submit, "Resend Instructions", :class => 'sub2-small' %>
+      		</div>
+      </div>
+     <% end %>
+
+      <hr class="divider">
+      <div style="width: 70%; margin: 0 auto;">
+        <div class="row">
+            <div class="col-md-6"><a href="https://twitter.com/LitigoInc" data-tip="Follow Us" target="_blank"><img src="/assets/twitter.png" class="icons"></img></a>
+                    <div class="confirm-icon-text" style="margin-top: 5px;">
+                          Follow Us
+                    </div>
+            </div>
+            <div class="col-md-6"><%= link_to '', new_password_path(resource_name) do %><span style="font-size: 24px;" class="glyphicon glyphicon-lock"></span><% end %>
+                    <div class="confirm-icon-text">
+                          Forgot Password
+                    </div>
+            </div>
+        </div>
+        </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Resend confirmation instructions" %>
-  </div>
-<% end %>
-
-<%= render "confirmable/shared/links" %>
+    
+    <div class="confirmed">
+        Already confirmed your email? <%= link_to 'Sign In', new_user_session_path, :class => 'center-link'  %>
+    </div>
+ </body>
+</html>

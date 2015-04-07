@@ -34,10 +34,13 @@
                           Our Newsletter
                     </div>
             </div>
-            <div class="col-md-4"><% link_to "Resend", user_confirmation_path(user: {:email => @user.email}), :method => :post %> <span style="font-size: 24px;" class="glyphicon glyphicon-send"></span></a>
+            <div class="col-md-4">
+              <%= link_to user_confirmation_path(user: {:email => @user.email}), :method => :post do %> 
+                <span style="font-size: 24px;" class="glyphicon glyphicon-send"></span>
                     <div class="confirm-icon-text">
                           Resend Email
                     </div>
+              <% end %>
             </div>
         </div>
         </div>

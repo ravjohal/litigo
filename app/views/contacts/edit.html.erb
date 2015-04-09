@@ -143,30 +143,38 @@
         </td>
       </tr> 
       <tr>
+       <td class="right">
+          <strong>Prefix:</strong>
+        </td>
+        <td>
+            <%= f.text_field :prefix, :class => 'table-input' %>
+        </td>
         <td class="right">
           <strong>First Name:</strong>
         </td>
         <td>
             <%= f.text_field :first_name, :class => 'table-input' %>
         </td>
+        </tr>
+        <tr>
         <td class="right">
           <strong>Middle Name:</strong>
         </td>
         <td>
               <%= f.text_field :middle_name, :class => 'table-input' %>
         </td>
-      </tr>
-        <tr>
         <td class="right">
           <strong>Last Name:</strong>
         </td>
         <td>
             <%= f.text_field :last_name, :class => 'table-input' %>
         </td>
+        </tr>
+        <tr>
           <td class="right">
           <strong>Gender:</strong>
         </td>
-        <td>
+        <td colspan="3">
              <div class="radio">
                 <%= f.radio_button :gender, 'M' %> 
                 <%= label :gender, 'Male' %>
@@ -272,7 +280,7 @@
   <tbody>
         <tr>
         <td class="right">
-          <strong>Company Name: </strong><span id="company" title="You must create a company before adding it to a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+          <strong>Company Name: </strong><span style="float: right;" id="company" title="You must create a company before adding it to a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
         </td>
         <td>
               <%= f.text_field :company, :class => 'table-input' %>

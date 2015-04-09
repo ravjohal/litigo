@@ -43,6 +43,14 @@
         </td>
       </tr>
       <tr>
+        <tr>
+        <td class="right">
+        <strong>Date of Injury:</strong>
+        </td>
+        <td>
+                   <%= f.date_field :injury_date, :class => 'table-input' %>
+        </td>
+      </tr>
         <td class="right">
           <strong>Defendant Liability:</strong>
         </td>
@@ -50,6 +58,7 @@
         <%= f.text_field :defendant_liability, :value => '100', :class => 'table-input-small', label: false %>%
         </td>
       </tr>
+      <% if @case.subtype == 'Motor Vehicle' %>
        <tr>
         <td class="right">
           <strong>Property Damage ($):</strong>
@@ -68,7 +77,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Alcohol Involved?:</strong>
+          <strong>Alcohol Involved?</strong>
         </td>
         <td>
           <div class='radio'>
@@ -83,7 +92,7 @@
       </tr>
         <tr>
         <td class="right">
-          <strong>Weather a factor:</strong>
+          <strong>Weather a factor?</strong>
         </td>
         <td>
           <div class='radio'>
@@ -99,7 +108,7 @@
        
       <tr>
         <td class="right">
-          <strong>Airbag Deployed:</strong>
+          <strong>Airbag Deployed?</strong>
         </td>
         <td>
           <div class='radio'>
@@ -115,7 +124,7 @@
           
          <tr>
         <td class="right">
-          <strong>Police Report:</strong>
+          <strong>Is there a Police Report?</strong>
         </td>
         <td>
           <div class='radio'>
@@ -130,7 +139,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Towed:</strong>
+          <strong>Vehicle towed from scene?</strong>
         </td>
         <td>
             <div class='radio'>
@@ -143,6 +152,56 @@
             </div>
         </td>
       </tr>
+      <% elsif @case.subtype == 'Medical Malpractice' %>
+       <tr>
+        <td class="right">
+          <strong>Notice of Suit given within 1 year of Injury?</strong>
+        </td>
+        <td>
+          <div class='radio'>
+              <%= f.radio_button :notice, 'true' %> 
+              <%= label :notice, 'Yes', :value => 'Yes' %>
+          </div>
+          <div class='radio'>
+              <%= f.radio_button :notice, 'false' %>
+              <%= f.label :notice, 'No', :value => 'No'%>
+          </div>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Involves Insertion of Foreign Object</strong>
+        </td>
+        <td>
+          <div class='radio'>
+              <%= f.radio_button :foreign_object, 'true' %> 
+              <%= label :foreign_object, 'Yes', :value => 'Yes' %>
+          </div>
+          <div class='radio'>
+              <%= f.radio_button :foreign_object, 'false' %>
+              <%= f.label :foreign_object, 'No', :value => 'No'%>
+          </div>
+        </td>
+      </tr>
+       <tr>
+        <td class="right" style="text-indent: 30px;">
+          If yes, date of discovery
+        </td>
+        <td>
+          <%= f.date_field :discovery_date, :class => 'table-input' %>
+        </td>
+      </tr>
+      <% elsif @case.subtype == 'Product Liability' %>
+        <tr>
+        <td class="right">
+          <strong>Date product first sold</strong>
+        </td>
+        <td>
+                  <%= f.date_field :first_sold_date, :class => 'table-input' %>
+        </td>
+      </tr>
+      <% end %>
+
   </tbody>
 </table>
 </div>

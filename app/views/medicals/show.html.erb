@@ -32,14 +32,6 @@
   </tr>
 </thead>
   <tbody>
-    <tr>
-      <td class="col-one">
-        <strong>Date of Injury:</strong>
-      </td>
-        <td>
-          <%= @medical.injury_date %>
-        </td>
-     </tr>
       <tr>
         <td class="col-one">
         <strong>Injuries Treated within 3 days of Incident?:</strong>
@@ -230,7 +222,7 @@
   <tr class="right-top">
     <td colspan="2" class="gray-back" style="padding-bottom: 3px;">
      <strong> Injury #<%= i %> </strong>
-     <%= link_to medical_injury_path(@medical, injury),  :class => 'dark-right-small', method: :delete, data: { confirm: 'WARNING! Deleting an injury will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
+     <%= link_to medical_injury_path(@medical, injury),  :class => 'dark-right-small', method: :delete, data: { confirm: 'WARNING! Deleting an injury will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash" title="Delete Injury" id='delete'></span> <% end %>
     </td>
   </tr>
 </thead>
@@ -413,6 +405,7 @@
 <script type='text/javascript'>
   $(function() {
     $('#print').tipsy({gravity: 'ne', fade: true});
+    $('#delete').tipsy({gravity: 's', fade: true});
   });
 </script>
 <script type="text/javascript">
@@ -431,12 +424,5 @@ $( ".edit" ).hover(
     $( this ).find( "span:last" ).remove();
   }
 );
-</script>
-
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
 </script>
 

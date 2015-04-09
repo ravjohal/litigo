@@ -145,29 +145,37 @@
       </tr> 
       <tr>
         <td class="right">
+          <strong>Prefix:</strong>
+        </td>
+        <td>
+          <%= @contact.prefix %>
+        </td>
+          <td class="right">
           <strong>First Name:</strong>
         </td>
         <td>
           <%= @contact.first_name %>
         </td>
+        </tr>
+        <tr>
         <td class="right">
           <strong>Middle Name:</strong>
         </td>
         <td>
           <%= @contact.middle_name %>
         </td>
-      </tr>
-        <tr>
         <td class="right">
           <strong>Last Name:</strong>
         </td>
         <td>
           <%= @contact.last_name %>
         </td>
+        </tr>
+        <tr>
           <td class="right">
           <strong>Gender:</strong>
         </td>
-        <td>
+        <td colspan="3">
           <%= @contact.gender %>
         </td>
         </tr>
@@ -199,7 +207,7 @@
           <strong>Date of Major:</strong>
         </td>
         <td>
-              <%= @contact.major_date.strftime("%m/%d/%Y") %>
+              <%= @contact.major_date %>
         </td>
       </tr>
       <tr>
@@ -213,7 +221,7 @@
           <strong>Date of Death</strong>
         </td>
         <td>
-            <%= @contact.date_of_death.strftime("%m/%d/%Y") %>
+            <%= @contact.date_of_death %>
         </td>
       </tr> 
         <tr>

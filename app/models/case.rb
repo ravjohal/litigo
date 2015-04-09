@@ -1,7 +1,7 @@
 class Case < ActiveRecord::Base
 
   TYPES = ['Personal Injury', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Real Estate', 'Wills', 'Trusts', 'Estates']
-  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Product Liability', 'General Liability', 'Product Liability', 'Class Action', 'Workers Compensation', 'Wrongful Death']
+  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Product Liability', 'Slip and Fall', 'Product Liability', 'Class Action', 'Workers Compensation', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
   STATUS = ['Active', 'Discovery', 'Negotiation', 'Litigation', 'Appeal', 'Closed', 'Inactive']
 

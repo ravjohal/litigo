@@ -182,18 +182,10 @@
           <%=  @case.case_type %>
         </td>
         <td class="right">
-          <strong>Sub-type:</strong>
+          <strong>Subtype:</strong>
         </td>
         <td>
           <%= @case.subtype %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right big-row">
-            <strong>Case Summary:</strong>
-        </td>
-        <td colspan="3" class="big-row">
-          <%= @case.description %>
         </td>
       </tr>
       <tr>
@@ -208,6 +200,14 @@
         </td>
         <td>
           <%= @case.closing_date %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right big-row">
+            <strong>Case Summary:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= @case.description %>
         </td>
       </tr>
   </tbody>

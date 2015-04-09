@@ -178,21 +178,13 @@
            <strong>Type:</strong>
         </td>
         <td>
-          <%= f.input :case_type, label: false, collection: Case::TYPES, selected: 'Personal Injury', :class => 'table-input' %>
+          <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input' %>
         </td>
         <td class="right">
-          <strong>Sub-type:</strong>
+          <strong>Subtype:</strong>
         </td>
         <td>
-          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, selected: 'Motor Vehicle', :class => 'table-input' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right big-row">
-            <strong>Case Summary:</strong>
-        </td>
-        <td colspan="3" class="big-row">
-          <%= f.text_area :description, label: false, :class => 'table-text' %>
+          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -207,6 +199,14 @@
         </td>
         <td>
         <%= f.date_field :closing_date, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right big-row">
+            <strong>Case Summary:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= f.text_area :description, label: false, :class => 'table-text' %>
         </td>
       </tr>
   </tbody>

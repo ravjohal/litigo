@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405043158) do
+ActiveRecord::Schema.define(version: 20150409144620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,7 +117,7 @@ ActiveRecord::Schema.define(version: 20150405043158) do
     t.integer  "firm_id"
     t.integer  "user_account_id"
     t.string   "company"
-    t.string   "corporation"
+    t.boolean  "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150405043158) do
     t.string   "mobile"
     t.string   "company_phone"
     t.string   "company_fax"
+    t.string   "prefix"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -253,6 +254,11 @@ ActiveRecord::Schema.define(version: 20150405043158) do
     t.decimal  "defendant_limits"
     t.decimal  "plaintiff_limits"
     t.decimal  "uim_limits"
+    t.date     "injury_date"
+    t.boolean  "notice"
+    t.date     "discovery_date"
+    t.date     "first_sold_date"
+    t.boolean  "foreign_object"
   end
 
   add_index "incidents", ["case_id"], name: "index_incidents_on_case_id", using: :btree
@@ -283,7 +289,7 @@ ActiveRecord::Schema.define(version: 20150405043158) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
@@ -339,6 +345,7 @@ ActiveRecord::Schema.define(version: 20150405043158) do
     t.integer  "case_id"
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
+    t.string   "prefix"
   end
 
   create_table "medicals", force: true do |t|

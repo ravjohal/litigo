@@ -43,12 +43,22 @@
       </tr>
       <tr>
         <td class="right">
+        <strong>Date of Injury:</strong>
+        </td>
+        <td>
+        <%= @incident.injury_date %>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
           <strong>Defendant Liability:</strong>
         </td>
         <td>
           <%= @incident.defendant_liability %>%
         </td>
       </tr>
+      <% if @case.subtype == 'Motor Vehicle' %>
        <tr>
         <td class="right">
           <strong>Property Damage ($):</strong>
@@ -106,6 +116,41 @@
           <%= boolean_as_yesno @incident.towed %>
         </td>
       </tr>
+      <% elsif @case.subtype == 'Medical Malpractice' %>
+        <tr>
+        <td class="right">
+          <strong>Notice of Suit given within 1 year of Injury?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.notice %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Involves Insertion of Foreign Object</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @incident.foreign_object %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right" style="text-indent: 30px;">
+          If yes, date of discovery
+        </td>
+        <td>
+          <%= @incident.discovery_date %>
+        </td>
+      </tr>
+      <% elsif @case.subtype == 'Product Liability' %>
+        <tr>
+        <td class="right">
+          <strong>Date product first sold</strong>
+        </td>
+        <td>
+          <%= @incident.first_sold_date %>
+        </td>
+      </tr>
+      <% end %>
   </tbody>
 </table>
 </div>

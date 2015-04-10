@@ -40,6 +40,7 @@ class InvitationsController < Devise::InvitationsController
         user.invitation_created_at = Time.now.utc
         user.invitation_sent_at = user.invitation_created_at
         user.invitation_role = attrs['role'].to_i
+        user.firm = current_user.firm
         user.invited_by = current_user
         options = {user: user, admin: current_user, token: @raw_invitation_token[0], role: User::USER_ROLES[attrs['role'].to_i]}
         # puts "ADMIN WHAT IS ADMIN ----------> " + options.inspect

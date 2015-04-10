@@ -74,6 +74,7 @@ Rails.application.routes.draw do
     get 'users/admin' => 'registrations#admin'
     get '/confirm/:id' => 'registrations#confirm_signup_email', as: :confirm_signup_email
     patch '/users/update_profile' => 'registrations#update_profile'
+    get "/users/invitation/existing_user_invited/:id" => 'invitations#existing_user_invited', as: :existing_user_invited
 
   end
 

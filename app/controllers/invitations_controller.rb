@@ -12,6 +12,7 @@ class InvitationsController < Devise::InvitationsController
       user = User.find_by(email: attrs['email'])
       if !user.present?
         user = User.new(email: attrs['email'], firm_id: current_user.firm_id, role: attrs['role'].to_i)
+        user.skip_confirmation!
       end
         # if the user is in the system, then invite the person this way
       #   @raw_invitation_token = Devise.token_generator.generate(User, :invitation_token)
@@ -41,6 +42,7 @@ class InvitationsController < Devise::InvitationsController
         user.invitation_sent_at = user.invitation_created_at
         user.invitation_role = attrs['role'].to_i
         user.firm = current_user.firm
+        user.role = attrs['role'].to_i
         user.invited_by = current_user
         options = {user: user, admin: current_user, token: @raw_invitation_token[0], role: User::USER_ROLES[attrs['role'].to_i]}
         # puts "ADMIN WHAT IS ADMIN ----------> " + options.inspect
@@ -60,8 +62,19 @@ class InvitationsController < Devise::InvitationsController
   end
 
   def edit
-    
+    # user = resource
+    # if user.present? && user.encrypted_password.present? && user.confirmed_at
+    #   redirect_to existing_user_invited_url(user, params[:invitation_token])
+    # end
   end
+
+  # def after_accept_path_for(resource)
+
+  # end
+  # def existing_user_invited
+  #   @user = User.find_by_id(params[:id])
+  #   @invitation_token = params[:invitation_token]
+  # end
 
   def update
     invitation_token = Devise.token_generator.digest(User, :invitation_token, params[:invitation_token])

@@ -27,7 +27,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong> Medical Overview </strong>
+      <strong>Treatment Overview 1</strong>
     </td>
   </tr>
 </thead>
@@ -44,11 +44,16 @@
       <tr>
         <td class="col-one">
           <strong>Was Plaintiff Hospitalized?:</strong><br>
-                  <em>If yes, for how long?:</em>
         </td>
         <td>
           <%= boolean_as_yesno @medical.hospitalization %><br>
-          <br>
+        </td>
+      </tr>
+      <tr>
+      <td style="text-indent: 20px;">
+          If yes, for how long?
+      </td>
+      <td>
           <%= @medical.hospital_stay_length %>
           <%= @medical.hospital_stay_length_unit %>
         </td>
@@ -61,6 +66,14 @@
           <%= number_to_currency @medical.earnings_lost %>
         </td>
       </tr>
+       <tr>
+        <td class="right">
+          <strong>Were there Injections?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @medical.injections %>
+        </td>
+      </tr>
   </tbody>
 </table>
 
@@ -69,7 +82,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong>Treatment Overview</strong>
+      <strong>Treatment Overview 2</strong>
     </td>
   </tr>
 </thead>
@@ -84,7 +97,7 @@
       </tr>
       <tr>
         <td class="right">
-            <strong>Doctors Seen:</strong>
+            <strong>Doctor(s) Seen:</strong>
         </td>
         <td>
           <%= @medical.doctor_type.map{|p| p}.join(", ") if @medical.doctor_type %>
@@ -92,7 +105,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Treatment Type:</strong>
+          <strong>Treatment Type(s):</strong>
         </td>
         <td>
           <%= @medical.treatment_type.map{|p| p}.join(", ") if @medical.treatment_type %>
@@ -100,18 +113,18 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Gap(s) in Treatment?:</strong>
+          <strong>Gap(s) in Treatment?</strong>
         </td>
         <td>
           <%= boolean_as_yesno @medical.treatment_gap %>
         </td>
       </tr>
-       <tr>
+      <tr>
         <td class="right">
-          <strong>Were there Injections?:</strong>
+          <strong>Date of Final Treatment:</strong>
         </td>
         <td>
-          <%= boolean_as_yesno @medical.injections %>
+          <%= @medical.final_treatment_date %>
         </td>
       </tr>
   </tbody>
@@ -156,7 +169,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="5" class="gray-back">
-      <strong>Medicals</strong>
+      <strong>Medical Bills</strong>
     </td>
   </tr>
 </thead>

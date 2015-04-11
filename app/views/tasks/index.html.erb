@@ -20,8 +20,8 @@
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
             <li style="padding: 0; display: inline;"><%= link_to "New Task", @new_path, { :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
             <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Create New Task List', new_task_list_path %></li>
-            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Import Saved List', task_lists_path(case_id: @case.id) %></li>
-            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved List', task_lists_path %></li>
+            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Import Saved Task List', task_lists_path(case_id: @case.id) %></li>
+            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved Task List', task_lists_path %></li>
         </ul>
       </li>
     </ul>
@@ -58,7 +58,7 @@
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
             <li style="padding: 0; display: inline;"><%= link_to "New Task", @new_path, { :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
             <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Create New Task List', new_task_list_path %></li>
-            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved List', task_lists_path %></li>
+            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved Task List', task_lists_path %></li>
         </ul>
       </li>
     </ul>

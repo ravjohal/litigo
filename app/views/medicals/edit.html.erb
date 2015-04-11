@@ -30,7 +30,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong> Medical Overview </strong>
+      <strong>Treatment Overview 1</strong>
     </td>
   </tr>
 </thead>
@@ -52,10 +52,7 @@
       </tr>
       <tr>
         <td class="col-one">
-          <strong>Was Plaintiff Hospitalized?:</strong><br>
-          <br>
-          <br>
-                  <p>If yes, for how long?:</p>
+          <strong>Was Plaintiff Hospitalized?</strong>
         </td>
         <td>
             <div class='radio'>
@@ -66,9 +63,15 @@
                 <%= f.radio_button :hospitalization, 'false' %>
   		          <%= f.label :hospitalization, 'No', :value => 'No'%>
             </div>
-          <br>
-          <%= f.text_field :hospital_stay_length, :class => 'table-input-small' %>
-          <%= f.select :hospital_stay_length_unit, ['day(s)','week(s)','month(s)'], :class => 'table-input' %>
+        </td>
+        </tr>
+        <tr>
+          <td style="text-indent: 20px;">
+          If yes, for how long?
+          </td>
+          <td>
+                <%= f.text_field :hospital_stay_length, :class => 'table-input-small' %>
+                <%= f.select :hospital_stay_length_unit, ['day(s)','week(s)','month(s)'], :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -79,6 +82,21 @@
           <%= f.text_field :earnings_lost, :class => 'table-input' %>
         </td>
       </tr>
+       <tr>
+        <td class="right">
+          <strong>Were there Injections?</strong>
+        </td>
+        <td>
+            <div class='radio'>
+                <%= f.radio_button :injections, 'true' %> 
+                <%= label :injections, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :injections, 'false' %>
+                <%= f.label :injections, 'No', :value => 'No'%>
+            </div>
+        </td>
+      </tr>
   </tbody>
 </table>
 
@@ -87,7 +105,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="2" class="gray-back">
-      <strong>Treatment Overview</strong>
+      <strong>Treatment Overview 2</strong>
     </td>
   </tr>
 </thead>
@@ -102,7 +120,7 @@
       </tr>
       <tr>
         <td class="right">
-            <strong>Doctors Seen:</strong><br>
+            <strong>Doctor(s) Seen:</strong><br>
             <em class='small'>(check all that apply)</em>
         </td>
         <td>
@@ -113,7 +131,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Treatment Type:</strong><br>
+          <strong>Treatment Type(s):</strong><br>
             <em class='small'>(check all that apply)</em>
         </td>
         <td>
@@ -124,7 +142,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Gap(s) in Treatment?:</strong>
+          <strong>Gap(s) in Treatment?</strong>
         </td>
         <td>
             <div class='radio'>
@@ -137,19 +155,12 @@
             </div>
         </td>
       </tr>
-       <tr>
+        <tr>
         <td class="right">
-          <strong>Were there Injections?:</strong>
+           <strong>Date of Final Treatment</strong>
         </td>
         <td>
-            <div class='radio'>
-                <%= f.radio_button :injections, 'true' %> 
-  		          <%= label :injections, 'Yes', :value => 'Yes' %>
-            </div>
-            <div class='radio'>
-  		          <%= f.radio_button :injections, 'false' %>
-  		          <%= f.label :injections, 'No', :value => 'No'%>
-            </div>
+          <%= f.date_field :final_treatment_date, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>
@@ -185,7 +196,7 @@
 <thead>
   <tr class="right-top">
     <td colspan="5" class="gray-back">
-      <strong>Medicals</strong>
+      <strong>Medical Bills</strong>
       <%= link_to root_path, :class => 'pull-right', :id => 'add-action', :title => 'Add Row' do %>Add Provider <span class="glyphicon glyphicon-plus" data-tip="Add Provider"></span> <% end %>
     </td>
   </tr>

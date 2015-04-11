@@ -97,7 +97,7 @@ class MedicalsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def medical_params
       params.require(:medical).permit(:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, 
-                                  :length_of_treatment_unit, :injury_summary, :medical_summary, 
+                                  :length_of_treatment_unit, :injury_summary, :medical_summary, :final_treatment_date,
                                   :earnings_lost, :treatment_gap, :injections, :hospitalization, :hospital_stay_length, 
                                   :hospital_stay_length_unit, :data, :doctor_type, :treatment_type, :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
                                   :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,

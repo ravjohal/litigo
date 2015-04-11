@@ -14,9 +14,9 @@
                                         CONTACTS
                                         <span class="caret"></span>
                                       <% end %>
-                                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px; left: -20px;">
-                                          <li style="padding: 0; display: inline;"><%= link_to "New #{controller_name.singularize}", @new_path, { :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
-                                          <li role="presentation" style="padding: 0; display: inline;"><%= link_to "Assign Contacts", @cases_path, { :id => "assign_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window2'}  %></li>
+                                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px; left: -55px;">
+                                          <li style="padding: 0; display: inline;"><%= link_to "Create New #{controller_name.singularize}", @new_path, { :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+                                          <li role="presentation" style="padding: 0; display: inline;"><%= link_to "Assign Existing Contacts", @cases_path, { :id => "assign_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window2'}  %></li>
                                       </ul>
                             </ul>
                       </div>

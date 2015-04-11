@@ -37,7 +37,7 @@
     $('#new_modal, #assign_modal').click(function(event){
       $("#modal-window").html("<%= escape_javascript( render 'time_entries/form') %>");
     });
-    <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
+    <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'desc'} %>
   });
 </script>
 

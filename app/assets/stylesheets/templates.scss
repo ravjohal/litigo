@@ -1,0 +1,25 @@
+// Place all the styles related to the Templates controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.template_var_list, .template_html {
+  display: inline-block;
+}
+.template_var_list {
+  width: 29%;
+  float: left;
+}
+.template_html {
+  width: 70%;
+  float: right;
+  cursor: pointer;
+}
+.selection {
+  background-color: red;
+}
+.insertion {
+  background-color: #ffff00;
+}
+#save_template_html, #cancel_selection {
+  float: right;
+  margin: 5px;
+}

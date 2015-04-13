@@ -17,14 +17,14 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   enable_extension "plpgsql"
   enable_extension "hstore"
 
-  create_table "case_contacts", force: true do |t|
+  create_table "case_contacts", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "contact_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "case_documents", force: true do |t|
+  create_table "case_documents", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "document_id"
     t.datetime "created_at"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "case_documents", ["case_id"], name: "index_case_documents_on_case_id", using: :btree
   add_index "case_documents", ["document_id"], name: "index_case_documents_on_document_id", using: :btree
 
-  create_table "case_events", force: true do |t|
+  create_table "case_events", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "event_id"
     t.datetime "created_at"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "case_events", ["case_id"], name: "index_case_events_on_case_id", using: :btree
   add_index "case_events", ["event_id"], name: "index_case_events_on_event_id", using: :btree
 
-  create_table "case_tasks", force: true do |t|
+  create_table "case_tasks", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "task_id"
     t.datetime "created_at"
@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "case_tasks", ["case_id"], name: "index_case_tasks_on_case_id", using: :btree
   add_index "case_tasks", ["task_id"], name: "index_case_tasks_on_task_id", using: :btree
 
-  create_table "cases", force: true do |t|
+  create_table "cases", force: :cascade do |t|
     t.string   "name"
     t.integer  "case_number"
     t.text     "description"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
   add_index "cases", ["user_id"], name: "index_cases_on_user_id", using: :btree
 
-  create_table "contacts", force: true do |t|
+  create_table "contacts", force: :cascade do |t|
     t.string   "first_name"
     t.string   "middle_name"
     t.string   "last_name"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.integer  "firm_id"
     t.integer  "user_account_id"
     t.string   "company"
-    t.boolean  "corporation"
+    t.string   "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "contacts", ["user_account_id"], name: "index_contacts_on_user_account_id", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
-  create_table "documents", force: true do |t|
+  create_table "documents", force: :cascade do |t|
     t.string   "author"
     t.string   "doc_type"
     t.string   "template"
@@ -160,7 +160,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "documents", ["firm_id"], name: "index_documents_on_firm_id", using: :btree
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
-  create_table "event_attendees", force: true do |t|
+  create_table "event_attendees", force: :cascade do |t|
     t.integer  "event_id"
     t.string   "display_name"
     t.boolean  "creator"
@@ -173,7 +173,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "event_attendees", ["contact_id"], name: "index_event_attendees_on_contact_id", using: :btree
   add_index "event_attendees", ["event_id"], name: "index_event_attendees_on_event_id", using: :btree
 
-  create_table "events", force: true do |t|
+  create_table "events", force: :cascade do |t|
     t.string   "subject"
     t.string   "location"
     t.date     "date"
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "events", ["google_id"], name: "index_events_on_google_id", using: :btree
   add_index "events", ["owner_id"], name: "index_events_on_owner_id", using: :btree
 
-  create_table "firms", force: true do |t|
+  create_table "firms", force: :cascade do |t|
     t.string   "name"
     t.string   "address"
     t.string   "phone"
@@ -217,7 +217,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.string   "state"
   end
 
-  create_table "google_calendars", force: true do |t|
+  create_table "google_calendars", force: :cascade do |t|
     t.string   "etag"
     t.string   "google_id"
     t.string   "summary"
@@ -236,7 +236,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "google_calendars", ["google_id"], name: "index_google_calendars_on_google_id", using: :btree
   add_index "google_calendars", ["user_id"], name: "index_google_calendars_on_user_id", using: :btree
 
-  create_table "incidents", force: true do |t|
+  create_table "incidents", force: :cascade do |t|
     t.date     "incident_date"
     t.date     "statute_of_limitations"
     t.integer  "defendant_liability"
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "incidents", ["case_id"], name: "index_incidents_on_case_id", using: :btree
   add_index "incidents", ["firm_id"], name: "index_incidents_on_firm_id", using: :btree
 
-  create_table "injuries", force: true do |t|
+  create_table "injuries", force: :cascade do |t|
     t.string   "injury_type"
     t.string   "region"
     t.string   "code"
@@ -290,13 +290,13 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain",                                default: false
+    t.boolean  "ongoing_pain"
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
   add_index "injuries", ["medical_id"], name: "index_injuries_on_medical_id", using: :btree
 
-  create_table "insurances", force: true do |t|
+  create_table "insurances", force: :cascade do |t|
     t.string   "insurance_type"
     t.string   "insurance_provider"
     t.decimal  "policy_limit"
@@ -308,7 +308,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.datetime "updated_at",         null: false
   end
 
-  create_table "leads", force: true do |t|
+  create_table "leads", force: :cascade do |t|
     t.integer  "screener_id"
     t.integer  "attorney_id"
     t.string   "first_name"
@@ -349,7 +349,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.string   "prefix"
   end
 
-  create_table "medicals", force: true do |t|
+  create_table "medicals", force: :cascade do |t|
     t.decimal  "total_med_bills",            precision: 10, scale: 2
     t.decimal  "subrogated_amount",          precision: 10, scale: 2
     t.boolean  "injuries_within_three_days"
@@ -376,7 +376,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree
   add_index "medicals", ["firm_id"], name: "index_medicals_on_firm_id", using: :btree
 
-  create_table "notes", force: true do |t|
+  create_table "notes", force: :cascade do |t|
     t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -391,7 +391,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
-  create_table "resolutions", force: true do |t|
+  create_table "resolutions", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "firm_id"
     t.decimal  "settlement_demand", precision: 10, scale: 2
@@ -408,7 +408,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
 
-  create_table "task_drafts", force: true do |t|
+  create_table "task_drafts", force: :cascade do |t|
     t.integer "task_list_id"
     t.string  "name"
     t.integer "parent_id"
@@ -419,7 +419,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.integer "number"
   end
 
-  create_table "task_lists", force: true do |t|
+  create_table "task_lists", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
@@ -432,7 +432,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.string   "case_creator"
   end
 
-  create_table "tasks", force: true do |t|
+  create_table "tasks", force: :cascade do |t|
     t.string   "name"
     t.date     "due_date"
     t.date     "completed"
@@ -456,7 +456,18 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "tasks", ["firm_id"], name: "index_tasks_on_firm_id", using: :btree
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
-  create_table "time_entries", force: true do |t|
+  create_table "templates", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "file"
+    t.integer  "firm_id"
+    t.text     "description"
+    t.text     "html_content"
+    t.string   "name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "time_entries", force: :cascade do |t|
     t.integer  "user_id"
     t.date     "date"
     t.decimal  "hours"
@@ -471,7 +482,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
     t.datetime "updated_at",     null: false
   end
 
-  create_table "user_events", force: true do |t|
+  create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
     t.datetime "created_at"
@@ -481,7 +492,7 @@ ActiveRecord::Schema.define(version: 20150411040216) do
   add_index "user_events", ["event_id"], name: "index_user_events_on_event_id", using: :btree
   add_index "user_events", ["user_id"], name: "index_user_events_on_user_id", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "",                           null: false
     t.string   "encrypted_password",     default: ""
     t.string   "reset_password_token"

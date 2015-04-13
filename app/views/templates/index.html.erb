@@ -1,0 +1,53 @@
+<%= render 'shared/doc_tabs' %>
+<div style="margin-top: 70px; padding-top: 51px;">
+  <h3>My Templates</h3>
+</div>
+<div class="table-responsive">
+  <table id="templates" class="table table-striped">
+    <thead class="user-table-head">
+    <tr>
+      <th>Template Name</th>
+      <th>Description</th>
+      <th>Uploaded By</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @templates.each do |template| %>
+      <tr>
+        <td><div class="larger-td"><%= template.name %></div></td>
+        <td><%= template.description%></td>
+        <td><%= template.user.try(:name)%></td>
+        <td><%= link_to template_path(template),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %></td>
+        <td><%= link_to edit_template_path(template),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %></td>
+        <td><%= link_to  template,  method: :delete, data: { confirm: 'Are you sure you want to delete this template?' }, :class => 'dark-small' do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span><% end %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#new_modal').click(function(event){
+      $("#modal-window").html("<%= escape_javascript(render 'templates/form') %>");
+    });
+    var templates_table = $('#templates').dataTable({
+      language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search or Filter",
+        lengthMenu: "View _MENU_"
+      },
+      sDom: 'Rfrtlip'
+    });
+  });
+</script>
+
+<script>
+  $('.tip').tipr({
+    'speed': 500,
+    'mode': 'top'
+  });
+
+</script>

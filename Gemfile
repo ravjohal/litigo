@@ -24,7 +24,7 @@ gem 'figaro', '~> 1.0.0'
 gem 'font-awesome-rails', '~> 4.2.0.0'
 gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google
 gem 'will_paginate', '~> 3.0.7'
-gem 'rest-client', '~> 1.7.1'               # Replacement for curl commands to grab contacts from google
+gem 'rest-client', '~> 1.8.0'               # Replacement for curl commands to grab contacts from google
 gem 'active_link_to', '~> 1.0.2'
 gem 'jquery-datatables-rails', '~> 2.2.3'
 gem "select2-rails", '3.5.9.1'
@@ -49,6 +49,9 @@ gem 'momentjs-rails', '>= 2.8.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 3.1.3'
 gem 'maskedinput-rails', '~> 1.3.1.0'                 # mask used for phone formatting
 gem 'cocoon', '~> 1.2.6'                              # Unobtrusive nested forms handling
+gem 'htmltoword', '~> 0.2.0'
+gem 'docx_replace', '~> 1.0.3'
+gem 'docx', '~> 0.2.07', :require => ["docx"]
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

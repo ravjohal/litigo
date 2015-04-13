@@ -1,94 +1,104 @@
 <ul class="nav nav-sidebar">
-    <li>
-        <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
-    </li>
-    <li>
-        <%= active_link_to "Client Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cev', :id => 'client-intake', :active => [['client_intakes'], []] %>
-    </li>
-    <li id="first">
-      <%= active_link_to " Case Management", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions', 'insurances', 'task_lists'], []] %>
-      <ul>
-          <li><%= active_link_to "CASES", cases_path, :class_active => 'enabled' %></li>
-          <li><%= active_link_to "CONTACTS", contacts_path, :class_active => 'enabled' %></li>
-          <% if @case.present? %>
-          <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled' %></li>
-          <% else %>
-          <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled', :active => [['tasks', 'task_lists'], []] %></li>
-          <% end %>
-          <li><%= active_link_to "DOCUMENTS", documents_path, :class_active => 'enabled' %></li>
-          <li><%= active_link_to "NOTES", notes_path, :class_active => 'enabled' %></li>
-          <li><%= active_link_to "CALENDAR", events_path, :class_active => 'enabled' %></li>
-      </ul>
-    </li>
-    <!-- <li>
+  <li>
+    <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
+  </li>
+  <li>
+    <%= active_link_to "Client Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cev', :id => 'client-intake', :active => [['client_intakes'], []] %>
+  </li>
+  <li id="first">
+    <%= active_link_to " Case Management", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions', 'insurances', 'task_lists', 'templates'], []] %>
+    <ul>
+      <li><%= active_link_to "CASES", cases_path, :class_active => 'enabled' %></li>
+      <li><%= active_link_to "CONTACTS", contacts_path, :class_active => 'enabled' %></li>
+      <% if @case.present? %>
+        <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled' %></li>
+      <% else %>
+        <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled', :active => [['tasks', 'task_lists'], []] %></li>
+      <% end %>
+      <li><%= active_link_to "DOCUMENTS", documents_path, :class_active => 'enabled', :active => [['documents', 'templates'], []] %></li>
+      <li><%= active_link_to "NOTES", notes_path, :class_active => 'enabled' %></li>
+      <li><%= active_link_to "CALENDAR", events_path, :class_active => 'enabled' %></li>
+    </ul>
+  </li>
+  <!-- <li>
         <%= link_to "CASE EVALUATION", user_path(current_user), :class => 'nav-sidebar__cev', :id => 'CaseEval' %>
     </li> -->
-     <li>
-      <%= active_link_to "Time & Expense", time_entries_path, :class_active => 'tester',:class => 'nav-sidebar__time', :active => [['time_entries']], :id => 'time_entries' %>
-    </li>
-     <!-- <li>
+  <li>
+    <%= active_link_to "Time & Expense", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__time', :active => [['time_entries']], :id => 'time_entries' %>
+  </li>
+  <!-- <li>
       <%= active_link_to " Billing", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
     </li> -->
-    <li id="second">
-  
-      <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
+  <li id="second">
+
+    <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
     <ul>
-        <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LEGAL INSIGHTS<sup>  Beta</sup><% end %></li>
-       <!-- 
+      <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LEGAL INSIGHTS<sup> Beta</sup>
+        <% end %></li>
+      <!--
         <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li> -->
     </ul>
+  </li>
+  <li>
+    <%= active_link_to "Profile", users_profile_path, :class_active => 'tester', :class => 'nav-sidebar__prf', :active => [['registrations']], :id => 'profile' %>
+  </li>
+  <div class="timer">
+    <li style="border-top: 1px solid #4B6172; border-bottom: 1px solid #33424E;">
+      <div style="width: 230px;" class="clock-block">
+        <!--<input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>-->
+        <div id="clock" class="timer-clock">00:00:00</div>
+      </div>
+      <ul class="timer-controls">
+        <li><a href='#' id="startstopbutton" type="button" title="Start/Stop Timer">
+          <span id="control" class='glyphicon glyphicon-play'></span></a></li>
+        <li>
+          <a href='#' id="resetbutton" type="button" title="Reset Timer"><span class='glyphicon glyphicon-repeat'></span></a>
+        </li>
+        <li>
+          <a href='#' id="assignbutton" type="button" title="Assign to Case"><span class='glyphicon glyphicon-paperclip'></span></a>
+        </li>
+        <textarea id="output" style="height: 90%; display:none;"></textarea>
+      </ul>
     </li>
-    <li>
-      <%= active_link_to "Profile", users_profile_path, :class_active => 'tester',:class => 'nav-sidebar__prf', :active => [['registrations']], :id => 'profile' %>
-    </li> 
-        <div class="timer">
-        <li style="border-top: 1px solid #4B6172; border-bottom: 1px solid #33424E;">
-        <div style="width: 230px;" class="clock-block">
-            <!--<input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>-->
-            <div id="clock" class="timer-clock">00:00:00</div>
-            </div>
-            <ul class="timer-controls">
-            <li><a href='#' id="startstopbutton" type="button" title="Start/Stop Timer">
-                      <span id="control" class='glyphicon glyphicon-play'></span></a></li>
-            <li><a href='#' id="resetbutton" type="button" title="Reset Timer"><span class='glyphicon glyphicon-repeat'></span></a></li>
-            <li><a href='#' id="assignbutton" type="button" title="Assign to Case"><span class='glyphicon glyphicon-paperclip'></span></a></li>
-            <textarea id="output" style="height: 90%; display:none;"></textarea>
-          </ul>
-            </li>
-        </div>
-    </ul>
+  </div>
+</ul>
 
 <script>
-$(function() {
+  $(function () {
     var isFirstOpen = 0;
     var isSecondOpen = 0;
-    if(document.location && document.location.toString().indexOf('/cases') > 0) { isFirstOpen = 1; }
-    if(document.location && document.location.toString().indexOf('/notes') > 0) { isFirstOpen = 1; }
-    if(document.location && document.location.toString().indexOf('/documents') > 0) { isFirstOpen = 1; }
-    if(document.location && document.location.toString().indexOf('/tasks') > 0) { isFirstOpen = 1; }
-    if(document.location && document.location.toString().indexOf('/task_lists') > 0) { isFirstOpen = 1; }
-    if(document.location && document.location.toString().indexOf('/events') > 0) { isFirstOpen = 1; }
-    if(document.location && document.location.toString().indexOf('/contacts') > 0) { isFirstOpen = 1; }
+    var menu_items = [];
+    $('#first ul li a').each(function () {
+      menu_items.push($(this).attr('href').replace('/', ''))
+    });
+    var path = '<%= controller_name %>';
+    var internal_menu_items = ['task_lists', 'templates']
+    menu_items = $.merge(menu_items, internal_menu_items);
+    if (document.location && $.inArray(path, menu_items) >= 0) {
+      isFirstOpen = 1;
+    }
 
-    if(document.location && document.location.toString().indexOf('/insights') > 0) { isSecondOpen = 1; }
+    if (document.location && document.location.toString().indexOf('/insights') > 0) {
+      isSecondOpen = 1;
+    }
 
     $('#first').collapsible('default-open', {
-        contentOpen: isFirstOpen
+      contentOpen: isFirstOpen
     });
     $('#second').collapsible('default-open', {
-        contentOpen: isSecondOpen
+      contentOpen: isSecondOpen
     });
-    $('#case-management').click(function(e){
+    $('#case-management').click(function (e) {
       e.preventDefault();
       $('.nav-sidebar > li > a').removeClass('tester');
       $(e.currentTarget).addClass('tester');
     });
-    $('#legal-insights').click(function(e){
+    $('#legal-insights').click(function (e) {
       e.preventDefault();
       $('.nav-sidebar > li > a').removeClass('tester');
       $(e.currentTarget).addClass('tester');
     })
-});
+  });
 </script>
 <script>
   var flagclock = 'stopped';
@@ -99,16 +109,16 @@ $(function() {
       url: "/get_timer",
       type: 'PUT',
       dataType: "json",
-      success: function(data){
+      success: function (data) {
         var timer = data.timer;
-        if(timer != null) {
-          if(timer.flagclock == 'stopped') {
+        if (timer != null) {
+          if (timer.flagclock == 'stopped') {
             time_diff = timer.stop_time - timer.init_timer_time - timer.stop_duration;
             $('#clock').stopwatch({startTime: time_diff});
             $('#clock').text(timer.clock_value);
-          } else if(timer.flagclock == 'running') {
+          } else if (timer.flagclock == 'running') {
             time_diff = new Date().getTime() - parseInt(timer.init_timer_time);
-            if(timer.stop_duration != null){
+            if (timer.stop_duration != null) {
               time_diff = time_diff - parseInt(timer.stop_duration)
             }
             flagclock = timer.flagclock;
@@ -126,25 +136,25 @@ $(function() {
   $('#startstopbutton').click(function (e) {
     e.preventDefault();
     var data;
-    if($('#clock').text() == '00:00:00' && flagclock == 'stopped') {
+    if ($('#clock').text() == '00:00:00' && flagclock == 'stopped') {
       flagclock = 'running';
       var current_time = new Date().getTime()
-      data = {timer: {init_timer_time: current_time, flagclock: flagclock }}
+      data = {timer: {init_timer_time: current_time, flagclock: flagclock}}
       $('#clock').stopwatch().stopwatch('reset');
-    } else if($('#clock').text() != '00:00:00' && flagclock == 'stopped'){
+    } else if ($('#clock').text() != '00:00:00' && flagclock == 'stopped') {
       flagclock = 'running';
-      data = {timer: {start_time: new Date().getTime(), flagclock: flagclock }}
+      data = {timer: {start_time: new Date().getTime(), flagclock: flagclock}}
     } else if (flagclock == 'running') {
       flagclock = 'stopped';
       data = {timer: {stop_time: new Date().getTime(), flagclock: flagclock}}
     }
     data.timer.clock_value = $('#clock').text();
     $.ajax({
-          url: "/set_timer",
-          type: 'PUT',
-          dataType: "json",
-          data: data
-        });
+      url: "/set_timer",
+      type: 'PUT',
+      dataType: "json",
+      data: data
+    });
     $('#clock').stopwatch().stopwatch('toggle');
     $('#control').toggleClass('glyphicon-play glyphicon-stop');
   });
@@ -169,14 +179,14 @@ $(function() {
     var modal = $("#modal-window");
     var hours_val = $('#clock').text().split(':');
     modal.html("<%= escape_javascript(render 'time_entries/form') %>");
-    $('#time_entry_hours').val(hours_val[0]+'.'+hours_val[1]);
+    $('#time_entry_hours').val(hours_val[0] + '.' + hours_val[1]);
     modal.modal('show');
   })
 
 
 </script>
 <script type='text/javascript'>
-  $(function() {
+  $(function () {
     $('#startstopbutton').tipsy({gravity: 'sw', fade: true, delayIn: 1000});
     $('#resetbutton').tipsy({gravity: 's', fade: true, delayIn: 1000});
     $('#assignbutton').tipsy({gravity: 's', fade: true, delayIn: 1000});

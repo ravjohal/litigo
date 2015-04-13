@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   after_initialize :set_show_onboarding, :if => :new_record?
 
   has_many :documents
+  has_many :templates
   has_many :tasks
 
   has_many :user_events, :dependent => :destroy

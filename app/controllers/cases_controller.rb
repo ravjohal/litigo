@@ -1,7 +1,7 @@
 class CasesController < ApplicationController
-  respond_to :html, :json
+  respond_to :html, :json, :docx
   before_filter :authenticate_user!
-  before_action :set_case, only: [:show, :edit, :update, :destroy]
+  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc]
   before_action :set_user, :set_firm
 
   def index
@@ -106,6 +106,10 @@ class CasesController < ApplicationController
     @last_3_notes = @case.notes.last(3).reverse
     puts "LAST THREE NOTES " + @last_3_notes.to_s
     restrict_access("cases") if @case.firm_id != @firm.id
+  end
+
+  def doc
+    respond_with(@case, filename: "my_file.docx")
   end
 
   private

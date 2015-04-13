@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  resources :templates
+  patch 'templates/update_html/:id' => 'templates#update_html'
   resources :time_entries, :except => [:new]
   get 'time_entries/expenses/:id' => 'time_entries#expenses', as: :time_entries_expenses
   get 'time_entries/expenses/:id/edit' => 'time_entries#edit_expenses', as: :edit_time_entries_expenses
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
   get '/client_intakes_contacts/:id' => 'client_intakes#show_lead_contact', as: :lead_contact
   get '/client_intakes_contacts/:id/edit' => 'client_intakes#edit_lead_contact', as: :edit_lead_contact
   get '/client_intakes_documents/:id' => 'client_intakes#lead_documents', as: :lead_documents
+  get '/client_intakes/:id/acceptance_letter' => 'client_intakes#acceptance_letter', as: :acceptance_letter
 
   resources :tasks
   post 'tasks/complete_task' => 'tasks#complete_task'
@@ -94,6 +97,7 @@ Rails.application.routes.draw do
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
   get "accept_case/:id" => 'client_intakes#accept_case', as: :accept_case
+  get 'cases/:id/doc' => 'cases#doc', as: :doc
 
   resources :medicals do
     resources :injuries

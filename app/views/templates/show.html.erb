@@ -1,0 +1,166 @@
+<div class="text-center">
+  <table id="info-table4">
+    <tbody>
+    <tr>
+      <td id="left-td"><%= link_to request.referrer,  :class => 'dark' do %><span id="back" title="Back" class="glyphicon glyphicon-arrow-left"></span> <% end %>
+      </td>
+      <td>
+      </td>
+      <td>
+      </td>
+      <td><%= link_to @template, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Document"></span> <% end %>
+        <%= link_to 'Edit', edit_template_path(@template), :class => 'dark' %></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<table id="info-table3">
+  <thead>
+  <tr class="right-top">
+    <td colspan="3" class="gray-back">
+      <strong>Template</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="right">
+      <strong>Uploaded By:</strong>
+    </td>
+    <td colspan="2">
+      <%= @template.user.name %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Creation Date:</strong>
+    </td>
+    <td colspan="2">
+      <%= @template.created_at.strftime("%m/%d/%y %I:%M %p")%>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Description:</strong>
+    </td >
+    <td colspan="2">
+      <%= @template.description %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>File:</strong>
+    </td>
+    <td colspan="2">
+      <div class="doc-link">
+        <% if @template.file %>
+          <%= link_to @template.file.file.filename, @template.file_url %>
+        <% end %>
+      </div>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+<a href="#" class="action-button" id="save_template_html">Save Template</a>
+<a href="#" class="action-button" id="cancel_selection">Cancel</a>
+<div class="template_block">
+  <div class="template_var_list">
+    <div id="accordion">
+      <h3>Case</h3>
+      <div>
+        <ul>
+          <li data-val="case_name">Case name</li>
+          <li data-val="case_number">Case number</li>
+          <li>Case medical bills</li>
+        </ul>
+      </div>
+      <h3>Lead</h3>
+      <div>
+        <ul>
+          <li data-val="lead_first_name">Lead first name</li>
+          <li data-val="lead_last_name">Lead last name</li>
+          <li data-val="lead_address">Lead address</li>
+          <li data-val="lead_city">Lead city</li>
+          <li>Lead state</li>
+          <li>Lead zip code</li>
+          <li>Lead email</li>
+          <li>Lead phone</li>
+        </ul>
+      </div>
+      <h3>Attorney</h3>
+      <div>
+       <ul>
+         <li>Attorney first name</li>
+         <li>Attorney last name</li>
+         <li>Attorney initials</li>
+         <li>Attorney email</li>
+       </ul>
+      </div>
+      <h3>Firm</h3>
+      <div>
+        <ul>
+          <li>Firm name</li>
+          <li>Firm phone</li>
+          <li>Firm fax</li>
+          <li>Firm address</li>
+          <li>Firm state</li>
+          <li>Firm zip</li>
+          <li>Firm tenant</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="template_html"><%= raw @template.html_content %></div>
+</div>
+<script type='text/javascript'>
+  $(document).ready(function() {
+    var selected = false;
+    $( "#accordion" ).accordion();
+    $('#back').tipsy({gravity: 'n', fade: true});
+    $('.template_html').on('mouseup', function(e){
+      if($(e.target).attr('class') != 'selection'){
+        var sel = window.getSelection ? window.getSelection() : document.selection.createRange();
+        var offset = sel.getRangeAt(0).endOffset - sel.getRangeAt(0).startOffset
+        if(sel.getRangeAt && offset != 0){
+          var range = sel.getRangeAt(0);
+          var newNode = document.createElement("span");
+          newNode.setAttribute('class', 'selection');
+          sel.removeAllRanges();
+          range.surroundContents(newNode);
+          selected = true;
+        }
+      } else {
+        $(e.target).contents().unwrap('span');
+        selected = false;
+      }
+    });
+    $('#accordion ul li').click(function (e) {
+      var val = $(this).attr('data-val');
+      console.log(val);
+      if(selected){
+        $('.selection').html(val).toggleClass('selection insertion');
+      }
+    });
+    $('#save_template_html').click(function (e) {
+      e.preventDefault();
+      $.ajax({
+            url: "/templates/update_html/<%= @template.id %>",
+            type: 'PATCH',
+            dataType: "json",
+            data: {template: {html_content: $('.template_html').html()}},
+            success: function(data){
+              $('.alert').remove();
+              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+              setTimeout(function() {$('.alert-success').fadeOut();}, 2000);
+            }
+          });
+    });
+    $('#cancel_selection').click(function (e) {
+      e.preventDefault();
+      $('.template_html').html('<%= raw @template.html_content %>');
+    });
+  });
+
+</script>

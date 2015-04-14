@@ -51,7 +51,9 @@
                         </div>
                     </div>
                 </div>
-                
+                 <button href="#menu-toggle2" class="side-menu-toggle" id="menu-toggle"> 
+                          <span class="glyphicon glyphicon-align-justify"></span>        
+                    </button>
             </div>
         </div>
          <% else %>
@@ -73,7 +75,7 @@
   </script>
 
   <script>
-    $('#menu-toggle').click(function(e) {
+    $('#menu-toggle2, #menu-toggle').click(function(e) {
         e.preventDefault();
         $('#wrapper').toggleClass("toggled");
         $('.glyphicon glyphicon-align-justify').toggleClass("glyphicon glyphicon-align-justify");

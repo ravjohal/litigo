@@ -814,16 +814,18 @@ width: 230px;
   }
 
 .side-menu-toggled {
+  transition: all 0.4s ease 0s;
   position: fixed;
   top: 16px;
   left: 10px;
   z-index: 1003;
   border: none;
+  border-radius: 3px;
   margin-left: 0px;
   width: 30px;
   height: 30px;
   color: white;
-  background-color: transparent;
+  background-color: #495A6F;
     &:hover {
     color: white;
     background-color: #606060;

@@ -7,10 +7,10 @@
         </ul>
   </div>
 
-<div style="width:500px; margin-bottom: 50px;">
-  <h3><%= f.input :name, label: false, :class => 'table-input'%></h3>      
+<div style="width:500px;">
+  <h3>Template Name</h3>      
         <div class="form-group">
-            
+            	<%= f.input :name, label: false, :class => 'table-input'%>
         </div>
    <div class="form-group">
            <strong>Author:</strong> <%= @template.user.name %>
@@ -24,7 +24,17 @@
                     <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
               <% end %>
     </div>
-</div>
+     <div class="form-group">
+          <strong>Document Descrition:</strong> <%= f.text_area :description, label: false, :class => 'table-input'%>
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+			     <div class="form-group" style="margin-bottom: 30px;">
+			          <strong>Instructions: 1.)</strong>  Select a word you want to replace with a dynamic input <strong>2.)</strong> Select the information from the left to replace the selection <strong>3.)</strong> Click 'Update'
+			    </div>
+		</div>
+	</div>
 
 <% end %>
 <div class="template_block">
@@ -35,9 +45,9 @@
       <h3>Case</h3>
       <div>
         <ul>
-          <li data-val="case_name"><a href="#">Case name</a> </li>
-          <li data-val="case_number">Case number</li>
-          <li>Case medical bills</li>
+          <li data-val="case_name">Case Name</li>
+          <li data-val="case_number">Case Number</li>
+          <li>Total Medical Bills</li>
         </ul>
       </div>
       <h3>Client Intakes</h3>

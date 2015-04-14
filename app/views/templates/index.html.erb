@@ -1,7 +1,29 @@
-<%= render 'shared/doc_tabs' %>
-<div style="margin-top: 70px; padding-top: 51px;">
+<div class="case-header">
+      <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Templates</strong>
+          </div>
+                <div id="case-buttons">
+                      <ul>
+                            <li><%= render 'new_button' %></li>
+                      </ul>
+                </div>
+      </div>
+                <strong style="color: white;">A</strong>
+
+          <div class="container-fluid" style="padding: 0;">
+                <div class="row">
+                      <div class="col-md-12">
+                                <%= render 'shared/doc_tabs' %>
+                      </div>
+                </div>
+          </div>
+  </div>
+  <div class="incase-tabs-gap">
+  </div>
+  <div style="margin-top: 70px;">
   <h3>My Templates</h3>
-</div>
+  </div>
 <div class="table-responsive">
   <table id="templates" class="table table-striped">
     <thead class="user-table-head">
@@ -42,12 +64,4 @@
       sDom: 'Rfrtlip'
     });
   });
-</script>
-
-<script>
-  $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
-  });
-
 </script>

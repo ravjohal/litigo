@@ -1,6 +1,137 @@
-<h1>Editing Template</h1>
+<%= simple_form_for(@template) do |f| %>
+  <%= f.error_notification %>
+ <div id="tasklist-buttons">
+      <ul>
+          <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Finished' %></li>
+          <li><%= link_to 'Cancel', template_path(@template), :class => 'dark-right' %></li>
+        </ul>
+  </div>
 
-<%= render 'form' %>
+<div style="width:500px; margin-bottom: 50px;">
+  <h3><%= f.input :name, label: false, :class => 'table-input'%></h3>      
+        <div class="form-group">
+            
+        </div>
+   <div class="form-group">
+           <strong>Author:</strong> <%= @template.user.name %>
+  </div>
+    <div class="form-group">
+          <strong>Creation Date:</strong> <%= @template.created_at.strftime("%m/%d/%y %I:%M %p")%>
+    </div>
+    <div class="form-group">
+          <strong>Word Template:</strong> 
+              <% if @template.file %>
+                    <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
+              <% end %>
+    </div>
+</div>
 
-<%= link_to 'Show', @template %> |
-<%= link_to 'Back', templates_path %>
+<% end %>
+<div class="template_block">
+<div class="row">
+        <div class="col-md-4">
+              <div class="template_var_list">
+    <div id="accordion">
+      <h3>Case</h3>
+      <div>
+        <ul>
+          <li data-val="case_name"><a href="#">Case name</a> </li>
+          <li data-val="case_number">Case number</li>
+          <li>Case medical bills</li>
+        </ul>
+      </div>
+      <h3>Client Intakes</h3>
+      <div>
+        <ul>
+          <li data-val="lead_first_name">Lead first name</li>
+          <li data-val="lead_last_name">Lead last name</li>
+          <li data-val="lead_address">Lead address</li>
+          <li data-val="lead_city">Lead city</li>
+          <li>Lead state</li>
+          <li>Lead zip code</li>
+          <li>Lead email</li>
+          <li>Lead phone</li>
+        </ul>
+      </div>
+      <h3>Firm Attorneys</h3>
+      <div>
+       <ul>
+         <li>Attorney first name</li>
+         <li>Attorney last name</li>
+         <li>Attorney initials</li>
+         <li>Attorney email</li>
+       </ul>
+      </div>
+      <h3>Firm Information</h3>
+      <div>
+        <ul>
+          <li>Firm name</li>
+          <li>Firm phone</li>
+          <li>Firm fax</li>
+          <li>Firm address</li>
+          <li>Firm state</li>
+          <li>Firm zip</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="temp_buttons">
+        <a href="#" id="cancel_selection">Clear Selection</a>
+        <a href="#" class="action-button" id="save_template_html">Update</a>
+  </div>
+        </div>
+        <div class="col-md-8">
+              <div class="template_html"><%= raw @template.html_content %></div>
+        </div>
+</div> <!-- row end -->
+</div>
+<script type='text/javascript'>
+  $(document).ready(function() {
+    var selected = false;
+    $( "#accordion" ).accordion();
+    $('#back').tipsy({gravity: 'n', fade: true});
+    $('.template_html').on('mouseup', function(e){
+      if($(e.target).attr('class') != 'selection'){
+        var sel = window.getSelection ? window.getSelection() : document.selection.createRange();
+        var offset = sel.getRangeAt(0).endOffset - sel.getRangeAt(0).startOffset
+        if(sel.getRangeAt && offset != 0){
+          var range = sel.getRangeAt(0);
+          var newNode = document.createElement("span");
+          newNode.setAttribute('class', 'selection');
+          sel.removeAllRanges();
+          range.surroundContents(newNode);
+          selected = true;
+        }
+      } else {
+        $(e.target).contents().unwrap('span');
+        selected = false;
+      }
+    });
+    $('#accordion ul li').click(function (e) {
+      var val = $(this).attr('data-val');
+      console.log(val);
+      if(selected){
+        $('.selection').html(val).toggleClass('selection insertion');
+      }
+    });
+    $('#save_template_html').click(function (e) {
+      e.preventDefault();
+      $.ajax({
+            url: "/templates/update_html/<%= @template.id %>",
+            type: 'PATCH',
+            dataType: "json",
+            data: {template: {html_content: $('.template_html').html()}},
+            success: function(data){
+              $('.alert').remove();
+              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+              setTimeout(function() {$('.alert-success').fadeOut();}, 2000);
+            }
+          });
+    });
+    $('#cancel_selection').click(function (e) {
+      e.preventDefault();
+      $('.template_html').html('<%= raw @template.html_content %>');
+    });
+  });
+
+</script>

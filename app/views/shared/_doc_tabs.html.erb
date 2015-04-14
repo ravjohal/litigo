@@ -1,24 +1,6 @@
-<div class="case-header">
-  <div class="case-title">
-    <div style="font-size: 24px;">
-      <strong>Documents & Templates</strong>
-    </div>
-    <div id="case-buttons">
-      <ul>
-        <li><%= render 'new_button' %></li>
-      </ul>
-    </div>
-  </div>
+<ul id="nav-tabs-custom" role="tablist">
+        <li <%= is_active('documents') %>><%= active_link_to 'DOCUMENTS', documents_path, :class_active => 'navigated',  :active => [['documents'], []] %></li>
+         <li><%= active_link_to 'TEMPLATES', templates_path, :class_active => 'navigated',  :active => [['templates'], []] %></li>
+</ul>
 
-  <div class="container-fluid" style="padding: 0;">
-    <div class="row">
-      <div class="col-md-12">
-        <ul id="nav-tabs-custom" role="tablist">
-          <li <%= is_active('documents') %>><%= active_link_to 'DOCUMENTS', documents_path, :class_active => 'navigated',  :active => [['documents'], []] %></li>
-          <li><%= active_link_to 'TEMPLATES', templates_path, :class_active => 'navigated',  :active => [['templates'], []] %></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 

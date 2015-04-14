@@ -5,12 +5,12 @@
   display: inline-block;
 }
 .template_var_list {
-  width: 29%;
-  float: left;
+  width: 100%;
 }
 .template_html {
-  width: 70%;
-  float: right;
+  border: 1px solid #E8ECF1;
+  background-color: #fff;
+  padding: 40px 60px;
   cursor: pointer;
 }
 .selection {
@@ -19,7 +19,38 @@
 .insertion {
   background-color: #ffff00;
 }
-#save_template_html, #cancel_selection {
-  float: right;
-  margin: 5px;
+#save_template_html {
+  font-size: 14px;
+}
+
+.template_block {
+  padding-bottom: 50px;
+}
+
+#cancel_selection {
+  margin-top: 12px;
+  margin-right: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #aaa;
+  &:hover {
+  color: black;
+  }
+}
+
+.temp_buttons {
+  margin: 40px auto;
+  text-align: center;
+}
+
+.ui-state-active {
+    border-top: 1px solid #aaaaaa/*{borderColorActive}*/;
+}
+
+.ui-accordion .ui-accordion-header {
+  outline:none;
+  margin: 0;
+}
+.ui-helper-reset {
+  
 }

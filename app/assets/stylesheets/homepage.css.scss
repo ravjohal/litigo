@@ -838,6 +838,7 @@ width: 230px;
 
 @media (min-width: 768px) {
 .side-menu-toggle {
+  display: none;
   transition: all 0.4s ease 0s;
   border: none;
   margin-left: 0px;

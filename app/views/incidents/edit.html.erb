@@ -39,18 +39,10 @@
         <strong>Date of Incident:</strong>
         </td>
         <td>
-        <%= f.date_field :incident_date, :class => 'table-input' %>
+                <%= f.date_field :incident_date, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
-        <tr>
-        <td class="right">
-        <strong>Date of Injury:</strong>
-        </td>
-        <td>
-                   <%= f.date_field :injury_date, :class => 'table-input' %>
-        </td>
-      </tr>
         <td class="right">
           <strong>Defendant Liability:</strong>
         </td>
@@ -153,6 +145,22 @@
         </td>
       </tr>
       <% elsif @case.subtype == 'Medical Malpractice' %>
+      <tr>
+        <td class="right">
+        <strong>Discovery Date:</strong>
+        </td>
+        <td>
+              <%= f.date_field :discovery_date, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+        <strong>Date of final treatment with negligent provider:</strong>
+        </td>
+        <td>
+             <%= f.date_field :final_treatment_date, :class => 'table-input' %> 
+        </td>
+      </tr>
        <tr>
         <td class="right">
           <strong>Notice of Suit given within 1 year of Injury?</strong>
@@ -181,14 +189,6 @@
               <%= f.radio_button :foreign_object, 'false' %>
               <%= f.label :foreign_object, 'No', :value => 'No'%>
           </div>
-        </td>
-      </tr>
-       <tr>
-        <td class="right" style="text-indent: 30px;">
-          If yes, date of discovery
-        </td>
-        <td>
-          <%= f.date_field :discovery_date, :class => 'table-input' %>
         </td>
       </tr>
       <% elsif @case.subtype == 'Product Liability' %>

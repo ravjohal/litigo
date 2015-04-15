@@ -43,15 +43,6 @@
       </tr>
       <tr>
         <td class="right">
-        <strong>Date of Injury:</strong>
-        </td>
-        <td>
-        <%= @incident.injury_date %>
-          
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
           <strong>Defendant Liability:</strong>
         </td>
         <td>
@@ -119,6 +110,22 @@
       <% elsif @case.subtype == 'Medical Malpractice' %>
         <tr>
         <td class="right">
+        <strong>Discovery Date:</strong>
+        </td>
+        <td>
+            <%= @incident.discovery_date %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+        <strong>Date of final treatment with negligent provider:</strong>
+        </td>
+        <td>
+             <%= @incident.final_treatment_date %> 
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
           <strong>Notice of Suit given within 1 year of Injury?</strong>
         </td>
         <td>
@@ -131,14 +138,6 @@
         </td>
         <td>
           <%= boolean_as_yesno @incident.foreign_object %>
-        </td>
-      </tr>
-       <tr>
-        <td class="right" style="text-indent: 30px;">
-          If yes, date of discovery
-        </td>
-        <td>
-          <%= @incident.discovery_date %>
         </td>
       </tr>
       <% elsif @case.subtype == 'Product Liability' %>

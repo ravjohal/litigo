@@ -1,19 +1,9 @@
-<div class="text-center">
-  <table id="info-table4">
-    <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td><%= link_to request.referrer,  :class => 'dark' do %><span id="back" title="Back" class="glyphicon glyphicon-arrow-left"></span> <% end %>
-      </td>
-      <td><%= link_to @template, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Document"></span> <% end %>
-        <%= link_to 'Edit', edit_template_path(@template), :class => 'dark' %></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+ <div id="index-buttons">
+              <ul>
+                  <li><%= link_to 'Edit', edit_template_path(@template), :class => 'dark' %></li>
+                  <li><%= render 'new_button' %></li>
+              </ul>
+  </div>
 
 <div style="width:500px; margin-bottom: 30px;">
   <h3><%= @template.name %></h3>      

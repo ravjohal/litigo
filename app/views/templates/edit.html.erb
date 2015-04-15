@@ -1,10 +1,10 @@
 <%= simple_form_for(@template) do |f| %>
   <%= f.error_notification %>
- <div id="tasklist-buttons">
-      <ul>
-          <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Finished' %></li>
-          <li><%= link_to 'Cancel', template_path(@template), :class => 'dark-right' %></li>
-        </ul>
+   <div id="template-buttons">
+              <ul>
+                  <li><%= link_to @template, :class => 'trash-icon', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Document"></span> <% end %></li>
+                  <li><%= f.submit :class => 'sub2-small', :value => 'Finished' %></li>
+              </ul>
   </div>
 
 <div style="width:500px;">
@@ -31,7 +31,7 @@
     <div class="row">
         <div class="col-md-12">
 			     <div class="form-group" style="margin-bottom: 30px;">
-			          <strong>Instructions: 1.)</strong>  Select a word you want to replace with a dynamic input <strong>2.)</strong> Select the information from the left to replace the selection <strong>3.)</strong> Click 'Update'
+			          <strong>Instructions: 1.)</strong>  Select a word you want to replace with a dynamic input <strong>2.)</strong> Select the information from the left to replace the selection <div style="text-indent: 90px;"><strong>3.)</strong> Click 'Save' <strong>4.)</strong> Click 'Finished' in the upper right</div>
 			    </div>
 		</div>
 	</div>
@@ -42,8 +42,8 @@
         <div class="col-md-4">
               <div class="template_var_list">
     <div id="accordion">
-      <h3>Case</h3>
-      <div>
+      <h3>Case Information</h3>
+      <div class="accordion-list">
         <ul>
           <li data-val="case_name">Case Name</li>
           <li data-val="case_number">Case Number</li>
@@ -51,7 +51,7 @@
         </ul>
       </div>
       <h3>Client Intakes</h3>
-      <div>
+      <div class="accordion-list">
         <ul>
           <li data-val="lead_first_name">Lead first name</li>
           <li data-val="lead_last_name">Lead last name</li>
@@ -64,7 +64,7 @@
         </ul>
       </div>
       <h3>Firm Attorneys</h3>
-      <div>
+      <div class="accordion-list">
        <ul>
          <li>Attorney first name</li>
          <li>Attorney last name</li>
@@ -73,7 +73,7 @@
        </ul>
       </div>
       <h3>Firm Information</h3>
-      <div>
+      <div class="accordion-list">
         <ul>
           <li>Firm name</li>
           <li>Firm phone</li>
@@ -87,7 +87,7 @@
   </div>
   <div class="temp_buttons">
         <a href="#" id="cancel_selection">Clear Selection</a>
-        <a href="#" class="action-button" id="save_template_html">Update</a>
+        <a href="#" class="action-button" id="save_template_html">Save</a>
   </div>
         </div>
         <div class="col-md-8">
@@ -143,5 +143,9 @@
       $('.template_html').html('<%= raw @template.html_content %>');
     });
   });
-
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#delete').tipsy({gravity: 'n', fade: true});
+  });
 </script>

@@ -11,12 +11,14 @@
   border: 1px solid #E8ECF1;
   background-color: #fff;
   padding: 40px 60px;
+  min-height: 825px;
 }
 .template_html {
   border: 1px solid #E8ECF1;
   background-color: #fff;
   padding: 40px 60px;
   cursor: pointer;
+  min-height: 825px;
 }
 .selection {
   background-color: red;
@@ -56,6 +58,38 @@
   outline:none;
   margin: 0;
 }
-.ui-helper-reset {
-  
+
+.accordion-list ul {
+list-style-type: none;
+} 
+.accordion-list li {
+margin-bottom: 5px;
+  color: #428bca !important;
+&:hover{
+  cursor: pointer;
+  color: #313A45 !important;
+  text-decoration: underline;
+}
+} 
+
+.ui-state-active {
+background: #e6e6e6/*{bgColorDefault}*/ url(/assets/jquery-ui/ui-bg_glass_75_e6e6e6_1x400.png)/*{bgImgUrlDefault}*/ 50%/*{bgDefaultXPos}*/ 50%/*{bgDefaultYPos}*/ repeat-x/*{bgDefaultRepeat}*/;
+}
+
+#template-buttons{
+  float: right;
+  margin-right: 20px;
+  margin-top: -18px;
+}
+#template-buttons ul{
+  padding: 0 0;
+  margin: 0;
+}
+#template-buttons li{
+  display: inline;
+}
+
+.trash-icon {
+ color: #323A45; 
+ font-size: 24px;
 }

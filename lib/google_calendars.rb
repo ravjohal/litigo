@@ -130,6 +130,7 @@ class GoogleCalendars
 
       client = init_client(user)
       calendar = client.discovered_api('calendar', 'v3')
+      p "event: #{event.inspect}\n"
       p "google_event: #{google_event}"
       create_google_event = client.execute(
           :api_method => calendar.events.insert,

@@ -34,6 +34,7 @@ class GoogleCalendars
     end
     
     def get_events(user, calendar_id)
+      p "calendar_id: #{calendar_id}"
       cal = GoogleCalendar.find_by(google_id: calendar_id, user_id: user.id)
       cal.update(active: true) if cal
       client = init_client(user)
@@ -42,11 +43,13 @@ class GoogleCalendars
           :api_method => calendar.events.list,
           :parameters => {'calendarId' => calendar_id},
           :headers => {'Content-Type' => 'application/json'})
+      response = JSON.parse(google_calendar.response.env[:body])
+      p "response: #{response}"
       while true
         events = google_calendar.data.items
         events.each do |e|
           google_event = Event.where(google_id: e['id'], owner_id: user.id).first_or_initialize
-          p "google_event: #{google_event}\n\n\n"
+          p "google_event: #{google_event.inspect}\n\n\n"
           next if google_event.etag.present? && google_event.etag == e['etag']
           google_event.update(
               {

@@ -62,16 +62,17 @@ class EventsController < ApplicationController
     @event = Event.new(event_params.except!('contacts'))
     @event.owner = @user
     @event.firm = @firm
-    @event.save
-    attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
-    if attendee_emails.present?
-      attendee_emails.each do |attendee_email|
-        contact = Contact.find_or_create_by(email: attendee_email)
-        event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
+    if @event.save
+      attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
+      if attendee_emails.present?
+        attendee_emails.each do |attendee_email|
+          contact = Contact.find_or_create_by(email: attendee_email)
+          event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
+        end
       end
-    end
 
-    GoogleCalendars.create_event(@user, @event) if !params[:event][:google_calendar_id].empty?
+      GoogleCalendars.create_event(@user, @event) if !params[:event][:google_calendar_id].empty?
+    end
     message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
     respond_to do |format|
       format.html {redirect_to request.referrer , :flash => message}
@@ -126,7 +127,8 @@ class EventsController < ApplicationController
   end
 
   def refresh_google_events
-    calendar_ids = current_user.google_calendars.where(active: true).map {|calendar| calendar.google_id}.compact
+    # calendar_ids = current_user.google_calendars.where(active: true).map {|calendar| calendar.google_id}.compact
+    calendar_ids = current_user.google_calendars.where(active: true).pluck(:google_id)
     calendar_ids.each do |google_id|
       GoogleCalendars.get_events(current_user, google_id) if google_id.present?
     end

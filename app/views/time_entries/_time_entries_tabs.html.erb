@@ -1,5 +1,5 @@
 <ul id="nav-tabs-custom" role="tablist">
-  <li <%= is_active('time_entries') %>><%= active_link_to 'TIME ENTRIES', time_entry_path(@time_entry), :class_active => 'navigated',  :active => [['time_entries'], ['show', 'edit']] %></li>
-  <li><%= active_link_to 'EXPENSES', time_entries_expenses_path(@time_entry) , :class_active => 'navigated' %></li>
-  <li><%= active_link_to 'INVOICES', time_entries_invoices_path(@time_entry) , :class_active => 'navigated' %></li>
+  <li <%= is_active('time_entries') %>><%= active_link_to 'TIME ENTRIES', time_entries_path, :class_active => 'navigated',  :active => [['time_entries'], ['index']] %></li>
+  <li><%= active_link_to 'EXPENSES', '#' , :class_active => 'navigated' %></li>
+  <li><%= active_link_to 'INVOICES', '#' , :class_active => 'navigated' %></li>
 </ul>

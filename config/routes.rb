@@ -3,11 +3,10 @@ Rails.application.routes.draw do
 
   resources :templates
   patch 'templates/update_html/:id' => 'templates#update_html'
+  get 'templates/generate_document/:id' => 'templates#generate_document', as: :generate_document
+  post 'templates_get_model' => 'templates#get_model', as: :get_model
+
   resources :time_entries, :except => [:new]
-  get 'time_entries/expenses/:id' => 'time_entries#expenses', as: :time_entries_expenses
-  get 'time_entries/expenses/:id/edit' => 'time_entries#edit_expenses', as: :edit_time_entries_expenses
-  get 'time_entries/invoices/:id' => 'time_entries#invoices', as: :time_entries_invoices
-  get 'time_entries/invoices/:id/edit' => 'time_entries#edit_invoices', as: :edit_time_entries_invoices
   put 'set_timer' => 'time_entries#set_timer', as: :set_timer
   put 'get_timer' => 'time_entries#get_timer', as: :get_timer
   put 'reset_timer' => 'time_entries#reset_timer', as: :reset_timer

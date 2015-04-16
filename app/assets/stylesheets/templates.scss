@@ -12,6 +12,10 @@
   background-color: #fff;
   padding: 40px 60px;
   min-height: 825px;
+  .-page-break {
+    height: 1px;
+    background: black;
+  }
 }
 .template_html {
   border: 1px solid #E8ECF1;
@@ -19,6 +23,10 @@
   padding: 40px 60px;
   cursor: pointer;
   min-height: 825px;
+  .-page-break {
+    height: 1px;
+    background: black;
+  }
 }
 .selection {
   background-color: red;
@@ -90,6 +98,26 @@ background: #e6e6e6/*{bgColorDefault}*/ url(/assets/jquery-ui/ui-bg_glass_75_e6e
 }
 
 .trash-icon {
- color: #323A45; 
- font-size: 24px;
+  color: #323A45;
+  font-size: 24px;
+}
+.ui-helper-reset {
+  
+}
+
+.document-list {
+  #document-list-bnt {
+    display: block;
+  }
+  .dropdown-menu {
+    margin-top: 0px!important;
+  }
+}
+.template_name {
+  text-align: center;
+}
+ul.template-list {
+  li {
+    cursor: pointer;
+  }
 }

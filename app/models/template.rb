@@ -1,10 +1,111 @@
 class Template < ActiveRecord::Base
+  require 'zip'
+
+  FIELDS_LIST = [
+      {
+          name: 'Client Intakes',
+          attrs: [
+              {name: 'Lead name', attr: 'name', model: 'Lead'},
+              {name: 'Lead First name', attr: 'first_name', model: 'Lead'},
+              {name: 'Lead Last name', attr: 'last_name', model: 'Lead'},
+              {name: 'Lead Address', attr: 'address', model: 'Lead'},
+              {name: 'Lead City', attr: 'city', model: 'Lead'},
+              {name: 'Lead State', attr: 'state', model: 'Lead'},
+              {name: 'Lead Zip code', attr: 'zip_code', model: 'Lead'},
+              {name: 'Date of Intake', attr: 'create_at', model: 'Lead'}
+          ]
+      },
+      {
+          name: 'Case Information',
+          attrs: [
+              {name: 'Case Open date', attr: 'create_at', model: 'Case'},
+              {name: 'Primary injury', attr: 'primary_injury.injury_type', model: 'Case'},
+              {name: 'Primary region', attr: 'primary_injury.region', model: 'Case'},
+              {name: 'Lost Earnings', attr: 'medical.earnings_lost', model: 'Case'},
+              {name: 'Total Medical Bills', attr: 'medical_bills', model: 'Case'},
+              {name: 'Policy Limits', attr: 'insurance.policy_limit', model: 'Case'},
+              {name: 'Insurance provider', attr: 'insurance.insurance_provider', model: 'Case'},
+              {name: 'Suit Filed Date', attr: 'filed_suit_date', model: 'Case'},
+              {name: 'Statute of Limitations', attr: 'incident.statute_of_limitations', model: 'Case'},
+              {name: 'Docket Number', attr: 'number', model: 'Case'},
+              {name: 'Court', attr: 'court', model: 'Case'},
+              {name: 'County', attr: 'county', model: 'Case'},
+              {name: 'State', attr: 'state', model: 'Case'}
+          ]
+      },
+      {
+          name: 'Incident',
+          attrs: [
+              {name: 'Date of Incident', attr: 'incident.incident_date', model: 'Case'},
+              {name: 'Date of injury', attr: 'incident.injury_date', model: 'Case'},
+              {name: 'Property Damage ($)', attr: 'incident.property_damage', model: 'Case'}
+          ]
+      },
+      {
+          name: 'Contacts',
+          attrs: [
+              {name: 'Prefix', attr: 'prefix', model: 'Custom'},
+              {name: 'Contact Name', attr: 'name', model: 'Contact'},
+              {name: 'Contact Firm Name', attr: 'first_name', model: 'Contact'},
+              {name: 'Contact Last Name', attr: 'last_name', model: 'Contact'},
+              {name: 'Contact Email', attr: 'email', model: 'Contact'},
+              {name: 'Contact Phone', attr: 'phone', model: 'Contact'},
+              {name: 'Address', attr: 'address', model: 'Contact'},
+              {name: 'City', attr: 'city', model: 'Contact'},
+              {name: 'City', attr: 'city', model: 'Contact'},
+              {name: 'State', attr: 'state', model: 'Contact'},
+              {name: 'Zip code', attr: 'zip_code', model: 'Contact'},
+              {name: 'Company Name', attr: 'company.name', model: 'Contact'},
+              {name: 'Company Address', attr: 'company.address', model: 'Contact'},
+              {name: 'Company City', attr: 'company.city', model: 'Contact'},
+              {name: 'Company State', attr: 'company.state', model: 'Contact'},
+              {name: 'Company Zip', attr: 'company.zip_code', model: 'Contact'} #TODO create Company model that has_many contacts
+          ]
+      },
+      {
+          name: 'Firm Information',
+          attrs: [
+              {name: 'Firm contact', attr: 'contacts_names', model: 'Firm'}, #TODO add contacts_names method to Firm model to collect all firm contacts names
+              {name: 'Firm Phone Number', attr: 'phone', model: 'Firm'},
+              {name: 'Firm Name', attr: 'name', model: 'Firm'},
+              {name: 'Firm Address', attr: 'address', model: 'Firm'},
+              {name: 'Firm City', attr: 'city', model: 'Firm'}, #TODO add city to firms table
+              {name: 'Firm State', attr: 'state', model: 'Firm'},
+              {name: 'Firm Zip code', attr: 'zip', model: 'Firm'} #TODO rename zip to zip_code
+          ]
+      },
+      {
+          name: 'Dates',
+          attrs: [
+              {name: 'Date Today', attr: 'today', model: 'Date'},
+              {name: 'Date Field', attr: 'input_date', model: 'Custom'},
+              {name: 'Date of Intake', attr: 'create_at', model: 'Lead'},
+              {name: 'Date of incident', attr: 'incident.incident_date', model: 'Case'},
+              {name: 'Statute of Limitations', attr: 'incident.statute_of_limitations', model: 'Case'},
+              {name: 'Suit Filed Date', attr: 'filed_suit_date', model: 'Case'},
+              {name: 'Hearing Date', attr: 'hearing_date', model: 'Case'},
+              {name: 'Date of final Treatment', attr: 'medical.final_treatment_date', model: 'Case'},
+              {name: 'Case Open Date', attr: 'created_at', model: 'Case'},
+              {name: 'Case closed date', attr: 'closing_date', model: 'Case'},
+          ]
+      },
+  ]
+
   belongs_to :user
   belongs_to :firm
 
   mount_uploader :file, DocumentUploader
 
   before_destroy :clean_s3
+
+  def valid_zip?
+    zip = Zip::File.open(file.path)
+    true
+  rescue StandardError
+    false
+  ensure
+    zip.close if zip
+  end
 
   private
   def clean_s3

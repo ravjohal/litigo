@@ -67,7 +67,7 @@ class EventsController < ApplicationController
     if attendee_emails.present?
       attendee_emails.each do |attendee_email|
         contact = Contact.find_or_create_by(email: attendee_email)
-        event_attendee = EventAttendee.create({event_id: @event.id, creator: true, contact_id: contact.id})
+        event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
       end
     end
 

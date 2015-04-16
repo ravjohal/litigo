@@ -147,7 +147,7 @@
           <strong>Prefix:</strong>
         </td>
         <td>
-            <%= f.text_field :prefix, :class => 'table-input' %>
+            <%= f.select :prefix, ['Mr.', 'Mrs.','Ms.', 'Dr.'], label: false, :class => 'table-input', :include_blank => '' %>
         </td>
         <td class="right">
           <strong>First Name:</strong>
@@ -210,7 +210,7 @@
               <%= f.check_box :minor, label: false %>
         </td>
          <td class="right">
-          <strong>Date of Major:</strong>
+          <strong>Majority Date:</strong>
         </td>
         <td>
             <%= f.date_field :major_date, :class => 'table-input' %>

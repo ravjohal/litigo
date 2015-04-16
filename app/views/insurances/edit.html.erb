@@ -41,13 +41,13 @@
               <strong>Insurance Type</strong>
           </td>
           <td class="right">
-              <strong>Policy Limit</strong>
+              <strong>Policy Holder</strong>
           </td>
            <td class="right">
               <strong>Claim Number</strong>
           </td>
           <td class="right">
-              <strong>Policy Holder</strong>
+              <strong>Policy Limit</strong>
           </td>
       </tr>
       <tr>
@@ -58,14 +58,21 @@
               <%= f.text_field :insurance_type, :class => 'table-input' %>
           </td>
           <td>
-              <%= f.text_field :policy_limit, :class => 'table-input' %>
+              <%= f.text_field :policy_holder, :class => 'table-input' %>
           </td>
           <td>
               <%= f.text_field :claim_number, :class => 'table-input' %>
           </td>
           <td>
-              <%= f.text_field :policy_holder, :class => 'table-input' %>
+              <%= f.text_field :policy_limit, :class => 'table-input' %>
         </td>
+      </tr>
+         <tr>
+          <td colspan="4" style="text-align: left;">
+              <strong>Total Policy Limits</strong>
+          </td>
+
+          <td>
       </tr>
   </tbody>
 </table>

@@ -42,47 +42,14 @@
         <div class="col-md-4">
               <div class="template_var_list">
     <div id="accordion">
-      <h3>Case Information</h3>
-      <div class="accordion-list">
+      <% ActiveRecord::Base::Template::FIELDS_LIST.each do |hash| %>
+        <h3><%= hash[:name] %></h3>
         <ul>
-          <li data-val="case_name">Case Name</li>
-          <li data-val="case_number">Case Number</li>
-          <li>Total Medical Bills</li>
+          <% hash[:attrs].each do |attr| %>
+            <li data-model="<%= attr[:model] %>" data-attr="<%= attr[:attr] %>"><%= attr[:name] %></li>
+          <% end %>
         </ul>
-      </div>
-      <h3>Client Intakes</h3>
-      <div class="accordion-list">
-        <ul>
-          <li data-val="lead_first_name">Lead first name</li>
-          <li data-val="lead_last_name">Lead last name</li>
-          <li data-val="lead_address">Lead address</li>
-          <li data-val="lead_city">Lead city</li>
-          <li>Lead state</li>
-          <li>Lead zip code</li>
-          <li>Lead email</li>
-          <li>Lead phone</li>
-        </ul>
-      </div>
-      <h3>Firm Attorneys</h3>
-      <div class="accordion-list">
-       <ul>
-         <li>Attorney first name</li>
-         <li>Attorney last name</li>
-         <li>Attorney initials</li>
-         <li>Attorney email</li>
-       </ul>
-      </div>
-      <h3>Firm Information</h3>
-      <div class="accordion-list">
-        <ul>
-          <li>Firm name</li>
-          <li>Firm phone</li>
-          <li>Firm fax</li>
-          <li>Firm address</li>
-          <li>Firm state</li>
-          <li>Firm zip</li>
-        </ul>
-      </div>
+      <% end %>
     </div>
   </div>
   <div class="temp_buttons">
@@ -118,10 +85,18 @@
       }
     });
     $('#accordion ul li').click(function (e) {
-      var val = $(this).attr('data-val');
-      console.log(val);
       if(selected){
-        $('.selection').html(val).toggleClass('selection insertion');
+        var model = $(this).attr('data-model');
+        var attr = $(this).attr('data-attr');
+        var list = $(".insertion").map(function(){
+          if ($(this).attr("data-number") != undefined) {
+            return parseInt($(this).attr("data-number"));
+          }
+        }).get();
+        var number = list.length == 0 ? 1 : Math.max.apply(Math,list) + 1;
+        var selection = $('.selection');
+        selection.attr('data-model', model).attr('data-attr', attr).attr('data-number', number);
+        selection.html(number+'.'+model+'_'+attr).toggleClass('selection insertion');
       }
     });
     $('#save_template_html').click(function (e) {
@@ -140,7 +115,7 @@
     });
     $('#cancel_selection').click(function (e) {
       e.preventDefault();
-      $('.template_html').html('<%= raw @template.html_content %>');
+      $('.template_html').html('<%= @template.html_content.html_safe %>');
     });
   });
 </script>

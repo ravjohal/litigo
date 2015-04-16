@@ -104,4 +104,8 @@ class Case < ActiveRecord::Base
       end
     end
   end
+
+  def primary_injury
+    self.medical.injuries.where(primary_injury: true).try(:first) if self.medical.present? && self.medical.injuries.present?
+  end
 end

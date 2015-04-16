@@ -1,0 +1,33 @@
+<div class="template-model"></div>
+<div class="template_block">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div class="template_html_show"><%= raw @html %></div>
+    </div>
+    <div class="col-md-1"></div>
+  </div> <!-- row end -->
+</div>
+<script>
+  $(document).ready(function () {
+    $('#input_date').datepicker();
+    $('.insertion').click(function (e) {
+      var data = $(this).data();
+      var model = data.model;
+      var self = this;
+      $.ajax({
+            url: "/templates_get_model",
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            success: function(data){
+              if(model == 'Firm'){
+                $(self).html(data.html);
+              } else {
+                $('.template-model').html(data.html);
+              }
+            }
+          });
+    })
+  });
+</script>

@@ -224,7 +224,10 @@ class GoogleCalendars
   private
 
     def init_client(user)
-      client = Google::APIClient.new
+      client = Google::APIClient.new(
+          :application_name => 'Litigo',
+          :application_version => '1.0.0'
+      )
       fresh_token(user)
       client.authorization.access_token = user.oauth_token
       client.authorization.client_id = ENV["GOOGLE_CLIENT_ID"]

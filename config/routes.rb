@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :companies
   resources :templates
   patch 'templates/update_html/:id' => 'templates#update_html'
   get 'templates/generate_document/:id' => 'templates#generate_document', as: :generate_document

@@ -99,7 +99,9 @@ class MedicalsController < ApplicationController
       params.require(:medical).permit(:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, 
                                   :length_of_treatment_unit, :injury_summary, :medical_summary, :final_treatment_date,
                                   :earnings_lost, :treatment_gap, :injections, :hospitalization, :hospital_stay_length, 
-                                  :hospital_stay_length_unit, :data, :doctor_type, :treatment_type, :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
+                                  :hospital_stay_length_unit, :data, :doctor_type, :treatment_type,
+                                  :medical_lines_attributes => [:provider, :date_of_service, :billed_amount, :paid_amount, :id], 
+                                  :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
                                   :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture, :ongoing_pain,
                                   :stitches, :future_surgery, :future_medicals, :id], :doctor_type => [], :treatment_type => [])

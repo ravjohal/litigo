@@ -9,5 +9,5 @@ class Medical < ActiveRecord::Base
 	belongs_to :firm
 
 	accepts_nested_attributes_for :injuries, :allow_destroy => true
-	accepts_nested_attributes_for :medical_bills, :allow_destroy => true
+	accepts_nested_attributes_for :medical_bills, :reject_if => :all_blank, :allow_destroy => true
 end

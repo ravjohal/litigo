@@ -9,19 +9,6 @@
   display: inline!important;
 }
 
-.radio-bloc {
-  display: table;
-  width: 100%;
-  input[type='radio'] {
-    float: left;
-  }
-  label {
-    text-align: left;
-    width: auto;
-    margin-left: 20px;
-  }
-}
-
 .links {
   margin-bottom: 50px;
 }
@@ -32,7 +19,7 @@
 
 
 
-.task_lists_table {
+.medical_bills_table {
   width: 100%;
     tr:nth-child(odd){
     vertical-align: top;
@@ -42,40 +29,29 @@
  }
 }
 
-.task_lists_table > tbody > tr > td:nth-of-type(1) {
+.medical_bills_table > tbody > tr > td:nth-of-type(1) {
   width: 23%;
 }
-.task_lists_table > tbody > tr > td:nth-of-type(2) {
+.medical_bills_table > tbody > tr > td:nth-of-type(2) {
   width: 40%;
 }
-.task_lists_table > tbody > tr > td:nth-of-type(3) {
+.medical_bills_table > tbody > tr > td:nth-of-type(3) {
   width: 7%;
 }
-.task_lists_table > tbody > tr > td:nth-of-type(4) {
+.medical_bills_table > tbody > tr > td:nth-of-type(4) {
   width: 15%;
 }
-.task_lists_table > tbody > tr > td:nth-of-type(5) {
+.medical_bills_table > tbody > tr > td:nth-of-type(5) {
  width: 15%;
 }
 
-.task_lists_table > tbody > tr > td:nth-of-type(6) {
+.medical_bills_table > tbody > tr > td:nth-of-type(6) {
 width: 5%;
 }
-.task_lists_table > tbody > tr > td:nth-of-type(7) {
+.medical_bills_table > tbody > tr > td:nth-of-type(7) {
  width: 5%;
 }
 
-#tasklist-buttons{
-  float: right;
-  margin-right: 10px;
-}
-#tasklist-buttons ul{
-  padding: 0 0;
-  margin: 5px 0 0 0;
-}
-#tasklist-buttons li{
-  display: inline;
-}
 
 .imports > tbody > tr > td:nth-of-type(5) {
  text-align: center;
@@ -93,30 +69,5 @@ width: 5%;
   }
   span.help-inline {
     color: red;
-  }
-}
-.new_task_list {
-  .controls {
-    background-color: #F2F2F2;
-  }
-}
-.nested-fields {
-  .controls {
-    background-color: #F9F9F9;
-  }
-}
-.case-selector {
-  display: none;
-  margin-left: 35px;
-  margin-bottom: 10px;
-}
-.case-creator {
-  .radio + .radio {
-    margin-top: 10px;
-  }
-  .radio {
-    input {
-      margin-left: -95px;
-    }
   }
 }

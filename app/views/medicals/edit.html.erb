@@ -194,7 +194,7 @@
 
 <div class="clearfix"></div>
   <div id="medical-bills">
-    <table class="task-nested-table table-striped task_lists_table" style="margin-top: 40px; margin-bottom:40px;">
+    <table class="medical-nested-table table-striped medical_bills_table" style="margin-top: 40px; margin-bottom:40px;">
       <thead class="user-table-head">
         <th>Provider</th>
         <th>Company</th>
@@ -212,62 +212,6 @@
       </tbody>
     </table>
   </div>
-
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="5" class="gray-back">
-      <strong>Medical Bills</strong>
-      <%= link_to root_path, :class => 'pull-right', :id => 'add-action', :title => 'Add Row' do %>Add Provider <span class="glyphicon glyphicon-plus" data-tip="Add Provider"></span> <% end %>
-    </td>
-  </tr>
-</thead>
-  <tbody>
-      <tr>
-          <td class="right">
-              <strong>Provider</strong>
-          </td>
-          <td class="right">
-              <strong>Company</strong>
-          </td>
-          <td class="right">
-              <strong>Date of Service</strong>
-          </td>
-           <td class="right">
-              <strong>Billed Amount</strong>
-          </td>
-          <td class="right">
-              <strong>Paid Amount</strong>
-          </td>
-      </tr>
-      <tr>
-          <td>
-              
-          </td>
-          <td>
-              
-          </td>
-          <td>
-              
-          </td>
-          <td>
-              
-          </td>
-          <td>
-              
-        </td>
-      </tr>
-         <tr>
-          <td colspan="3" style="text-align: left;">
-              <strong>Total Medical Bills</strong>
-          </td>
-          <td>
-          </td>
-          <td>
-          </td>
-      </tr>
-  </tbody>
-</table>
 
 <% @injuries.each.with_index(1) do |injury,index| %>
   <%= f.simple_fields_for :injuries, injury do |i| %>

@@ -14,11 +14,11 @@
     <td>
       <%= f.select :paid_amount, label: false %>
     </td>
-    <td class="task-icon">
-      <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".task-draft-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span id="depend" class="glyphicon glyphicon-plus" title="Add Dependent Task"></span><% end %>
+    <td class="medical-icon">
+      <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".medical-bill-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span id="depend" class="glyphicon glyphicon-plus" title="Add Dependent Task"></span><% end %>
     </td>
-    <td class="task-icon">
-      <%= link_to_remove_association f, class: 'dark-small remove_task_drafts' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Task"></span><% end %>
+    <td class="medical-icon">
+      <%= link_to_remove_association f, class: 'dark-small remove_medical_bills' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Task"></span><% end %>
     </td>
     <%= f.simple_fields_for :children do |child| %>
       <%= render 'child_fields', :f => child %>
@@ -27,19 +27,8 @@
 
 <script type="text/javascript" charset="utf-8">
   $("select").select2();
-  $('#task_drafts').on('cocoon:after-remove', function(e, insertedItem) {
+  $('#medical_bills').on('cocoon:after-remove', function(e, insertedItem) {
 
-  });
-  $('.conjunction-select').on('change', function (e) {
-    var after_options = "<%= raw TaskDraft::ANCHOR_DATE.map {|option| "<option value='#{option}'>#{option}</option>"}.join('') %>";
-    var before_options = "<%= raw TaskDraft::BEFORE_ANCHOR_DATE.map {|option| "<option value='#{option}'>#{option}</option>"}.join('') %>";
-    var raw_name = $(this).attr('name').replace('[conjunction]','');
-    var anchor_select = $("select[name='"+raw_name+"[anchor_date]']")
-    if($(this).val() == 'before') {
-      anchor_select.empty().append(before_options);
-    } else if($(this).val() == 'after') {
-      anchor_select.empty().append(after_options);
-    }
   });
 </script>
 <script type='text/javascript'>

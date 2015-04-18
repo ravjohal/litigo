@@ -22,14 +22,18 @@
                     <%= f.text_field :author, :readonly => true, :value => @user.name, label: false, :class => 'table-input'%>
                 </td>
                 </tr>
-                <tr>
-                  <td>
-                      <strong>Document Type:</strong>
-                  </td>
-                  <td>
-                      <%= f.text_field :doc_type, label: false, :class => 'table-input' %>
-                  </td>
-                </tr>
+                  <tr>
+                      <td>
+                        <strong>Case:</strong>
+                      </td>
+                      <td>
+                        <% if !@case %>
+                                <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "doc_select"}, label: false, :class => 'table-input' %>
+                        <% else %>
+                                <%= @case.name %>
+                        <% end %>
+                      </td>
+                      </tr>
                 <tr>
                     <td>
                         <strong>Documnent:</strong>
@@ -47,15 +51,13 @@
                     </td>
                 </tr>
                       <tr>
-                      <td>
-                        <strong>Case:</strong>
-                      </td>
-                      <td>
-                        <% if !@case %>
-                                <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "doc_select"}, label: false, :class => 'table-input' %>
-                        <% end %>
-                      </td>
-                      </tr>
+                  <td>
+                      <strong>Document Type:</strong>
+                  </td>
+                  <td>
+                      <%= f.text_field :doc_type, label: false, :class => 'table-input' %>
+                  </td>
+                </tr>
             <% if @lead.present? %>
               <%= f.hidden_field :lead_id, :value => @lead.id %>
             <% end %>

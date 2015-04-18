@@ -18,6 +18,8 @@ class Template < ActiveRecord::Base
       {
           name: 'Case Information',
           attrs: [
+              {name: 'Case Number', attr: 'case_number', model: 'Case'},
+              {name: 'Case Name', attr: 'name', model: 'Case'},
               {name: 'Case Open date', attr: 'created_at', model: 'Case'},
               {name: 'Primary injury', attr: 'primary_injury.injury_type', model: 'Case'},
               {name: 'Primary region', attr: 'primary_injury.region', model: 'Case'},

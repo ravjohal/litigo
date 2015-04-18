@@ -119,6 +119,14 @@
                     <%= f.text_field :email, label: false, :class => 'table-input', placeholder: 'john.smith@gmail.com'  %>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <strong>Company:</strong>
+                </td>
+                <td>
+                    <%= f.association :company, label: false, :class => 'table-input', :include_blank => true %>
+                </td>
+            </tr>
         </tbody>
       </table>
      <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>

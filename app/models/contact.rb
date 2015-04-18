@@ -9,6 +9,7 @@ class Contact < ActiveRecord::Base
   belongs_to :event
   belongs_to :user_account, class_name: 'User'
   belongs_to :firm
+  belongs_to :company
 
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts

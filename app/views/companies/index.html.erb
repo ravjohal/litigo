@@ -1,41 +1,57 @@
-<p id="notice"><%= notice %></p>
+<div class="case-header">
+          <div class="case-title">
+                <div style="font-size: 24px;">
+                      <strong>Contacts</strong>
+                </div>
+                <div id="case-buttons">
+                      <ul>
+                          <li><%= render 'new_button' %></li>
+                      </ul>
+                </div>
+          </div>
+                      <strong style="color: white;">A</strong>
+          <div class="container-fluid" style="padding: 0;">
+                  <div class="row">
+                            <div class="col-md-12">
+                                    <%= render 'shared/contact_tabs' %>
+                            </div>   
+                  </div>
+          </div>
+  </div>
+<div class="incase-tabs-gap">
+</div>
+<div style="margin-top: 70px;">
+<h3>Companies</h3>
+</div>
 
-<h1>Listing Companies</h1>
-
-<table>
-  <thead>
+<div class="table-responsive">
+    <table id="tasks" class="table table-striped table-hover rowlink contacts_table">
+      <thead class="user-table-head">
     <tr>
-      <th>Name</th>
-      <th>Address</th>
-      <th>Phone</th>
-      <th>Fax</th>
-      <th>State</th>
-      <th>City</th>
-      <th>Zipcode</th>
+      <th>Company Name</th>
+      <th>Location</th>
       <th>Website</th>
-      <th colspan="3"></th>
+      <th>Phone</th>
     </tr>
   </thead>
 
   <tbody>
     <% @companies.each do |company| %>
-      <tr>
-        <td><%= company.name %></td>
-        <td><%= company.address %></td>
-        <td><%= company.phone %></td>
-        <td><%= company.fax %></td>
-        <td><%= company.state %></td>
-        <td><%= company.city %></td>
-        <td><%= company.zipcode %></td>
-        <td><%= company.website %></td>
-        <td><%= link_to 'Show', company %></td>
-        <td><%= link_to 'Edit', edit_company_path(company) %></td>
-        <td><%= link_to 'Destroy', company, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr data-id="<%= company.id %>">
+        <td  style="vertical-align: middle;"><%= link_to "#{company.name}", company_path(company) %></td>
+        <td><div class="larger-td" style='padding-top:12px;'><%= company.city + ', ' + company.state %></div></td>
+        <td  style="vertical-align: middle;"><%= company.website %></td>
+        <td  style="vertical-align: middle;"><%= company.phone %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
+</div>
 <%= link_to 'New Company', new_company_path %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
+  });
+</script>

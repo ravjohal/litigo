@@ -192,6 +192,28 @@
 </table>
 </div>
 
+<div class="clearfix"></div>
+  <div id="tasks">
+    <table class="task-nested-table table-striped task_lists_table" style="margin-top: 40px; margin-bottom:40px;">
+      <thead class="user-table-head">
+        <th>Provider</th>
+        <th>Company</th>
+        <th>Date of Service</th>
+        <th>Billed Amount</th>
+        <th>Paid Amount</th>
+        <th></th>
+        <th></th>
+      </thead>
+      <!--TODO: Figure out how to put a form into a show page -->
+      <tbody id="medical_lines">
+      <%= simple_fields_for :medical_lines do |medical_line| %>
+        <%= render 'medical_line_fields', :f => medical_line %>
+      <% end %>
+      <%= link_to_add_association 'ADD MEDICAL LINE', f, :medical_lines, :"data-association-insertion-node" => "tbody#medical_lines", :"data-association-insertion-method" => "append", :partial => "medical_line_fields", class: 'action-button' %>
+      </tbody>
+    </table>
+  </div>
+
 <table id="info-table3">
 <thead>
   <tr class="right-top">

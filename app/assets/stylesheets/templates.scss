@@ -33,6 +33,9 @@
 }
 .insertion {
   background-color: #ffff00;
+  ins {
+    text-decoration: initial;
+  }
 }
 #save_template_html {
   font-size: 14px;

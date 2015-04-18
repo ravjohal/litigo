@@ -3,8 +3,9 @@ class TemplatesController < ApplicationController
   require 'nokogiri'
   include ActionView::Helpers::FormTagHelper
   include ActionView::Helpers::FormOptionsHelper
+  respond_to :docx
   before_filter :authenticate_user!
-  before_action :set_template, only: [:show, :edit, :update, :update_html, :destroy, :generate_document]
+  before_action :set_template, only: [:show, :edit, :update, :update_html, :destroy, :generate_document, :generate_docx]
   before_action :set_user, :set_firm
 
   # GET /templates
@@ -50,7 +51,7 @@ class TemplatesController < ApplicationController
         @template.html_content = content
         respond_to do |format|
           if @template.save
-            format.html { redirect_to @template, notice: 'Template was successfully created.' }
+            format.html { redirect_to template_path(@template), notice: 'Template was successfully created.' }
             format.json { render :show, status: :created, location: @template }
           else
             format.html { render :new }
@@ -96,37 +97,70 @@ class TemplatesController < ApplicationController
     @html.css(".insertion").each do |span|
       if span['data-model'] == 'Date' && span['data-attr'] == 'today'
         span.inner_html = Date.today.strftime("%B %d, %Y")
-        span['class'] = ''
-      elsif span['data-model'] == 'Custom' && span['data-attr'] == 'prefix'
-        span.inner_html = select_tag('prefix', options_for_select(['Mr.', 'Mrs.', 'Ms.', 'Miss.'], 'Mr.'), class: 'custom_input')
+      elsif span['data-attr'] == 'prefix'
+        span.inner_html = "#{select_tag('prefix', options_for_select(['Mr.', 'Mrs.', 'Ms.', 'Miss.']), :prompt => "Prefix", class: 'custom_input')} <ins></ins>"
       elsif span['data-model'] == 'Custom' && span['data-attr'] == 'input_date'
-        span.inner_html = text_field_tag 'input_date', nil, class: 'custom_input'
+        span.inner_html = "#{text_field_tag 'input_date', nil, class: 'custom_input'} <ins></ins>"
       elsif span['data-model'] == 'Firm'
         if span['data-attr'] == 'contacts_names'
-          span['class'] = ''
-          span.inner_html = select_tag('firm_contacts_names', options_for_select(@firm.users.map {|user| [user.name.present? ? user.name : user.email, user.name]}), class: 'custom_input firm_contacts_names')
+          span.inner_html = "#{select_tag('firm_contacts_names', options_for_select(@firm.users.map {|user| [user.name.present? ? user.name : user.email, user.name]}), :prompt => "Firm contact", class: 'custom_input firm_contacts_names')} <ins></ins>"
         else
           span.inner_html = @firm.send(span['data-attr'])
-          span['class'] = ''
         end
-      else
-        span['class'] = ''
-        models = span['data-model'].classify.constantize.where(firm_id: @firm.id)
-        span.inner_html = select_tag("#{span['data-model'].downcase}_#{span['data-attr']}", options_for_select(models.map {|model| [model.name, model.id]}), class: "model_input #{span['data-model'].downcase}_#{span['data-attr']}")
+      elsif span['data-model'] == 'Contact'
+        contacts = @firm.contacts
+        span.inner_html = "#{select_tag("contact_#{span['data-attr']}", options_for_select(contacts.map {|contact| [contact.name.present? ? contact.name : contact.email, try_attr(contact, span['data-attr'].split('.'))]}), :prompt => "Contact #{span['data-attr']}", class: "custom_input contact_#{span['data-attr']}")} <ins></ins>"
       end
     end
     @html.to_html
   end
-  
-  def get_model
-    model_name = params[:model]
-    if model_name == 'Firm'
-      html = "#{@firm.send(params[:attr])}"
-    else
-      models = model_name.classify.constantize.where(firm_id: @firm.id)
-      html = select_tag('model', options_for_select(models.map {|model| [model.name.present? ? model.name : model.email, model.name]}), class: 'model_input')
+
+  def get_case
+    affair = Case.find(params[:id])
+    case_attrs = params[:case_attrs]
+    lead_attrs = params[:lead_attrs]
+    case_attrs_values = {}
+    lead_attrs_values = {}
+    case_attrs.each do |attr|
+      result = try_attr(affair, attr.split('.'))
+      case_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
     end
-    render :json => { success: true, html: html }
+    lead_attrs.each do |attr|
+      result = try_attr(affair.try(:lead), attr.split('.'))
+      lead_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+    end
+    render :json => { success: true, case_attrs_values: case_attrs_values, lead_attrs_values: lead_attrs_values }
+  end
+
+  def get_addressee
+    contact = Contact.find(params[:id])
+    addressee_attrs = params[:addressee_attrs]
+    addressee_attrs_values = {}
+    addressee_attrs.each do |attr|
+      result = try_attr(contact, attr.split('.'))
+      addressee_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+    end
+    render :json => { success: true, addressee_attrs_values: addressee_attrs_values }
+  end
+
+  def generate_docx
+    template_document = TemplateDocument.create({
+                                                    html_content: params[:html],
+                                                    name: @template.name.downcase.tr(' ', '_'),
+                                                    template_id: @template.id,
+                                                    firm_id: @firm.id,
+                                                    user_id: @user.id
+                                                })
+    render :json => { success: true, id: template_document.id }
+  end
+
+  def download_docx
+    template_document = TemplateDocument.find(params[:id])
+    respond_to do |format|
+      format.docx do
+        render docx: 'download_docx', content: template_document.html_content
+      end
+    end
   end
 
   # DELETE /templates/1
@@ -148,5 +182,19 @@ class TemplatesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def template_params
       params.require(:template).permit(:file, :description, :name, :html_content)
+    end
+
+    def try_attr(model, attrs)
+      if attrs.present? && model.present?
+        attrs_array = attrs
+        result = model.try(attrs_array.shift.to_sym)
+        if attrs_array.present?
+          try_attr(result, attrs_array)
+        else
+          return result
+        end
+      else
+        return nil
+      end
     end
 end

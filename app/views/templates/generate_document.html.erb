@@ -1,4 +1,12 @@
-<div class="template-model"></div>
+<div class="template-model">
+  <%= label_tag :case, 'Select Case' %>
+  <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Please select" %> <br/>
+  <%= label_tag :addressee, 'Addressee' %>
+  <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :id).map {|contact| [contact.first_name.present? ? "#{contact.first_name} #{contact.last_name}" : contact.email, contact.id] }), :prompt => "Please select"  %>
+</div>
+<div>
+  <%= link_to 'Create DOCX', '#', id: 'create_docx', class: 'action-button' %>
+</div>
 <div class="template_block">
   <div class="row">
     <div class="col-md-1"></div>
@@ -10,24 +18,82 @@
 </div>
 <script>
   $(document).ready(function () {
+    $('.template-model select').select2();
     $('#input_date').datepicker();
-    $('.insertion').click(function (e) {
-      var data = $(this).data();
-      var model = data.model;
-      var self = this;
+    $('#case').change(function (e) {
+      var case_id = $(this).val();
+      var case_attrs = [];
+      var lead_attrs = [];
+      $('.insertion[data-model="Case"], .insertion[data-model="Lead"]').each(function () {
+        var model = $(this).data('model');
+        var attr = $(this).data('attr');
+        if(model == 'Case') {
+          case_attrs.push(attr);
+        } else if(model == 'Lead') {
+          lead_attrs.push(attr);
+        }
+      });
+
+      if (case_attrs.length || lead_attrs.length){
+        $.ajax({
+          url: "/templates_get_case",
+          type: 'POST',
+          dataType: "json",
+          data: {case_attrs: case_attrs, lead_attrs: lead_attrs, id: case_id},
+          success: function(data){
+            $.each(data.case_attrs_values, function (attr, val) {
+              $('.insertion[data-model="Case"][data-attr="'+attr+'"]').html(val);
+            });
+            $.each(data.lead_attrs_values, function (attr, val) {
+              $('.insertion[data-model="Lead"][data-attr="'+attr+'"]').html(val);
+            });
+          }
+        });
+      }
+    });
+    $('#addressee').change(function (e) {
+      var addressee_id = $(this).val();
+      var addressee_attrs = [];
+      $('.insertion[data-model="Addressee"]').each(function () {
+        var attr = $(this).data('attr');
+        addressee_attrs.push(attr);
+      });
+
+      if (addressee_attrs.length){
+        $.ajax({
+          url: "/templates_get_addressee",
+          type: 'POST',
+          dataType: "json",
+          data: {addressee_attrs: addressee_attrs, id: addressee_id},
+          success: function(data){
+            console.log(data.addressee_attrs_values);
+            $.each(data.addressee_attrs_values, function (attr, val) {
+              $('.insertion[data-model="Addressee"][data-attr="'+attr+'"]').html(val);
+            });
+          }
+        });
+      }
+    });
+    $('.custom_input').change(function (e) {
+      var val = $(this).val();
+      $(this).parent().find('ins').html(val);
+    });
+
+    $('#create_docx').click(function (e) {
+      e.preventDefault();
+      var html = $('.template_html_show').clone();
+      html.find("select").remove();
+      html.find('.insertion').removeClass();
       $.ajax({
-            url: "/templates_get_model",
+            url: "/templates_generate_docx",
             type: 'POST',
             dataType: "json",
-            data: data,
+            data: {id: <%= @template.id %>, html: html[0].innerHTML},
             success: function(data){
-              if(model == 'Firm'){
-                $(self).html(data.html);
-              } else {
-                $('.template-model').html(data.html);
-              }
+              var id = data.id;
+              window.location.href = '/download_docx/'+id+'.docx';
             }
           });
-    })
+    });
   });
 </script>

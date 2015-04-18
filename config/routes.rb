@@ -5,7 +5,10 @@ Rails.application.routes.draw do
   resources :templates
   patch 'templates/update_html/:id' => 'templates#update_html'
   get 'templates/generate_document/:id' => 'templates#generate_document', as: :generate_document
-  post 'templates_get_model' => 'templates#get_model', as: :get_model
+  post 'templates_get_case' => 'templates#get_case', as: :get_case
+  post 'templates_get_addressee' => 'templates#get_addressee', as: :get_addressee_attrs
+  post 'templates_generate_docx' => 'templates#generate_docx', as: :generate_docx
+  get 'download_docx/:id' => 'templates#download_docx', as: :download_docx
 
   resources :time_entries, :except => [:new]
   put 'set_timer' => 'time_entries#set_timer', as: :set_timer

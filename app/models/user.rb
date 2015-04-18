@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   has_many :documents
   has_many :templates
+  has_many :template_documents
   has_many :tasks
 
   has_many :user_events, :dependent => :destroy

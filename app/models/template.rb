@@ -18,7 +18,7 @@ class Template < ActiveRecord::Base
       {
           name: 'Case Information',
           attrs: [
-              {name: 'Case Open date', attr: 'create_at', model: 'Case'},
+              {name: 'Case Open date', attr: 'created_at', model: 'Case'},
               {name: 'Primary injury', attr: 'primary_injury.injury_type', model: 'Case'},
               {name: 'Primary region', attr: 'primary_injury.region', model: 'Case'},
               {name: 'Lost Earnings', attr: 'medical.earnings_lost', model: 'Case'},
@@ -50,16 +50,30 @@ class Template < ActiveRecord::Base
               {name: 'Contact Last Name', attr: 'last_name', model: 'Contact'},
               {name: 'Contact Email', attr: 'email', model: 'Contact'},
               {name: 'Contact Phone', attr: 'phone', model: 'Contact'},
-              {name: 'Address', attr: 'address', model: 'Contact'},
-              {name: 'City', attr: 'city', model: 'Contact'},
-              {name: 'City', attr: 'city', model: 'Contact'},
-              {name: 'State', attr: 'state', model: 'Contact'},
-              {name: 'Zip code', attr: 'zip_code', model: 'Contact'},
+              {name: 'Contact Address', attr: 'address', model: 'Contact'},
+              {name: 'Contact City', attr: 'city', model: 'Contact'},
+              {name: 'Contact State', attr: 'state', model: 'Contact'},
+              {name: 'Contact Zip code', attr: 'zip_code', model: 'Contact'},
               {name: 'Company Name', attr: 'company.name', model: 'Contact'},
               {name: 'Company Address', attr: 'company.address', model: 'Contact'},
               {name: 'Company City', attr: 'company.city', model: 'Contact'},
               {name: 'Company State', attr: 'company.state', model: 'Contact'},
               {name: 'Company Zip', attr: 'company.zip_code', model: 'Contact'} #TODO create Company model that has_many contacts
+          ]
+      },
+      {
+          name: 'Addressee',
+          attrs: [
+              {name: 'Prefix', attr: 'prefix', model: 'Custom'},
+              {name: 'Addressee Name', attr: 'name', model: 'Addressee'},
+              {name: 'Addressee Firm Name', attr: 'first_name', model: 'Addressee'},
+              {name: 'Addressee Last Name', attr: 'last_name', model: 'Addressee'},
+              {name: 'Addressee Email', attr: 'email', model: 'Addressee'},
+              {name: 'Addressee Phone', attr: 'phone', model: 'Addressee'},
+              {name: 'Addressee Address', attr: 'address', model: 'Addressee'},
+              {name: 'Addressee City', attr: 'city', model: 'Addressee'},
+              {name: 'Addressee State', attr: 'state', model: 'Addressee'},
+              {name: 'Addressee Zip code', attr: 'zip_code', model: 'Addressee'}
           ]
       },
       {
@@ -93,7 +107,7 @@ class Template < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :firm
-
+  has_many :template_documents
   mount_uploader :file, DocumentUploader
 
   before_destroy :clean_s3

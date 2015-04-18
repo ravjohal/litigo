@@ -4,6 +4,7 @@ class Firm < ActiveRecord::Base
 	has_many :contacts
 	has_many :documents
 	has_many :templates
+  has_many :template_documents
 	has_many :events
 	has_many :incidents
 	has_many :medicals

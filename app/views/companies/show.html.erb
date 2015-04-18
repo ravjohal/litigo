@@ -108,14 +108,16 @@
         <th>Phone</th>
       </thead>
       <tbody>
-
+    <% if @contacts %>
+      <% @contacts.each do |contact| %>
         <tr data-id="">
-          <td  style="vertical-align: middle;"></td>
-          <td style="vertical-align: middle;"></td>
-          <td class="mid-td"><div class="larger-td" style='padding-top:12px;'></div></td>
-          <td style="vertical-align: middle;"></td>
+          <td  style="vertical-align: middle;"><%= contact.name %></td>
+          <td style="vertical-align: middle;"><%= contact.type %></td>
+          <td class="mid-td"><div class="larger-td" style='padding-top:12px;'></div><%= contact.email %></td>
+          <td style="vertical-align: middle;"><%= contact.phone_number %></td>
         </tr>
-        
+      <% end %> 
+    <% end %>  
       </tbody>
     </table>
   </div>

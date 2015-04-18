@@ -68,34 +68,6 @@ class TimeEntriesController < ApplicationController
     end
   end
 
-  # def set_timer
-  #   session[:start_time] = params[:start_time] if params[:start_time].present?
-  #   session[:stop_time] = params[:stop_time] if params[:stop_time].present?
-  #   session[:flagclock] = params[:flagclock]  if params[:flagclock].present?
-  #   session[:clock_value] = params[:clock_value]  if params[:clock_value].present?
-  #
-  #   respond_to do |format|
-  #     format.json { render json: {status: :ok} }
-  #   end
-  # end
-  #
-  # def get_timer
-  #   respond_to do |format|
-  #     format.json { render json: {start_time: session[:start_time], stop_time: session[:stop_time], flagclock: session[:flagclock],
-  #                                 clock_value: session[:clock_value], status: :ok} }
-  #   end
-  # end
-  #
-  # def reset_timer
-  #   session.delete(:start_time)
-  #   session.delete(:stop_time)
-  #   session.delete(:flagclock)
-  #   session.delete(:clock_value)
-  #   respond_to do |format|
-  #     format.json { render json: {status: :ok} }
-  #   end
-  # end
-
   def set_timer
     timer_params = params["timer"]
     session["timer"] = {} if session["timer"].blank?

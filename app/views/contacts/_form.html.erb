@@ -124,7 +124,7 @@
                     <strong>Company:</strong>
                 </td>
                 <td>
-                    <%= f.association :company, label: false, :class => 'table-input', :include_blank => true %>
+                    <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :include_blank => true %>
                 </td>
             </tr>
         </tbody>

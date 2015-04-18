@@ -77,6 +77,14 @@
     $('.custom_input').change(function (e) {
       var val = $(this).val();
       $(this).parent().find('ins').html(val);
+      $(this).parent().addClass('green');
+      if(val != '') {
+        $(this).parent().find('.select2-container').hide();
+      }
+    });
+
+    $('ins').click(function(e){
+      $(this).parent().find('.select2-container').show();
     });
 
     $('#create_docx').click(function (e) {

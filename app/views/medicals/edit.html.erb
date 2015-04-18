@@ -204,12 +204,11 @@
         <th></th>
         <th></th>
       </thead>
-      <!--TODO: Figure out how to put a form into a show page -->
       <tbody id="medical_bills">
-      <%= simple_fields_for :medical_bills do |medical_bill| %>
+      <%= f.simple_fields_for :medical_bills do |medical_bill| %>
         <%= render 'medical_bill_fields', :f => medical_bill %>
       <% end %>
-      <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_lines, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", class: 'action-button' %>
+      <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", class: 'action-button' %>
       </tbody>
     </table>
   </div>

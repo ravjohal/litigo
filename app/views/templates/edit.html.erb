@@ -7,63 +7,61 @@
               </ul>
   </div>
 
-<div style="width:500px;">
-  <h3>Template Name</h3>      
-        <div class="form-group">
-            	<%= f.input :name, label: false, :class => 'table-input'%>
-        </div>
-   <div class="form-group">
-           <strong>Author:</strong> <%= @template.user.name %>
+  <div style="width:500px;">
+      <h3>Template Name</h3>      
+            <div class="form-group">
+                	<%= f.input :name, label: false, :class => 'table-input'%>
+            </div>
+            <div class="form-group">
+                     <strong>Author:</strong> <%= @template.user.name %>
+            </div>
+            <div class="form-group">
+                  <strong>Creation Date:</strong> <%= @template.created_at.strftime("%m/%d/%y %I:%M %p")%>
+            </div>
+            <div class="form-group">
+                  <strong>Word Template:</strong> 
+                      <% if @template.file %>
+                            <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
+                      <% end %>
+            </div>
+            <div class="form-group">
+                  <strong>Document Descrition:</strong> <%= f.text_area :description, label: false, :class => 'table-input'%>
+            </div>
   </div>
-    <div class="form-group">
-          <strong>Creation Date:</strong> <%= @template.created_at.strftime("%m/%d/%y %I:%M %p")%>
-    </div>
-    <div class="form-group">
-          <strong>Word Template:</strong> 
-              <% if @template.file %>
-                    <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
-              <% end %>
-    </div>
-     <div class="form-group">
-          <strong>Document Descrition:</strong> <%= f.text_area :description, label: false, :class => 'table-input'%>
-    </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-			     <div class="form-group" style="margin-bottom: 30px;">
-			          <strong>Instructions: 1.)</strong>  Select a word you want to replace with a dynamic input <strong>2.)</strong> Select the information from the left to replace the selection <div style="text-indent: 90px;"><strong>3.)</strong> Click 'Save' <strong>4.)</strong> Click 'Finished' in the upper right.
-                <br/>
-                <strong>To deselect the word make a single click on it.</strong>
-           </div>
-			    </div>
-		</div>
+    <div class="row" style="margin-top: 40px; margin-bottom: 10px;">
+        <div class="col-md-4">
+		    </div>
+        <div class="col-md-8" style="margin-top: 0;">
+              <div class="temp_buttons" id="buttons">
+                  <a href="#" id="cancel_selection">Clear All</a>
+                  <a href="#" class="action-button" id="save_template_html">Save</a>
+              </div>
+        </div>
 	</div>
 
 <% end %>
 <div class="template_block">
-<div class="row">
-        <div class="col-md-4">
-              <div class="template_var_list">
-    <div id="accordion" class="accordion-list">
-                <% ActiveRecord::Base::Template::FIELDS_LIST.each do |hash| %>
-        <h3><%= hash[:name] %></h3>
-        <ul>
-          <% hash[:attrs].each do |attr| %>
-            <li data-model="<%= attr[:model] %>" data-attr="<%= attr[:attr] %>"><%= attr[:name] %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-  </div>
-  <div class="temp_buttons">
-        <a href="#" id="cancel_selection">Clear Selection</a>
-        <a href="#" class="action-button" id="save_template_html">Save</a>
-  </div>
-        </div>
-        <div class="col-md-8">
-              <div class="template_html"><%= raw @template.html_content %></div>
-        </div>
-</div> <!-- row end -->
+      <div class="row">
+                  <div class="col-md-4">
+                        <div class="template_var_list"  id="accord-menu">
+                                <div id="accordion" class="accordion-list">
+                                            <% ActiveRecord::Base::Template::FIELDS_LIST.each do |hash| %>
+                                            <h3><%= hash[:name] %></h3>
+                                    <ul>
+                                          <% hash[:attrs].each do |attr| %>
+                                            <li data-model="<%= attr[:model] %>" data-attr="<%= attr[:attr] %>"><%= attr[:name] %></li>
+                                          <% end %>
+                                    </ul>
+                                  <% end %>
+                                </div>
+                                
+                        </div>
+            
+                  </div>
+                  <div class="col-md-8">
+                        <div class="template_html"><%= raw @template.html_content %></div>
+                  </div>
+      </div> <!-- row end -->
 </div>
 <script type='text/javascript'>
   $(document).ready(function() {
@@ -125,4 +123,53 @@
   $(function() {
     $('#delete').tipsy({gravity: 'n', fade: true});
   });
+</script>
+<script type="text/javascript">
+    $(function() {
+    // Stick the #nav to the top of the window
+    var nav = $('#accord-menu');
+    var btn = $('#buttons');
+    var btnHomeY = btn.offset().top;
+    var navHomeY = nav.offset().top;
+    var isFixed = false;
+    var $w = $(window);
+    $w.scroll(function() {
+        var scrollTop = $w.scrollTop();
+        var shouldBeFixed = scrollTop > navHomeY - 70;
+        if (shouldBeFixed && !isFixed) {
+            nav.css({
+                position: 'fixed',
+                top: 70,
+                left: nav.offset().left,
+                width: nav.width(),
+            });
+            btn.css({
+                position: 'fixed',
+                top: 64,
+                left: btn.offset().left,
+                width: btn.width(),
+                'padding-top' : '17px',
+                'background-color' : '#fff',
+                '-webkit-box-shadow' : '4px 17px 26px -13px rgba(0,0,0,0.75)',
+                '-moz-box-shadow' : '4px 17px 26px -13px rgba(0,0,0,0.75)',
+                'box-shadow' : '4px 17px 26px -13px rgba(0,0,0,0.75)',
+                'border' : '1px solid #E8ECF1',
+            });
+            isFixed = true;
+        }
+        else if (!shouldBeFixed && isFixed)
+        {
+            nav.css({
+                position: 'static'
+            });
+            btn.css({
+                position: 'static',
+                'box-shadow' : 'none',
+                'background-color' : 'transparent',
+                'border' : 'none',
+            });
+            isFixed = false;
+        }
+    });
+});
 </script>

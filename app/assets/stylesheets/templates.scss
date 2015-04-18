@@ -7,6 +7,12 @@
 .template_var_list {
   width: 100%;
 }
+.temp_buttons {
+ text-align: center;
+ z-index: 2000;
+ height: 60px;
+}
+
 .template_html_show {
   border: 1px solid #E8ECF1;
   background-color: #fff;
@@ -23,6 +29,7 @@
   padding: 40px 60px;
   cursor: pointer;
   min-height: 825px;
+  margin-bottom: 50px;
   .-page-break {
     height: 1px;
     background: black;
@@ -83,10 +90,7 @@
   display: inline-block;
 }
 
-#temp_buttons {
-  margin: 40px auto;
-  text-align: center;
-}
+
 
 .ui-state-active {
     border-top: 1px solid #aaaaaa/*{borderColorActive}*/;

@@ -3,7 +3,7 @@ class Contact < ActiveRecord::Base
 
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
 
-  TYPES = ['Attorney', 'Adjustor', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'General']
+  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'General']
   has_many :event_attendees
 	belongs_to :user
   belongs_to :event

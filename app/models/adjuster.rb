@@ -1,0 +1,2 @@
+class Adjuster < Contact
+end

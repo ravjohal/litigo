@@ -1,5 +1,18 @@
-<%= simple_form_for(@company) do |f| %>
+<%= simple_form_for(new_company) do |f| %>
   <%= f.error_notification %>
+
+  <% if action_name == "index" %>
+      <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
+      <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+             <a class="close" data-dismiss="modal">×</a>
+              <h2>New Note</h2>
+            </div>
+         <div class="modal-body">
+    <% end %>
+
+
 <table class="contact-form table-condensed">
         <tbody>
             <tr>
@@ -54,10 +67,24 @@
             </tr>
         </tbody>
       </table>
+            <% if action_name == "index" %>
+          </div><!--end of modal-body-->
+          
+           <div class="modal-footer">
+              <div class="pull-left">
+                <a class="close" data-dismiss="modal">Cancel</a> 
+              </div>
+        <% end %>
 
-            <div class="form-actions">
-                <%= f.button :submit, :class =>"sub2-small" %>
-            </div>
+          <div class="form-actions">
+              <%= f.button :submit, :class =>"sub2-small" %>
+          </div>
+
+        <% if action_name == "index" %>
+                </div><!--end of modal-footer-->
+            </div><!--end of modal-content-->
+          </div><!--end of modal-dialog-->
+        <% end %>
   <% end %>
 <script>
   $(document).ready(function() { $("td select").select2(); });

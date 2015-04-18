@@ -1,7 +1,7 @@
 <div class="template-model">
-  <%= label_tag :case, 'Select Case' %>
+  <%= label_tag :case, 'Select Case' %> <br/>
   <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Please select" %> <br/>
-  <%= label_tag :addressee, 'Addressee' %>
+  <%= label_tag :addressee, 'Addressee' %>  <br/>
   <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :id).map {|contact| [contact.first_name.present? ? "#{contact.first_name} #{contact.last_name}" : contact.email, contact.id] }), :prompt => "Please select"  %>
 </div>
 <div>
@@ -18,7 +18,7 @@
 </div>
 <script>
   $(document).ready(function () {
-    $('.template-model select').select2();
+    $('.template-model select, .template_html_show select').select2({ width: 'resolve' });
     $('#input_date').datepicker();
     $('#case').change(function (e) {
       var case_id = $(this).val();

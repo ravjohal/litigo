@@ -15,7 +15,7 @@ class Firm < ActiveRecord::Base
 	has_many :leads
 	has_many :task_lists
 	has_many :time_entries, :through => :users
-	has_many :medical_lines
+	has_many :medical_bills
 	has_many :companies
 
 	validates_presence_of :name

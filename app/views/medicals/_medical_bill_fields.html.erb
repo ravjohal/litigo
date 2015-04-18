@@ -3,7 +3,7 @@
       <%= f.input :provider, label: false, :class => 'table-input' %>
     </td>
      <td>
-      <%= f.association :company, label: false, :class => 'table-input' %>
+      <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input' %>
     </td>
     <td>
       <%= f.input :date_of_service, label: false, :class => 'table-input' %>
@@ -15,14 +15,8 @@
       <%= f.select :paid_amount, label: false %>
     </td>
     <td class="medical-icon">
-      <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".medical-bill-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span id="depend" class="glyphicon glyphicon-plus" title="Add Dependent Task"></span><% end %>
-    </td>
-    <td class="medical-icon">
       <%= link_to_remove_association f, class: 'dark-small remove_medical_bills' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Task"></span><% end %>
     </td>
-    <%= f.simple_fields_for :children do |child| %>
-      <%= render 'child_fields', :f => child %>
-    <% end %>
   </tr>
 
 <script type="text/javascript" charset="utf-8">

@@ -280,10 +280,10 @@
   <tbody>
       <tr>
         <td class="right">
-          <strong>Company: </strong><span style="float: right;" id="company" title="You must create a company before adding it to a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+          <strong>Company: </strong><span style="float: right;" id="company" title="You must create a company before linking a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
         </td>
         <td>
-              <%= f.association :company, :class => 'table-input' %>
+              <%= f.association :company, :class => 'table-input', label: false %>
         </td>
       </tr> 
     
@@ -411,6 +411,6 @@
 </script>
 <script type='text/javascript'>
   $(function() {
-    $('#company').tipsy({gravity: 'n', fade: true});
+    $('#company').tipsy({gravity: 's', fade: true});
   });
 </script>

@@ -32,6 +32,7 @@
       <th>Location</th>
       <th>Website</th>
       <th>Phone</th>
+      <th>Number of Contacts</th>
     </tr>
   </thead>
 
@@ -42,13 +43,13 @@
         <td><div class="larger-td" style='padding-top:12px;'><%= company.city + ', ' + company.state %></div></td>
         <td  style="vertical-align: middle;"><%= company.website %></td>
         <td  style="vertical-align: middle;"><%= company.phone %></td>
+        <td  style="vertical-align: middle;"><%= company.contacts.count %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 </div>
-<%= link_to 'New Company', new_company_path %>
 
 <script type="text/javascript">
 $(document).ready(function() {

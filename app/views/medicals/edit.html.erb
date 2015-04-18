@@ -193,7 +193,7 @@
 </div>
 
 <div class="clearfix"></div>
-  <div id="tasks">
+  <div id="medical-bills">
     <table class="task-nested-table table-striped task_lists_table" style="margin-top: 40px; margin-bottom:40px;">
       <thead class="user-table-head">
         <th>Provider</th>
@@ -205,11 +205,11 @@
         <th></th>
       </thead>
       <!--TODO: Figure out how to put a form into a show page -->
-      <tbody id="medical_lines">
-      <%= simple_fields_for :medical_lines do |medical_line| %>
-        <%= render 'medical_line_fields', :f => medical_line %>
+      <tbody id="medical_bills">
+      <%= simple_fields_for :medical_bills do |medical_bill| %>
+        <%= render 'medical_bill_fields', :f => medical_bill %>
       <% end %>
-      <%= link_to_add_association 'ADD MEDICAL LINE', f, :medical_lines, :"data-association-insertion-node" => "tbody#medical_lines", :"data-association-insertion-method" => "append", :partial => "medical_line_fields", class: 'action-button' %>
+      <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_lines, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", class: 'action-button' %>
       </tbody>
     </table>
   </div>

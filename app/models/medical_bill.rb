@@ -1,4 +1,4 @@
-class MedicalLine < ActiveRecord::Base
+class MedicalBill < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :firm
 	belongs_to :medical

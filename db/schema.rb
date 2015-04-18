@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150418102802) do
+ActiveRecord::Schema.define(version: 20150418105721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -387,7 +387,7 @@ ActiveRecord::Schema.define(version: 20150418102802) do
     t.string   "prefix"
   end
 
-  create_table "medical_lines", force: :cascade do |t|
+  create_table "medical_bills", force: :cascade do |t|
     t.string   "provider"
     t.date     "date_of_service"
     t.decimal  "billed_amount"

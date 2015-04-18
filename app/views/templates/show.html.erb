@@ -1,9 +1,13 @@
- <div id="index-buttons">
-              <ul>
-                  <li><%= link_to 'Edit', edit_template_path(@template), :class => 'dark' %></li>
-                  <li><%= link_to 'GENERATE DOCUMENT', generate_document_path, :class => "action-button" %></li>
-              </ul>
-  </div>
+<div id="show-buttons">  
+    <ul>
+        <li><%= link_to 'Edit', edit_template_path(@template), :class => 'dark' %></li>
+            <div id="temp-custom">
+                  <ul>
+                        <li><%= link_to 'CREATE DOCUMENT', generate_document_path, :class => "action-button" %></li>
+                  </ul>
+       </div>
+    </ul>
+</div> <!-- case buttons div -->
 
 <div style="width:500px; margin-bottom: 30px;">
   <h3><%= @template.name %></h3>      

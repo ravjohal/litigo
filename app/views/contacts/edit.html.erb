@@ -278,12 +278,21 @@
   </tr>
 </thead>
   <tbody>
-        <tr>
+      <tr>
         <td class="right">
-          <strong>Company Name: </strong><span style="float: right;" id="company" title="You must create a company before adding it to a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+          <strong>Company: </strong><span style="float: right;" id="company" title="You must create a company before adding it to a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
         </td>
         <td>
-              <%= f.text_field :company, :class => 'table-input' %>
+              <%= f.association :company, :class => 'table-input' %>
+        </td>
+      </tr> 
+    
+      <tr>
+        <td class="right">
+          <strong>Company Name: </strong>
+        </td>
+        <td>
+              
         </td>
       </tr>      
       <tr>
@@ -291,7 +300,7 @@
           <strong>Website:</strong>
         </td>
         <td>
-            <%= f.text_field :website, :class => 'table-input' %>
+            
         </td>
       </tr>      
         <tr>
@@ -299,7 +308,7 @@
           <strong>Company Address:</strong>
         </td>
         <td >
-              <%= f.text_field :company_address, :class => 'table-input' %>
+             
         </td>
       </tr>
       <tr>
@@ -307,7 +316,7 @@
           <strong>City:</strong>
         </td>
         <td >
-          <%= f.text_field :company_city, :class => 'table-input' %>
+          
         </td>
         </tr>
         <tr>
@@ -315,7 +324,7 @@
           <strong>State:</strong>
         </td>
         <td >
-             <%= f.select :company_state, us_states, :class => 'table-input', :include_blank => true  %>
+             
         </td>
       </tr>
       <tr>
@@ -323,7 +332,7 @@
           <strong>Zipcode:</strong>
         </td>
         <td >
-              <%= f.text_field :company_zipcode, :class => 'table-input' %>
+              
         </td>
       </tr>
          <tr>
@@ -331,7 +340,7 @@
           <strong>Phone:</strong>
         </td>
         <td>
-              <%= f.text_field :company_phone, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>   
+             
         </td>
       </tr>
          <tr>
@@ -339,13 +348,13 @@
           <strong>Fax:</strong>
         </td>
         <td>
-                <%= f.text_field :company_fax, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>   
+            
         </td>
       </tr>
+      <% end %>
   </tbody>
 </table>
 
-<% end %>
 
 
 

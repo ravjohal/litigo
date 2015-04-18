@@ -21,6 +21,8 @@ class ContactsController < ApplicationController
   # GET /contacts/1.json
   def show
     @contact = Contact.find(params[:id])
+    @company = @contact.company
+    @company = Company.new if !@company
     restrict_access("contacts") if @contact.firm_id != @firm.id
   end
 
@@ -77,6 +79,7 @@ class ContactsController < ApplicationController
     # else besides Attorney. Need to look into this when there is a chance since Attorney Type can be
     # persisted once and then never emptied if the Contact Type is changed (which doesn't happen often luckily)
 
+
     respond_to do |format|
       if @contact.update(contact_params)
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
@@ -106,9 +109,11 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :middle_name, :last_name, :company, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
-                                      :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website, :company_phone, :company_fax,
-                                      :user_id, :contact_user_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :deceased, :date_of_death, :major_date, :mobile, :company_state, :company_city, :company_zipcode, :company_address, :firms_attributes => [:name, :address, :zip])
+      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
+                                      :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
+                                      :user_id, :contact_user_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, 
+                                      :deceased, :date_of_death, :major_date, :mobile, :company_id,
+                                      :firms_attributes => [:name, :address, :zip])
     end
 
 end

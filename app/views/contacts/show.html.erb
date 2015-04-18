@@ -277,7 +277,7 @@
           <strong>Company Name:</strong>
         </td>
         <td class="doc-link">
-          <%= link_to @contact.company %>
+          <%= link_to @company.name %>
         </td>
       </tr>      
       <tr>
@@ -285,7 +285,7 @@
           <strong>Website:</strong>
         </td>
         <td class="doc-link">
-          <%= link_to @contact.website %>
+          <%= link_to @company.website %>
         </td>
       </tr>      
         <tr>
@@ -293,7 +293,7 @@
           <strong>Company Address:</strong>
         </td>
         <td>
-          <%= @contact.company_address %>
+          <%= @company.address %>
         </td>
       </tr>
       <tr>
@@ -301,7 +301,7 @@
           <strong>City:</strong>
         </td>
         <td>
-          <%= @contact.company_city %>
+          <%= @company.city %>
         </td>
         </tr>
         <tr>
@@ -309,7 +309,7 @@
           <strong>State:</strong>
         </td>
         <td>
-          <%= @contact.company_state %>
+          <%= @company.state %>
         </td>
       </tr>
       <tr>
@@ -317,7 +317,7 @@
           <strong>Zipcode:</strong>
         </td>
         <td>
-          <%= @contact.company_zipcode %>
+          <%= @company.zipcode %>
         </td>
       </tr>
          <tr>
@@ -325,7 +325,7 @@
           <strong>Phone:</strong>
         </td>
         <td>
-              <%= @contact.company_phone %>
+              <%= @company.phone %>
         </td>
       </tr>
          <tr>
@@ -333,7 +333,7 @@
           <strong>Fax:</strong>
         </td>
         <td>
-              <%= @contact.company_fax %>
+              <%= @company.fax %>
         </td>
       </tr>
   </tbody>

@@ -6,7 +6,8 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
+    @companies = @firm.companies
+    @companies_a = Company.new #for modal partial rendering
   end
 
   # GET /companies/1
@@ -28,6 +29,8 @@ class CompaniesController < ApplicationController
   # POST /companies.json
   def create
     @company = Company.new(company_params)
+
+    @company.firm = @firm
 
     respond_to do |format|
       if @company.save

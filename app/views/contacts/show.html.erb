@@ -285,7 +285,7 @@
           <strong>Website:</strong>
         </td>
         <td class="doc-link">
-          <%= link_to @company.website %>
+          <%= link_to @company.website, "http://#{@company.website}", :target => '_blank' %>
         </td>
       </tr>      
         <tr>

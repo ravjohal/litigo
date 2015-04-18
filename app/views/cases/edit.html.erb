@@ -64,6 +64,7 @@
         </td>
         <td>
           <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
+           <%= f.association :contacts, :collection => @firm.contacts, as: :hidden %>
         </td>
       </tr>
       <tr>

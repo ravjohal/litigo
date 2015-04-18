@@ -1,3 +1,50 @@
 // Place all the styles related to the companies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.company-contacts-table {
+  width: 900px;
+  margin-bottom: 50px;
+}
+.company-contacts-table > tbody > tr > td:nth-of-type(1) {
+  width: 300px;
+}
+.company-contacts-table > tbody > tr > td:nth-of-type(2) {
+  width: 220px;
+}
+.company-contacts-table > tbody > tr > td:nth-of-type(3) {
+overflow: hidden;
+}
+.company-contacts-table > tbody > tr > td:nth-of-type(4) {
+  width: 150px;
+  overflow: hidden;
+}
+
+.remove {
+	color: #D82B25;
+	font-size: 20px;
+	&:hover {
+	color: #8d0500;
+	}
+}
+
+.company-contacts-edit-table {
+  width: 900px;
+  margin-bottom: 50px;
+}
+.company-contacts-edit-table > tbody > tr > td:nth-of-type(1) {
+  width: 250px;
+}
+.company-contacts-edit-table > tbody > tr > td:nth-of-type(2) {
+  width: 220px;
+}
+.company-contacts-edit-table > tbody > tr > td:nth-of-type(3) {
+overflow: hidden;
+}
+.company-contacts-edit-table > tbody > tr > td:nth-of-type(4) {
+  width: 150px;
+  overflow: hidden;
+}
+.company-contacts-edit-table > tbody > tr > td:nth-of-type(5) {
+  width: 50px;
+}

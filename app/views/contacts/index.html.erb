@@ -21,11 +21,10 @@
                             </ul>
                       </div>
                   </li>
-
               </ul>
           </div>
     </div>
-    <strong>Case #: </strong><%= @case.case_number %>
+<strong>Case #: </strong><%= @case.case_number %>
         <div class="container-fluid" style="padding: 0;">
               <div class="row">
                       <div class="col-md-12">
@@ -36,7 +35,9 @@
 </div>
 <div class="incase-tabs-gap">
 </div>
-
+<div style="margin-top: 70px;">
+<h3>Contacts</h3>
+</div>
 <% else %>
 <div class="case-header">
           <div class="case-title">
@@ -54,14 +55,14 @@
                   <div class="row">
                             <div class="col-md-12">
                                     <%= render 'shared/contact_tabs' %>
-                            </div>
+                            </div>   
                   </div>
           </div>
   </div>
 <div class="incase-tabs-gap">
 </div>
 <div style="margin-top: 70px;">
-<h3>Contacts</h3>
+<h3>Persons</h3>
 </div>
 <% end %>
   <div class="table-responsive">
@@ -79,7 +80,7 @@
         <tr data-id="<%= contact.id %>">
           <td  style="vertical-align: middle;"><%= link_to "#{contact.last_name} #{contact.first_name}", contact_path(contact) %></td>
           <td style="vertical-align: middle;"><%= contact.type %></td>
-          <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= contact.email %></td>
+          <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= contact.email %></div></td>
           <td style="vertical-align: middle;"><%= contact.phone_number %></td>
         </tr>
       <% end %>

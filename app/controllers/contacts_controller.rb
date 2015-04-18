@@ -23,6 +23,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
     @company = @contact.company
     @company = Company.new if !@company
+    @company_path_ = @company.id ? company_path(@company) :  " "
     restrict_access("contacts") if @contact.firm_id != @firm.id
   end
 

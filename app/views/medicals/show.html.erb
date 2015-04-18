@@ -191,23 +191,46 @@
               <strong>Paid Amount</strong>
           </td>
       </tr>
-      <tr>
-          <td>
-             
+      <% @medical.medical_bills.each do |med| %>
+        <tr>
+            <td>
+               <%= med.provider %>
+            </td>
+            <td>
+               <%= med.company.name if med.company %>
+            </td>
+            <td>
+               <%= med.date_of_service %>
+            </td>
+            <td>
+               <%= med.billed_amount %>
+            </td>
+            <td>
+               <%= med.paid_amount %>
           </td>
-          <td>
-             
+        </tr>
+        <% if med.children.present? %>
+          <% med.children.each do |child| %>
+          <tr>
+            <td>
+               <%= child.provider %>
+            </td>
+            <td>
+               <%= child.company.name if child.company %>
+            </td>
+            <td>
+               <%= child.date_of_service %>
+            </td>
+            <td>
+               <%= child.billed_amount %>
+            </td>
+            <td>
+               <%= child.paid_amount %>
           </td>
-          <td>
-             
-          </td>
-          <td>
-             
-          </td>
-          <td>
-             
-        </td>
-      </tr>
+        </tr>
+        <% end %>
+      <% end %>
+      <% end %>
          <tr>
           <td colspan="3" style="text-align: left;">
               <strong>Total Medical Bills</strong>

@@ -190,28 +190,34 @@
       </tr>
   </tbody>
 </table>
-</div>
 
+ <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", :class => 'action-button med-plus' %>
 <div class="clearfix"></div>
   <div id="medical-bills">
-    <table class="medical-nested-table table-striped medical_bills_table" style="margin-top: 40px; margin-bottom:40px;">
-      <thead class="user-table-head">
-        <th>Provider</th>
-        <th>Company</th>
-        <th>Date of Service</th>
-        <th>Billed Amount</th>
-        <th>Paid Amount</th>
-        <th></th>
-        <th></th>
-      </thead>
+       <table class="medical_bills_table">
+              <thead>
+                <tr>
+                      <td colspan="6" class="gray-back">
+                        <strong>Medical Bills</strong>
+                      </td>
+              </tr>
+              <tr>
+                    <td><strong>Provider Name</strong></td>
+                    <td><strong>Company</strong></td>
+                    <td><strong>Date of Service</strong></td>
+                    <td><strong>Billed Amount $</strong></td>
+                    <td><strong>Paid Amount $</strong></td>
+                    <td></td>
+              </tr>
+              </thead>
       <tbody id="medical_bills">
-      <%= f.simple_fields_for :medical_bills do |medical_bill| %>
-        <%= render 'medical_bill_fields', :f => medical_bill %>
+              <%= f.simple_fields_for :medical_bills do |medical_bill| %>
+              <%= render 'medical_bill_fields', :f => medical_bill %>
       <% end %>
-      <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", class: 'action-button' %>
       </tbody>
     </table>
   </div>
+</div>
 
 <% @injuries.each.with_index(1) do |injury,index| %>
   <%= f.simple_fields_for :injuries, injury do |i| %>

@@ -1,15 +1,15 @@
 class CaseSolReport < Dossier::Report
  
   def sql
-    "select 1"
+    Case.where("").select("number, name, sub_type, ").to_sql
   end
 
-  # def start_date
+  def start_date
 
-  # end
+  end
 
-  # def end_date
+  def end_date
 
-  # end
+  end
 
 end

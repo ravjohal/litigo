@@ -12,6 +12,7 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.json
   def show
+    @caseravreport = CaseRavReport.new
   end
 
   # GET /firms/new

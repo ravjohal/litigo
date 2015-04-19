@@ -12,7 +12,7 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.json
   def show
-    @leadsbychannel = LeadsByChannelReport.new(start_date: "2015-04-11", end_date: "2015-05-15")
+    @leadsbychannel = LeadsByChannelReport.new(start_date: "2014-04-11", end_date: "2015-05-15")
   end
 
   # GET /firms/new

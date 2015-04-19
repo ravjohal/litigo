@@ -122,15 +122,42 @@ class TemplatesController < ApplicationController
     lead_attrs = params[:lead_attrs]
     case_attrs_values = {}
     lead_attrs_values = {}
-    case_attrs.each do |attr|
-      result = try_attr(affair, attr.split('.'))
-      case_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+    if case_attrs.present?
+      case_attrs.each do |attr|
+        result = try_attr(affair, attr.split('.'))
+        case_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+      end
     end
-    lead_attrs.each do |attr|
-      result = try_attr(affair.try(:lead), attr.split('.'))
-      lead_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+    if lead_attrs.present?
+      lead_attrs.each do |attr|
+        result = try_attr(affair.try(:lead), attr.split('.'))
+        lead_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+      end
     end
-    render :json => { success: true, case_attrs_values: case_attrs_values, lead_attrs_values: lead_attrs_values }
+    contacts_attrs = []
+    affair.contacts.each do |contact|
+      hash = {
+          :id => contact.id,
+          :name => contact.name.present? ? contact.name : contact.email,
+          :first_name => contact.try(:first_name),
+          :last_name => contact.try(:last_name),
+          :email => contact.try(:email),
+          :phone => contact.try(:phone),
+          :address => contact.try(:address),
+          :city => contact.try(:city),
+          :state => contact.try(:state),
+          :zip_code => contact.try(:zip_code),
+          :'company.name' => contact.try(:company).try(:zip_code),
+          :'company.address' => contact.try(:company).try(:address),
+          :'company.city' => contact.try(:company).try(:city),
+          :'company.state' => contact.try(:company).try(:state),
+          :'company.zipcode' => contact.try(:company).try(:zipcode),
+      }
+
+      contacts_attrs.push(hash)
+    end
+
+    render :json => { success: true, case_attrs_values: case_attrs_values, lead_attrs_values: lead_attrs_values, contacts: contacts_attrs }
   end
 
   def get_addressee

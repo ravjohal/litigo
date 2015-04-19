@@ -34,22 +34,31 @@
         }
       });
 
-      if (case_attrs.length || lead_attrs.length){
-        $.ajax({
-          url: "/templates_get_case",
-          type: 'POST',
-          dataType: "json",
-          data: {case_attrs: case_attrs, lead_attrs: lead_attrs, id: case_id},
-          success: function(data){
-            $.each(data.case_attrs_values, function (attr, val) {
-              $('.insertion[data-model="Case"][data-attr="'+attr+'"]').html(val);
+      $.ajax({
+        url: "/templates_get_case",
+        type: 'POST',
+        dataType: "json",
+        data: {case_attrs: case_attrs, lead_attrs: lead_attrs, id: case_id},
+        success: function(data){
+          console.log(data.contacts);
+          $.each(data.case_attrs_values, function (attr, val) {
+            $('.insertion[data-model="Case"][data-attr="'+attr+'"]').html(val);
+          });
+          $.each(data.lead_attrs_values, function (attr, val) {
+            $('.insertion[data-model="Lead"][data-attr="'+attr+'"]').html(val);
+          });
+          $('.insertion[data-model="Contact"]').each(function(){
+            var attr = $(this).data('attr');
+            var select = $(this).find('select.custom_input');
+            var options = $(this).find('select.custom_input option:gt(0)');
+            options.remove();
+            $.each(data.contacts, function(i, hash) {
+              select.append($("<option></option>").attr("value", hash[attr] ? hash[attr] : '').text(hash['name']));
             });
-            $.each(data.lead_attrs_values, function (attr, val) {
-              $('.insertion[data-model="Lead"][data-attr="'+attr+'"]').html(val);
-            });
-          }
-        });
-      }
+          });
+          $('.template_html_show select').select2({ width: 'resolve' });
+        }
+      });
     });
     $('#addressee').change(function (e) {
       var addressee_id = $(this).val();

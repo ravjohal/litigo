@@ -1,40 +1,53 @@
-<h2>
-  <%= report.formatted_title %>
-</h2>
-<%= link_to 'Download CSV', formatted_dossier_report_path('csv', report), class: 'download-csv' %>
+<div style="margin: 0 auto;width: 900px;">
+    <h1><%= report.formatted_title %></h1>
+<div style="text-align:right;padding-bottom:10px;">
+  <%= link_to formatted_dossier_report_path('csv', report), class: 'dark download-csv' do %>
+        <span class="glyphicon glyphicon-share export" title="Export to CSV"></span>
+  <% end %>
+  <%= link_to "javascript:window.print()", class: 'dark download-csv' do %>
+        <span class="glyphicon glyphicon-print print" title="Print report"></span>
+  <% end %>
+</div>
 <%= render_options(report) %>
-<table>
-  <thead>
-    <tr>
-      <% report.results.headers.each do |header| %>
-        <th>
-          <%= report.format_header(header) %>
-        </th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% report.results.body.each do |row| %>
-      <tr>
-        <% row.each do |value| %>
-          <td>
-            <%= value %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-  <% if report.results.footers.any? %>
-    <tfoot>
-      <% report.results.footers.each do |row| %>
+    <table class="table-striped report-table">
+      <thead class="user-table-head">
         <tr>
-          <% row.each do |value| %>
+          <% report.results.headers.each do |header| %>
             <th>
-              <%= value %>
+              <%= report.format_header(header) %>
             </th>
           <% end %>
         </tr>
+      </thead>
+      <tbody>
+        <% report.results.body.each do |row| %>
+          <tr>
+            <% row.each do |value| %>
+              <td>
+                <%= value %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+      <% if report.results.footers.any? %>
+        <tfoot>
+          <% report.results.footers.each do |row| %>
+            <tr>
+              <% row.each do |value| %>
+                <th>
+                  <%= value %>
+                </th>
+              <% end %>
+            </tr>
+          <% end %>
+        </tfoot>
       <% end %>
-    </tfoot>
-  <% end %>
-</table>
+    </table>
+</div>
+<script type='text/javascript'>
+  $(function() {
+    $('.export').tipsy({gravity: 's', fade: true});
+    $('.print').tipsy({gravity: 's', fade: true});
+  });
+</script>

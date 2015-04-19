@@ -52,6 +52,7 @@ gem 'cocoon', '~> 1.2.6'                              # Unobtrusive nested forms
 gem 'htmltoword', '~> 0.2.0'
 gem 'docx_replace', '~> 1.0.3'
 gem 'docx', '~> 0.2.07', :require => ["docx"]
+gem 'dossier', '~> 2.12.2'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

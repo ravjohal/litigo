@@ -1,7 +1,7 @@
 <%= form_tag reports_leads_detail_path, method: :get do %>
 	<%= date_field_tag :start_date, @start_date %>
 	<%= date_field_tag :end_date, @end_date %>
-	<%= text_field_tag :marketing_channel_arg, @marketing_channel_arg %>
+	<%= select_tag :marketing_channel_arg, options_for_select(Lead::CHANNELS, @marketing_channel_arg), :options => {:include_blank => :true} %>
 	<%= submit_tag "Run", name: nil %>
 <% end %>
 <div class="span6">

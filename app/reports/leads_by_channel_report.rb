@@ -14,17 +14,18 @@ class LeadsByChannelReport < Dossier::Report
 	    custom_headers.fetch(column_name.to_sym) { super }
   	end
 
-	def columns
-    	valid_columns.join(', ').presence || '*'
-  	end
+  	# The following two methods are used for when requesting what columns to return (if used as argument)
+	# def columns
+ #    	valid_columns.join(', ').presence || '*'
+ #  	end
   	
-  	def valid_columns
-    	self.class.valid_columns & Array.wrap(options[:columns])
-  	end
+ #  	def valid_columns
+ #    	self.class.valid_columns & Array.wrap(options[:columns])
+ #  	end
 
-  	# def format_leads(value)
-  		
-  	# end
+  	def format_leads(value, row)
+  		formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.report_show_path(row[:marketing_channel])
+  	end
 
 	def start_date
 		options[:start_date]

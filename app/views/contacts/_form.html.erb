@@ -121,7 +121,7 @@
             </tr>
             <tr>
                 <td>
-                    <strong>Company:</strong>
+                    <strong>Company:</strong><span id="comp" title="Only existing companies can be added to a contact on this form" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
                 </td>
                 <td>
                     <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :include_blank => true %>
@@ -199,5 +199,10 @@
   $(document).ready(function() {
     $('#contact_phone').mask("(999) 999-9999");
     $('#contact_fax').mask("(999) 999-9999");
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#comp').tipsy({gravity: 's', fade: true});
   });
 </script>

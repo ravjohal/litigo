@@ -25,7 +25,7 @@
 </div>
 
 <div class="table-responsive">
-    <table id="tasks" class="table table-striped table-hover rowlink contacts_table">
+    <table id="tasks" class="table table-striped table-hover rowlink companies_table">
       <thead class="user-table-head">
     <tr>
       <th>Company Name</th>
@@ -43,7 +43,7 @@
         <td><div class="larger-td" style='padding-top:12px;'><%= company.city + ', ' + company.state %></div></td>
         <td  style="vertical-align: middle;"><%= company.website %></td>
         <td  style="vertical-align: middle;"><%= company.phone %></td>
-        <td  style="vertical-align: middle;"><%= company.contacts.count %></td>
+        <td  style="vertical-align: middle; text-align:center;"><%= company.contacts.count %></td>
       </tr>
     <% end %>
   </tbody>

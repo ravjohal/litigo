@@ -6,6 +6,7 @@ class InsurancesController < ApplicationController
 
   def show
     @insurance = @case.insurance
+    @insurances = @case.insurance.children
   end
 
   def new
@@ -60,6 +61,7 @@ class InsurancesController < ApplicationController
     end
 
     def insurance_params
-      params.require(:insurance).permit(:insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder)
+      params.require(:insurance).permit(:insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :_destroy, :case_id,
+                                        :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy])
     end
 end

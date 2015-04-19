@@ -28,11 +28,10 @@
   <tr class="right-top">
     <td colspan="5" class="gray-back">
       <strong>Insurance Summary</strong>
-      <%= link_to root_path, :class => 'pull-right', :id => 'add-action', :title => 'Add Row' do %>Add Provider <span class="glyphicon glyphicon-plus" data-tip="Add Insurance"></span> <% end %>
     </td>
   </tr>
 </thead>
-  <tbody>
+  <tbody id="children">
       <tr>
           <td class="right">
               <strong>Insurance Provider</strong>
@@ -49,32 +48,20 @@
           <td class="right">
               <strong>Policy Limit</strong>
           </td>
-      </tr>
-      <tr>
           <td>
-              <%= f.select :insurance_provider, Insurance::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
-          </td>
-          <td>
-              <%= f.text_field :insurance_type, :class => 'table-input' %>
-          </td>
-          <td>
-              <%= f.text_field :policy_holder, :class => 'table-input' %>
-          </td>
-          <td>
-              <%= f.text_field :claim_number, :class => 'table-input' %>
-          </td>
-          <td>
-              <%= f.text_field :policy_limit, :class => 'table-input' %>
-        </td>
-      </tr>
-         <tr>
-          <td colspan="4" style="text-align: left;">
-              <strong>Total Policy Limits</strong>
-          </td>
 
-          <td>
+          </td>
       </tr>
+      <%= f.simple_fields_for :children do |insurance| %>
+        <%= render 'insurance_fields', :f => insurance %>
+      <% end %>
+      <%= link_to_add_association 'ADD INSURANCE', f, :children, :"data-association-insertion-node" => "tbody#children", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button' %>
   </tbody>
+   <tr>
+    <td colspan="4" style="text-align: left;">
+        <strong>Total Policy Limits</strong>
+    </td>
+  </tr>
 </table>
 </div>
 <% end %>

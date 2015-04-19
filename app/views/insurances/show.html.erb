@@ -49,23 +49,25 @@
               <strong>Policy Limit</strong>
           </td>
       </tr>
+      <% @insurances.each do |insurance| %>
       <tr>
           <td>
-              <%= @insurance.insurance_provider %>
+              <%= insurance.insurance_provider %>
           </td>
           <td>
-              <%= @insurance.insurance_type %>
+              <%= insurance.insurance_type %>
           </td>
           <td>
-              <%= number_to_currency @insurance.policy_limit, precision: 0 %>
+              <%= insurance.policy_holder %>
           </td>
           <td>
-              <%= @insurance.claim_number  %>
+              <%= insurance.claim_number  %>
           </td>
           <td>
-              <%= @insurance.policy_holder %>
+              <%= number_to_currency insurance.policy_limit, precision: 0 %>
         </td>
       </tr>
+      <% end %>
       <tr>
           <td colspan="4" style="text-align: left;">
               <strong>Total Policy Limits</strong>

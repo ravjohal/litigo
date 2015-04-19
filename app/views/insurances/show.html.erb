@@ -31,6 +31,16 @@
     </td>
   </tr>
 </thead>
+<tfoot>
+      <tr>
+          <td colspan="4" style="text-align: left;">
+              <strong>Total Policy Limits</strong>
+          </td>
+          <td style="text-align: right;">
+              <strong></strong>
+          </td>
+      </tr>
+</tfoot>
   <tbody>
   <tr>
           <td class="right">
@@ -45,7 +55,7 @@
            <td class="right">
               <strong>Claim Number</strong>
           </td>
-          <td class="right">
+          <td style="text-align: right;">
               <strong>Policy Limit</strong>
           </td>
       </tr>
@@ -63,17 +73,11 @@
           <td>
               <%= insurance.claim_number  %>
           </td>
-          <td>
+          <td style="text-align: right;">
               <%= number_to_currency insurance.policy_limit, precision: 0 %>
         </td>
       </tr>
       <% end %>
-      <tr>
-          <td colspan="4" style="text-align: left;">
-              <strong>Total Policy Limits</strong>
-          </td>
-          <td>
-      </tr>
   </tbody>
 </table>
 </div>

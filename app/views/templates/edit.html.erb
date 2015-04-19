@@ -2,16 +2,22 @@
   <%= f.error_notification %>
    <div id="template-buttons">
               <ul>
-                  <li><%= link_to @template, :class => 'trash-icon', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Document"></span> <% end %></li>
+                  <li><%= link_to @template, :class => 'trash-icon', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Template"></span> <% end %></li>
                   <li><%= f.submit :class => 'sub2-small', :value => 'Finished' %></li>
               </ul>
   </div>
 
-  <div style="width:500px;">
-      <h3>Template Name</h3>      
+  <div style="width:100%; margin-bottom: 20px;">
+      <h3>Template Name</h3>
+        <div class="row">
+          <div class="col-md-4">
             <div class="form-group">
                 	<%= f.input :name, label: false, :class => 'table-input'%>
             </div>
+          <div class="col-md-4">
+          </div>
+          </div>
+        </div>
             <div class="form-group">
                      <strong>Author:</strong> <%= @template.user.name %>
             </div>
@@ -24,20 +30,20 @@
                             <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
                       <% end %>
             </div>
-            <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
                   <strong>Document Descrition:</strong> <%= f.text_area :description, label: false, :class => 'table-input'%>
+                </div>
             </div>
+                   <div class="col-md-8" style="margin-top: 0;">
+                      <div class="temp_buttons" id="buttons">
+                          <a href="#" id="cancel_selection">Clear All</a>
+                          <a href="#" class="action-button" id="save_template_html">Save</a>
+                      </div>
+                  </div>
+          </div>
   </div>
-    <div class="row" style="margin-top: 40px; margin-bottom: 10px;">
-        <div class="col-md-4">
-		    </div>
-        <div class="col-md-8" style="margin-top: 0;">
-              <div class="temp_buttons" id="buttons">
-                  <a href="#" id="cancel_selection">Clear All</a>
-                  <a href="#" class="action-button" id="save_template_html">Save</a>
-              </div>
-        </div>
-	</div>
 
 <% end %>
 <div class="template_block">
@@ -150,9 +156,9 @@
                 width: btn.width(),
                 'padding-top' : '17px',
                 'background-color' : '#fff',
-                '-webkit-box-shadow' : '4px 17px 26px -13px rgba(0,0,0,0.75)',
-                '-moz-box-shadow' : '4px 17px 26px -13px rgba(0,0,0,0.75)',
-                'box-shadow' : '4px 17px 26px -13px rgba(0,0,0,0.75)',
+                '-webkit-box-shadow' : '4px 5px 28px -13px rgba(0,0,0,0.75)',
+                '-moz-box-shadow' : '4px 5px 28px -13px rgba(0,0,0,0.75)',
+                'box-shadow' : '4px 5px 28px -13px rgba(0,0,0,0.75)',
                 'border' : '1px solid #E8ECF1',
             });
             isFixed = true;
@@ -167,6 +173,7 @@
                 'box-shadow' : 'none',
                 'background-color' : 'transparent',
                 'border' : 'none',
+                'padding-top' : '45px',
             });
             isFixed = false;
         }

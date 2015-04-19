@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
 
 
+  get 'reports/index'
+
+  get 'reports/show'
+
   resources :companies
   resources :templates
   patch 'templates/update_html/:id' => 'templates#update_html'

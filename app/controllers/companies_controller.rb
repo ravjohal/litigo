@@ -48,6 +48,16 @@ class CompaniesController < ApplicationController
   def update
     respond_to do |format|
       if @company.update(company_params)
+        #TODO: not the most efficient way to remove association, need to figure out a better way to do this!!
+        if company_params[:contacts_attributes]
+          company_params[:contacts_attributes].each do |contact| 
+          if contact[1][:_destroy].to_i == 1
+            contact = Contact.find_by_id(contact[1][:id])
+            contact.company_id = nil
+            contact.save!
+          end
+        end
+      end
         format.html { redirect_to @company, notice: 'Company was successfully updated.' }
         format.json { render :show, status: :ok, location: @company }
       else
@@ -67,6 +77,14 @@ class CompaniesController < ApplicationController
     end
   end
 
+  def remove_contact
+    contact = Contact.find_by_id(params[:id])
+    contact.company = ""
+    contact.save
+
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_company
@@ -75,6 +93,7 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :address, :phone, :fax, :state, :city, :zipcode, :website)
+      params.require(:company).permit(:name, :address, :phone, :fax, :state, :city, :zipcode, :website,
+                                      :contacts_attributes => [:id, :_destroy, :company_id])
     end
 end

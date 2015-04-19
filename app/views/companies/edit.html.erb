@@ -98,7 +98,8 @@
   </tbody>
 </table>
 </div>
-<% end %>
+
+
 <div class="bottom-table-container">
   <h3>Company Contacts</h3>
   <br>
@@ -110,18 +111,15 @@
         <th>Phone</th>
         <th></th>
       </thead>
-      <tbody>
-
-        <tr data-id="">
-          <td  style="vertical-align: middle;"></td>
-          <td style="vertical-align: middle;"></td>
-          <td class="mid-td"><div class="larger-td" style='padding-top:12px;'></div></td>
-          <td style="vertical-align: middle;"></td>
-          <td style="vertical-align: middle;"><%= link_to '#', :class => 'remove' do %><span id="remove" class="glyphicon glyphicon-remove" title="Remove Contact from Company"></span><% end %></td>
-        </tr>
+      <tbody id="contact_fields">
+      <%= f.simple_fields_for :contacts do |contact| %>
+        <%= render 'contact_fields', :f => contact %>
+      <% end %>
       </tbody>
+      
     </table>
   </div>
+<% end %>
 <script type='text/javascript'>
   $(function() {
     $('#remove').tipsy({gravity: 's', fade: true});

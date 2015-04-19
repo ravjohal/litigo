@@ -22,15 +22,28 @@
         </div>
 </div>
 
-<div class="top-table-container">
+<div class="insurance-edit-container">
+ <%= link_to_add_association 'ADD INSURANCE', f, :children, :"data-association-insertion-node" => "tbody#children", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button insure' %>
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="5" class="gray-back">
+    <td colspan="6" class="gray-back">
       <strong>Insurance Summary</strong>
     </td>
   </tr>
 </thead>
+<tfoot>
+      <tr>
+          <td colspan="4" style="text-align: left;">
+              <strong>Total Policy Limits</strong>
+          </td>
+          <td style="text-align: right;">
+              <strong></strong>
+          </td>
+          <td>
+          </td>
+      </tr>
+</tfoot>
   <tbody id="children">
       <tr>
           <td class="right">
@@ -48,20 +61,13 @@
           <td class="right">
               <strong>Policy Limit</strong>
           </td>
-          <td>
-
+          <td style="text-align: center;">
           </td>
       </tr>
       <%= f.simple_fields_for :children do |insurance| %>
         <%= render 'insurance_fields', :f => insurance %>
       <% end %>
-      <%= link_to_add_association 'ADD INSURANCE', f, :children, :"data-association-insertion-node" => "tbody#children", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button' %>
   </tbody>
-   <tr>
-    <td colspan="4" style="text-align: left;">
-        <strong>Total Policy Limits</strong>
-    </td>
-  </tr>
 </table>
 </div>
 <% end %>

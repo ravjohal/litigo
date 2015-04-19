@@ -14,7 +14,7 @@
       <td>
           <%= f.text_field :policy_limit, :class => 'table-input' %>
     </td>
-    <td class="insurance-icon">
+    <td class="insurance-icon" style="text-align: center;">
       <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
     </td>
   </tr>
@@ -27,7 +27,6 @@
 </script>
 <script type='text/javascript'>
   $(function() {
-    $('#remove').tipsy({gravity: 'se', fade: true});
-    $('#depend').tipsy({gravity: 's', fade: true});
+    $('#remove').tipsy({gravity: 's', fade: true});
   });
 </script>

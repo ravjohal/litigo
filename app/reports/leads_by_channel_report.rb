@@ -4,7 +4,7 @@ class LeadsByChannelReport < Dossier::Report
 	# end
 
 	def sql
-		Lead.where("cast(created_at as date) between :start_date and :end_date").select("marketing_channel, count(*) as Leads").group(:marketing_channel).to_sql
+		Lead.where("firm_id = :firm_id AND cast(created_at as date) between :start_date and :end_date").select("marketing_channel, count(*) as Leads").group(:marketing_channel).to_sql
 	end
 
 	def format_header(column_name)
@@ -26,6 +26,10 @@ class LeadsByChannelReport < Dossier::Report
   	def format_leads(value, row)
   		formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.reports_leads_detail_path(:marketing_channel_arg => row[:marketing_channel])
   	end
+
+	def firm_id
+		options[:firm_id]
+	end
 
 	def start_date
 		options[:start_date]

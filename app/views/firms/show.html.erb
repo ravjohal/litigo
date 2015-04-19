@@ -20,5 +20,9 @@
   <%= @firm.fax %>
 </p>
 
+<div class="span6">
+  <%= render template: 'dossier/reports/show', locals: {report: @caseravreport.run} %>
+</div>
+
 <%= link_to 'Edit', edit_firm_path(@firm) %> |
 <%= link_to 'Back', firms_path %>

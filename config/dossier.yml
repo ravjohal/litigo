@@ -1,0 +1,33 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: litigo_development
+  pool: 5
+  host: localhost
+  username: postgres
+  password:
+
+test: &test
+  adapter: postgresql
+  encoding: unicode
+  database: litigo_test
+  pool: 5
+  host: localhost
+  username: postgres
+  password:
+
+staging:
+  adapter: postgresql
+  encoding: unicode
+  database: litigo_staging
+  pool: 5
+  username: postgres
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+cucumber:
+  <<: *test

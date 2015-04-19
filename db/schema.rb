@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419011859) do
+ActiveRecord::Schema.define(version: 20150419075824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,19 +67,19 @@ ActiveRecord::Schema.define(version: 20150419011859) do
   add_index "case_tasks", ["task_id"], name: "index_case_tasks_on_task_id", using: :btree
 
   create_table "cases", force: :cascade do |t|
-    t.string   "name",            limit: 255
+    t.string   "name",                   limit: 255
     t.integer  "case_number"
     t.text     "description"
-    t.decimal  "medical_bills",               precision: 10, scale: 2
+    t.decimal  "medical_bills",                      precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "case_type",       limit: 255
-    t.string   "subtype",         limit: 255
+    t.string   "case_type",              limit: 255
+    t.string   "subtype",                limit: 255
     t.integer  "user_id"
     t.date     "closing_date"
-    t.string   "state",           limit: 2
-    t.string   "status",                                               default: "open"
-    t.string   "court",           limit: 255
+    t.string   "state",                  limit: 2
+    t.string   "status",                                                      default: "open"
+    t.string   "court",                  limit: 255
     t.integer  "firm_id"
     t.string   "county"
     t.string   "docket_number"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20150419011859) do
     t.date     "hearing_date"
     t.date     "filed_suit_date"
     t.date     "transfer_date"
+    t.date     "statute_of_limitations"
   end
 
   add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
@@ -276,20 +277,19 @@ ActiveRecord::Schema.define(version: 20150419011859) do
 
   create_table "incidents", force: :cascade do |t|
     t.date     "incident_date"
-    t.date     "statute_of_limitations"
     t.integer  "defendant_liability"
-    t.boolean  "alcohol_involved",                                            default: false
-    t.boolean  "weather_factor",                                              default: false
-    t.decimal  "property_damage",                    precision: 10, scale: 2
-    t.boolean  "airbag_deployed",                                             default: false
-    t.string   "speed",                  limit: 255
-    t.boolean  "police_report",                                               default: false
+    t.boolean  "alcohol_involved",                                          default: false
+    t.boolean  "weather_factor",                                            default: false
+    t.decimal  "property_damage",                  precision: 10, scale: 2
+    t.boolean  "airbag_deployed",                                           default: false
+    t.string   "speed",                limit: 255
+    t.boolean  "police_report",                                             default: false
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "firm_id"
-    t.boolean  "towed",                                                       default: false
-    t.boolean  "complaint_at_scene",                                          default: false
+    t.boolean  "towed",                                                     default: false
+    t.boolean  "complaint_at_scene",                                        default: false
     t.decimal  "defendant_limits"
     t.decimal  "plaintiff_limits"
     t.decimal  "uim_limits"

@@ -21,6 +21,9 @@ class ReportsController < ApplicationController
   end
 
   def case_sol_report
-  	@case_sol_report = CaseSolReport.new
+  	@start_date = params[:start_date] ? params[:start_date] : Date.today.at_beginning_of_month
+  	@end_date = params[:end_date] ? params[:end_date] : Date.today.at_end_of_month
+  	@attorney = params[:attorney]
+  	@case_sol_report = CaseSolReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date, attorney: @attorney)
   end
 end

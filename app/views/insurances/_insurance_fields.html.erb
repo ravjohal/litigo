@@ -1,0 +1,33 @@
+    <tr class="nested-fields insurance-field">
+      <td>
+          <%= f.select :insurance_provider, Insurance::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
+      </td>
+      <td>
+          <%= f.text_field :insurance_type, :class => 'table-input' %>
+      </td>
+      <td>
+          <%= f.text_field :policy_holder, :class => 'table-input' %>
+      </td>
+      <td>
+          <%= f.text_field :claim_number, :class => 'table-input' %>
+      </td>
+      <td>
+          <%= f.text_field :policy_limit, :class => 'table-input' %>
+    </td>
+    <td class="insurance-icon">
+      <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
+    </td>
+  </tr>
+
+<script type="text/javascript" charset="utf-8">
+  $("select").select2();
+  $('#children').on('cocoon:after-remove', function(e, insertedItem) {
+
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#remove').tipsy({gravity: 'se', fade: true});
+    $('#depend').tipsy({gravity: 's', fade: true});
+  });
+</script>

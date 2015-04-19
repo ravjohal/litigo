@@ -1,7 +1,7 @@
 <%= form_tag reports_leads_by_channel_path, method: :get do %>
-	<%= date_field_tag :start_date, @start_date %>
-	<%= date_field_tag :end_date , @end_date %>
-	<%= submit_tag "Run", name: nil %>
+	<%= date_field_tag :start_date, @start_date, :class => 'input_date', :placeholder => 'mm/dd/yy' %>
+	<%= date_field_tag :end_date , @end_date, :class => 'input_date', :placeholder => 'mm/dd/yy'  %>
+	<%= submit_tag "Run", name: nil, :class => 'btn btn-default' %>
 <% end %>
 <div class="span6">
   <%= render template: 'dossier/reports/show', locals: {report: @leads_by_channel_report.run} %>

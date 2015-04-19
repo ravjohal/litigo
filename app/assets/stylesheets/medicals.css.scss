@@ -20,36 +20,43 @@
 
 
 .medical_bills_table {
+  margin-top: 40px;
   width: 100%;
+  table-layout: fixed;
     tr:nth-child(odd){
-    vertical-align: top;
+    background: white;
  }
  tr:nth-child(even){
-    vertical-align: top;
+    background: #fdfeff;
  }
+}
+
+.medical_bills_table tr{
+ padding: 5px;
+ border: 1px solid #E8ECF1;
+}
+.medical_bills_table td{
+ border: 1px solid #E8ECF1;
 }
 
 .medical_bills_table > tbody > tr > td:nth-of-type(1) {
-  width: 23%;
+  width: 225px;
 }
 .medical_bills_table > tbody > tr > td:nth-of-type(2) {
-  width: 40%;
+  width: 225px;
 }
 .medical_bills_table > tbody > tr > td:nth-of-type(3) {
-  width: 7%;
+  width: 100px;
 }
 .medical_bills_table > tbody > tr > td:nth-of-type(4) {
-  width: 15%;
+  width: 150px;
 }
 .medical_bills_table > tbody > tr > td:nth-of-type(5) {
- width: 15%;
+ width: 150px;
 }
-
 .medical_bills_table > tbody > tr > td:nth-of-type(6) {
-width: 5%;
-}
-.medical_bills_table > tbody > tr > td:nth-of-type(7) {
- width: 5%;
+text-align: center;
+ width: 50px;
 }
 
 

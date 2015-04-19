@@ -1,18 +1,18 @@
   <tr class="nested-fields medical-bill-field">
     <td>
-      <%= f.input :provider, label: false, :class => 'table-input' %>
+      <%= f.text_field :provider, label: false, :class => 'table-input' %>
     </td>
      <td>
-      <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input' %>
+      <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :id => 'company' %>
     </td>
     <td>
-      <%= f.input :date_of_service, label: false, :class => 'table-input' %>
+      <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
     </td>
     <td>
-      <%= f.select :billed_amount, label: false %>
+      <%= f.text_field :billed_amount, label: false, :class => 'table-input' %>
     </td>
     <td>
-      <%= f.select :paid_amount, label: false %>
+      <%= f.text_field :paid_amount, label: false, :class => 'table-input' %>
     </td>
     <td class="medical-icon">
       <%= link_to_remove_association f, class: 'dark-small remove_medical_bills' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Medical Bill"></span><% end %>
@@ -27,7 +27,6 @@
 </script>
 <script type='text/javascript'>
   $(function() {
-    $('#remove').tipsy({gravity: 'se', fade: true});
-    $('#depend').tipsy({gravity: 's', fade: true});
+    $('#remove').tipsy({gravity: 's', fade: true});
   });
 </script>

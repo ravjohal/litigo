@@ -169,26 +169,26 @@
 <thead>
   <tr class="right-top">
     <td colspan="5" class="gray-back">
-      <strong>Medical Bills</strong>
+      <strong>Medical Bills </strong><span id="edmed" title="Click 'Edit' to add a new bill" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
     </td>
   </tr>
 </thead>
   <tbody>
       <tr>
-          <td class="right">
-              <strong>Provider</strong>
+          <td>
+              <strong>Provider Name</strong>
           </td>
-          <td class="right">
+          <td>
               <strong>Company</strong>
           </td>
-          <td class="right">
+          <td>
               <strong>Date of Service</strong>
           </td>
-           <td class="right">
-              <strong>Billed Amount</strong>
+           <td style="text-align: right;">
+              <strong>Billed Amount $</strong>
           </td>
-          <td class="right">
-              <strong>Paid Amount</strong>
+          <td style="text-align: right;">
+              <strong>Paid Amount $</strong>
           </td>
       </tr>
       <% @medical.medical_bills.each do |med| %>
@@ -202,20 +202,27 @@
             <td>
                <%= med.date_of_service %>
             </td>
-            <td>
-               <%= med.billed_amount %>
+            <td style="text-align: right;">
+               <%= number_to_currency med.billed_amount %>
             </td>
-            <td>
-               <%= med.paid_amount %>
+            <td style="text-align: right;">
+               <%= number_to_currency med.paid_amount %>
           </td>
         </tr>
         
       <% end %>
          <tr>
           <td colspan="3" style="text-align: left;">
-              <strong>Total Medical Bills</strong>
+              <strong>Subtotals</strong>
           </td>
           <td>
+          </td>
+          <td>
+          </td>
+      </tr>
+      <tr>
+          <td colspan="4" style="text-align: left;">
+              <strong>Total Net</strong>
           </td>
           <td>
           </td>
@@ -422,6 +429,7 @@
   $(function() {
     $('#print').tipsy({gravity: 'ne', fade: true});
     $('#delete').tipsy({gravity: 's', fade: true});
+    $('#edmed').tipsy({gravity: 's', fade: true});
   });
 </script>
 <script type="text/javascript">
@@ -431,14 +439,3 @@ $(document).ready(function() {
   });
 });
 </script>
-
-<script>
-$( ".edit" ).hover(
-  function() {
-    $( this ).append( $( "<span class='glyphicon glyphicon-pencil'></span>" ) );
-  }, function() {
-    $( this ).find( "span:last" ).remove();
-  }
-);
-</script>
-

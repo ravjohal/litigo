@@ -1,0 +1,8 @@
+<%= form_tag reports_leads_by_channel_path, method: :get do %>
+	<%= date_field_tag :start_date, @start_date %>
+	<%= date_field_tag :end_date , @end_date %>
+	<%= submit_tag "Run", name: nil %>
+<% end %>
+<div class="span6">
+  <%= render template: 'dossier/reports/show', locals: {report: @leads_by_channel_report.run} %>
+</div>

@@ -24,7 +24,7 @@ class LeadsByChannelReport < Dossier::Report
  #  	end
 
   	def format_leads(value, row)
-  		formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.report_show_path(row[:marketing_channel])
+  		formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.reports_leads_detail_path(:marketing_channel_arg => row[:marketing_channel])
   	end
 
 	def start_date

@@ -12,9 +12,6 @@ class FirmsController < ApplicationController
   # GET /firms/1
   # GET /firms/1.json
   def show
-    # testing reports here
-    @leadsbychannel = LeadsByChannelReport.new(start_date: "2014-04-11", end_date: "2015-05-15")
-    @leadscount = LeadsCountReport.new(start_date: "2014-04-11", end_date: "2015-05-15", marketing_channel_arg: "Referral")
   end
 
   # GET /firms/new

@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
 
 
-  get 'reports/index'
+  get 'reports/index' => 'reports#index', as: :reports
 
-  get 'reports/show'
+  get 'reports/show' => 'reports#show', as: :report_show
 
   resources :companies
   resources :templates

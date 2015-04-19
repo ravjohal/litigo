@@ -964,6 +964,21 @@ font-weight: 400;
 font-size: 16px;
 letter-spacing: 1px;
   &:before {
+    content: url('/assets/custom-icons/report.png');
+    margin-right: 5px;
+    &:hover {
+      content: url('/assets/custom-icons/report.png');
+    }
+  }
+}
+
+.nav-sidebar__cli {
+color: #fff;
+text-shadow: 0px 1px 0 #3A4E5D;
+font-weight: 400;
+font-size: 16px;
+letter-spacing: 1px;
+  &:before {
     content: url('/assets/custom-icons/mag-menu.png');
     margin-right: 5px;
     &:hover {

@@ -995,6 +995,30 @@ text-shadow: 0 1px 0 rgba(9,161,186,.5);
   display: inline;
 }
 
+/* Reporting */
+.report-table {
+  width: 100%;
+  text-align: left;
+}
+.report-table a {
+  color: #428bca !important;
+  text-decoration: underline;
+    &:hover{
+      cursor: pointer;
+      color: #313A45 !important;
+}
+}
+
+@media print {
+.dark {
+  display: none;
+}
+.report-table {
+margin-top: 10px;
+}
+}
+
+
 .user-table {
   margin: 20px auto;
   width: 900px;

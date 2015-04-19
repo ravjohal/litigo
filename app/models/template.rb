@@ -28,7 +28,7 @@ class Template < ActiveRecord::Base
               {name: 'Policy Limits', attr: 'insurance.policy_limit', model: 'Case'},
               {name: 'Insurance provider', attr: 'insurance.insurance_provider', model: 'Case'},
               {name: 'Suit Filed Date', attr: 'filed_suit_date', model: 'Case'},
-              {name: 'Statute of Limitations', attr: 'incident.statute_of_limitations', model: 'Case'},
+              {name: 'Statute of Limitations', attr: 'statute_of_limitations', model: 'Case'},
               {name: 'Docket Number', attr: 'number', model: 'Case'},
               {name: 'Court', attr: 'court', model: 'Case'},
               {name: 'County', attr: 'county', model: 'Case'},
@@ -60,7 +60,7 @@ class Template < ActiveRecord::Base
               {name: 'Company Address', attr: 'company.address', model: 'Contact'},
               {name: 'Company City', attr: 'company.city', model: 'Contact'},
               {name: 'Company State', attr: 'company.state', model: 'Contact'},
-              {name: 'Company Zip', attr: 'company.zip_code', model: 'Contact'} #TODO create Company model that has_many contacts
+              {name: 'Company Zip', attr: 'company.zipcode', model: 'Contact'}
           ]
       },
       {

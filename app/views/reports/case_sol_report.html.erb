@@ -10,7 +10,7 @@
               </ul>
           </div>
     </div>
-    
+    <!-- .collect {|contact| contact.name }) -->
         <div class="container-fluid" style="padding: 0; margin-top: 10px;">
               <div class="row">
                       <div class="col-md-2 col-xs-6">
@@ -23,7 +23,7 @@
                       	</div>
                       	<div class="col-md-3 col-xs-6">
                       	Attorney<br>
-                      		<%= select_tag :attorney, options_for_select(@firm.contacts.where("type = 'Attorney'").collect {|contact| contact.name }), :options => {:include_blank => :false}, :class => 'table-input' %>
+                      		<%= collection_select :contact, :contact_id, @firm.contacts.where("type = 'Attorney'"), :id, :name, :class => 'table-input' %>
                       	</div>
                       	<div class="col-md-5 col-xs-12">
                       	</div>

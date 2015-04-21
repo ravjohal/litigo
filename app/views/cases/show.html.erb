@@ -139,7 +139,7 @@
            <strong>Hearing Date:</strong>
         </td>
         <td>
-            <%= @case.hearing_date %>
+            <%= @case.hearing_date.strftime("%b %e, %Y") if @case.hearing_date.present? %>
         </td>
       </tr>
       <tr>

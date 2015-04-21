@@ -38,3 +38,19 @@
 	  color: white;
 	  }
   }
+
+ .report-list ul {
+	list-style-type: none;
+} 
+.report-list a {
+	color: #428bca !important;
+} 
+.report-list li {
+	margin-bottom: 5px;
+  	color: #428bca !important;
+&:hover{
+  cursor: pointer;
+  color: #313A45 !important;
+  text-decoration: underline;
+}
+}

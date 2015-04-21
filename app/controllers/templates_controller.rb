@@ -42,7 +42,7 @@ class TemplatesController < ApplicationController
         doc = Docx::Document.open(@template.file.path)
         doc.paragraphs.each do |p|
           if p.node.xpath('w:r//w:lastRenderedPageBreak').present?
-            content = content + %q(<div class="-page-break"></div>) + p.to_html
+            content = content + %q(<div class="page-break"></div>) + p.to_html
           else
             content = content + p.to_html
           end
@@ -174,7 +174,7 @@ class TemplatesController < ApplicationController
   def generate_docx
     template_document = TemplateDocument.create({
                                                     html_content: params[:html],
-                                                    name: @template.name.downcase.tr(' ', '_'),
+                                                    name: params[:name].present? ? params[:name] : @template.name.downcase.tr(' ', '_'),
                                                     template_id: @template.id,
                                                     firm_id: @firm.id,
                                                     user_id: @user.id
@@ -186,7 +186,7 @@ class TemplatesController < ApplicationController
     template_document = TemplateDocument.find(params[:id])
     respond_to do |format|
       format.docx do
-        render docx: 'download_docx', content: template_document.html_content
+        render docx: 'download_docx', content: template_document.html_content, filename: template_document.name
       end
     end
   end

@@ -1,9 +1,39 @@
 <%= form_tag reports_leads_detail_path, method: :get do %>
-	<%= date_field_tag :start_date, @start_date %>
-	<%= date_field_tag :end_date, @end_date %>
-	<%= select_tag :marketing_channel_arg, options_for_select(Lead::CHANNELS, @marketing_channel_arg), :options => {:include_blank => :true} %>
-	<%= submit_tag "Run", name: nil %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Marketing - Leads by Channel</strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+             		<li><%= submit_tag "RUN REPORT", name: nil, :class => 'run-report' %></li>
+              </ul>
+          </div>
+    </div>
+    
+        <div class="container-fluid" style="padding: 0; margin-top: 10px;">
+              <div class="row">
+                      <div class="col-md-2 col-xs-6">
+                      	Start date<br>
+                     			<%= date_field_tag :start_date, @start_date, :id => 'start-date' %>
+                     	</div>
+                     	<div class="col-md-2 col-xs-6">
+                     	End date<br>
+								<%= date_field_tag :end_date, @end_date, :id => 'end-date' %>
+                      	</div>
+                      	<div class="col-md-3 col-xs-6">
+                      	Marketing Channel<br>
+                      		<%= select_tag :marketing_channel_arg, options_for_select(Lead::CHANNELS, @marketing_channel_arg), :options => {:include_blank => :true}, :class => 'table-input' %>
+                      	</div>
+                      	<div class="col-md-5 col-xs-12">
+                      	</div>
+              </div>
+        </div>
+</div>
+<div class="incase-tabs-gap"></div>
 <% end %>
-<div class="span6">
-  <%= render template: 'dossier/reports/show', locals: {report: @leads_detail_report.run} %>
+<div style="margin-top: 72px;">
+	<div class="span6">
+	  <%= render template: 'dossier/reports/show', locals: {report: @leads_detail_report.run} %>
+	</div>
 </div>

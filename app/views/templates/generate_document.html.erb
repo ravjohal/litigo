@@ -2,9 +2,12 @@
   <%= label_tag :case, 'Select Case' %> <br/>
   <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Select a case" %> <br/>
   <%= label_tag :addressee, 'Addressee' %>  <br/>
-  <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :id).map {|contact| [contact.first_name.present? ? "#{contact.first_name} #{contact.last_name}" : contact.email, contact.id] }), :prompt => "Add Addressee"  %>
+  <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :id).map {|contact| [contact.first_name.present? ? "#{contact.first_name} #{contact.last_name}" : contact.email, contact.id] }), :prompt => "Add Addressee"  %><br/>
+  <%= label_tag :template_name, 'Name' %> <br/>
+  <%= text_field_tag :template_name %>
 </div>
 <div>
+  <%= link_to 'Preview DOCX', '#', id: 'preview_docx', class: 'action-button' %>
   <%= link_to 'Create DOCX', '#', id: 'create_docx', class: 'action-button' %>
 </div>
 <div class="template_block">
@@ -105,12 +108,26 @@
             url: "/templates_generate_docx",
             type: 'POST',
             dataType: "json",
-            data: {id: <%= @template.id %>, html: html[0].innerHTML},
+            data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val()},
             success: function(data){
               var id = data.id;
               window.location.href = '/download_docx/'+id+'.docx';
             }
           });
     });
+    var preview = false;
+    $('#preview_docx').click(function (e) {
+      e.preventDefault();
+      preview = !preview;
+      if (preview) {
+        $('.template_html_show .custom_input').hide();
+        $(this).text('Edit');
+      } else {
+        $('.template_html_show .custom_input').show();
+        $(this).text('Preview DOCX');
+      }
+      $('.template-model').toggle();
+      $('.template_html_show .insertion').toggleClass('white');
+    })
   });
 </script>

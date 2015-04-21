@@ -1,20 +1,52 @@
-<h2>Reports</h2>
-<div>
-<h3>Leads By Channel Report</h3>
-<%= link_to "Leads By Channel", reports_leads_by_channel_path %>
+<div class="case-header">
+      <div class="case-title">
+          <div style="font-size: 24px;">
+                  <strong>Reports</strong><br>
+          </div>
+              <div id="case-buttons">
+                  <ul>
+                        <li></li>
+                  </ul>
+            </div>
+      </div>
+      <strong style="color: white;">A</strong>
+    <div class="container-fluid" style="padding: 0;">
+        <div class="row">
+            <div class="col-md-12">
+                  
+            </div>
+        </div>
+    </div>
 </div>
+        <div class="incase-tabs-gap"></div>
+              <div style="margin-top: 50px;">
+        </div>
 
-<br />
+      <div class="row">
+            <div class="col-md-12">
+                  <h3>Marketing Reports</h3>
+            </div>
+      </div>
+      <div class="row">
+            <div class="col-md-12 report-list">
+                <ul>
+                    <li><%= link_to "Leads By Channel", reports_leads_by_channel_path %></li>
+                </ul>
+			     </div>
+      </div>
 
 <div>
-<h3>Leads Detail Report</h3>
-<%= link_to "Leads Detail", reports_leads_detail_path(:marketing_channel_arg => "") %>
-</div>
-
-<br />
-
-<div>
-<h3>Case Statute of Limitations Report</h3>
-<%= link_to "Case Statute Of Limitations", reports_case_sol_path %>
+  <div class="row">
+            <div class="col-md-12">
+                <h3>Case Management Reports</h3>
+            </div>
+  </div>
+  <div class="row">
+            <div class="col-md-12 report-list">
+                <ul>
+                    <li><%= link_to "Case Statute Of Limitations", reports_case_sol_path %></li>
+                </ul>
+            </div>
+  </div>
 </div>
 

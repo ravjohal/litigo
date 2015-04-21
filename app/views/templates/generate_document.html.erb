@@ -1,8 +1,8 @@
 <div class="template-model">
   <%= label_tag :case, 'Select Case' %> <br/>
-  <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Please select" %> <br/>
+  <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Select a case" %> <br/>
   <%= label_tag :addressee, 'Addressee' %>  <br/>
-  <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :id).map {|contact| [contact.first_name.present? ? "#{contact.first_name} #{contact.last_name}" : contact.email, contact.id] }), :prompt => "Please select"  %>
+  <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :id).map {|contact| [contact.first_name.present? ? "#{contact.first_name} #{contact.last_name}" : contact.email, contact.id] }), :prompt => "Add Addressee"  %>
 </div>
 <div>
   <%= link_to 'Create DOCX', '#', id: 'create_docx', class: 'action-button' %>

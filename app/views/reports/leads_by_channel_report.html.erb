@@ -1,8 +1,35 @@
 <%= form_tag reports_leads_by_channel_path, method: :get do %>
-	<%= date_field_tag :start_date, @start_date %>
-	<%= date_field_tag :end_date , @end_date %>
-	<%= submit_tag "Run", name: nil, :class => 'btn btn-default' %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Marketing - Leads by Channel</strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+             		<li><%= submit_tag "RUN REPORT", name: nil, :class => 'run-report' %></li>
+              </ul>
+          </div>
+    </div>
+    
+        <div class="container-fluid" style="padding: 0; margin-top: 10px;">
+              <div class="row">
+                      <div class="col-md-2 col-xs-6">
+                      	Start date<br>
+                     			<%= date_field_tag :start_date, @start_date, :id => 'start-date' %>
+                     	</div>
+                     	<div class="col-md-2 col-xs-6">
+                     	End date<br>
+								<%= date_field_tag :end_date, @end_date, :id => 'end-date' %>
+                      	</div>
+                      	<div class="col-md-8">
+                      	</div>
+              </div>
+        </div>
+</div>
+<div class="incase-tabs-gap"></div>
 <% end %>
-<div class="span6">
-  <%= render template: 'dossier/reports/show', locals: {report: @leads_by_channel_report.run} %>
+ <div style="margin-top: 72px;">
+	<div class="span6">
+		  <%= render template: 'dossier/reports/show', locals: {report: @leads_by_channel_report.run}%>
+	</div>
 </div>

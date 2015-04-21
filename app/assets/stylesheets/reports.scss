@@ -1,3 +1,40 @@
 // Place all the styles related to the reports controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#start-date {
+	width: 100%;
+	line-height: 1.2 !important;
+}
+
+#end-date {
+	width: 100%;
+	line-height: 1.2 !important;
+}
+
+.run-report {
+	padding-right: 1.5em;
+	  padding-left: 1.5em;
+	  padding-top: .75em;
+	  padding-bottom: .75em;
+	  font-size: 12px;
+	  background-color: #7B8CA4;  
+	  border-top: 1px solid #8494AB;
+	  border-bottom: 1px solid #6E7D93;
+	  cursor:pointer;
+	  letter-spacing: 1px;
+	  border-radius: 4px;
+	  color: #fff;
+	  text-decoration: none;
+	  font-weight: 700;
+	  outline: none;
+	  transition: .3s;
+	  &:hover{
+	  background-color: #737373;
+	  color: #fff;
+	  transition: .3s;
+	  }
+	  &:focus{
+	  color: white;
+	  }
+  }

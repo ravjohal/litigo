@@ -103,6 +103,7 @@
       e.preventDefault();
       var html = $('.template_html_show').clone();
       html.find("select").remove();
+      html.find(".custom_input").remove();
       html.find('.insertion').removeClass();
       $.ajax({
             url: "/templates_generate_docx",

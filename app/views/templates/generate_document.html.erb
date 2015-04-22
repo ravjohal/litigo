@@ -43,7 +43,6 @@
         dataType: "json",
         data: {case_attrs: case_attrs, lead_attrs: lead_attrs, id: case_id},
         success: function(data){
-          console.log(data.contacts);
           $.each(data.case_attrs_values, function (attr, val) {
             $('.insertion[data-model="Case"][data-attr="'+attr+'"]').html(val);
           });

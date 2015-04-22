@@ -5,6 +5,7 @@ class Template < ActiveRecord::Base
       {
           name: 'Client Intakes',
           attrs: [
+              {name: 'Prefix', attr: 'prefix', model: 'Custom'},
               {name: 'Lead name', attr: 'name', model: 'Lead'},
               {name: 'Lead First name', attr: 'first_name', model: 'Lead'},
               {name: 'Lead Last name', attr: 'last_name', model: 'Lead'},
@@ -56,11 +57,11 @@ class Template < ActiveRecord::Base
               {name: 'Contact City', attr: 'city', model: 'Contact'},
               {name: 'Contact State', attr: 'state', model: 'Contact'},
               {name: 'Contact Zip code', attr: 'zip_code', model: 'Contact'},
-              {name: 'Company Name', attr: 'company.name', model: 'Contact'},
-              {name: 'Company Address', attr: 'company.address', model: 'Contact'},
-              {name: 'Company City', attr: 'company.city', model: 'Contact'},
-              {name: 'Company State', attr: 'company.state', model: 'Contact'},
-              {name: 'Company Zip', attr: 'company.zipcode', model: 'Contact'}
+              {name: 'Company Name', attr: 'name', model: 'Company'},
+              {name: 'Company Address', attr: 'address', model: 'Company'},
+              {name: 'Company City', attr: 'city', model: 'Company'},
+              {name: 'Company State', attr: 'state', model: 'Company'},
+              {name: 'Company Zip', attr: 'zipcode', model: 'Company'}
           ]
       },
       {

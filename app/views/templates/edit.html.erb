@@ -3,7 +3,7 @@
    <div id="template-buttons">
               <ul>
                   <li><%= link_to @template, :class => 'trash-icon', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Template"></span> <% end %></li>
-                  <li><%= f.submit :class => 'sub2-small', :value => 'Finished' %></li>
+                  <li><%= f.submit :class => 'sub2-small', :id => 'finished', :value => 'Finished' %></li>
               </ul>
   </div>
 
@@ -117,12 +117,25 @@
               $('.alert').remove();
               $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
               setTimeout(function() {$('.alert-success').fadeOut();}, 2000);
+              selected = false;
             }
           });
     });
     $('#cancel_selection').click(function (e) {
       e.preventDefault();
       $('.template_html').html('<%= @template.html_content.html_safe %>');
+    });
+
+    $( "form.edit_template" ).submit(function( event ) {
+      if ( !selected ) {
+        return;
+      }
+      var r = confirm("The template isn't saved. Would you like to finish without saving?");
+      if (r == true) {
+        return;
+      } else {
+        if(event.preventDefault) event.preventDefault(); else event.returnValue = false;
+      }
     });
   });
 </script>

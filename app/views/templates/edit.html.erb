@@ -100,8 +100,9 @@
       if(selected){
         var model = $(this).attr('data-model');
         var attr = $(this).attr('data-attr');
+        var name = $(this).text();
         var selection = $('.selection');
-        selection.attr('data-model', model).attr('data-attr', attr);
+        selection.attr('data-model', model).attr('data-attr', attr).attr('data-name', name);
         selection.html($(this).html()).toggleClass('selection insertion');
       }
     });

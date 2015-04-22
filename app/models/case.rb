@@ -105,6 +105,10 @@ class Case < ActiveRecord::Base
     end
   end
 
+  def date_of_intake
+    self.lead.created_at.strftime("%b %e, %Y") if self.lead
+  end
+
   def primary_injury
     self.medical.injuries.where(primary_injury: true).try(:first) if self.medical.present? && self.medical.injuries.present?
   end

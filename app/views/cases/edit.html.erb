@@ -104,7 +104,7 @@
   <tbody>
      <tr>
       <td class="col-one">
-        <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+        <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign pull-right"></span>
       </td>
         <td>
             <%= @case.incident.try(:incident_date) %>
@@ -112,7 +112,7 @@
      </tr>
     <tr>
       <td class="col-one">
-        <strong>SOL:</strong>
+        <strong>SOL: </strong><span id="sol" title="Manually changing the SOL will disable auto-calculations" style="cursor: pointer; color: #D82B25;" class="glyphicon glyphicon-exclamation-sign pull-right"></span>
       </td>
         <td>
           <%= f.date_field :statute_of_limitations, label: false, :class => 'table-input' %>
@@ -221,7 +221,8 @@
   </script>
 <script type='text/javascript'>
   $(function() {
-    $('#doi').tipsy({gravity: 'n', fade: true});
+    $('#doi').tipsy({gravity: 's', fade: true});
+    $('#sol').tipsy({gravity: 's', fade: true});
   });
 </script>
 

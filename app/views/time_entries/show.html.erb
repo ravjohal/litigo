@@ -1,7 +1,7 @@
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong><%= "#{@time_entry.user.name} #{@time_entry.date}" %></strong><br>
+      <strong><%= @time_entry.activity %>, <%= @time_entry.date.strftime("%b %e, %Y") if @time_entry.date.present? %></strong><br>
     </div>
     <div id="case-buttons">
       <ul>
@@ -44,7 +44,15 @@
       <strong>Date:</strong>
     </td>
     <td>
-      <%= @time_entry.date %>
+      <%= @time_entry.date.strftime("%b %e, %Y") if @time_entry.date.present? %>
+    </td>
+  </tr>
+    <tr>
+    <td>
+      <strong>Activity:</strong>
+    </td>
+    <td>
+      <%= @time_entry.activity %>
     </td>
   </tr>
   <tr>

@@ -124,7 +124,7 @@
           <strong>Date of Final Treatment:</strong>
         </td>
         <td>
-          <%= @medical.final_treatment_date %>
+          <%= @medical.final_treatment_date.strftime("%b %e, %Y") if @medical.final_treatment_date.present? %>
         </td>
       </tr>
   </tbody>
@@ -168,7 +168,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="5" class="gray-back">
+    <td colspan="6" class="gray-back">
       <strong>Medical Bills </strong><span id="edmed" title="Click 'Edit' to add a new bill" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
     </td>
   </tr>
@@ -190,6 +190,9 @@
           <td style="text-align: right;">
               <strong>Paid Amount $</strong>
           </td>
+           <td style="text-align: right;">
+              <strong>Net Owed $</strong>
+          </td>
       </tr>
       <% @medical.medical_bills.each do |med| %>
         <tr>
@@ -200,7 +203,7 @@
                <%= med.company.name if med.company %>
             </td>
             <td>
-               <%= med.date_of_service %>
+               <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>
             </td>
             <td style="text-align: right;">
                <%= number_to_currency med.billed_amount %>
@@ -208,21 +211,18 @@
             <td style="text-align: right;">
                <%= number_to_currency med.paid_amount %>
           </td>
+           <td style="text-align: right;">
+          </td>
         </tr>
         
       <% end %>
          <tr>
           <td colspan="3" style="text-align: left;">
-              <strong>Subtotals</strong>
+              <strong>Total</strong>
           </td>
           <td>
           </td>
           <td>
-          </td>
-      </tr>
-      <tr>
-          <td colspan="4" style="text-align: left;">
-              <strong>Total Net</strong>
           </td>
           <td>
           </td>
@@ -410,7 +410,7 @@
           <strong>Estimate of Future Medical Bills ($):</strong>
         </td>
         <td>
-           <%= injury.future_medicals %>
+           <%= number_to_currency injury.future_medicals %>
         </td>
       </tr>
       <tr>

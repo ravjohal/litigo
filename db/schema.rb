@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419075824) do
+ActiveRecord::Schema.define(version: 20150423154215) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,7 +132,7 @@ ActiveRecord::Schema.define(version: 20150419075824) do
     t.integer  "event_id"
     t.integer  "firm_id"
     t.integer  "user_account_id"
-    t.string   "corporation"
+    t.boolean  "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -299,7 +299,7 @@ ActiveRecord::Schema.define(version: 20150419075824) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
@@ -512,6 +512,7 @@ ActiveRecord::Schema.define(version: 20150419075824) do
     t.string   "aba_code"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.string   "activity"
   end
 
   create_table "user_events", force: :cascade do |t|

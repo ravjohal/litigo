@@ -2,7 +2,7 @@
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong><%= "#{@time_entry.user.name} #{@time_entry.date}" %></strong><br>
+      <strong><%= @time_entry.activity %>, <%= @time_entry.date.strftime("%b %e, %Y") if @time_entry.date.present? %></strong><br>
     </div>
     <div id="case-buttons">
       <ul>
@@ -20,7 +20,8 @@
     </div>
   </div>
 </div>
-
+<div class="incase-tabs-gap-double">
+</div>
 <table id="insurance-table" class="time_entry-table">
   <thead>
   <tr class="right-top">
@@ -44,6 +45,14 @@
     </td>
     <td>
       <%= f.date_field :date, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <strong>Activity:</strong>
+    </td>
+    <td>
+      <%= f.text_field :activity, label: false, :class => 'table-input' %>
     </td>
   </tr>
   <tr>

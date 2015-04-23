@@ -51,7 +51,6 @@ class MedicalsController < ApplicationController
   # PATCH/PUT /medicals/1.json
   def update
     @medical = @case.medical
-
     # if params[:data][:doctor_type]
     #   params[:data][:doctor_type].each do |doc|
     #     doctor_type << doc

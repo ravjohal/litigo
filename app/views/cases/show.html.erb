@@ -115,7 +115,7 @@
         <strong>SOL:</strong>
       </td>
         <td>
-            <%= @case.statute_of_limitations %>
+            <%= @case.statute_of_limitations.strftime("%b %e, %Y") if @case.statute_of_limitations.present? %>
         </td>
      </tr>
   <tr>
@@ -123,7 +123,7 @@
         <strong>Date of Intake:</strong>
       </td>
         <td>
-          <%= @case.date_of_intake %>
+          <%= @case.date_of_intake.strftime("%b %e, %Y") if @case.date_of_intake.present? %>
         </td>
      </tr>
    <tr>
@@ -147,7 +147,7 @@
             <strong>Date Filed Suit:</strong>
         </td>
         <td>
-              <%= @case.filed_suit_date %>
+              <%= @case.filed_suit_date.strftime("%b %e, %Y") if @case.filed_suit_date.present? %>
         </td>
       </tr>
       <tr>
@@ -155,7 +155,7 @@
            <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= @case.trial_date %>
+          <%= @case.trial_date.strftime("%b %e, %Y") if @case.trial_date.present? %>
         </td>
       </tr>
   </tbody>

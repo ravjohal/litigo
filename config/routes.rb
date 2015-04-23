@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'reports/leads_by_channel' => 'reports#leads_by_channel_report', as: :reports_leads_by_channel
   get 'reports/leads_detail/(:marketing_channel_arg)(.:format)' => 'reports#leads_detail_report', as: :reports_leads_detail
   get 'reports/case_statute_of_limitations' => 'reports#case_sol_report', as: :reports_case_sol
+  get 'reports/open_close' => 'reports#open_close_report', as: :reports_open_close  
 
   resources :companies
   resources :templates

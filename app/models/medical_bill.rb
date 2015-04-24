@@ -1,8 +1,9 @@
 class MedicalBill < ActiveRecord::Base
-	before_save :paid_amount_negative
+	before_save :paid_amount_negative, :save_firm_case_user
 
 	belongs_to :user
 	belongs_to :firm
+	belongs_to :case
 	belongs_to :medical
 	belongs_to :company
 	# has_many :children, class_name: "MedicalBill", foreign_key: "parent_id", :dependent => :destroy
@@ -13,4 +14,14 @@ class MedicalBill < ActiveRecord::Base
 	def paid_amount_negative
 		self.paid_amount = -(self.paid_amount.abs)
 	end
+
+  	def total_billed_paid_amounts
+  		self.billed_amount + self.paid_amount
+  	end
+
+  	def save_firm_case_user
+  		self.firm = self.medical.firm
+  		self.case = self.medical.case
+  		self.user = self.medical.user
+  	end
 end

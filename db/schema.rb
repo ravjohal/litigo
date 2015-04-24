@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150423154215) do
+ActiveRecord::Schema.define(version: 20150424084155) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "firm_id"
+    t.integer  "user_id"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -299,6 +300,7 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.date     "first_sold_date"
     t.boolean  "foreign_object"
     t.date     "final_treatment_date"
+    t.integer  "user_id"
   end
 
   add_index "incidents", ["case_id"], name: "index_incidents_on_case_id", using: :btree
@@ -330,6 +332,8 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.boolean  "prior_complaint",                                         default: false
     t.boolean  "primary_injury",                                          default: false
     t.boolean  "ongoing_pain",                                            default: false
+    t.integer  "user_id"
+    t.integer  "case_id"
   end
 
   add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
@@ -346,6 +350,7 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "parent_id"
+    t.integer  "user_id"
   end
 
   create_table "leads", force: :cascade do |t|
@@ -399,6 +404,9 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.integer  "company_id"
     t.integer  "medical_id"
     t.integer  "parent_id"
+    t.integer  "firm_id"
+    t.integer  "case_id"
+    t.integer  "user_id"
   end
 
   create_table "medicals", force: :cascade do |t|
@@ -423,6 +431,7 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.string   "treatment_type",                                      default: [],    array: true
     t.date     "injury_date"
     t.date     "final_treatment_date"
+    t.integer  "user_id"
   end
 
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree
@@ -468,6 +477,7 @@ ActiveRecord::Schema.define(version: 20150423154215) do
     t.text     "note"
     t.date     "expected_close"
     t.integer  "estimated_value"
+    t.integer  "user_id"
   end
 
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree

@@ -212,6 +212,7 @@
                <%= number_to_currency med.paid_amount %>
           </td>
            <td style="text-align: right;">
+            <%= number_to_currency med.total_billed_paid_amounts, precision: 0 %>
           </td>
         </tr>
         

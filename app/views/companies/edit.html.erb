@@ -11,7 +11,8 @@
               </ul>
           </div>
     </div>
-    
+                      <strong><%= @company.address %></strong><br>
+                      <strong><%= @company.city %>, <%= @company.state %></strong>
         <div class="container-fluid" style="padding: 0;">
               <div class="row">
                       <div class="col-md-12">
@@ -122,7 +123,7 @@
 <% end %>
 <script type='text/javascript'>
   $(function() {
-    $('#remove').tipsy({gravity: 's', fade: true});
+    $('.remove').tipsy({gravity: 's', fade: true});
   });
 </script>
 <script>

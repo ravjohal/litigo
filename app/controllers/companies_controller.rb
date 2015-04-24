@@ -31,6 +31,7 @@ class CompaniesController < ApplicationController
     @company = Company.new(company_params)
 
     @company.firm = @firm
+    @company.user = @user
 
     respond_to do |format|
       if @company.save
@@ -93,7 +94,7 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :address, :phone, :fax, :state, :city, :zipcode, :website,
+      params.require(:company).permit(:name, :address, :phone, :fax, :state, :city, :zipcode, :website, :firm_id, :user_id,
                                       :contacts_attributes => [:id, :_destroy, :company_id])
     end
 end

@@ -22,6 +22,8 @@ class ResolutionsController < ApplicationController
   def create
     @resolution = @case.build_resolution(resolution_params)
     @resolution.firm = @firm
+    @resolution.user = @user
+    @resolution.case = @case
     @resolution.save
     respond_with([@case, @resolution])
   end
@@ -54,6 +56,6 @@ class ResolutionsController < ApplicationController
     end
 
     def resolution_params
-      params.require(:resolution).permit(:case_id, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type, :note, :expected_close, :estimated_value)
+      params.require(:resolution).permit(:case_id, :firm_id, :user_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type, :note, :expected_close, :estimated_value)
     end
 end

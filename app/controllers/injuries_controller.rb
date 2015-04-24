@@ -104,6 +104,6 @@ class InjuriesController < ApplicationController
       params.require(:injury).permit(:injury_type, :region, :code, :dominant_side, :joint_fracture,
                                   :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture, :ongoing_pain,
-                                  :stitches, :future_surgery, :future_medicals)
+                                  :stitches, :future_surgery, :future_medicals, :firm_id, :case_id, :user_id)
     end
 end

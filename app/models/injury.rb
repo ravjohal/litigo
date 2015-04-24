@@ -6,6 +6,8 @@ class Injury < ActiveRecord::Base
 
 	belongs_to :medical
 	belongs_to :firm
+	belongs_to :user
+	belongs_to :case
 
 	validates :injury_type, presence: true
 end

@@ -37,7 +37,7 @@
               <strong>Total Policy Limits</strong>
           </td>
           <td style="text-align: right;">
-              <strong></strong>
+              <strong><%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %></strong>
           </td>
       </tr>
 </tfoot>
@@ -59,7 +59,7 @@
               <strong>Policy Limit</strong>
           </td>
       </tr>
-      <% @insurances.each do |insurance| %>
+      <% @insurance_children.each do |insurance| %>
       <tr>
           <td>
               <%= insurance.insurance_provider %>

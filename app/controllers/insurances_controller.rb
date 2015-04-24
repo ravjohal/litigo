@@ -6,7 +6,7 @@ class InsurancesController < ApplicationController
 
   def show
     @insurance = @case.insurance
-    @insurances = @case.insurance.children
+    @insurance_children = @case.insurance.children
   end
 
   def new
@@ -22,6 +22,7 @@ class InsurancesController < ApplicationController
   def create
     @insurance = @case.build_insurance(insurance_params)
     @insurance.firm = @firm
+    @insurance.user = @user
 
     respond_to do |format|
       if @insurance.save
@@ -61,7 +62,7 @@ class InsurancesController < ApplicationController
     end
 
     def insurance_params
-      params.require(:insurance).permit(:insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :_destroy, :case_id,
-                                        :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy])
+      params.require(:insurance).permit(:insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :_destroy, :case_id, :firm_id, :user_id,
+                                        :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :firm_id, :user_id, :_destroy])
     end
 end

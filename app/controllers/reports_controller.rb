@@ -23,8 +23,10 @@ class ReportsController < ApplicationController
   def case_sol_report
   	@start_date = params[:start_date] ? params[:start_date] : Date.today.at_beginning_of_month
   	@end_date = params[:end_date] ? params[:end_date] : Date.today.at_end_of_month
-  	#puts 'PARAMS ATTORNEY ++++++++++++++ ' + params[:contact][:contact_id].inspect
-    @attorney = params[:contact] ? params[:contact][:contact_id]: Attorney.new
+  	#puts 'PARAMS ATTORNEY ++++++++++++++ ' + params[:contact][:contact_id]
+    @attorney_all_id_array = @firm.contacts.where("type = 'Attorney'").pluck(:id)
+    @attorney = params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @attorney_all_id_array
+    @selected_attorney = params[:contact][:contact_id] if params[:contact][:contact_id]
     #puts 'ATTTORNEY--------------- ' + @attorney.inspect
   	@case_sol_report = CaseSolReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date, attorney_contact_id: @attorney)
   end

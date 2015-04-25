@@ -13,7 +13,7 @@ class CaseSolReport < Dossier::Report
   def sql
     Case.joins(:contacts, :incident).where("cases.firm_id = :firm_id 
     	AND type IN ('Attorney', 'Staff')
-    	AND contacts.id = :attorney_contact_id 
+    	AND contacts.id IN :attorney_contact_id 
     	AND cast(statute_of_limitations as date) between :start_date and :end_date"
     	).select("case_number, name, subtype, first_name, last_name, incident_date, statute_of_limitations, filed_suit_date"
     	).to_sql
@@ -29,28 +29,27 @@ class CaseSolReport < Dossier::Report
   end
 
   def firm_id
-	options[:firm_id]
+	  options[:firm_id]
   end
 
   def start_date
-	if options[:start_date] == ''
-		'0001-01-01'
-	else
-		options[:start_date]
-	end
-	
+  	if options[:start_date] == ''
+  		'0001-01-01'
+  	else
+  		options[:start_date]
+  	end
   end
 
   def end_date
-	if options[:end_date] == ''
-		'3000-01-01'
-	else
-		options[:end_date]
-	end
+  	if options[:end_date] == ''
+  		'3000-01-01'
+  	else
+  		options[:end_date]
+  	end
   end
 
   def attorney_contact_id
-  	options[:attorney_contact_id]
+    options[:attorney_contact_id]
   end
 
 end

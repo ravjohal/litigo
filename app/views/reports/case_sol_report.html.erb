@@ -23,7 +23,7 @@
                       	</div>
                       	<div class="col-md-3 col-xs-6">
                       	Attorney<br>
-                      		<%= collection_select :contact, :contact_id, @firm.contacts.where("type = 'Attorney'"), :id, :name, :class => 'table-input' %>
+                      		<%= collection_select :contact, :contact_id, @firm.contacts.where("type = 'Attorney'"), :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_attorney %>
                       	</div>
                       	<div class="col-md-5 col-xs-12">
                       	</div>

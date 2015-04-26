@@ -1,0 +1,30 @@
+<%= form_tag reports_medical_bills_path, method: :get do %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Case Management - Medical Bills Report</strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+             		<li><%= submit_tag "RUN REPORT", name: nil, :class => 'run-report' %></li>
+              </ul>
+          </div>
+    </div>
+    <!-- .collect {|contact| contact.name }) -->
+        <div class="container-fluid" style="padding: 0; margin-top: 10px;">
+              <div class="row">
+                	<div class="col-md-3 col-xs-6">
+                	Case<br>
+                		<%= collection_select :case, :case_id, @firm.cases, :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_case %>
+                	</div>
+                	<div class="col-md-5 col-xs-12">
+                	</div>
+              </div>
+        </div>
+</div>
+<div class="incase-tabs-gap"></div>
+<% end %>
+<div style="margin-top: 72px;">
+<div class="span6">
+  <%= render template: 'dossier/reports/show', locals: {report: @medical_bills_report.run} %>
+</div>

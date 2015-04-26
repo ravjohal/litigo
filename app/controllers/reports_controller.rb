@@ -36,4 +36,11 @@ class ReportsController < ApplicationController
     @end_date = params[:end_date] ? params[:end_date] : Date.today.at_end_of_month
     @open_close_report = OpenCloseReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date)
   end
+
+  def medical_bills_report
+    @case_all_id_array = @firm.cases.pluck(:id)
+    @case_ = params[:case][:case_id] != '' ? params[:case][:case_id].split(",").map(&:to_i) : @case_all_id_array
+    @selected_case = params[:case][:case_id] if params[:case][:case_id]
+    @medical_bills_report = MedicalBillsReport.new(firm_id: @firm.id, case_id_as_criteria: @case_)
+  end
 end

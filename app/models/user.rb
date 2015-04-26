@@ -27,6 +27,12 @@ class User < ActiveRecord::Base
   has_many :leads, class_name: 'Lead', foreign_key: 'attorney_id'
   has_many :task_lists
   has_many :time_entries
+  has_many :medicals
+  has_many :incidents
+  has_many :resolutions
+  has_many :insurances
+  has_many :injuries
+  has_many :companies
   has_many :medical_bills
   belongs_to :firm
   validates_presence_of :first_name, :last_name

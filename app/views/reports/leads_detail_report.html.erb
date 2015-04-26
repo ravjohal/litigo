@@ -23,7 +23,7 @@
                       	</div>
                       	<div class="col-md-3 col-xs-6">
                       	Marketing Channel<br>
-                      		<%= select_tag :marketing_channel_arg, options_for_select(Lead::CHANNELS, @marketing_channel_arg), :options => {:include_blank => :true}, :class => 'table-input' %>
+                      		<%= select_tag :marketing_channel_arg, options_for_select(Lead::CHANNELS, @selected_marketing_channel), :include_blank => true, :class => 'table-input' %>
                       	</div>
                       	<div class="col-md-5 col-xs-12">
                       	</div>

@@ -46,8 +46,8 @@ class IncidentsController < ApplicationController
         tasks.each do |task|
           if @incident.incident_date.present? && task.due_date.blank? && task.anchor_date == 'incident date'
             task.set_due_date!(@incident.incident_date)
-          elsif @incident.statute_of_limitations.present? && task.due_date.blank? && task.anchor_date == 'statute of limitations'
-            task.set_due_date!(@incident.statute_of_limitations)
+          elsif @incident.case.statute_of_limitations.present? && task.due_date.blank? && task.anchor_date == 'statute of limitations'
+            task.set_due_date!(@incident.case.statute_of_limitations)
           end
         end
         format.html { redirect_to [@case, @incident], notice: 'incident was successfully updated.' }

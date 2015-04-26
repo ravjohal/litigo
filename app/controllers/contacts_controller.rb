@@ -42,7 +42,7 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
     if get_case
-      @contact = @case.contacts.create(contact_params)
+      @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)
       path_contacts =  case_contacts_path
     else
       @contact = Contact.new(contact_params)

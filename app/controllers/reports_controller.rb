@@ -16,7 +16,9 @@ class ReportsController < ApplicationController
   def leads_detail_report
   	@start_date = params[:start_date] ? params[:start_date] : Date.today.at_beginning_of_month
   	@end_date = params[:end_date] ? params[:end_date] : Date.today
-  	@marketing_channel_arg = params[:marketing_channel_arg]
+    @marketing_channel_id_array = Lead::CHANNELS
+  	@marketing_channel_arg = params[:marketing_channel_arg] && params[:marketing_channel_arg] != '' ? params[:marketing_channel_arg].split(",") : @marketing_channel_id_array
+    @selected_marketing_channel = params[:marketing_channel_arg] if params[:marketing_channel_arg]
   	@leads_detail_report = LeadsDetailReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date, marketing_channel_arg: @marketing_channel_arg)
   end
 

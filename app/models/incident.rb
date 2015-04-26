@@ -5,4 +5,12 @@ class Incident < ActiveRecord::Base
   belongs_to :case
   belongs_to :firm
   belongs_to :user
+  after_save :check_sol
+
+  def check_sol
+    if self.case.present? && incident_date_changed? && incident_date.present?
+      options = {incident_date_changed: incident_date_changed?}
+      self.case.calculate_sol(self)
+    end
+  end
 end

@@ -39,6 +39,7 @@ class CasesController < ApplicationController
     # end
 
     @case = Case.new(case_params)
+    @case.sol_priority = 0 if case_params[:statute_of_limitations].present?
     @case.user = @user
     @case.firm = @firm
 
@@ -75,7 +76,13 @@ class CasesController < ApplicationController
   respond_to :html, :json
   def update
     @case.user = @user
-    if @case.update_attributes(case_params)
+    @case.assign_attributes(case_params)
+    if @case.statute_of_limitations_changed? && @case.statute_of_limitations.present?
+      @case.sol_priority = 0
+    elsif @case.statute_of_limitations_changed? && @case.statute_of_limitations.blank?
+      @case.sol_priority = nil
+    end
+    if @case.save
       tasks = @case.tasks.where(anchor_date: ['trial date', 'close date', 'case open'])
       tasks.each do |task|
         if @case.trial_date.present? && task.due_date.blank? && task.anchor_date == 'trial date'
@@ -86,6 +93,7 @@ class CasesController < ApplicationController
           task.set_due_date!(@case.created_at)
         end
       end
+      @case.check_sol
       respond_with @case, notice: 'Case was successfully updated.'
     end
   end

@@ -1,9 +1,9 @@
   <tr class="nested-fields medical-bill-field">
     <td>
-      <%= f.text_field :provider, label: false, :class => 'table-input' %>
+      <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :id => 'company' %>
     </td>
      <td>
-      <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :id => 'company' %>
+      <%= f.text_field :provider, label: false, :class => 'table-input' %>
     </td>
     <td>
       <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>

@@ -191,26 +191,26 @@
   </tbody>
 </table>
 
- <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", :class => 'action-button med-plus' %>
+ <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", :class => 'action-button med-plus pull-right' %>
 <div class="clearfix"></div>
   <div id="medical-bills">
-       <table class="medical_bills_table">
+       <table class="medicals" style="margin-top: 40px;">
               <thead>
                 <tr>
                       <td colspan="6" class="gray-back">
                         <strong>Medical Bills</strong>
                       </td>
               </tr>
-              <tr>
-                    <td><strong>Provider Name</strong></td>
-                    <td><strong>Company</strong></td>
+              <tr style="background-color: white;">
+                    <td><strong>Provider</strong></td>
+                    <td><strong>Doctor Name</strong></td>
                     <td><strong>Date of Service</strong></td>
                     <td><strong>Billed Amount $</strong></td>
                     <td><strong>Paid Amount $</strong></td>
                     <td></td>
               </tr>
               </thead>
-      <tbody id="medical_bills">
+      <tbody id="medical_bills" class="medical_bills_table">
               <%= f.simple_fields_for :medical_bills do |medical_bill| %>
               <%= render 'medical_bill_fields', :f => medical_bill %>
       <% end %>

@@ -176,10 +176,10 @@
   <tbody>
       <tr>
           <td>
-              <strong>Provider Name</strong>
+              <strong>Provider</strong>
           </td>
           <td>
-              <strong>Company</strong>
+              <strong>Doctor Name</strong>
           </td>
           <td>
               <strong>Date of Service</strong>
@@ -197,10 +197,10 @@
       <% @medical.medical_bills.each do |med| %>
         <tr>
             <td>
-               <%= med.provider %>
+               <%= med.company.name if med.company %>
             </td>
             <td>
-               <%= med.company.name if med.company %>
+               <%= med.provider %>
             </td>
             <td>
                <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>
@@ -233,8 +233,8 @@
 
 
 
-<div style="width:900px; margin: 0 auto 30px auto;">
-  <%= link_to 'ADD INJURY', new_medical_injury_path(@medical), {:class => "action-button", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
+<div style="width:900px; margin: 0 auto; padding-bottom: 10px;">
+  <%= link_to 'ADD INJURY', new_medical_injury_path(@medical), {:class => "action-button pull-right", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 </div>
 
 

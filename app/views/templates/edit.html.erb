@@ -35,11 +35,13 @@
                 <div class="form-group">
                   <strong>Document Descrition:</strong> <%= f.text_area :description, label: false, :class => 'table-input'%>
                 </div>
+                <span id="help1" title="Choose a data field to replace highlighted text with data during doc creation" style="cursor: pointer; margin-right: 10px;" class="glyphicon glyphicon-info-sign pull-left"></span>
             </div>
                    <div class="col-md-8" style="margin-top: 0;">
                       <div class="temp_buttons" id="buttons">
                           <a href="#" id="cancel_selection">Clear All</a>
                           <a href="#" class="action-button" id="save_template_html">Save</a>
+                          <span id="help" title="Highlight words to replace with data fields from the list" style="cursor: pointer; margin-right: 10px;" class="glyphicon glyphicon-info-sign pull-right"></span>
                       </div>
                   </div>
           </div>
@@ -142,6 +144,8 @@
 <script type='text/javascript'>
   $(function() {
     $('#delete').tipsy({gravity: 'n', fade: true});
+    $('#help').tipsy({gravity: 'e', fade: true});
+    $('#help1').tipsy({gravity: 'w', fade: true});
   });
 </script>
 <script type="text/javascript">
@@ -187,7 +191,7 @@
                 'box-shadow' : 'none',
                 'background-color' : 'transparent',
                 'border' : 'none',
-                'padding-top' : '45px',
+                'padding-top' : '58px',
             });
             isFixed = false;
         }

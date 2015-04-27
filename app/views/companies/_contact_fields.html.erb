@@ -1,15 +1,15 @@
   <tr class="nested-fields contact-fields">
     <td>
-      <%= f.input :name, label: false, :class => 'table-input', :readonly => 'true' %>
+      <%= f.input :name, label: false, :class => 'table-input', :readonly => true %>
     </td>
      <td>
-      <%= f.input :type, label: false, :class => 'table-input' %>
+      <%= f.input :type, label: false, :class => 'table-input', :readonly => true %>
     </td>
     <td>
-      <%= f.input :email, label: false, :class => 'table-input' %>
+      <%= f.input :email, label: false, :class => 'table-input', :readonly => true %>
     </td>
     <td>
-      <%= f.input :phone_number, label: false %>
+      <%= f.input :phone_number, label: false, :readonly => true %>
     </td>
     <td class="contact-icon">
       <%= link_to_remove_association f, class: 'remove_contacts remove' do %><span class="glyphicon glyphicon-remove" original-title="Remove Contact from Company"></span><% end %>

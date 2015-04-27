@@ -23,7 +23,7 @@
 </div>
 
 <div class="insurance-edit-container">
- <%= link_to_add_association 'ADD INSURANCE', f, :children, :"data-association-insertion-node" => "tbody#children", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button insure' %>
+ <%= link_to_add_association 'ADD INSURANCE', f, :children, :"data-association-insertion-node" => "tbody#children", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button insure pull-right' %>
 <table id="info-table3">
 <thead>
   <tr class="right-top">
@@ -58,7 +58,7 @@
            <td class="right">
               <strong>Claim Number</strong>
           </td>
-          <td class="right">
+          <td style="text-align: right;">
               <strong>Policy Limit</strong>
           </td>
           <td style="text-align: center;">

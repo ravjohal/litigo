@@ -12,11 +12,11 @@ class MedicalBill < ActiveRecord::Base
 	#accepts_nested_attributes_for :children, :reject_if => :all_blank, :allow_destroy => true
 
 	def paid_amount_negative
-		self.paid_amount = -(self.paid_amount.abs)
+		self.paid_amount = -(self.paid_amount.abs) if self.paid_amount
 	end
 
   	def total_billed_paid_amounts
-  		self.billed_amount + self.paid_amount
+  		self.billed_amount + self.paid_amount if self.paid_amount || self.billed_amount
   	end
 
   	def save_firm_case_user

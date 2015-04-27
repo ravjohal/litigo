@@ -221,11 +221,14 @@
           <td colspan="3" style="text-align: left;">
               <strong>Total</strong>
           </td>
-          <td>
+          <td style="text-align: right;">
+            <%= number_to_currency @medical.total_billed, precision: 0 %>
           </td>
-          <td>
+          <td style="text-align: right;">
+            <%= number_to_currency @medical.total_paid, precision: 0 %>
           </td>
-          <td>
+          <td style="text-align: right;">
+            <%= number_to_currency @medical.total_owed, precision: 0 %>
           </td>
       </tr>
   </tbody>

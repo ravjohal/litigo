@@ -1,47 +1,47 @@
 <% if @task_list.view_permission == 'author' && @task_list.user == @user || @task_list.view_permission == 'all_firm' %>
 
- <div class="text-center">
-    <table id="info-table4">
-      <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td><%= link_to @task_list, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span class="glyphicon glyphicon-trash tip" data-tip="Delete"></span> <% end %>
-          <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span class="glyphicon glyphicon-print tip" data-tip="Print"></span> <% end %>
-          <%= link_to 'Edit', edit_task_list_path(@task_list), :class => 'dark' %>
-          <%= link_to tasks_path, :class => 'dark-right' do %><span class="glyphicon glyphicon-arrow-left tip" data-tip="Tasks"></span><% end %></td>
-      </tr>
-      </tbody>
-    </table>
+  
+  
+  <div class="row">
+    <div class="col-md-1">
+          <%= link_to tasks_path, :class => 'dark pull-left' do %><span id="back" class="glyphicon glyphicon-arrow-left" title="Back to Tasks"></span><% end %>
+    </div>
+    <div class="col-md-8">
+    </div>
+    <div class="col-md-3">
+        <%= link_to @task_list, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Are you sure you want to delete this Task List?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Task List"></span> <% end %>
+          <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span id="print" class="glyphicon glyphicon-print" title="Print screen"></span> <% end %>
+        <%= link_to 'Edit', edit_task_list_path(@task_list), :class => 'dark-right' %>
+    </div>
   </div>
 
-<div style="width:700px;">
-
-  <h3>List Name</h3>      
-        <div class="form-group">
-            <%= @task_list.name %>
-        </div>
-<h3>Permissions</h3>
-    <div class="form-group">
-        <strong>Who can view this list?</strong>
-        <br><%= TaskList::VIEW_PERMISSIONS[@task_list.view_permission.to_sym] %>
-    </div>
-        <br>
-        <strong>Who can make changes to this list?</strong>
-        <br><%= TaskList::AMEND_PERMISSIONS[@task_list.amend_permission.to_sym] %>
-    <h3>Settings</h3>
-    <div class="form-group">
-       <strong>Import Settings</strong>
-       <br><%= TaskList::TASK_IMPORT[@task_list.task_import.to_sym]%>
-        <div class="radio-bloc">
-        
-        </div>
-    </div>
+<div style="width:100%; margin-top: -30px;">
+  <div class="row">
+    <div class="col-md-12">
+          <h3>List Name</h3>      
+                <div class="form-group">
+                    <%= @task_list.name %>
+                </div>
+        <h3>Permissions</h3>
+            <div class="form-group">
+                <strong>Who can view this list?</strong>
+                <br><%= TaskList::VIEW_PERMISSIONS[@task_list.view_permission.to_sym] %>
+            </div>
+                <br>
+                <strong>Who can make changes to this list?</strong>
+                <br><%= TaskList::AMEND_PERMISSIONS[@task_list.amend_permission.to_sym] %>
+            <h3>Settings</h3>
+            <div class="form-group">
+               <strong>Import Settings</strong>
+               <br><%= TaskList::TASK_IMPORT[@task_list.task_import.to_sym]%>
+                <div class="radio-bloc">
+                
+                </div>
+            </div>
+      </div>
+  </div>
 </div>
 
-  <br/>
-  <br/>
   <div class="clearfix"></div>
   <div id="tasks">
     <table class="task-nested-table table table-striped" style="margin-bottom: 30px;">
@@ -80,15 +80,17 @@
 <script>
   $(document).ready(function () {
     $("#note_select, select").select2();
-    $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-    });
     <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
     $('.add_fields').click(function () {
       $("html, body").animate({ scrollTop: $(document).height() }, 1000);
     });
   });
-
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#delete').tipsy({gravity: 'ne', fade: true});
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#back').tipsy({gravity: 'nw', fade: true});
+  });
 </script>
 <% end %>

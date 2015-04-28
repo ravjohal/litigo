@@ -43,14 +43,6 @@
       </tr>
       <tr>
         <td class="col-one">
-          <strong>Topic:</strong>
-        </td>
-        <td>
-          <%=  @case.topic %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
           <strong>Docket Number:</strong>
         </td>
         <td>
@@ -176,6 +168,20 @@
   <tbody>
       <tr>
         <td class="right">
+          <strong>Status:</strong>
+        </td>
+        <td>
+          <%= @case.status %>
+        </td>
+         <td class="right">
+          <strong>Date Closed:</strong>
+        </td>
+        <td>
+          <%= @case.closing_date %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
            <strong>Type:</strong>
         </td>
         <td>
@@ -189,17 +195,11 @@
         </td>
       </tr>
       <tr>
-        <td class="right">
-          <strong>Status:</strong>
-        </td>
         <td>
-          <%= @case.status %>
+          <strong>Topic:</strong>
         </td>
-         <td class="right">
-          <strong>Date Closed:</strong>
-        </td>
-        <td>
-          <%= @case.closing_date %>
+        <td colspan="3">
+          <%=  @case.topic %>
         </td>
       </tr>
       <tr>

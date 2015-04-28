@@ -28,7 +28,7 @@
   <%= form_for @user, :url => registration_path(@user) do |f| %>
     <div class="form-group">
       <%= f.label :time_zone %>
-      <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)", class: 'form-control' %>
+      <%= f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: "Pacific Time (US & Canada)", class: 'table-input' %>
     </div>
     <div class="form-group">
       <%= f.fields_for :firm do |firm| %>
@@ -51,12 +51,12 @@
     <div class="form-group">
       <%= f.fields_for :firm do |firm| %>
         <%= firm.label :state, 'Firm State'%>
-        <%= firm.select(:state, us_states, {}, {:disabled => !@user.admin?, :class => "selectpicker"}) %>
+        <%= firm.select(:state, us_states, {}, {:disabled => !@user.admin?, :class => "table-input"}) %>
       <% end %>
     </div>
     <div class="form-group">
       <%= f.fields_for :firm do |firm| %>
-        <%= firm.label :zip, 'Firm Zipcode'%>
+        <%= firm.label :zip, 'Firm Zip Code'%>
         <%= firm.text_field :zip, :autofocus => true, class: 'form-control', disabled: !@user.admin? %>
       <% end %>
     </div>              

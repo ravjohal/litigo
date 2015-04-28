@@ -144,8 +144,8 @@ class Case < ActiveRecord::Base
 
   def check_sol
     if state == 'OH'
-      self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
       if sol_priority != 0
+        self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
         if subtype == 'Medical Malpractice'
           self.assign_attributes(statute_of_limitations: incident.incident_date + 1.years, sol_priority: 3) if incident.present? && incident.incident_date.present?
         elsif subtype == 'Intentional Tort'
@@ -167,7 +167,18 @@ class Case < ActiveRecord::Base
         elsif case_type == 'Personal Injury'
           self.assign_attributes(statute_of_limitations: self.incident.incident_date + 2.years, sol_priority: 6) if incident.present? && incident.incident_date.present? && (sol_priority.blank? || sol_priority >= 6)
         end
+        if statute_of_limitations_changed?
+          self.recalculate_sol_tasks(self.statute_of_limitations)
+        end
         self.save
+      end
+    end
+  end
+
+  def recalculate_sol_tasks(sol)
+    self.tasks.each do |task|
+      if sol.present? && task.anchor_date == 'statute of limitations'
+        task.set_due_date!(sol)
       end
     end
   end

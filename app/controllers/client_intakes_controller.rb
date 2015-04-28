@@ -100,6 +100,7 @@ class ClientIntakesController < ApplicationController
             CaseDocument.create(case_id: @case.id, document_id: doc.id)
           end
         end
+        @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }
       else

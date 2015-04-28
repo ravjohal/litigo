@@ -72,7 +72,7 @@
       menu_items.push($(this).attr('href').replace('/', ''))
     });
     var path = '<%= controller_name %>';
-    var internal_menu_items = ['task_lists', 'templates']
+    var internal_menu_items = ['task_lists', 'templates', 'incidents', 'medicals', 'insurances']
     menu_items = $.merge(menu_items, internal_menu_items);
     if (document.location && $.inArray(path, menu_items) >= 0) {
       isFirstOpen = 1;

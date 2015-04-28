@@ -105,6 +105,8 @@ class TemplatesController < ApplicationController
       elsif span['data-model'] == 'Firm'
         if span['data-attr'] == 'contacts_names'
           span.inner_html = "#{select_tag('firm_contacts_names', options_for_select(@firm.users.map {|user| [user.name.present? ? user.name : user.email, user.name]}), :prompt => "Firm contact", class: 'custom_input firm_contacts_names')} <ins></ins>"
+        elsif span['data-attr'] == 'contact_initials'
+          span.inner_html = "#{select_tag('firm_contacts_names', options_for_select(@firm.users.map {|user| [user.name.present? ? user.name : user.email, user.initials]}), :prompt => "Firm contact", class: 'custom_input firm_contacts_names')} <ins></ins>"
         else
           span.inner_html = @firm.send(span['data-attr'])
         end

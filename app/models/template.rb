@@ -82,6 +82,7 @@ class Template < ActiveRecord::Base
       {
           name: 'Firm Information',
           attrs: [
+              {name: 'Firm Contact Initials', attr: 'contact_initials', model: 'Firm'},
               {name: 'Firm contact', attr: 'contacts_names', model: 'Firm'}, #TODO add contacts_names method to Firm model to collect all firm contacts names
               {name: 'Firm Phone Number', attr: 'phone', model: 'Firm'},
               {name: 'Firm Name', attr: 'name', model: 'Firm'},

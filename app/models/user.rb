@@ -45,6 +45,13 @@ class User < ActiveRecord::Base
     self.first_name.present? && self.last_name.present? ? "#{self.first_name} #{self.last_name}" : ""
   end
 
+  def initials
+    fn = self.first_name.present? ? self.first_name[0] : ''
+    mn = self.middle_name.present? ? self.middle_name[0] : ''
+    ln = self.last_name.present? ? self.last_name[0] : ''
+    return fn+mn+ln
+  end
+
   def set_default_role
     self.role ||= :staff 
   end

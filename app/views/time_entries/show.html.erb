@@ -108,7 +108,7 @@
       <strong>Contingent Fee:</strong>
     </td>
     <td>
-      <%= number_to_currency(@time_entry.contingent_fee) %>
+      <%= number_to_percentage(@time_entry.contingent_fee, precision: 2) %>
     </td>
   </tr>
   <tr>

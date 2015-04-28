@@ -44,14 +44,6 @@
       </tr>
       <tr>
         <td class="col-one">
-          <strong>Topic:</strong>
-        </td>
-        <td>
-              <%= f.text_field :topic, label: false, :class => 'table-input' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
           <strong>Docket Number:</strong>
         </td>
         <td>
@@ -63,8 +55,9 @@
             <strong>Judge:</strong>
         </td>
         <td>
-          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Judge'"), :input_html => {:id => "judge_select"}, label: false, :class => 'table-input' %>
-           <%= f.association :contacts, :collection => @firm.contacts, as: :hidden %>
+         <% @case.contacts.where("type = 'Judge'").each do |d| %>
+          <%= d.first_name %> <%= d.last_name %>
+           <% end %>
         </td>
       </tr>
       <tr>
@@ -104,7 +97,7 @@
   <tbody>
      <tr>
       <td class="col-one">
-        <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign pull-right"></span>
+        <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-info-sign pull-right"></span>
       </td>
         <td>
             <%= @case.incident.try(:incident_date) %>
@@ -176,6 +169,20 @@
   <tbody>
       <tr>
         <td class="right">
+          <strong>Status:</strong>
+        </td>
+        <td>
+          <%= f.input :status, collection: Case::STATUS, :class => 'table-input', label: false %>
+        </td>
+         <td class="right">
+          <strong>Date Closed:</strong>
+        </td>
+        <td>
+        <%= f.date_field :closing_date, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
            <strong>Type:</strong>
         </td>
         <td>
@@ -188,18 +195,12 @@
           <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, :class => 'table-input' %>
         </td>
       </tr>
-      <tr>
-        <td class="right">
-          <strong>Status:</strong>
-        </td>
+       <tr>
         <td>
-          <%= f.input :status, collection: Case::STATUS, :class => 'table-input', label: false %>
+          <strong>Topic:</strong>
         </td>
-         <td class="right">
-          <strong>Date Closed:</strong>
-        </td>
-        <td>
-        <%= f.date_field :closing_date, label: false, :class => 'table-input' %>
+        <td colspan="3">
+              <%= f.text_field :topic, label: false, :class => 'table-input' %>
         </td>
       </tr>
        <tr>

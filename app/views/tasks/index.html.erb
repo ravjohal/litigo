@@ -157,7 +157,7 @@
         }
       });
     });
-    <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'desc'} %>
+    <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
     $('.tasks_table tr').click(function(e) {
       console.log($(this));
       console.log($(e.target));

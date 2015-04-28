@@ -74,7 +74,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Actual Close Date:</strong>
+          <strong>Actual Close Date:</strong><span id="close" title="Change 'Close Date' from the Details tab" style="cursor: pointer;" class="glyphicon glyphicon-info-sign pull-right"></span>
         </td>
         <td>
           <%= @case.closing_date %>
@@ -112,4 +112,5 @@
 <% end %>
 <script>
   $(document).ready(function() { $("select").select2(); });
+  $('#close').tipsy({gravity: 's', fade: true});
 </script>

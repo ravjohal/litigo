@@ -9,49 +9,54 @@
   </div>
   <br>
 
-  <div style="width:600px; margin-top: 50px;">
-  <h3>List Name</h3>
+<div style="width:100%; margin-top: 15px;">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>List Name</h3>
+            <div class="form-group">
+                <%= f.input :name, label: false, :class => 'table-input'%>
+            </div>
+    <h3>Permissions</h3>
         <div class="form-group">
-            <%= f.input :name, label: false, :class => 'table-input'%>
+            <strong>Who can view this list?</strong>
+            <%= f.select :view_permission, TaskList::VIEW_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
         </div>
-
-<h3>Permissions</h3>
-    <div class="form-group">
-        <strong>Who can view this list?</strong>
-        <%= f.select :view_permission, TaskList::VIEW_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
-    </div>
-        <br>
-        <strong>Who can make changes to this list?</strong>
-        <%= f.select :amend_permission, TaskList::AMEND_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
-    <h3>Settings</h3>
-    <div class="form-group">
-      <div class="radio-bloc">
-        <%= f.radio_button :task_import, 'automatic' %>
-        <%= f.label :task_import, 'Automatically import task list when a case is created', :value => 'automatic' %> <span id="auto" title="When a case of the selected type is created, this task list will automatically be imported to the case" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
-      </div>
-      <div class="case-selector" <% if @task_list.task_import == 'automatic' %> style="display:block" <% end %>>
-        <div style='margin-bottom: 5px;'>
-          <strong>When case type is:</strong>
-          <%= f.input :case_type, collection: Case::TYPES, label: false %>
-        </div>
-        <div class=" case-creator">
+            <br>
+            <strong>Who can make changes to this list?</strong>
+            <%= f.select :amend_permission, TaskList::AMEND_PERMISSIONS.map { |k,v| [v, k]}, label: false, :class => 'table-input' %>
+        <h3>Settings</h3>
+        <div class="form-group">
           <div class="radio-bloc">
-            <%= f.radio_button :case_creator, 'all_firm', disabled: !@user.is_admin? %>
-            <%= f.label :task_import, 'For any case created by firm', :value => 'all_firm'%>
+            <%= f.radio_button :task_import, 'automatic' %>
+            <%= f.label :task_import, 'Automatically import task list when a case is created', :value => 'automatic' %> <span id="auto" title="When a case of the selected type is created, this task list will automatically be imported to the case" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
           </div>
-          <div class="radio-bloc">
-            <%= f.radio_button :case_creator, 'owner' %>
-            <%= f.label :task_import, 'For only cases created by me', :value => 'owner' %>
+          <div class="case-selector" <% if @task_list.task_import == 'automatic' %> style="display:block" <% end %>>
+            <div style='margin-bottom: 5px;'>
+              <strong>When case type is:</strong>
+              <%= f.input :case_type, collection: Case::TYPES, label: false %>
+            </div>
+            <div class=" case-creator">
+              <div class="radio-bloc">
+                <%= f.radio_button :case_creator, 'all_firm', disabled: !@user.is_admin? %>
+                <%= f.label :task_import, 'For any case created by firm', :value => 'all_firm'%>
+              </div>
+              <div class="radio-bloc">
+                <%= f.radio_button :case_creator, 'owner' %>
+                <%= f.label :task_import, 'For only cases created by me', :value => 'owner' %>
+              </div>
+            </div>
+          </div>
+          <div class="radio-bloc" style="margin-bottom: 40px;">
+            <%= f.radio_button :task_import, 'manual' %>
+            <%= f.label :task_import, 'Manually import task list on demand', :value => 'manual' %>
+                <span id="man" title="After a case is created, users must go to Tasks > Import" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
           </div>
         </div>
+      </div> <!-- col-md-6 div -->
+      <div class="col-md-6">
       </div>
-      <div class="radio-bloc" style="margin-bottom: 40px;">
-        <%= f.radio_button :task_import, 'manual' %>
-        <%= f.label :task_import, 'Manually import task list on demand', :value => 'manual' %>
-            <span id="man" title="After a case is created, users must go to Tasks > Import" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
-      </div>
-    </div>
-    </div>
+  </div>
+</div>
 
   <div class="clearfix"></div>
   <div id="tasks">
@@ -123,6 +128,6 @@
 </script>
 <script type='text/javascript'>
   $(function() {
-    $('#man, #auto').tipsy({gravity: 'n', fade: true});
+    $('#man, #auto').tipsy({gravity: 's', fade: true});
   });
 </script>

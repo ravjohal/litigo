@@ -41,7 +41,7 @@
     </div>
     <div class="form-group">
       <%= f.label :role, 'Firm Role' %>
-      <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, {:disabled => !@user.admin?, :class => "selectpicker"}) %>
+      <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, {:disabled => !@user.admin?, :class => "table-input"}) %>
     </div>
     <%= f.submit 'Update', :class => "sub2-small pull-right" %>
   <% end %>

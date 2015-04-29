@@ -88,7 +88,7 @@
            <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= @case.trial_date %>
+          <%= @case.trial_date.try(:strftime, "%b %e, %Y")  %>
         </td>
       </tr>
      
@@ -98,6 +98,14 @@
         </td>
         <td>
           
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Transfer Date</strong>
+        </td>
+        <td>
+          <%= @case.transfer_date.try(:strftime, "%b %e, %Y")  %>
         </td>
       </tr>
   </tbody>

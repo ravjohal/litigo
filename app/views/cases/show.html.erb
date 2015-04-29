@@ -99,7 +99,7 @@
         <strong>Date of Incident:</strong>
       </td>
         <td>
-            <%= @case.incident.try(:incident_date) %>
+            <%= @case.incident.try(:incident_date).try(:strftime, "%b %e, %Y") %>
         </td>
      </tr>
   <tr>
@@ -107,7 +107,7 @@
         <strong>SOL:</strong>
       </td>
         <td>
-            <%= @case.statute_of_limitations.strftime("%b %e, %Y") if @case.statute_of_limitations.present? %>
+            <%= @case.statute_of_limitations.try(:strftime, "%b %e, %Y") %>
         </td>
      </tr>
   <tr>
@@ -131,7 +131,7 @@
            <strong>Hearing Date:</strong>
         </td>
         <td>
-            <%= @case.hearing_date.strftime("%b %e, %Y") if @case.hearing_date.present? %>
+            <%= @case.hearing_date.try(:strftime, "%b %e, %Y")  %>
         </td>
       </tr>
       <tr>
@@ -139,7 +139,7 @@
             <strong>Date Filed Suit:</strong>
         </td>
         <td>
-              <%= @case.filed_suit_date.strftime("%b %e, %Y") if @case.filed_suit_date.present? %>
+              <%= @case.filed_suit_date.try(:strftime, "%b %e, %Y")  %>
         </td>
       </tr>
       <tr>
@@ -147,7 +147,7 @@
            <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= @case.trial_date.strftime("%b %e, %Y") if @case.trial_date.present? %>
+          <%= @case.trial_date.try(:strftime, "%b %e, %Y")  %>
         </td>
       </tr>
   </tbody>
@@ -177,7 +177,7 @@
           <strong>Date Closed:</strong>
         </td>
         <td>
-          <%= @case.closing_date %>
+          <%= @case.closing_date.try(:strftime, "%b %e, %Y")  %>
         </td>
       </tr>
       <tr>

@@ -39,6 +39,7 @@ class Case < ActiveRecord::Base
                   associated_against: { :medical => :total_med_bills }
   after_create :import_tasks
   before_save :set_tasks_due_dates
+  before_save :capture_transfer_date
   attr_accessor :current_user_id
 
   # searchable do
@@ -93,7 +94,6 @@ class Case < ActiveRecord::Base
 
   def set_tasks_due_dates
     attrs = TaskDraft::ANCHOR_DATE_HASH['affair'].keys & self.changed
-    logger.info "attrs: #{attrs}\n\n\n"
     if attrs.present?
       attrs.each do |attr|
         self.tasks.where(anchor_date: "affair.#{attr}").each do |task|
@@ -183,6 +183,17 @@ class Case < ActiveRecord::Base
     self.tasks.each do |task|
       if sol.present? && task.anchor_date == 'Statute of Limitations'
         task.set_due_date!(sol)
+      end
+    end
+  end
+
+  def capture_transfer_date
+    if self.status_changed?
+      logger.info "#{status}\n\n\n"
+      if status == 'Litigation'
+        self.transfer_date = Date.today
+      elsif ['Active', 'Discovery', 'Negotiation'].include?(status)
+        self.transfer_date = nil
       end
     end
   end

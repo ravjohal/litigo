@@ -2,13 +2,13 @@
 <ul id="nav-tabs-custom" role="tablist">
   <li> <%= active_link_to 'SUMMARY', case_summary_path(@case), :class_active => 'navigated' %></li>
   <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case), :class_active => 'navigated',  :active => [['cases'], ['show', 'edit']] %></li>
-  <% if @case.incident && @case.case_type == 'Personal Injury' %>
+  <% if @case.incident && @case.case_type == 'Personal Injury' || 'Wrongful Death' %>
     <li<%= is_active('incidents') %>><%= active_link_to 'INCIDENT', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
-  <% if @case.medical && @case.case_type == 'Personal Injury' %>
+  <% if @case.medical && @case.case_type == 'Personal Injury' || 'Wrongful Death' %>
     <li<%= is_active('medicals') %>><%= active_link_to 'MEDICALS', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
-  <% if @case.insurance && @case.case_type == 'Personal Injury' %>
+  <% if @case.insurance && @case.case_type == 'Personal Injury' || 'Wrongful Death' %>
     <li<%= is_active('insurance') %>><%= active_link_to 'INSURANCE', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
   <% end %>
    <% if @case.contacts %>

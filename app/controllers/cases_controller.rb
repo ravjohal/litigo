@@ -43,7 +43,7 @@ class CasesController < ApplicationController
     @case.user = @user
     @case.firm = @firm
 
-    if @case.case_type == "Personal Injury"
+    if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
       incident = @case.build_incident
       incident.firm = @firm
       incident.save

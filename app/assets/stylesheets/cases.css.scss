@@ -85,7 +85,8 @@
 .injury-table-container {
   position: relative;
   display: block;
-  margin: 40px auto;
+  margin: 0 auto;
+  padding-bottom: 50px;
   width: 900px;
 }
 .injury-table tr{
@@ -135,6 +136,12 @@ hr.invis {
   border: 0;
   height: 1px;
   background-color: #F2F2F2;
+}
+hr.invis2 {
+  border: 0;
+  height: 1px;
+  background-color: #F2F2F2;
+  margin: 0;
 }
 
 .injury-form {

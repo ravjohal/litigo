@@ -12,7 +12,7 @@
       <%= f.select :conjunction, [ 'After', 'Before'], {}, { class: 'conjunction-select', label: false } %>
     </td>
     <td>
-      <%= f.select :anchor_date, TaskDraft::ANCHOR_DATE, label: false %>
+      <%= f.select :anchor_date, select_anchor_date_options, label: false %>
     </td>
     <td class="task-icon">
       <%= link_to_add_association f, :children, :"data-association-insertion-node" => ".task-draft-field:last", :"data-association-insertion-method" => "after", :partial => "child_fields", class: 'dark-small add_child' do %><span id="depend" class="glyphicon glyphicon-plus" title="Add Dependent Task"></span><% end %>
@@ -31,13 +31,14 @@
 
   });
   $('.conjunction-select').on('change', function (e) {
-    var after_options = "<%= raw TaskDraft::ANCHOR_DATE.map {|option| "<option value='#{option}'>#{option}</option>"}.join('') %>";
-    var before_options = "<%= raw TaskDraft::BEFORE_ANCHOR_DATE.map {|option| "<option value='#{option}'>#{option}</option>"}.join('') %>";
+    var after_options = "<%= raw select_anchor_date_options.map {|arr| "<option value='#{arr[1]}'>#{arr[0]}</option>"}.join('') %>"
+    var before_options = "<%= raw select_before_anchor_date_options.map {|arr| "<option value='#{arr[1]}'>#{arr[0]}</option>"}.join('') %>"
+
     var raw_name = $(this).attr('name').replace('[conjunction]','');
     var anchor_select = $("select[name='"+raw_name+"[anchor_date]']")
-    if($(this).val() == 'before') {
+    if($(this).val() == 'Before') {
       anchor_select.empty().append(before_options);
-    } else if($(this).val() == 'after') {
+    } else if($(this).val() == 'After') {
       anchor_select.empty().append(after_options);
     }
   });

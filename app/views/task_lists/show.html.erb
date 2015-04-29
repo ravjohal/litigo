@@ -59,7 +59,7 @@
           <td><%= td.description %></td>
           <td><%= td.due_term %></td>
           <td><%= td.conjunction %></td>
-          <td><%= td.anchor_date %></td>
+          <td><%= td.get_anchor_date %></td>
         </tr>
           <% if td.children.present? %>
           <% td.children.each do |child| %>

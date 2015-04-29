@@ -92,9 +92,10 @@ class ClientIntakesController < ApplicationController
     case_attributes = @lead.generate_case_attrs(@user)
     @case = Case.new(case_attributes)
     @case.current_user_id = @user.id
+    @case.lead = @lead
     respond_to do |format|
       if @case.save
-        @lead.update(case_id: @case.id)
+        # @lead.update(case_id: @case.id)
         if @lead.documents.present?
           @lead.documents.each do |doc|
             CaseDocument.create(case_id: @case.id, document_id: doc.id)
@@ -106,37 +107,6 @@ class ClientIntakesController < ApplicationController
       else
         format.html { redirect_to request.referer, alert: "#{@case.errors.full_messages.join('. ')}" }
         format.json { render json: @lead.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def acceptance_letter
-    respond_to do |format|
-      format.docx do
-        # Initialize DocxReplace with your template
-        doc = DocxReplace::Doc.new("#{Rails.root}/lib/docx_templates/acceptance_letter_template.docx", "#{Rails.root}/tmp")
-
-        # Replace some variables. $var$ convention is used here, but not required.
-        doc.replace("LETTER_DATE", Date.today.strftime("%B %e, %Y"))
-        doc.replace("LEAD_FIRST_NAME", @lead.first_name)
-        doc.replace("LEAD_LAST_NAME", @lead.last_name, true)
-        doc.replace("LEAD_ADDRESS", @lead.address)
-        doc.replace("LEAD_CITY", @lead.city)
-        doc.replace("LEAD_STATE", @lead.state)
-        doc.replace("LEAD_ZIP_CODE", @lead.zip_code)
-        doc.replace("LEAD_PREFIX", 'Mr.')
-        doc.replace("LEAD_DEFENDANT_NAME", 'Defendant Name')
-        doc.replace("LEAD_INSURANCE_NAME", @lead.lead_insurance)
-        doc.replace("USER_NAME", @user.name)
-        doc.replace("USER_STAFF_INITIALS", 'AIG')
-
-
-        # Write the document back to a temporary file
-        tmp_file = Tempfile.new('word_tempate', "#{Rails.root}/tmp")
-        doc.commit(tmp_file.path)
-
-        # Respond to the request by sending the temp file
-        send_file tmp_file.path, filename: "acceptance_letter_#{@lead.id}.docx", disposition: 'attachment'
       end
     end
   end

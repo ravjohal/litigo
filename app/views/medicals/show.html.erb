@@ -212,7 +212,7 @@
                <%= number_to_currency med.paid_amount %>
           </td>
            <td style="text-align: right;">
-            <%= number_to_currency med.total_billed_paid_amounts, precision: 0 %>
+            <%= number_to_currency med.total_billed_paid_amounts %>
           </td>
         </tr>
         
@@ -222,13 +222,13 @@
               <strong>Total</strong>
           </td>
           <td style="text-align: right;">
-            <%= number_to_currency @medical.total_billed, precision: 0 %>
+              <strong><%= number_to_currency @medical.total_billed %></strong>
           </td>
           <td style="text-align: right;">
-            <%= number_to_currency @medical.total_paid, precision: 0 %>
+            <strong><%= number_to_currency @medical.total_paid %></strong>
           </td>
           <td style="text-align: right;">
-            <%= number_to_currency @medical.total_owed, precision: 0 %>
+            <strong><%= number_to_currency @medical.total_owed %></strong>
           </td>
       </tr>
   </tbody>
@@ -236,13 +236,13 @@
 
 
 
-<div style="width:900px; margin: 0 auto; padding-bottom: 10px;">
+<div style="width:900px; margin: 0 auto; padding-bottom: 60px;">
   <%= link_to 'ADD INJURY', new_medical_injury_path(@medical), {:class => "action-button pull-right", :id => "injury_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %>
 </div>
 
 
 <% @injuries.each.with_index(1) do |injury, i|%>
-<hr class="invis">
+<hr class="invis2">
 <div class="injury-table-container">
 <table class="injury-table">
 <thead>

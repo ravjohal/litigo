@@ -9,37 +9,44 @@ class TaskDraft < ActiveRecord::Base
   accepts_nested_attributes_for :children, :reject_if => :all_blank, :allow_destroy => true
   validates :due_term, :numericality => { :greater_than_or_equal_to => 0 }
 
-  ANCHOR_DATE = ['Case Open Date', 'Incident Date', 'Statute of Limitations', 'Trial Date','Case Close Date']
-  BEFORE_ANCHOR_DATE = ['Statute of Limitations', 'Trial Date', 'Case Close Date']
+
+  ANCHOR_DATE_HASH = {
+      'affair' => {
+          'created_at' => 'Case Open Date',
+          'statute_of_limitations' => 'Statute of Limitations',
+          'trial_date' => 'Trial Date',
+          'closing_date' => 'Case Close Date',
+          'hearing_date' => 'Hearing Date',
+          'transfer_date' => 'Transfer Date'},
+      'lead' => {
+          'created_at' => 'Intake Date'
+      },
+      'incident' => {
+          'incident_date' => 'Incident Date'
+      },
+      'medical' => {
+          'final_treatment_date' => 'Final Treatment Date'
+      }
+  }
+
+  def get_anchor_date
+    ad = anchor_date.split('.')
+    ad.count > 1 ? ANCHOR_DATE_HASH[ad[0]][ad[1]] : anchor_date
+  end
+
 
   def return_due_date(affair, parent=nil)
     due_date = nil
-    if self.conjunction.downcase == 'after'
-      case self.anchor_date
-        when 'Case Open Date'
-          due_date = affair.created_at + self.due_term.days
-        when 'Incident Date'
-          due_date = affair.incident.incident_date + self.due_term.days if affair.incident.present? && affair.incident.incident_date.present?
-        when 'Statute of Limitations'
-          due_date = affair.incident.statute_of_limitations + self.due_term.days if affair.incident.present? && affair.incident.statute_of_limitations.present?
-        when 'Trial Date'
-          due_date = affair.trial_date + self.due_term.days if affair.trial_date.present?
-        when 'Parent'
-          due_date = parent.due_date + self.due_term.days if parent.due_date.present?
-        when 'Case Close Date'
-          due_date = affair.closing_date + self.due_term.days if affair.closing_date.present?
+    ad = anchor_date.split('.')
+    operator = self.conjunction.downcase == 'after' ? '+' : '-'
+    if ad.count > 1
+      if ad[0] == 'affair'
+        due_date = affair.try(ad[1]).try('to_date').method(operator).(self.due_term.days) if affair.try(ad[1]).present?
+      else
+        due_date = affair.try(ad[0]).try(ad[1]).try('to_date').method(operator).(self.due_term.days) if affair.try(ad[0]).try(ad[1]).present?
       end
-    elsif self.conjunction.downcase == 'before'
-      case self.anchor_date
-        when 'Trial Date'
-          due_date = affair.trial_date - self.due_term.days if affair.trial_date.present?
-        when 'Statute of Limitations'
-          due_date = affair.incident.statute_of_limitations - self.due_term.days if affair.incident.present? && affair.incident.statute_of_limitations.present?
-        when 'Case Close Date'
-          due_date = affair.closing_date - self.due_term.days if affair.closing_date.present?
-        when 'previous task'
-          due_date = parent.due_date - self.due_term.days if parent.due_date.present?
-      end
+    else
+      due_date = parent.due_date.method(operator).(self.due_term.days) if parent.due_date.present?
     end
     return due_date
   end

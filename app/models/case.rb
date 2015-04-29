@@ -29,7 +29,7 @@ class Case < ActiveRecord::Base
 
   has_many :case_events, :dependent => :destroy
   has_many :events, :through => :case_events
-  has_one :lead
+  belongs_to :lead
   has_many :notes
   has_many :time_entries
 
@@ -38,6 +38,7 @@ class Case < ActiveRecord::Base
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
   after_create :import_tasks
+  before_save :set_tasks_due_dates
   attr_accessor :current_user_id
 
   # searchable do
@@ -91,10 +92,13 @@ class Case < ActiveRecord::Base
   end
 
   def set_tasks_due_dates
-    tasks = self.tasks.where(anchor_date: ['trial date', 'close date', 'case open'])
-    tasks.each do |task|
-      if self.trial_date.present? && task.due_date.blank? && task.anchor_date == 'trial date'
-        task.set_due_date!(self.trial_date)
+    attrs = TaskDraft::ANCHOR_DATE_HASH['affair'].keys & self.changed
+    logger.info "attrs: #{attrs}\n\n\n"
+    if attrs.present?
+      attrs.each do |attr|
+        self.tasks.where(anchor_date: "affair.#{attr}").each do |task|
+          task.set_due_date!(self.try(attr))
+        end
       end
     end
   end
@@ -177,7 +181,7 @@ class Case < ActiveRecord::Base
 
   def recalculate_sol_tasks(sol)
     self.tasks.each do |task|
-      if sol.present? && task.anchor_date == 'statute of limitations'
+      if sol.present? && task.anchor_date == 'Statute of Limitations'
         task.set_due_date!(sol)
       end
     end

@@ -135,6 +135,14 @@
               <%= f.date_field :hearing_date, label: false, :class => 'table-input' %>
         </td>
       </tr>
+       <tr>
+        <td class="col-one">
+           <strong>Transferred to Lit:</strong>
+        </td>
+        <td>
+              <%= @case.transfer_date.try(:strftime, "%b %e, %Y")  %>
+        </td>
+      </tr>
       <tr>
         <td class="right">
             <strong>Date Filed Suit:</strong>

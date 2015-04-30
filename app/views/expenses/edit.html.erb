@@ -1,0 +1,100 @@
+<%= simple_form_for @case.present? ? [@case, @expense] : @expense do |f| %>
+  <div class="case-header">
+    <div class="case-title">
+      <div style="font-size: 24px;">
+        <strong><%= @expense.expense %>, <%= @expense.created_date.try(:strftime, "%b %e, %Y") %></strong><br>
+      </div>
+      <div id="case-buttons">
+        <ul>
+          <li><%= link_to 'Cancel', @case.present? ? case_expense_path(@case, @expense) : @expense, :class => 'dark' %></li>
+          <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
+        </ul>
+      </div>
+    </div>
+    <strong>Time Entry #: </strong><%= @expense.id %>
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-12">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="incase-tabs-gap-double">
+  </div>
+  <table id="insurance-table" class="time_entry-table">
+    <thead>
+    <tr class="right-top">
+      <td colspan="2" class="gray-back">
+        <strong>Expense Information</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+        <strong>Submitted By:</strong>
+      </td>
+      <td>
+        <%= f.association :user, :collection => @firm.users, :input_html => {:id => "user_select"}, label: false %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Created Date:</strong>
+      </td>
+      <td>
+        <%= f.date_field :created_date, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Expense:</strong>
+      </td>
+      <td>
+        <%= f.input :expense, label: false, :class => 'table-input', :step => 'any' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>ABA Billing Code:</strong>
+      </td>
+      <td>
+        <%= f.input :aba_billing_code, collection: TimeEntry::ABA_CODES, as: :grouped_select, :group_method => :last, label: false, :class => 'table-input', :step => 'any' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Amount:</strong>
+      </td>
+      <td>
+        <%= f.number_field :amount, label: false, :class => 'table-input', :step => 'any' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right big-row">
+        <strong>Description:</strong>
+      </td>
+      <td class="right big-row">
+        <%= f.text_area :description, label: false, :class => 'table-area' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Case:</strong>
+      </td>
+      <td>
+        <%= f.association :case, :collection => @firm.cases, :input_html => {:id => "case_select"}, label: false %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+<% end %>
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'n', fade: true});
+    $('#accept').tipsy({gravity: 'ne', fade: true});
+    $(".edit_expense select").select2();
+  });
+</script>

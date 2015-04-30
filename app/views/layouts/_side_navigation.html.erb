@@ -17,7 +17,7 @@
     </ul>
   </li>
   <li>
-    <%= active_link_to "Time & Expense", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__time', :active => [['time_entries']], :id => 'time_entries' %>
+    <%= active_link_to "Time & Expense", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__time', :active => [['time_entries', @case.present? ? '' : 'expenses']], :id => 'time_entries' %>
   </li>
   <!-- <li>
       <%= active_link_to " Billing", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
@@ -68,9 +68,10 @@
       menu_items.push($(this).attr('href').replace('/', ''))
     });
     var path = '<%= controller_name %>';
+    var case_present = <%= @case.present? %>;
     var internal_menu_items = ['task_lists', 'templates', 'incidents', 'medicals', 'insurances']
     menu_items = $.merge(menu_items, internal_menu_items);
-    if (document.location && $.inArray(path, menu_items) >= 0) {
+    if (document.location && $.inArray(path, menu_items) >= 0 || case_present) {
       isFirstOpen = 1;
     }
 

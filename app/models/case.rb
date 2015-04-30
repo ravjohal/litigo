@@ -32,6 +32,7 @@ class Case < ActiveRecord::Base
   belongs_to :lead
   has_many :notes
   has_many :time_entries
+  has_many :expenses
 
   include PgSearch
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],

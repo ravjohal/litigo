@@ -18,6 +18,7 @@ class Firm < ActiveRecord::Base
 	has_many :time_entries, :through => :users
 	has_many :medical_bills
 	has_many :companies
+  has_many :expenses
 
 	validates_presence_of :name
 	validates_uniqueness_of :name

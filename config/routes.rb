@@ -91,7 +91,7 @@ Rails.application.routes.draw do
     get "/users/invitation/existing_user_invited/:id" => 'invitations#existing_user_invited', as: :existing_user_invited
 
   end
-
+  resources :expenses
   resources :users
   resources :cases do
     resources :contacts, :shallow => true
@@ -102,6 +102,7 @@ Rails.application.routes.draw do
     resources :resolutions
     resources :medicals
     resources :insurances
+    resources :expenses
   end
 
   get "cases/:id/summary" => 'cases#summary', as: :case_summary

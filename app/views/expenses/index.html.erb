@@ -1,0 +1,133 @@
+  <% if @case.present? %>
+  <div class="case-header">
+    <div class="case-title">
+      <div style="font-size: 24px;">
+        <strong><%= @case.name %></strong><br>
+      </div>
+      <div id="case-buttons">
+        <ul>
+          <li><%= render 'new_button' %></li>
+        </ul>
+      </div>
+    </div>
+    <strong>Case #: </strong><%= @case.case_number %>
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <%= render partial: 'shared/case_tabs' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% else %>
+    <div class="case-header">
+      <div class="case-title">
+        <div style="font-size: 24px;">
+          <strong>Expenses</strong><br>
+        </div>
+        <div id="case-buttons">
+          <ul>
+            <li><%= render 'new_button' %></li>
+          </ul>
+        </div>
+      </div>
+      <strong style="color: white;">A</strong>
+      <div class="container-fluid" style="padding: 0;">
+        <div class="row">
+          <div class="col-md-12">
+            <%= render partial: 'time_entries/time_entries_tabs' %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <div class="incase-tabs-gap">
+  </div>
+  <% if @case.present? %>
+  <div style="margin-top: 70px;">
+    <h3>Time entries</h3>
+  </div>
+<div class="table-responsive">
+  <table id="my_docs" class="table table-striped rowlink">
+    <thead class="user-table-head">
+    <tr>
+      <th>Submitted by</th>
+      <th>Date</th>
+      <th>Hours</th>
+      <th>Description</th>
+      <th>Charge Type</th>
+      <th>Hourly Rate</th>
+      <th>Contingent Fee</th>
+      <th>Fixed Fee</th>
+      <th>Aba code</th>
+      <th>Activity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @time_entries.each do |time_entry| %>
+      <tr data-id="<%= time_entry.id %>">
+        <td><%= link_to time_entry.try(:user).try(:name), time_entry %></td>
+        <td><%= time_entry.date.try(:strftime, "%b %e, %Y") %></td>
+        <td><%= time_entry.hours %></td>
+        <td><%= time_entry.description %></td>
+        <td><%= time_entry.charge_type %></td>
+        <td><%= time_entry.hourly_rate %></td>
+        <td><%= time_entry.contingent_fee %></td>
+        <td><%= time_entry.fixed_fee %></td>
+        <td><%= time_entry.aba_code %></td>
+        <td><%= time_entry.activity %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<br />
+<br />
+<% end %>
+<div style="margin-top: 70px;">
+  <h3>Expenses</h3>
+</div>
+  <div class="table-responsive">
+    <table id="firm_docs" class="table table-striped rowlink">
+      <thead class="user-table-head">
+      <tr>
+        <th>Submitted by</th>
+        <th>Created Date</th>
+        <th>Expense</th>
+        <th>Aba code</th>
+        <th>Amount</th>
+        <th>Description</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @expenses.each do |expense| %>
+        <tr data-id="<%= expense.id %>">
+          <td><%= link_to expense.user.try(:name), @case.present? ? case_expense_path(@case, expense) : expense %></td>
+          <td><%= expense.created_date.try(:strftime, "%b %e, %Y") %></td>
+          <td><%= expense.expense %></td>
+          <td><%= expense.aba_billing_code %></td>
+          <td><%= expense.amount %></td>
+          <td><%= expense.description %></td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#new_modal').click(function(event){
+        $("#modal-window").html("<%= escape_javascript(render 'expenses/form' ) %>");
+      });
+      <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'desc'} %>
+    });
+  </script>
+
+  <script>
+    $('.tip').tipr({
+      'speed': 500,
+      'mode': 'top'
+    });
+
+  </script>

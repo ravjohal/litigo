@@ -122,8 +122,8 @@
             <strong>Doctor(s) Seen:</strong><br>
             <em class='small'>(check all that apply)</em>
         </td>
-        <td>
-          <div class='radio'>
+        <td style="padding: 0 0 10px 0;">
+          <div class="radio">
               <%= f.input :doctor_type, as: :check_boxes, collection: Medical::DOCTOR_TYPE, :include_hidden => false, label: false %>
           </div>
         </td>
@@ -133,9 +133,9 @@
           <strong>Treatment Type(s):</strong><br>
             <em class='small'>(check all that apply)</em>
         </td>
-        <td>
+        <td style="padding: 0 0 10px 0;">
             <div class='radio'>
-                <%= f.input :treatment_type, as: :check_boxes, collection: Medical::TREATMENT_TYPE, :include_hidden => false, label: false  %>
+                <%= f.input :treatment_type, as: :check_boxes, collection: Medical::TREATMENT_TYPE, :include_hidden => false, label: false %>
             </div>
         </td>
       </tr>

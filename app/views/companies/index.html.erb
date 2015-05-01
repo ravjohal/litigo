@@ -40,7 +40,7 @@
     <% @companies.each do |company| %>
       <tr data-id="<%= company.id %>">
         <td  style="vertical-align: middle;"><%= link_to "#{company.name}", company_path(company) %></td>
-        <td><div class="larger-td" style='padding-top:12px;'><%= company.city + ', ' + company.state %></div></td>
+        <td><div class="larger-td" style='padding-top:12px;'><%= company.company_city_or_state %></div></td>
         <td  style="vertical-align: middle;"><%= company.website %></td>
         <td  style="vertical-align: middle;"><%= company.phone %></td>
         <td  style="vertical-align: middle; text-align:center;"><%= company.contacts.count %></td>

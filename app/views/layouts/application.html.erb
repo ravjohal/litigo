@@ -82,5 +82,14 @@
         $('.side-menu-toggle').toggleClass("side-menu-toggled");
     });
   </script>
+    <script>
+    $('#print').click(function(e) {
+        e.preventDefault();
+        $('#wrapper').toggleClass("toggled");
+        $('.glyphicon glyphicon-align-justify').toggleClass("glyphicon glyphicon-align-justify");
+        $('.side-menu-toggle').toggleClass("side-menu-toggled");
+        window.print();
+    });
+  </script>
   </body>
 </html>

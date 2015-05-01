@@ -9,7 +9,7 @@
       <td>
       </td>
       <td><%= link_to @task, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a note will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Task"></span> <% end %>
-       <%= link_to "javascript:window.print()",  :class => 'dark-right' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %>
+       <%= link_to "",  :class => 'dark-right' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %>
       <%= link_to 'Edit', edit_task_path(@task), :class => 'dark' %></td>
     </tr>
     <tbody>

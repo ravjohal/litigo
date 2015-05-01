@@ -6,7 +6,7 @@
     <div id="case-buttons">
       <ul>
         <li><%= link_to 'Edit', edit_time_entry_path(@time_entry), :class => 'dark' %></li>
-        <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
+        <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
         <li><%= link_to @time_entry,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a time entry will remove all information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Lead"></span> <% end %></li>
       </ul>
     </div>

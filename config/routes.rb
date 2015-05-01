@@ -110,6 +110,9 @@ Rails.application.routes.draw do
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
   get "accept_case/:id" => 'client_intakes#accept_case', as: :accept_case
   get 'cases/:id/doc' => 'cases#doc', as: :doc
+  get "contacts/:id/contact information" => 'contacts#info', as: :contact_info
+  get "contacts/:id/personal information" => 'contacts#personal', as: :contact_personal
+  get "contacts/:id/company information" => 'contacts#coinfo', as: :contact_coinfo
 
   resources :medicals do
     resources :injuries

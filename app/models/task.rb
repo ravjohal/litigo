@@ -10,12 +10,8 @@ class Task < ActiveRecord::Base
 
   def set_due_date!(date)
     if date.present?
-      if self.conjunction.downcase == 'after'
-        self.due_date = date + self.due_term.days
-      elsif self.conjunction.downcase == 'before'
-        self.due_date = date - self.due_term.days
-      end
-      self.save!
+      operator = self.conjunction.downcase == 'after' ? '+' : '-'
+      self.update(due_date: date.method(operator).(self.due_term.days))
       if self.children.present?
         self.children.each do |child|
           child.set_due_date!(self.due_date)

@@ -38,10 +38,10 @@ class Case < ActiveRecord::Base
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
+  attr_accessor :current_user_id
   after_create :import_tasks
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date
-  attr_accessor :current_user_id
 
   # searchable do
   #   text :state
@@ -61,7 +61,7 @@ class Case < ActiveRecord::Base
   accepts_nested_attributes_for :notes
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :medical, :allow_destroy => true
-  accepts_nested_attributes_for :incident, :allow_destroy => true
+  # accepts_nested_attributes_for :incident, :allow_destroy => true
   accepts_nested_attributes_for :insurance, :allow_destroy => true
   accepts_nested_attributes_for :resolution, :allow_destroy => true
 
@@ -134,14 +134,14 @@ class Case < ActiveRecord::Base
         end
       elsif model.class.name == 'Incident'
         if subtype == 'Medical Malpractice'
-          self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 3) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority > 3)
+          self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 3) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 3)
         elsif subtype == 'Intentional Tort'
-          self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 4) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority > 4)
+          self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 4) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 4)
         elsif subtype == 'Insurance Bad Faith'
-          self.update(statute_of_limitations: model.incident_date + 4.years, sol_priority: 5) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority > 5)
+          self.update(statute_of_limitations: model.incident_date + 4.years, sol_priority: 5) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 5)
         end
         if case_type == 'Personal Injury'
-          self.update(statute_of_limitations: model.incident_date + 2.years, sol_priority: 6) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority > 6)
+          self.update(statute_of_limitations: model.incident_date + 2.years, sol_priority: 6) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 6)
         end
       end
     end
@@ -170,11 +170,11 @@ class Case < ActiveRecord::Base
             end
           end
         elsif case_type == 'Personal Injury'
-          self.assign_attributes(statute_of_limitations: self.incident.incident_date + 2.years, sol_priority: 6) if incident.present? && incident.incident_date.present? && (sol_priority.blank? || sol_priority >= 6)
+          self.assign_attributes(statute_of_limitations: self.incident.incident_date + 2.years, sol_priority: 6) if self.incident.present? && self.incident.incident_date.present? && (sol_priority.blank? || sol_priority >= 6)
         end
-        if statute_of_limitations_changed?
-          self.recalculate_sol_tasks(self.statute_of_limitations)
-        end
+        # if statute_of_limitations_changed?
+        #   self.recalculate_sol_tasks(self.statute_of_limitations)
+        # end
         self.save
       end
     end
@@ -182,7 +182,7 @@ class Case < ActiveRecord::Base
 
   def recalculate_sol_tasks(sol)
     self.tasks.each do |task|
-      if sol.present? && task.anchor_date == 'Statute of Limitations'
+      if sol.present? && task.anchor_date == 'affair.statute_of_limitations'
         task.set_due_date!(sol)
       end
     end
@@ -190,7 +190,6 @@ class Case < ActiveRecord::Base
 
   def capture_transfer_date
     if self.status_changed?
-      logger.info "#{status}\n\n\n"
       if status == 'Litigation'
         self.transfer_date = Date.today
       elsif ['Active', 'Discovery', 'Negotiation'].include?(status)

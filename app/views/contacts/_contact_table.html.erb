@@ -1,0 +1,75 @@
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <Strong>Contact Information</Strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+        <tr>
+        <td class="right">
+          <strong>Home Address:</strong>
+        </td>
+        <td>
+          <%= @contact.address %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>City:</strong>
+        </td>
+        <td>
+          <%= @contact.city %>
+        </td>
+        </tr>
+        <tr>
+        <td class="right">
+          <strong>State:</strong>
+        </td>
+        <td>
+          <%= @contact.state %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Zipcode:</strong>
+        </td>
+        <td>
+          <%= @contact.zip_code %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Phone:</strong>
+        </td>
+        <td>
+          <%= @contact.phone_number %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Mobile:</strong>
+        </td>
+        <td>
+          <%= @contact.mobile %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Fax:</strong>
+        </td>
+        <td>
+          <%= @contact.fax_number %>
+        </td>
+      </tr>
+       <tr>
+        <td>
+          <strong>Email:</strong>
+        </td>
+        <td class="doc-link">
+          <%=  mail_to (@contact.email) %>
+        </td>
+      </tr>
+  </tbody>
+</table>

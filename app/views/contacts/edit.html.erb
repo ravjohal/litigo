@@ -16,7 +16,7 @@
         <div class="container-fluid" style="padding: 0;">
               <div class="row">
                       <div class="col-md-12">
-                            
+                            <%= render partial: 'contact_info_tabs' %>
                       </div>
               </div>
         </div>
@@ -251,11 +251,25 @@
         <td>
               <%= f.check_box :employed, label: false %>
         </td>
-           <td class="right">
-          <strong>Annual Salary:</strong>
+        <td class="right">
+          <strong>Occupation:</strong>
+        </td>
+        <td>
+              <%= f.text_field :job_description, label: false, class: 'table-input' %>
+        </td>
+        </tr>
+        <tr>
+        <td class="right">
+          <strong>Salary:</strong>
         </td>
         <td>
               <%= f.text_field :salary, label: false, class: 'table-input' %>
+        </td>
+        <td class="right">
+          <strong>Per:</strong>
+        </td>
+        <td>
+              <%= f.select :time_bound, ['Year', 'Hour'], label: false, :class => 'table-input', :include_blank => '' %>
         </td>
         </tr>
         <% end %>
@@ -280,7 +294,7 @@
   <tbody>
       <tr>
         <td class="right">
-          <strong>Company: </strong><span style="float: right;" id="company" title="You must create a company before linking a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+          <strong>Company: </strong><span style="float: right;" id="company" title="You must first create a company before linking a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
         </td>
         <td>
               <%= f.association :company, :collection => @firm.companies, :class => 'table-input', label: false %>

@@ -92,6 +92,24 @@ class ContactsController < ApplicationController
     end
   end
 
+  def info
+    @contact = Contact.find(params[:id])
+    restrict_access("contacts") if @contact.firm_id != @firm.id
+  end
+
+  def personal
+   @contact = Contact.find(params[:id])
+    restrict_access("contacts") if @contact.firm_id != @firm.id
+  end
+
+  def coinfo
+    @contact = Contact.find(params[:id])
+    @company = @contact.company
+    @company = Company.new if !@company
+    @company_path_ = @company.id ? company_path(@company) :  " "
+    restrict_access("contacts") if @contact.firm_id != @firm.id
+  end
+
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
@@ -113,7 +131,7 @@ class ContactsController < ApplicationController
       params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :contact_user_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, 
-                                      :deceased, :date_of_death, :major_date, :mobile, :company_id,
+                                      :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound,
                                       :firms_attributes => [:name, :address, :zip])
     end
 

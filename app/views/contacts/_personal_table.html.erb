@@ -1,0 +1,176 @@
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <Strong>Personal Information</Strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+  <% if @contact.type == 'Attorney' %>
+      <tr>
+        <td class="right">
+          <strong>Contact Type:</strong>
+        </td>
+        <td>
+          <%= @contact.type %>      
+        </td>
+          <td class="right">
+            <strong>Attorney Type:</strong>
+          </td>
+          <td>
+            <%= @contact.attorney_type %>      
+          </td>
+        </tr>
+    <% else %>
+     <tr>
+        <td class="right">
+          <strong>Contact Type:</strong>
+        </td>
+        <td colspan="3">
+          <%= @contact.type %>      
+        </td>
+        </tr>
+      <% end %>
+        <tr>
+        <td class="right">
+          <strong>Corporation?</strong>
+        </td>
+        <td colspan="3">
+          <%= boolean_as_yesno @contact.corporation %>
+        </td>
+      </tr> 
+      <tr>
+        <td class="right">
+          <strong>Prefix:</strong>
+        </td>
+        <td>
+          <%= @contact.prefix %>
+        </td>
+          <td class="right">
+          <strong>First Name:</strong>
+        </td>
+        <td>
+          <%= @contact.first_name %>
+        </td>
+        </tr>
+        <tr>
+        <td class="right">
+          <strong>Middle Name:</strong>
+        </td>
+        <td>
+          <%= @contact.middle_name %>
+        </td>
+        <td class="right">
+          <strong>Last Name:</strong>
+        </td>
+        <td>
+          <%= @contact.last_name %>
+        </td>
+        </tr>
+        <tr>
+          <td class="right">
+          <strong>Gender:</strong>
+        </td>
+        <td colspan="3">
+          <%= @contact.gender %>
+        </td>
+        </tr>
+        <% if @contact.type == 'Plaintiff' %>
+      <tr>
+        <td class="right">
+          <strong>Date of Birth:</strong>
+        </td>
+        <td colspan="3">
+          <%= @contact.date_of_birth.strftime("%m/%d/%Y") if @contact.date_of_birth %>
+        </td>
+        </tr>
+         <tr>
+        <td class="right">
+          <strong>SSN:</strong>
+        </td>
+        <td colspan="3">
+          <%= @contact.ssn %>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Minor:</strong>
+        </td>
+        <td>
+            <%= boolean_as_yesno @contact.minor %>
+        </td>
+         <td class="right">
+          <strong>Majority Date:</strong>
+        </td>
+        <td>
+              <%= @contact.major_date %>
+        </td>
+      </tr>
+      <tr>
+      <td class="right">
+          <strong>Deceased:</strong>
+        </td>
+        <td>
+            <%= boolean_as_yesno @contact.deceased %>
+        </td>
+        <td class="right">
+          <strong>Date of Death</strong>
+        </td>
+        <td>
+            <%= @contact.date_of_death %>
+        </td>
+      </tr> 
+        <tr>
+        <td class="right">
+          <strong>Married:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @contact.married %>
+        </td>
+        <td class="right">
+          <strong>Has children?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @contact.parent %>
+        </td>
+      </tr> 
+      <tr>
+        <td class="right">
+          <strong>Employed:</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @contact.employed %>
+        </td>
+           <td class="right">
+          <strong>Occupation:</strong>
+        </td>
+        <td>
+            <%= @contact.job_description %>
+        </td>
+        </tr>
+        <tr>
+           <td class="right">
+          <strong>Salary:</strong>
+        </td>
+        <td>
+          <%= number_to_currency @contact.salary, precision: 0 %>
+        </td>
+           <td class="right">
+          <strong>Per:</strong>
+        </td>
+        <td>
+              <%= @contact.time_bound %>
+        </td>
+        </tr>
+        <% end %>
+       <tr>
+        <td class="right big-row">
+          <strong>Notes:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= @contact.note %>
+        </td>
+      </tr>
+  </tbody>
+</table>

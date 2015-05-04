@@ -114,7 +114,7 @@ class GoogleCalendars
       google_attendees = []
       google_event = {
           # status: event.status,
-          summary: event.summary,
+          summary: event.subject,
           location: event.location,
           start: {},
           end: {},
@@ -176,7 +176,7 @@ class GoogleCalendars
       google_attendees = []
       google_event = {
           status: event.status,
-          summary: event.summary,
+          subject: event.summary,
           location: event.location,
           start: {},
           end: {},
@@ -224,6 +224,15 @@ class GoogleCalendars
         event.destroy!
       end
 
+    end
+
+    def delete_event(user, event)
+      return if !event.valid?
+      client = init_client(user)
+      calendar = client.discovered_api('calendar', 'v3')
+      result = client.execute(:api_method => calendar.events.delete,
+                              :parameters => {'calendarId' => event.google_calendar_id, 'eventId' => event.google_id})
+      p result
     end
     
   private

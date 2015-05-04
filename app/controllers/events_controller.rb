@@ -110,7 +110,9 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    @event.destroy
+    if @event.destroy && @event.google_id.present? && @event.google_calendar_id.present?
+      GoogleCalendars.delete_event(current_user, @event)
+    end
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
       format.json { head :no_content }

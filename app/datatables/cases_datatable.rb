@@ -22,12 +22,10 @@ class CasesDatatable
 
   def data
     cases.map do |one_case|
-      total_med_bills = one_case.medical.present? ? number_to_currency(one_case.medical.total_med_bills, precision: 0) : 0
       [
-          link_to(one_case.name, one_case),
           one_case.case_number,
-          one_case.case_type,
-          total_med_bills,
+          link_to(one_case.name, one_case),
+          one_case.subtype,
           content_tag(:div, one_case.description, class: "table-row-max-h").html_safe,
           one_case.status
       ]

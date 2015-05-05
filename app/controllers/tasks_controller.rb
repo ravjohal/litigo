@@ -58,6 +58,9 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        if @task.create_event && @task.due_date.present?
+          Event.create(subject: "Task - Case name", date: @task.due_date, all_day: true, notes: @task.description, task_id: @task.id, start: @task.due_date, end: @task.due_date)
+        end
         format.html { redirect_to path_tasks, notice: 'Task successfully created.' }
         format.json { render :show, status: :created, location: @task }
       else
@@ -116,6 +119,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description, :estimated_time, :estimated_time_unit, :user_id, :owner_id, :case_ids => [])
+      params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description,
+                                   :estimated_time, :estimated_time_unit, :user_id, :owner_id, :create_event, :case_ids => [])
     end
 end

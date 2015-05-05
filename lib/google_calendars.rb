@@ -232,7 +232,6 @@ class GoogleCalendars
       calendar = client.discovered_api('calendar', 'v3')
       result = client.execute(:api_method => calendar.events.delete,
                               :parameters => {'calendarId' => event.google_calendar_id, 'eventId' => event.google_id})
-      p result
     end
     
   private

@@ -20,7 +20,8 @@ $(document).ready(function() {
     bootbox.confirm("This can take a few moments, would you still like to sync your calendar now?", function(result) {
       if (result) {
         $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'style='margin-left: -50px; position: absolute; padding: 0;'>");
-        window.location.href = "/auth/google_oauth2?state=calendar";
+//        window.location.href = "/auth/google_oauth2?state=calendar";
+        window.location.href = "<%= refresh_google_events_path %>";
       }
     });
   });

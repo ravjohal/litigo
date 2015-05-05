@@ -8,6 +8,8 @@ class Task < ActiveRecord::Base
 	belongs_to :owner, class_name: 'User'
   belongs_to :task_draft
 
+  attr_accessor :create_event
+
   def set_due_date!(date)
     if date.present?
       operator = self.conjunction.downcase == 'after' ? '+' : '-'

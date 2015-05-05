@@ -71,7 +71,14 @@
         <%= f.text_area :description, label: false, :class => 'table-text' %>
       </td>
     </tr>
-
+    <tr>
+      <td>
+        <strong>Add to Calendar:</strong>
+      </td>
+      <td>
+        <%= f.check_box :create_event, {:checked => true}, true, false %>
+      </td>
+    </tr>
     </tbody>
   </table>
 

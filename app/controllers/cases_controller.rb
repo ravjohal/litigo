@@ -83,18 +83,13 @@ class CasesController < ApplicationController
       @case.sol_priority = nil
     end
     if @case.save
-      # tasks = @case.tasks.where(anchor_date: ['trial date', 'close date', 'case open'])
-      # tasks.each do |task|
-      #   if @case.trial_date.present? && task.due_date.blank? && task.anchor_date == 'trial date'
-      #     task.set_due_date!(@case.trial_date)
-      #   elsif @case.closing_date.present? && task.due_date.blank? && task.anchor_date == 'close date'
-      #     task.set_due_date!(@case.closing_date)
-      #   elsif @case.created_at.present? && task.due_date.blank? && task.anchor_date == 'case open'
-      #     task.set_due_date!(@case.created_at)
-      #   end
-      # end
       @case.check_sol
-      respond_with @case, notice: 'Case was successfully updated.'
+      if params[:commit] == "Assign Contacts"
+        redirect_to case_contacts_path(@case), notice: 'Contacts were successfully assigned.'
+      else
+        respond_with @case, notice: 'Case was successfully updated.'
+      end
+
     end
   end
 

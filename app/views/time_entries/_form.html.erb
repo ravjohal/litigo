@@ -72,8 +72,7 @@
               <div class="charge_block"><%= f.collection_radio_buttons :charge_type, TimeEntry::CHARGE_TYPES.map { |i| [i, i] }, :first, :last, label: false, :class => 'table-input' %></div>
             </td>
           </tr>
-           <tr>
-
+          <tr class="rate-row hourly">
             <td>
               <strong>Hourly rate:</strong>
             </td>
@@ -81,7 +80,7 @@
               <%= f.number_field :hourly_rate, label: false, :class => 'table-input', :step => 'any' %>
             </td>
           </tr>
-          <tr>
+          <tr class="rate-row contingent">
             <td>
               <strong>Contingent Fee:</strong>
             </td>
@@ -89,7 +88,7 @@
               <%= f.number_field :contingent_fee, label: false, :class => 'table-input', :step => 'any' %>
             </td>
           </tr>
-          <tr>
+          <tr class="rate-row fixed_fee">
             <td>
               <strong>Fixed Fee:</strong>
             </td>
@@ -123,4 +122,10 @@
   $(document).ready(function () {
     $(".modal-dialog td #case_select, .modal-dialog td #time_entry_aba_code").select2();
   });
+    $('.charge_block input').change(function (e) {
+      var time_entry_type = $(this).val().toLowerCase().replace(/ /g, '_');
+      console.log(time_entry_type);
+      $('.rate-row').hide();
+      $('.'+time_entry_type).show();
+    })
 </script>

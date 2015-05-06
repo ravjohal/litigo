@@ -124,7 +124,6 @@
   });
     $('.charge_block input').change(function (e) {
       var time_entry_type = $(this).val().toLowerCase().replace(/ /g, '_');
-      console.log(time_entry_type);
       $('.rate-row').hide();
       $('.'+time_entry_type).show();
     })

@@ -29,7 +29,7 @@
       </td>
       <td colspan="2">
         <% if !@case %>
-          <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "task_select"}, label: false %>
+          <%= f.association :case, :collection => @firm.cases, :input_html => {:id => "task_select"}, label: false %>
         <% else %>
           <%= @case.name %>
         <% end %>
@@ -40,7 +40,7 @@
         <strong>Task Owner: </strong>
       </td>
       <td colspan="2">
-        <%= f.association :owner, :collection => @firm.users, :selected => current_user.id, :input_html => {:id => "task_select"}, label: false %>
+        <%= f.association :owner, :collection => @firm.users, :selected => current_user.id, :input_html => {:id => "owner_select"}, label: false %>
       </td>
     </tr>
 
@@ -76,7 +76,15 @@
         <strong>Add to Calendar:</strong>
       </td>
       <td>
-        <%= f.check_box :create_event, {:checked => true}, true, false %>
+        <%= f.check_box :add_event, {:checked => true}, true, false %>
+      </td>
+    </tr>
+    <tr class="google-calendar-row">
+      <td>
+        <strong>Google Calendar:</strong>
+      </td>
+      <td>
+        <%= f.select :google_calendar_id, @user.google_calendars.map{ |c| [c.google_id, c.google_id] }, include_blank: true, label: false %>
       </td>
     </tr>
     </tbody>
@@ -105,5 +113,14 @@
 <script>
   $(document).ready(function () {
     $("#task_select, td select").select2();
+    $('#task_add_event').change(function (e) {
+      if ($(this).is(":checked")){
+        $('.google-calendar-row').show();
+      } else {
+        $('.google-calendar-row').hide();
+        $('#task_google_calendar_id').val('');
+        $('#task_google_calendar_id').select2('val', '');
+      }
+    })
   });
 </script>

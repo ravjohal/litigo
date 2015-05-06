@@ -33,7 +33,7 @@
     </ul>
   </li>
   <li>
-        <%= link_to "Reporting", reports_path , :class_active => 'tester', :class => 'nav-sidebar__cev', :active => [['reports']], :id => 'CaseEval' %>
+        <%= active_link_to "Reporting", reports_path , :class_active => 'tester', :class => 'nav-sidebar__cev', :active => [['reports']], :id => 'CaseEval' %>
     </li>
   <li>
     <%= active_link_to "Profile", users_profile_path, :class_active => 'tester', :class => 'nav-sidebar__prf', :active => [['registrations']], :id => 'profile' %>

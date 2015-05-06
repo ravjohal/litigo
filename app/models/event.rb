@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
 
 	belongs_to :owner, class_name: 'User', :foreign_key => 'owner_id'
 	belongs_to :firm
+	belongs_to :task
 
   accepts_nested_attributes_for :user_events
 

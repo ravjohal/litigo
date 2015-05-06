@@ -39,8 +39,7 @@
           <strong>Case(s):</strong>
         </td>
         <td colspan="2" class="doc-link">
-          <%= raw(@task.cases.map {|c| link_to c.name, case_path(c).html_safe}.join(', ')) %>
-          
+          <%= @task.try(:case).try(:name) %>
         </td>
       </tr>
       <tr>
@@ -48,7 +47,7 @@
           <strong>Owner:</strong>
         </td>
         <td colspan="2">
-          <%= @task.owner.name if @task.owner %>
+          <%= @task.try(:owner).try(:name) %>
         </td>
       </tr>
       <tr>
@@ -56,7 +55,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-            <%= @task.due_date.strftime("%b %e, %Y") if @task.due_date %>
+            <%= @task.due_date.try(:strftime, "%b %e, %Y") %>
         </td>
       </tr>
          <tr>
@@ -75,7 +74,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-          <%= @task.completed.strftime("%b %e, %Y") if @task.completed.present? %>
+          <%= @task.completed.try(:strftime, "%b %e, %Y") %>
         </td>
       </tr>
         <tr>
@@ -102,7 +101,16 @@
           <%= @task.description  %>
         </td>
       </tr>
-        
+      <% if @task.event.present? %>
+      <tr>
+        <td class="right">
+          <strong>Calendar Event:</strong>
+        </td>
+        <td colspan="2">
+          <%= "#{@task.try(:event).try(:subject)} dd #{@task.try(:event).try(:start).try(:strftime, "%b %e, %Y")}" %>
+        </td>
+      </tr>
+      <% end %>
   </tbody>
 </table>
 <script type='text/javascript'>

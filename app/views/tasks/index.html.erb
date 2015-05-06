@@ -84,7 +84,7 @@
     <tbody>
     <% @my_tasks.each do |task| %>
       <tr data-id="<%= task.id %>">
-        <td class="doc-link"><%= raw(task.cases.map { |c| c.name }.join(', ')) %></td>
+        <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.owner.name if task.owner %></td>
         <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
@@ -119,7 +119,7 @@
     <tbody>
     <% @tasks.each do |task| %>
       <tr data-id="<%= task.id %>">
-        <td class="doc-link"><%= raw(task.cases.map { |c| c.name }.join(', ')) %></td>
+        <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.owner.name if task.owner %></td>
         <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>

@@ -42,7 +42,7 @@
         </td>
         <td colspan="2">
               <% if !@case %>
-                  <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "task_select"}, :class => 'table-input', label: false  %>
+                  <%= f.association :case, :collection => @firm.cases, :input_html => {:id => "task_select"}, :class => 'table-input', label: false  %>
                 <% else %>
                   <%= @case.name %>
                 <% end %>
@@ -53,7 +53,7 @@
           <strong>Owner:</strong>
         </td>
         <td colspan="2">
-        <%= f.association :owner, :collection => @firm.users, :input_html => {:id => "task_select"}, label: false %>
+        <%= f.association :owner, :collection => @firm.users, :input_html => {:id => "owner_select"}, label: false %>
         </td>
       </tr>
       <tr>
@@ -107,14 +107,40 @@
           <%= f.text_area :description, :class => 'table-text'  %>
         </td>
       </tr>
-        
+       <tr>
+        <td class="right">
+          <strong>Add to Calendar:</strong>
+        </td>
+        <td colspan="2">
+          <%= f.check_box :add_event, {:checked => @task.event.present?}, true, false  %>
+        </td>
+      </tr>
+      <tr class="right google-calendar-row <%= @task.event.present? ? '' : 'no-display' %>">
+        <td>
+          <strong>Google Calendar:</strong>
+        </td>
+        <td colspan="2">
+          <%= f.select :google_calendar_id, @user.google_calendars.map{ |c| [c.google_id, c.google_id] }, selected: @task.try(:event).try(:google_calendar_id), include_blank: true, label: false %>
+        </td>
+      </tr>
   </tbody>
 </table>
 
 <% end %>
 
   <script>
-    $(document).ready(function() { $("#task_select, select").select2(); });
+    $(document).ready(function() {
+      $("#task_select, select").select2();
+      $('#task_add_event').change(function (e) {
+        if ($(this).is(":checked")){
+          $('.google-calendar-row').show();
+        } else {
+          $('.google-calendar-row').hide();
+          $('#task_google_calendar_id').val('');
+          $('#task_google_calendar_id').select2('val', '');
+        }
+      })
+    });
   </script>
 
 

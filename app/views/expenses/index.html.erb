@@ -6,8 +6,20 @@
       </div>
       <div id="case-buttons">
         <ul>
-          <li><%= render 'new_button' %></li>
+                 <div id="top-custom">
+        <ul>
+      <li class="dropdown task-list">
+        <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
+          NEW COST
+          <span class="caret"></span>
+        <% end %>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px; left: -22px;">
+            <li style="padding: 0; display: inline;"><%= link_to "New Time Entry", @new_time_entry_path, { :id => "new_time_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window2'} %></li>
+            <li style="padding: 0; display: inline;"><%= link_to "New Expense", @new_path, { :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
         </ul>
+      </li>
+    </ul>
+    </div>
       </div>
     </div>
     <strong>Case #: </strong><%= @case.case_number %>
@@ -45,22 +57,17 @@
   </div>
   <% if @case.present? %>
   <div style="margin-top: 70px;">
-    <h3>Time entries</h3>
+    <h3>Time Entries</h3>
   </div>
 <div class="table-responsive">
   <table id="my_docs" class="table table-striped rowlink">
     <thead class="user-table-head">
     <tr>
-      <th>Submitted by</th>
+      <th>Timekeeper</th>
       <th>Date</th>
-      <th>Hours</th>
-      <th>Description</th>
-      <th>Charge Type</th>
-      <th>Hourly Rate</th>
-      <th>Contingent Fee</th>
-      <th>Fixed Fee</th>
-      <th>Aba code</th>
       <th>Activity</th>
+      <th>Charge Type</th>
+      <th>Hours</th>
     </tr>
     </thead>
     <tbody>
@@ -68,14 +75,9 @@
       <tr data-id="<%= time_entry.id %>">
         <td><%= link_to time_entry.try(:user).try(:name), time_entry %></td>
         <td><%= time_entry.date.try(:strftime, "%b %e, %Y") %></td>
-        <td><%= time_entry.hours %></td>
-        <td><%= time_entry.description %></td>
-        <td><%= time_entry.charge_type %></td>
-        <td><%= time_entry.hourly_rate %></td>
-        <td><%= time_entry.contingent_fee %></td>
-        <td><%= time_entry.fixed_fee %></td>
-        <td><%= time_entry.aba_code %></td>
         <td><%= time_entry.activity %></td>
+        <td><%= time_entry.charge_type %></td>
+        <td><%= time_entry.hours %></td>
       </tr>
     <% end %>
     </tbody>
@@ -92,11 +94,9 @@
       <thead class="user-table-head">
       <tr>
         <th>Submitted by</th>
-        <th>Created Date</th>
+        <th>Date</th>
         <th>Expense</th>
-        <th>Aba code</th>
         <th>Amount</th>
-        <th>Description</th>
       </tr>
       </thead>
       <tbody>
@@ -105,29 +105,18 @@
           <td><%= link_to expense.user.try(:name), @case.present? ? case_expense_path(@case, expense) : expense %></td>
           <td><%= expense.created_date.try(:strftime, "%b %e, %Y") %></td>
           <td><%= expense.expense %></td>
-          <td><%= expense.aba_billing_code %></td>
-          <td><%= expense.amount %></td>
-          <td><%= expense.description %></td>
+          <td><%= number_to_currency expense.amount %></td>
         </tr>
       <% end %>
       </tbody>
     </table>
   </div>
-
-
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#new_modal').click(function(event){
+      $('#new_modal, #new_time_modal').click(function(event){
         $("#modal-window").html("<%= escape_javascript(render 'expenses/form' ) %>");
+        $("#modal-window2").html("<%= escape_javascript( render 'time_entries/form' ) %>");
       });
       <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'desc'} %>
     });
-  </script>
-
-  <script>
-    $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-    });
-
   </script>

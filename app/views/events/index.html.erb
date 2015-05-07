@@ -5,7 +5,7 @@
   </ul>
 </div>
 <ul class="firm_users">
-  <% @firm.users.each do |user| %>
+  <% @attorneys.each do |user| %>
     <% unless user == @user %>
       <li>
         <span class="user_color" style="background-color: <%= "##{'%06x' % (rand * 0xffffff)}" %>"></span>

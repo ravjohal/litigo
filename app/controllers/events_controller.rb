@@ -11,6 +11,7 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
+    @attorneys = @firm.users.where(role: 'attorney')
     @events = []
     @events = @user.firm.events.where(owner_id: @user.id)
     @events_list = []

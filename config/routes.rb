@@ -119,5 +119,6 @@ Rails.application.routes.draw do
   end
   get "emails_autocomplete" => "events#emails_autocomplete"
   post "event_drag" => "events#event_drag"
+  post "get_user_events" => "events#get_user_events", as: :get_user_events
   post "send_feedback_clean" => "users#send_feedback_clean", :defaults => { :format => :json }
 end

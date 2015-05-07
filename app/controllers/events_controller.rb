@@ -51,7 +51,7 @@ class EventsController < ApplicationController
     if @event.owner_id == current_user.id
       render partial: 'events/edit'
     else
-      render partial: 'events/show'
+      render nothing: true
     end
   end
 
@@ -131,11 +131,25 @@ class EventsController < ApplicationController
   def refresh_google_events
     # calendar_ids = current_user.google_calendars.where(active: true).map {|calendar| calendar.google_id}.compact
     calendar_ids = current_user.google_calendars.where(active: true).pluck(:google_id)
+    logger.info "#{calendar_ids}\n\n\n"
     calendar_ids.each do |google_id|
       GoogleCalendars.get_events(current_user, google_id) if google_id.present?
     end
     respond_to do |format|
       format.html {redirect_to request.referrer , notice: 'Google events were refreshed.'}
+    end
+  end
+
+  def get_user_events
+    user = User.find(params[:user_id])
+    @events = @firm.events.where(owner_id: user.id)
+    events_list = @firm.events.where(owner_id: user.id).select([:id, :subject, :start, :end, :all_day]).map {|e| {id: e.id,
+                                                                                                 title: '',
+                                                                                                 start: e.all_day ? "#{e.start.to_date}" : "#{e.start.to_datetime}",
+                                                                                                 end: e.all_day ? "#{e.end.to_date-1.day}" : "#{e.end.to_datetime}",
+                                                                                                 allDay: e.all_day} }
+    respond_to do |format|
+      format.json { render json: {events: events_list} }
     end
   end
 

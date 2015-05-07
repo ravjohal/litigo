@@ -4,7 +4,17 @@
     <li><%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
   </ul>
 </div>
-
+<ul class="firm_users">
+  <% @firm.users.each do |user| %>
+    <% unless user == @user %>
+      <li>
+        <span class="user_color" style="background-color: <%= "##{'%06x' % (rand * 0xffffff)}" %>"></span>
+        <%= check_box_tag "user_ids[#{user.id}]", user.id %>
+        <%= label_tag "user_ids[#{user.id}]", user.name %>
+      </li>
+    <% end %>
+  <% end %>
+</ul>
   <div class="calendar-table">
     <div id="calendar"></div>
   </div>
@@ -12,6 +22,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+  var events = {};
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
   });
@@ -31,10 +42,11 @@ $(document).ready(function() {
       $.ajax({
         type: "GET",
         url: '/events/' + calEvent.id + '/edit',
-        success: function(data)
-        {
-          $("#modal-window").html(data);
-          $("#modal-window").modal();
+        success: function(data) {
+          if(data != '') {
+            $("#modal-window").html(data);
+            $("#modal-window").modal();
+          }
         }
       });
     },
@@ -64,6 +76,36 @@ $(document).ready(function() {
 
     }
   });
+  $('.firm_users input').change(function (e) {
+    var user_id = $(this).val();
+    var color = rgb2hex($(this).parent().find('.user_color').css('backgroundColor'));
+    if($(this).is(":checked")) {
+      $.ajax({
+        url: "<%= get_user_events_path %>",
+        type: 'POST',
+        dataType: "json",
+        data: {user_id: user_id},
+        success: function(data){
+            events[user_id] = data.events;
+            $('#calendar').fullCalendar( 'addEventSource', {
+              events: events[user_id],
+              color: color
+            } )
+        }
+      });
+    } else {
+      $('#calendar').fullCalendar( 'removeEventSource', events[user_id])
+    }
+  });
+  function rgb2hex(rgb) {
+    if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+    function hex(x) {
+      return ("0" + parseInt(x).toString(16)).slice(-2);
+    }
+    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
+  }
 });
 </script>
 <script type='text/javascript'>

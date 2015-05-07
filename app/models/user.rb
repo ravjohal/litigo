@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :firm
 
   def name
-    self.first_name.present? && self.last_name.present? ? "#{self.first_name} #{self.last_name}" : ""
+    self.first_name.present? && self.last_name.present? ? "#{self.first_name} #{self.last_name}" : self.email
   end
 
   def initials

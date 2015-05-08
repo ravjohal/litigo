@@ -55,11 +55,9 @@ class UsersController < ApplicationController
     sync_param = params[:state]
     if sync_param == "calendar"
       GoogleCalendars.get_calendars_list(current_user)
-      #redirect_to user_path({id: current_user.id, google_auth: true})
       redirect_to root_path({id: current_user.id, google_auth: true}), notice: "Calendars successfully imported"
     elsif sync_param == "contacts"
       contacts = GoogleContacts.contacts(current_user)
-      logger.info "contacts: #{contacts.ai}\n\n\n"
       redirect_to root_path, notice: "Contacts successfully imported"
     end
   end
@@ -74,7 +72,6 @@ class UsersController < ApplicationController
   end
 
   def send_feedback_clean
-    logger.info"params:#{params.ai}\n\n\n"
     options = {
         user: current_user,
         email: params[:email],

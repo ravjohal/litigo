@@ -27,7 +27,9 @@ class DashboardsController < ApplicationController
     if params[:select_calendar].present?
       params[:select_calendar].each do |calendar_id, val|
         if val == '1'
-        GoogleCalendars.get_events(current_user, calendar_id.to_s)
+          GoogleCalendars.get_events(current_user, calendar_id.to_s)
+        elsif val == '0'
+          GoogleCalendar.find_by(user_id: @user.id, google_id: calendar_id).destroy
         end
       end
     end

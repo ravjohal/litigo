@@ -75,16 +75,9 @@
       <td>
         <strong>Add to Calendar:</strong>
       </td>
-      <td>
+      <td colspan="2">
         <%= f.check_box :add_event, {:checked => true}, true, false %>
-      </td>
-    </tr>
-    <tr class="google-calendar-row">
-      <td>
-        <strong>Google Calendar:</strong>
-      </td>
-      <td>
-        <%= f.select :google_calendar_id, @user.google_calendars.map{ |c| [c.google_id, c.google_id] }, include_blank: true, label: false %>
+        <%= f.select :google_calendar_id, @user.google_calendars.map{ |c| [c.google_id, c.google_id] }, include_blank: true, label: false, :class => 'table-input' %>
       </td>
     </tr>
     </tbody>

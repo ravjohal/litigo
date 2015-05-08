@@ -65,7 +65,7 @@
               <strong>Case:</strong>
             </td>
             <td colspan="3">
-              <%= f.association :case, :collection => @firm.cases, :selected => @case.try(:id), :input_html => {:id => "case_select"}, label: false %>
+              <%= f.association :case, :collection => @firm.cases, :selected => @case.try(:id), :input_html => {:id => "case_select"}, label: false, :include_blank => true %>
             </td>
           </tr>
           </tbody>

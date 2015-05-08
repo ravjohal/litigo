@@ -45,4 +45,12 @@ class ReportsController < ApplicationController
     @selected_case = params[:case][:case_id] if params[:case]
     @medical_bills_report = MedicalBillsReport.new(firm_id: @firm.id, case_id_as_criteria: @case_)
   end
+
+   def cases_by_attorney_report
+    @attorney_all_id_array = @firm.contacts.where("type = 'Attorney'").pluck(:id)
+    @attorney = params[:contact] && params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @attorney_all_id_array
+    @selected_attorney = params[:contact][:contact_id] if params[:contact]
+    #puts 'ATTTORNEY--------------- ' + @attorney.inspect
+    @cases_by_attorney_report = CasesByAttorneyReport.new(firm_id: @firm.id, attorney_contact_id: @attorney)
+  end
 end

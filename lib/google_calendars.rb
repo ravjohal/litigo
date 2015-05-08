@@ -266,7 +266,7 @@ class GoogleCalendars
     end
 
     def expired?(user)
-      user.oauth_expires_at < Time.now
+      user.oauth_expires_at.blank? || user.oauth_expires_at < Time.now
     end
 
     def fresh_token(user)

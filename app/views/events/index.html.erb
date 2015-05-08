@@ -133,7 +133,6 @@ $(document).ready(function() {
     $(this).parent().toggleClass('open');
   });
   $('body').on('click', function (e) {
-    console.log(!$('.dropdown-toggle-users').is(e.target));
     if (!$('.dropdown-toggle-users').is(e.target)
         && $('.dropdown-toggle-users').has(e.target).length === 0
         && $('.open').has(e.target).length === 0

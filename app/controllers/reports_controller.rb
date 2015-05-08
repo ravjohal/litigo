@@ -53,4 +53,11 @@ class ReportsController < ApplicationController
     #puts 'ATTTORNEY--------------- ' + @attorney.inspect
     @cases_by_attorney_report = CasesByAttorneyReport.new(firm_id: @firm.id, attorney_contact_id: @attorney)
   end
+
+    def cases_by_status_report
+    @case_status_id_array = Case::STATUS
+    @case_status_arg = params[:case_status_arg] && params[:case_status_arg] != '' ? params[:case_status_arg].split(",") : @case_status_id_array
+    @selected_case_status = params[:case_status_arg] if params[:case_status_arg]
+    @cases_by_status_report = CasesByStatusReport.new(firm_id: @firm.id, case_status_arg: @case_status_arg)
+  end
 end

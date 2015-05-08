@@ -1,0 +1,34 @@
+<%= form_tag reports_cases_by_status_path, method: :get do %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Case Management - Cases by Status</strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+             		<li><%= submit_tag "RUN REPORT", name: nil, :class => 'run-report' %></li>
+              </ul>
+          </div>
+    </div>
+    <!-- .collect {|contact| contact.name }) -->
+        <div class="container-fluid" style="padding: 0; margin-top: 10px;">
+              <div class="row">
+                      	<div class="col-md-3 col-xs-6">
+                      	Attorney<br>
+                      		<%= select_tag :case_status_arg, options_for_select(Case::STATUS, @selected_case_status), :include_blank => true, :class => 'table-input' %>
+                      	</div>
+                      	<div class="col-md-9 col-xs-6">
+                      	</div>
+              </div>
+        </div>
+</div>
+<div class="incase-tabs-gap"></div>
+<% end %>
+<div style="margin-top: 72px;">
+<div class="span6">
+  <%= render template: 'dossier/reports/show', locals: {report: @cases_by_status_report.run} %>
+</div>
+<script>
+    $(document).ready(function() { $("select").select2();
+        });
+  </script>

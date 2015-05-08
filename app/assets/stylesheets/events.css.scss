@@ -136,14 +136,14 @@ div.fc-view-agendaDay {
   }
 }
 
-.firm_users {
-  list-style: none;
-  padding:0;
-  margin:0;
-  .user_color {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
+.firm-users {
+  li {
+    margin-left: 10px;
+    .user_color {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+    }
   }
 }
 

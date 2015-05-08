@@ -4,7 +4,7 @@
         <span class="glyphicon glyphicon-share export" title="Export to CSV"></span>
   <% end %>
   <%= link_to "javascript:window.print()", class: 'dark download-csv' do %>
-        <span class="glyphicon glyphicon-print print" title="Print report"></span>
+        <span class="glyphicon glyphicon-print" id="print" title="Print report"></span>
   <% end %>
 </div>
 <%= render_options(report) %>
@@ -47,6 +47,6 @@
 <script type='text/javascript'>
   $(function() {
     $('.export').tipsy({gravity: 's', fade: true});
-    $('.print').tipsy({gravity: 's', fade: true});
+    $('#print').tipsy({gravity: 's', fade: true});
   });
 </script>

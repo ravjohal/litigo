@@ -30,15 +30,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>Assign Attorney(s):</strong>
-                    </td>
-                    <td>
-                        <%= f.association :users, :collection => @firm.users.map { |u| [u.email, u.id] }, :input_html => {:id => "attorney_select"}, :class => 'sel2', label: false %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Invitees:</strong>
+                        <strong>Invitee Emails:</strong><br><span id="invite" title="Invitees will receive an email invite. If a gmail account, the event will also be added to their Google calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
                     </td>
                     <td>
                         <%= f.input :contacts, label: false, :input_html => {:id => "invitee_select", :value => "#{new_event.contacts.map {|contact| contact.email}.join(',')}"}, :class => 'table-input' %>
@@ -54,7 +46,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>Start:</strong>
+                        <strong>Start Time:</strong>
                     </td>
                     <td>
                         <%= f.datetime_field :start, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.start.strftime('%Y-%m-%d %I:%M %p') if f.object.start)   %>
@@ -62,7 +54,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>End:</strong>
+                        <strong>End Time:</strong>
                     </td>
                     <td>
                         <%= f.datetime_field :end, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.end.strftime('%Y-%m-%d %I:%M %p') if f.object.end) %>
@@ -97,7 +89,7 @@
                 
                  <tr>
                     <td>
-                        <strong>Google Calendar:</strong>
+                        <strong>Add to Google Cal:</strong>
                     </td>
                     <td>
                        <%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]}, :include_blank => true, :class => 'table-input' %>
@@ -120,12 +112,12 @@
            <div class="modal-footer">
               <div class="pull-left">
                 <a class="close" data-dismiss="modal">Cancel</a>
-                <% if @event.present? %>
-                  <%= link_to @event,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting an event will remove all the event information from storage and you will not be able to retrieve it. Would you like to continue?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Contact"></span> <% end %>
-                <% end %>
               </div>
 
               <div class="form-actions">
+              <% if @event.present? %>
+                  <%= link_to @event,  :class => 'btn btn-danger', method: :delete, data: { confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?' } do %>Delete<% end %>
+                <% end %>
                   <%= f.button :submit, :class =>"sub2-small" %>
               </div>
 
@@ -144,4 +136,9 @@ $(document).ready(function() {
     availableTags: <%= @emails_autocomplete.to_json.html_safe %>
   });
 });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#invite').tipsy({gravity: 's', fade: true});
+  });
 </script>

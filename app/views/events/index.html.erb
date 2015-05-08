@@ -1,9 +1,21 @@
-<div id="index-buttons" style="margin-right: 38px; margin-bottom: 10px;">
-  <ul>
-    <li><%= link_to "/auth/google_oauth2?state=calendar",  :class => 'dark-small' do %><span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span> <% end %></li>
-    <li><%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
-  </ul>
+<div class="event-header">
 </div>
+    <div class="row">
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-3">
+            <div id="event-buttons" style="float: right; vertical-align: middle;">
+              <ul>
+                <li><%= link_to "/auth/google_oauth2?state=calendar",  :class => 'dark-small' do %><span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span> <% end %></li>
+
+                <li><%= link_to "", :class => 'dark' do %>
+          <span id="print" class="glyphicon glyphicon-print" title="Print Tasks"></span>
+        <% end %>
+                <%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
+              </ul>
+            </div>
+        </div>
+    </div>
 <ul class="firm_users">
   <% @attorneys.each do |user| %>
     <% unless user == @user %>
@@ -15,10 +27,10 @@
     <% end %>
   <% end %>
 </ul>
+
   <div class="calendar-table">
     <div id="calendar"></div>
   </div>
-
 
 <script type="text/javascript">
 $(document).ready(function() {

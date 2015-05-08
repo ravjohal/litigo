@@ -77,15 +77,15 @@
               <strong>Hourly rate:</strong>
             </td>
             <td>
-              <%= f.number_field :hourly_rate, label: false, :class => 'table-input', :step => 'any' %>
+              <%= f.number_field :hourly_rate, label: false, :class => 'table-input', :step => 'any', placeholder: '$ per hour' %>
             </td>
           </tr>
           <tr class="rate-row contingent">
             <td>
-              <strong>Contingent Fee:</strong>
+              <strong>Contingent %:</strong>
             </td>
             <td>
-              <%= f.number_field :contingent_fee, label: false, :class => 'table-input', :step => 'any' %>
+              <%= f.number_field :contingent_fee, label: false, :class => 'table-input', :step => 'any', placeholder: '%' %>
             </td>
           </tr>
           <tr class="rate-row fixed_fee">
@@ -93,7 +93,7 @@
               <strong>Fixed Fee:</strong>
             </td>
             <td>
-              <%= f.number_field :fixed_fee, label: false, :class => 'table-input', :step => 'any' %>
+              <%= f.number_field :fixed_fee, label: false, :class => 'table-input', :step => 'any', placeholder: '$' %>
             </td>
           </tr>
           <tr>

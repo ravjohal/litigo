@@ -5,7 +5,6 @@ class MedicalBillsReport < Dossier::Report
     	AND medical_bills.case_id IN :case_id"
     	).select("provider, SUM(billed_amount) AS Billed, SUM(paid_amount) AS Paid, SUM(billed_amount + paid_amount) AS Owed"
     	).group(:provider).to_sql
-
   end
 
   def firm_id

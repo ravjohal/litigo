@@ -281,16 +281,16 @@ display: none;
 }
 
 .case-header {
-position: absolute;
-left: 0;
-right: 0;
-top: -20px;
-padding: 20px 15px 0 15px;
-width: 100%;
-background: #fff;
-border-bottom: 1px solid #ccc;
-height: 138px;
-margin-bottom: 62px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20px;
+  padding: 20px 15px 0 15px;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  height: 138px;
+  margin-bottom: 62px;
 }
 #case-buttons{
   float: right;
@@ -1050,8 +1050,12 @@ a.add-btn:hover {
 .timer {
   width: 230px;
   position: fixed;
-  bottom: 0;
+  bottom: -39px;
   left: 0;
+  transition: all 0.4s ease 0s;
+  &:hover {
+  bottom: 0;
+  }
 }
 .timer-clock {
   font-size: 20px;

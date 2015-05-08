@@ -17,11 +17,11 @@
 }
 .calendar-table {
   position: relative;
+  z-index: 10;
   #calendar {
-  width: 90%;
-  margin: 50px auto;
+  width: 100%;
+  margin: 0 auto;
     .fc-header {
-      margin-bottom: 10px;
       z-index: -10;
     }
     .fc-border-separate > thead {
@@ -38,7 +38,6 @@
   width: 100%;
   margin: 5px auto;
     .fc-header {
-      margin-bottom: 10px;
       z-index: -10;
     }
     .fc-border-separate > thead {
@@ -82,7 +81,10 @@ ul.tagit {
 }
 
 .fc-header{
-  width: 90%;
+  width: 95% !important;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
 }
 .fc-header-left{
   background-color: #f2f2f2;
@@ -145,3 +147,28 @@ div.fc-view-agendaDay {
   }
 }
 
+.tagit-choice {
+  font-size: 12px;
+  }
+
+#event-buttons{
+  margin-bottom: 25px;
+}
+#event-buttons ul{
+  padding: 0 0;
+  margin-top: 5px;
+}
+#event-buttons li{
+  display: inline;
+}
+
+.event-header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20px;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #ccc;
+  height: 74px;
+}

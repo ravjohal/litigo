@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'reports/case_statute_of_limitations' => 'reports#case_sol_report', as: :reports_case_sol
   get 'reports/open_close' => 'reports#open_close_report', as: :reports_open_close
   get 'reports/medical_bills' => 'reports#medical_bills_report', as: :reports_medical_bills
+  get 'reports/cases_by_attorney' => 'reports#cases_by_attorney_report', as: :reports_cases_by_attorney
 
   resources :companies
   resources :templates

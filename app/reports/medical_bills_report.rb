@@ -3,7 +3,7 @@ class MedicalBillsReport < Dossier::Report
   def sql
     MedicalBill.where("medical_bills.firm_id = :firm_id
     	AND medical_bills.case_id IN :case_id"
-    	).select("provider, SUM(billed_amount) AS Billed, SUM(paid_amount) AS Paid, SUM(billed_amount + paid_amount) AS Owed"
+    	).select("provider, cast(SUM(billed_amount) AS money) AS Billed, cast(SUM(paid_amount) AS money) AS Paid, cast(SUM(billed_amount + paid_amount) AS money) AS Owed"
     	).group(:provider).to_sql
   end
 

@@ -14,7 +14,7 @@
         <div class="container-fluid" style="padding: 0; margin-top: 10px;">
               <div class="row">
                       	<div class="col-md-3 col-xs-6">
-                      	Attorney<br>
+                      	Case Status<br>
                       		<%= select_tag :case_status_arg, options_for_select(Case::STATUS, @selected_case_status), :include_blank => true, :class => 'table-input' %>
                       	</div>
                       	<div class="col-md-9 col-xs-6">

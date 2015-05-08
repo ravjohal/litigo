@@ -74,6 +74,7 @@ $(document).ready(function() {
       center: 'title',
       right: 'month,agendaWeek,agendaDay'
     },
+    defaultView: 'agendaWeek',
     events: <%= @events_list.to_json.html_safe %>,
     editable: true,
     eventDrop: function(event, delta, revertFunc) {

@@ -3,13 +3,13 @@ Rails.application.routes.draw do
 
   get 'reports' => 'reports#index', as: :reports
   get 'reports/show' => 'reports#show', as: :report_show
-  get 'reports/leads_by_channel' => 'reports#leads_by_channel_report', as: :reports_leads_by_channel
-  get 'reports/leads_detail/(:marketing_channel_arg)(.:format)' => 'reports#leads_detail_report', as: :reports_leads_detail
-  get 'reports/case_statute_of_limitations' => 'reports#case_sol_report', as: :reports_case_sol
+  get 'reports/all_leads_by_channel' => 'reports#leads_by_channel_report', as: :reports_leads_by_channel
+  get 'reports/all_leads_detail/(:marketing_channel_arg)(.:format)' => 'reports#leads_detail_report', as: :reports_leads_detail
+  get 'reports/cases_statute_of_limitations' => 'reports#case_sol_report', as: :reports_case_sol
   get 'reports/open_close' => 'reports#open_close_report', as: :reports_open_close
-  get 'reports/medical_bills' => 'reports#medical_bills_report', as: :reports_medical_bills
-  get 'reports/cases_by_attorney' => 'reports#cases_by_attorney_report', as: :reports_cases_by_attorney
-  get 'reports/cases_by_status' => 'reports#cases_by_status_report', as: :reports_cases_by_status
+  get 'reports/medical_bills_totals' => 'reports#medical_bills_report', as: :reports_medical_bills
+  get 'reports/cases_by_attorneys' => 'reports#cases_by_attorney_report', as: :reports_cases_by_attorney
+  get 'reports/cases_by_statuses' => 'reports#cases_by_status_report', as: :reports_cases_by_status
 
   resources :companies
   resources :templates

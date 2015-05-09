@@ -157,9 +157,9 @@ ActiveRecord::Schema.define(version: 20150508192553) do
     t.datetime "date_of_birth"
     t.string   "zip_code"
     t.text     "note"
-    t.boolean  "minor"
+    t.boolean  "minor"                            default: false
     t.date     "major_date"
-    t.boolean  "deceased"
+    t.boolean  "deceased"                         default: false
     t.date     "date_of_death"
     t.string   "website"
     t.string   "mobile"
@@ -175,13 +175,13 @@ ActiveRecord::Schema.define(version: 20150508192553) do
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "defendants", force: :cascade do |t|
-    t.boolean  "married"
-    t.boolean  "employed"
+    t.boolean  "married"                          default: false
+    t.boolean  "employed"                         default: false
     t.text     "job_description"
     t.float    "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
+    t.boolean  "parent"                           default: false
+    t.boolean  "felony_convictions"               default: false
+    t.boolean  "last_ten_years"                   default: false
     t.integer  "jury_likeability"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -205,7 +205,7 @@ ActiveRecord::Schema.define(version: 20150508192553) do
   create_table "event_attendees", force: :cascade do |t|
     t.integer  "event_id"
     t.string   "display_name"
-    t.boolean  "creator"
+    t.boolean  "creator"                        default: false
     t.string   "response_status"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -279,8 +279,8 @@ ActiveRecord::Schema.define(version: 20150508192553) do
     t.string   "summary"
     t.string   "description"
     t.string   "timeZone"
-    t.boolean  "selected"
-    t.boolean  "primary"
+    t.boolean  "selected"               default: false
+    t.boolean  "primary"                default: false
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -311,10 +311,10 @@ ActiveRecord::Schema.define(version: 20150508192553) do
     t.decimal  "plaintiff_limits"
     t.decimal  "uim_limits"
     t.date     "injury_date"
-    t.boolean  "notice"
+    t.boolean  "notice"                                                     default: false
     t.date     "discovery_date"
     t.date     "first_sold_date"
-    t.boolean  "foreign_object"
+    t.boolean  "foreign_object"                                             default: false
     t.date     "final_treatment_date"
     t.integer  "user_id"
   end
@@ -383,17 +383,17 @@ ActiveRecord::Schema.define(version: 20150508192553) do
     t.string   "phone"
     t.date     "dob"
     t.string   "ssn"
-    t.boolean  "decreased"
+    t.boolean  "decreased"                        default: false
     t.string   "referred_by"
-    t.boolean  "attorney_already"
+    t.boolean  "attorney_already"                 default: false
     t.string   "attorney_name"
     t.date     "incident_date"
     t.string   "case_type"
     t.string   "sub_type"
     t.string   "primary_injury"
     t.string   "primary_region"
-    t.boolean  "hospitalized"
-    t.boolean  "police_report"
+    t.boolean  "hospitalized"                     default: false
+    t.boolean  "police_report"                    default: false
     t.text     "case_summary"
     t.integer  "estimated_value"
     t.string   "lead_insurance"
@@ -468,13 +468,13 @@ ActiveRecord::Schema.define(version: 20150508192553) do
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "plantiffs", force: :cascade do |t|
-    t.boolean  "married"
-    t.boolean  "employed"
+    t.boolean  "married"                    default: false
+    t.boolean  "employed"                   default: false
     t.text     "job_description"
     t.float    "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
+    t.boolean  "parent"                     default: false
+    t.boolean  "felony_convictions"         default: false
+    t.boolean  "last_ten_years"             default: false
     t.integer  "jury_likeability"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -593,12 +593,12 @@ ActiveRecord::Schema.define(version: 20150508192553) do
   create_table "treatments", force: :cascade do |t|
     t.integer  "injury_id"
     t.integer  "firm_id"
-    t.boolean  "surgery"
+    t.boolean  "surgery"            default: false
     t.integer  "surgery_count"
     t.string   "surgery_type"
-    t.boolean  "casted_fracture"
-    t.boolean  "stitches"
-    t.boolean  "future_surgery"
+    t.boolean  "casted_fracture"    default: false
+    t.boolean  "stitches"           default: false
+    t.boolean  "future_surgery"     default: false
     t.decimal  "future_medicals"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false

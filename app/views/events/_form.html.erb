@@ -118,7 +118,7 @@
               <% if @event.present? %>
                   <%= link_to @event,  :class => 'btn btn-danger', method: :delete, data: { confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?' } do %>Delete<% end %>
                 <% end %>
-                  <%= f.button :submit, :class =>"sub2-small" %>
+                  <%= f.button :submit, :class =>"btn btn-info", :style => 'font-size: 18px;' %>
               </div>
 
             </div><!--end of modal-footer-->

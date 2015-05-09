@@ -14,15 +14,15 @@ class CompaniesController < ApplicationController
   # GET /companies/1.json
   def show
     @contacts = @company.contacts
-
-    if @company.website.include? "http"
-      website_ = String.new(@company.website) # copy so that we will not slice original
-      website_.slice! "http://"
-      @website = website_
-    else
-      @website = @company.website
+    if @company.website
+      if @company.website.include? "http"
+        website_ = String.new(@company.website) # copy so that we will not slice original
+        website_.slice! "http://"
+        @website = website_
+      else
+        @website = @company.website
+      end
     end
-
     @company_city_state = @company.company_city_and_state
   end
 

@@ -79,7 +79,7 @@
       <% @contacts.each do |contact| %>
         <tr data-id="<%= contact.id %>">
           <td  style="vertical-align: middle;"><%= link_to "#{contact.last_name} #{contact.first_name}", contact_path(contact) %></td>
-          <td style="vertical-align: middle;"><%= contact.type %></td>
+          <td style="vertical-align: middle;"><%= contact.type_with_spacing %></td>
           <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= contact.email %></div></td>
           <td style="vertical-align: middle;"><%= contact.phone_number %></td>
         </tr>

@@ -41,6 +41,12 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
+    if contact_params[:type] == 'Expert Witness'
+      contact_attrs = contact_params.clone
+      contact_attrs[:type] = 'ExpertWitness'
+      contact_params = contact_attrs
+    end
+    
     if get_case
       @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)
       path_contacts =  case_contacts_path

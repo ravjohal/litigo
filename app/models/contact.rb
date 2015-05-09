@@ -3,7 +3,7 @@ class Contact < ActiveRecord::Base
 
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
 
-  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'General']
+  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'Expert Witness', 'Physician', 'General']
   has_many :event_attendees
 	belongs_to :user
   belongs_to :event
@@ -16,6 +16,14 @@ class Contact < ActiveRecord::Base
 
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
+
+  def type_with_spacing
+    if self.type == 'ExpertWitness'
+      "Expert Witness"
+    else
+      self.type
+    end
+  end
 
   def self.inherited(child)
     child.instance_eval do

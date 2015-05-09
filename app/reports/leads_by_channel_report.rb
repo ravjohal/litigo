@@ -4,7 +4,11 @@ class LeadsByChannelReport < Dossier::Report
 	# end
 
 	def sql
-		Lead.where("firm_id = :firm_id AND cast(created_at as date) between :start_date and :end_date").select("marketing_channel, count(*) as Leads").group(:marketing_channel).to_sql
+		Lead.where("firm_id = :firm_id 
+			AND cast(created_at as date) 
+			BETWEEN :start_date AND :end_date"
+			).select("marketing_channel, count(*) as Leads"
+			).group(:marketing_channel).to_sql
 	end
 
 	def format_header(column_name)

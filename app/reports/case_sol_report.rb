@@ -15,7 +15,7 @@ class CaseSolReport < Dossier::Report
     	AND type IN ('Attorney', 'Staff')
     	AND contacts.id IN :attorney_contact_id 
     	AND cast(statute_of_limitations as date) between :start_date and :end_date"
-    	).select("case_number, name, subtype, first_name, last_name, incident_date, statute_of_limitations, filed_suit_date"
+    	).group("cases.id").select("case_number, name, subtype, statute_of_limitations, filed_suit_date"
     	).to_sql
 
  # SELECT case_number, name, subtype, first_name, last_name, incident_date, statute_of_limitations, filed_suit_date 
@@ -26,6 +26,10 @@ class CaseSolReport < Dossier::Report
  #   	AND type IN ('Attorney', 'Staff')
  #   	AND contacts.id = '1874' 
  #   	AND cast(statute_of_limitations as date) between '2015-04-01' and '2015-04-30')
+  end
+
+  def format_case_number(value, row)
+    formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.case_path(:id => Case.find_by_case_number(value))
   end
 
   def firm_id

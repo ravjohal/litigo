@@ -3,8 +3,8 @@ class MedicalBillsReport < Dossier::Report
   def sql
     MedicalBill.where("medical_bills.firm_id = :firm_id
     	AND medical_bills.case_id IN :case_id"
-    	).select("provider, cast(SUM(billed_amount) AS money) AS Billed, cast(SUM(paid_amount) AS money) AS Paid, cast(SUM(billed_amount + paid_amount) AS money) AS Owed"
-    	).group(:provider).to_sql
+    	).select("company_id, cast(SUM(billed_amount) AS money) AS Billed, cast(SUM(paid_amount) AS money) AS Paid, cast(SUM(billed_amount + paid_amount) AS money) AS Owed"
+    	).group(:company_id).to_sql
   end
 
   def firm_id
@@ -19,9 +19,14 @@ class MedicalBillsReport < Dossier::Report
     custom_headers = {
       billed:'Total Billed',
       paid: 'Total Paid',
-      owed: 'Total Owed'
+      owed: 'Total Owed',
+      company_id: 'Provider'
     }
     custom_headers.fetch(column_name.to_sym) { super }
+  end
+
+  def format_company_id(value)
+    Company.find_by_id(value).name if Company.find_by_id(value)
   end
 
   # def format_owed(value, row)

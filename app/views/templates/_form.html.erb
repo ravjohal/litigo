@@ -36,7 +36,7 @@
         <strong>Description:</strong>
       </td>
       <td>
-        <%= f.text_field :description, label: false, :class => 'table-input', :placeholder => 'e.g.   Template should be used for new personal injury clients' %>
+        <%= f.text_field :description, label: false, :class => 'table-input', :placeholder => 'e.g. Template should be used for new personal injury clients' %>
       </td>
     </tr>
     </tbody>
@@ -52,7 +52,7 @@
   <% end %>
 
   <div class="form-actions">
-    <%= f.button :submit, :class =>"sub2-small" %>
+    <%= f.button :submit, :class =>"btn btn-info", :style => 'font-size: 18px;' %>
   </div>
 
   <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') || (controller_name == 'templates') %>

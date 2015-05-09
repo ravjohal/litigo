@@ -197,13 +197,13 @@
            <strong>Total Medicals:</strong>
         </td>
         <td>
-          <%= number_to_currency(@case.medical.try(:total_med_bills), precision: 0) %>
+      
         </td>
         <td class="right">
           <strong>Total Policy Limits:</strong>
         </td>
         <td>
-          <%= number_to_currency(@case.insurance.try(:policy_limit), precision: 0) %>
+          <%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %>
         </td>
       </tr>
       <tr>

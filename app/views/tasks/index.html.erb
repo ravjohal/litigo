@@ -82,7 +82,7 @@
     </thead>
     <tbody>
     <% @my_tasks.each do |task| %>
-      <tr data-id="<%= task.id %>">
+      <tr class="<%= task.row_color%>" data-id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.owner.name if task.owner %></td>
         <td>
@@ -117,7 +117,7 @@
     </thead>
     <tbody>
     <% @tasks.each do |task| %>
-      <tr data-id="<%= task.id %>">
+      <tr class="<%= task.row_color%>" data-id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.owner.name if task.owner %></td>
         <td>

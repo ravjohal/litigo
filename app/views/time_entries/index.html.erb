@@ -38,7 +38,7 @@
       <tr data-id="<%= time_entry.id %>">
         <td  style="vertical-align: middle;"><%= link_to time_entry.user.name, time_entry_path(time_entry) %></td>
         <td style="vertical-align: middle;"><%= time_entry.date %></td>
-        <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= time_entry.case.try(:name) %></td>
+        <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= time_entry.case.try(:name) %></div></td>
         <td style="vertical-align: middle;"><%= time_entry.description %></td>
         <td style="vertical-align: middle;"><%= time_entry.hours %></td>
       </tr>

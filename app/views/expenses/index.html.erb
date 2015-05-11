@@ -73,11 +73,11 @@
     <tbody>
     <% @time_entries.each do |time_entry| %>
       <tr data-id="<%= time_entry.id %>">
-        <td><%= link_to time_entry.try(:user).try(:name), time_entry %></td>
-        <td><%= time_entry.date.try(:strftime, "%b %e, %Y") %></td>
-        <td><%= time_entry.activity %></td>
-        <td><%= time_entry.charge_type %></td>
-        <td><%= time_entry.hours %></td>
+        <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= link_to time_entry.try(:user).try(:name), time_entry %></div></td>
+        <td style="vertical-align: middle;"><%= time_entry.date.try(:strftime, "%b %e, %Y") %></td>
+        <td style="vertical-align: middle;"><%= time_entry.activity %></td>
+        <td style="vertical-align: middle;"><%= time_entry.charge_type %></td>
+        <td style="vertical-align: middle;"><%= time_entry.hours %></td>
       </tr>
     <% end %>
     </tbody>
@@ -102,10 +102,10 @@
       <tbody>
       <% @expenses.each do |expense| %>
         <tr data-id="<%= expense.id %>">
-          <td><%= link_to expense.user.try(:name), @case.present? ? case_expense_path(@case, expense) : expense %></td>
-          <td><%= expense.created_date.try(:strftime, "%b %e, %Y") %></td>
-          <td><%= expense.expense %></td>
-          <td><%= number_to_currency expense.amount %></td>
+          <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= link_to expense.user.try(:name), @case.present? ? case_expense_path(@case, expense) : expense %></div></td>
+          <td style="vertical-align: middle;"><%= expense.created_date.try(:strftime, "%b %e, %Y") %></td>
+          <td style="vertical-align: middle;"><%= expense.expense %></td>
+          <td style="vertical-align: middle;"><%= number_to_currency expense.amount %></td>
         </tr>
       <% end %>
       </tbody>

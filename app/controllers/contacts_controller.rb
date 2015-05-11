@@ -41,12 +41,15 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
+
     if contact_params[:type] == 'Expert Witness'
-      contact_attrs = contact_params.clone
-      contact_attrs[:type] = 'ExpertWitness'
-      contact_params = contact_attrs
+      expert_witness = contact_params[:type]
+      expert_witness = 'ExpertWitness'
+      # contact_attrs[:type] = 'ExpertWitness'
+      # contact_params = contact_attrs
+      params[:contact][:type] = expert_witness.gsub(/\s+/, "")
     end
-    
+
     if get_case
       @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)
       path_contacts =  case_contacts_path
@@ -81,6 +84,14 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1.json
   def update
     @contact.user = @user
+    
+    if contact_params[:type] == 'Expert Witness'
+      expert_witness = contact_params[:type]
+      expert_witness = 'ExpertWitness'
+      # contact_attrs[:type] = 'ExpertWitness'
+      # contact_params = contact_attrs
+      params[:contact][:type] = expert_witness.gsub(/\s+/, "")
+    end
 
     #TODO: Not sure why, but attorney_type is NOT beign emptied out when Contact Type is of something
     # else besides Attorney. Need to look into this when there is a chance since Attorney Type can be

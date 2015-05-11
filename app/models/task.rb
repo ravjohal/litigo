@@ -62,4 +62,14 @@ class Task < ActiveRecord::Base
       GoogleCalendars.update_event(self.user, self.event)
     end
   end
+
+  def row_color
+    if self.due_date.present? && self.due_date > Date.today
+      if self.due_date - Date.today<= 2
+        return 'danger'
+      elsif self.due_date - Date.today<= 7 && self.due_date - Date.today > 2
+        return 'warning'
+      end
+    end
+  end
 end

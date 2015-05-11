@@ -3,7 +3,7 @@
     <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
   </li>
   <li>
-    <%= active_link_to "Client Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cli', :id => 'client-intake', :active => [['client_intakes'], []] %>
+    <%= active_link_to "Caller Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cli', :id => 'client-intake', :active => [['client_intakes'], []] %>
   </li>
   <li id="first">
     <%= active_link_to " Case Management", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions', 'insurances', 'task_lists', 'templates', 'companies'], []] %>

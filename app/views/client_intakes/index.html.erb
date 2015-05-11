@@ -1,6 +1,12 @@
  <div id="index-buttons">
               <ul>
-                  <li><%= render 'new_button' %></li>
+                  <li>
+                    <div id="top-custom">
+                      <ul>
+                        <li><%= link_to "NEW CALLER INTAKE", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+                      </ul>
+                    </div>
+                  </li>
               </ul>
    </div>
    <div style="margin-top: 70px;">

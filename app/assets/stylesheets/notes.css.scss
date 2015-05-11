@@ -29,6 +29,24 @@
  }
 }
 
+
+.notes_table > tbody > tr > td:nth-of-type(1) {
+  width: 150px;
+}
+.notes_table > tbody > tr > td:nth-of-type(2) {
+  width: 150px;
+}
+.notes_table > tbody > tr > td:nth-of-type(3) {
+  overflow: hidden;
+  min-width: 250px;
+}
+.notes_table > tbody > tr > td:nth-of-type(4) {
+  width: 200px;
+}
+.notes_table > tbody > tr > td:nth-of-type(5) {
+  width: 150px;
+}
+
 .lead-form{
   width: 100%;
     padding: 0;

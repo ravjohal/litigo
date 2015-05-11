@@ -185,7 +185,7 @@
             </div>
         </td>
         </tr>
-        <% if @contact.type == 'Plaintiff' %>
+<% if @contact.type == 'Plaintiff' %>
       <tr>
         <td class="right">
           <strong>Date of Birth:</strong>
@@ -270,6 +270,15 @@
         </td>
         <td>
               <%= f.select :time_bound, ['Year', 'Hour'], label: false, :class => 'table-input', :include_blank => '' %>
+        </td>
+        </tr>
+<% elsif @contact.type == 'ExpertWitness' %>
+        <tr>
+         <td class="right">
+          <strong>Occupation:</strong>
+        </td>
+        <td colspan="3">
+            <%= f.text_field :job_description, label: false, class: 'table-input' %>
         </td>
         </tr>
         <% end %>

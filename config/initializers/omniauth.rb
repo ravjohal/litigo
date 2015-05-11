@@ -12,8 +12,8 @@ def gethostforurl
     when Rails.env.production?
       'https://www.litigo.co'
     when Rails.env.staging?
-      'litigorav.herokuapp.com'
+      'http://litigorav.herokuapp.com'
     else
-      'localhost:3000'
+      'http://localhost:3000'
     end
 end

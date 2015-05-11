@@ -46,7 +46,7 @@ class TaskDraft < ActiveRecord::Base
         due_date = affair.try(ad[0]).try(ad[1]).try('to_date').method(operator).(self.due_term.days) if affair.try(ad[0]).try(ad[1]).present?
       end
     else
-      due_date = parent.due_date.method(operator).(self.due_term.days) if parent.due_date.present?
+      due_date = parent.due_date.method(operator).(self.due_term.days) if parent && parent.due_date
     end
     return due_date
   end

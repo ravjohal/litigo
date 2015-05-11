@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
+  get '/auth/failure' => 'users#fail_google_oauth'
   get 'refresh_google_events' => 'events#refresh_google_events'
   get '/dashboards/select_calendar'
   get  "dropbox/main"

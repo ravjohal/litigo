@@ -39,7 +39,7 @@
           <strong>Case(s):</strong>
         </td>
         <td colspan="2" class="doc-link">
-          <%= @task.try(:case).try(:name) %>
+          <%= link_to @task.case.name,  case_path(@task.case) if @task.case.present? %>
         </td>
       </tr>
       <tr>

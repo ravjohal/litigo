@@ -17,3 +17,5 @@ def gethostforurl
       'http://localhost:3000'
     end
 end
+
+OmniAuth.config.on_failure = UsersController.action(:save_google_oauth)

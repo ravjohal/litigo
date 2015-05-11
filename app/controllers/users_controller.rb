@@ -51,15 +51,23 @@ class UsersController < ApplicationController
   end
 
   def save_google_oauth
-    create_google_oauth
-    sync_param = params[:state]
-    if sync_param == "calendar"
-      GoogleCalendars.get_calendars_list(current_user)
-      redirect_to root_path({id: current_user.id, google_auth: true}), notice: "Calendars successfully imported"
-    elsif sync_param == "contacts"
-      contacts = GoogleContacts.contacts(current_user)
-      redirect_to root_path, notice: "Contacts successfully imported"
+    if params[:error].present?
+      redirect_to root_path, notice: "Google Access Denied"
+    else
+      create_google_oauth
+      sync_param = params[:state]
+      if sync_param == "calendar"
+        GoogleCalendars.get_calendars_list(current_user)
+        redirect_to root_path({id: current_user.id, google_auth: true}), notice: "Calendars successfully imported"
+      elsif sync_param == "contacts"
+        contacts = GoogleContacts.contacts(current_user)
+        redirect_to root_path, notice: "Contacts successfully imported"
+      end
     end
+  end
+
+  def fail_google_oauth
+    redirect_to root_path, notice: "Google Authentification Failed"
   end
 
   def import_contacts

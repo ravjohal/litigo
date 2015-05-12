@@ -37,11 +37,6 @@ class Lead < ActiveRecord::Base
                                           "primary_injury" => true
                                       }]
         },
-        "incident_attributes" => {
-            "incident_date" => self.incident_date,
-            "police_report" => self.police_report,
-            "firm_id" => self.firm_id
-        },
         "insurance_attributes" => {
             "insurance_provider" => self.lead_insurance,
             "firm_id" => self.firm_id,

@@ -24,13 +24,12 @@
     </li> -->
   <li id="second">
 
-    <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
+   <!-- <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
     <ul>
       <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LEGAL INSIGHTS<sup> Beta</sup>
         <% end %></li>
-      <!--
-        <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li> -->
-    </ul>
+        <li><%= active_link_to "FINANCIALS", user_path(current_user), :class_active => 'enabled' %></li>
+    </ul> -->
   </li>
   <li>
         <%= active_link_to "Reporting", reports_path , :class_active => 'tester', :class => 'nav-sidebar__cev', :active => [['reports']], :id => 'CaseEval' %>

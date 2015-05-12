@@ -120,7 +120,7 @@
           <strong>Google Calendar:</strong>
         </td>
         <td colspan="2">
-          <%= f.select :google_calendar_id, @user.google_calendars.map{ |c| [c.google_id, c.google_id] }, selected: @task.try(:event).try(:google_calendar_id), include_blank: true, label: false %>
+          <%= f.select :google_calendar_id, @user.google_calendars.collect { |c| ["#{c.google_id}", c.google_id] }, selected: @task.try(:event).try(:google_calendar_id), include_blank: true, label: false %>
         </td>
       </tr>
   </tbody>

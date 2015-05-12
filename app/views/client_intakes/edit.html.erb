@@ -34,7 +34,7 @@
   <tbody>
   <tr>
     <td class="right">
-      <strong>Caller Name:</strong>
+      <strong>Caller Name:</strong><span id="caller" title="Edit the Caller's Name from the Contact tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign pull-right"></span>
     </td>
     <td  colspan="3">
       <%= @lead.name %>
@@ -167,15 +167,8 @@
 <script>
   $(document).ready(function() { $("#note_select, select").select2(); });
 </script>
-<script>
-  $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
+<script type='text/javascript'>
+  $(function() {
+    $('#caller').tipsy({gravity: 's', fade: true});
   });
 </script>
-
-  
-      
-      
-   
-        

@@ -197,7 +197,7 @@
            <strong>Total Medicals:</strong>
         </td>
         <td>
-      
+          <%= @case.try(:medical).try(:total_med_bills) %>
         </td>
         <td class="right">
           <strong>Total Policy Limits:</strong>

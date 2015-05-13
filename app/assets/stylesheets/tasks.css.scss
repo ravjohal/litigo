@@ -87,3 +87,14 @@
 .dropdown-menu li a {
 padding-left: 20px;
 }
+
+.task-filter {
+  .dropdown-menu {
+    left: -47px;
+  }
+}
+.toolbar {
+  display: block;
+  text-align: right;
+  margin: 15px;
+}

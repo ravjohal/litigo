@@ -43,6 +43,7 @@ Rails.application.routes.draw do
 
   resources :tasks
   post 'tasks/complete_task' => 'tasks#complete_task'
+  get 'get_tasks' => 'tasks#get_tasks', as: :get_tasks
 
   resources :contacts
 

@@ -64,12 +64,26 @@ class Task < ActiveRecord::Base
   end
 
   def row_color
-    if self.due_date.present? && self.due_date > Date.today
-      if self.due_date - Date.today<= 2
+    if self.due_date.present? && self.completed.blank?
+      if self.due_date - Date.today <= 2
         return 'danger'
       elsif self.due_date - Date.today<= 7 && self.due_date - Date.today > 2
         return 'warning'
       end
+    elsif self.completed.present?
+      return 'success'
     end
+  end
+
+  def self.active_tasks_scope
+    where("due_date > ? AND completed IS NULL", Date.today)
+  end
+
+  def self.completed_tasks_scope
+    where.not(completed: nil)
+  end
+
+  def self.no_due_date_tasks_scope
+    where(due_date: nil)
   end
 end

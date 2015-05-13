@@ -283,6 +283,11 @@ section {
   font-weight: 700;
   font-size: 16px;
 }
+@media (max-width: 767px) {
+.firm-name { display: none}
+
+}
+
 
 #user_remember_me {
   margin-left: 0px !important;

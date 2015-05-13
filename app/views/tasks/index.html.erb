@@ -47,23 +47,23 @@
       <li><%= link_to "javascript:window.print()", :class => 'dark' do %>
           <span class="glyphicon glyphicon-print tip" data-tip="Print"></span>
         <% end %></li>
-        <div id="top-custom">
+      <div id="top-custom">
         <ul>
-      <li class="dropdown task-list">
-        <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
-          TASKS
-          <span class="caret"></span>
-        <% end %>
-        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
-            <li style="padding: 0; display: inline;"><%= link_to "New Task", @new_path, { :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
-            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Create New Task List', new_task_list_path %></li>
-            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved Task List', task_lists_path %></li>
+          <li class="dropdown task-list">
+            <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
+              TASKS
+              <span class="caret"></span>
+            <% end %>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
+              <li style="padding: 0; display: inline;"><%= link_to "New Task", @new_path, {:id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
+              <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Create New Task List', new_task_list_path %></li>
+              <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved Task List', task_lists_path %></li>
+            </ul>
+          </li>
         </ul>
-      </li>
+      </div>
     </ul>
-    </div>
-    </ul>
-    </div>
+  </div>
 <% end %>
 <div style="margin-top: 70px;">
   <h3>My Tasks</h3>
@@ -82,13 +82,13 @@
     </thead>
     <tbody>
     <% @my_tasks.each do |task| %>
-      <tr class="<%= task.row_color%>" data-id="<%= task.id %>">
+      <tr class="<%= task.row_color%>" id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
-        <td><%= task.owner.name if task.owner %></td>
+        <td><%= task.try(:owner).try(:name)%></td>
         <td>
-          <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
+          <div class="larger-td"><%= task.name %></div>
         </td>
-        <td><%= task.due_date.strftime("%b %e, %Y") if task.due_date.present? %></td>
+        <td><%= task.try(:due_date).try(:strftime, "%b %e, %Y") %></td>
         <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
       </tr>
     <% end %>
@@ -119,11 +119,11 @@
     <% @tasks.each do |task| %>
       <tr class="<%= task.row_color%>" data-id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
-        <td><%= task.owner.name if task.owner %></td>
+        <td><%= task.try(:owner).try(:name) %></td>
         <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
-        <td><%= task.due_date.strftime("%b %e, %Y") if task.due_date.present? %></td>
+        <td><%= task.try(:due_date).try(:strftime, "%b %e, %Y") %></td>
         <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
       </tr>
     <% end %>
@@ -137,41 +137,69 @@
     $('#new_modal').click(function (event) {
       $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
     });
-    $(".complete-task").click(function (e) {
-      var id = $(e.currentTarget).data('task-completed');
-      $.ajax({
-        type: "post",
-        url: '/tasks/complete_task',
-        data: {'task': {"task_id": id}},
-        success: function (data) {
-          $('[data-task-completed=' + id + ']').prop('checked', true);
-          $('[data-task-completed=' + id + ']').attr('disabled', 'disabled');
-          $('[data-task-completed=' + id + ']').after(' ' + data.date);
-          $('.alert').remove();
-          $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
-          setTimeout(function() {
-            $('.alert-success').fadeOut();
-          }, 2000);
-        },
-        error: function (responce, status, error) {
-          $('.alert').remove();
-          $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + responce.responseText + "</div>");
-          setTimeout(function() {
-            $('.alert-danger').fadeOut();
-          }, 4000);
+
+    var complete_task = function () {
+      $(".complete-task").click(function (e) {
+        var id = $(e.currentTarget).data('task-completed');
+        var tasks_owner = $(this).closest('.dataTables_wrapper').find('.table').attr('id');
+        var parent_tr = $(this).parents('tr');
+        $.ajax({
+          type: "post",
+          url: '/tasks/complete_task',
+          data: {'task': {"task_id": id}},
+          success: function (data) {
+            tables.table('#'+tasks_owner).row( parent_tr ).remove().draw();
+            $('.alert').remove();
+            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+            setTimeout(function () {
+              $('.alert-success').fadeOut();
+            }, 2000);
+          },
+          error: function (responce, status, error) {
+            $('.alert').remove();
+            $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + responce.responseText + "</div>");
+            setTimeout(function () {
+              $('.alert-danger').fadeOut();
+            }, 4000);
+          }
+        });
+      });
+    };
+    complete_task();
+    var tables = $('.table').DataTable({
+      language: {
+        search: "_INPUT_",
+        searchPlaceholder: "Search or Filter",
+        lengthMenu: "View _MENU_"
+      },
+      sDom: '<"toolbar">Rfrtlip',
+      aaSorting: [[ 3, 'asc' ]]
+    });
+    $("div.toolbar").html("<%= render(partial: 'tasks/filter_button') %>");
+
+    var row_link = function () {
+      $('.table tbody tr').click(function (e) {
+        if($(e.target).attr('href') === undefined && !$(e.target).hasClass('complete-task')){
+          var task_id = $(this).attr('id');
+          window.location = "/tasks/"+task_id;
         }
       });
-    });
-    <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
-    $('.tasks_table tr').click(function(e) {
-      console.log($(this));
-      console.log($(e.target));
-      if(!$(e.target).hasClass('complete-task')){
-        var href = $(this).find("a").attr("href");
-        if(href) {
-        window.location = href;
-        }
-      }
+    };
+    row_link();
+
+    $('.task-filter .dropdown-menu li a').click(function (e) {
+      e.preventDefault();
+      var text = $(this).text();
+      var tasks_scope = $(this).data('scope');
+      var tasks_owner = $(this).closest('.task-filter').closest('.dataTables_wrapper').find('.table').attr('id');
+      var case_id = '<%= @case.present? ? @case.id : nil %>';
+      $(this).closest('.task-filter').find('a.action-button').html(text.toUpperCase()+" <span class='caret'></span>");
+      tables.table('#'+tasks_owner).ajax.url('<%= get_tasks_path %>?tasks_owner='+tasks_owner+'&tasks_scope='+tasks_scope+'&case_id='+case_id).load(function (data) {
+        complete_task();
+        row_link();
+      });
+
+
     });
   });
 </script>

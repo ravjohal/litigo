@@ -1,4 +1,8 @@
 class TasksController < ApplicationController
+  include ActionView::Helpers::TagHelper
+  include ActionView::Helpers::FormTagHelper
+  include ActionView::Helpers::UrlHelper
+
   before_filter :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
@@ -7,13 +11,13 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     if get_case
-      @tasks = @case.tasks
-      @my_tasks = @case.tasks.where(:owner => current_user)
+      @tasks = @case.tasks.active_tasks_scope
+      @my_tasks = @case.tasks.where(:owner => current_user).active_tasks_scope
       @new_path = new_case_task_path(@case)
       @tasks_a = [@case, Task.new] #for modal partial rendering
     else
-      @my_tasks = @user.owned_tasks
-      @tasks = @firm.tasks
+      @my_tasks = @user.owned_tasks.active_tasks_scope
+      @tasks = @firm.tasks.active_tasks_scope
       @new_path = new_task_path
       @tasks_a = Task.new #for modal partial rendering
     end
@@ -108,6 +112,40 @@ class TasksController < ApplicationController
     else
       render :json => 'Task already completed.', status: 403
     end
+  end
+
+  def get_tasks
+    tasks_scope = params[:tasks_scope]
+    tasks_owner = params[:tasks_owner]
+    @case = Case.find(params[:case_id]) if params[:case_id].present?
+    if @case.present?
+      if tasks_owner == 'tasks'
+        tasks = @case.tasks.try(tasks_scope)
+      elsif tasks_owner == 'my_tasks'
+        tasks = @case.tasks.where(:owner => current_user).try(tasks_scope)
+      end
+    else
+      if tasks_owner == 'tasks'
+        tasks = @firm.tasks.try(tasks_scope)
+      elsif tasks_owner == 'my_tasks'
+        tasks = @user.owned_tasks.try(tasks_scope)
+      end
+    end
+    data = []
+    tasks.each do |task|
+      data.push(
+          {
+              'DT_RowId' => task.id,
+              'DT_RowClass' => task.row_color,
+              '0' => task.case.present? ? link_to(task.case.name, case_path(task)) : '',
+              '1' => task.try(:owner).try(:name),
+              '2' => content_tag(:div, task.name, class: 'larger-td'),
+              '3' => task.try(:due_date).try(:strftime, "%b %e, %Y"),
+              '4' => "#{check_box_tag(%Q(complete-task-#{task.id}), true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {'task-completed' => task.id})} #{task.try(:completed)}"
+          }
+      )
+    end
+    render :json => {aaData: data }
   end
 
   private

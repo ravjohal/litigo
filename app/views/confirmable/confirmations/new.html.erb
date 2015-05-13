@@ -21,14 +21,14 @@
 </div>
 
   <div class="thankyou-container">
-      <div style="font-size: 36px; margin-bottom: 15px;">You haven't confirmed your email</div>
+      <div style="font-size: 34px; margin-bottom: 15px;">You haven't confirmed your email</div>
       <div style="font-size: 20px; color: #484848; margin-bottom: 10px;">Resend confirmation.</div>
       <div class="row">
             <div class="col-md-6">
-      			<%= f.input :email, required: true, autofocus: true, :class => 'table-input' %>
+      			<%= f.input :email, required: true, autofocus: true, label: false, :class => 'table-input' %>
       		</div>
       		 <div class="col-md-6">
-      			<%= f.button :submit, "Resend Instructions", :class => 'sub2-small' %>
+      			<%= f.button :submit, "Resend", :class => '=btn btn-info' %>
       		</div>
       </div>
      <% end %>

@@ -20,6 +20,7 @@ gem 'simple_form', '~> 3.0.2'
 gem 'hopscotch-rails', '~> 0.1.2.1'
 gem 'unicorn', '~> 4.8.3'
 gem 'carrierwave', '~> 0.10.0'
+gem 'carrierwave_direct', '~> 0.0.15'
 gem 'figaro', '~> 1.0.0'
 gem 'font-awesome-rails', '~> 4.2.0.0'
 gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google

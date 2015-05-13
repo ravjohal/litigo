@@ -38,12 +38,12 @@ class Contact < ActiveRecord::Base
     first_name + " " + last_name if first_name.present? && last_name.present?
   end
 
-    def get_exp_witness
-      if self.type == "ExpertWitness"
-        "Expert Witness" 
-      else
-        self.type
-      end
+  def get_exp_witness
+    if self.type == "ExpertWitness"
+      "Expert Witness" 
+    else
+      self.type
     end
+  end
 
 end

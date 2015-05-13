@@ -110,6 +110,10 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    carrierwave_direct (0.0.15)
+      carrierwave
+      fog
+      uuidtools
     childprocess (0.5.5)
       ffi (~> 1.0, >= 1.0.11)
     cocoon (1.2.6)
@@ -521,6 +525,7 @@ DEPENDENCIES
   capybara (~> 2.4.1)
   capybara-firebug (~> 2.0.0)
   carrierwave (~> 0.10.0)
+  carrierwave_direct (~> 0.0.15)
   cocoon (~> 1.2.6)
   coffee-rails (~> 4.0.0)
   cucumber-rails (~> 1.4.0)

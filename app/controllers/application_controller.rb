@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_tenant #, :set_firm
+  around_filter :set_time_zone
 
   protected
 
@@ -14,6 +15,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:accept_invitation).concat [:first_name, :last_name]
   end
 
+  def set_time_zone(&block)
+    time_zone = current_user.try(:time_zone) || 'UTC'
+    Time.use_zone(time_zone, &block)
+  end
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 

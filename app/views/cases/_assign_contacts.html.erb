@@ -51,7 +51,39 @@
            <strong>Assigned Staff:</strong>
         </td>
         <td>
-          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "attorney_select"}, :class => 'table-input' %>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "staff_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Experts:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Expert Witness'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "experts_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Witness:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Witness'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "witness_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Physicians:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Physician'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "physician_select"}, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Other:</strong>
+        </td>
+        <td>
+          <%= f.association :contacts, :collection => @firm.contacts.where("type = 'General'"), :label_method => :name, label: false, :include_blank => false, :input_html => {:id => "general_select"}, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>

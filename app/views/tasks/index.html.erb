@@ -112,19 +112,17 @@
       <th>Owner</th>
       <th>Task</th>
       <th>Due Date</th>
-      <th>Completed</th>
     </tr>
     </thead>
     <tbody>
     <% @tasks.each do |task| %>
-      <tr class="<%= task.row_color%>" data-id="<%= task.id %>">
+      <tr class="<%= task.row_color%>" id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.try(:owner).try(:name) %></td>
         <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
         <td><%= task.try(:due_date).try(:strftime, "%b %e, %Y") %></td>
-        <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
       </tr>
     <% end %>
     </tbody>

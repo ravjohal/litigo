@@ -106,8 +106,10 @@ class TasksController < ApplicationController
   end
 
   def complete_task
-    @task = current_user.tasks.find(params[:task][:task_id].to_i)
-    if @task.completed.blank? && @task.update({completed: Date.today})
+    @task = @user.tasks.find_by(id: params[:task][:task_id].to_i)
+    if @task.blank?
+      render :json => "Task couldn't be completed.", status: 403
+    elsif @task.completed.blank? && @task.update({completed: Date.today})
       render :json => { success: true, date: @task.completed, message: "Task completed." }
     else
       render :json => 'Task already completed.', status: 403

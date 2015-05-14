@@ -5,7 +5,7 @@ class Lead < ActiveRecord::Base
   has_one :case
   has_many :documents
 
-  CHANNELS = ['Google', 'Word of mouth', 'Referral', 'Radio', 'Newspaper', 'Other']
+  CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Newspaper', 'Other']
   STATUS = {pending_review: "New Lead - Pending Review", appointment_scheduled: "Appt. Scheduled", rejected: "Rejected", accepted: "Accepted", inactive: "Inactive"}
 
   include PgSearch

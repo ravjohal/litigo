@@ -1,5 +1,5 @@
 class CaseSolReport < Dossier::Report
- #@my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:contact_user_id => @user.id})
+ #@my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:user_account_id => @user.id})
 
 # ABOVE NOTATION TRANSLATES TO EXACT SQL:
 
@@ -8,7 +8,7 @@ class CaseSolReport < Dossier::Report
  # INNER JOIN "case_contacts" ON "case_contacts"."case_id" = "cases"."id" 
  # INNER JOIN "contacts" ON "contacts"."id" = "case_contacts"."contact_id" 
  # INNER JOIN "users" ON "users"."id" = "contacts"."user_id" 
- # WHERE "notes"."firm_id" = $1 AND "contacts"."contact_user_id" = 23
+ # WHERE "notes"."firm_id" = $1 AND "contacts"."user_account_id" = 23
 
   def sql
     Case.joins(:contacts, :incident).where("cases.firm_id = :firm_id 

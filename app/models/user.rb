@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id'
   has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id'
   has_many :contacts
-  has_one :contact_user, class_name: 'Contact', foreign_key: 'contact_user_id', :dependent => :destroy
+  has_one :contact_user, class_name: 'Contact', :dependent => :destroy
   has_many :cases
   has_many :notes
   has_many :google_calendars
@@ -77,4 +77,5 @@ class User < ActiveRecord::Base
   def is_staff?
     self.role == 'staff'
   end
+
 end

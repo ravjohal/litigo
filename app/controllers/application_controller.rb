@@ -69,9 +69,10 @@ class ApplicationController < ActionController::Base
     contact = klass.constantize_with_care(Contact::TYPES).new(hash_)
     contact.first_name = user_.first_name
     contact.last_name = user_.last_name
+    contact.email = user_.email
     contact.user = user_
     contact.firm = firm_
-    contact.contact_user_id = user_.id
+    contact.user_account = user_
     contact.save!
   end
 

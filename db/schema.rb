@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150513075249) do
+ActiveRecord::Schema.define(version: 20150514080400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,7 +117,6 @@ ActiveRecord::Schema.define(version: 20150513075249) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.integer  "contact_user_id"
     t.integer  "case_id"
     t.boolean  "married"
     t.boolean  "employed"
@@ -134,8 +133,7 @@ ActiveRecord::Schema.define(version: 20150513075249) do
     t.string   "staff_type"
     t.integer  "event_id"
     t.integer  "firm_id"
-    t.integer  "user_account_id"
-    t.string   "corporation"
+    t.boolean  "corporation",                    default: false
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -149,14 +147,26 @@ ActiveRecord::Schema.define(version: 20150513075249) do
     t.string   "prefix"
     t.integer  "company_id"
     t.string   "time_bound"
+    t.integer  "user_account_id"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
-  add_index "contacts", ["contact_user_id"], name: "index_contacts_on_contact_user_id", using: :btree
   add_index "contacts", ["event_id"], name: "index_contacts_on_event_id", using: :btree
   add_index "contacts", ["firm_id"], name: "index_contacts_on_firm_id", using: :btree
-  add_index "contacts", ["user_account_id"], name: "index_contacts_on_user_account_id", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "defendants", force: :cascade do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "documents", force: :cascade do |t|
     t.string   "author"
@@ -438,6 +448,19 @@ ActiveRecord::Schema.define(version: 20150513075249) do
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
+  create_table "plantiffs", force: :cascade do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "resolutions", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "firm_id"
@@ -540,6 +563,20 @@ ActiveRecord::Schema.define(version: 20150513075249) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "activity"
+  end
+
+  create_table "treatments", force: :cascade do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "user_events", force: :cascade do |t|

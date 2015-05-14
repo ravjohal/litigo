@@ -5,9 +5,9 @@ class Contact < ActiveRecord::Base
 
   TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'Expert Witness', 'Physician', 'General']
   has_many :event_attendees
-	belongs_to :user
+	belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event
-  belongs_to :user_account, class_name: 'User'
+  belongs_to :user_account, class_name: 'User', foreign_key: 'user_account_id' #associated contact of the user, answers: is this contact a user?
   belongs_to :firm
   
   belongs_to :company
@@ -36,14 +36,6 @@ class Contact < ActiveRecord::Base
 
   def name
     first_name + " " + last_name if first_name.present? && last_name.present?
-  end
-
-  def get_exp_witness
-    if self.type == "ExpertWitness"
-      "Expert Witness" 
-    else
-      self.type
-    end
   end
 
 end

@@ -43,7 +43,6 @@ class GoogleContacts
       contacts.each do |contact|
         cont = Contact.where(user_id: user.id, email: contact[:primary_email]).first_or_initialize
         cont.user_id = user.id
-        cont.contact_user_id = user.id
         cont.firm_id = user.firm_id
         cont.email = contact.try(:[], :primary_email)
         cont.first_name = contact[:name_data].try(:[], :given_name)

@@ -44,8 +44,10 @@ class Task < ActiveRecord::Base
   end
 
   def delete_event
-    GoogleCalendars.delete_event(self.user, self.event)
-    self.event.destroy!
+    if self.google_calendar_id.present?
+      GoogleCalendars.delete_event(self.user, self.event)
+      self.event.destroy!
+    end
   end
 
   def toggle_event

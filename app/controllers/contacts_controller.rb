@@ -147,7 +147,7 @@ class ContactsController < ApplicationController
     def contact_params
       params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
-                                      :user_id, :contact_user_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, 
+                                      :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, 
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound,
                                       :firms_attributes => [:name, :address, :zip])
     end

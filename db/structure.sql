@@ -206,7 +206,6 @@ CREATE TABLE contacts (
     created_at timestamp without time zone,
     updated_at timestamp without time zone,
     user_id integer,
-    contact_user_id integer,
     case_id integer,
     married boolean DEFAULT false,
     employed boolean DEFAULT false,
@@ -1137,13 +1136,6 @@ CREATE INDEX index_cases_on_user_id ON cases USING btree (user_id);
 --
 
 CREATE INDEX index_contacts_on_case_id ON contacts USING btree (case_id);
-
-
---
--- Name: index_contacts_on_contact_user_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_contacts_on_contact_user_id ON contacts USING btree (contact_user_id);
 
 
 --

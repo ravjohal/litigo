@@ -15,7 +15,7 @@ describe User do
     it { should have_many(:events).through(:user_events) }
     it { should have_many(:owned_events).class_name('Event').with_foreign_key('owner_id') }
     it { should have_many :contacts }
-    it { should have_one(:contact_user).class_name('Contact').with_foreign_key('contact_user_id') }
+    it { should have_one(:contact_user).class_name('Contact').with_foreign_key('user_account_id') }
     it { should have_many :cases }
     it { should have_many :notes }
     it { should have_many :google_calendars }

@@ -26,9 +26,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
+    @user = User.find(params[:id])  
     authorize @user
     if @user.update_attributes(secure_params)
+      update_contact_user(@user)
       redirect_to users_path, :notice => "User updated."
     else
       redirect_to users_path, :alert => "Unable to update user."
@@ -99,6 +100,24 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def update_contact_user(user_)
+    #puts "UPDATING USER --------------------------------- " + user_.inspect
+    contact = user_.contact_user
+    if (user_.role == "admin" || user_.role == "attorney") && contact.type != "Attorney"
+     # puts "ATTORNEYYYYYYYYYYYYYYYYYYYYYYY BEFORE" + contact.inspect
+      contact_user = contact.becomes!(Attorney)
+      contact_user.user_account = user_
+      contact_user.save!
+      #puts "ATTORNEYYYYYYYYYYYYYYYYYYYYYYY AFTER" + user_.contact_user.inspect
+    elsif @user.role == "staff" && contact.type != "Staff"
+      #puts "STAFFFFFFFFFFFFFFFFFFFFFFFFFFF BEFORE" + contact.inspect  
+      contact_user = contact.becomes!(Staff)
+      contact_user.user_account = user_
+      contact_user.save!
+      #puts "STAFFFFFFFFFFFFFFFFFFFFFFFFFFF AFTER" + user_.contact_user.inspect  
+    end
+  end
 
   def secure_params
     params.require(:user).permit(:role, :time_zone, :event_ids => [])

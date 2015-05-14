@@ -6,6 +6,9 @@
           </div>
             <div id="case-buttons">
               <ul>
+               <li><%= link_to "", :class => 'dark' do %>
+          <span id="print" class="glyphicon glyphicon-print" title="Print Tasks"></span>
+        <% end %></li>
                   <li><%= render 'new_button' %></li>
               </ul>
           </div>
@@ -26,6 +29,10 @@
 <% else %>
  <div id="index-buttons">
               <ul>
+                <li><%= link_to "", :class => 'dark' do %>
+                      <span id="print" class="glyphicon glyphicon-print" title="Print Tasks"></span>
+                    <% end %>
+                </li>
                   <li><%= render 'new_button' %></li>
               </ul>
    </div>

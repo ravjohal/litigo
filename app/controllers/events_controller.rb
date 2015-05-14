@@ -90,7 +90,9 @@ class EventsController < ApplicationController
         event_attendee = EventAttendee.find_or_create_by({event_id: @event.id, creator: true, contact_id: contact.id})
       end
     end
-    GoogleCalendars.update_event(@user, @event)
+    if @event.google_calendar_id != ""
+      GoogleCalendars.update_event(@user, @event)
+    end
     message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully updated.'}
     respond_to do |format|
       format.html {redirect_to request.referrer , :flash => message}

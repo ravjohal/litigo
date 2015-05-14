@@ -176,7 +176,8 @@ class GoogleCalendars
       google_attendees = []
       google_event = {
           status: event.status,
-          subject: event.summary,
+          summary: event.subject,
+          # subject: event.summary,
           location: event.location,
           start: {},
           end: {},

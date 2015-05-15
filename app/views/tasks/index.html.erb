@@ -191,7 +191,7 @@
       var tasks_scope = $(this).data('scope');
       var tasks_owner = $(this).closest('.task-filter').closest('.dataTables_wrapper').find('.table').attr('id');
       var case_id = '<%= @case.present? ? @case.id : nil %>';
-      $(this).closest('.task-filter').find('a.action-button').html(text.toUpperCase()+" <span class='caret'></span>");
+      $(this).closest('.task-filter').find('a.btn-default').html(text.toUpperCase()+" <span class='caret'></span>");
       tables.table('#'+tasks_owner).ajax.url('<%= get_tasks_path %>?tasks_owner='+tasks_owner+'&tasks_scope='+tasks_scope+'&case_id='+case_id).load(function (data) {
         complete_task();
         row_link();

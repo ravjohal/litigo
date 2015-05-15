@@ -200,7 +200,7 @@
                <%= med.company.name if med.company %>
             </td>
             <td>
-               <%= med.provider %>
+               <%= med.physician.name if med.physician %>
             </td>
             <td>
                <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>

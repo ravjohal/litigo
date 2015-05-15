@@ -3,7 +3,7 @@
       <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :id => 'company' %>
     </td>
      <td>
-      <%= f.text_field :provider, label: false, :class => 'table-input' %>
+      <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
     </td>
     <td>
       <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>

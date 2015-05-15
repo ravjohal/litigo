@@ -14,7 +14,6 @@ class MedicalsController < ApplicationController
   # GET /medicals/1.json
   def show
     @medical = @case.medical
-    puts "PRIMARY INJURY ------> " + @medical.injuries.first.inspect
     @injuries = @medical.injuries.order(:id)
   end
 
@@ -101,7 +100,7 @@ class MedicalsController < ApplicationController
                                   :length_of_treatment_unit, :injury_summary, :medical_summary, :final_treatment_date,
                                   :earnings_lost, :treatment_gap, :injections, :hospitalization, :hospital_stay_length, 
                                   :hospital_stay_length_unit, :data, :doctor_type, :treatment_type,
-                                  :medical_bills_attributes => [:provider, :date_of_service, :company_id, :billed_amount, :paid_amount, :id, :firm_id, :case_id, :user_id, :_destroy],
+                                  :medical_bills_attributes => [:provider, :date_of_service, :company_id, :physician_id, :billed_amount, :paid_amount, :id, :firm_id, :case_id, :user_id, :_destroy],
                                   :injuries_attributes => [:injury_type, :region, :code, :dominant_side, :joint_fracture,
                                   :displaced_fracture, :disfigurement, :impairment, :permanence, :prior_complaint, :disabled,
                                   :disabled_percent, :surgery, :surgery_count, :surgery_type, :casted_fracture, :ongoing_pain,

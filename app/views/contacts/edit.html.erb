@@ -58,7 +58,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Zipcode:</strong>
+          <strong>Zip Code:</strong>
         </td>
         <td>
               <%= f.text_field :zip_code, label: false, class: 'table-input' %>
@@ -66,7 +66,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Phone:</strong>
+          <strong>Main Phone:</strong>
         </td>
         <td>
             <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
@@ -80,12 +80,44 @@
               <%= f.text_field :mobile, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
+        <tr>
+        <td class="right">
+          <strong>Other Phone 1:</strong>
+        </td>
+        <td >
+              <%= f.text_field :phone_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Other Phone 2:</strong>
+        </td>
+        <td >
+              <%= f.text_field :phone_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
          <tr>
         <td class="right">
-          <strong>Fax:</strong>
+          <strong>Main Fax:</strong>
         </td>
         <td>
                 <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Other Fax 1:</strong>
+        </td>
+        <td>
+                <%= f.text_field :fax_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Other Fax 2:</strong>
+        </td>
+        <td>
+                <%= f.text_field :fax_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
        <tr>
@@ -352,7 +384,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Zipcode:</strong>
+          <strong>Zip Code:</strong>
         </td>
         <td >
               
@@ -360,7 +392,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Phone:</strong>
+          <strong>Main Phone:</strong>
         </td>
         <td>
              
@@ -368,7 +400,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Fax:</strong>
+          <strong>Main Fax:</strong>
         </td>
         <td>
             
@@ -378,16 +410,6 @@
   </tbody>
 </table>
 
-
-
-
-<script>
-  $(document).ready(function() { $("select").select2(); });
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
-</script>
 <script>
   $(document).ready(function() { 
     toggleAttorneyType();

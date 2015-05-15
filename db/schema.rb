@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514080400) do
+ActiveRecord::Schema.define(version: 20150515024442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -98,6 +98,10 @@ ActiveRecord::Schema.define(version: 20150514080400) do
     t.datetime "updated_at", null: false
     t.integer  "firm_id"
     t.integer  "user_id"
+    t.string   "fax_1"
+    t.string   "fax_2"
+    t.string   "phone_2"
+    t.string   "phone_1"
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -134,7 +138,7 @@ ActiveRecord::Schema.define(version: 20150514080400) do
     t.integer  "event_id"
     t.integer  "firm_id"
     t.integer  "user_account_id"
-    t.string   "corporation"
+    t.boolean  "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -148,6 +152,10 @@ ActiveRecord::Schema.define(version: 20150514080400) do
     t.string   "prefix"
     t.integer  "company_id"
     t.string   "time_bound"
+    t.string   "fax_number_1"
+    t.string   "fax_number_2"
+    t.string   "phone_number_1"
+    t.string   "phone_number_2"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -316,7 +324,7 @@ ActiveRecord::Schema.define(version: 20150514080400) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
     t.integer  "user_id"
     t.integer  "case_id"
   end

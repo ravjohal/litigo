@@ -124,6 +124,7 @@ class UsersController < ApplicationController
   end
 
   def create_google_oauth
+    logger.info "current_user: #{current_user.inspect}\n"
     logger.info "@auth: #{request.env["omniauth.auth"]["credentials"]}\n\n\n"
     @auth = request.env["omniauth.auth"]
     @token = @auth["credentials"]["token"]

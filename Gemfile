@@ -23,7 +23,7 @@ gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave_direct', '~> 0.0.15'
 gem 'figaro', '~> 1.0.0'
 gem 'font-awesome-rails', '~> 4.2.0.0'
-gem 'omniauth-google-oauth2', '~> 0.2.5'    # Allows oauth2 support for Google
+gem 'omniauth-google-oauth2', '~> 0.2.6'    # Allows oauth2 support for Google
 gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.8.0'               # Replacement for curl commands to grab contacts from google
 gem 'active_link_to', '~> 1.0.2'

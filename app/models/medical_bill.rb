@@ -6,6 +6,7 @@ class MedicalBill < ActiveRecord::Base
 	belongs_to :case
 	belongs_to :medical
 	belongs_to :company
+	belongs_to :physician
 	# has_many :children, class_name: "MedicalBill", foreign_key: "parent_id", :dependent => :destroy
  #  	belongs_to :parent, class_name: "MedicalBill"
 

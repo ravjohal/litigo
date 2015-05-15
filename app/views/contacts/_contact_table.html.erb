@@ -33,7 +33,7 @@
       </tr>
       <tr>
         <td class="right">
-          <strong>Zipcode:</strong>
+          <strong>Zip Code:</strong>
         </td>
         <td>
           <%= @contact.zip_code %>
@@ -41,7 +41,7 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Phone:</strong>
+          <strong>Main Phone:</strong>
         </td>
         <td>
           <%= @contact.phone_number %>
@@ -55,12 +55,44 @@
           <%= @contact.mobile %>
         </td>
       </tr>
+      <tr>
+        <td>
+          <strong>Other Phone 1:</strong>
+        </td>
+        <td>
+              <%= @contact.phone_number_1 %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Other Phone 2:</strong>
+        </td>
+        <td>
+              <%= @contact.phone_number_2 %>
+        </td>
+      </tr>
          <tr>
         <td class="right">
-          <strong>Fax:</strong>
+          <strong>Main Fax:</strong>
         </td>
         <td>
           <%= @contact.fax_number %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Other Fax 1:</strong>
+        </td>
+        <td>
+          <%= @contact.fax_number_1 %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Other Fax 2:</strong>
+        </td>
+        <td>
+          <%= @contact.fax_number_2 %>
         </td>
       </tr>
        <tr>

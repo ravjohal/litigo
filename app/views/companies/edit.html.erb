@@ -82,10 +82,26 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Phone:</strong>
+          <strong>Main Phone:</strong>
         </td>
         <td>
               <%= f.text_field :phone, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Other Phone 1:</strong>
+        </td>
+        <td>
+              <%= f.text_field :phone_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Other Phone 2:</strong>
+        </td>
+        <td>
+              <%= f.text_field :phone_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
          <tr>
@@ -94,6 +110,22 @@
         </td>
         <td>
               <%= f.text_field :fax, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+           <tr>
+        <td class="right">
+          <strong>Other Fax 1:</strong>
+        </td>
+        <td>
+              <%= f.text_field :fax_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Other Fax 2:</strong>
+        </td>
+        <td>
+              <%= f.text_field :fax_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
   </tbody>
@@ -129,4 +161,8 @@
 <script>
   $(document).ready(function() { $("td select").select2(); });
 </script>
-
+<script>
+  $(document).ready(function() {
+    $('.phone').mask("(999) 999-9999");
+  });
+</script>

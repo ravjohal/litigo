@@ -560,7 +560,7 @@ DEPENDENCIES
   meta_request
   minitest (~> 5.4.0)
   momentjs-rails (>= 2.8.1)
-  omniauth-google-oauth2 (~> 0.2.5)
+  omniauth-google-oauth2 (~> 0.2.6)
   pg (~> 0.17.1)
   pg_search (~> 0.7.8)
   pry-byebug (~> 2.0.0)

@@ -4,8 +4,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     redirect_uri: "#{gethostforurl}/auth/google_oauth2/callback", #TODO: make this a configurable host
     access_type: 'offline',
     prompt: 'consent',
-    approval_prompt: 'force',
-    :provider_ignores_state => true
+    approval_prompt: 'force'
   }
 end
 

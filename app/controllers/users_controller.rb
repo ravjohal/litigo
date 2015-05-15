@@ -124,11 +124,11 @@ class UsersController < ApplicationController
   end
 
   def create_google_oauth
+    logger.info "@auth: #{request.env["omniauth.auth"]["credentials"]}\n\n\n"
     @auth = request.env["omniauth.auth"]
     @token = @auth["credentials"]["token"]
     @refresh_token = @auth["credentials"]["refresh_token"]
     @expires_at = DateTime.strptime(@auth['credentials']['expires_at'].to_s,'%s')
-    logger.info "@auth: #{request.env["omniauth.auth"]["credentials"]}\n\n\n"
     current_user.oauth_token = @token
     current_user.oauth_refresh_token = @refresh_token
     current_user.oauth_expires_at = @expires_at

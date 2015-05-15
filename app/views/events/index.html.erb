@@ -5,14 +5,12 @@
         <div class="btn-group pull-left" style="margin-top: 5px;">
             <button class="btn btn-default dropdown-toggle-users"  data-placeholder="Please select">Select Users <span class="caret"></span></button>
               <ul class="dropdown-menu firm-users" style="left: 0px;">
-              <% @attorneys.each do |user| %>
-                <% unless user == @user %>
+                <% @event_sources.each do |user_id, event_source| %>
                 <li>
-                  <span class="user_color" style="background-color: <%= "##{'%06x' % (rand * 0xffffff)}" %>"></span>
-                  <%= check_box_tag "user_ids[#{user.id}]", user.id %>
-                  <%= label_tag "user_ids[#{user.id}]", user.name %>
+                  <span class="user_color" style="background-color: <%= event_source[:color] %>"></span>
+                  <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}  %>
+                  <%= label_tag "user_ids[#{event_source[:user_name]}]", event_source[:user_name] %>
                 </li>
-                  <% end %>
                 <% end %>
               </ul>
         </div>
@@ -42,6 +40,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
   var events = {};
+  var eventsSources = <%= @event_sources.to_json.html_safe %>;
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
   });
@@ -75,7 +74,7 @@ $(document).ready(function() {
       right: 'month,agendaWeek,agendaDay'
     },
     defaultView: 'agendaWeek',
-    events: <%= @events_list.to_json.html_safe %>,
+    eventSources: events,
     editable: true,
     eventDrop: function(event, delta, revertFunc) {
       if (confirm("Are you sure about this change?")) {
@@ -97,25 +96,24 @@ $(document).ready(function() {
     },
     firstHour: 8
   });
+
+  $.each(eventsSources, function (user_id, hash) {
+    $('#calendar').fullCalendar( 'addEventSource', {
+      events: hash.events,
+      color: hash.color
+    })
+  });
+
+
   $('.firm-users input').change(function (e) {
     var user_id = $(this).val();
-    var color = rgb2hex($(this).parent().find('.user_color').css('backgroundColor'));
     if($(this).is(":checked")) {
-      $.ajax({
-        url: "<%= get_user_events_path %>",
-        type: 'POST',
-        dataType: "json",
-        data: {user_id: user_id},
-        success: function(data){
-            events[user_id] = data.events;
-            $('#calendar').fullCalendar( 'addEventSource', {
-              events: events[user_id],
-              color: color
-            } )
-        }
-      });
+      $('#calendar').fullCalendar( 'addEventSource', {
+        events: eventsSources[user_id].events,
+        color: eventsSources[user_id].color
+      } )
     } else {
-      $('#calendar').fullCalendar( 'removeEventSource', events[user_id])
+      $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events)
     }
   });
 

@@ -11,20 +11,20 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @attorneys = @firm.users.where(role: 'attorney')
-    @events = []
-    @events = @user.firm.events.where(owner_id: @user.id)
-    @events_list = []
-    @events.each do |event|
-      hash = {}
-      hash[:id] = event.id
-      hash[:title] = event.subject
-      hash[:start] = event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}"
-      hash[:end] = event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"
-      hash[:allDay] = event.all_day
-      @events_list << hash
+    @users = @firm.users
+    @event_sources = {}
+    @users.each do |user|
+      hash = {user_name: user.name, color: "##{'%06x' % (rand * 0xffffff)}"}
+      events = []
+      user.owned_events.each do |event|
+        event = {id: event.id, title: event.subject, allDay: event.all_day, start: event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}", end: event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"}
+        events << event
+      end
+      hash[:events] = events
+      @event_sources[user.id] = hash
     end
-    @firm = @user.firm
+    logger.info "@event_sources:#{@event_sources}\n\n\n"
+
     @emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end
@@ -49,11 +49,7 @@ class EventsController < ApplicationController
         
     @model = @event
     @emails_autocomplete = emails_autocomplete
-    if @event.owner_id == current_user.id
-      render partial: 'events/edit'
-    else
-      render nothing: true
-    end
+    render partial: 'events/edit'
   end
 
   # POST /events

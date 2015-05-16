@@ -68,6 +68,7 @@ class Template < ActiveRecord::Base
           name: 'Addressee',
           attrs: [
               {name: 'Prefix', attr: 'prefix', model: 'Custom'},
+              {name: 'Salutation', attr: 'salutation', model: 'Custom'},
               {name: 'Addressee Full Name', attr: 'name', model: 'Addressee'},
               {name: 'Addressee Firm Name', attr: 'first_name', model: 'Addressee'},
               {name: 'Addressee Last Name', attr: 'last_name', model: 'Addressee'},

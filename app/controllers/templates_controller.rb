@@ -100,6 +100,8 @@ class TemplatesController < ApplicationController
         span['class'] = ''
       elsif span['data-attr'] == 'prefix'
         span.inner_html = "#{select_tag('prefix', options_for_select(['Mr.', 'Mrs.', 'Ms.', 'Miss.']), :prompt => "Prefix", class: 'custom_input')} <ins></ins>"
+      elsif span['data-model'] == 'Custom' && span['data-attr'] == 'salutation'
+        span.inner_html = "#{select_tag('salutation', options_for_select(['Dear ', 'To Whom It May Concern ', 'To ' ]), :prompt => "Salutation", class: 'custom_input')} <ins></ins>"
       elsif span['data-model'] == 'Custom' && span['data-attr'] == 'input_date'
         span.inner_html = "#{text_field_tag 'input_date', nil, class: 'custom_input'} <ins></ins>"
       elsif span['data-model'] == 'Firm'

@@ -78,7 +78,7 @@ class Task < ActiveRecord::Base
   end
 
   def self.active_tasks_scope
-    where("due_date > ? AND completed IS NULL", Date.today)
+    where("due_date IS NOT NULL AND completed IS NULL")
   end
 
   def self.completed_tasks_scope

@@ -48,9 +48,9 @@ class User < ActiveRecord::Base
   end
 
   def initials
-    fn = self.first_name.present? ? self.first_name[0] : ''
-    mn = self.middle_name.present? ? self.middle_name[0] : ''
-    ln = self.last_name.present? ? self.last_name[0] : ''
+    fn = self.first_name.present? ? self.first_name[0].downcase : ''
+    mn = self.middle_name.present? ? self.middle_name[0].downcase : ''
+    ln = self.last_name.present? ? self.last_name[0].downcase : ''
     return fn+mn+ln
   end
 

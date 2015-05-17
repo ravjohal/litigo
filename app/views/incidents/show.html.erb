@@ -43,6 +43,15 @@
       </tr>
       <tr>
         <td class="right">
+        <strong>Location of Incident:</strong>
+        </td>
+        <td>
+        <%= @incident.location %>
+          
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
           <strong>Defendant Liability:</strong>
         </td>
         <td>
@@ -97,6 +106,14 @@
         </td>
         <td>
           <%= boolean_as_yesno @incident.police_report %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Police Report Number:</strong>
+        </td>
+        <td>
+          <%= @incident.police_report_number %>
         </td>
       </tr>
          <tr>

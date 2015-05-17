@@ -172,3 +172,10 @@ div.fc-view-agendaDay {
   border-bottom: 1px solid #ccc;
   height: 74px;
 }
+
+a.case_link {
+  color: #000000;
+  &:hover {
+    color: #428bca;
+  }
+}

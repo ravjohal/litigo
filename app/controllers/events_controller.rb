@@ -49,7 +49,11 @@ class EventsController < ApplicationController
         
     @model = @event
     @emails_autocomplete = emails_autocomplete
-    render partial: 'events/edit'
+    if @event.owner_id == current_user.id
+      render partial: 'events/edit'
+    else
+      render partial: 'events/show'
+    end
   end
 
   # POST /events

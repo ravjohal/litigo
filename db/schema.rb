@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150515070857) do
+ActiveRecord::Schema.define(version: 20150517054103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20150515070857) do
     t.integer  "event_id"
     t.integer  "firm_id"
     t.integer  "user_account_id"
-    t.string   "corporation"
+    t.boolean  "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -294,6 +294,8 @@ ActiveRecord::Schema.define(version: 20150515070857) do
     t.boolean  "foreign_object"
     t.date     "final_treatment_date"
     t.integer  "user_id"
+    t.string   "location"
+    t.string   "police_report_number"
   end
 
   add_index "incidents", ["case_id"], name: "index_incidents_on_case_id", using: :btree
@@ -324,7 +326,7 @@ ActiveRecord::Schema.define(version: 20150515070857) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
     t.integer  "user_id"
     t.integer  "case_id"
   end

@@ -44,6 +44,14 @@
       </tr>
       <tr>
         <td class="right">
+        <strong>Location of Incident:</strong>
+        </td>
+        <td>
+                <%= f.text_field :location, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
           <strong>Defendant Liability:</strong>
         </td>
         <td>
@@ -127,6 +135,14 @@
   		        <%= f.radio_button :police_report, 'false' %>
   		        <%= f.label :police_report, 'No', :value => 'No'%>
           </div>
+        </td>
+      </tr>
+       <tr>
+        <td class="right">
+          <strong>Police Report Number:</strong>
+        </td>
+        <td>
+          <%= f.text_field :police_report_number, :class => 'table-input' %>
         </td>
       </tr>
          <tr>

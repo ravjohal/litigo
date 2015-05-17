@@ -86,6 +86,14 @@
           <%= number_to_currency @resolution.resolution_amount, precision: 0 %>
         </td>
       </tr>
+        <tr>
+        <td class="right">
+          <strong>Contingent Fee:</strong>
+        </td>
+        <td>
+          <%= number_to_percentage(@resolution.contingent_fee, precision: 2) %>
+        </td>
+      </tr>
       <tr>
         <td class="right">
           <strong>Resolution Type:</strong>

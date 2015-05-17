@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150517054103) do
+ActiveRecord::Schema.define(version: 20150517055206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -460,6 +460,7 @@ ActiveRecord::Schema.define(version: 20150517054103) do
     t.date     "expected_close"
     t.integer  "estimated_value"
     t.integer  "user_id"
+    t.decimal  "contingent_fee"
   end
 
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree

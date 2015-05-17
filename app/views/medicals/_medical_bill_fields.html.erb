@@ -5,6 +5,9 @@
      <td>
       <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
     </td>
+     <td>
+      <%= f.text_field :account_number, label: false, :class => 'table-input' %>
+    </td>
     <td>
       <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
     </td>

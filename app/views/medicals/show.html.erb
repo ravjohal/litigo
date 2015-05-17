@@ -168,7 +168,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="6" class="gray-back">
+    <td colspan="7" class="gray-back">
       <strong>Medical Bills </strong><span id="edmed" title="Click 'Edit' to add a new bill" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
     </td>
   </tr>
@@ -180,6 +180,9 @@
           </td>
           <td>
               <strong>Physician</strong>
+          </td>
+          <td>
+              <strong>Acct. No</strong>
           </td>
           <td>
               <strong>Date of Service</strong>
@@ -203,6 +206,9 @@
                <%= med.physician.name if med.physician %>
             </td>
             <td>
+                <%= med.account_number if med.account_number %>
+            </td>
+            <td>
                <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>
             </td>
             <td style="text-align: right;">
@@ -218,7 +224,7 @@
         
       <% end %>
          <tr>
-          <td colspan="3" style="text-align: left;">
+          <td colspan="4" style="text-align: left;">
               <strong>Total</strong>
           </td>
           <td style="text-align: right;">

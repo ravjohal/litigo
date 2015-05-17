@@ -138,7 +138,7 @@ ActiveRecord::Schema.define(version: 20150517060849) do
     t.integer  "event_id"
     t.integer  "firm_id"
     t.integer  "user_account_id"
-    t.boolean  "corporation"
+    t.string   "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -326,7 +326,7 @@ ActiveRecord::Schema.define(version: 20150517060849) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain",                                default: false
+    t.boolean  "ongoing_pain"
     t.integer  "user_id"
     t.integer  "case_id"
   end

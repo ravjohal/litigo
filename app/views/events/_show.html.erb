@@ -64,7 +64,9 @@
 
       <p>
         <strong>Case(s):</strong>
-        <%= @event.cases.map {|c| c.name}.join(', ') %>
+        <% @event.cases.each do |c| %>
+        <%= link_to(c.name, case_path(c), class: 'case_link') %>
+        <% end %>
       </p>
 
       <p>

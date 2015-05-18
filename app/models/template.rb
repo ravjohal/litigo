@@ -41,7 +41,8 @@ class Template < ActiveRecord::Base
           attrs: [
               {name: 'Date of Incident', attr: 'incident.incident_date', model: 'Case'},
               {name: 'Date of injury', attr: 'incident.injury_date', model: 'Case'},
-              {name: 'Property Damage ($)', attr: 'incident.property_damage', model: 'Case'}
+              {name: 'Property Damage ($)', attr: 'incident.property_damage', model:'Case'},
+              {name: 'Police Report Number', attr: 'incident.police_report_number', model: 'Case'}
           ]
       },
       {

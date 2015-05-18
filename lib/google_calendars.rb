@@ -41,7 +41,7 @@ class GoogleCalendars
       calendar = client.discovered_api('calendar', 'v3')
       google_calendar = client.execute(
           :api_method => calendar.events.list,
-          :parameters => {'calendarId' => calendar_id},
+          :parameters => {'calendarId' => calendar_id, 'maxResults' => 2500, 'timeMin' => Time.now - 1.year},
           :headers => {'Content-Type' => 'application/json'})
       response = JSON.parse(google_calendar.response.env[:body])
       p "response: #{response}"

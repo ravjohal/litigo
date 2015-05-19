@@ -162,7 +162,7 @@
           <strong>Contact Type:</strong>
         </td>
         <td colspan="3">
-          <%= f.select :type_with_spacing, Contact::TYPES, :class => 'table-input' %>      
+          <%= f.select :type, Contact::TYPES, :class => 'table-input', :input_html => {value: (f.object.type == "ExpertWitness" ? "Expert Witness" : f.object.type)} %>      
         </td>
         </tr>
       <% end %>

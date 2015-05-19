@@ -34,7 +34,7 @@ class Contact < ActiveRecord::Base
   end
 
   def name
-    first_name + " " + last_name if first_name.present? && last_name.present?
+    "#{self.first_name.present? ? self.first_name : ''} #{self.last_name.present? ? self.last_name : ''}"
   end
 
 end

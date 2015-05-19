@@ -41,7 +41,7 @@ class GoogleCalendars
       calendar = client.discovered_api('calendar', 'v3')
       google_calendar = client.execute(
           :api_method => calendar.events.list,
-          :parameters => {'calendarId' => calendar_id, 'maxResults' => 2500, 'timeMin' => Time.now - 1.year},
+          :parameters => {'calendarId' => calendar_id, 'maxResults' => 2500, 'timeMin' => (Time.now - 1.year).strftime('%Y-%m-%dT%H:%M:%S+00:00')},
           :headers => {'Content-Type' => 'application/json'})
       response = JSON.parse(google_calendar.response.env[:body])
       p "response: #{response}"
@@ -105,6 +105,11 @@ class GoogleCalendars
         if !(page_token = google_calendar.data.next_page_token)
           break
         end
+        google_calendar = client.execute(
+            :api_method => calendar.events.list,
+            :parameters => {'calendarId' => calendar_id, 'pageToken' => page_token},
+            :headers => {'Content-Type' => 'application/json'})
+        response = JSON.parse(google_calendar.response.env[:body])
       end
     end
 

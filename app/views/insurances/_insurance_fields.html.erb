@@ -1,6 +1,6 @@
     <tr class="nested-fields insurance-field">
       <td>
-          <%= f.select :insurance_provider, Insurance::INSURANCE_PROVIDERS, :class => 'table-input', :include_blank => '' %>
+          <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :include_blank => '' %>
       </td>
       <td>
           <%= f.text_field :insurance_type, :class => 'table-input' %>

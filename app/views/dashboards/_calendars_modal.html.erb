@@ -7,7 +7,7 @@
         <h4 class="modal-title">Synchronize Google Calendars</h4>
       </div>
       <div class="modal-body">
-        <%= form_for(:select_calendar, :url => {:action => 'select_calendar'}, :method => :get, :remote => true, :html => {:class => 'select_calendar'}) do |f| %>
+        <%= form_for(:select_calendar, :url => {:action => 'select_calendar'}, :method => :post, :remote => true, :html => {:class => 'select_calendar'}) do |f| %>
           <ul>
           <% @calendars.each do |cal| %>
             <li><%= f.label cal[:summary] %><%= f.check_box cal.google_id%></li>
@@ -23,7 +23,19 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
-  $('.select_calendar').on('submit', function() {
-    $('#modal-window2').modal('hide');
+$('.select_calendar').submit(function() {
+  var status = '<img class="loading" src="loading_detail.gif" alt="Loading..." />';
+  $(".modal-footer").html('Loading...');
+  $.ajax({
+    type: 'POST',
+    url: "<%= dashboards_select_calendar_path %>",
+    data: $(this).serialize(),
+    dataType: 'json',
+    success: function(json) {
+      $('#modal-window2').modal('hide');
+      window.history.replaceState("", "Title", "/");
+    }
   });
+  return false;
+});
 </script>

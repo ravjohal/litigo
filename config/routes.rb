@@ -68,7 +68,8 @@ Rails.application.routes.draw do
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
   get '/auth/failure' => 'users#fail_google_oauth'
   get 'refresh_google_events' => 'events#refresh_google_events'
-  get '/dashboards/select_calendar'
+  # get '/dashboards/select_calendar'
+  post '/dashboards/select_calendar'
   get  "dropbox/main"
   post "dropbox/upload"
   get  "dropbox/auth_start"

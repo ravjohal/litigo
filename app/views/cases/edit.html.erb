@@ -84,6 +84,21 @@
         <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input' %>
         </td>
       </tr>
+      <tr>
+        <td class="col-one">
+           <strong>Fee Agreement Signed?</strong>
+        </td>
+        <td>
+                <div class='radio'>
+                <%= f.radio_button :fee_agreement, 'true' %> 
+                <%= label :fee_agreement, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :fee_agreement, 'false' %>
+                <%= f.label :fee_agreement, 'No', :value => 'No'%>
+            </div>
+        </td>
+      </tr>
   </tbody>
 </table>
 <table id="info-table2">

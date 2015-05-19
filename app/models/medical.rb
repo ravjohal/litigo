@@ -15,15 +15,15 @@ class Medical < ActiveRecord::Base
 	accepts_nested_attributes_for :medical_bills, :reject_if => :all_blank, :allow_destroy => true
 
 	def total_billed
-  		self.medical_bills.to_a.sum(&:billed_amount) if self.medical_bills
+  		self.medical_bills.sum(:billed_amount) if self.medical_bills.present?
   	end
 
   	def total_paid
-  		self.medical_bills.to_a.sum(&:paid_amount) if self.medical_bills
+  		self.medical_bills.sum(:paid_amount) if self.medical_bills.present?
   	end
 
   	def total_owed
-  		self.total_billed + self.total_paid if self.medical_bills
+  		self.total_billed + self.total_paid if self.medical_bills.present?
     end
 
   def set_tasks_due_dates

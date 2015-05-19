@@ -1,6 +1,7 @@
 class Company < ActiveRecord::Base
 	has_many :medical_bills
 	has_many :contacts
+    has_many :insurances
 	belongs_to :firm
 	belongs_to :user
 

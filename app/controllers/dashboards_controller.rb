@@ -31,7 +31,9 @@ class DashboardsController < ApplicationController
         end
       end
     end
-    render :nothing => true, :status => 200
+    respond_to do |format|
+      format.json { render :json => { success: true } }
+    end
   end
 
   def create

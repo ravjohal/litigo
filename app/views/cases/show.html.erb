@@ -83,6 +83,14 @@
           <%= @case.state %>
         </td>
       </tr>
+        <tr>
+        <td class="col-one">
+           <strong>Fee Agreement Signed?</strong>
+        </td>
+        <td>
+          <%= boolean_as_yesno @case.fee_agreement %>
+        </td>
+      </tr>
   </tbody>
 </table>
 <table id="info-table2">

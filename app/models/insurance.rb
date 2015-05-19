@@ -6,6 +6,7 @@ class Insurance < ActiveRecord::Base
   belongs_to :case
   belongs_to :firm
   belongs_to :user
+  belongs_to :company
   has_many :children, class_name: "Insurance", foreign_key: "parent_id", :dependent => :destroy
   belongs_to :parent, class_name: "Insurance"
 

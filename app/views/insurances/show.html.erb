@@ -62,7 +62,7 @@
       <% @insurance_children.each do |insurance| %>
       <tr>
           <td>
-              <%= insurance.insurance_provider %>
+              <%= insurance.company.try(:name) %>
           </td>
           <td>
               <%= insurance.insurance_type %>

@@ -17,7 +17,7 @@ class MedicalBill < ActiveRecord::Base
 	end
 
   	def total_billed_paid_amounts
-  		self.billed_amount + self.paid_amount if self.paid_amount && self.billed_amount
+  		self.billed_amount.to_i + self.paid_amount.to_i
   	end
 
   	def save_firm_case_user

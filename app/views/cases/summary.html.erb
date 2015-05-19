@@ -80,7 +80,7 @@
           <strong>Statute of Limitations:</strong>
         </td>
         <td>
-          <%= @case.incident.try(:statute_of_limitations) %>
+          <%= @case.statute_of_limitations.try(:strftime, "%b %e, %Y") %>
         </td>
       </tr>
       <tr>
@@ -197,7 +197,7 @@
            <strong>Total Medicals:</strong>
         </td>
         <td>
-          <%= @case.try(:medical).try(:total_med_bills) %>
+          <%= number_to_currency @case.try(:medical).try(:medical_bills).to_a.sum(&:billed_amount) %>
         </td>
         <td class="right">
           <strong>Total Policy Limits:</strong>

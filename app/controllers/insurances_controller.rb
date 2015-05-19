@@ -63,9 +63,9 @@ class InsurancesController < ApplicationController
 
     def insurance_params
       params.fetch(:insurance, {}).permit(:insurance_type, :insurance_provider, :policy_limit, :claim_number, 
-                                        :policy_holder, :_destroy, :case_id, :firm_id, :user_id,
+                                        :policy_holder, :_destroy, :case_id, :firm_id, :user_id, :company_id,
                                         :children_attributes => [:parent_id, :insurance_type, :insurance_provider, 
                                         :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, 
-                                        :case_id, :firm_id, :user_id, :_destroy])
+                                        :case_id, :firm_id, :user_id, :company_id, :_destroy])
     end
 end

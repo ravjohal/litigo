@@ -84,7 +84,10 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1.json
   def update
     @contact.user = @user
+    #puts "CONTACT UPDATE ------------------ BEFORE SAVE: " + contact_params[:type]
     
+    #contact_params[:type] = contact_params[:type_with_spacing]
+
     if contact_params[:type] == 'Expert Witness'
       expert_witness = contact_params[:type]
       expert_witness = 'ExpertWitness'
@@ -100,6 +103,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update(contact_params)
+       # puts "CONTACT UPDATE ------------------ AFTER SAVE: " + @contact.type
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else

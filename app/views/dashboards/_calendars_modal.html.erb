@@ -24,7 +24,7 @@
 </div>
 <script type="text/javascript" charset="utf-8">
 $('.select_calendar').submit(function() {
-  var status = '<img class="loading" src="loading_detail.gif" alt="Loading..." />';
+  var status = '<img class="loading" src="loading_detail.gif" alt="Fetching events, this may take some time." />';
   $(".modal-footer").html('Loading...');
   $.ajax({
     type: 'POST',

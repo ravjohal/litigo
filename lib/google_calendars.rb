@@ -107,6 +107,7 @@ class GoogleCalendars
           location: event.location,
           start: {},
           end: {},
+          description: event.notes,
           attendees: google_attendees
       }
       if event.all_day
@@ -170,6 +171,7 @@ class GoogleCalendars
           location: event.location,
           start: {},
           end: {},
+          description: event.notes,
           attendees: google_attendees
       }
       if event.all_day

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519090904) do
+ActiveRecord::Schema.define(version: 20150520102614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -249,6 +249,7 @@ ActiveRecord::Schema.define(version: 20150519090904) do
     t.string   "zip"
     t.string   "tenant"
     t.string   "state"
+    t.string   "city"
   end
 
   create_table "google_calendars", force: :cascade do |t|

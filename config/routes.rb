@@ -73,6 +73,8 @@ Rails.application.routes.draw do
   post "dropbox/upload"
   get  "dropbox/auth_start"
   get  "dropbox/auth_finish"
+  get 'login_callback' => 'nylas#login_callback'
+  get 'login' => 'nylas#login'
 
   # Visitor routes
   get "/about" => 'visitors#about', as: :about

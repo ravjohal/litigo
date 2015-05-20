@@ -177,6 +177,7 @@
 
     var row_link = function () {
       $('.table tbody tr').click(function (e) {
+        console.log('row_link');
         if($(e.target).attr('href') === undefined && !$(e.target).hasClass('complete-task')){
           var task_id = $(this).attr('id');
           window.location = "/tasks/"+task_id;
@@ -184,6 +185,12 @@
       });
     };
     row_link();
+
+    tables.on( 'search.dt order.dt page.dt', function () {
+      console.log('dt.event');
+      complete_task();
+      row_link();
+    });
 
     $('.task-filter .dropdown-menu li a').click(function (e) {
       e.preventDefault();

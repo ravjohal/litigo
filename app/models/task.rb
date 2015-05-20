@@ -8,6 +8,7 @@ class Task < ActiveRecord::Base
   belongs_to :user
 	belongs_to :firm
 	belongs_to :owner, class_name: 'User'
+	belongs_to :secondary_owner, class_name: 'User', foreign_key: "secondary_owner_id"
   belongs_to :task_draft
   before_update :toggle_event
   before_save :reset_event_date

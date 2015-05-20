@@ -52,6 +52,14 @@
       </tr>
       <tr>
         <td class="right">
+          <strong>Second Owner:</strong>
+        </td>
+        <td colspan="2">
+          <%= @task.try(:secondary_owner).try(:name) %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
           <strong>Due date:</strong>
         </td>
         <td colspan="2">

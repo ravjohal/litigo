@@ -79,7 +79,8 @@ class Template < ActiveRecord::Base
               {name: 'Addressee Address', attr: 'address', model: 'Addressee'},
               {name: 'Addressee City', attr: 'city', model: 'Addressee'},
               {name: 'Addressee State', attr: 'state', model: 'Addressee'},
-              {name: 'Addressee Zip Code', attr: 'zip_code', model: 'Addressee'}
+              {name: 'Addressee Zip Code', attr: 'zip_code', model: 'Addressee'},
+              {name: 'Addressee Company Name', attr: 'company.name', model: 'Addressee'}
           ]
       },
       {

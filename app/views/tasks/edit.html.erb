@@ -57,6 +57,14 @@
         </td>
       </tr>
       <tr>
+        <td>
+          <strong>Second Owner:</strong>
+        </td>
+        <td colspan="2">
+        <%= f.association :secondary_owner, :collection => @firm.users, :input_html => {:id => "second_owner_select"}, label: false %>
+        </td>
+      </tr>
+      <tr>
         <td class="right">
           <strong>Due date:</strong>
         </td>

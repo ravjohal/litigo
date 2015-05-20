@@ -12,11 +12,12 @@ class TasksController < ApplicationController
   def index
     if get_case
       @tasks = @case.tasks.active_tasks_scope
-      @my_tasks = @case.tasks.where(:owner => current_user).active_tasks_scope
+      @my_tasks = @case.tasks.where("owner_id = ? OR secondary_owner_id = ?", @user.id, @user.id).active_tasks_scope
       @new_path = new_case_task_path(@case)
       @tasks_a = [@case, Task.new] #for modal partial rendering
     else
-      @my_tasks = @user.owned_tasks.active_tasks_scope
+      # @my_tasks = @user.owned_tasks.active_tasks_scope
+      @my_tasks = Task.where("owner_id = ? OR secondary_owner_id = ? AND firm_id = ?", @user.id, @user.id, @firm.id).active_tasks_scope
       @tasks = @firm.tasks.active_tasks_scope
       @new_path = new_task_path
       @tasks_a = Task.new #for modal partial rendering
@@ -86,7 +87,7 @@ class TasksController < ApplicationController
     end
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task successfully updated.' }
+        format.html { redirect_to path_tasks, notice: 'Task successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
         format.html { render :edit }
@@ -124,7 +125,7 @@ class TasksController < ApplicationController
       if tasks_owner == 'tasks'
         tasks = @case.tasks.try(tasks_scope)
       elsif tasks_owner == 'my_tasks'
-        tasks = @case.tasks.where(:owner => current_user).try(tasks_scope)
+        tasks = @case.tasks.where("owner_id = ? OR secondary_owner_id = ? AND firm_id = ?", @user.id, @user.id, @firm.id).try(tasks_scope)
       end
     else
       if tasks_owner == 'tasks'
@@ -159,6 +160,6 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description,
-                                   :estimated_time, :estimated_time_unit, :user_id, :owner_id, :add_event, :case_id, :google_calendar_id)
+                                   :estimated_time, :estimated_time_unit, :user_id, :owner_id, :secondary_owner_id, :add_event, :case_id, :google_calendar_id)
     end
 end

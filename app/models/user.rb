@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
 
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id'
   has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id'
+  has_many :owned_tasks_secondary, class_name: 'Task', foreign_key: 'secondary_owner_id'
   has_many :contacts
   has_one :contact_user, class_name: 'Contact', :dependent => :destroy
   has_many :cases

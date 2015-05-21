@@ -68,26 +68,7 @@
                         <%= f.datetime_field :end, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.end.strftime('%Y-%m-%d %I:%M %p') if f.object.end) %>
                     </td>
                 </tr>
-                
-                
-               <!-- <tr>
-                    <td>
-                        <strong>Reminder:</strong>
-                    </td>
-                    <td>
-                        <%= f.check_box :reminder, label: false, :class => 'table-input'%>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                      Status:
-                    </td>
-                    <td>
-                        <%= f.select :status, ['tentative', 'confirmed', 'cancelled'], label: false %>
-                    </td>
-                </tr> -->
               
-                
                  <tr>
                     <td>
                         <strong>Add to Google Cal:</strong>
@@ -98,7 +79,7 @@
                 </tr>
                  <tr>
                     <td class="big-row">
-                        <strong>Note:</strong>
+                        <strong>Description:</strong>
                     </td>
                     <td class="big-row">
                         <%= f.text_area :notes, label: false, :class => 'table-text' %>

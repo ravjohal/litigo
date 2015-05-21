@@ -23,8 +23,6 @@ class EventsController < ApplicationController
       hash[:events] = events
       @event_sources[user.id] = hash
     end
-    logger.info "@event_sources:#{@event_sources}\n\n\n"
-
     @emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end

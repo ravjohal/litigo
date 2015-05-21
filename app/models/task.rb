@@ -5,10 +5,10 @@ class Task < ActiveRecord::Base
   has_many :children, class_name: "Task", foreign_key: "parent_id", :dependent => :destroy
   has_one :event
   belongs_to :parent, class_name: "Task"
-  belongs_to :user
+  belongs_to :user #this is the person who created the task
 	belongs_to :firm
-	belongs_to :owner, class_name: 'User'
-	belongs_to :secondary_owner, class_name: 'User', foreign_key: "secondary_owner_id"
+	belongs_to :owner, class_name: 'User' #this is the person who is the primary owner of this task
+	belongs_to :secondary_owner, class_name: 'User' #the secondary owner of this task
   belongs_to :task_draft
   before_update :toggle_event
   before_save :reset_event_date

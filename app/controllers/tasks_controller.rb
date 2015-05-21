@@ -107,7 +107,7 @@ class TasksController < ApplicationController
   end
 
   def complete_task
-    @task = @user.tasks.find_by(id: params[:task][:task_id].to_i)
+    @task = @user.owned_tasks.find_by(id: params[:task][:task_id].to_i) || @user.owned_tasks_secondary.find_by(id: params[:task][:task_id].to_i)
     if @task.blank?
       render :json => "Task couldn't be completed.", status: 403
     elsif @task.completed.blank? && @task.update({completed: Date.today})
@@ -132,6 +132,7 @@ class TasksController < ApplicationController
         tasks = @firm.tasks.try(tasks_scope)
       elsif tasks_owner == 'my_tasks'
         tasks = @user.owned_tasks.try(tasks_scope)
+        tasks += @user.owned_tasks_secondary.try(tasks_scope)
       end
     end
     data = []

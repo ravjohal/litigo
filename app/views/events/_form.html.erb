@@ -57,8 +57,7 @@
                         <strong>Start Time:</strong>
                     </td>
                     <td>
-                      <%= f.text_field :start_date, value: @event.present? ? @event.try(:start).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
-                      <%= f.text_field :start_time, value: @event.present? ? @event.try(:start).try(:strftime,'%H:%M') : Time.now.strftime('%H:%M'),  id: 'event_start_time'%>
+                      <%= f.datetime_field :start, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.start.strftime('%Y-%m-%d %I:%M %p') if f.object.start)   %>
                     </td>
                 </tr>
                 <tr>
@@ -66,8 +65,7 @@
                         <strong>End Time:</strong>
                     </td>
                     <td>
-                      <%= f.text_field :end_date, value: @event.present? ? @event.try(:end).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
-                      <%= f.text_field :end_time, value: @event.present? ? @event.try(:end).try(:strftime,'%H:%M') : (Time.now+1.hour).strftime('%H:%M'),  id: 'event_start_time'%>
+                      <%= f.datetime_field :end, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.end.strftime('%Y-%m-%d %I:%M %p') if f.object.end) %>
                     </td>
                 </tr>
               
@@ -113,9 +111,9 @@
 <script>
 $(document).ready(function() {
   $('#case_select, #attorney_select, select').select2();
-//  $('.datetimepicker').datetimepicker({
+  $('.datetimepicker').datetimepicker({
 ////    format: 'Y-m-d H:i'
-//  });
+  });
   $('#invitee_select').tagit({
     availableTags: <%= @emails_autocomplete.to_json.html_safe %>
   });

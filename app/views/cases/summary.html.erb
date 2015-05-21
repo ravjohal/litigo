@@ -197,7 +197,7 @@
            <strong>Total Medicals:</strong>
         </td>
         <td>
-          <%= number_to_currency @case.try(:medical).try(:medical_bills).to_a.sum(&:billed_amount) %>
+          <%= number_to_currency @case.try(:medical).try(:medical_bills).to_a.sum{ |med| med.billed_amount.to_f } %>
         </td>
         <td class="right">
           <strong>Total Policy Limits:</strong>

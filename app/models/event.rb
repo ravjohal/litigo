@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
 	belongs_to :task
 
   accepts_nested_attributes_for :user_events
-
+  attr_accessor :start_date, :start_time, :end_date, :end_time
   validates_presence_of :start, :end
   validate :end_after_start
 

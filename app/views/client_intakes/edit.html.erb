@@ -81,13 +81,13 @@
       <strong>Case Type:</strong>
     </td>
     <td>
-      <%= f.input :case_type, label: false, collection: Case::TYPES, selected: 'Personal Injury', :class => 'table-input', :include_blank => true %>
+      <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input', :include_blank => true %>
     </td>
     <td class="right">
       <strong>Sub-type:</strong>
     </td>
     <td>
-       <%= f.input :sub_type, label: false, collection: Case::SUB_TYPES, selected: 'Motor Vehicle', :class => 'table-input', :include_blank => true %>
+       <%= f.input :sub_type, label: false, collection: Case::SUB_TYPES, :class => 'table-input', :include_blank => true %>
     </td>
   </tr>
     <tr>

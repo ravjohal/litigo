@@ -119,7 +119,8 @@ Rails.application.routes.draw do
   get "contacts/:id/contact information" => 'contacts#info', as: :contact_info
   get "contacts/:id/personal information" => 'contacts#personal', as: :contact_personal
   get "contacts/:id/company information" => 'contacts#coinfo', as: :contact_coinfo
-
+  get 'cases/:case_id/assign_contacts' => 'contacts#assign_contacts', as: :assign_contacts
+  post 'cases/:case_id/update_case_contacts' => 'contacts#update_case_contacts', as: :update_case_contacts
   resources :medicals do
     resources :injuries
   end

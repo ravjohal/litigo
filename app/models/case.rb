@@ -18,8 +18,8 @@ class Case < ActiveRecord::Base
   has_many :case_contacts, :dependent => :destroy
   has_many :contacts, :through => :case_contacts
 
-  has_many :case_contacts, :dependent => :destroy
-  has_many :plaintiffs, :through => :case_contacts
+  # has_many :case_contacts, :dependent => :destroy
+  # has_many :plaintiffs, :through => :case_contacts
 
   has_many :case_documents, :dependent => :destroy
   has_many :documents, :through => :case_documents
@@ -38,7 +38,8 @@ class Case < ActiveRecord::Base
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
-  attr_accessor :current_user_id
+  attr_accessor :current_user_id, :attorney, :adjuster, :plaintiff, :defendant,
+                :staff, :judge, :witness, :expert_witness, :physician, :general
   after_create :import_tasks
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date
@@ -120,9 +121,9 @@ class Case < ActiveRecord::Base
     self.medical.injuries.where(primary_injury: true).try(:first) if self.medical.present? && self.medical.injuries.present?
   end
 
-  def plaintiff
-    self.plaintiffs.find_by(type: 'Plaintiff')
-  end
+  # def plaintiff
+  #   self.plaintiffs.find_by(type: 'Plaintiff')
+  # end
 
   def calculate_sol(model, options=nil)
     if state == 'OH'
@@ -196,5 +197,18 @@ class Case < ActiveRecord::Base
         self.transfer_date = nil
       end
     end
+  end
+
+  def select_contact_role(role)
+    self.case_contacts.where(role: role.capitalize).collect { |case_contact| case_contact.contact }
+  end
+
+  def assign_case_contacts(attrs, affair)
+    attrs.each do |k, v|
+      v.reject(&:empty?).each do |contact_id|
+        CaseContact.find_or_create_by(case_id: affair.id, contact_id: contact_id, role: k.humanize.titleize)
+      end
+    end
+    return true
   end
 end

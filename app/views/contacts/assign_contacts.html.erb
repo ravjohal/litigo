@@ -1,0 +1,69 @@
+<%= form_for(@case, url: update_case_contacts_path, method: 'post') do |f| %>
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= @case.name %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li>
+          <div id="top-custom">
+            <ul>
+              <li><%= f.button :submit%></li>
+              <li class="dropdown task-list">
+                <%= link_to "", class: 'dropdown-toggle action-button', data: {toggle: "dropdown", :style => 'display:inline; vertical-align: middle;'} do %>
+                  CONTACTS
+                  <span class="caret"></span>
+                <% end %>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px; left: -55px;">
+                  <li style="padding: 0; display: inline;"><%= link_to "Create New #{controller_name.singularize}", @new_path, {:id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
+                  <li role="presentation" style="padding: 0; display: inline;"><%= link_to "Assign Existing Contacts", @cases_path, {:id => "assign_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window2'} %></li>
+                </ul>
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <strong>Case #: </strong><%= @case.case_number %>
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/case_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="incase-tabs-gap">
+</div>
+<div style="margin-top: 70px;">
+  <h3>Contacts</h3>
+</div>
+
+<table id="info-table3">
+  <thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <Strong>Case Contacts</Strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <% Contact::TYPES.each do |contact_type| %>
+  <tr>
+    <td class="right">
+      <strong><%= contact_type %>:</strong>
+    </td>
+    <td class="doc-link">
+        <%= f.select "#{contact_type.downcase.parameterize.underscore}", options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => @case.select_contact_role(contact_type).map(&:id)), {prompt: "Select #{contact_type}"}, {:class => 'contacts_select', :multiple => true} %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+
+<script>
+  $('select').select2();
+</script>

@@ -58,7 +58,11 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     logger.info "params:#{params}\n\n\n"
-    @event = Event.new(event_params.except!('contacts'))
+    timing = { start: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M').in_time_zone,
+               end: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M').in_time_zone }
+    attrs = event_params.except!('contacts', 'start_date', 'start_time', 'end_date', 'end_time').merge(timing)
+    logger.info "attrs: #{attrs}\n\n\n"
+    @event = Event.new(attrs)
     @event.owner = @user
     @event.firm = @firm
     if @event.save
@@ -163,7 +167,7 @@ class EventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :summary,
-                                  :google_calendar_id, :start, :end, :status, :contacts, :user_ids => [],
+                                  :google_calendar_id, :start_date, :start_time, :end_date, :end_time, :status, :contacts, :user_ids => [],
                                   :user_event_ids => [], :case_ids => [],  :event_attendee_ids => [])
   end
 

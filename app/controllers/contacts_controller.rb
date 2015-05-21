@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
   before_filter :authenticate_user!
+  before_action :get_case, only: [:assign_contacts, :update_case_contacts]
+  before_action :case_contacts_params, only: [:update_case_contacts]
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
 
@@ -141,6 +143,27 @@ class ContactsController < ApplicationController
     end
   end
 
+  def assign_contacts
+    if @case
+    @contacts = {}
+    Contact::TYPES.each do |contact_type|
+      @contacts[contact_type.downcase] = @case.select_contact_role(contact_type)
+    end
+    else
+      redirect_to root_path
+    end
+  end
+
+  def update_case_contacts
+    logger.info "case_contacts_params: #{case_contacts_params}\n\n\n"
+    respond_to do |format|
+      if @case.assign_case_contacts(case_contacts_params, @case)
+        format.html { redirect_to case_contacts_path(@case), notice: 'Contact was successfully updated.' }
+        format.json { render :show, status: :ok, location: @contact }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -154,6 +177,11 @@ class ContactsController < ApplicationController
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 
                                       :firms_attributes => [:name, :address, :zip])
+      end
+
+    def case_contacts_params
+      params.require(:case).permit(:case_id, :attorney => [], :adjuster => [], :plaintiff => [], :defendant => [],
+                                   :staff => [], :judge => [], :witness => [], :expert_witness => [], :physician => [], :general => [])
     end
 
 end

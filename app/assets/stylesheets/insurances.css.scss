@@ -18,3 +18,11 @@
   padding-top: 134px;
   width: 900px;
 }
+
+@media (max-width: 767px) {
+.insurance-edit-container{
+  margin: 0 auto;
+  padding-top: 134px;
+  width: 100%;
+}
+}

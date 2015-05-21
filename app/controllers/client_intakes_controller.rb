@@ -93,6 +93,25 @@ class ClientIntakesController < ApplicationController
     @case = Case.new(case_attributes)
     @case.current_user_id = @user.id
     @case.lead = @lead
+
+    if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
+      incident = @case.build_incident
+      incident.firm = @firm
+      incident.save
+
+      medical = @case.build_medical
+      medical.firm = @firm
+      medical.save
+
+      insurance = @case.build_insurance
+      insurance.firm = @firm
+      insurance.save
+    end
+
+    resolution = @case.build_resolution
+    resolution.firm = @firm
+    resolution.save
+
     respond_to do |format|
       if @case.save
         # @lead.update(case_id: @case.id)

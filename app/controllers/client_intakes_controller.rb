@@ -112,6 +112,22 @@ class ClientIntakesController < ApplicationController
     resolution.firm = @firm
     resolution.save
 
+    contact = Contact.create({
+                                       :type => 'Plaintiff',
+                                       :first_name => @lead.first_name,
+                                       :last_name => @lead.last_name,
+                                       :address => @lead.address,
+                                       :city => @lead.city,
+                                       :state => @lead.state,
+                                       :zip_code => @lead.zip_code,
+                                       :email => @lead.email,
+                                       :phone_number => @lead.phone,
+                                       :date_of_birth => @lead.dob,
+                                       :encrypted_ssn => @lead.ssn,
+                                       :firm_id => @lead.firm_id,
+                                       :user_id => @user.id
+                                   })
+
     respond_to do |format|
       if @case.save
         # @lead.update(case_id: @case.id)
@@ -120,6 +136,7 @@ class ClientIntakesController < ApplicationController
             CaseDocument.create(case_id: @case.id, document_id: doc.id)
           end
         end
+        CaseContact.create(case_id: @case.id, contact_id: contact.id, role: 'Plaintiff')
         @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }

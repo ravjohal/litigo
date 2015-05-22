@@ -18,8 +18,8 @@ class Case < ActiveRecord::Base
   has_many :case_contacts, :dependent => :destroy
   has_many :contacts, :through => :case_contacts
 
-  # has_many :case_contacts, :dependent => :destroy
-  # has_many :plaintiffs, :through => :case_contacts
+  has_many :case_contacts, :dependent => :destroy
+  has_many :plaintiffs, :through => :case_contacts
 
   has_many :case_documents, :dependent => :destroy
   has_many :documents, :through => :case_documents

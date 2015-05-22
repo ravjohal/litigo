@@ -162,7 +162,7 @@
           <strong>Contact Type:</strong>
         </td>
         <td colspan="3">
-          <%= f.select :type, Contact::TYPES, :class => 'table-input', :input_html => {value: (f.object.type == "ExpertWitness" ? "Expert Witness" : f.object.type)} %>      
+          <%= f.select :type, Contact::TYPES, :class => 'table-input'%>
         </td>
         </tr>
       <% end %>
@@ -304,7 +304,7 @@
               <%= f.select :time_bound, ['Year', 'Hour'], label: false, :class => 'table-input', :include_blank => '' %>
         </td>
         </tr>
-<% elsif @contact.type == 'ExpertWitness' %>
+<% elsif @contact.type == 'Expert' %>
         <tr>
          <td class="right">
           <strong>Occupation:</strong>

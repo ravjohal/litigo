@@ -3,7 +3,7 @@ class Contact < ActiveRecord::Base
 
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
 
-  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'Expert Witness', 'Physician', 'General']
+  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'Expert', 'Physician', 'General']
   has_many :event_attendees
 	belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event

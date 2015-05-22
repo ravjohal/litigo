@@ -88,8 +88,6 @@ class ContactsController < ApplicationController
     @contact.user = @user
     #puts "CONTACT UPDATE ------------------ BEFORE SAVE: " + contact_params[:type]
     
-    #contact_params[:type] = contact_params[:type_with_spacing]
-
     if contact_params[:type] == 'Expert Witness'
       expert_witness = contact_params[:type]
       expert_witness = 'ExpertWitness'

@@ -16,14 +16,6 @@ class Contact < ActiveRecord::Base
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
 
-  # def type_with_spacing
-  #   if self.type == 'ExpertWitness'
-  #     "Expert Witness"
-  #   else
-  #     self.type
-  #   end
-  # end
-
   def self.inherited(child)
     child.instance_eval do
       def model_name

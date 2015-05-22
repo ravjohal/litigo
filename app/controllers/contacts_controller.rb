@@ -159,7 +159,7 @@ class ContactsController < ApplicationController
   def update_case_contacts
     logger.info "case_contacts_params: #{case_contacts_params}\n\n\n"
     respond_to do |format|
-      if @case.assign_case_contacts(case_contacts_params, @case)
+      if @case.assign_case_contacts(case_contacts_params)
         format.html { redirect_to case_contacts_path(@case), notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       end

@@ -6,21 +6,8 @@
       </div>
       <div id="case-buttons">
         <ul>
-          <li>
-            <div id="top-custom">
-              <ul>
-                <li class="dropdown task-list">
-                  <%= link_to "", class: 'dropdown-toggle action-button', data: {toggle: "dropdown", :style => 'display:inline; vertical-align: middle;'} do %>
-                    CONTACTS
-                    <span class="caret"></span>
-                  <% end %>
-                  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px; left: -55px;">
-                    <li style="padding: 0; display: inline;"><%= link_to "Create New #{controller_name.singularize}", @new_path, {:id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
-                    <li role="presentation" style="padding: 0; display: inline;"><%= link_to "Assign Existing Contacts", assign_contacts_path(@case) %></li>
-                  </ul>
-              </ul>
-            </div>
-          </li>
+          <li><%= link_to 'Edit', assign_contacts_path(@case), :class => 'dark' %></li>
+         <li><%= render 'new_button' %></li>
         </ul>
       </div>
     </div>
@@ -32,12 +19,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="incase-tabs-gap">
-  </div>
-  <div style="margin-top: 70px;">
-    <h3>Contacts</h3>
-  </div>
+  </div> 
+
 <% else %>
   <div class="case-header">
     <div class="case-title">
@@ -68,6 +51,7 @@
 <% end %>
 
 <% if @case %>
+<div class="top-table-container">
   <table id="info-table3">
     <thead>
     <tr class="right-top">
@@ -91,6 +75,7 @@
     <% end %>
     </tbody>
   </table>
+</div>
 
 <% else %>
   <div class="table-responsive">

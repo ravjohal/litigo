@@ -44,13 +44,13 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
 
-    if contact_params[:type] == 'Expert Witness'
-      expert_witness = contact_params[:type]
-      expert_witness = 'ExpertWitness'
-      # contact_attrs[:type] = 'ExpertWitness'
-      # contact_params = contact_attrs
-      params[:contact][:type] = expert_witness.gsub(/\s+/, "")
-    end
+    # if contact_params[:type] == 'Expert Witness'
+    #   expert_witness = contact_params[:type]
+    #   expert_witness = 'ExpertWitness'
+    #   # contact_attrs[:type] = 'ExpertWitness'
+    #   # contact_params = contact_attrs
+    #   params[:contact][:type] = expert_witness.gsub(/\s+/, "")
+    # end
 
     if get_case
       @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)

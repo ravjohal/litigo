@@ -2,15 +2,12 @@
   <div class="modal-content">
     <div class="modal-header">
       <a class="close" data-dismiss="modal">×</a>
-      <h1>Calendar Event</h1>
+      <h2>Calendar Event</h2>
     </div>
     <div class="modal-body">
 
+    <div style="margin-left:40px;">
       <p id="notice"><%= notice %></p>
-      <p>
-        <strong>Summary:</strong>
-        <%= @event.summary %>
-      </p>
       <p>
         <strong>Subject:</strong>
         <%= @event.subject %>
@@ -20,59 +17,34 @@
         <strong>Location:</strong>
         <%= @event.location %>
       </p>
-
-      <p>
-        <strong>Lawyer(s):</strong>
+         <p>
+        <strong>Invitee(s):</strong>
         <%= @event.contacts.map {|c| c.name}.join(', ') %>
       </p>
-
-      <p>
-        <strong>Start:</strong>
-        <%= @event.start.to_datetime %>
-      </p>
-
-      <p>
-        <strong>End:</strong>
-        <%= @event.end.to_datetime %>
-      </p>
-
-
-      <p>
-        <strong>All day:</strong>
-        <%= @event.all_day %>
-      </p>
-
-      <p>
-        <strong>Invitee(s):</strong>
-        <%= @event.users.map {|c| c.name}.join(', ') %>
-      </p>
-
-      <p>
-        <strong>Attendee:</strong>
-        <%= @event.event_attendees.map {|c| c.display_name}.join(', ') %>
-      </p>
-
-      <p>
-        <strong>Reminder:</strong>
-        <%= @event.reminder %>
-      </p>
-
-      <p>
-        <strong>Status:</strong>
-        <%= @event.status %>
-      </p>
-
-      <p>
-        <strong>Case(s):</strong>
+        <p>
+        <strong>Case:</strong>
         <% @event.cases.each do |c| %>
         <%= link_to(c.name, case_path(c), class: 'case_link') %>
         <% end %>
       </p>
+      <p>
+        <strong>All Day Event?</strong>
+        <%= boolean_as_yesno @event.all_day %>
+      </p>
+      <p>
+        <strong>Start Time:</strong>
+        <%= @event.start.to_datetime.strftime("%b %e, %Y %l:%M %p") %>
+      </p>
 
       <p>
-        <strong>Notes:</strong>
+        <strong>End Time:</strong>
+        <%= @event.end.to_datetime.strftime("%b %e, %Y %l:%M %p") %>
+      </p>
+      <p>
+        <strong>Description:</strong>
         <%= @event.notes %>
       </p>
+    </div>
 
     </div><!--end of modal-body-->
 

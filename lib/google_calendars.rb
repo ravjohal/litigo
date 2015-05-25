@@ -60,7 +60,7 @@ class GoogleCalendars
                   html_link: e['htmlLink'],
                   subject: e['summary'],
                   # summary: e['summary'],
-                  all_day: !e['start']['dateTime'].present?,
+                  all_day: e['start']['dateTime'].blank?,
                   start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
                   end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
                   end_time_unspecified: e['endTimeUnspecified'],
@@ -70,36 +70,20 @@ class GoogleCalendars
                   iCalUID: e['iCalUID'],
                   sequence: e['sequence'],
                   owner_id: user.id,
-                  firm_id: user.firm.id
+                  firm_id: user.firm.id,
+                  notes: e['description']
               }
           )
-          creator = Contact.find_or_initialize_by(email: e['creator']['email'])
-          creator.update({email: e['creator']['email']})
-          event_attendee = EventAttendee.create({
-                                                    event_id: google_event.id,
-                                                    display_name: e['creator']['displayName'],
-                                                    contact_id: creator.id,
-                                                    creator: true
-                                                })
-
 
           e['attendees'].each do |attrs|
-            if attrs['email'] != creator.email
-              contact = Contact.find_or_initialize_by(email: e['creator']['email'])
-              contact.update_attributes(
-                  {
-                      email: e['creator']['email'],
-                      type: 'General',
-                  }
-              )
-
+              contact = Contact.find_or_initialize_by(email: attrs['email'])
+              contact.update(email: attrs['email'], type: 'General')
               attendee = EventAttendee.create({
                                                   event_id: google_event.id,
-                                                  display_name: e['creator']['displayName'],
+                                                  display_name: attrs['displayName'],
                                                   contact_id: contact.id,
                                                   response_status: attrs['responseStatus']
                                               })
-            end
           end
         end
         if !(page_token = google_calendar.data.next_page_token)
@@ -123,6 +107,7 @@ class GoogleCalendars
           location: event.location,
           start: {},
           end: {},
+          description: event.notes,
           attendees: google_attendees
       }
       if event.all_day
@@ -186,6 +171,7 @@ class GoogleCalendars
           location: event.location,
           start: {},
           end: {},
+          description: event.notes,
           attendees: google_attendees
       }
       if event.all_day

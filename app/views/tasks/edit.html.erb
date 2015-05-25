@@ -58,7 +58,7 @@
       </tr>
       <tr>
         <td>
-          <strong>Second Owner:</strong>
+          <strong>Secondary Owner:</strong>
         </td>
         <td colspan="2">
         <%= f.association :secondary_owner, :collection => @firm.users, :input_html => {:id => "second_owner_select"}, label: false %>
@@ -117,7 +117,7 @@
       </tr>
        <tr>
         <td class="right">
-          <strong>Add to Calendar:</strong>
+          <strong>Add to My Calendar:</strong>
         </td>
         <td colspan="2">
           <%= f.check_box :add_event, {:checked => @task.event.present?}, true, false  %>

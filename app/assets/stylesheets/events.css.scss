@@ -100,6 +100,7 @@ ul.tagit {
   background-color: #38393A;
 }
 
+
 .fc-agenda .fc-agenda-axis {
   text-align:left;
 }
@@ -178,4 +179,8 @@ a.case_link {
   &:hover {
     color: #428bca;
   }
+}
+
+.fc-event {
+  min-height: 19px;
 }

@@ -11,7 +11,13 @@ a:focus {
   text-decoration: none;
 }
 
-
+.top-trim {
+  position: absolute;
+  top: 0;
+  height: 4px;
+  background-color: #3FC2D8;
+  width: 100%;
+}
 
 // make all images responsive by default
 img {

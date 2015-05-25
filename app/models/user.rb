@@ -12,14 +12,14 @@ class User < ActiveRecord::Base
   has_many :documents
   has_many :templates
   has_many :template_documents
-  has_many :tasks
+  has_many :tasks #this user created these tasks
 
   has_many :user_events, :dependent => :destroy
   has_many :events, :through => :user_events
 
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id'
-  has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id'
-  has_many :owned_tasks_secondary, class_name: 'Task', foreign_key: 'secondary_owner_id'
+  has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id' #this user owns these tasks
+  has_many :owned_tasks_secondary, class_name: 'Task', foreign_key: 'secondary_owner_id' #this user owns these tasks
   has_many :contacts
   has_one :contact_user, class_name: 'Contact', :dependent => :destroy
   has_many :cases
@@ -43,6 +43,8 @@ class User < ActiveRecord::Base
 
   attr_reader :raw_invitation_token
   accepts_nested_attributes_for :firm
+
+  COLORS = [ '#0266C8', '#F90101', '#F2B50F', '#00933B', '#9966FF', '#FF6666', '#7E989C', '#00CC99', '#000099', '#FFCC66', '#00B700', '#f200ff', '#ff9900']
 
   def name
     self.first_name.present? && self.last_name.present? ? "#{self.first_name} #{self.last_name}" : self.email
@@ -77,6 +79,14 @@ class User < ActiveRecord::Base
 
   def is_staff?
     self.role == 'staff'
+  end
+
+  def color(index)
+    if index > COLORS.length-1
+      COLORS[index - COLORS.length]
+    else
+      COLORS[index]
+    end
   end
 
 end

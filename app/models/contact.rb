@@ -32,7 +32,14 @@ class Contact < ActiveRecord::Base
     else
       "#{self.first_name.present? ? self.first_name : ''} #{self.last_name.present? ? self.last_name : ''}"
     end
-
   end
 
+  def tooltip
+    if self.phone_number.present? || self.mobile.present? || self.email.present?
+      p = self.phone_number.present? ? "P: #{self.phone_number}<br/>" : ''
+      m = self.mobile.present? ? "M: #{self.mobile}<br/>" : ''
+      e = self.email.present? ? "#{self.email}" : ''
+      return p+m+e
+    end
+  end
 end

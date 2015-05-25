@@ -68,7 +68,7 @@
       </td>
       <td class="doc-link">
         <% @case.select_contact_role(contact_type).each_with_index do |contact, index| %>
-           <%= link_to(contact.try(:name), contact_path(contact), class: 'tool-tp', title: "#{contact.try(:phone_number)}") %><%= index == @case.select_contact_role(contact_type).length - 1 ? '': ', ' %>
+           <%= link_to(contact.try(:name), contact_path(contact), class: 'tool-tp', title: "#{contact.tooltip}") %><%= index == @case.select_contact_role(contact_type).length - 1 ? '': ', ' %>
         <% end %>
       </td>
     </tr>
@@ -115,7 +115,7 @@
       $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
     });
     <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
-    $('.tool-tp').tipsy({gravity: 's', fade: true});
+    $('.tool-tp').tipsy({gravity: 's', fade: true, html: true});
   });
 </script>
 

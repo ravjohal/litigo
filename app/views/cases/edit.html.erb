@@ -81,7 +81,7 @@
            <strong>State:</strong>
         </td>
         <td>
-        <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input' %>
+        <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input', :include_blank => false %>
         </td>
       </tr>
       <tr>
@@ -195,7 +195,7 @@
           <strong>Status:</strong>
         </td>
         <td>
-          <%= f.input :status, collection: Case::STATUS, :class => 'table-input', label: false %>
+          <%= f.input :status, collection: Case::STATUS, :class => 'table-input', label: false, :include_blank => false %>
         </td>
          <td class="right">
           <strong>Date Closed:</strong>
@@ -209,13 +209,13 @@
            <strong>Type:</strong>
         </td>
         <td>
-          <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input' %>
+          <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input', :include_blank => false %>
         </td>
         <td class="right">
-          <strong>Subtype:</strong>
+          <strong>Sub type:</strong>
         </td>
         <td>
-          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, :class => 'table-input' %>
+          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, :class => 'table-input', :include_blank => true %>
         </td>
       </tr>
        <tr>
@@ -241,7 +241,7 @@
 <% end %>
 
   <script>
-    $(document).ready(function() { $("#attorney_select, #plaintiff_select, #defendant_select, #staff_select, #judge_select, select").select2(); });
+    $(document).ready(function() { $("select").select2({allowClear: true}); });
   </script>
 <script type='text/javascript'>
   $(function() {

@@ -101,7 +101,7 @@
           <strong>Resolution Type:</strong>
         </td>
         <td>
-        <%= f.select :resolution_type, Resolution::TYPES, :class => 'table-input', label: false  %><br>
+        <%= f.select :resolution_type, Resolution::TYPES, :class => 'table-input', label: false, include_blank: true %><br>
         </td>
       </tr>
       <tr>
@@ -118,6 +118,6 @@
 
 <% end %>
 <script>
-  $(document).ready(function() { $("select").select2(); });
+  $(document).ready(function() { $("select").select2({allowClear: true}); });
   $('#close').tipsy({gravity: 's', fade: true});
 </script>

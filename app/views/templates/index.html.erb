@@ -30,7 +30,7 @@
     <tr>
       <th>Template Name</th>
       <th>Description</th>
-      <th>Uploaded By</th>
+      <th>Created By</th>
       <th>View</th>
       <th>Edit</th>
       <th>Delete</th>
@@ -61,7 +61,8 @@
         searchPlaceholder: "Search or Filter",
         lengthMenu: "View _MENU_"
       },
-      sDom: 'Rfrtlip'
+      sDom: 'Rfrtlip',
+      aaSorting: [[ 0, 'asc' ]]
     });
     <% if @template.errors.present? %>
       var error_text = '<%= @template.errors.full_messages.join('. ') %>';

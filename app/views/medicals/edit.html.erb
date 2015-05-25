@@ -70,7 +70,7 @@
           </td>
           <td>
                 <%= f.text_field :hospital_stay_length, :class => 'table-input-small' %>
-                <%= f.select :hospital_stay_length_unit, ['day(s)','week(s)','month(s)'], :class => 'table-input' %>
+                <%= f.select :hospital_stay_length_unit, ['day(s)','week(s)','month(s)'], :class => 'table-input', :include_blank => true %>
         </td>
       </tr>
       <tr>
@@ -237,7 +237,7 @@
           <strong>Region:</strong>
         </td>
         <td>
-          <%= i.select :region, Injury::REGION_TYPE, :include_blank => true, :class => 'table-input' %>
+          <%= i.select :region, Injury::REGION_TYPE, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -245,7 +245,7 @@
           <strong>Injury Type:</strong>
         </td>
         <td>
-          <%= i.select :injury_type, Injury::INJURY_TYPE, :include_blank => true, :class => 'table-input' %>
+          <%= i.select :injury_type, Injury::INJURY_TYPE, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -502,7 +502,7 @@
 
 <% end %> <!-- end of form -->
 <script>
-  $(document).ready(function() { $("select").select2(); });
+  $(document).ready(function() { $("select").select2({allowClear: true}); });
 </script>
 
 

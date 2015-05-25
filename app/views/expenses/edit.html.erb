@@ -11,7 +11,7 @@
         </ul>
       </div>
     </div>
-    <strong>Time Entry #: </strong><%= @expense.id %>
+    <strong>Expense #: </strong><%= @expense.id %>
     <div class="container-fluid" style="padding: 0;">
       <div class="row">
         <div class="col-md-12">
@@ -36,7 +36,7 @@
         <strong>Submitted By:</strong>
       </td>
       <td>
-        <%= f.association :user, :collection => @firm.users, :input_html => {:id => "user_select"}, label: false %>
+        <%= f.association :user, :collection => @firm.users, :input_html => {:id => "user_select"}, label: false, :include_blank => false %>
       </td>
     </tr>
     <tr>
@@ -95,6 +95,6 @@
     $('#print').tipsy({gravity: 'n', fade: true});
     $('#delete').tipsy({gravity: 'n', fade: true});
     $('#accept').tipsy({gravity: 'ne', fade: true});
-    $(".edit_expense select").select2();
+    $(".edit_expense select").select2({allowClear: true});
   });
 </script>

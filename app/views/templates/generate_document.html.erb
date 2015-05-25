@@ -3,7 +3,7 @@
             <div id="temp-custom">
                   <ul>
                         <li><%= link_to 'Preview', '#', id: 'preview_docx', class: 'dark' %></li>
-                        <li><%= link_to 'CREATE DOCUMENT', '#', id: 'create_docx', class: 'action-button' %></li>
+                        <li><%= link_to 'GENERATE DOCUMENT', '#', id: 'create_docx', class: 'action-button' %></li>
                   </ul>
        </div>
     </ul>
@@ -41,9 +41,26 @@
       <div class="col-md-6">
     </div>
 </div>
+<div class="row">
+     <div class="col-md-10">
+          <div class="instructions">
+              <ul>
+                  <li>If no document name is given, it will inherit the template name</li>
+                  <li>If you do not wish to use a field (e.g. Company in the address), simply leave it blank and it will be ignored</li>
+                  <li>After clicking 'Generate Document' your document will downloaded and located in your Downloads folder</li>
+                  <li>Paragraphs are preserved in the final Word document but may look different when viewing them in the browser</li>
+              </ul>
+          </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+</div>
 </div>
 
-<div class="template_block" style="padding-top: 70px;">
+
+
+
+<div class="template_block" style="padding-top: 50px;">
   <div class="row">
     <div class="col-md-1 col-lg-2"></div>
     <div class="col-md-10 col-lg-8">

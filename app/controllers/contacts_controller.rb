@@ -9,11 +9,11 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     if get_case
-      @contacts = @case.contacts
+      @contacts = @case.contacts.where.not(:type => "Company")
       @new_path = new_case_contact_path(@case)
       @contacts_a = [@case, Contact.new] #for modal partial rendering
     else
-      @contacts = @firm.contacts
+      @contacts = @firm.contacts.where.not(:type => "Company")
       @new_path = new_contact_path
       @contacts_a = Contact.new #for modal partial rendering
     end

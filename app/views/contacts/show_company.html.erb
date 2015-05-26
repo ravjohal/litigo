@@ -1,0 +1,163 @@
+<div class="case-header">
+          <div class="case-title">
+                <div style="font-size: 24px;">
+                      <strong><%= @company.company_name %></strong>
+                </div>
+                <div id="case-buttons">
+                      <ul>
+                           <li><%= link_to 'Edit', edit_company_path(@company), :class => 'dark' %></li>
+                          <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
+                          <li style="height: 30px;"><%= link_to @company,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a company will remove all information from storage and associated with contacts and you will not be able to retrieve it. Would you like to continue?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Contact"></span> <% end %></li>
+                      </ul>
+                </div>
+          </div>
+                      <strong><%= @company.address %></strong><br>
+                      <strong><%= @company_city_state %></strong>
+          <div class="container-fluid" style="padding: 0;">
+                  <div class="row">
+                            <div class="col-md-12">
+                                    
+                            </div>
+                  </div>
+          </div>
+  </div>
+<div class="top-table-container">
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <Strong>Company Information</Strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+        <tr>
+        <td class="right">
+          <strong>Company Name:</strong>
+        </td>
+        <td class="doc-link">
+          <%= @company.company_name %>
+        </td>
+      </tr>      
+      <tr>
+        <td class="right">
+          <strong>Website:</strong>
+        </td>
+        <td class="doc-link">
+          <%= link_to @company.website, "http://#{@website}", :target => '_blank' %>
+        </td>
+      </tr>      
+        <tr>
+        <td class="right">
+          <strong>Company Address:</strong>
+        </td>
+        <td>
+          <%= @company.address %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>City:</strong>
+        </td>
+        <td>
+          <%= @company.city %>
+        </td>
+        </tr>
+        <tr>
+        <td class="right">
+          <strong>State:</strong>
+        </td>
+        <td>
+          <%= @company.state %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Zip Code:</strong>
+        </td>
+        <td>
+          <%= @company.zip_code %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Main Phone:</strong>
+        </td>
+        <td>
+              <%= @company.phone_number %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Other Phone 1:</strong>
+        </td>
+        <td>
+              <%= @company.phone_number_1 %>
+        </td>
+      </tr>
+             <tr>
+        <td class="right">
+          <strong>Other Phone 2:</strong>
+        </td>
+        <td>
+              <%= @company.phone_number_2 %>
+        </td>
+      </tr>
+         <tr>
+        <td class="right">
+          <strong>Main Fax:</strong>
+        </td>
+        <td>
+              <%= @company.fax_number %>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Other Fax 1:</strong>
+        </td>
+        <td>
+              <%= @company.fax_number_1 %>
+        </td>
+      </tr>
+          <tr>
+        <td class="right">
+          <strong>Other Fax 2:</strong>
+        </td>
+        <td>
+              <%= @company.fax_number_2 %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+ <div class="bottom-table-container">
+  <h3>Company Contacts</h3>
+  <br>
+    <table class="table-striped company-contacts-table rowlink">
+     <thead class="user-table-head">
+        <th>Name</th>
+        <th>Contact Type</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </thead>
+      <tbody>
+    <% if @contacts %>
+      <% @contacts.each do |contact| %>
+        <tr data-id="<%= contact.id %>">
+          <td><div class="doc-link"><%= link_to "#{contact.first_name} #{contact.last_name} ", contact_path(contact) %></div></td>
+          <td><%= contact.type %></td>
+          <td></div><%= contact.email %></td>
+          <td><%= contact.phone_number %></td>
+        </tr>
+      <% end %> 
+    <% end %>  
+      </tbody>
+    </table>
+  </div>
+<script type='text/javascript'>
+  $(function() {
+    $('#print').tipsy({gravity: 'n', fade: true});
+    $('#delete').tipsy({gravity: 'ne', fade: true});
+    $('#back').tipsy({gravity: 'n', fade: true});
+  });
+</script>

@@ -166,6 +166,27 @@ class ContactsController < ApplicationController
     end
   end
 
+  def companies
+    @companies = @firm.contacts.where(:type => "Company")
+    @companies_a = Company.new #for modal partial rendering
+  end
+
+  def show_company
+    puts "parameters: ------------------------>>>>>>>>>>>>> " + Contact.find(params[:id]).inspect
+    @company = Contact.find(params[:id])
+    @contacts = @company.contacts
+    if @company.website
+      if @company.website.include? "http"
+        website_ = String.new(@company.website) # copy so that we will not slice original
+        website_.slice! "http://"
+        @website = website_
+      else
+        @website = @company.website
+      end
+    end
+    @company_city_state = @company.city
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact

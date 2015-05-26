@@ -83,11 +83,11 @@ class Case < ActiveRecord::Base
   end
 
   def self.increment_number(firm_, action_, case_)
-    puts "ACTION NAME " + action_ 
+#    puts "ACTION NAME " + action_ 
     if action_ != "edit"
-      puts " MAX NUM: " + firm_.cases.maximum(:case_number).to_s
+#      puts " MAX NUM: " + firm_.cases.maximum(:case_number).to_s
       new_number = firm_.cases.maximum(:case_number).to_i + 1
-      puts "INCREMENT NUMBER FIRM: " + firm_.to_s + "   and NUMBER: " + new_number.to_s
+#      puts "INCREMENT NUMBER FIRM: " + firm_.to_s + "   and NUMBER: " + new_number.to_s
       new_number.to_i
     else
       case_.case_number

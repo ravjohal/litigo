@@ -108,9 +108,9 @@ class ContactsController < ApplicationController
     respond_to do |format|
       if @contact.update(contact_params)
         if @contact.type == "Company"
-          format.html { redirect_to company_path(@contact), notice: 'Contact was successfully updated.' }
+          format.html { redirect_to company_path(@contact), notice: 'Company was successfully updated.' }
         else 
-          format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+          format.html { redirect_to @contact, notice: 'Company was successfully updated.' }
           format.json { render :show, status: :ok, location: @contact }
         end
       else

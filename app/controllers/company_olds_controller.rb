@@ -1,4 +1,4 @@
-class CompaniesController < ApplicationController
+class CompanyOldsController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   before_action :set_user, :set_firm
@@ -6,7 +6,7 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = @firm.companies
+    @companies = @firm.contacts.where(:type => "Company")
     @companies_a = Company.new #for modal partial rendering
   end
 

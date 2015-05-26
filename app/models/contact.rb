@@ -3,7 +3,7 @@ class Contact < ActiveRecord::Base
 
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
 
-  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'Expert', 'Physician', 'General']
+  TYPES = ['Attorney', 'Adjuster', 'Plaintiff', 'Defendant', 'Staff', 'Judge', 'Witness', 'Expert', 'Physician', 'General', 'Company']
   has_many :event_attendees
 	belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event
@@ -27,10 +27,14 @@ class Contact < ActiveRecord::Base
   end
 
   def name
-    if self.first_name.blank? && self.last_name.blank?
-      self.email
+    if self.type == "Company"
+      self.company_name
     else
-      "#{self.first_name.present? ? self.first_name : ''} #{self.last_name.present? ? self.last_name : ''}"
+      if self.first_name.blank? && self.last_name.blank?
+        self.email
+      else
+        "#{self.first_name.present? ? self.first_name : ''} #{self.last_name.present? ? self.last_name : ''}"
+      end
     end
   end
 

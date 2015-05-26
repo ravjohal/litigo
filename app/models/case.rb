@@ -39,7 +39,7 @@ class Case < ActiveRecord::Base
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
   attr_accessor :current_user_id, :attorney, :adjuster, :plaintiff, :defendant,
-                :staff, :judge, :witness, :expert, :physician, :general
+                :staff, :judge, :witness, :expert, :physician, :general, :company
   after_create :import_tasks
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date

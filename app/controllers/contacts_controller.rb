@@ -107,9 +107,12 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update(contact_params)
-       # puts "CONTACT UPDATE ------------------ AFTER SAVE: " + @contact.type
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
-        format.json { render :show, status: :ok, location: @contact }
+        if @contact.type == "Company"
+          format.html { redirect_to company_path(@contact), notice: 'Contact was successfully updated.' }
+        else 
+          format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+          format.json { render :show, status: :ok, location: @contact }
+        end
       else
         format.html { render :edit }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
@@ -187,6 +190,10 @@ class ContactsController < ApplicationController
     @company_city_state = @company.city
   end
 
+  def edit_company
+    @company = Contact.find(params[:id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -195,7 +202,7 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
+      params.require(:contact).permit(:company_name, :first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 

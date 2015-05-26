@@ -2,10 +2,12 @@ class Company < Contact
 	has_many :medical_bills
 	has_many :contacts
     has_many :insurances
-	belongs_to :firm
-	belongs_to :user
 
 	accepts_nested_attributes_for :contacts, :reject_if => :all_blank
+
+    def set_type
+        self.type = 'Company'
+    end
 
 	def company_city_and_state
 		if !self.city.empty? && !self.state.empty?

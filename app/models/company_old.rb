@@ -1,4 +1,4 @@
-class Company < Contact
+class CompanyOld < ActiveRecord::Base
 	has_many :medical_bills
 	has_many :contacts
     has_many :insurances

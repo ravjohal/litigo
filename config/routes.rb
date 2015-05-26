@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'reports/cases_by_statuses' => 'reports#cases_by_status_report', as: :reports_cases_by_status
   get 'reports/open_close_detail_report' => 'reports#open_close_detail_report', as: :reports_open_close_detail
 
-  resources :companies
+  resources :company_olds
   resources :templates
   patch 'templates/update_html/:id' => 'templates#update_html'
   get 'templates/generate_document/:id' => 'templates#generate_document', as: :generate_document
@@ -47,6 +47,9 @@ Rails.application.routes.draw do
   get 'get_tasks' => 'tasks#get_tasks', as: :get_tasks
 
   resources :contacts
+  get '/companies' => 'contacts#companies', as: :companies
+  get '/companies/:id' => 'contacts#show_company', as: :company
+  post '/companies/:id' => 'contacts#edit_company', as: :edit_company
 
   resources :insights do
     collection do

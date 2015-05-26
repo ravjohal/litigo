@@ -2,7 +2,7 @@
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
-                <strong><%= @company.name %></strong><br>
+                <strong><%= @company.company_name %></strong><br>
           </div>
             <div id="case-buttons">
               <ul>                    
@@ -37,7 +37,7 @@
           <strong>Company Name:</strong>
         </td>
         <td>
-          		<%= f.text_field :name, label: false, class: 'table-input' %>
+          		<%= f.text_field :company_name, label: false, class: 'table-input' %>
         </td>
       </tr>      
       <tr>
@@ -77,7 +77,7 @@
           <strong>Zipcode:</strong>
         </td>
         <td>
-          		<%= f.text_field :zipcode, label: false, class: 'table-input' %>
+          		<%= f.text_field :zip_code, label: false, class: 'table-input' %>
         </td>
       </tr>
          <tr>
@@ -85,7 +85,7 @@
           <strong>Main Phone:</strong>
         </td>
         <td>
-              <%= f.text_field :phone, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+              <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
       <tr>
@@ -93,7 +93,7 @@
           <strong>Other Phone 1:</strong>
         </td>
         <td>
-              <%= f.text_field :phone_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+              <%= f.text_field :phone_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
           <tr>
@@ -101,7 +101,7 @@
           <strong>Other Phone 2:</strong>
         </td>
         <td>
-              <%= f.text_field :phone_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+              <%= f.text_field :phone_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
          <tr>
@@ -109,7 +109,7 @@
           <strong>Fax:</strong>
         </td>
         <td>
-              <%= f.text_field :fax, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+              <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
            <tr>
@@ -117,7 +117,7 @@
           <strong>Other Fax 1:</strong>
         </td>
         <td>
-              <%= f.text_field :fax_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+              <%= f.text_field :fax_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
        <tr>
@@ -125,7 +125,7 @@
           <strong>Other Fax 2:</strong>
         </td>
         <td>
-              <%= f.text_field :fax_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+              <%= f.text_field :fax_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
   </tbody>

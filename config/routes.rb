@@ -48,7 +48,7 @@ Rails.application.routes.draw do
   resources :contacts
   get '/companies' => 'contacts#companies', as: :companies
   get '/companies/:id' => 'contacts#show_company', as: :company
-  post '/companies/:id' => 'contacts#edit_company', as: :edit_company
+  get '/companies/:id/edit' => 'contacts#edit_company', as: :edit_company
 
   resources :insights do
     collection do

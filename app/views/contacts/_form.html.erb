@@ -18,7 +18,7 @@
                     <strong>Contact Type:</strong>
                 </td>
                 <td>
-                   <%= f.select :type, Contact::TYPES, :class => 'table-input' %>
+                   <%= f.select :type, Contact::TYPES, :class => 'table-input', :selected => 'Attorney' %>
                 </td>
             </tr>
             <tr id="company">
@@ -183,15 +183,17 @@
           $('#ssn_field').show();
           $('#age').show();
           $('#attorney_type_field').hide();
+          $('#website').hide();
+          $('#email').show();
         } else if (conceptName == 'Plaintiff') {
           $('#ssn_field').show();
           $('#date_of_birth_field').show();
           $('#age').show();
           $('#attorney_type_field').hide();
+          $('#website').hide();
+          $('#email').show();
         } 
-        else if (conceptName == 'Attorney') {
-          $('#attorney_type_field').show();
-        } 
+        
          else if (conceptName == 'Company') {
           $('#company_field').hide();
           $('#company').show();
@@ -199,6 +201,9 @@
           $('#last_name').hide();
           $('#website').show();
           $('#email').hide();
+          $('#ssn_field').hide();
+          $('#date_of_birth_field').hide();
+          $('#age').hide();
         } else {
           $('#ssn_field').hide();
           $('#date_of_birth_field').hide();

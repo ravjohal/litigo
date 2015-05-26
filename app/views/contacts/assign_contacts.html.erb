@@ -37,7 +37,7 @@
       <strong><%= contact_type %>:</strong>
     </td>
     <td class="doc-link">
-        <%= f.select :contacts, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => @case.select_contact_role(contact_type).map(&:id)), {prompt: "Select #{contact_type}"}, {:class => 'contacts_select', :multiple => true} %>
+        <%= f.select "#{contact_type.downcase.parameterize.underscore}", options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => @case.select_contact_role(contact_type).map(&:id)), {prompt: "Select #{contact_type}"}, {:class => 'contacts_select', :multiple => true} %>
       <% end %>
     </td>
   </tr>

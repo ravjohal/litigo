@@ -172,7 +172,7 @@ class ContactsController < ApplicationController
   end
 
   def show_company
-    puts "parameters: ------------------------>>>>>>>>>>>>> " + Contact.find(params[:id]).inspect
+#    puts "parameters: ------------------------>>>>>>>>>>>>> " + Contact.find(params[:id]).inspect
     @company = Contact.find(params[:id])
     @contacts = @company.contacts
     if @company.website

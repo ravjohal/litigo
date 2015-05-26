@@ -24,6 +24,9 @@ class MoveCompanyOldDataToNewCompany < ActiveRecord::Migration
       company.firm_id = m.firm_id
       company.website = m.website
       company.user_id = m.user_id
+      company.city = m.city
+      company.state = m.state
+      company.address = m.address
       company.save!
       # company.medical_bills = m.medical_bills
       MedicalBill.all.each do |med|

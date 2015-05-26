@@ -194,6 +194,14 @@ class ContactsController < ApplicationController
     @company = Contact.find(params[:id])
   end
 
+  def remove_contact
+    contact = Contact.find_by_id(params[:id])
+    contact.company = ""
+    contact.save
+
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -206,7 +214,8 @@ class ContactsController < ApplicationController
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 
-                                      :firms_attributes => [:name, :address, :zip])
+                                      :firms_attributes => [:name, :address, :zip],
+                                      :contacts_attributes => [:id, :_destroy, :company_id])
       end
 
     def case_contacts_params

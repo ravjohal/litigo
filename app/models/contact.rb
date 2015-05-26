@@ -28,7 +28,7 @@ class Contact < ActiveRecord::Base
 
   def name
     if self.type == "Company"
-      puts "ARE WE IN COMPANY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+ #     puts "ARE WE IN COMPANY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
       self.company_name
     else
       if self.first_name.blank? && self.last_name.blank?

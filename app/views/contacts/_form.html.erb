@@ -21,15 +21,16 @@
                    <%= f.select :type, Contact::TYPES, :class => 'table-input' %>
                 </td>
             </tr>
-            <tr id="attorney_type_field">
+            <tr id="company">
                 <td>
-                    <strong>Attorney Type:</strong>
+                    <strong>Company Name:</strong>
                 </td>
                 <td>
-                   <%= f.select :attorney_type, Contact::ATTORNEYS, :class => 'table-input', :include_blank => '' %>
+                    <%= f.text_field :company_name, label: false, :class => 'table-input', placeholder: 'Allstate' %>
                 </td>
             </tr>
-            <tr>
+            
+            <tr id="first_name">
                 <td>
                     <strong>First Name:</strong>
                 </td>
@@ -37,7 +38,7 @@
                     <%= f.text_field :first_name, label: false, :class => 'table-input', placeholder: 'John' %>
                 </td>
             </tr>
-            <tr>
+            <tr id="last_name">
                 <td>
                     <strong>Last Name:</strong>
                 </td>
@@ -45,14 +46,6 @@
                     <%= f.text_field :last_name, label: false, :class => 'table-input', placeholder: 'Smith' %>
                 </td>
             </tr>
-            <tr>
-                <td>
-                  <strong>Corporation?</strong>
-                </td>
-                <td style="float:left;">
-                    <%= f.check_box :corporation, label: false %>
-                </td>
-            </tr>  
                <tr id='date_of_birth_field'>
                 <td>
                   <strong>Date of Birth:</strong>
@@ -71,7 +64,7 @@
             </tr> 
                <tr>
                 <td>
-                    <strong>Home Address:</strong>
+                    <strong>Address:</strong>
                 </td>
                 <td>
                     <%= f.text_field :address, label: false, :class => 'table-input', placeholder: '123 Easy St' %>
@@ -111,7 +104,7 @@
                     <%= f.telephone_field :phone_number, label: false, :class => 'table-input', :id => 'contact_phone', placeholder: '(___) ___-___' %>
                 </td>
             </tr>
-             <tr>
+             <tr id="email">
                 <td>
                     <strong>Email:</strong>
                 </td>
@@ -119,12 +112,20 @@
                     <%= f.text_field :email, label: false, :class => 'table-input', placeholder: 'john.smith@gmail.com'  %>
                 </td>
             </tr>
-            <tr>
+              <tr id="website">
+                <td>
+                    <strong>Website:</strong>
+                </td>
+                <td>
+                    <%= f.text_field :website, label: false, :class => 'table-input', placeholder: 'www.example.com'  %>
+                </td>
+            </tr>
+            <tr id="company_field">
                 <td>
                     <strong>Company:</strong><span id="comp" title="Only existing companies can be added to a contact on this form" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
                 </td>
                 <td>
-                    <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda {|company| "#{company.company_name}"}, :class => 'table-input', :include_blank => true %>
+                    <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda {|company| "#{company.company_name}"}, :class => 'table-input', :include_blank => true, label: false %>
                 </td>
             </tr>
         </tbody>
@@ -171,6 +172,9 @@
     });
     $('#ssn_field').hide();
     $('#age').hide();
+    $('#company').hide();
+    $('#website').hide();
+    $('#company_field').show();
     $('#date_of_birth_field').hide();
     $('#contact_type').on('change', function() {
         var conceptName = $('#contact_type').find(":selected").text();
@@ -187,11 +191,25 @@
         } 
         else if (conceptName == 'Attorney') {
           $('#attorney_type_field').show();
+        } 
+         else if (conceptName == 'Company') {
+          $('#company_field').hide();
+          $('#company').show();
+          $('#first_name').hide();
+          $('#last_name').hide();
+          $('#website').show();
+          $('#email').hide();
         } else {
           $('#ssn_field').hide();
           $('#date_of_birth_field').hide();
           $('#age').hide();
           $('#attorney_type_field').hide();
+          $('#company_field').show();
+          $('#company').hide();
+          $('#first_name').show();
+          $('#last_name').show();
+          $('#website').hide();
+          $('#email').show();
         }
       });
 </script>

@@ -48,7 +48,7 @@ class GoogleCalendars
       while true
         events = google_calendar.data.items
         events.each do |e|
-          p "Event_from_Google: #{e}!!!!"
+          p "Event_from_Google: #{e.inspect}!!!!"
           google_event = Event.where(google_id: e['id'], owner_id: user.id).first_or_initialize
           p "google_event: #{google_event.inspect}\n\n\n"
           next if google_event.etag.present? && google_event.etag == e['etag']

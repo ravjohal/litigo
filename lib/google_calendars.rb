@@ -97,8 +97,7 @@ class GoogleCalendars
           )
 
           e['attendees'].each do |attrs|
-              contact = Contact.find_or_initialize_by(email: attrs['email'])
-              contact.update(email: attrs['email'], type: 'General')
+              contact = Contact.find_or_create_by(email: attrs['email'])
               attendee = EventAttendee.create({
                                                   event_id: google_event.id,
                                                   display_name: attrs['displayName'],

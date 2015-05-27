@@ -39,11 +39,35 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+  var formatAMPM = function(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  };
+
   var events = {};
   var eventsSources = <%= @event_sources.to_json.html_safe %>;
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
+    var sd = new Date();
+    var ed = new Date();
+        ed.setHours(ed.getHours()+1);
+    var start_date = (sd.getMonth()+1)+'/'+sd.getDate()+'/'+sd.getFullYear();
+    var start_time = formatAMPM(sd);
+    var end_date = (ed.getMonth()+1)+'/'+ed.getDate()+'/'+ed.getFullYear();
+    var end_time = formatAMPM(ed);
+
+    $('#modal-window').find('#event_start_date').val(start_date);
+    $('#modal-window').find('#event_start_time').val(start_time);
+    $('#modal-window').find('#event_end_date').val(end_date);
+    $('#modal-window').find('#event_end_time').val(end_time);
   });
+
   $('.dark-small').click(function(e){
     e.preventDefault();
     bootbox.confirm("This can take a few moments, would you still like to sync your calendar now?", function(result) {

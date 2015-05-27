@@ -52,6 +52,23 @@ class GoogleCalendars
           google_event = Event.where(google_id: e['id'], owner_id: user.id).first_or_initialize
           p "google_event: #{google_event.inspect}\n\n\n"
           next if google_event.etag.present? && google_event.etag == e['etag']
+
+          if e.try(:[],'start').try(:[], 'dateTime').present? || e.try(:[], 'start').try(:[], 'date').present?
+            start_ = e.try(:[],'start').try(:[], 'dateTime').present? ? e.try(:[],'start').try(:[], 'dateTime') : e.try(:[], 'start').try(:[], 'date')
+          elsif e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? || e.try(:[], 'originalStartTime').try(:[], 'date').present?
+            start_ = e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? ? e.try(:[], 'originalStartTime').try(:[], 'dateTime') : e.try(:[], 'originalStartTime').try(:[], 'date')
+          else
+            start_ = e['created']
+          end
+
+          if e.try(:[],'end').try(:[], 'dateTime').present? || e.try(:[], 'end').try(:[], 'date').present?
+            end_ = e.try(:[],'end').try(:[], 'dateTime').present? ? e.try(:[],'end').try(:[], 'dateTime') : e.try(:[], 'end').try(:[], 'date')
+          elsif e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? || e.try(:[], 'originalStartTime').try(:[], 'date').present?
+            end_ = e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? ? e.try(:[], 'originalStartTime').try(:[], 'dateTime') : e.try(:[], 'originalStartTime').try(:[], 'date')
+          else
+            end_ = e['created']
+          end
+
           google_event.update(
               {
                   etag: e['etag'],
@@ -61,9 +78,12 @@ class GoogleCalendars
                   html_link: e['htmlLink'],
                   subject: e['summary'],
                   # summary: e['summary'],
-                  all_day: e['start']['dateTime'].blank?,
-                  start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
-                  end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
+                  # all_day: e['start']['dateTime'].blank?,
+                  all_day: e.try(:[],'start').try(:[], 'dateTime').blank?,
+                  # start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
+                  start: start_,
+                  # end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
+                  end: end_,
                   end_time_unspecified: e['endTimeUnspecified'],
                   transparency: e['transparency'],
                   visibility: e['visibility'],

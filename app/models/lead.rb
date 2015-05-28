@@ -20,7 +20,7 @@ class Lead < ActiveRecord::Base
 
   def generate_case_attrs(user)
     return {
-        "name" => "#{self.last_name} dd #{self.incident_date}",
+        "name" => "#{self.last_name} #{self.incident_date}",
         "case_number" => Case.increment_number(firm, 'accept_case', nil),
         "case_type" => self.case_type,
         "subtype" => self.sub_type,

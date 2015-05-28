@@ -61,17 +61,14 @@ class CasesController < ApplicationController
     resolution.firm = @firm
     resolution.save
 
-    if case_params[:attorney] || case_params[:staff]
-      @case.assign_case_contacts(case_contacts_params)
-      #@case.assign_case_contacts(case_contacts_params)
-    end
-    #@case.assign_case_contacts(case_contacts_params)
-
     # injury = medical.tasks.create
     # injury.firm = @firm
     # injury.save
     @case.current_user_id = @user.id
     if @case.save
+      if case_params[:attorney] || case_params[:staff]
+        @case.assign_case_contacts(case_contacts_params)
+      end
       redirect_to @case, notice: 'Case was successfully created.'
     else
       redirect_to :back, alert: "Please review the problems below: #{@case.errors.full_messages.join('. ')}"

@@ -27,7 +27,7 @@
             <Strong>Assign Attorney(s):</Strong>
             </td>
             <td colspan="3">
-            <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Attorney'"), :label_method => :name, label: false, :include_blank => false, :class => 'table-input' %>
+            <%= f.select :attorney, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:attorney).map(&:id)), {prompt: "Select #{:attorney}"}, {:class => 'contacts_select', :multiple => true} %>
             </td>
           </tr>
              <tr>
@@ -35,7 +35,7 @@
             <Strong>Assign Staff:</Strong>
             </td>
             <td colspan="3">
-              <%= f.association :contacts, :collection => @firm.contacts.where("type = 'Staff'"), :label_method => :name, label: false, :include_blank => false, :class => 'table-input' %>
+              <%= f.select :staff, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:staff).map(&:id)), {prompt: "Select #{:staff}"}, {:class => 'contacts_select', :multiple => true} %>
             </td>
           </tr>
           <tr>

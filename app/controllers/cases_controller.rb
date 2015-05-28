@@ -61,6 +61,11 @@ class CasesController < ApplicationController
     resolution.firm = @firm
     resolution.save
 
+    if case_params[:attorney] || case_params[:staff]
+      @case.assign_case_contacts(case_contacts_params)
+      #@case.assign_case_contacts(case_contacts_params)
+    end
+    #@case.assign_case_contacts(case_contacts_params)
 
     # injury = medical.tasks.create
     # injury.firm = @firm
@@ -129,6 +134,10 @@ class CasesController < ApplicationController
         :insurance_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy,
         :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy]], 
         :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
-        :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [])
+        :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [], :attorney => [], :staff => [])
+    end
+
+    def case_contacts_params
+      params.require(:case).permit(:case_id, :attorney => [], :staff => [])
     end
 end

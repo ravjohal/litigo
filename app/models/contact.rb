@@ -13,7 +13,7 @@ class Contact < ActiveRecord::Base
   belongs_to :lead
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
-
+  before_save :check_sol
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
 
@@ -45,6 +45,17 @@ class Contact < ActiveRecord::Base
       m = self.mobile.present? ? "M: #{self.mobile}<br/>" : ''
       e = self.email.present? ? "#{self.email}" : ''
       return p+m+e
+    end
+  end
+
+  def check_sol
+    if date_of_death_changed? || major_date_changed?
+      self.case_contacts.each do |cc|
+        if cc.role == 'Plaintiff'
+          options = {date_of_death_changed: date_of_death_changed?, major_date_changed: major_date_changed?}
+          cc.affair.calculate_sol(cc, options)
+        end
+      end
     end
   end
 end

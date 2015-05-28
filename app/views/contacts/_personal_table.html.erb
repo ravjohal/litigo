@@ -68,7 +68,6 @@
           <%= @contact.gender %>
         </td>
         </tr>
-<% if @contact.type == 'Plaintiff' %>
       <tr>
         <td class="right">
           <strong>Date of Birth:</strong>
@@ -155,7 +154,7 @@
               <%= @contact.time_bound %>
         </td>
         </tr>
-<% elsif @contact.type == 'ExpertWitness' %>
+<% if @contact.type == 'ExpertWitness' %>
         <tr>
          <td class="right">
           <strong>Occupation:</strong>

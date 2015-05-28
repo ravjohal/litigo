@@ -127,11 +127,11 @@ class Case < ActiveRecord::Base
 
   def calculate_sol(model, options=nil)
     if state == 'OH'
-      if model.class.name == 'Plaintiff'
+      if model.class.name == 'CaseContact'
         if options[:date_of_death_changed] && case_type == 'Wrongful Death'
-          self.update(statute_of_limitations: model.date_of_death + 2.years, sol_priority: 1) if statute_of_limitations.blank? || (model.date_of_death + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 1))
-        elsif options[:major_date_changed] && model.minor
-          self.update(statute_of_limitations: model.major_date + 2.years, sol_priority: 2) if statute_of_limitations.blank? || (model.major_date + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 2))
+          self.update(statute_of_limitations: model.contact.date_of_death + 2.years, sol_priority: 1) if statute_of_limitations.blank? || (model.contact.date_of_death + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 1))
+        elsif options[:major_date_changed] && model.contact.minor
+          self.update(statute_of_limitations: model.contact.major_date + 2.years, sol_priority: 2) if statute_of_limitations.blank? || (model.contact.major_date + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 2))
         end
       elsif model.class.name == 'Incident'
         if subtype == 'Medical Malpractice'
@@ -160,13 +160,14 @@ class Case < ActiveRecord::Base
           self.assign_attributes(statute_of_limitations: incident.incident_date + 4.years, sol_priority: 5) if incident.present? && incident.incident_date.present?
         end
         if case_type == 'Wrongful Death'
-          if self.plaintiffs.present?
+          plaintiffs_contacts = self.case_contacts.where(role: 'Plaintiff').collect {|cc| cc.contact}
+          if plaintiffs_contacts.present?
             self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
-            self.plaintiffs.each do |plaintiff|
+            plaintiffs_contacts.each do |plaintiff|
               if plaintiff.date_of_death.present?
-                self.assign_attributes(statute_of_limitations: plaintiff.date_of_death + 2.years, sol_priority: 1) if statute_of_limitations.blank? || (plaintiff.date_of_death + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 1))
+                self.assign_attributes(statute_of_limitations: plaintiff.date_of_death + 2.years, sol_priority: 1) if statute_of_limitations.blank? || (sol_priority == 1 && plaintiff.date_of_death + 2.years < statute_of_limitations ) || (plaintiff.date_of_death + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 1))
               elsif plaintiff.major_date.present? && plaintiff.minor
-                self.assign_attributes(statute_of_limitations: plaintiff.major_date + 2.years, sol_priority: 2) if statute_of_limitations.blank? || (plaintiff.major_date + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 2))
+                self.assign_attributes(statute_of_limitations: plaintiff.major_date + 2.years, sol_priority: 2) if statute_of_limitations.blank? || (sol_priority == 2 && plaintiff.major_date + 2.years < statute_of_limitations ) || (plaintiff.major_date + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 2))
               end
             end
           end
@@ -215,6 +216,7 @@ class Case < ActiveRecord::Base
         cc.destroy
       end
     end
+    check_sol
     return true
   end
 end

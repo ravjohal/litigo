@@ -125,8 +125,8 @@
         </td>
         <td>
         
-          <% @case.contacts.where("type = 'Plaintiff'").each do |p| %>
-          <%= p.first_name %> <%= p.last_name %>
+          <% @case.case_contacts.where("role = 'Plaintiff'").each do |p| %>
+          <%= p.contact.first_name %> <%= p.contact.last_name %>
           <% end %>
         </td>
       </tr>
@@ -135,8 +135,8 @@
             <strong>Defendant(s):</strong>
         </td>
         <td>
-          <% @case.contacts.where("type = 'Defendant'").each do |d| %>
-          <%= d.first_name %> <%= d.last_name %>
+          <% @case.case_contacts.where("role = 'Defendant'").each do |d| %>
+          <%= d.contact.first_name %> <%= d.contact.last_name %>
            <% end %>
         </td>
       </tr>
@@ -146,9 +146,9 @@
             <strong>Assigned Attorney(s):</strong>
         </td>
         <td>
-          <%= @case.contacts.where("type = 'Attorney'").size %>
-          <% @case.contacts.where("type = 'Attorney'").each do |a| %>
-          <%= a.first_name %> <%= a.last_name %>
+          <%= @case.case_contacts.where("role = 'Attorney'").size %>
+          <% @case.case_contacts.where("role = 'Attorney'").each do |a| %>
+          <%= a.contact.first_name %> <%= a.contact.last_name %>
           <% end %>
         </td>
       </tr>
@@ -157,8 +157,8 @@
            <strong>Assigned Staff:</strong>
         </td>
         <td>
-          <% @case.contacts.where("type = 'Staff'").each do |s| %>
-          <%= s.first_name %> <%= s.last_name %>
+          <% @case.case_contacts.where("role = 'Staff'").each do |s| %>
+          <%= s.contact.first_name %> <%= s.contact.last_name %>
           <% end %>
         </td>
       </tr>

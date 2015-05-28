@@ -39,7 +39,7 @@ class CasesDatatable
   def fetch_cases
     #fetch_model = @user_cases ? @user : @firm
     if @user_cases
-      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:user_account_id => @user.id})
+      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:user_account_id => @user.id}).uniq
     else
       cases = @firm.cases
     end

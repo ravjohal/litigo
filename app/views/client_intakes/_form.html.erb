@@ -44,9 +44,41 @@
         <strong>Caller Phone Number:</strong>
       </td>
       <td>
-        <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+        <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(___) ___-____' %>
       </td>
     </tr>
+     <tr>
+    <td>
+      <strong>Address:</strong>
+    </td>
+    <td>
+      <%= f.text_field :address, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>City:</strong>
+    </td>
+    <td>
+      <%= f.text_field :city, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+    <tr>
+    <td>
+      <strong>State:</strong>
+    </td>
+    <td>
+      <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
+    </td>
+    </tr>
+    <tr>
+    <td>
+      <strong>Zip Code:</strong>
+    </td>
+    <td>
+      <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
     <tr>
         <tr>
       <td>

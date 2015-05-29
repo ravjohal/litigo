@@ -91,7 +91,10 @@ class EventsController < ApplicationController
       attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
       if attendee_emails.present?
         attendee_emails.each do |attendee_email|
-          contact = Contact.find_or_create_by(email: attendee_email)
+          contact = Contact.find_by_email(attendee_email)
+          if !contact
+            contact = General.create(email: attendee_email, user_id: @user.id, firm_id: @firm.id)
+          end
           event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
         end
       end
@@ -110,7 +113,10 @@ class EventsController < ApplicationController
     attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
     if @event.update(event_params.except!('contacts')) && attendee_emails.present?
       attendee_emails.each do |email|
-        contact = Contact.find_or_create_by(email: email)
+        contact = Contact.find_by_email(email)
+          if !contact
+            contact = General.create(email: email, user_id: @user.id, firm_id: @firm.id)
+          end
         event_attendee = EventAttendee.find_or_create_by({event_id: @event.id, creator: true, contact_id: contact.id})
       end
     end

@@ -1,7 +1,16 @@
-<div class="authform">
+<span class="top-trim">
+</span>
+<div style="width: 40px; height: 35px; margin: 0 auto;">
+  <div class='build-home-up'></div>
+</div>
+
+<div class="authform" style="margin-top: 25px;">
   <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :role => 'form'}) do |f| %>
   <div>
-    <h3>SIGN UP</h3>
+    <div class="center">
+    - GET STARTED -
+    </div>
+    <br>
     </div>
     <%= devise_error_messages! %>
     <div class="form-group">

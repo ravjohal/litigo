@@ -185,7 +185,7 @@ class GoogleCalendars
       return if !event.valid?
       google_attendees = []
       google_event = {
-          status: event.status,
+          # status: event.status,
           summary: event.subject,
           # subject: event.summary,
           location: event.location,
@@ -197,27 +197,38 @@ class GoogleCalendars
       if event.all_day
         google_event[:start][:date] = event.start.to_date
         google_event[:end][:date] = event.end.to_date
-        google_event[:start][:dateTime] = nil
-        google_event[:end][:dateTime] = nil
+        # google_event[:start][:dateTime] = nil
+        # google_event[:end][:dateTime] = nil
       else
         google_event[:start][:dateTime] = event.start.to_datetime
         google_event[:end][:dateTime] = event.end.to_datetime
-        google_event[:start][:date] = nil
-        google_event[:end][:date] = nil
+        # google_event[:start][:date] = nil
+        # google_event[:end][:date] = nil
       end
       event.event_attendees.each do |attendee|
         google_attendees << {email: attendee.contact.email,
-                             displayName: attendee.display_name.present? ? attendee.display_name : "#{attendee.contact.first_name} #{attendee.contact.last_name}"}
+                             displayName: attendee.display_name.present? ? attendee.display_name : attendee.contact.email}
       end
 
       client = init_client(user)
       calendar = client.discovered_api('calendar', 'v3')
-      create_google_event = client.execute(
-          :api_method => calendar.events.patch,
-          :parameters => {'calendarId' => event.google_calendar_id, 'eventId' => event.google_id, 'sendNotifications' => true},
-          :body_object => google_event,
-          :headers => {'Content-Type' => 'application/json'})
+      if event.google_id.present? && event.etag.present?
+        create_google_event = client.execute(
+            :api_method => calendar.events.patch,
+            :parameters => {'calendarId' => event.google_calendar_id, 'eventId' => event.google_id, 'sendNotifications' => true},
+            :body_object => google_event,
+            :headers => {'Content-Type' => 'application/json'})
+      else
+        p "!!!create_event!!!"
+        create_google_event = client.execute(
+            :api_method => calendar.events.insert,
+            :parameters => {'calendarId' => event.google_calendar_id, 'sendNotifications' => true},
+            :body_object => google_event,
+            :headers => {'Content-Type' => 'application/json'})
+      end
+      p "create_google_event: #{create_google_event.inspect}"
       response = JSON.parse(create_google_event.response.env[:body])
+
       if create_google_event.response.status.to_i == 200
         event.update({
                          etag: response['etag'],
@@ -233,7 +244,7 @@ class GoogleCalendars
         errors = []
         response['error']['errors'].map {|error| errors << error['message']}
         event.errors.add(:google_calendar_id, errors.to_sentence)
-        event.destroy!
+        # event.destroy!
       end
 
     end

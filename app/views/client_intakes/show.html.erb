@@ -153,7 +153,7 @@
       <strong>Appointment Date:</strong>
     </td>
     <td colspan="3">
-      <%= @lead.appointment_date %>
+      <%= @lead.appointment_date.try(:strftime, "%b %e, %Y")  %>
     </td>
   </tr>
   <tr>

@@ -111,7 +111,10 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
-    if @event.update(event_params.except!('contacts')) && attendee_emails.present?
+    timing = { start: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+               end: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p') }
+    attrs = event_params.except!('contacts', 'start_date', 'start_time', 'end_date', 'end_time').merge(timing)
+    if @event.update(attrs) && attendee_emails.present?
       attendee_emails.each do |email|
         contact = Contact.find_by_email(email)
           if !contact

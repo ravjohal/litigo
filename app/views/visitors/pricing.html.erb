@@ -40,24 +40,46 @@
     </div>
     </header>
 
-<div class="terms-container">
+
+<div class="row">
+  <div class="col-md-12">
     <div class="price-tagline">
         Try Litigo for free. 
     </div>
+  </div>
+</div>
+
+<div class="row">
+<div class="col-md-1 col-xs-1">
+</div>
+  <div class="col-md-10 col-xs-10">
      <div class="price-sub-mission">
         No committment - get started with just your email
     </div>
-     <div style="margin: 50px auto; width: 300px; text-align: center;">
+  </div>
+  <div class="col-md-1 col-xs-1">
+</div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 text-center">
+     <div class="sign-up-price-page">
                     <%= form_tag new_user_registration_path, :method => "get" do %>
                    <%= submit_tag "START FREE TRIAL", :class => "sub-btn" %>
                         <% end %>
    </div>
-     <div class="price-container">
+   </div>
+</div>
+
+     <div class="row">
+      <div class="col-md-3 col-xs-1">
+      </div>
+      <div class="col-md-6 col-xs-10 text-center price-container">
         <div style="font-size: 36px; margin-bottom: 15px; margin-top: 15px;">$15 <span style="font-size:24px;">per user / month</span></div>
         <div style="font-size: 14px; color: #aaa;">Clear and simple pricing.<p> Whether billed annually or month-to-month.</p></div>
         <hr class="price-divider">
-         <div class="feature-list">
-                                  <ul style="margin-left: 60px; color: black;">
+              <div class="feature-list">
+                                  <ul id="list-of-feat">
                                     <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Case Management</li>
                                     <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Saved Task Lists</li>
                                     <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>Google Calendar Sync</li>
@@ -67,12 +89,20 @@
                                      <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>100% Web-based</li>
                                      <li><span class="glyphicon glyphicon-ok green" style="margin-right: 10px; font-size:90%;"></span>SSL Encryption</li>
                                   </ul>
-                                </div>
+              </div>
      </div>
+     <div class="col-md-3 col-xs-1">
+      </div>
+     </div>
+
+     <div class="row">
+      <div class="col-md-12 text-center">
         <div style="margin: 50px auto; width: 300px; text-align: center;">
                     Still have questions? Send us an <a href="mailto:support@litigo.co" class="doc-link">email</a> 
-   </div>
-   </div>
+        </div>
+      </div>
+    </div>
+   
     
  
   <div class="ending">

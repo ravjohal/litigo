@@ -197,13 +197,13 @@ class GoogleCalendars
       if event.all_day
         google_event[:start][:date] = event.start.to_date
         google_event[:end][:date] = event.end.to_date
-        # google_event[:start][:dateTime] = nil
-        # google_event[:end][:dateTime] = nil
+        google_event[:start][:dateTime] = nil
+        google_event[:end][:dateTime] = nil
       else
         google_event[:start][:dateTime] = event.start.to_datetime
         google_event[:end][:dateTime] = event.end.to_datetime
-        # google_event[:start][:date] = nil
-        # google_event[:end][:date] = nil
+        google_event[:start][:date] = nil
+        google_event[:end][:date] = nil
       end
       event.event_attendees.each do |attendee|
         google_attendees << {email: attendee.contact.email,
@@ -219,14 +219,12 @@ class GoogleCalendars
             :body_object => google_event,
             :headers => {'Content-Type' => 'application/json'})
       else
-        p "!!!create_event!!!"
         create_google_event = client.execute(
             :api_method => calendar.events.insert,
             :parameters => {'calendarId' => event.google_calendar_id, 'sendNotifications' => true},
             :body_object => google_event,
             :headers => {'Content-Type' => 'application/json'})
       end
-      p "create_google_event: #{create_google_event.inspect}"
       response = JSON.parse(create_google_event.response.env[:body])
 
       if create_google_event.response.status.to_i == 200

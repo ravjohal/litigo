@@ -11,9 +11,9 @@ class CaseSolReport < Dossier::Report
  # WHERE "notes"."firm_id" = $1 AND "contacts"."user_account_id" = 23
 
   def sql
-    Case.joins(:contacts, :incident).where("cases.firm_id = :firm_id 
-    	AND type IN ('Attorney', 'Staff')
-    	AND contacts.id IN :attorney_contact_id 
+    Case.joins(:case_contacts, :incident).where("cases.firm_id = :firm_id 
+    	AND case_contacts.role IN ('Attorney', 'Staff')
+    	AND case_contacts.contact_id IN :attorney_contact_id 
     	AND cast(statute_of_limitations as date) between :start_date and :end_date"
     	).group("cases.id").select("case_number, name, subtype, statute_of_limitations, filed_suit_date"
     	).to_sql

@@ -5,10 +5,14 @@
         <div class="btn-group pull-left" style="margin-top: 5px;">
             <button class="btn btn-default dropdown-toggle-users"  data-placeholder="Please select">Select Users <span class="caret"></span></button>
               <ul class="dropdown-menu firm-users" style="left: 0px;">
+                <li>
+                  <%= check_box_tag "select_all"  %>
+                  <%= label_tag "select_all" %>
+                </li>
                 <% @event_sources.each do |user_id, event_source| %>
                 <li>
                   <span class="user_color" style="background-color: <%= event_source[:color] %>"></span>
-                  <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}  %>
+                  <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids'  %>
                   <%= label_tag "user_ids[#{event_source[:user_name]}]", event_source[:user_name] %>
                 </li>
                 <% end %>
@@ -141,6 +145,16 @@ $(document).ready(function() {
     });
     if (current_user_id != user_id) {
       $('#user_ids_'+user_id).prop('checked', false).change();
+    }
+  });
+
+  $('#select_all').change(function(e){
+    var checkboxes = $('.user_ids');
+    if($(this).is(":checked")) {
+      checkboxes.prop('checked', false).change()
+      checkboxes.prop('checked', true).change()
+    } else {
+      checkboxes.prop('checked', false).change()
     }
   });
 

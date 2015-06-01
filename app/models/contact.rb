@@ -39,6 +39,19 @@ class Contact < ActiveRecord::Base
     end
   end
 
+  def shift_name
+    if self.type == "Company"
+      #     puts "ARE WE IN COMPANY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+      self.company_name
+    else
+      if self.first_name.blank? && self.last_name.blank?
+        self.email
+      else
+        "#{self.last_name.present? ? self.last_name : ''} #{self.first_name.present? ? self.first_name : ''}"
+      end
+    end
+  end
+
   def tooltip
     if self.phone_number.present? || self.mobile.present? || self.email.present?
       p = self.phone_number.present? ? "P: #{self.phone_number}<br/>" : ''

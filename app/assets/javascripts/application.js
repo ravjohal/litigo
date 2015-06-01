@@ -51,6 +51,7 @@
 //= require lib/tipsy
 //= require slick
 //= require lib/welcome_tour
+//= require lib/evol.colorpicker.min
 //= require moment
 //= require bootstrap-datetimepicker
 //= require maskedinput

@@ -47,5 +47,19 @@
 </div>
 
 <script>
-  $('select').select2();
+  $(document).ready(function () {
+    $('select').select2();
+    var selected_contacts_ids = [];
+    $('.contacts_select :selected').each(function (i, obj) {
+      selected_contacts_ids.push($(obj).val());
+    });
+    $('.contacts_select').change(function (e) {
+      var contact_id = this.value;
+      if($.inArray(contact_id, selected_contacts_ids) > -1){
+        alert('This contact is already added to other role.')
+      } else {
+        selected_contacts_ids.push(contact_id);
+      }
+    })
+  });
 </script>

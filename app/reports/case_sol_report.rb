@@ -28,6 +28,13 @@ class CaseSolReport < Dossier::Report
  #   	AND cast(statute_of_limitations as date) between '2015-04-01' and '2015-04-30')
   end
 
+  def format_header(column_name)
+    custom_headers = {
+      name:'Case Name',
+    }
+    custom_headers.fetch(column_name.to_sym) { super }
+  end
+
   def format_case_number(value, row)
     formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.case_path(:id => Case.find_by(:case_number => value, :firm_id => firm_id))
   end

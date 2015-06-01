@@ -22,7 +22,7 @@
 								<%= date_field_tag :end_date, @end_date, :id => 'end-date' %>
                       	</div>
                       	<div class="col-md-3 col-xs-6">
-                      	Attorney<br>
+                      	Attorney or Staff<br>
                       		<%= collection_select :contact, :contact_id, @firm.contacts.where("type IN ('Attorney', 'Staff')"), :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_attorney %>
                       	</div>
                       	<div class="col-md-5 col-xs-12">

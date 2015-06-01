@@ -52,6 +52,7 @@ $(document).ready(function() {
 
   var events = {};
   var eventsSources = <%= @event_sources.to_json.html_safe %>;
+  var current_user_id = "<%= @user.id %>";
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
     var sd = new Date();
@@ -121,14 +122,6 @@ $(document).ready(function() {
     firstHour: 8
   });
 
-  $.each(eventsSources, function (user_id, hash) {
-    $('#calendar').fullCalendar( 'addEventSource', {
-      events: hash.events,
-      color: hash.color
-    })
-  });
-
-
   $('.firm-users input').change(function (e) {
     var user_id = $(this).val();
     if($(this).is(":checked")) {
@@ -138,6 +131,16 @@ $(document).ready(function() {
       } )
     } else {
       $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events)
+    }
+  });
+
+  $.each(eventsSources, function (user_id, hash) {
+    $('#calendar').fullCalendar( 'addEventSource', {
+      events: hash.events,
+      color: hash.color
+    });
+    if (current_user_id != user_id) {
+      $('#user_ids_'+user_id).prop('checked', false).change();
     }
   });
 

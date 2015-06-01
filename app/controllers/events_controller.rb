@@ -14,7 +14,7 @@ class EventsController < ApplicationController
     @users = @firm.users
     @event_sources = {}
     @users.each_with_index do |user, index|
-      hash = {user_name: user.name, color: user.color(index)}
+      hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
       user.owned_events.each do |event|
         event = {id: event.id, title: event.subject, allDay: event.all_day, start: event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}", end: event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"}

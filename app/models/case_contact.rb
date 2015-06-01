@@ -2,6 +2,7 @@ class CaseContact < ActiveRecord::Base
 	belongs_to :affair, class_name: 'Case', :foreign_key => 'case_id'
 	belongs_to :contact
 	belongs_to :plaintiff, :foreign_key => :contact_id
+  belongs_to :firm
   after_save :check_sol
   #before_create :set_role
 
@@ -9,6 +10,9 @@ class CaseContact < ActiveRecord::Base
     self.role = self.contact.type.to_s
   end
 
+  def name_of_contact
+    self.contact.name
+  end
 
   def check_sol
     if self.role == 'Plaintiff'

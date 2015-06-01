@@ -79,7 +79,6 @@
       <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
     </td>
   </tr>
-    <tr>
         <tr>
       <td>
         <strong>How did you hear about us?</strong>
@@ -88,6 +87,15 @@
          <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '' %>
       </td>
     </tr>
+     <tr id="phone_book">
+      <td>
+        <strong>Which Phone Book:</strong>
+      </td>
+      <td>
+         <%= f.text_field :phone_book, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    
     <tr>
       <td>
         <strong>Note:</strong>

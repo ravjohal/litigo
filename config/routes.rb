@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'reports/medical_bills_totals' => 'reports#medical_bills_report', as: :reports_medical_bills
   get 'reports/cases_by_attorneys' => 'reports#cases_by_attorney_report', as: :reports_cases_by_attorney
   get 'reports/cases_by_statuses' => 'reports#cases_by_status_report', as: :reports_cases_by_status
+  get 'reports/open_close_detail_report' => 'reports#open_close_detail_report', as: :reports_open_close_detail
 
   resources :company_olds
   resources :templates

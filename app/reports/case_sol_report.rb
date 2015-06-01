@@ -29,7 +29,7 @@ class CaseSolReport < Dossier::Report
   end
 
   def format_case_number(value, row)
-    formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.case_path(:id => Case.find_by_case_number(value))
+    formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.case_path(:id => Case.find_by(:case_number => value, :firm_id => firm_id))
   end
 
   def firm_id

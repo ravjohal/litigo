@@ -112,6 +112,22 @@ class ClientIntakesController < ApplicationController
     resolution.firm = @firm
     resolution.save
 
+    contact = Contact.create({
+                                       :type => 'Plaintiff',
+                                       :first_name => @lead.first_name,
+                                       :last_name => @lead.last_name,
+                                       :address => @lead.address,
+                                       :city => @lead.city,
+                                       :state => @lead.state,
+                                       :zip_code => @lead.zip_code,
+                                       :email => @lead.email,
+                                       :phone_number => @lead.phone,
+                                       :date_of_birth => @lead.dob,
+                                       :encrypted_ssn => @lead.ssn,
+                                       :firm_id => @lead.firm_id,
+                                       :user_id => @user.id
+                                   })
+
     respond_to do |format|
       if @case.save
         # @lead.update(case_id: @case.id)
@@ -120,6 +136,7 @@ class ClientIntakesController < ApplicationController
             CaseDocument.create(case_id: @case.id, document_id: doc.id)
           end
         end
+        CaseContact.create(case_id: @case.id, contact_id: contact.id, role: 'Plaintiff')
         @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }
@@ -138,6 +155,6 @@ class ClientIntakesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_intake_params
-      params.require(:lead).permit(:first_name, :last_name, :attorney_id, :note, :phone, :marketing_channel, :referred_by, :screener_id, :case_type, :sub_type, :estimated_value, :lead_policy_limit, :primary_injury, :primary_region, :incident_date, :case_summary, :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address, :city, :zip_code, :state)
+      params.require(:lead).permit(:first_name, :last_name, :attorney_id, :note, :phone, :marketing_channel, :phone_book, :referred_by, :screener_id, :case_type, :sub_type, :estimated_value, :lead_policy_limit, :primary_injury, :primary_region, :incident_date, :case_summary, :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address, :city, :zip_code, :state)
     end
 end

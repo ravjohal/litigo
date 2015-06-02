@@ -5,10 +5,15 @@
         <div class="btn-group pull-left" style="margin-top: 5px;">
             <button class="btn btn-default dropdown-toggle-users"  data-placeholder="Please select">Select Users <span class="caret"></span></button>
               <ul class="dropdown-menu firm-users" style="left: 0px;">
+                <li>
+                  <span class="user_color" style="background-color: #ffffff"></span>
+                  <%= check_box_tag "select_all"  %>
+                  <%= label_tag "select_all" %>
+                </li>
                 <% @event_sources.each do |user_id, event_source| %>
                 <li>
                   <span class="user_color" style="background-color: <%= event_source[:color] %>"></span>
-                  <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}  %>
+                  <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids'  %>
                   <%= label_tag "user_ids[#{event_source[:user_name]}]", event_source[:user_name] %>
                 </li>
                 <% end %>
@@ -39,11 +44,36 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
+  var formatAMPM = function(date) {
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    var strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
+  };
+
   var events = {};
   var eventsSources = <%= @event_sources.to_json.html_safe %>;
+  var current_user_id = "<%= @user.id %>";
   $('#new_modal').click(function(event){
     $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
+    var sd = new Date();
+    var ed = new Date();
+        ed.setHours(ed.getHours()+1);
+    var start_date = (sd.getMonth()+1)+'/'+sd.getDate()+'/'+sd.getFullYear();
+    var start_time = formatAMPM(sd);
+    var end_date = (ed.getMonth()+1)+'/'+ed.getDate()+'/'+ed.getFullYear();
+    var end_time = formatAMPM(ed);
+
+    $('#modal-window').find('#event_start_date').val(start_date);
+    $('#modal-window').find('#event_start_time').val(start_time);
+    $('#modal-window').find('#event_end_date').val(end_date);
+    $('#modal-window').find('#event_end_time').val(end_time);
   });
+
   $('.dark-small').click(function(e){
     e.preventDefault();
     bootbox.confirm("This can take a few moments, would you still like to sync your calendar now?", function(result) {
@@ -97,23 +127,36 @@ $(document).ready(function() {
     firstHour: 8
   });
 
+  $('.firm-users input').change(function (e) {
+    var user_id = $(this).val();
+    console.log('user_id', user_id);
+    if($(this).is(":checked")) {
+      $('#calendar').fullCalendar( 'addEventSource', {
+        events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
+        color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff'
+      } )
+    } else {
+      $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events)
+    }
+  });
+
   $.each(eventsSources, function (user_id, hash) {
     $('#calendar').fullCalendar( 'addEventSource', {
       events: hash.events,
       color: hash.color
-    })
+    });
+    if (current_user_id != user_id) {
+      $('#user_ids_'+user_id).prop('checked', false).change();
+    }
   });
 
-
-  $('.firm-users input').change(function (e) {
-    var user_id = $(this).val();
+  $('#select_all').click(function(e){
+    var checkboxes = $('.user_ids');
     if($(this).is(":checked")) {
-      $('#calendar').fullCalendar( 'addEventSource', {
-        events: eventsSources[user_id].events,
-        color: eventsSources[user_id].color
-      } )
+      checkboxes.prop('checked', false).change();
+      checkboxes.prop('checked', true).change();
     } else {
-      $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events)
+      checkboxes.prop('checked', false).change()
     }
   });
 

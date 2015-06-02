@@ -48,9 +48,27 @@ class GoogleCalendars
       while true
         events = google_calendar.data.items
         events.each do |e|
+          p "Event_from_Google: #{e.inspect}!!!!"
           google_event = Event.where(google_id: e['id'], owner_id: user.id).first_or_initialize
           p "google_event: #{google_event.inspect}\n\n\n"
           next if google_event.etag.present? && google_event.etag == e['etag']
+
+          if e.try(:[],'start').try(:[], 'dateTime').present? || e.try(:[], 'start').try(:[], 'date').present?
+            start_ = e.try(:[],'start').try(:[], 'dateTime').present? ? e.try(:[],'start').try(:[], 'dateTime') : e.try(:[], 'start').try(:[], 'date')
+          elsif e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? || e.try(:[], 'originalStartTime').try(:[], 'date').present?
+            start_ = e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? ? e.try(:[], 'originalStartTime').try(:[], 'dateTime') : e.try(:[], 'originalStartTime').try(:[], 'date')
+          else
+            start_ = e['created']
+          end
+
+          if e.try(:[],'end').try(:[], 'dateTime').present? || e.try(:[], 'end').try(:[], 'date').present?
+            end_ = e.try(:[],'end').try(:[], 'dateTime').present? ? e.try(:[],'end').try(:[], 'dateTime') : e.try(:[], 'end').try(:[], 'date')
+          elsif e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? || e.try(:[], 'originalStartTime').try(:[], 'date').present?
+            end_ = e.try(:[], 'originalStartTime').try(:[], 'dateTime').present? ? e.try(:[], 'originalStartTime').try(:[], 'dateTime') : e.try(:[], 'originalStartTime').try(:[], 'date')
+          else
+            end_ = e['created']
+          end
+
           google_event.update(
               {
                   etag: e['etag'],
@@ -60,9 +78,12 @@ class GoogleCalendars
                   html_link: e['htmlLink'],
                   subject: e['summary'],
                   # summary: e['summary'],
-                  all_day: e['start']['dateTime'].blank?,
-                  start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
-                  end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
+                  # all_day: e['start']['dateTime'].blank?,
+                  all_day: e.try(:[],'start').try(:[], 'dateTime').blank?,
+                  # start: e['start']['dateTime'].present? ? e['start']['dateTime'] : e['start']['date'],
+                  start: start_,
+                  # end: e['end']['dateTime'].present? ? e['end']['dateTime'] : e['end']['date'],
+                  end: end_,
                   end_time_unspecified: e['endTimeUnspecified'],
                   transparency: e['transparency'],
                   visibility: e['visibility'],
@@ -76,8 +97,10 @@ class GoogleCalendars
           )
 
           e['attendees'].each do |attrs|
-              contact = Contact.find_or_initialize_by(email: attrs['email'])
-              contact.update(email: attrs['email'], type: 'General')
+              contact = Contact.find_by_email(attrs['email'])
+              if !contact
+                contact = General.create(email: attrs['email'], user_id: user.id, firm_id: user.firm.id)
+              end
               attendee = EventAttendee.create({
                                                   event_id: google_event.id,
                                                   display_name: attrs['displayName'],
@@ -165,7 +188,7 @@ class GoogleCalendars
       return if !event.valid?
       google_attendees = []
       google_event = {
-          status: event.status,
+          # status: event.status,
           summary: event.subject,
           # subject: event.summary,
           location: event.location,
@@ -187,17 +210,26 @@ class GoogleCalendars
       end
       event.event_attendees.each do |attendee|
         google_attendees << {email: attendee.contact.email,
-                             displayName: attendee.display_name.present? ? attendee.display_name : "#{attendee.contact.first_name} #{attendee.contact.last_name}"}
+                             displayName: attendee.display_name.present? ? attendee.display_name : attendee.contact.email}
       end
 
       client = init_client(user)
       calendar = client.discovered_api('calendar', 'v3')
-      create_google_event = client.execute(
-          :api_method => calendar.events.patch,
-          :parameters => {'calendarId' => event.google_calendar_id, 'eventId' => event.google_id, 'sendNotifications' => true},
-          :body_object => google_event,
-          :headers => {'Content-Type' => 'application/json'})
+      if event.google_id.present? && event.etag.present?
+        create_google_event = client.execute(
+            :api_method => calendar.events.patch,
+            :parameters => {'calendarId' => event.google_calendar_id, 'eventId' => event.google_id, 'sendNotifications' => true},
+            :body_object => google_event,
+            :headers => {'Content-Type' => 'application/json'})
+      else
+        create_google_event = client.execute(
+            :api_method => calendar.events.insert,
+            :parameters => {'calendarId' => event.google_calendar_id, 'sendNotifications' => true},
+            :body_object => google_event,
+            :headers => {'Content-Type' => 'application/json'})
+      end
       response = JSON.parse(create_google_event.response.env[:body])
+
       if create_google_event.response.status.to_i == 200
         event.update({
                          etag: response['etag'],
@@ -213,7 +245,7 @@ class GoogleCalendars
         errors = []
         response['error']['errors'].map {|error| errors << error['message']}
         event.errors.add(:google_calendar_id, errors.to_sentence)
-        event.destroy!
+        # event.destroy!
       end
 
     end

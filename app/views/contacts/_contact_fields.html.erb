@@ -1,0 +1,28 @@
+  <tr class="nested-fields contact-fields">
+    <td>
+      <%= f.input :name, label: false, :class => 'table-input', :readonly => true %>
+    </td>
+     <td>
+      <%= f.input :type, label: false, :class => 'table-input', :readonly => true %>
+    </td>
+    <td>
+      <%= f.input :email, label: false, :class => 'table-input', :readonly => true %>
+    </td>
+    <td>
+      <%= f.input :phone_number, label: false, :readonly => true %>
+    </td>
+    <td class="contact-icon">
+      <%= link_to_remove_association f, class: 'remove_contacts remove' do %><span class="glyphicon glyphicon-remove" original-title="Remove Contact from Company"></span><% end %>
+    </td>
+  </tr>
+
+<script type="text/javascript" charset="utf-8">
+  $("select").select2();
+  $('#contacts').on('cocoon:after-remove', function(e, insertedItem) {
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('.remove').tipsy({gravity: 's', fade: true});
+  });
+</script>

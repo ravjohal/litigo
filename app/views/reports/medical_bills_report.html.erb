@@ -28,8 +28,7 @@
 <div class="span6">
   <%= render template: 'dossier/reports/show', locals: {report: @medical_bills_report.run} %>
 </div>
-
-  <script>
-    $(document).ready(function() { $("select").select2();
+<script>
+    $(document).ready(function() { $("select").select2({allowClear: true});
         });
   </script>

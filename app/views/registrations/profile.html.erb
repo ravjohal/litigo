@@ -24,7 +24,7 @@
 </div>
 
 
-<div class="profile">
+<div class="profile" style="margin-bottom: 300px;">
   <h3>Profile</h3>
   <%= form_for @user, :url => users_update_profile_path(@user) do |f| %>
      <div class="form-group">
@@ -44,9 +44,18 @@
       <%= f.email_field :email, class: 'form-control' %>
     </div>
     <div class="form-group">
+      <%= f.label :events_color %>
+      <%= f.text_field :events_color, class: 'form-control' %>
+    </div>
+    <div class="form-group">
       <%= f.label :role, 'Firm Role' %>
       <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}, {}, {:disabled => !@user.admin?, :class => "table-input"}) %>
     </div>
     <%= f.submit 'Update', :class => "sub2-small pull-right" %>
   <% end %>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#user_events_color").colorpicker();
+  });
+</script>

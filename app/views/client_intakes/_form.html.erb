@@ -44,18 +44,58 @@
         <strong>Caller Phone Number:</strong>
       </td>
       <td>
-        <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(925) 555-1234' %>
+        <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(___) ___-____' %>
       </td>
     </tr>
+     <tr>
+    <td>
+      <strong>Address:</strong>
+    </td>
+    <td>
+      <%= f.text_field :address, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>City:</strong>
+    </td>
+    <td>
+      <%= f.text_field :city, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
     <tr>
+    <td>
+      <strong>State:</strong>
+    </td>
+    <td>
+      <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
+    </td>
+    </tr>
+    <tr>
+    <td>
+      <strong>Zip Code:</strong>
+    </td>
+    <td>
+      <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
         <tr>
       <td>
         <strong>How did you hear about us?</strong>
       </td>
       <td>
-         <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '' %>
+         <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '', :onchange => 'Hide(this.value)' %>
       </td>
     </tr>
+     <tr id="phone_book">
+      <td>
+        <strong>Which Phone Book:</strong>
+      </td>
+      <td>
+         <%= f.text_field :phone_book, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    
     <tr>
       <td>
         <strong>Note:</strong>
@@ -92,4 +132,15 @@
     $("#lead_select, td select").select2();
     $('#lead_phone').mask("(999) 999-9999");
   });
+</script>
+<script type="text/javascript">
+$("#phone_book").hide();
+  $("select").bind("change", function() {
+    if ($(this).val() == "Phone book") {
+        $("#phone_book").show();
+    }
+    else {
+        $("#phone_book").hide();
+    }
+});
 </script>

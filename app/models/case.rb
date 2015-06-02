@@ -38,7 +38,8 @@ class Case < ActiveRecord::Base
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
-  attr_accessor :current_user_id
+  attr_accessor :current_user_id, :attorney, :adjuster, :plaintiff, :defendant,
+                :staff, :judge, :witness, :expert, :physician, :general, :company
   after_create :import_tasks
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date
@@ -82,11 +83,11 @@ class Case < ActiveRecord::Base
   end
 
   def self.increment_number(firm_, action_, case_)
-    puts "ACTION NAME " + action_ 
+#    puts "ACTION NAME " + action_ 
     if action_ != "edit"
-      puts " MAX NUM: " + firm_.cases.maximum(:case_number).to_s
+#      puts " MAX NUM: " + firm_.cases.maximum(:case_number).to_s
       new_number = firm_.cases.maximum(:case_number).to_i + 1
-      puts "INCREMENT NUMBER FIRM: " + firm_.to_s + "   and NUMBER: " + new_number.to_s
+#      puts "INCREMENT NUMBER FIRM: " + firm_.to_s + "   and NUMBER: " + new_number.to_s
       new_number.to_i
     else
       case_.case_number
@@ -120,28 +121,37 @@ class Case < ActiveRecord::Base
     self.medical.injuries.where(primary_injury: true).try(:first) if self.medical.present? && self.medical.injuries.present?
   end
 
-  def plaintiff
-    self.plaintiffs.find_by(type: 'Plaintiff')
-  end
+  # def plaintiff
+  #   self.plaintiffs.find_by(type: 'Plaintiff')
+  # end
+
 
   def calculate_sol(model, options=nil)
     if state == 'OH'
-      if model.class.name == 'Plaintiff'
-        if options[:date_of_death_changed] && case_type == 'Wrongful Death'
-          self.update(statute_of_limitations: model.date_of_death + 2.years, sol_priority: 1) if statute_of_limitations.blank? || (model.date_of_death + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 1))
-        elsif options[:major_date_changed] && model.minor
-          self.update(statute_of_limitations: model.major_date + 2.years, sol_priority: 2) if statute_of_limitations.blank? || (model.major_date + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 2))
+      if model.class.name == 'CaseContact' && model.role == 'Plaintiff'
+        plaintiffs_contacts = self.case_contacts.where(role: 'Plaintiff').collect {|cc| cc.contact}
+        if case_type == 'Wrongful Death'
+          if options.present? && options[:date_of_death_changed]
+            min_death_date = plaintiffs_contacts.map { |d| d.date_of_death }.min
+            self.update(statute_of_limitations: min_death_date + 2.years, sol_priority: 1) if min_death_date.present? && (statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 1))
+          end
+        elsif case_type == 'Personal Injury'
+          if options.present? && options[:major_date_changed] && model.contact.minor
+            min_major_date = plaintiffs_contacts.map { |d| d.major_date }.min
+            self.update(statute_of_limitations: min_major_date + 2.years, sol_priority: 2) if min_major_date.present? && (statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 2))
+          end
         end
       elsif model.class.name == 'Incident'
-        if subtype == 'Medical Malpractice'
-          self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 3) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 3)
-        elsif subtype == 'Intentional Tort'
-          self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 4) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 4)
-        elsif subtype == 'Insurance Bad Faith'
-          self.update(statute_of_limitations: model.incident_date + 4.years, sol_priority: 5) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 5)
-        end
         if case_type == 'Personal Injury'
-          self.update(statute_of_limitations: model.incident_date + 2.years, sol_priority: 6) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 6)
+          if subtype == 'Medical Malpractice'
+            self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 3) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 3)
+          elsif subtype == 'Intentional Tort'
+            self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 4) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 4)
+          elsif subtype == 'Insurance Bad Faith'
+            self.update(statute_of_limitations: model.incident_date + 4.years, sol_priority: 5) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 5)
+          else
+            self.update(statute_of_limitations: model.incident_date + 2.years, sol_priority: 6) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 6)
+          end
         end
       end
     end
@@ -150,31 +160,29 @@ class Case < ActiveRecord::Base
   def check_sol
     if state == 'OH'
       if sol_priority != 0
+        plaintiffs_contacts = self.case_contacts.where(role: 'Plaintiff').collect {|cc| cc.contact}
         self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
-        if subtype == 'Medical Malpractice'
-          self.assign_attributes(statute_of_limitations: incident.incident_date + 1.years, sol_priority: 3) if incident.present? && incident.incident_date.present?
-        elsif subtype == 'Intentional Tort'
-          self.assign_attributes(statute_of_limitations: incident.incident_date + 1.years, sol_priority: 4) if incident.present? && incident.incident_date.present?
-        elsif subtype == 'Insurance Bad Faith'
-          self.assign_attributes(statute_of_limitations: incident.incident_date + 4.years, sol_priority: 5) if incident.present? && incident.incident_date.present?
-        end
-        if case_type == 'Wrongful Death'
-          if self.plaintiffs.present?
-            self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
-            self.plaintiffs.each do |plaintiff|
-              if plaintiff.date_of_death.present?
-                self.assign_attributes(statute_of_limitations: plaintiff.date_of_death + 2.years, sol_priority: 1) if statute_of_limitations.blank? || (plaintiff.date_of_death + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 1))
-              elsif plaintiff.major_date.present? && plaintiff.minor
-                self.assign_attributes(statute_of_limitations: plaintiff.major_date + 2.years, sol_priority: 2) if statute_of_limitations.blank? || (plaintiff.major_date + 2.years > statute_of_limitations && (sol_priority.blank? || sol_priority >= 2))
-              end
-            end
+        if case_type == 'Personal Injury'
+          if subtype == 'Medical Malpractice'
+            self.assign_attributes(statute_of_limitations: incident.incident_date + 1.years, sol_priority: 3) if incident.present? && incident.incident_date.present?
+          elsif subtype == 'Intentional Tort'
+            self.assign_attributes(statute_of_limitations: incident.incident_date + 1.years, sol_priority: 4) if incident.present? && incident.incident_date.present?
+          elsif subtype == 'Insurance Bad Faith'
+            self.assign_attributes(statute_of_limitations: incident.incident_date + 4.years, sol_priority: 5) if incident.present? && incident.incident_date.present?
+          else
+            self.assign_attributes(statute_of_limitations: self.incident.incident_date + 2.years, sol_priority: 6) if self.incident.present? && self.incident.incident_date.present? && (sol_priority.blank? || sol_priority >= 6)
           end
-        elsif case_type == 'Personal Injury'
-          self.assign_attributes(statute_of_limitations: self.incident.incident_date + 2.years, sol_priority: 6) if self.incident.present? && self.incident.incident_date.present? && (sol_priority.blank? || sol_priority >= 6)
+        if plaintiffs_contacts.present?
+          min_major_date = plaintiffs_contacts.map { |d| d.major_date }.min
+          self.assign_attributes(statute_of_limitations: min_major_date + 2.years, sol_priority: 2) if min_major_date.present? && (statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 2))
         end
-        # if statute_of_limitations_changed?
-        #   self.recalculate_sol_tasks(self.statute_of_limitations)
-        # end
+        elsif case_type == 'Wrongful Death'
+          if plaintiffs_contacts.present?
+            self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
+            min_death_date = plaintiffs_contacts.map { |d| d.date_of_death }.min
+            self.assign_attributes(statute_of_limitations: min_death_date + 2.years, sol_priority: 1) if min_death_date.present? && (statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 1))
+          end
+        end
         self.save
       end
     end
@@ -196,5 +204,25 @@ class Case < ActiveRecord::Base
         self.transfer_date = nil
       end
     end
+  end
+
+  def select_contact_role(role)
+    self.case_contacts.where(role: role.capitalize).collect { |case_contact| case_contact.contact }
+  end
+
+  def assign_case_contacts(attrs)
+    case_contacts = self.case_contacts
+    attrs.each do |k, v|
+      c_contacts = case_contacts.where(role: k.titleize).to_a
+      v.reject(&:empty?).each do |contact_id|
+        CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id,  contact_id: contact_id, role: k.titleize)
+        c_contacts.delete(case_contacts.find_by(contact_id: contact_id, role: k.titleize))
+      end
+      c_contacts.each do |cc|
+        cc.destroy
+      end
+    end
+    check_sol
+    return true
   end
 end

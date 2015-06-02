@@ -11,9 +11,9 @@ class CaseSolReport < Dossier::Report
  # WHERE "notes"."firm_id" = $1 AND "contacts"."user_account_id" = 23
 
   def sql
-    Case.joins(:contacts, :incident).where("cases.firm_id = :firm_id 
-    	AND type IN ('Attorney', 'Staff')
-    	AND contacts.id IN :attorney_contact_id 
+    Case.joins(:case_contacts, :incident).where("cases.firm_id = :firm_id 
+    	AND case_contacts.role IN ('Attorney', 'Staff')
+    	AND case_contacts.contact_id IN :attorney_contact_id 
     	AND cast(statute_of_limitations as date) between :start_date and :end_date"
     	).group("cases.id").select("case_number, name, subtype, statute_of_limitations, filed_suit_date"
     	).to_sql
@@ -28,8 +28,15 @@ class CaseSolReport < Dossier::Report
  #   	AND cast(statute_of_limitations as date) between '2015-04-01' and '2015-04-30')
   end
 
+  def format_header(column_name)
+    custom_headers = {
+      name:'Case Name',
+    }
+    custom_headers.fetch(column_name.to_sym) { super }
+  end
+
   def format_case_number(value, row)
-    formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.case_path(:id => Case.find_by_case_number(value))
+    formatter.url_formatter.link_to value, formatter.url_formatter.url_helpers.case_path(:id => Case.find_by(:case_number => value, :firm_id => firm_id))
   end
 
   def firm_id

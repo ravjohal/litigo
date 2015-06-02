@@ -11,7 +11,7 @@
               </ul>
           </div>
     </div>
-    <strong><%= @contact.type_with_spacing %></strong>
+    <strong><%= @contact.type %></strong>
     
         <div class="container-fluid" style="padding: 0;">
               <div class="row">
@@ -162,18 +162,10 @@
           <strong>Contact Type:</strong>
         </td>
         <td colspan="3">
-          <%= f.select :type, Contact::TYPES, :class => 'table-input', :input_html => {value: (f.object.type == "ExpertWitness" ? "Expert Witness" : f.object.type)} %>      
+          <%= f.select :type, Contact::TYPES, :class => 'table-input'%>
         </td>
         </tr>
       <% end %>
-        <tr>
-        <td class="right">
-          <strong>Corporation?</strong>
-        </td>
-        <td colspan="3">
-                <%= f.check_box :corporation, label: false %>
-        </td>
-      </tr> 
       <tr>
        <td class="right">
           <strong>Prefix:</strong>
@@ -217,7 +209,6 @@
             </div>
         </td>
         </tr>
-<% if @contact.type == 'Plaintiff' %>
       <tr>
         <td class="right">
           <strong>Date of Birth:</strong>
@@ -304,7 +295,7 @@
               <%= f.select :time_bound, ['Year', 'Hour'], label: false, :class => 'table-input', :include_blank => '' %>
         </td>
         </tr>
-<% elsif @contact.type == 'ExpertWitness' %>
+<% if @contact.type == 'Expert' %>
         <tr>
          <td class="right">
           <strong>Occupation:</strong>
@@ -338,7 +329,7 @@
           <strong>Company: </strong><span style="float: right;" id="company" title="You must first create a company before linking a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
         </td>
         <td>
-              <%= f.association :company, :collection => @firm.companies, :class => 'table-input', label: false %>
+              <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda {|company| "#{company.company_name}"}, :class => 'table-input', label: false %>
         </td>
       </tr> 
     

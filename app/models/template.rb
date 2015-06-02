@@ -50,8 +50,8 @@ class Template < ActiveRecord::Base
           name: 'Contacts',
           attrs: [
               {name: 'Prefix', attr: 'prefix', model: 'Custom'},
-              {name: 'Contact Name', attr: 'name', model: 'Contact'},
-              {name: 'Contact Firm Name', attr: 'first_name', model: 'Contact'},
+              {name: 'Contact Full Name', attr: 'name', model: 'Contact'},
+              {name: 'Contact First Name', attr: 'first_name', model: 'Contact'},
               {name: 'Contact Last Name', attr: 'last_name', model: 'Contact'},
               {name: 'Contact Email', attr: 'email', model: 'Contact'},
               {name: 'Contact Phone', attr: 'phone', model: 'Contact'},

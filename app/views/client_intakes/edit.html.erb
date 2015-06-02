@@ -55,12 +55,24 @@
     <td>
         <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '' %>
     </td>
-        <td class="right">
-      <strong>Referred by:</strong>
+        
+<% if @lead.marketing_channel == 'Phone book' %>
+ <td class="right">
+      <strong>Phone book:</strong>
+    </td>
+    <td>
+      <%= f.text_field :phone_book, label: false, :class => 'table-input' %>
+    </td>
+<% elsif @lead.marketing_channel == 'Referral' %>
+    <td class="right">
+      <strong>Referring Attorney:</strong>
     </td>
     <td>
       <%= f.text_field :referred_by, label: false, :class => 'table-input' %>
     </td>
+<% else %>
+  <td colspan="2"></td>
+<% end %>
   </tr>
   <tr>
   <td>

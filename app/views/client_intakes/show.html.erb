@@ -61,12 +61,23 @@
     <td>
         <%= @lead.marketing_channel %>
     </td>
-        <td class="right">
-      <strong>Referred by:</strong>
+<% if @lead.marketing_channel == 'Phone book' %>
+ <td class="right">
+      <strong>Phone book:</strong>
+    </td>
+    <td>
+      <%= @lead.phone_book %>
+    </td>
+<% elsif @lead.marketing_channel == 'Referral' %>
+    <td class="right">
+      <strong>Referring Attorney:</strong>
     </td>
     <td>
       <%= @lead.referred_by %>
     </td>
+<% else %>
+  <td colspan="2"></td>
+<% end %>
   </tr>
   <tr>
   <td>

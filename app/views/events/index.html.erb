@@ -6,6 +6,7 @@
             <button class="btn btn-default dropdown-toggle-users"  data-placeholder="Please select">Select Users <span class="caret"></span></button>
               <ul class="dropdown-menu firm-users" style="left: 0px;">
                 <li>
+                  <span class="user_color" style="background-color: #ffffff"></span>
                   <%= check_box_tag "select_all"  %>
                   <%= label_tag "select_all" %>
                 </li>
@@ -128,10 +129,11 @@ $(document).ready(function() {
 
   $('.firm-users input').change(function (e) {
     var user_id = $(this).val();
+    console.log('user_id', user_id);
     if($(this).is(":checked")) {
       $('#calendar').fullCalendar( 'addEventSource', {
-        events: eventsSources[user_id].events,
-        color: eventsSources[user_id].color
+        events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
+        color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff'
       } )
     } else {
       $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events)
@@ -148,11 +150,11 @@ $(document).ready(function() {
     }
   });
 
-  $('#select_all').change(function(e){
+  $('#select_all').click(function(e){
     var checkboxes = $('.user_ids');
     if($(this).is(":checked")) {
-      checkboxes.prop('checked', false).change()
-      checkboxes.prop('checked', true).change()
+      checkboxes.prop('checked', false).change();
+      checkboxes.prop('checked', true).change();
     } else {
       checkboxes.prop('checked', false).change()
     }

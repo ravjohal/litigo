@@ -219,7 +219,7 @@ class ContactsController < ApplicationController
       end
 
     def case_contacts_params
-      params.require(:case).permit(:case_id, :firm_id, :attorney => [], :adjuster => [], :plaintiff => [], :defendant => [],
+      params.require(:case).permit(:case_id, :firm_id, :note => [], :attorney => [], :adjuster => [], :plaintiff => [], :defendant => [],
                                    :staff => [], :judge => [], :witness => [], :expert => [], :physician => [], :general => [], :company => [])
     end
 

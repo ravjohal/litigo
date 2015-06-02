@@ -65,7 +65,7 @@ class CasesDatatable
   end
 
   def sort_column
-    columns = %w[name case_number case_type total_med_bills description status]
+    columns = %w[case_number name case_type total_med_bills description status]
     columns[params[:iSortCol_0].to_i]
   end
 

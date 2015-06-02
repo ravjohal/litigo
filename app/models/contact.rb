@@ -13,7 +13,7 @@ class Contact < ActiveRecord::Base
   belongs_to :lead
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
-  before_save :check_sol
+  after_save :check_sol
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
 

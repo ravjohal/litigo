@@ -271,11 +271,15 @@ class Case < ActiveRecord::Base
   end
 
   def assign_case_contacts(attrs)
-    case_contacts = self.case_contacts
-    attrs.each do |k, v|
-      c_contacts = case_contacts.where(role: k.titleize).to_a
-      v.reject(&:empty?).each do |contact_id|
-        CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id,  contact_id: contact_id, role: k.titleize)
+    case_contacts = self.case_contacts #grab the existing case_contacts that are associated with the case
+    #p "CASE CONTACTS ATTRS -------------------------------------------------------> " + attrs.inspect
+    attrs.each do |k, v| #go thru each attrs hash that came from strong parameters
+      c_contacts = case_contacts.where(role: k.titleize).to_a  unless k.contains("_note") #store all the case_contacts for each role type into variable
+      #p "c_contacts = >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + c_contacts.inspect
+      v.reject(&:empty?).each do |contact_id| #for each contact_id within case_contact
+        #p "VALUE of CASE CONTACTS ===============================================================> " + contact_id.to_s
+        if k
+        CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id,  contact_id: contact_id, role: k.titleize) #update or create CaseContact
         c_contacts.delete(case_contacts.find_by(contact_id: contact_id, role: k.titleize))
       end
       c_contacts.each do |cc|

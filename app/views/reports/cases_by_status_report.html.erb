@@ -29,6 +29,6 @@
   <%= render template: 'dossier/reports/show', locals: {report: @cases_by_status_report.run} %>
 </div>
 <script>
-    $(document).ready(function() { $("select").select2({allowClear: true});
+    $(document).ready(function() { $("select").select2({allowClear: true, placeholder: 'All'});
         });
   </script>

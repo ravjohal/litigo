@@ -38,6 +38,14 @@
               <%= f.select :staff, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:staff).map(&:id)), {prompt: "Select #{:staff}"}, {:class => 'contacts_select', :multiple => true} %>
             </td>
           </tr>
+            <tr>
+        <td class="col-one">
+           <strong>State:</strong>
+        </td>
+        <td>
+        <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input', :include_blank => true %>
+        </td>
+      </tr>
           <tr>
                 <td>
                   <Strong>Case Type:</Strong>
@@ -99,7 +107,7 @@
 <% end %>
 
   <script>
-    $(document).ready(function() { $("td select").select2();
+    $(document).ready(function() { $("td select").select2({allowClear: true});
         });
     $('#case_case_type').on('change', function() {
       var conceptName = $('#case_case_type').find(":selected").text();

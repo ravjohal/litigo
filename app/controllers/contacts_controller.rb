@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
   before_filter :authenticate_user!
+  before_action :get_case, only: [:assign_contacts, :update_case_contacts]
+  before_action :case_contacts_params, only: [:update_case_contacts]
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
 
@@ -7,11 +9,11 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     if get_case
-      @contacts = @case.contacts
+      @contacts = @case.contacts.where.not(:type => "Company")
       @new_path = new_case_contact_path(@case)
       @contacts_a = [@case, Contact.new] #for modal partial rendering
     else
-      @contacts = @firm.contacts
+      @contacts = @firm.contacts.where.not(:type => "Company")
       @new_path = new_contact_path
       @contacts_a = Contact.new #for modal partial rendering
     end
@@ -42,17 +44,21 @@ class ContactsController < ApplicationController
   # POST /contacts.json
   def create
 
-    if contact_params[:type] == 'Expert Witness'
-      expert_witness = contact_params[:type]
-      expert_witness = 'ExpertWitness'
-      # contact_attrs[:type] = 'ExpertWitness'
-      # contact_params = contact_attrs
-      params[:contact][:type] = expert_witness.gsub(/\s+/, "")
-    end
+    # if contact_params[:type] == 'Expert Witness'
+    #   expert_witness = contact_params[:type]
+    #   expert_witness = 'ExpertWitness'
+    #   # contact_attrs[:type] = 'ExpertWitness'
+    #   # contact_params = contact_attrs
+    #   params[:contact][:type] = expert_witness.gsub(/\s+/, "")
+    # end
 
     if get_case
       @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)
       path_contacts =  case_contacts_path
+      @contact.case_contacts.each do |case_contact|
+        case_contact.role = @contact.type
+        case_contact.save!
+      end
     else
       @contact = Contact.new(contact_params)
       path_contacts = contacts_path
@@ -86,8 +92,6 @@ class ContactsController < ApplicationController
     @contact.user = @user
     #puts "CONTACT UPDATE ------------------ BEFORE SAVE: " + contact_params[:type]
     
-    #contact_params[:type] = contact_params[:type_with_spacing]
-
     if contact_params[:type] == 'Expert Witness'
       expert_witness = contact_params[:type]
       expert_witness = 'ExpertWitness'
@@ -103,9 +107,12 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update(contact_params)
-       # puts "CONTACT UPDATE ------------------ AFTER SAVE: " + @contact.type
-        format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
-        format.json { render :show, status: :ok, location: @contact }
+        if @contact.type == "Company"
+          format.html { redirect_to company_path(@contact), notice: 'Company was successfully updated.' }
+        else 
+          format.html { redirect_to @contact, notice: 'Company was successfully updated.' }
+          format.json { render :show, status: :ok, location: @contact }
+        end
       else
         format.html { render :edit }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
@@ -141,6 +148,60 @@ class ContactsController < ApplicationController
     end
   end
 
+  def assign_contacts
+    if @case
+    @contacts = {}
+    Contact::TYPES.each do |contact_type|
+      @contacts[contact_type.downcase] = @case.select_contact_role(contact_type)
+    end
+    else
+      redirect_to root_path
+    end
+  end
+
+  def update_case_contacts
+    logger.info "case_contacts_params: #{case_contacts_params}\n\n\n"
+    respond_to do |format|
+      if @case.assign_case_contacts(case_contacts_params)
+        format.html { redirect_to case_contacts_path(@case), notice: 'Contact was successfully updated.' }
+        format.json { render :show, status: :ok, location: @contact }
+      end
+    end
+  end
+
+  def companies
+    @companies = @firm.contacts.where(:type => "Company")
+    @companies_a = Company.new #for modal partial rendering
+  end
+
+  def show_company
+#    puts "parameters: ------------------------>>>>>>>>>>>>> " + Contact.find(params[:id]).inspect
+    @company = Contact.find(params[:id])
+    @contacts = @company.contacts
+    if @company.website
+      if @company.website.include? "http"
+        website_ = String.new(@company.website) # copy so that we will not slice original
+        website_.slice! "http://"
+        @website = website_
+      else
+        @website = @company.website
+      end
+    end
+    @company_city_state = @company.city
+  end
+
+  def edit_company
+    @company = Contact.find(params[:id])
+  end
+
+  def remove_contact
+    contact = Contact.find_by_id(params[:id])
+    contact.company = ""
+    contact.save
+
+    redirect_to :back
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -149,11 +210,17 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
+      params.require(:contact).permit(:company_name, :first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 
-                                      :firms_attributes => [:name, :address, :zip])
+                                      :firms_attributes => [:name, :address, :zip],
+                                      :contacts_attributes => [:id, :_destroy, :company_id])
+      end
+
+    def case_contacts_params
+      params.require(:case).permit(:case_id, :firm_id, :attorney => [], :adjuster => [], :plaintiff => [], :defendant => [],
+                                   :staff => [], :judge => [], :witness => [], :expert => [], :physician => [], :general => [], :company => [])
     end
 
 end

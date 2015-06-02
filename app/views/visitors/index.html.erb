@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Litigo | Legal Software" %></title>
-    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Litigo | Legal Software" %>">
+    <title><%= content_for?(:title) ? yield(:title) : "Litigo | Case Management" %></title>
+    <meta name="description" content="Legal case management software for persoanl injury lawyers. Sync your Google calendar, manage case files, upload documents, and track time and expense.">
     <%= stylesheet_link_tag 'homepage', media: 'all', 'data-turbolinks-track' => true %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
@@ -33,132 +33,113 @@
                           <li><%= link_to 'About', about_path %></li>
                           <li><%= link_to 'Pricing', pricing_path %></li>
                           <li><%= link_to 'Contact', contactlitigo_path %></li>
-                          <li style="color:white; font-size:12px; font-weight: 400; padding-right: 15px; opacity: .6; letter-spacing: 1px;">Questions? (937) 272-7538</li>
+                          <li style="color:white; font-size:12px; font-weight: 400; padding-right: 15px; opacity: .6; letter-spacing: 1px;">Questions? (888) 444-2317</li>
                       </ul>
               </div>
       </div>
     </div>
     </header>
 
-<div class="wood-back">
-</div>
-    <div class="shadow"></div>
-      <div class="tagline">
-      Case management made simple
+<div class="row six-hud">
+  <div class="col-md-12">
+    <div class="wood-back">
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    <div class="tagline">
+          Case Management Made Simple
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12">
+          <div class="trial">
+              LEGAL INSIGHTS TO BUILD A WINNING CASE
+          </div>
       </div>
-      <div class="sub-mission">
-          Intuitive <span style="margin-right:20px; margin-left:20px;">|</span> Secure <span style="margin-right:20px; margin-left:20px;">|</span> Robust
-      </div>
-      <div class="trial">
-          SIGN UP FOR A FREE TRIAL
-      </div>
+  </div>
       <div class="formarea">
         <%= form_tag new_user_registration_path, :method => "get" do %>
-          <%= submit_tag "START FREE TRIAL", :class => "sub-btn" %>
+          <%= submit_tag "SIGN UP FOR A FREE TRIAL", :class => "sub-btn" %>
         <% end %>
-
       </div>
-      <div class="mission">
-          <p>Software shouldn't look like it was made in 1998.</p>
-      </div>
-      <div class="section-two">
-            <div class="section-two-container">
-                <div class="row">
-                      <div class="col-sm-4 col-md-4">
-                          <div class="text-center">
-                                <span class="glyphicon glyphicon-signal icon"></span>
-                                <div class="icon-text">
-                                    Intuitive
-                                </div>
-                                <div class="feature-list">
-                                  <ul>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Clean Design</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Print Friendly Views</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Shallow Learning Curve</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Product Tours</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Free Tech Support</li>
-                                  </ul>
-                                </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-4 col-md-4">
-                          <div class="text-center">
-                                <span class="glyphicon glyphicon-lock icon"></span>
-                                <div class="icon-text">
-                                    Secure
-                                </div>
-                                <div class="feature-list">
-                                  <ul>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Bank Level Security</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>SSL Encryption</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Data Redundancy</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Always Backed-up</li>
-                                  </ul>
-                                </div>
-                          </div>
-                      </div>
-                      <div class="col-sm-4 col-md-4">
-                          <div class="text-center">
-                                <span class="glyphicon glyphicon-folder-open icon"></span>
-                                <div class="icon-text">
-                                    Robust
-                                </div>
-                                <div class="feature-list">
-                                  <ul>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Web-based</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Document Management</li>
-                                    <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Task Management</li>
-                                      <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Google Calendar Sync</li>
-                                        <li><span class="glyphicon glyphicon-ok" style="margin-right: 10px; font-size:90%;"></span>Contact Management</li>
-                                  </ul>
-                                </div>
-                          </div>
-                      </div>
-                </div> <!-- row div -->
-            </div> <!-- section-two-container div -->
-      </div> <!-- section-two div -->
-      <div class="section-three">
-          <div class="section-three-container">
-                <div class="row">
-                      <div class="col-md-7">
-                            <div class="computer">
-                              <div class="slider-container">
-                                      <div class="slide"><img src="/assets/cases.png"></div>
-                                      <div class="slide"><img src="/assets/details.png"></div>
-                                      <div class="slide"><img src="/assets/insight.png"></div>
-                                </div>
-                            </div>
-                      </div>
-                      <div class="col-md-5">
-                            <div class="computer-text">
-                            <div style="margin-bottom: 30px;">
-                           Organize your cases, contacts, documents and notes in a secure place</div>
-                           <div style="margin-bottom: 30px;">
-                            Easily access active or past cases, contacts, and documents with a simple search
-                            </div>
-                            Visually map 1,000s of past cases and read case summaries to learn what drives case value<br>
-                            
-                                <div class="second-btn">
-                                    <%= form_tag new_user_registration_path, :method => "get" do %>
-                                      <%= submit_tag "START FREE TRIAL", :class => "sub-btn" %>
-                                    <% end %>
-                                </div>
-                            </div>
-                      </div>
-                </div> <!-- row div -->
-          </div> <!-- section container div -->
-      </div> <!-- section-three div -->
-      </div>
-        <div class="quote-container">
-              <div class="valueprop">"Case management software provides attorneys with a convenient method of effectively managing client and case information, including contacts, calendaring, documents in law practices."<br><p class="small">- American Bar Association</p>
+</div>
+      <div class="row">
+          <div class="col-md-12 text-center">
+              <div class="why-litigo">
+                  Why Choose Litigo?
               </div>
+              <div class="row">
+                    <div class="col-md-2 col-sm-2">
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                      <div class="why-head">
+                            <span class="glyphicon glyphicon-folder-open icon"></span><br>
+                        Built for Personal Injury.</div>
+                        <p class="why-text">We threw out all the extra fields that never got used and added features like medical bill capture, treatment history, and caller intake.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="why-head">
+                              <span class="glyphicon glyphicon-usd icon"></span><br>
+                        Cost Effective.</div>
+                        <p class="why-text">Just $15 per user / month - perfect for small law firms. Price includes support, upgrades, and unlimited document storage - with no hidden fees.</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                    </div>
+              </div>
+                 <div class="row">
+                 <div class="col-md-2 col-sm-2">
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                          <div class="why-head">
+                            <span class="glyphicon glyphicon-globe icon"></span><br>
+                        Web-based Software.
+                        </div>
+                        <p class="why-text">Access case information from your work, home, or phone. Connect using Secure Sockets Layer (SSL) encryption to safely access your case files 24/7.</p>
+                    </div>
+                    <div class="col-md-4 col-sm-4">
+                        <div class="why-head">
+                            <span class="glyphicon glyphicon-leaf icon"></span><br>
+                        Beautifully Designed.
+                        </div>
+                        <p class="why-text">For too long legal software has looked like it was built in 1998. Litigo is simple & intuitive ensuring you get up and running with little downtime or friction.</p>
+                    </div>
+                    <div class="col-md-2 col-sm-2">
+                    </div>
+                </div>
+              </div>
+          </div>
+    
+    <div class="row">
+        <div class="col-md-2 col-sm-2">
         </div>
-      
-
+        <div class="col-md-8 col-sm-8" style="border-top: 1px solid #ccc; margin: 50px 0;">
+        </div>
+        <div class="col-md-2 col-sm-2">
+        </div>
+    </div>      
+    
+    <div class="row">
+        <div class="col-md-3 text-center">
+        </div>
+        <div class="col-md-6 text-center">
+            <div class="join-head">
+                  See why other firms love Litigo
+            </div>
+             <div class="formarea2">
+               <%= form_tag new_user_registration_path, :method => "get" do %>
+                 <%= submit_tag "GET STARTED", :class => "sub-btn" %>
+        <% end %>
+      </div>
+        </div>
+        <div class="col-md-3 text-center">
+        </div>
     </div>
+    <div class="row">
+      <div class="col-md-12">
          <div class="ending">
               <div class="footer-container">
-                  &copy 2014 Litigo Inc.
+                  &copy 2015 Litigo Inc.
                   <div id="footer-links">
                       <ul id="footer-links">
                           <li><%= link_to 'About', about_path %></li>
@@ -171,17 +152,8 @@
                       <%= link_to 'Privacy Policy', privacy_path %>
                     </p>
               </div>
+          </div>
         </div>
-
-  <script type="text/javascript">
-        $(document).ready(function(){
-            $('.slider-container').slick({
-              dots: true,
-              autoplay: true,
-              autoplaySpeed: 3000,
-              arrows: false,
-            });
-        });
-  </script>
+    </div>
   </body>
 </html>

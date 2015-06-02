@@ -54,8 +54,8 @@
           <strong>Judge:</strong>
         </td>
       <td>
-          <% @case.contacts.where("type = 'Judge'").each do |d| %>
-          <%= d.first_name %> <%= d.last_name %>
+          <% @case.case_contacts.where("role = 'Judge'").each do |d| %>
+          <%= d.contact.first_name %> <%= d.contact.last_name %>
            <% end %>
       </td>
       </tr>

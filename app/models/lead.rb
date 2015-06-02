@@ -3,9 +3,10 @@ class Lead < ActiveRecord::Base
   belongs_to :attorney, class_name: 'User', :foreign_key => 'attorney_id'
   belongs_to :firm
   has_one :case
+  has_one :contact
   has_many :documents
 
-  CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Newspaper', 'Other']
+  CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Phone book', 'Other']
   STATUS = {pending_review: "New Lead - Pending Review", appointment_scheduled: "Appt. Scheduled", rejected: "Rejected", accepted: "Accepted", inactive: "Inactive"}
 
   include PgSearch
@@ -19,7 +20,7 @@ class Lead < ActiveRecord::Base
 
   def generate_case_attrs(user)
     return {
-        "name" => "#{self.last_name} dd #{self.incident_date}",
+        "name" => "#{self.last_name} #{self.incident_date}",
         "case_number" => Case.increment_number(firm, 'accept_case', nil),
         "case_type" => self.case_type,
         "subtype" => self.sub_type,
@@ -49,21 +50,21 @@ class Lead < ActiveRecord::Base
                                    "author" => user.name,
                                    "note_type" => 'Status'
                                }],
-        "contacts_attributes" => [{
-                                      "type" => 'Plaintiff',
-                                      "first_name" => self.first_name,
-                                      "last_name" => self.last_name,
-                                      "address" => self.address,
-                                      "city" => self.city,
-                                      "state" => self.state,
-                                      "zip_code" => self.zip_code,
-                                      "email" => self.email,
-                                      "phone_number" => self.phone,
-                                      "date_of_birth" => self.dob,
-                                      "encrypted_ssn" => self.ssn,
-                                      "firm_id" => self.firm_id,
-                                      "user_id" => user.id
-                                  }]
+        # "contacts_attributes" => [{
+        #                               "type" => 'Plaintiff',
+        #                               "first_name" => self.first_name,
+        #                               "last_name" => self.last_name,
+        #                               "address" => self.address,
+        #                               "city" => self.city,
+        #                               "state" => self.state,
+        #                               "zip_code" => self.zip_code,
+        #                               "email" => self.email,
+        #                               "phone_number" => self.phone,
+        #                               "date_of_birth" => self.dob,
+        #                               "encrypted_ssn" => self.ssn,
+        #                               "firm_id" => self.firm_id,
+        #                               "user_id" => user.id
+        #                           }]
     }
   end
 end

@@ -14,7 +14,7 @@ class EventsController < ApplicationController
     @users = @firm.users
     @event_sources = {}
     @users.each_with_index do |user, index|
-      hash = {user_name: user.name, color: user.color(index)}
+      hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
       user.owned_events.each do |event|
         event = {id: event.id, title: event.subject, allDay: event.all_day, start: event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}", end: event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"}
@@ -54,18 +54,47 @@ class EventsController < ApplicationController
     end
   end
 
+  # def create
+  #   logger.info "params:#{params}\n\n\n"
+  #   @event = Event.new(event_params.except!('contacts'))
+  #   @event.owner = @user
+  #   @event.firm = @firm
+  #   if @event.save
+  #     attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
+  #     if attendee_emails.present?
+  #       attendee_emails.each do |attendee_email|
+  #         contact = Contact.find_or_create_by(email: attendee_email)
+  #         event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
+  #       end
+  #     end
+  #
+  #     GoogleCalendars.create_event(@user, @event) if !params[:event][:google_calendar_id].empty?
+  #   end
+  #   message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
+  #   respond_to do |format|
+  #     format.html {redirect_to request.referrer , :flash => message}
+  #   end
+  # end
+
   # POST /events
   # POST /events.json
   def create
     logger.info "params:#{params}\n\n\n"
-    @event = Event.new(event_params.except!('contacts'))
+    timing = { start: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+               end: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p') }
+    attrs = event_params.except!('contacts', 'start_date', 'start_time', 'end_date', 'end_time').merge(timing)
+    logger.info "attrs: #{attrs}\n\n\n"
+    @event = Event.new(attrs)
     @event.owner = @user
     @event.firm = @firm
     if @event.save
       attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
       if attendee_emails.present?
         attendee_emails.each do |attendee_email|
-          contact = Contact.find_or_create_by(email: attendee_email)
+          contact = Contact.find_by_email(attendee_email)
+          if !contact
+            contact = General.create(email: attendee_email, user_id: @user.id, firm_id: @firm.id)
+          end
           event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
         end
       end
@@ -82,9 +111,15 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
-    if @event.update(event_params.except!('contacts')) && attendee_emails.present?
+    timing = { start: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+               end: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p') }
+    attrs = event_params.except!('contacts', 'start_date', 'start_time', 'end_date', 'end_time').merge(timing)
+    if @event.update(attrs) && attendee_emails.present?
       attendee_emails.each do |email|
-        contact = Contact.find_or_create_by(email: email)
+        contact = Contact.find_by_email(email)
+          if !contact
+            contact = General.create(email: email, user_id: @user.id, firm_id: @firm.id)
+          end
         event_attendee = EventAttendee.find_or_create_by({event_id: @event.id, creator: true, contact_id: contact.id})
       end
     end
@@ -163,7 +198,7 @@ class EventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:subject, :location, :date, :time, :all_day, :reminder, :notes, :owner_id, :summary,
-                                  :google_calendar_id, :start, :end, :status, :contacts, :user_ids => [],
+                                  :google_calendar_id, :start_date, :start_time, :end_date, :end_time, :status, :contacts, :user_ids => [],
                                   :user_event_ids => [], :case_ids => [],  :event_attendee_ids => [])
   end
 

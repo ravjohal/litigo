@@ -38,7 +38,7 @@
           <strong>Expected Close Date:</strong>
         </td>
         <td>
-            <%= @resolution.expected_close %>
+            <%= @resolution.expected_close.try(:strftime, "%b %e, %Y") %>
         </td>
       </tr>
       <tr>
@@ -75,7 +75,7 @@
           <strong>Actual Close Date:</strong>
         </td>
         <td>
-          <%= @case.closing_date %>
+          <%= @case.closing_date.try(:strftime, "%b %e, %Y") %>
         </td>
       </tr>
        <tr>

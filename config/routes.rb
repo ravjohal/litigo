@@ -10,8 +10,9 @@ Rails.application.routes.draw do
   get 'reports/medical_bills_totals' => 'reports#medical_bills_report', as: :reports_medical_bills
   get 'reports/cases_by_attorneys' => 'reports#cases_by_attorney_report', as: :reports_cases_by_attorney
   get 'reports/cases_by_statuses' => 'reports#cases_by_status_report', as: :reports_cases_by_status
+  get 'reports/open_close_detail_report' => 'reports#open_close_detail_report', as: :reports_open_close_detail
 
-  resources :companies
+  resources :company_olds
   resources :templates
   patch 'templates/update_html/:id' => 'templates#update_html'
   get 'templates/generate_document/:id' => 'templates#generate_document', as: :generate_document
@@ -46,6 +47,9 @@ Rails.application.routes.draw do
   get 'get_tasks' => 'tasks#get_tasks', as: :get_tasks
 
   resources :contacts
+  get '/companies' => 'contacts#companies', as: :companies
+  get '/companies/:id' => 'contacts#show_company', as: :company
+  get '/companies/:id/edit' => 'contacts#edit_company', as: :edit_company
 
   resources :insights do
     collection do
@@ -120,7 +124,8 @@ Rails.application.routes.draw do
   get "contacts/:id/contact information" => 'contacts#info', as: :contact_info
   get "contacts/:id/personal information" => 'contacts#personal', as: :contact_personal
   get "contacts/:id/company information" => 'contacts#coinfo', as: :contact_coinfo
-
+  get 'cases/:case_id/assign_contacts' => 'contacts#assign_contacts', as: :assign_contacts
+  post 'cases/:case_id/update_case_contacts' => 'contacts#update_case_contacts', as: :update_case_contacts
   resources :medicals do
     resources :injuries
   end

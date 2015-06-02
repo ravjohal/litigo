@@ -26,11 +26,11 @@ class ReportsController < ApplicationController
   	@start_date = params[:start_date] ? params[:start_date] : Date.today.at_beginning_of_month
   	@end_date = params[:end_date] ? params[:end_date] : Date.today.at_end_of_month
   	#puts 'PARAMS ATTORNEY ++++++++++++++ ' + params[:contact][:contact_id].inspect
-    @attorney_all_id_array = @firm.contacts.where("type = 'Attorney'").pluck(:id)
-    @attorney = params[:contact] && params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @attorney_all_id_array
+    @attorney_staff_all_id_array = @firm.contacts.where("type IN ('Attorney', 'Staff')").pluck(:id)
+    @attorney_staff = params[:contact] && params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @attorney_staff_all_id_array
     @selected_attorney = params[:contact][:contact_id] if params[:contact]
     #puts 'ATTTORNEY--------------- ' + @attorney.inspect
-  	@case_sol_report = CaseSolReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date, attorney_contact_id: @attorney)
+  	@case_sol_report = CaseSolReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date, attorney_contact_id: @attorney_staff)
   end
 
   def open_close_report
@@ -54,10 +54,17 @@ class ReportsController < ApplicationController
     @cases_by_attorney_report = CasesByAttorneyReport.new(firm_id: @firm.id, attorney_contact_id: @attorney)
   end
 
-    def cases_by_status_report
+  def cases_by_status_report
     @case_status_id_array = Case::STATUS
     @case_status_arg = params[:case_status_arg] && params[:case_status_arg] != '' ? params[:case_status_arg].split(",") : @case_status_id_array
     @selected_case_status = params[:case_status_arg] if params[:case_status_arg]
     @cases_by_status_report = CasesByStatusReport.new(firm_id: @firm.id, case_status_arg: @case_status_arg)
+  end
+
+  def open_close_detail_report
+    @start_date = params[:start_date] ? params[:start_date] : Date.today.at_beginning_of_month
+    @end_date = params[:end_date] ? params[:end_date] : Date.today.at_end_of_month
+    #puts 'PARAMS ATTORNEY ++++++++++++++ ' + params[:contact][:contact_id].inspect
+    @open_close_detail_report = OpenCloseDetailReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date)
   end
 end

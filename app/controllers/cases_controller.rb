@@ -61,12 +61,14 @@ class CasesController < ApplicationController
     resolution.firm = @firm
     resolution.save
 
-
     # injury = medical.tasks.create
     # injury.firm = @firm
     # injury.save
     @case.current_user_id = @user.id
     if @case.save
+      if case_params[:attorney] || case_params[:staff]
+        @case.assign_case_contacts(case_contacts_params)
+      end
       redirect_to @case, notice: 'Case was successfully created.'
     else
       redirect_to :back, alert: "Please review the problems below: #{@case.errors.full_messages.join('. ')}"
@@ -107,7 +109,7 @@ class CasesController < ApplicationController
   def summary
     @case = Case.find(params[:id])
     @last_3_notes = @case.notes.last(3).reverse
-    puts "LAST THREE NOTES " + @last_3_notes.to_s
+#    puts "LAST THREE NOTES " + @last_3_notes.to_s
     restrict_access("cases") if @case.firm_id != @firm.id
   end
 
@@ -129,6 +131,10 @@ class CasesController < ApplicationController
         :insurance_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy,
         :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy]], 
         :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
-        :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [])
+        :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [], :attorney => [], :staff => [])
+    end
+
+    def case_contacts_params
+      params.require(:case).permit(:case_id,  :firm_id, :attorney => [], :staff => [])
     end
 end

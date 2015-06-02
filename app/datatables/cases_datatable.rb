@@ -39,7 +39,7 @@ class CasesDatatable
   def fetch_cases
     #fetch_model = @user_cases ? @user : @firm
     if @user_cases
-      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:user_account_id => @user.id})
+      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:user_account_id => @user.id}).uniq
     else
       cases = @firm.cases
     end
@@ -65,7 +65,7 @@ class CasesDatatable
   end
 
   def sort_column
-    columns = %w[name case_number case_type total_med_bills description status]
+    columns = %w[case_number name case_type total_med_bills description status]
     columns[params[:iSortCol_0].to_i]
   end
 

@@ -1,0 +1,65 @@
+<%= form_for(@case, url: update_case_contacts_path, method: 'post') do |f| %>
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= @case.name %></strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+            <li><%= link_to 'Cancel', case_contacts_path, :class => 'dark' %></li>
+            <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
+      </ul>
+    </div>
+  </div>
+  <strong>Case #: </strong><%= @case.case_number %>
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/case_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="top-table-container">
+<table id="info-table3">
+  <thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <Strong>Case Contacts</Strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <% Contact::TYPES.each do |contact_type| %>
+  <tr>
+    <td class="right">
+      <strong><%= contact_type %>:</strong>
+    </td>
+    <td class="doc-link">
+        <%= f.select "#{contact_type.downcase.parameterize.underscore}", options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => @case.select_contact_role(contact_type).map(&:id)), {prompt: "Select #{contact_type}"}, {:class => 'contacts_select', :multiple => true} %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('select').select2();
+    var selected_contacts_ids = [];
+    $('.contacts_select :selected').each(function (i, obj) {
+      selected_contacts_ids.push($(obj).val());
+    });
+    $('.contacts_select').change(function (e) {
+      var contact_id = this.value;
+      if($.inArray(contact_id, selected_contacts_ids) > -1){
+        alert('This contact is already added to other role.')
+      } else {
+        selected_contacts_ids.push(contact_id);
+      }
+    })
+  });
+</script>

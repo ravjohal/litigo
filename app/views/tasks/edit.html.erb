@@ -5,7 +5,7 @@
 <table id="info-table4">
   <tbody>
     <tr>
-      <td id="left-td"><%= link_to @tasks_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span> <% end %>
+      <td id="left-td"><%= link_to @tasks_path,  :class => 'dark' do %><span id="back" data-tip="Back" class="glyphicon glyphicon-arrow-left"></span> <% end %>
       </td>
       <td>
       </td>
@@ -53,7 +53,7 @@
           <strong>Owner:</strong>
         </td>
         <td colspan="2">
-        <%= f.association :owner, :collection => @firm.users, :input_html => {:id => "owner_select"}, label: false %>
+        <%= f.association :owner, :collection => @firm.users, :input_html => {:id => "owner_select"}, label: false, :include_blank => false %>
         </td>
       </tr>
       <tr>
@@ -61,7 +61,7 @@
           <strong>Secondary Owner:</strong>
         </td>
         <td colspan="2">
-        <%= f.association :secondary_owner, :collection => @firm.users, :input_html => {:id => "second_owner_select"}, label: false %>
+        <%= f.association :secondary_owner, :collection => @firm.users, :input_html => {:id => "second_owner_select"}, label: false, label: false, :include_blank => true %>
         </td>
       </tr>
       <tr>
@@ -80,7 +80,7 @@
           <%= f.number_field :estimated_time, :class => 'table-input' %>
         </td>
         <td>
-          <%= f.select :estimated_time_unit, ['Hour(s)','Day(s)','Week(s)','Month(s)'], :class => 'table-input' %>
+          <%= f.select :estimated_time_unit, ['Hour(s)','Day(s)','Week(s)','Month(s)'], :class => 'table-input', label: false, :include_blank => true %>
         </td>
       </tr>
       <tr>
@@ -138,7 +138,7 @@
 
   <script>
     $(document).ready(function() {
-      $("#task_select, select").select2();
+      $("#task_select, select").select2({allowClear: true});
       $('#task_add_event').change(function (e) {
         if ($(this).is(":checked")){
           $('.google-calendar-row').show();
@@ -150,12 +150,8 @@
       })
     });
   </script>
-
-
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
+  <script type='text/javascript'>
+  $(function() {
+    $('#back').tipsy({gravity: 'n', fade: true});
+  });
 </script>
-

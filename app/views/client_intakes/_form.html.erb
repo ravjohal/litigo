@@ -84,7 +84,7 @@
         <strong>How did you hear about us?</strong>
       </td>
       <td>
-         <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '' %>
+         <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '', :onchange => 'Hide(this.value)' %>
       </td>
     </tr>
      <tr id="phone_book">
@@ -132,4 +132,15 @@
     $("#lead_select, td select").select2();
     $('#lead_phone').mask("(999) 999-9999");
   });
+</script>
+<script type="text/javascript">
+$("#phone_book").hide();
+  $("select").bind("change", function() {
+    if ($(this).val() == "Phone book") {
+        $("#phone_book").show();
+    }
+    else {
+        $("#phone_book").hide();
+    }
+});
 </script>

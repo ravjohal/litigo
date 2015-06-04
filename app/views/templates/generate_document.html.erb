@@ -15,7 +15,7 @@
     <h3>Document Name <span id="name" title="This will be the name of the file" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span></h3> 
           <div class="form-group">
               
-              <%= text_field_tag :template_name, '', :class => 'table-input' %>
+              <%= text_field_tag :template_name, '', :class => 'table-input', :placeholder => 'If name is blank, doc will take template name' %>
           </div>
     </div>
     <div class="col-md-6">
@@ -45,7 +45,6 @@
      <div class="col-md-10">
           <div class="instructions">
               <ul>
-                  <li>If no document name is given, it will inherit the template name</li>
                   <li>If you do not wish to use a field (e.g. Company in the address), simply leave it blank and it will be ignored</li>
                   <li>After clicking 'Generate Document' your document will downloaded and located in your Downloads folder</li>
                   <li>Paragraphs are preserved in the final Word document but may look different when viewing them in the browser</li>

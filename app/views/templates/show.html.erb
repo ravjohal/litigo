@@ -2,15 +2,17 @@
     <ul>
             <div id="temp-custom">
                   <ul>
-                        <li><%= link_to 'Edit', edit_template_path(@template), :class => 'dark' %></li>
-                        <li><%= link_to 'CREATE DOCUMENT', generate_document_path, :class => "action-button" %></li>
+                        <li><%= link_to templates_path, :class => 'dark' do %>
+                            <span id="temp" class="glyphicon glyphicon-arrow-left" title="Back to Templates"></span>
+                        <% end %></li>
+                        <li><%= link_to 'NEW DOC FROM TEMPLATE', generate_document_path, :class => "action-button" %></li>
                   </ul>
        </div>
     </ul>
 </div> <!-- case buttons div -->
 
 <div style="width:500px; margin-bottom: 30px;">
-  <h3><%= @template.name %></h3>      
+  <h3><%= @template.name %></h3>
         <div class="form-group">
             
         </div>
@@ -25,10 +27,12 @@
               <% if @template.file %>
                     <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
               <% end %>
+
     </div>
       <div class="form-group">
           <strong>Document Description:</strong> <%= @template.description %>
     </div>
+    <span class="glyphicon glyphicon-pencil"></span><%= link_to 'Edit Template', edit_template_path(@template), :class => 'edit-temp' %>
 </div>
 
 <div class="template_block">
@@ -89,4 +93,9 @@
     });
   });
 
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#temp').tipsy({gravity: 'n', fade: true});
+  });
 </script>

@@ -1,7 +1,10 @@
 <%= simple_form_for(@template) do |f| %>
   <%= f.error_notification %>
-   <div id="template-buttons">
+   <div id="temp-custom">
               <ul>
+                    <li><%= link_to templates_path, :class => 'dark' do %>
+                            <span id="temp" class="glyphicon glyphicon-arrow-left" title="Back to Templates"></span>
+                        <% end %></li>
                   <li><%= link_to @template, :class => 'trash-icon', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Template"></span> <% end %></li>
                   <li><%= f.submit :class => 'sub2-small', :id => 'finished', :value => 'Finished' %></li>
               </ul>
@@ -197,4 +200,9 @@
         }
     });
 });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#temp').tipsy({gravity: 'n', fade: true});
+  });
 </script>

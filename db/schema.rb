@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150602060155) do
+ActiveRecord::Schema.define(version: 20150604092719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -415,15 +415,16 @@ ActiveRecord::Schema.define(version: 20150602060155) do
     t.integer  "lead_policy_limit"
     t.string   "other_insurance"
     t.integer  "other_policy_limit"
-    t.string   "status",             default: "pending_review"
+    t.string   "status",               default: "pending_review"
     t.date     "appointment_date"
     t.text     "note"
     t.integer  "firm_id"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "prefix"
     t.integer  "contact_id"
     t.string   "phone_book"
+    t.integer  "referring_contact_id"
   end
 
   create_table "medical_bills", force: :cascade do |t|

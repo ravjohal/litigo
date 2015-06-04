@@ -44,7 +44,7 @@
      
     </td>
     <td>
-      <%= text_field_tag "#{contact_type.downcase.parameterize.underscore}" + "_note" %>
+      <%= text_field_tag "note[#{contact_type.downcase.parameterize.underscore}]", nil, :value => @case.get_role_note(contact_type) %>
     </td>
      <% end %>
   </tr>
@@ -63,7 +63,7 @@
     $('.contacts_select').change(function (e) {
       var contact_id = this.value;
       if($.inArray(contact_id, selected_contacts_ids) > -1){
-        alert('This contact is already added to other role.')
+        alert('There is a contact on multiple roles, please confirm that is what you intended.')
       } else {
         selected_contacts_ids.push(contact_id);
       }

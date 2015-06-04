@@ -71,4 +71,12 @@ class Contact < ActiveRecord::Base
       end
     end
   end
+
+  def name_with_company
+    if self.first_name.present? || self.company_name.present?
+      name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''
+      company = self.company_name.present? ? "#{self.company_name}" : ''
+      return "#{name}"+"#{company}"
+      end
+    end
 end

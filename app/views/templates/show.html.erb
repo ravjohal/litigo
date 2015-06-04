@@ -26,6 +26,8 @@
           <strong>Word Template:</strong> 
               <% if @template.file %>
                     <%= link_to @template.file.file.filename, @template.file_url, :id => 'add-action' %>
+                     <span id="dl" class="glyphicon glyphicon-download" title="Click link to download template"></span>
+                    
               <% end %>
 
     </div>
@@ -97,5 +99,6 @@
 <script type='text/javascript'>
   $(function() {
     $('#temp').tipsy({gravity: 'n', fade: true});
+    $('#dl').tipsy({gravity: 's', fade: true});
   });
 </script>

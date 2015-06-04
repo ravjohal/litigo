@@ -39,7 +39,7 @@ class Case < ActiveRecord::Base
                   using: {tsearch: {dictionary: "english", prefix: true}},
                   associated_against: { :medical => :total_med_bills }
   attr_accessor :current_user_id, :attorney, :adjuster, :plaintiff, :defendant,
-                :staff, :judge, :witness, :expert, :physician, :general, :company
+                :staff, :judge, :witness, :expert, :physician, :general, :company, :note
   after_create :import_tasks
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date
@@ -270,21 +270,27 @@ class Case < ActiveRecord::Base
     self.case_contacts.where(role: role.capitalize).collect { |case_contact| case_contact.contact }
   end
 
+  def get_role_note(role)
+    self.case_contacts.find_by_role(role.capitalize).note if self.case_contacts.find_by_role(role.capitalize)
+  end
+
   def assign_case_contacts(attrs)
     case_contacts = self.case_contacts #grab the existing case_contacts that are associated with the case
-    #p "CASE CONTACTS ATTRS -------------------------------------------------------> " + attrs.inspect
-    attrs.each do |k, v| #go thru each attrs hash that came from strong parameters
-      c_contacts = case_contacts.where(role: k.titleize).to_a  unless k.contains("_note") #store all the case_contacts for each role type into variable
-      #p "c_contacts = >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + c_contacts.inspect
-      v.reject(&:empty?).each do |contact_id| #for each contact_id within case_contact
-        #p "VALUE of CASE CONTACTS ===============================================================> " + contact_id.to_s
-        if k
-        CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id,  contact_id: contact_id, role: k.titleize) #update or create CaseContact
-        c_contacts.delete(case_contacts.find_by(contact_id: contact_id, role: k.titleize))
-      end
-      c_contacts.each do |cc|
-        cc.destroy
-      end
+    attrs.each do |key, value| # go thru each attrs hash that came from the controller
+      # key is contact_type, example: attorney
+      # value is hash, example: {"attorney"=>["", "1907"], "note"=>"a"}
+      k, v = value.first # grab the first value of the hash, which are contact_ids with their role, example: "attorney"=>["", "1907"]
+        # k is the role, example: attorney
+        # v is the contact_ids value, example: ["", "1907"]
+        c_contacts = case_contacts.where(role: k.titleize).to_a  #store all the case_contacts for each role type into variable
+          v.reject(&:empty?).each do |contact_id| #for each contact_id within case_contact
+            case_contact = CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id,  contact_id: contact_id, role: k.titleize) #update or create CaseContact
+            case_contact.update_attributes(:note => value[:note]) # update what was created or found with the latest note
+            c_contacts.delete(case_contacts.find_by(contact_id: contact_id, role: k.titleize))
+          end
+        c_contacts.each do |cc|
+          cc.destroy
+        end
     end
     check_sol
     return true

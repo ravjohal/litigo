@@ -155,6 +155,10 @@ class ClientIntakesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def client_intake_params
-      params.require(:lead).permit(:first_name, :last_name, :attorney_id, :note, :phone, :marketing_channel, :phone_book, :referred_by, :screener_id, :case_type, :sub_type, :estimated_value, :lead_policy_limit, :primary_injury, :primary_region, :incident_date, :case_summary, :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address, :city, :zip_code, :state)
+      params.require(:lead).permit(:first_name, :last_name, :attorney_id, :note, :phone, :marketing_channel, 
+                                  :phone_book, :referred_by, :screener_id, :case_type, :sub_type, :estimated_value, 
+                                  :lead_policy_limit, :primary_injury, :primary_region, :incident_date, :case_summary, 
+                                  :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address, 
+                                  :city, :zip_code, :state, :referring_contact_id)
     end
 end

@@ -11,6 +11,7 @@ class Contact < ActiveRecord::Base
   belongs_to :firm
   belongs_to :company
   belongs_to :lead
+  has_one :referred_lead, class_name: 'Lead'
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
   before_save :check_sol

@@ -78,6 +78,9 @@
           <% end %>
         <% end %>
       </td>
+      <td>
+        <%= @case.get_role_note(contact_type) %>
+      </td>
     </tr>
     <% end %>
     </tbody>

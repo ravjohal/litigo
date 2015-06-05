@@ -1,4 +1,4 @@
-<%= simple_form_for(new_event) do |f| %>
+<%= simple_form_for(@event || @event = Event.new) do |f| %>
       <%= f.error_notification %>
 
       <div class="modal-dialog">
@@ -14,10 +14,10 @@
                
                 <tr>
                     <td>
-                        <strong>Subject:</strong>
+                        <strong>Title:</strong>
                     </td>
                     <td> 
-                        <%= f.text_field :subject, label: false, :class => 'table-input' %>
+                        <%= f.text_field :title, label: false, :class => 'table-input' %>
                     </td>
                 </tr>
                 <tr>
@@ -30,26 +30,10 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>Invitee Emails:</strong><br><span id="invite" title="Invitees will receive an email invite. If a gmail account, the event will also be added to their Google calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
+                        <strong>Participants Emails:</strong><br><span id="invite" title="Invitees will receive an email invite. If a gmail account, the event will also be added to their Google calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
                     </td>
                     <td>
-                        <%= f.input :contacts, label: false, :input_html => {:id => "invitee_select", :value => "#{new_event.contacts.map {|contact| contact.email}.join(',')}"}, :class => 'table-input' %>
-                    </td>
-                </tr>
-                  <tr>
-                    <td>
-                        <strong>Case(s):</strong>
-                    </td>
-                    <td>
-                        <%= f.association :cases, :collection => @firm.cases, :input_html => {:id => "case_select"}, :class => 'sel2', label: false %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>All day Event:</strong>
-                    </td>
-                    <td>
-                        <%= f.check_box :all_day, label: false %>
+                        <%= f.input :participants, label: false, :input_html => {:id => "invitee_select", :value => "#{@event.participants.map {|participant| participant.email}.join(',')}"}, :class => 'table-input' %>
                     </td>
                 </tr>
                 <tr>
@@ -57,9 +41,8 @@
                         <strong>Start Time:</strong>
                     </td>
                     <td>
-                      <% #f.datetime_field :start, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.start.strftime('%Y-%m-%d %I:%M %p') if f.object.start)   %>
-                      <%= f.text_field :start_date, value: @event.present? ? @event.try(:start).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
-                      <%= f.text_field :start_time, value: @event.present? ? @event.try(:start).try(:strftime,'%I:%M %p') : Time.now.strftime('%I:%M %p'),  id: 'event_start_time'%>
+                      <%= f.text_field :start_date, value: @event.present? ? @event.try(:starts_at).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
+                      <%= f.text_field :start_time, value: @event.present? ? @event.try(:starts_at).try(:strftime,'%I:%M %p') : Time.now.strftime('%I:%M %p'),  id: 'event_start_time'%>
                     </td>
                 </tr>
                 <tr>
@@ -67,9 +50,8 @@
                         <strong>End Time:</strong>
                     </td>
                     <td>
-                      <% #f.datetime_field :end, :class => 'datetimepicker table-input', label: false, data: {:"date-format" => "YYYY-MM-DD hh:mm A"}, :value => (f.object.end.strftime('%Y-%m-%d %I:%M %p') if f.object.end) %>
-                      <%= f.text_field :end_date, value: @event.present? ? @event.try(:end).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_end_date' %>
-                      <%= f.text_field :end_time, value: @event.present? ? @event.try(:end).try(:strftime,'%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'),  id: 'event_end_time'%>
+                      <%= f.text_field :end_date, value: @event.present? ? @event.try(:ends_at).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_end_date' %>
+                      <%= f.text_field :end_time, value: @event.present? ? @event.try(:ends_at).try(:strftime,'%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'),  id: 'event_end_time'%>
                     </td>
                 </tr>
               
@@ -78,7 +60,7 @@
                         <strong>Add to Google Cal:</strong>
                     </td>
                     <td>
-                       <%= f.select :google_calendar_id, current_user.google_calendars.map {|calendar| [calendar.summary, calendar.google_id]}, :include_blank => true, :class => 'table-input' %>
+                       <%= f.select :calendar_id, current_user.calendars.map {|cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id]}, :include_blank => true, :class => 'table-input' %>
                     </td>
                 </tr>
                  <tr>
@@ -86,7 +68,7 @@
                         <strong>Description:</strong>
                     </td>
                     <td class="big-row">
-                        <%= f.text_area :notes, label: false, :class => 'table-text' %>
+                        <%= f.text_area :description, label: false, :class => 'table-text' %>
                     </td>
                 </tr>
                 

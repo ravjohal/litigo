@@ -16,8 +16,8 @@ class EventsController < ApplicationController
     @users.each_with_index do |user, index|
       hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
-      user.owned_events.each do |event|
-        event = {id: event.id, title: event.subject, allDay: event.all_day, start: event.all_day ? "#{event.start.to_date}" : "#{event.start.to_datetime}", end: event.all_day ? "#{event.end.to_date-1.day}" : "#{event.end.to_datetime}"}
+      user.events.each do |event|
+        event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at}
         events << event
       end
       hash[:events] = events
@@ -43,57 +43,30 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    restrict_access("events") if @event.owner.firm != current_user.firm
-        
+    restrict_access("events") if @event.user.firm != current_user.firm
     @model = @event
     @emails_autocomplete = emails_autocomplete
-    if @event.owner_id == current_user.id
-      render partial: 'events/edit'
-    else
-      render partial: 'events/show'
-    end
+    render partial: 'events/edit'
   end
-
-  # def create
-  #   logger.info "params:#{params}\n\n\n"
-  #   @event = Event.new(event_params.except!('contacts'))
-  #   @event.owner = @user
-  #   @event.firm = @firm
-  #   if @event.save
-  #     attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
-  #     if attendee_emails.present?
-  #       attendee_emails.each do |attendee_email|
-  #         contact = Contact.find_or_create_by(email: attendee_email)
-  #         event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
-  #       end
-  #     end
-  #
-  #     GoogleCalendars.create_event(@user, @event) if !params[:event][:google_calendar_id].empty?
-  #   end
-  #   message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
-  #   respond_to do |format|
-  #     format.html {redirect_to request.referrer , :flash => message}
-  #   end
-  # end
 
   # POST /events
   # POST /events.json
   def create
-    logger.info "params:#{params}\n\n\n"
-    timing = { start: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-               end: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p') }
-    attrs = event_params.except!('contacts', 'start_date', 'start_time', 'end_date', 'end_time').merge(timing)
+    timing = { starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+               ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p') }
+    attrs = event_params.except!('participants', 'start_date', 'start_time', 'end_date', 'end_time').merge(timing)
     logger.info "attrs: #{attrs}\n\n\n"
     @event = Event.new(attrs)
-    @event.owner = @user
+    @event.user = @user
     @event.firm = @firm
     if @event.save
-      attendee_emails = params[:event][:contacts].split(",") if params[:event][:contacts].present?
-      if attendee_emails.present?
-        attendee_emails.each do |attendee_email|
-          contact = Contact.find_by_email(attendee_email)
-          if !contact
-            contact = General.create(email: attendee_email, user_id: @user.id, firm_id: @firm.id)
+      participants = params[:event][:participants].split(",") if params[:event][:participants].present?
+      if participants.present?
+        participants.each do |p_email|
+          # p = Contact.find_by_email(participant)
+          participant = Participant.find_or_create_by(email: p_email)
+          if !p
+            contact = General.create(email: participant, user_id: @user.id, firm_id: @firm.id)
           end
           event_attendee = EventAttendee.create({event_id: @event.id, contact_id: contact.id})
         end
@@ -159,7 +132,7 @@ class EventsController < ApplicationController
     users_emails = []
     @user.firm.users.map {|user| users_emails << user.email}
     @user.events.map do |event|
-      event.contacts.map {|contact| users_emails << contact.email}
+      event.participants.map {|participant| users_emails << participant.email}
     end
     return users_emails.uniq
   end

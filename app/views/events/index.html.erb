@@ -129,7 +129,6 @@ $(document).ready(function() {
 
   $('.firm-users input').change(function (e) {
     var user_id = $(this).val();
-    console.log('user_id', user_id);
     if($(this).is(":checked")) {
       $('#calendar').fullCalendar( 'addEventSource', {
         events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],

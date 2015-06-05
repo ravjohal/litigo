@@ -79,6 +79,10 @@ Rails.application.routes.draw do
   get  "dropbox/auth_finish"
   get 'login_callback' => 'nylas#login_callback'
   get 'login' => 'nylas#login'
+  resources :namespaces
+  post 'get_events' => 'namespaces#get_events', as: :get_events
+  post 'get_calendars' => 'namespaces#get_calendars', as: :get_calendars
+  post 'get_mass_calendar_events' => 'namespaces#get_mass_calendar_events', as: :get_mass_calendar_events
 
   # Visitor routes
   get "/about" => 'visitors#about', as: :about

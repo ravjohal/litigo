@@ -1,23 +1,19 @@
 class Event < ActiveRecord::Base
-	has_many :user_events, :dependent => :destroy
-	has_many :users, :through => :user_events
-	has_many :case_events, :dependent => :destroy
-	has_many :cases, :through => :case_events
-  has_many :event_attendees, :dependent => :destroy
-	has_many :contacts, :through => :event_attendees
-
-	belongs_to :owner, class_name: 'User', :foreign_key => 'owner_id'
+	belongs_to :user
 	belongs_to :firm
 	belongs_to :task
+	belongs_to :calendar
+	belongs_to :namespace
+  has_many :event_participants, :dependent => :destroy
+  has_many :participants, :through => :event_participants
 
-  accepts_nested_attributes_for :user_events
   attr_accessor :start_date, :start_time, :end_date, :end_time
-  validates_presence_of :start, :end
+  validates_presence_of :starts_at, :ends_at
   validate :end_after_start
 
   def end_after_start
-    if self.start.present? && self.start.present? && self.end < self.start
-      errors.add(:start, "Date Later Than End Date")
+    if self.starts_at.present? && self.ends_at.present? && self.ends_at < self.starts_at
+      errors.add(:starts_at, "Date Later Than End Date")
     end
   end
 

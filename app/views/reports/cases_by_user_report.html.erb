@@ -1,4 +1,4 @@
-<%= form_tag reports_cases_by_attorney_path, method: :get do %>
+<%= form_tag reports_cases_by_user_path, method: :get do %>
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
@@ -15,7 +15,7 @@
               <div class="row">
                       	<div class="col-md-3 col-xs-6">
                       	Attorney<br>
-                      		<%= collection_select :contact, :contact_id, @firm.contacts.where("type = 'Attorney'"), :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_attorney %>
+                      		<%= collection_select :contact, :contact_id, @firm.contacts.where("type IN ('Attorney', 'Staff')"), :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_user %>
                       	</div>
                       	<div class="col-md-9 col-xs-6">
                       	</div>
@@ -26,7 +26,7 @@
 <% end %>
 <div style="margin-top: 72px;">
 <div class="span6">
-  <%= render template: 'dossier/reports/show', locals: {report: @cases_by_attorney_report.run} %>
+  <%= render template: 'dossier/reports/show', locals: {report: @cases_by_user_report.run} %>
 </div>
 <script>
     $(document).ready(function() { $("select").select2({allowClear: true, placeholder: 'All Users'});

@@ -2,7 +2,7 @@
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
-                <strong>Cases by Attorney</strong><br>
+                <strong>Cases by User</strong><br>
           </div>
             <div id="case-buttons">
               <ul>
@@ -14,7 +14,7 @@
         <div class="container-fluid" style="padding: 0; margin-top: 10px;">
               <div class="row">
                       	<div class="col-md-3 col-xs-6">
-                      	Attorney<br>
+                      	User<br>
                       		<%= collection_select :contact, :contact_id, @firm.contacts.where("type IN ('Attorney', 'Staff')"), :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_user %>
                       	</div>
                       	<div class="col-md-9 col-xs-6">

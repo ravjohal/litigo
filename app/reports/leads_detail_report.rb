@@ -3,7 +3,7 @@ class LeadsDetailReport < Dossier::Report
 		Lead.where("leads.firm_id = :firm_id 
 			AND marketing_channel IN :marketing_channel_arg 
 			AND cast(leads.created_at as date) between :start_date and :end_date"
-			).joins(:attorney).select("marketing_channel, users.first_name, users.last_name, cast(leads.created_at AS date), sub_type, cast(estimated_value AS money)"
+			).joins(:attorney).select("marketing_channel, users.first_name, users.last_name, cast(leads.created_at AS date), sub_type, status"
 			).to_sql
 	end
 

@@ -68,7 +68,7 @@
       <strong>Referring Attorney:</strong>
     </td>
     <td>
-      <%= f.text_field :referred_by, label: false, :class => 'table-input' %>
+      <%= f.association :referring_contact, label: false, :class => 'table-input' %>
     </td>
 <% else %>
   <td colspan="2"></td>

@@ -28,6 +28,9 @@
     <td colspan="2" class="gray-back">
       <Strong>Case Contacts</Strong>
     </td>
+    <td>
+      <Strong>Note</Strong>
+    </td>
   </tr>
   </thead>
   <tbody>
@@ -38,8 +41,12 @@
     </td>
     <td class="doc-link">
         <%= f.select "#{contact_type.downcase.parameterize.underscore}", options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => @case.select_contact_role(contact_type).map(&:id)), {prompt: "Select #{contact_type}"}, {:class => 'contacts_select', :multiple => true} %>
-      <% end %>
+     
     </td>
+    <td>
+      <%= text_field_tag "note[#{contact_type.downcase.parameterize.underscore}]", nil, :value => @case.get_role_note(contact_type) %>
+    </td>
+     <% end %>
   </tr>
   <% end %>
   </tbody>
@@ -56,7 +63,7 @@
     $('.contacts_select').change(function (e) {
       var contact_id = this.value;
       if($.inArray(contact_id, selected_contacts_ids) > -1){
-        alert('This contact is already added to other role.')
+        alert('There is a contact on multiple roles, please confirm that is what you intended.')
       } else {
         selected_contacts_ids.push(contact_id);
       }

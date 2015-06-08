@@ -73,7 +73,7 @@
       <strong>Referring Attorney:</strong>
     </td>
     <td>
-      <%= @lead.referring_contact.name %>
+      <%= @lead.referring_contact.try(:name) %>
     </td>
 <% else %>
   <td colspan="2"></td>

@@ -220,10 +220,12 @@ class Case < ActiveRecord::Base
       # key is contact_type, example: attorney
       # value is hash, example: {"attorney"=>["", "1907"], "note"=>"a"}
       k, v = value.first # grab the first value of the hash, which are contact_ids with their role, example: "attorney"=>["", "1907"]
+      #p " VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV ----- " + v.inspect
         # k is the role, example: attorney
         # v is the contact_ids value, example: ["", "1907"]
         c_contacts = case_contacts.where(role: k.titleize).to_a  #store all the case_contacts for each role type into array
           v.reject(&:empty?).each do |contact_id| #for each contact_id within case_contact
+           # p " CONTACT ID   ------->>>>>>>>>>>>>>>>>>>>>>>>> " + contact_id.to_s +  "  note: " + value[:note].to_s
             case_contact = CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id,  contact_id: contact_id, role: k.titleize) #update or create CaseContact
             case_contact.update_attributes(:note => value[:note]) # update what was created or found with the latest note
             c_contacts.delete(case_contacts.find_by(contact_id: contact_id, role: k.titleize)) # update array that contains all the existing case_contacts to take out the ones that weren't deleted
@@ -235,4 +237,21 @@ class Case < ActiveRecord::Base
     check_sol
     return true
   end
+
+  def assign_case_attorney_staff(attrs) #this method is called on create of case, where note is not needed
+    case_contacts = self.case_contacts
+    attrs.each do |k, v|
+      c_contacts = case_contacts.where(role: k.titleize).to_a
+      v.reject(&:empty?).each do |contact_id|
+        CaseContact.find_or_create_by(case_id: self.id, firm_id: self.firm_id, contact_id: contact_id, role: k.titleize)
+        c_contacts.delete(case_contacts.find_by(contact_id: contact_id, role: k.titleize))
+      end
+      c_contacts.each do |cc|
+        cc.destroy
+      end
+    end
+    check_sol
+    return true
+  end
+
 end

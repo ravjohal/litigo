@@ -14,6 +14,11 @@ class Contact < ActiveRecord::Base
   has_one :referred_lead, class_name: 'Lead'
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
+  has_many :phones
+
+
+  accepts_nested_attributes_for :phones, :reject_if => :all_blank, :allow_destroy => :true
+
   before_save :check_sol
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }

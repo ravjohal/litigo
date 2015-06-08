@@ -1,12 +1,10 @@
     <tr class="nested-fields phone-field">
       <td>
-          <%= f.text_field :label, :class => 'table-input', :placeholder => 'Number 1' %>
+          <%= f.text_field :label, :class => 'table-input', :placeholder => 'New Number' %>
       </td>
       <td>
-          <%= f.text_field :number, :class => 'table-input phone', :placeholder => '(___) ___-___' %>
-    </td>
-    <td class="insurance-icon" style="text-align: center;">
-      <%= link_to_remove_association f, class: 'dark-small remove_phones' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
+          <%= f.text_field :number, :class => 'table-input-85 phone', :placeholder => '(___) ___-___', :style => 'style="vertical-align: middle;'%>
+           <%= link_to_remove_association f, class: 'remove pull-right' do %><span id="remove" class="glyphicon glyphicon-remove" style="vertical-align: middle;" original-title="Remove"></span><% end %>
     </td>
   </tr>
 

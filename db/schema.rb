@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150604092719) do
+ActiveRecord::Schema.define(version: 20150608040158) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -487,6 +487,14 @@ ActiveRecord::Schema.define(version: 20150604092719) do
   add_index "notes", ["case_id"], name: "index_notes_on_case_id", using: :btree
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
+
+  create_table "phones", force: :cascade do |t|
+    t.string   "label"
+    t.string   "number"
+    t.integer  "contact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "plantiffs", force: :cascade do |t|
     t.boolean  "married"

@@ -67,7 +67,7 @@ class CasesController < ApplicationController
     @case.current_user_id = @user.id
     if @case.save
       if case_params[:attorney] || case_params[:staff]
-        @case.assign_case_contacts(case_contacts_params)
+        @case.assign_case_attorney_staff(case_contacts_params)
       end
       redirect_to @case, notice: 'Case was successfully created.'
     else
@@ -135,6 +135,6 @@ class CasesController < ApplicationController
     end
 
     def case_contacts_params
-      params.require(:case).permit(:case_id,  :firm_id, :note => [], :attorney => [], :staff => [])
+      params.require(:case).permit(:case_id, :note => [], :attorney => [], :staff => [])
     end
 end

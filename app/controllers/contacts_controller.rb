@@ -160,7 +160,7 @@ class ContactsController < ApplicationController
   end
 
   def update_case_contacts
-    #logger.info "BEFORE case_contacts_params: #{case_contacts_params}\n\n\n"
+    logger.info "BEFORE case_contacts_params: #{case_contacts_params}\n\n\n"
     params_for_case_contacts = case_contacts_params.clone
 
     #change the structure of existing hash to add note per each contact_type
@@ -171,7 +171,7 @@ class ContactsController < ApplicationController
       params_for_case_contacts[contact_type] = new_hash
       params_for_case_contacts[contact_type][:note] = params[:note][contact_type]
     end
-    #logger.info "AFTER case_contacts_params: #{params_for_case_contacts}\n\n\n"
+    logger.info "AFTER case_contacts_params: #{params_for_case_contacts}\n\n\n"
     respond_to do |format|
       if @case.assign_case_contacts(params_for_case_contacts)
         format.html { redirect_to case_contacts_path(@case), notice: 'Contact was successfully updated.' }

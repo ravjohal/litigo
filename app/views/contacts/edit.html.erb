@@ -31,7 +31,7 @@
     </td>
   </tr>
 </thead>
-  <tbody>
+  <tbody id="contacts">
         <tr>
         <td class="right">
           <strong>Home Address:</strong>
@@ -64,7 +64,15 @@
               <%= f.text_field :zip_code, label: false, class: 'table-input' %>
         </td>
       </tr>
-         <tr>
+      <tr>
+        <td>
+          <strong>Email:</strong>
+        </td>
+        <td class="doc-link">
+                <%= f.text_field :email, label: false, class: 'table-input' %>
+        </td>
+      </tr>
+      <tr>
         <td class="right">
           <strong>Main Phone:</strong>
         </td>
@@ -80,52 +88,12 @@
               <%= f.text_field :mobile, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
-        <tr>
-        <td class="right">
-          <strong>Other Phone 1:</strong>
-        </td>
-        <td >
-              <%= f.text_field :phone_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Other Phone 2:</strong>
-        </td>
-        <td >
-              <%= f.text_field :phone_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-         <tr>
-        <td class="right">
-          <strong>Main Fax:</strong>
-        </td>
+      <tr class="phone-edit-container">
         <td>
-                <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-          <tr>
-        <td class="right">
-          <strong>Other Fax 1:</strong>
-        </td>
-        <td>
-                <%= f.text_field :fax_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-          <tr>
-        <td class="right">
-          <strong>Other Fax 2:</strong>
-        </td>
-        <td>
-                <%= f.text_field :fax_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-       <tr>
-        <td>
-          <strong>Email:</strong>
-        </td>
-        <td class="doc-link">
-                <%= f.text_field :email, label: false, class: 'table-input' %>
+         <%= link_to_add_association 'Add Additional Phones', f, :phones, :"data-association-insertion-node" => "tbody#contacts", :"data-association-insertion-method" => "append", :partial => "phone_fields", class: 'action-button phone pull-right' %>
+                    <%= f.simple_fields_for :phones do |phone| %>
+                      <%= render 'phone_fields', :f => phone %>
+                    <% end %>
         </td>
       </tr>
   </tbody>

@@ -1,0 +1,28 @@
+    <tr class="nested-fields phone-field">
+      <td>
+          <%= f.text_field :label, :class => 'table-input', :placeholder => 'Number 1' %>
+      </td>
+      <td>
+          <%= f.text_field :number, :class => 'table-input phone', :placeholder => '(___) ___-___' %>
+    </td>
+    <td class="insurance-icon" style="text-align: center;">
+      <%= link_to_remove_association f, class: 'dark-small remove_phones' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
+    </td>
+  </tr>
+
+<script type="text/javascript" charset="utf-8">
+  $("select").select2();
+  $('#contacts').on('cocoon:after-remove', function(e, insertedItem) {
+
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#remove').tipsy({gravity: 's', fade: true});
+  });
+</script>
+<script>
+  $(document).ready(function() {
+    $('.phone').mask("(999) 999-9999");
+  });
+</script>

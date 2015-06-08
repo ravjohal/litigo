@@ -30,91 +30,97 @@ class NamespacesController < ApplicationController
     end
   end
 
-  def get_events
-    calendar = Calendar.find(params[:id])
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, calendar.namespace.inbox_token)
-    namespace = @inbox.namespaces.first
-    events = namespace.events.where(:calendar_id => calendar.calendar_id)
-    events.all.each do |ne|
-      event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
-      event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
-                              location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                              when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: calendar.namespace_id)
-      case ne.when['object']
-        when "date"
-          event.starts_at = ne.when['date']
-          event.ends_at = ne.when['date']
-        when "datespan"
-          event.starts_at = ne.when['start_date']
-          event.ends_at = ne.when['end_date']
-        when "time"
-          event.starts_at = Time.at(ne.when['time']).utc.to_datetime
-          event.ends_at = Time.at(ne.when['time']).utc.to_datetime
-        when "timespan"
-          event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
-          event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
-      end
-      event.save
-      ne.participants.each do |np|
-        participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
-        EventParticipant.create(event_id: event.id, participant_id: participant.id, status: np['status'])
-      end
-    end
-    if events.present?
-      render :json => { success: true, message: "#{events.count} events were synchronized." }
-    else
-      render :json => { success: 403, message: 'Synchronization error.' }
-    end
-  end
-
   def get_mass_calendar_events
     namespace = Namespace.find(params[:namespace_id])
+    sync_period = params[:sync_period].to_i
+    point = sync_period == 0 ? 0 : (Time.now - sync_period.months).to_i
     @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
     ns = @inbox.namespaces.first
-    events = ns.events
-    calendar_ids = params[:ids]
+    cursor = ns.get_cursor(point)
     events_synced = 0
-    calendar_ids.each do |id|
-      calendar = Calendar.find(id)
-      nylas_events = events.where(:calendar_id => calendar.calendar_id)
-      nylas_events.each do |ne|
-        event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
-        event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
-                                location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: calendar.namespace_id)
-        case ne.when['object']
-          when "date"
-            event.starts_at = ne.when['date']
-            event.ends_at = ne.when['date']
-          when "datespan"
-            event.starts_at = ne.when['start_date']
-            event.ends_at = ne.when['end_date']
-          when "time"
-            event.starts_at = Time.at(ne.when['time']).utc.to_datetime
-            event.ends_at = Time.at(ne.when['time']).utc.to_datetime
-          when "timespan"
-            event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
-            event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
+    last_cursor = nil
+    active_calendar_ids = params[:active_ids]
+    inactive_calendar_ids = params[:inactive_ids]
+    user_calendars = @user.calendars
+    nylas_calendar_ids = {}
+
+    if active_calendar_ids.present?
+      active_calendar_ids.each do |active_id|
+        cal = user_calendars.find(active_id)
+        if cal.present?
+          nylas_calendar_ids[active_id] = cal.try(:calendar_id)
+          cal.update(active: true)
         end
-        event.save!
-        ne.participants.each do |np|
-          participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
-          EventParticipant.create(event_id: event.id, participant_id: participant.id, status: np['status'])
-        end
-        events_synced += 1
       end
-      calendar.update(active: true)
     end
-    if events.present?
-      render :json => { success: true, message: "#{events_synced} events were synchronized." }
-    else
-      render :json => { success: 403, message: 'Synchronization error.' }
+    deleted_events = 0
+    if inactive_calendar_ids.present?
+      inactive_calendar_ids.each do |inactive_id|
+        cal = user_calendars.find(inactive_id)
+        if cal.present?
+          cal.update(active: false)
+          cal_events = cal.events
+          deleted_events += cal_events.count
+          cal_events.destroy_all
+        end
+      end
     end
+
+    if active_calendar_ids.present?
+      ns.deltas(cursor, [Inbox::Tag, Inbox::Calendar, Inbox::Contact, Inbox::Message, Inbox::File, Inbox::Thread]) do |event, ne|
+        if ne.is_a?(Inbox::Event)
+          if nylas_calendar_ids.has_value?(ne.calendar_id)
+            if event == "create" || event == "modify"
+              event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
+              event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
+                                      location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
+                                      when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id),
+                                      namespace_id: namespace.id)
+              case ne.when['object']
+                when "date"
+                  event.starts_at = ne.when['date']
+                  event.ends_at = ne.when['date']
+                when "datespan"
+                  event.starts_at = ne.when['start_date']
+                  event.ends_at = ne.when['end_date']
+                when "time"
+                  event.starts_at = Time.at(ne.when['time']).utc.to_datetime
+                  event.ends_at = Time.at(ne.when['time']).utc.to_datetime
+                when "timespan"
+                  event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
+                  event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
+              end
+              event.save
+              ne.participants.each do |np|
+                participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
+                ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
+                ep.update(status: np['status'])
+              end
+            elsif event == "delete"
+              event = Event.find_by(user_id: @user.id, nylas_event_id: ne.id).destroy
+            end
+            events_synced += 1
+          end
+          last_cursor = ne.cursor
+        end
+      end
+      namespace.update(cursor: last_cursor, sync_period: sync_period) if last_cursor.present?
+    end
+    message = "#{events_synced} events were synchronized."
+    message += " #{deleted_events} events were deleted." if deleted_events > 0
+    render :json => { success: true, message: message }
   end
 
   # GET /namespaces/1
   # GET /namespaces/1.json
   def show
+    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespace.inbox_token)
+    nylas_namespace = @inbox.namespaces.first
+    calendars = nylas_namespace.calendars.all
+    calendars.each do |nc|
+      calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id)
+      calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
+    end
   end
 
   # GET /namespaces/new

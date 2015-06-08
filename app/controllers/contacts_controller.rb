@@ -171,7 +171,7 @@ class ContactsController < ApplicationController
       params_for_case_contacts[contact_type] = new_hash
       params_for_case_contacts[contact_type][:note] = params[:note][contact_type]
     end
-    logger.info "AFTER case_contacts_params: #{params_for_case_contacts}\n\n\n"
+    #logger.info "AFTER case_contacts_params: #{params_for_case_contacts}\n\n\n"
     respond_to do |format|
       if @case.assign_case_contacts(params_for_case_contacts)
         format.html { redirect_to case_contacts_path(@case), notice: 'Contact was successfully updated.' }
@@ -227,7 +227,7 @@ class ContactsController < ApplicationController
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 
                                       :firms_attributes => [:name, :address, :zip],
                                       :contacts_attributes => [:id, :_destroy, :company_id],
-                                      :phones_attributes => [:id, :label, :number, :contact_id, :_destroy])
+                                      :phones_attributes => [:id, :label, :number, :contact_id, :firm_id, :_destroy])
       end
 
     def case_contacts_params

@@ -68,7 +68,7 @@
       <strong>Referring Attorney:</strong>
     </td>
     <td>
-      <%= f.association :referring_contact, label: false, :class => 'table-input' %>
+      <%= f.select :referring_contact, @firm.contacts.map{ |c| c.name ? ["#{c.name}", c.id] : ["#{c.email}", c.id] }, label: false, :class => 'table-input' %>
     </td>
 <% else %>
   <td colspan="2"></td>

@@ -57,6 +57,7 @@ class ContactsController < ApplicationController
       path_contacts =  case_contacts_path
       @contact.case_contacts.each do |case_contact|
         case_contact.role = @contact.type
+        case_contact.firm = @firm
         case_contact.save!
       end
     else

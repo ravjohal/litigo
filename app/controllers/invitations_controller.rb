@@ -102,4 +102,15 @@ class InvitationsController < Devise::InvitationsController
     # puts "CONTACT TYPE ------> " + class_string_name
     # create_contact(class_string_name, current_user, current_user.firm)
   end
+
+  def edit_events_permit
+    user = User.find(params[:id])
+    if current_user != user && !user.is_admin?
+      if user.update(edit_events_permit: params[:edit_events])
+        render :json => { success: true, message: 'Edit events permission updated successfully.' }
+      else
+        render :json => { success: 403, message: 'Edit events permission was not updated.' }
+      end
+    end
+  end
 end

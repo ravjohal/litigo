@@ -20,6 +20,8 @@ class Firm < ActiveRecord::Base
 	has_many :companies
 	has_many :case_contacts
   has_many :expenses
+  has_many :namespaces, :through => :users
+  has_many :calendars, :through => :namespaces
 
 	validates_presence_of :name
 	validates_uniqueness_of :name

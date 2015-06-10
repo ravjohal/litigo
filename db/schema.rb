@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608204931) do
+ActiveRecord::Schema.define(version: 20150610201101) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -445,16 +445,17 @@ ActiveRecord::Schema.define(version: 20150608204931) do
   add_index "medicals", ["firm_id"], name: "index_medicals_on_firm_id", using: :btree
 
   create_table "namespaces", force: :cascade do |t|
-    t.string  "namespace_id"
-    t.string  "account_id"
-    t.string  "email_address"
-    t.string  "name"
-    t.string  "provider"
-    t.integer "user_id"
-    t.string  "inbox_token"
-    t.string  "account_status"
-    t.string  "cursor"
-    t.integer "sync_period"
+    t.string   "namespace_id"
+    t.string   "account_id"
+    t.string   "email_address"
+    t.string   "name"
+    t.string   "provider"
+    t.integer  "user_id"
+    t.string   "inbox_token"
+    t.string   "account_status"
+    t.string   "cursor"
+    t.integer  "sync_period"
+    t.datetime "last_sync"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -666,6 +667,7 @@ ActiveRecord::Schema.define(version: 20150608204931) do
     t.integer  "hourly_rate"
     t.string   "middle_name"
     t.string   "events_color"
+    t.boolean  "edit_events_permit",     default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

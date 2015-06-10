@@ -91,4 +91,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  def edit_event_allowed?
+    self.edit_events_permit || self.is_admin?
+  end
+
 end

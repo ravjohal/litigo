@@ -10,7 +10,8 @@ class NamespacesController < ApplicationController
     @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
     @inbox.accounts.each do |a|
       ns = @namespaces.find_by(account_id: a.account_id)
-      ns.update(account_status: a.sync_state) if ns.present?
+      status = a.sync_state.downcase == 'running' ? 'active' : a.sync_state.downcase
+      ns.update(account_status: status) if ns.present?
     end
   end
 
@@ -33,12 +34,9 @@ class NamespacesController < ApplicationController
   def get_mass_calendar_events
     namespace = Namespace.find(params[:namespace_id])
     sync_period = params[:sync_period].to_i
-    point = sync_period == 0 ? 0 : (Time.now - sync_period.months).to_i
     @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
     ns = @inbox.namespaces.first
-    cursor = ns.get_cursor(point)
     events_synced = 0
-    last_cursor = nil
     active_calendar_ids = params[:active_ids]
     inactive_calendar_ids = params[:inactive_ids]
     user_calendars = @user.calendars
@@ -67,44 +65,38 @@ class NamespacesController < ApplicationController
     end
 
     if active_calendar_ids.present?
-      ns.deltas(cursor, [Inbox::Tag, Inbox::Calendar, Inbox::Contact, Inbox::Message, Inbox::File, Inbox::Thread]) do |event, ne|
-        if ne.is_a?(Inbox::Event)
-          if nylas_calendar_ids.has_value?(ne.calendar_id)
-            if event == "create" || event == "modify"
-              event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
-              event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
-                                      location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                      when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id),
-                                      namespace_id: namespace.id)
-              case ne.when['object']
-                when "date"
-                  event.starts_at = ne.when['date']
-                  event.ends_at = ne.when['date']
-                when "datespan"
-                  event.starts_at = ne.when['start_date']
-                  event.ends_at = ne.when['end_date']
-                when "time"
-                  event.starts_at = Time.at(ne.when['time']).utc.to_datetime
-                  event.ends_at = Time.at(ne.when['time']).utc.to_datetime
-                when "timespan"
-                  event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
-                  event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
-              end
-              event.save
-              ne.participants.each do |np|
-                participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
-                ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
-                ep.update(status: np['status'])
-              end
-            elsif event == "delete"
-              event = Event.find_by(user_id: @user.id, nylas_event_id: ne.id).destroy
-            end
-            events_synced += 1
+      events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
+      events.all.each do |ne|
+        if nylas_calendar_ids.has_value?(ne.calendar_id)
+          event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
+          event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
+                                  location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
+                                  when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id),
+                                  namespace_id: namespace.id)
+          case ne.when['object']
+            when "date"
+              event.starts_at = ne.when['date']
+              event.ends_at = ne.when['date']
+            when "datespan"
+              event.starts_at = ne.when['start_date']
+              event.ends_at = ne.when['end_date']
+            when "time"
+              event.starts_at = Time.at(ne.when['time']).utc.to_datetime
+              event.ends_at = Time.at(ne.when['time']).utc.to_datetime
+            when "timespan"
+              event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
+              event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
           end
-          last_cursor = ne.cursor
+          event.save
+          ne.participants.each do |np|
+            participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
+            ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
+            ep.update(status: np['status'])
+          end
+          events_synced += 1
         end
       end
-      namespace.update(cursor: last_cursor, sync_period: sync_period) if last_cursor.present?
+      namespace.update(last_sync: Time.now, sync_period: sync_period)
     end
     message = "#{events_synced} events were synchronized."
     message += " #{deleted_events} events were deleted." if deleted_events > 0

@@ -60,7 +60,7 @@
       var self = this;
       var link = $(this);
       var sync_period = $('.sync_period:checked').val();
-      $(this).html("<img src='/assets/ajaxSpinner.gif' height='24' width='24'>");
+      $(this).html("<img src='/assets/ajaxSpinner.gif' height='24' width='24' style='display: inline-block'>");
       $('.calendar_ids').each(function (i, obj) {
         if($(obj).is(':checked')) {
           active_calendar_ids.push($(obj).val());
@@ -87,7 +87,7 @@
           setTimeout(function(){ $('.alert').fadeOut() }, 2000);
         }
       });
-
+//
     });
 
   });

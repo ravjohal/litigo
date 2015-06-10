@@ -30,7 +30,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <strong>Participants Emails:</strong><br><span id="invite" title="Invitees will receive an email invite. If a gmail account, the event will also be added to their Google calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
+                        <strong>Participants:</strong><br><span id="invite" title="Invitees will receive an email invite. If a gmail account, the event will also be added to their Google calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
                     </td>
                     <td>
                         <%= f.input :participants, label: false, :input_html => {:id => "invitee_select", :value => "#{@event.participants.map {|participant| participant.email}.join(',')}"}, :class => 'table-input' %>
@@ -57,10 +57,10 @@
               
                  <tr>
                     <td>
-                        <strong>Add to Google Cal:</strong>
+                        <strong>Add to External Calendar:</strong>
                     </td>
                     <td>
-                       <%= f.select :calendar_id, current_user.calendars.map {|cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id]}, :include_blank => true, :class => 'table-input' %>
+                       <%= f.select :calendar_id, @firm.calendars.where(active:true).map {|cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id]}, :include_blank => true, :class => 'table-input' %>
                     </td>
                 </tr>
                  <tr>

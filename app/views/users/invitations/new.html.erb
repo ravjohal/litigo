@@ -24,6 +24,7 @@
         </td>
         <td><strong>Role</strong>
         </td>
+        <td>Edit events permition</td>
         <td>
         </td>        
     </tr>
@@ -43,6 +44,7 @@
     <%= f.submit 'Change Role', :class => 'action-button' %>
   <% end %>
 </td>
+      <td><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'allow'], [false, 'disallow']], :first, :last, {checked: user.edit_events_permit}, class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
 <td>
   <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'delete btn-danger') unless user == current_user %>
 </td>
@@ -71,5 +73,18 @@
       var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
       return regex.test(email);
     }
+    $('.edit_events').change(function (e) {
+      var id = $(this).data('id');
+      var val = $(this).val();
+      $.ajax({
+            url: "<%= edit_events_permit_path %>",
+            type: 'POST',
+            dataType: "json",
+            data: {id: id, edit_events: val},
+            success: function(data){
+
+            }
+          });
+    });
   });
 </script>

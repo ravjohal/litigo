@@ -38,7 +38,7 @@
     <div class="col-md-6">
         <div class="form-group">
             <%= label_tag :addressee, 'Addressee' %> <span id="addy" title="This will populate any addressee fields" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span> <br/>
-            <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map {|contact| [contact.name_with_company] }), :prompt => "Add Addressee", :class => 'table-input'  %>
+            <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map {|contact| [contact.name_with_company, contact.id] }), :prompt => "Add Addressee", :class => 'table-input'  %>
         </div>
       </div>
       <div class="col-md-6">

@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20150608095218) do
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "calendars", force: :cascade do |t|
     t.string  "description"
     t.string  "calendar_id"
@@ -33,6 +34,8 @@ ActiveRecord::Schema.define(version: 20150608095218) do
     t.boolean "active"
   end
 
+=======
+>>>>>>> master
   create_table "attorneys_events", id: false, force: :cascade do |t|
     t.integer "attorney_id"
     t.integer "event_id"
@@ -167,7 +170,10 @@ ActiveRecord::Schema.define(version: 20150608095218) do
     t.string   "staff_type",         limit: 255
     t.integer  "event_id"
     t.integer  "firm_id"
+<<<<<<< HEAD
     t.integer  "firm_id"
+=======
+>>>>>>> master
     t.boolean  "corporation",                    default: false
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
@@ -193,7 +199,6 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
   add_index "contacts", ["event_id"], name: "index_contacts_on_event_id", using: :btree
   add_index "contacts", ["firm_id"], name: "index_contacts_on_firm_id", using: :btree
-  add_index "contacts", ["user_account_id"], name: "index_contacts_on_user_account_id", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "defendants", force: :cascade do |t|
@@ -244,6 +249,7 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   end
 
   create_table "events", force: :cascade do |t|
+<<<<<<< HEAD
     t.string   "nylas_event_id"
     t.string   "nylas_calendar_id"
     t.string   "nylas_namespace_id"
@@ -256,6 +262,32 @@ ActiveRecord::Schema.define(version: 20150608095218) do
     t.integer  "namespace_id"
     t.integer  "calendar_id"
     t.integer  "user_id"
+=======
+    t.string   "subject",              limit: 255
+    t.string   "location",             limit: 255
+    t.date     "date"
+    t.time     "time"
+    t.boolean  "all_day",                          default: false
+    t.boolean  "reminder",                         default: false
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.integer  "firm_id"
+    t.string   "google_id"
+    t.string   "etag"
+    t.string   "status"
+    t.string   "html_link"
+    t.string   "summary"
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean  "end_time_unspecified",             default: false
+    t.string   "transparency"
+    t.string   "visibility"
+    t.string   "iCalUID"
+    t.integer  "sequence"
+    t.string   "google_calendar_id"
+>>>>>>> master
     t.integer  "task_id"
     t.integer  "firm_id"
     t.datetime "starts_at"
@@ -506,6 +538,7 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
+<<<<<<< HEAD
   create_table "old_events", force: :cascade do |t|
     t.string   "subject"
     t.string   "location"
@@ -544,6 +577,8 @@ ActiveRecord::Schema.define(version: 20150608095218) do
     t.string "name"
   end
   
+=======
+>>>>>>> master
   create_table "phones", force: :cascade do |t|
     t.string   "label"
     t.string   "number"

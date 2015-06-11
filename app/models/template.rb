@@ -33,7 +33,8 @@ class Template < ActiveRecord::Base
               {name: 'Docket Number', attr: 'number', model: 'Case'},
               {name: 'Court', attr: 'court', model: 'Case'},
               {name: 'County', attr: 'county', model: 'Case'},
-              {name: 'State', attr: 'state', model: 'Case'}
+              {name: 'State', attr: 'state', model: 'Case'},
+              {name: 'Resolution Amount', attr: 'resolution.resolution_amount', model: 'Case'}
           ]
       },
       {
@@ -60,10 +61,8 @@ class Template < ActiveRecord::Base
               {name: 'Contact State', attr: 'state', model: 'Contact'},
               {name: 'Contact Zip Code', attr: 'zip_code', model: 'Contact'},
               {name: 'Company Name', attr: 'name', model: 'Company'},
-              {name: 'Company Address', attr: 'address', model: 'Company'},
-              {name: 'Company City', attr: 'city', model: 'Company'},
-              {name: 'Company State', attr: 'state', model: 'Company'},
-              {name: 'Company Zip Code', attr: 'zipcode', model: 'Company'}
+              {name: 'Contact SSN', attr: 'ssn', model: 'Contact'},
+              {name: 'Contact DOB', attr: 'date_of_birth', model: 'Contact'},
           ]
       },
       {

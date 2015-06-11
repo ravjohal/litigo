@@ -39,7 +39,15 @@
           <%= @contact.zip_code %>
         </td>
       </tr>
-         <tr>
+      <tr>
+        <td>
+          <strong>Email:</strong>
+        </td>
+        <td class="doc-link">
+          <%=  mail_to (@contact.email) %>
+        </td>
+      </tr>
+      <tr>
         <td class="right">
           <strong>Main Phone:</strong>
         </td>
@@ -55,53 +63,15 @@
           <%= @contact.mobile %>
         </td>
       </tr>
+      <% @contact.try(:phones).each do |phone| %>
       <tr>
         <td>
-          <strong>Other Phone 1:</strong>
+          <Strong><%= phone.label + ':' %></Strong>
         </td>
         <td>
-              <%= @contact.phone_number_1 %>
+          <%= phone.number %>
         </td>
       </tr>
-      <tr>
-        <td>
-          <strong>Other Phone 2:</strong>
-        </td>
-        <td>
-              <%= @contact.phone_number_2 %>
-        </td>
-      </tr>
-         <tr>
-        <td class="right">
-          <strong>Main Fax:</strong>
-        </td>
-        <td>
-          <%= @contact.fax_number %>
-        </td>
-      </tr>
-       <tr>
-        <td class="right">
-          <strong>Other Fax 1:</strong>
-        </td>
-        <td>
-          <%= @contact.fax_number_1 %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Other Fax 2:</strong>
-        </td>
-        <td>
-          <%= @contact.fax_number_2 %>
-        </td>
-      </tr>
-       <tr>
-        <td>
-          <strong>Email:</strong>
-        </td>
-        <td class="doc-link">
-          <%=  mail_to (@contact.email) %>
-        </td>
-      </tr>
+      <% end %>
   </tbody>
 </table>

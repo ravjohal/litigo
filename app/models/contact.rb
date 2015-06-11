@@ -11,9 +11,15 @@ class Contact < ActiveRecord::Base
   belongs_to :firm
   belongs_to :company
   belongs_to :lead
+  has_one :referred_lead, class_name: 'Lead'
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
+  has_many :phones
+
+  accepts_nested_attributes_for :phones, :reject_if => :all_blank, :allow_destroy => :true
+
   after_save :check_sol
+  before_save :check_sol
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
 
@@ -71,4 +77,12 @@ class Contact < ActiveRecord::Base
       end
     end
   end
+
+  def name_with_company
+    if self.first_name.present? || self.company_name.present?
+      name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''
+      company = self.company_name.present? ? "#{self.company_name}" : ''
+      return "#{name}"+"#{company}"
+      end
+    end
 end

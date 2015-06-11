@@ -3,8 +3,8 @@ class Firm < ActiveRecord::Base
 	has_many :cases
 	has_many :contacts
 	has_many :documents
-	has_many :templates
-  has_many :template_documents
+	has_many :templates 
+	has_many :template_documents
 	has_many :events
 	has_many :incidents
 	has_many :medicals
@@ -22,6 +22,7 @@ class Firm < ActiveRecord::Base
   has_many :expenses
   has_many :namespaces, :through => :users
   has_many :calendars, :through => :namespaces
+	has_many :phones
 
 	validates_presence_of :name
 	validates_uniqueness_of :name

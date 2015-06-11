@@ -58,6 +58,9 @@
       <td colspan="2" class="gray-back">
         <Strong>Case Contacts</Strong>
       </td>
+      <td class="gray-back">
+        <Strong>Notes</Strong>
+      </td>
     </tr>
     </thead>
     <tbody>
@@ -74,6 +77,9 @@
             <%= link_to(contact.try(:name), contact_path(contact), class: 'tool-tp', title: "#{contact.tooltip}") %><%= index == @case.select_contact_role(contact_type).length - 1 ? '': ', ' %>
           <% end %>
         <% end %>
+      </td>
+      <td>
+        <%= @case.get_role_note(contact_type) %>
       </td>
     </tr>
     <% end %>

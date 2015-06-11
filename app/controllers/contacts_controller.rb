@@ -57,6 +57,7 @@ class ContactsController < ApplicationController
       path_contacts =  case_contacts_path
       @contact.case_contacts.each do |case_contact|
         case_contact.role = @contact.type
+        case_contact.firm = @firm
         case_contact.save!
       end
     else
@@ -149,20 +150,31 @@ class ContactsController < ApplicationController
   end
 
   def assign_contacts
-    if @case
-    @contacts = {}
-    Contact::TYPES.each do |contact_type|
-      @contacts[contact_type.downcase] = @case.select_contact_role(contact_type)
-    end
-    else
-      redirect_to root_path
-    end
+    # if @case
+    #   @contacts = {}
+    #   Contact::TYPES.each do |contact_type|
+    #     @contacts[contact_type.downcase] = @case.select_contact_role(contact_type)
+    #   end
+    # else
+    #   redirect_to root_path
+    # end
   end
 
   def update_case_contacts
-    logger.info "case_contacts_params: #{case_contacts_params}\n\n\n"
+    logger.info "BEFORE case_contacts_params: #{case_contacts_params}\n\n\n"
+    params_for_case_contacts = case_contacts_params.clone
+
+    #change the structure of existing hash to add note per each contact_type
+    Contact::TYPES.each do |contact_type|
+      contact_type = contact_type.downcase.parameterize.underscore
+      new_hash = {}
+      new_hash[contact_type] = case_contacts_params[contact_type]
+      params_for_case_contacts[contact_type] = new_hash
+      params_for_case_contacts[contact_type][:note] = params[:note][contact_type]
+    end
+    #logger.info "AFTER case_contacts_params: #{params_for_case_contacts}\n\n\n"
     respond_to do |format|
-      if @case.assign_case_contacts(case_contacts_params)
+      if @case.assign_case_contacts(params_for_case_contacts)
         format.html { redirect_to case_contacts_path(@case), notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       end
@@ -215,11 +227,12 @@ class ContactsController < ApplicationController
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 
                                       :firms_attributes => [:name, :address, :zip],
-                                      :contacts_attributes => [:id, :_destroy, :company_id])
+                                      :contacts_attributes => [:id, :_destroy, :company_id],
+                                      :phones_attributes => [:id, :label, :number, :contact_id, :firm_id, :_destroy])
       end
 
     def case_contacts_params
-      params.require(:case).permit(:case_id, :firm_id, :attorney => [], :adjuster => [], :plaintiff => [], :defendant => [],
+      params.require(:case).permit(:case_id, :firm_id, :note => [], :attorney => [], :adjuster => [], :plaintiff => [], :defendant => [],
                                    :staff => [], :judge => [], :witness => [], :expert => [], :physician => [], :general => [], :company => [])
     end
 

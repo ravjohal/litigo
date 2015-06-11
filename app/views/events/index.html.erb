@@ -116,6 +116,7 @@ $(document).ready(function() {
           {
             $('.alert').remove();
             $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+            setTimeout(function(){ $('.alert').fadeOut() }, 2000);
           }
         });
       }
@@ -158,6 +159,29 @@ $(document).ready(function() {
       checkboxes.prop('checked', false).change()
     }
   });
+
+  var refreshNamespaces = function(){
+    $.ajax({
+          url: "<%= refresh_events_path %>",
+          type: 'GET',
+          dataType: "json",
+          data: {},
+          success: function(data){
+            $.each(data.events, function (user_id, hash) {
+              $('#calendar').fullCalendar( 'addEventSource', {
+                events: hash.events,
+                color: hash.color
+              });
+            });
+            if (data.events_synced > 0) {
+              $('.alert').remove();
+              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+              setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+            }
+          }
+        });
+  };
+  refreshNamespaces();
 
   function rgb2hex(rgb) {
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;

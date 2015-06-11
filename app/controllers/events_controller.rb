@@ -175,6 +175,8 @@ class EventsController < ApplicationController
 
   def refresh_events
     events_synced = 0
+    refreshed_events = []
+    @event_sources = {}
     namespaces = @firm.namespaces
     namespaces.each do |namespace|
       active_calendars = namespace.calendars.where(active: true)
@@ -213,9 +215,14 @@ class EventsController < ApplicationController
                     ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
                     ep.update(status: np['status'])
                   end
+                  if !@event_sources.has_key?(event.user_id)
+                    @event_sources[event.user_id] = {events:[], user_name: event.user.name, color: event.user.events_color.present? ? event.user.events_color : '#3B91AD'}
+                  end
+                  @event_sources[event.user_id][:events].push({id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.when_type == 'date' || event.when_type == 'datespan'})
                 end
               elsif event == "delete"
                 event = Event.find_by(user_id: @user.id, nylas_event_id: ne.id).try(:destroy)
+                #TODO add async event removing from calendar
               end
               events_synced += 1
             last_cursor = ne.cursor
@@ -224,10 +231,10 @@ class EventsController < ApplicationController
         namespace.update(cursor: last_cursor) if last_cursor.present?
       end
     end
-
     message = "#{events_synced} events were synced."
     respond_to do |format|
       format.html {redirect_to request.referrer , notice: message}
+      format.json {render json: {events: @event_sources, events_synced: events_synced, message: message} }
     end
   end
 

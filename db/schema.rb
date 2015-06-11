@@ -11,11 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610201101) do
+ActiveRecord::Schema.define(version: 20150608095218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "attorneys", force: :cascade do |t|
+    t.string   "attorney_type", limit: 255
+    t.string   "firm",          limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "calendars", force: :cascade do |t|
     t.string  "description"
@@ -26,6 +33,11 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.boolean "active"
   end
 
+  create_table "attorneys_events", id: false, force: :cascade do |t|
+    t.integer "attorney_id"
+    t.integer "event_id"
+  end
+
   create_table "case_contacts", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "contact_id"
@@ -33,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.datetime "updated_at"
     t.string   "role"
     t.integer  "firm_id"
+    t.text     "note"
   end
 
   create_table "case_documents", force: :cascade do |t|
@@ -66,19 +79,19 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   add_index "case_tasks", ["task_id"], name: "index_case_tasks_on_task_id", using: :btree
 
   create_table "cases", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                   limit: 255
     t.integer  "case_number"
     t.text     "description"
-    t.decimal  "medical_bills",                    precision: 10, scale: 2
+    t.decimal  "medical_bills",                      precision: 10, scale: 2
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "case_type"
-    t.string   "subtype"
+    t.string   "case_type",              limit: 255
+    t.string   "subtype",                limit: 255
     t.integer  "user_id"
     t.date     "closing_date"
     t.string   "state",                  limit: 2
-    t.string   "status",                                                    default: "Active"
-    t.string   "court"
+    t.string   "status",                                                      default: "Active"
+    t.string   "court",                  limit: 255
     t.integer  "firm_id"
     t.string   "county"
     t.string   "docket_number"
@@ -91,11 +104,16 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.date     "statute_of_limitations"
     t.integer  "sol_priority"
     t.integer  "lead_id"
-    t.boolean  "fee_agreement",                                             default: false
+    t.boolean  "fee_agreement",                                               default: false
   end
 
   add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
   add_index "cases", ["user_id"], name: "index_cases_on_user_id", using: :btree
+
+  create_table "clients", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "company_olds", force: :cascade do |t|
     t.string   "name"
@@ -117,40 +135,40 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   end
 
   create_table "contacts", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "last_name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.string   "phone_number"
+    t.string   "first_name",         limit: 255
+    t.string   "middle_name",        limit: 255
+    t.string   "last_name",          limit: 255
+    t.string   "address",            limit: 255
+    t.string   "city",               limit: 255
+    t.string   "state",              limit: 255
+    t.string   "country",            limit: 255
+    t.string   "phone_number",       limit: 255
     t.string   "fax_number"
-    t.string   "email"
-    t.string   "gender"
+    t.string   "email",              limit: 255
+    t.string   "gender",             limit: 255
     t.integer  "age"
-    t.string   "type"
+    t.string   "type",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
     t.integer  "case_id"
-    t.boolean  "married"
-    t.boolean  "employed"
+    t.boolean  "married",                        default: false
+    t.boolean  "employed",                       default: false
     t.text     "job_description"
     t.decimal  "salary"
-    t.boolean  "parent"
-    t.boolean  "felony_convictions"
-    t.boolean  "last_ten_years"
+    t.boolean  "parent",                         default: false
+    t.boolean  "felony_convictions",             default: false
+    t.boolean  "last_ten_years",                 default: false
     t.integer  "jury_likeability"
-    t.string   "witness_type"
-    t.string   "witness_subtype"
-    t.string   "witness_doctype"
-    t.string   "attorney_type"
-    t.string   "staff_type"
+    t.string   "witness_type",       limit: 255
+    t.string   "witness_subtype",    limit: 255
+    t.string   "witness_doctype",    limit: 255
+    t.string   "attorney_type",      limit: 255
+    t.string   "staff_type",         limit: 255
     t.integer  "event_id"
     t.integer  "firm_id"
-    t.integer  "user_account_id"
-    t.string   "corporation"
+    t.integer  "firm_id"
+    t.boolean  "corporation",                    default: false
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -163,6 +181,7 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.string   "mobile"
     t.string   "prefix"
     t.integer  "company_id"
+    t.integer  "user_account_id"
     t.string   "time_bound"
     t.string   "fax_number_1"
     t.string   "fax_number_2"
@@ -177,14 +196,27 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   add_index "contacts", ["user_account_id"], name: "index_contacts_on_user_account_id", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
+  create_table "defendants", force: :cascade do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "documents", force: :cascade do |t|
-    t.string   "author"
-    t.string   "doc_type"
-    t.string   "template"
+    t.string   "author",     limit: 255
+    t.string   "doc_type",   limit: 255
+    t.string   "template",   limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "document"
+    t.string   "document",   limit: 255
     t.integer  "firm_id"
     t.integer  "lead_id"
   end
@@ -245,14 +277,14 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   end
 
   create_table "firms", force: :cascade do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "phone"
-    t.string   "fax"
+    t.string   "name",       limit: 255
+    t.string   "address",    limit: 255
+    t.string   "phone",      limit: 255
+    t.string   "fax",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "zip"
-    t.string   "tenant"
+    t.string   "zip",        limit: 255
+    t.string   "tenant",     limit: 255
     t.string   "state"
     t.string   "city"
   end
@@ -279,18 +311,18 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   create_table "incidents", force: :cascade do |t|
     t.date     "incident_date"
     t.integer  "defendant_liability"
-    t.boolean  "alcohol_involved",                              default: false
-    t.boolean  "weather_factor",                                default: false
-    t.decimal  "property_damage",      precision: 10, scale: 2
-    t.boolean  "airbag_deployed",                               default: false
-    t.string   "speed"
-    t.boolean  "police_report"
+    t.boolean  "alcohol_involved",                                          default: false
+    t.boolean  "weather_factor",                                            default: false
+    t.decimal  "property_damage",                  precision: 10, scale: 2
+    t.boolean  "airbag_deployed",                                           default: false
+    t.string   "speed",                limit: 255
+    t.boolean  "police_report",                                             default: false
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "firm_id"
-    t.boolean  "towed"
-    t.boolean  "complaint_at_scene"
+    t.boolean  "towed",                                                     default: false
+    t.boolean  "complaint_at_scene",                                        default: false
     t.decimal  "defendant_limits"
     t.decimal  "plaintiff_limits"
     t.decimal  "uim_limits"
@@ -309,31 +341,31 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   add_index "incidents", ["firm_id"], name: "index_incidents_on_firm_id", using: :btree
 
   create_table "injuries", force: :cascade do |t|
-    t.string   "injury_type"
-    t.string   "region"
-    t.string   "code"
-    t.boolean  "dominant_side"
-    t.boolean  "joint_fracture"
-    t.boolean  "displaced_fracture"
-    t.boolean  "disfigurement"
-    t.boolean  "impairment"
-    t.boolean  "permanence"
-    t.boolean  "disabled"
-    t.decimal  "disabled_percent",   precision: 5,  scale: 2
-    t.boolean  "surgery"
-    t.integer  "surgery_count"
-    t.string   "surgery_type"
-    t.boolean  "casted_fracture"
-    t.boolean  "stitches"
-    t.boolean  "future_surgery"
-    t.decimal  "future_medicals",    precision: 10, scale: 2
-    t.integer  "firm_id"
-    t.integer  "medical_id"
+    t.string   "injury_type",        limit: 255
+    t.string   "region",             limit: 255
+    t.string   "code",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "prior_complaint"
-    t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.integer  "medical_id"
+    t.integer  "firm_id"
+    t.boolean  "dominant_side",                                           default: false
+    t.boolean  "joint_fracture",                                          default: false
+    t.boolean  "displaced_fracture",                                      default: false
+    t.boolean  "disfigurement",                                           default: false
+    t.boolean  "impairment",                                              default: false
+    t.boolean  "permanence",                                              default: false
+    t.boolean  "disabled",                                                default: false
+    t.decimal  "disabled_percent",               precision: 5,  scale: 2
+    t.boolean  "surgery",                                                 default: false
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture",                                         default: false
+    t.boolean  "stitches",                                                default: false
+    t.boolean  "future_surgery",                                          default: false
+    t.decimal  "future_medicals",                precision: 10, scale: 2
+    t.boolean  "prior_complaint",                                         default: false
+    t.boolean  "primary_injury",                                          default: false
+    t.boolean  "ongoing_pain",                                            default: false
     t.integer  "user_id"
     t.integer  "case_id"
   end
@@ -387,15 +419,16 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.integer  "lead_policy_limit"
     t.string   "other_insurance"
     t.integer  "other_policy_limit"
-    t.string   "status",             default: "pending_review"
+    t.string   "status",               default: "pending_review"
     t.date     "appointment_date"
     t.text     "note"
     t.integer  "firm_id"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
     t.string   "prefix"
     t.integer  "contact_id"
     t.string   "phone_book"
+    t.integer  "referring_contact_id"
   end
 
   create_table "medical_bills", force: :cascade do |t|
@@ -419,23 +452,23 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   create_table "medicals", force: :cascade do |t|
     t.decimal  "total_med_bills",            precision: 10, scale: 2
     t.decimal  "subrogated_amount",          precision: 10, scale: 2
-    t.boolean  "injuries_within_three_days"
+    t.boolean  "injuries_within_three_days",                          default: false
     t.integer  "length_of_treatment"
     t.string   "length_of_treatment_unit"
     t.text     "injury_summary"
     t.text     "medical_summary"
     t.decimal  "earnings_lost",              precision: 10, scale: 2
-    t.boolean  "treatment_gap"
-    t.boolean  "injections"
-    t.boolean  "hospitalization"
+    t.boolean  "treatment_gap",                                       default: false
+    t.boolean  "injections",                                          default: false
+    t.boolean  "hospitalization",                                     default: false
     t.integer  "hospital_stay_length"
     t.string   "hospital_stay_length_unit"
     t.integer  "firm_id"
     t.integer  "case_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "doctor_type",                                         default: [], array: true
-    t.string   "treatment_type",                                      default: [], array: true
+    t.string   "doctor_type",                                         default: [],    array: true
+    t.string   "treatment_type",                                      default: [],    array: true
     t.date     "injury_date"
     t.date     "final_treatment_date"
     t.integer  "user_id"
@@ -464,8 +497,8 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.datetime "updated_at"
     t.integer  "case_id"
     t.integer  "user_id"
-    t.string   "note_type"
-    t.string   "author"
+    t.string   "note_type",  limit: 255
+    t.string   "author",     limit: 255
     t.integer  "firm_id"
   end
 
@@ -510,6 +543,28 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.string "email"
     t.string "name"
   end
+  
+  create_table "phones", force: :cascade do |t|
+    t.string   "label"
+    t.string   "number"
+    t.integer  "contact_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "firm_id"
+  end
+
+  create_table "plantiffs", force: :cascade do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "resolutions", force: :cascade do |t|
     t.integer  "case_id"
@@ -529,6 +584,12 @@ ActiveRecord::Schema.define(version: 20150610201101) do
 
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
+
+  create_table "staffs", force: :cascade do |t|
+    t.string   "staff_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "task_drafts", force: :cascade do |t|
     t.integer "task_list_id"
@@ -555,11 +616,11 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                limit: 255
     t.date     "due_date"
     t.date     "completed"
-    t.boolean  "sms_reminder"
-    t.boolean  "email_reminder"
+    t.boolean  "sms_reminder",                    default: false
+    t.boolean  "email_reminder",                  default: false
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -617,6 +678,20 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.string   "activity"
   end
 
+  create_table "treatments", force: :cascade do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -628,33 +703,33 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   add_index "user_events", ["user_id"], name: "index_user_events_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "",                           null: false
-    t.string   "encrypted_password",     default: ""
-    t.string   "reset_password_token"
+    t.string   "email",                  limit: 255, default: "",                           null: false
+    t.string   "encrypted_password",     limit: 255, default: ""
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,                            null: false
+    t.integer  "sign_in_count",                      default: 0,                            null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "confirmation_token"
+    t.string   "name",                   limit: 255
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "unconfirmed_email",      limit: 255
     t.integer  "role"
-    t.boolean  "show_onboarding",        default: true
-    t.string   "oauth_refresh_token"
-    t.string   "oauth_token"
+    t.boolean  "show_onboarding",                    default: false
+    t.string   "oauth_refresh_token",    limit: 255
+    t.string   "oauth_token",            limit: 255
     t.datetime "oauth_expires_at"
-    t.string   "google_email"
+    t.string   "google_email",           limit: 255
     t.integer  "firm_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "time_zone",              default: "Pacific Time (US & Canada)"
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "time_zone",                          default: "Pacific Time (US & Canada)"
     t.string   "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -662,7 +737,7 @@ ActiveRecord::Schema.define(version: 20150610201101) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
-    t.integer  "invitations_count",      default: 0
+    t.integer  "invitations_count",                  default: 0
     t.integer  "invitation_role"
     t.integer  "hourly_rate"
     t.string   "middle_name"
@@ -676,5 +751,13 @@ ActiveRecord::Schema.define(version: 20150610201101) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "witnesses", force: :cascade do |t|
+    t.string   "witness_type",    limit: 255
+    t.string   "witness_subtype", limit: 255
+    t.string   "witness_doctype", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

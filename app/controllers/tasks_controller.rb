@@ -161,6 +161,6 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:name, :due_date, :completed, :sms_reminder, :email_reminder, :description,
-                                   :estimated_time, :estimated_time_unit, :user_id, :owner_id, :secondary_owner_id, :add_event, :case_id, :google_calendar_id)
+                                   :estimated_time, :estimated_time_unit, :user_id, :owner_id, :secondary_owner_id, :add_event, :case_id, :calendar_id)
     end
 end

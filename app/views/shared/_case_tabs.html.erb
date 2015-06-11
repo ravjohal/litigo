@@ -1,5 +1,7 @@
 
-<ul id="nav-tabs-custom" role="tablist">
+
+<ul id="nav-tabs-custom" role="tablist" class="menu">
+<a class="more" href="#show_all">MORE</a>
   <li> <%= active_link_to 'SUMMARY', case_summary_path(@case), :class_active => 'navigated' %></li>
   <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case), :class_active => 'navigated',  :active => [['cases'], ['show', 'edit']] %></li>
   <% if @case.incident.present? %>
@@ -30,3 +32,46 @@
     <li><%= active_link_to 'TIME & EXPENSE', case_expenses_path(@case) , :class_active => 'navigated' %></li>
   <% end %>
 </ul>
+<br />
+<br />
+<div class="more_menu"></div>
+<script>
+$(document).on('ready', function () {
+    function getHiddenItems() {
+        var isOneLine = true;
+        var topPosition = false;
+        var invisibleItems = $('<ul/>');
+        $('.menu li').each(function () {
+            var thisPosition = $(this).position();
+            if (topPosition === false) {
+                topPosition = thisPosition.top;
+            } else if (thisPosition.top > topPosition) {
+                invisibleItems.append($(this).clone());
+                isOneLine = false;
+            };
+        });
+        return isOneLine ? false : invisibleItems;
+    };
+
+    function checkMenu() {
+        $('.more').hide();
+        var hiddenItems = getHiddenItems();
+        if (!hiddenItems) {
+
+            $('.more_menu').html('');
+        } else {
+            $('.more').show();
+            /* What items are not visible now? */
+            hiddenItems = getHiddenItems();
+            $('.more_menu').html('<ul>' + hiddenItems.html() + '</ul>');
+        };
+    };
+    $('.more').on('click', function (e) {
+        e.preventDefault();
+        $('.more').toggleClass('more_menu_opened');
+        $('.more_menu').toggleClass('open');
+    });
+    $(window).on('resize', checkMenu);
+    checkMenu();
+});
+</script>

@@ -6,13 +6,50 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-           <a class="close" data-dismiss="modal">×</a>
-            <h2>New Case</h2>
+           <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+            <h1>New Case</h1>
           </div>
           <div class="modal-body">
      <% end %>
 
-      <table class="new_case_form table-condensed">
+<!-- <div class="modal-container new_case_form">
+      <div class="form-group">
+      <div class="field-header">CASE NAME</div>
+      <%= f.text_field :name, :autofocus => false, :class => 'table-input', placeholder: 'Smith, John' %>
+    </div>
+      <div class="form-group">
+      <div class="field-header">ASSIGN ATTORNEY(S)</div>
+      <%= f.select :attorney, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:attorney).map(&:id)), {prompt: "Select #{:attorney}"}, {:class => 'contacts_select', :multiple => true} %>
+    </div>
+     <div class="form-group">
+      <div class="field-header">ASSIGN STAFF</div>
+          <%= f.select :staff, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:staff).map(&:id)), {prompt: "Select #{:staff}"}, {:class => 'contacts_select', :multiple => true} %>
+    </div>
+    <div class="form-group">
+      <div class="field-header">STATE</div>
+          <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input', :include_blank => true %>
+    </div>
+    <div class="form-group">
+      <div class="field-header">CASE TYPE</div>
+          <%= f.select :case_type, Case::TYPES, :include_blank => true, label: false, :class => 'table-input'%>
+    </div>
+    <div class="form-group">
+      <div class="field-header">SUB-TYPE</div>
+           <%= f.select :subtype, Case::SUB_TYPES, label: false, :include_blank => true %>
+    </div>
+    <div class="form-group">
+      <div class="field-header">TOPIC</div>
+          <%= f.text_field :topic, label: false, :class =>'table-input', placeholder: 'e.g. Rear-end accident with minor' %>
+    </div>
+    <div class="form-group">
+      <div class="field-header">CASE SUMMARY</div>
+    <%= f.text_area :description, label: false, :class => 'table-text', placeholder: 'Enter a high level summary of the case', :autofocus => false %>      
+    </div>
+    
+ <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input', :hidden => true %>
+ </div> -->
+
+     <table class="new_case_form table-condensed">
         <tbody>
           <tr>
             <td>
@@ -63,7 +100,7 @@
             </td>
           </tr>
         
-          <!-- This is a hidden field that needs to be present so that the case_number can be incremented by 1, PLEASE DO NOT REMOVE without applying the incrementing-->
+          <!-- This is a hidden field that needs to be present so that the case_number can be incremented by 1, PLEASE DO NOT REMOVE without applying the incrementing -->
             <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input', :hidden => true %>
     
            <tr>
@@ -107,7 +144,7 @@
 <% end %>
 
   <script>
-    $(document).ready(function() { $("td select").select2({allowClear: true});
+    $(document).ready(function() { $("div select").select2({allowClear: true});
         });
     $('#case_case_type').on('change', function() {
       var conceptName = $('#case_case_type').find(":selected").text();

@@ -13,7 +13,7 @@
         <ul>
       <li class="dropdown task-list">
         <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
-          TASKS
+          TASK ITEMS
           <span class="caret"></span>
         <% end %>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
@@ -45,13 +45,13 @@
   <div id="index-buttons">
     <ul>
       <li><%= link_to "javascript:window.print()", :class => 'dark' do %>
-          <span class="glyphicon glyphicon-print tip" data-tip="Print"></span>
+          <span id="print" class="glyphicon glyphicon-print tip" title="Print Tasks"></span>
         <% end %></li>
       <div id="top-custom">
         <ul>
           <li class="dropdown task-list">
             <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
-              TASKS
+              TASK ITEMS
               <span class="caret"></span>
             <% end %>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
@@ -210,6 +210,6 @@
 </script>
 <script type='text/javascript'>
   $(function() {
-    $('#print').tipsy({gravity: 'ne', fade: true});
+    $('#print').tipsy({gravity: 'n', fade: true});
   });
 </script>

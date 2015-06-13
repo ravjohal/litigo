@@ -7,11 +7,13 @@ class NamespacesController < ApplicationController
   # GET /namespaces.json
   def index
     @namespaces = @user.namespaces
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
-    @inbox.accounts.each do |a|
-      ns = @namespaces.find_by(account_id: a.account_id)
-      status = a.sync_state.downcase == 'running' ? 'active' : a.sync_state.downcase
-      ns.update(account_status: status) if ns.present?
+    if @namespaces.present?
+      @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
+      @inbox.accounts.each do |a|
+        ns = @namespaces.find_by(account_id: a.account_id)
+        status = a.sync_state.downcase == 'running' ? 'active' : a.sync_state.downcase
+        ns.update(account_status: status) if ns.present?
+      end
     end
   end
 

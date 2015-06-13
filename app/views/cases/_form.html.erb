@@ -12,7 +12,7 @@
           <div class="modal-body">
      <% end %>
 
-<div class="modal-container new_case_form">
+<!-- <div class="modal-container new_case_form">
       <div class="form-group">
       <div class="field-header">CASE NAME</div>
       <%= f.text_field :name, :autofocus => false, :class => 'table-input', placeholder: 'Smith, John' %>
@@ -47,8 +47,9 @@
     </div>
     
  <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input', :hidden => true %>
+ </div> -->
 
-     <!-- <table class="new_case_form table-condensed">
+     <table class="new_case_form table-condensed">
         <tbody>
           <tr>
             <td>
@@ -99,7 +100,7 @@
             </td>
           </tr>
         
-          This is a hidden field that needs to be present so that the case_number can be incremented by 1, PLEASE DO NOT REMOVE without applying the incrementing
+          <!-- This is a hidden field that needs to be present so that the case_number can be incremented by 1, PLEASE DO NOT REMOVE without applying the incrementing -->
             <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, new_case), label: false, :class =>'table-input', :hidden => true %>
     
            <tr>
@@ -120,8 +121,8 @@
           </td>
           </tr>
         </tbody>
-      </table> -->
-</div>
+      </table>
+
 
      <% if action_name == "index" || controller_name == 'dashboards' %>
           </div><!--end of modal-body-->

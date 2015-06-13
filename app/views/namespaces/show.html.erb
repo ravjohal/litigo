@@ -41,11 +41,13 @@
     </thead>
     <tbody>
     <% @namespace.calendars.each do |calendar| %>
-      <tr>
-        <td><%= check_box_tag "calendar_id[#{calendar.id}]", calendar.id, calendar.active, class: 'calendar_ids' %></td>
-        <td><%= calendar.name %></td>
-        <td><%= calendar.description %></td>
-      </tr>
+      <% if calendar.name != 'Emailed events' %>
+        <tr>
+          <td><%= check_box_tag "calendar_id[#{calendar.id}]", calendar.id, calendar.active, class: 'calendar_ids' %></td>
+          <td><%= calendar.name %></td>
+          <td><%= calendar.description %></td>
+        </tr>
+      <% end %>
     <% end %>
     </tbody>
   </table>

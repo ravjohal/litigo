@@ -28,7 +28,7 @@
 
   <p><strong>Provider:</strong> <%= @namespace.provider %></p>
 
-  <p>Sync period: <%= collection_radio_buttons :sync_period, :sync_period, Namespace::SYNC_PERIODS.map {|k,v| [k, v]}, :first, :last, {checked: @namespace.sync_period.present? ? @namespace.sync_period : 0}, class: 'sync_period' %></p>
+  <p><strong>How far back would you like to sync?</strong> <%= collection_radio_buttons :sync_period, :sync_period, Namespace::SYNC_PERIODS.map {|k,v| [k, v]}, :first, :last, {checked: @namespace.sync_period.present? ? @namespace.sync_period : 0}, class: 'sync_period' %></p>
 
   <h3><%= @namespace.provider %> Calendars</h3>
   <table class="table table-striped table-hover">

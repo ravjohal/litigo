@@ -2,9 +2,6 @@ class EventsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
-  require 'google/api_client'
-  require 'google/api_client/client_secrets'
-  require 'google/api_client/auth/installed_app'
 
   around_filter :user_time_zone, if: :current_user
 
@@ -136,8 +133,18 @@ class EventsController < ApplicationController
 
   def event_drag
     @event = current_user.firm.events.find(params[:id].to_i)
+    calendar = @event.calendar
     if @event.update(event_drag_params)
-      GoogleCalendars.update_event(current_user, @event)
+      # GoogleCalendars.update_event(current_user, @event)
+      if calendar.present?
+        namespace = calendar.namespace
+        @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+        nylas_namespace = @inbox.namespaces.first
+        n_event = nylas_namespace.events.find(@event.nylas_event_id)
+        n_event.when = {:start_time => @event.starts_at.to_i, :end_time => @event.ends_at.to_i}
+        n_event.save!
+        @event.update(when_type: n_event.when['object']) if n_event.when['object'] != @event.when_type
+      end
       message = @event.errors.present? ? @event.errors.full_messages.to_sentence : 'Event was successfully updated.'
       render :json => { success: true, message: message }
     else
@@ -264,7 +271,7 @@ class EventsController < ApplicationController
   end
 
   def event_drag_params
-    params.require(:event).permit(:start, :end)
+    params.require(:event).permit(:starts_at, :ends_at)
   end
 
   def user_time_zone(&block)

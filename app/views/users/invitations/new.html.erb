@@ -24,9 +24,9 @@
         </td>
         <td><strong>Role</strong>
         </td>
-        <td>Edit events permition</td>
         <td>
         </td>        
+        <td><strong>User can edit other user's events?</strong></td>
     </tr>
   </thead>
   <tbody>
@@ -41,13 +41,14 @@
       <td>
   <%= form_for(user) do |f| %>
     <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'action-button' %>
+    <%= f.submit 'Change Role', :class => 'btn btn-default' %>
   <% end %>
 </td>
-      <td><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'allow'], [false, 'disallow']], :first, :last, {checked: user.edit_events_permit}, class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
 <td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'delete btn-danger') unless user == current_user %>
+  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn delete btn-danger') unless user == current_user %>
 </td>
+      <td><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
+
     </tr>
      <% end %>
   </tbody>
@@ -87,4 +88,7 @@
           });
     });
   });
+</script>
+<script type="text/javascript">
+  $("[name='my-checkbox']").bootstrapSwitch();
 </script>

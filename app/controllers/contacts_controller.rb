@@ -105,10 +105,20 @@ class ContactsController < ApplicationController
     # else besides Attorney. Need to look into this when there is a chance since Attorney Type can be
     # persisted once and then never emptied if the Contact Type is changed (which doesn't happen often luckily)
 
+    
 
     respond_to do |format|
       if @contact.update(contact_params)
         if @contact.type == "Company"
+          company_contacts = params[:contact][:contacts_attributes] if params[:contact][:contacts_attributes]
+          company_contacts.each do |key, contact_param|
+            contact = Contact.find(contact_param[:id])
+            destroy = contact_param[:_destroy]
+            if destroy == "1"
+              contact.company_id = ""
+              contact.save!
+            end
+          end
           format.html { redirect_to company_path(@contact), notice: 'Company was successfully updated.' }
         else 
           format.html { redirect_to @contact, notice: 'Company was successfully updated.' }

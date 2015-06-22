@@ -73,7 +73,7 @@
           <strong>Date of Birth:</strong>
         </td>
         <td colspan="3">
-          <%= @contact.date_of_birth.strftime("%m/%d/%Y") if @contact.date_of_birth %>
+          <%= @contact.try(:date_of_birth).try(:strftime, "%m/%d/%Y") %>
         </td>
         </tr>
          <tr>
@@ -95,7 +95,7 @@
           <strong>Majority Date:</strong>
         </td>
         <td>
-              <%= @contact.major_date %>
+              <%= @contact.try(:major_date).try(:strftime, "%b %e, %Y") %>
         </td>
       </tr>
       <tr>
@@ -109,7 +109,7 @@
           <strong>Date of Death</strong>
         </td>
         <td>
-            <%= @contact.date_of_death %>
+            <%= @contact.try(:date_of_death).try(:strftime, "%b %e, %Y") %>
         </td>
       </tr> 
         <tr>

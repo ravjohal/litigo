@@ -135,7 +135,6 @@ class EventsController < ApplicationController
     @event = current_user.firm.events.find(params[:id].to_i)
     calendar = @event.calendar
     if @event.update(event_drag_params)
-      # GoogleCalendars.update_event(current_user, @event)
       if calendar.present?
         namespace = calendar.namespace
         @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
@@ -184,6 +183,7 @@ class EventsController < ApplicationController
     events_synced = 0
     refreshed_events = []
     @event_sources = {}
+    @users = @firm.users
     namespaces = @firm.namespaces
     namespaces.each do |namespace|
       active_calendars = namespace.calendars.where(active: true)
@@ -222,10 +222,6 @@ class EventsController < ApplicationController
                     ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
                     ep.update(status: np['status'])
                   end
-                  if !@event_sources.has_key?(event.user_id)
-                    @event_sources[event.user_id] = {events:[], user_name: event.user.name, color: event.user.events_color.present? ? event.user.events_color : '#3B91AD'}
-                  end
-                  @event_sources[event.user_id][:events].push({id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.when_type == 'date' || event.when_type == 'datespan'})
                 end
               elsif event == "delete"
                 event = Event.find_by(user_id: @user.id, nylas_event_id: ne.id).try(:destroy)
@@ -238,6 +234,19 @@ class EventsController < ApplicationController
         namespace.update(cursor: last_cursor) if last_cursor.present?
       end
     end
+
+    @users.each_with_index do |user, index|
+      hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+      events = []
+      user.events.each do |event|
+        event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.when_type == 'date' || event.when_type == 'datespan'}
+        events << event
+      end
+      hash[:events] = events
+      @event_sources[user.id] = hash
+    end
+
+
     message = "#{events_synced} events were synced."
     respond_to do |format|
       format.html {redirect_to request.referrer , notice: message}

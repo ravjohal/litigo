@@ -67,7 +67,7 @@
 .dropdown-menu {
   position: absolute;
   top: 100%;
-  left: -75px;
+  left: -40px;
   z-index: 1001;
   display: none;
   float: left;
@@ -94,7 +94,9 @@ padding-left: 20px;
   }
 }
 .toolbar {
-  display: block;
+  display: inline-block;
   text-align: right;
-  margin: 15px;
+  margin-top: 8px !important;
+  float: right;
+  margin-right: 10px;
 }

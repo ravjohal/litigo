@@ -206,9 +206,9 @@ class EventsController < ApplicationController
 
   def emails_autocomplete
     users_emails = []
-    @user.firm.users.map {|user| users_emails << user.email}
+    @user.firm.users.map {|user| users_emails << user.email unless user.email == @user.email}
     @user.events.map do |event|
-      event.participants.map {|participant| users_emails << participant.email}
+      event.participants.map {|participant| users_emails << participant.email unless participant.email == @user.email}
     end
     return users_emails.uniq
   end

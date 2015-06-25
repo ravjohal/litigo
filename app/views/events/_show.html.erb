@@ -17,7 +17,11 @@
         <strong>Location:</strong>
         <%= @event.location %>
       </p>
-         <p>
+      <p>
+        <strong>Owner:</strong>
+        <%= @event.try(:user).try(:name) %>
+      </p>
+      <p>
         <strong>Participants:</strong>
         <%= @event.participants.map {|c| c.name}.join(', ') %>
       </p>
@@ -32,7 +36,7 @@
       </p>
       <p>
         <strong>External calendar:</strong>
-        <%= "#{@event.calendar.namespace.full_name}: #{@event.calendar.name}" %>
+        <%= "#{@event.try(:calendar).try(:namespace).try(:full_name)}: #{@event.try(:calendar).try(:name)}" %>
       </p>
       <p>
         <strong>Description:</strong>

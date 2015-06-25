@@ -52,7 +52,7 @@
             </td>
             <td>
               <%= f.text_field :start_date, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
-              <%= f.text_field :start_time, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%I:%M %p') : Time.now.strftime('%I:%M %p'), id: 'event_start_time' %>
+              <%= f.text_field :start_time, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%I:%M %p') : Time.now.strftime('%I:%M %p'), id: 'event_start_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
             </td>
           </tr>
           <tr>
@@ -61,7 +61,16 @@
             </td>
             <td>
               <%= f.text_field :end_date, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_end_date' %>
-              <%= f.text_field :end_time, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'), id: 'event_end_time' %>
+              <%= f.text_field :end_time, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'), id: 'event_end_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <strong>All Day:</strong>
+            </td>
+            <td>
+              <%= f.check_box :all_day, {}, true, false %>
             </td>
           </tr>
 
@@ -179,6 +188,19 @@
           period_val = 'day';
       }
       $('#period').html(period_val);
+    })
+    $('#event_all_day').change(function (e) {
+      console.log($(this).is(':checked'));
+      if($(this).is(':checked')) {
+        $('#event_start_time').val('').hide();
+        $('#event_end_time').val('').hide();
+      } else {
+        var sd = new Date();
+        var ed = new Date();
+        ed.setHours(ed.getHours()+1);
+        $('#event_start_time').val(formatAMPM(sd)).show();
+        $('#event_end_time').val(formatAMPM(ed)).show();
+      }
     })
 </script>
 <script type='text/javascript'>

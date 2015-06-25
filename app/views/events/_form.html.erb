@@ -1,128 +1,188 @@
 <%= simple_form_for(@event || @event = Event.new) do |f| %>
-      <%= f.error_notification %>
+  <%= f.error_notification %>
 
-      <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-             <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
-              <h1>Calendar Event</h1>
-            </div>
-         <div class="modal-body">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
 
-         <table class="case-form table-condensed">
-            <tbody>
-               
-                <tr>
-                    <td>
-                        <strong>Event Name:</strong>
-                    </td>
-                    <td> 
-                        <%= f.text_field :title, label: false, :class => 'table-input' %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Location:</strong>
-                    </td>
-                    <td>
-                        <%= f.text_field :location, label: false, :class => 'table-input' %>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>
-                        <strong>Event Owner:</strong><span id="owner" title="This event will be added to the selected calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
-                    </td>
-                    <td>
-                       <%= f.select :calendar_id, @firm.calendars.where(active:true).map {|cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id]}, :include_blank => true, :class => 'table-input' %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Invitees:</strong><span id="invite" title="Invitees will receive an email invite and the event will be added to their calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
-                    </td>
-                    <td>
-                        <%= f.input :participants, label: false, :input_html => {:id => "invitee_select", :value => "#{@event.participants.map {|participant| participant.email}.join(',')}"}, :class => 'table-input' %>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Start Time:</strong>
-                    </td>
-                    <td>
-                      <%= f.text_field :start_date, value: @event.present? ? @event.try(:starts_at).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
-                      <%= f.text_field :start_time, value: @event.present? ? @event.try(:starts_at).try(:strftime,'%I:%M %p') : Time.now.strftime('%I:%M %p'),  id: 'event_start_time'%>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>End Time:</strong>
-                    </td>
-                    <td>
-                      <%= f.text_field :end_date, value: @event.present? ? @event.try(:ends_at).try(:strftime,'%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_end_date' %>
-                      <%= f.text_field :end_time, value: @event.present? ? @event.try(:ends_at).try(:strftime,'%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'),  id: 'event_end_time'%>
-                    </td>
-                </tr>
-              
-                
-                 <tr>
-                    <td class="big-row">
-                        <strong>Description:</strong>
-                    </td>
-                    <td class="big-row">
-                        <%= f.text_area :description, label: false, :class => 'table-text' %>
-                    </td>
-                </tr>
-                
-            </tbody>
-         </table>
+        <h1>Calendar Event</h1>
+      </div>
+      <div class="modal-body">
 
-          </div><!--end of modal-body-->
-          
-           <div class="modal-footer">
-              <div class="pull-left">
-                <a class="close" data-dismiss="modal">Cancel</a>
-              </div>
+        <table class="case-form table-condensed">
+          <tbody>
 
-              <div class="form-actions">
-              <% if @event.present? %>
-                  <%= link_to @event,  :class => 'btn btn-danger', method: :delete, data: { confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?' } do %>Delete<% end %>
-                <% end %>
-                  <%= f.button :submit, :class =>"btn btn-info", :style => 'font-size: 18px;' %>
-              </div>
+          <tr>
+            <td>
+              <strong>Event Name:</strong>
+            </td>
+            <td>
+              <%= f.text_field :title, label: false, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Location:</strong>
+            </td>
+            <td>
+              <%= f.text_field :location, label: false, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Event
+                Owner:</strong><span id="owner" title="This event will be added to the selected calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
+            </td>
+            <td>
+              <%= f.select :calendar_id, @firm.calendars.where(active: true).map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Invitees:</strong><span id="invite" title="Invitees will receive an email invite and the event will be added to their calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
+            </td>
+            <td>
+              <%= f.input :participants, label: false, :input_html => {:id => "invitee_select", :value => "#{@event.participants.map { |participant| participant.email }.join(',')}"}, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Start Time:</strong>
+            </td>
+            <td>
+              <%= f.text_field :start_date, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
+              <%= f.text_field :start_time, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%I:%M %p') : Time.now.strftime('%I:%M %p'), id: 'event_start_time' %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>End Time:</strong>
+            </td>
+            <td>
+              <%= f.text_field :end_date, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_end_date' %>
+              <%= f.text_field :end_time, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'), id: 'event_end_time' %>
+            </td>
+          </tr>
 
-            </div><!--end of modal-footer-->
-        </div><!--end of modal-content-->
-      </div><!--end of modal-dialog-->
+          <tr>
+            <td class="big-row">
+              <strong>Description:</strong>
+            </td>
+            <td class="big-row">
+              <%= f.text_area :description, label: false, :class => 'table-text' %>
+            </td>
+          </tr>
+
+          <tr>
+            <td><strong>Recurring event:</strong></td>
+            <td><%= f.check_box :recur, {}, true, false %></td>
+          </tr>
+
+          <tr class="recur_block">
+            <td><strong>Repeats:</strong></td>
+            <td><%= f.select :period, Event::REPEATS %></td>
+          </tr>
+
+          <tr class="recur_block">
+            <td><strong>Repeat every:</strong></td>
+            <td><%=f.select :frequency, (1..30).to_a %> <span id = "period">day</span></td>
+          </tr>
+
+          <tr class="recur_block">
+            <td><strong>Date of Start:</strong></td>
+            <td><%= f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>
+          </tr>
+
+          <tr class="recur_block">
+            <td><strong>Date of End:</strong></td>
+            <td><%= f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+      <!--end of modal-body-->
+
+      <div class="modal-footer">
+        <div class="pull-left">
+          <a class="close" data-dismiss="modal">Cancel</a>
+        </div>
+
+        <div class="form-actions">
+          <% if @event.present? %>
+            <%= link_to @event, :class => 'btn btn-danger', method: :delete, data: {confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?'} do %>
+              Delete
+            <% end %>
+          <% end %>
+          <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
+        </div>
+
+      </div>
+      <!--end of modal-footer-->
+    </div>
+    <!--end of modal-content-->
+  </div><!--end of modal-dialog-->
 
 <% end %>
 <script>
-$(document).ready(function() {
-  $('#case_select, #attorney_select, select').select2();
-  $('#event_start_date, #event_end_date').datetimepicker({
-    pickTime: false,
-    format: 'M/D/YYYY'
-  });
-  $('#event_start_time, #event_end_time').datetimepicker({
-    pickDate: false
-  });
+  $(document).ready(function () {
+    $('#case_select, #attorney_select, select').select2();
+    $('#event_start_date, #event_end_date, #event_recur_start_date, #event_recur_end_date').datetimepicker({
+      pickTime: false,
+      format: 'M/D/YYYY'
+    });
+    $('#event_start_time, #event_end_time').datetimepicker({
+      pickDate: false
+    });
 
-  var end_time_manual_set = false;
+    var end_time_manual_set = false;
 
-  $('#event_start_date, #event_start_time').change(function (e) {
-    var start_date = $('#event_start_date').val();
-    var start_time = $('#event_start_time').val();
-    var end_date_time = moment(start_date+' '+start_time, 'MM/DD/YYYY HH:mm A').add(1, 'h')
-    $('#event_end_date').val(end_date_time.format('M/D/YYYY')).change();
-    $('#event_end_time').val(end_date_time.format('h:mm A')).change();
-  });
+    $('#event_start_date, #event_start_time').change(function (e) {
+      var start_date = $('#event_start_date').val();
+      var start_time = $('#event_start_time').val();
+      var end_date_time = moment(start_date + ' ' + start_time, 'MM/DD/YYYY HH:mm A').add(1, 'h')
+      $('#event_end_date').val(end_date_time.format('M/D/YYYY')).change();
+      $('#event_end_time').val(end_date_time.format('h:mm A')).change();
+    });
 
-  $('#invitee_select').tagit({
-    availableTags: <%= @emails_autocomplete.to_json.html_safe %>
+    $('#invitee_select').tagit({
+      availableTags: <%= @emails_autocomplete.to_json.html_safe %>
+    });
   });
-});
+  $('#event_recur').change(function (e) {
+    if($(this).is(':checked')){
+      $('.recur_block').show();
+    } else {
+      $('.recur_block').hide();
+    }
+  });
+    $('#event_period').change(function (e) {
+      var period = $(this).val();
+      var period_val = 'day';
+      switch (period) {
+        case 'Daily':
+          period_val = 'day';
+          break;
+        case 'Weekly':
+          period_val = 'week';
+          break;
+        case 'Monthly':
+          period_val = 'month';
+          break;
+        case 'Yearly':
+          period_val = 'year';
+          break;
+
+        default:
+          period_val = 'day';
+      }
+      $('#period').html(period_val);
+    })
 </script>
 <script type='text/javascript'>
-  $(function() {
+  $(function () {
     $('#invite').tipsy({gravity: 's', fade: true});
     $('#owner').tipsy({gravity: 's', fade: true});
   });

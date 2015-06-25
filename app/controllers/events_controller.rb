@@ -54,36 +54,67 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
-    attrs = {
-        title: event_params[:title],
-        description: event_params[:description],
-        location: event_params[:location],
-        starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        user_id: @user.id,
-        firm_id: @firm.id
-    }
-    @event = Event.new(attrs)
+    if event_params[:recur]
+      @event = EventSeries.new({
+                                   title: event_params[:title],
+                                   description: event_params[:description],
+                                   location: event_params[:location],
+                                   starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                                   ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                                   user_id: @user.id,
+                                   firm_id: @firm.id,
+                                   period: event_params[:period],
+                                   frequency: event_params[:frequency],
+                                   recur_start_date: Date.strptime(event_params[:recur_start_date], "%m/%d/%Y"),
+                                   recur_end_date: Date.strptime(event_params[:recur_end_date], "%m/%d/%Y")
+                               })
+    else
+      @event = Event.new({
+                             title: event_params[:title],
+                             description: event_params[:description],
+                             location: event_params[:location],
+                             starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                             ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                             user_id: @user.id,
+                             firm_id: @firm.id
+                         })
+    end
     if @event.save
       participants = event_params[:participants].split(",") if event_params[:participants].present?
       if participants.present?
         participants.each do |p_email|
           participant = Participant.find_or_create_by(email: p_email)
-          event_participant = EventParticipant.create(event_id: @event.id, participant_id: participant.id)
+          if @event.class.name == 'Event'
+            event_participant = EventParticipant.create(event_id: @event.id, participant_id: participant.id)
+          elsif @event.class.name == 'EventSeries'
+            @event.events.each do |e|
+              event_participant = EventParticipant.create(event_id: e.id, participant_id: participant.id)
+            end
+          end
+
         end
       end
       if calendar.present?
         namespace = calendar.namespace
         @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
         nylas_namespace = @inbox.namespaces.first
-        n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => @event.title, :description => @event.description,
-                                               :location => @event.location, :when => {:start_time => @event.starts_at.to_i,
-                                                                                       :end_time => @event.ends_at.to_i},
-                                               :participants => @event.participants.map {|p| { :email => p.email, :name => p.name}})
-        n_event.save!
-        @event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
-                      nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
-                      when_type: n_event.when['object'])
+        if @event.class.name == 'Event'
+          n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => @event.title, :description => @event.description,
+                                                 :location => @event.location, :when => {:start_time => @event.starts_at.to_i,
+                                                                                         :end_time => @event.ends_at.to_i},
+                                                 :participants => @event.participants.map {|p| { :email => p.email, :name => p.name}})
+          n_event.save!
+          @event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
+                        nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
+                        when_type: n_event.when['object'])
+        #TODO figure out how to send recuring events to nylas
+        # elsif @event.class.name == 'EventSeries'
+        #   n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => @event.title, :description => @event.description,
+        #                                          :location => @event.location, :when => {:start_time => @event.starts_at.to_i,
+        #                                                                                  :end_time => @event.ends_at.to_i},
+        #                                          :participants => @event.events.first.participants.map {|p| { :email => p.email, :name => p.name}})
+        #   n_event.save!
+        end
       end
     end
     message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
@@ -275,8 +306,9 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary,
-                                  :start_date, :start_time, :end_date, :end_time, :status, :participants)
+    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time,
+                                  :end_date, :end_time, :status, :participants, :recur, :period, :frequency,
+                                  :recur_start_date, :recur_end_date)
   end
 
   def event_drag_params

@@ -14,7 +14,7 @@ class EventsController < ApplicationController
       hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
       user.events.each do |event|
-        event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.when_type == 'date' || event.when_type == 'datespan'}
+        event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
         events << event
       end
       hash[:events] = events
@@ -59,8 +59,9 @@ class EventsController < ApplicationController
                                    title: event_params[:title],
                                    description: event_params[:description],
                                    location: event_params[:location],
-                                   starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-                                   ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                                   starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                                   ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                                   all_day: event_params[:all_day],
                                    user_id: @user.id,
                                    firm_id: @firm.id,
                                    period: event_params[:period],
@@ -73,8 +74,9 @@ class EventsController < ApplicationController
                              title: event_params[:title],
                              description: event_params[:description],
                              location: event_params[:location],
-                             starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-                             ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                             starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                             ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+                             all_day: event_params[:all_day],
                              user_id: @user.id,
                              firm_id: @firm.id
                          })
@@ -131,8 +133,9 @@ class EventsController < ApplicationController
         title: event_params[:title],
         description: event_params[:description],
         location: event_params[:location],
-        starts_at: DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        ends_at: DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+        starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+        ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+        all_day: event_params[:all_day]
     }
     if @event.update(attrs)
       participants = event_params[:participants].split(",") if event_params[:participants].present?
@@ -307,7 +310,7 @@ class EventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time,
-                                  :end_date, :end_time, :status, :participants, :recur, :period, :frequency,
+                                  :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency,
                                   :recur_start_date, :recur_end_date)
   end
 

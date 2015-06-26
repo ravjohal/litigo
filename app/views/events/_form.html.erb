@@ -83,30 +83,30 @@
             </td>
           </tr>
 
-          <tr>
-            <td><strong>Recurring event:</strong></td>
-            <td><%= f.check_box :recur, {}, true, false %></td>
-          </tr>
+          <!--<tr>-->
+            <!--<td><strong>Recurring event:</strong></td>-->
+            <!--<td><%# f.check_box :recur, {}, true, false %></td>-->
+          <!--</tr>-->
 
-          <tr class="recur_block">
-            <td><strong>Repeats:</strong></td>
-            <td><%= f.select :period, Event::REPEATS %></td>
-          </tr>
+          <!--<tr class="recur_block">-->
+            <!--<td><strong>Repeats:</strong></td>-->
+            <!--<td><%# f.select :period, Event::REPEATS %></td>-->
+          <!--</tr>-->
 
-          <tr class="recur_block">
-            <td><strong>Repeat every:</strong></td>
-            <td><%=f.select :frequency, (1..30).to_a %> <span id = "period">day</span></td>
-          </tr>
+          <!--<tr class="recur_block">-->
+            <!--<td><strong>Repeat every:</strong></td>-->
+            <!--<td><%# f.select :frequency, (1..30).to_a %> <span id = "period">day</span></td>-->
+          <!--</tr>-->
 
-          <tr class="recur_block">
-            <td><strong>Date of Start:</strong></td>
-            <td><%= f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>
-          </tr>
+          <!--<tr class="recur_block">-->
+            <!--<td><strong>Date of Start:</strong></td>-->
+            <!--<td><%# f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>-->
+          <!--</tr>-->
 
-          <tr class="recur_block">
-            <td><strong>Date of End:</strong></td>
-            <td><%= f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>
-          </tr>
+          <!--<tr class="recur_block">-->
+            <!--<td><strong>Date of End:</strong></td>-->
+            <!--<td><%# f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>-->
+          <!--</tr>-->
 
           </tbody>
         </table>

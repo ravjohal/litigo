@@ -1,0 +1,286 @@
+
+<%= simple_form_for @case, :url => copy_case_create_path(@case), :method => :post do |f| %>
+
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong><%= @case.name %></strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li><%= link_to 'Cancel', @case, :class => 'dark' %></li>
+                  <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Copy'%></li>
+              </ul>
+          </div>
+    </div>
+    <strong>Case #: </strong><%= @case.case_number %>
+    
+        <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+               Check all items you would like to copy to the new case:
+               <ul>
+ 
+                  <%= check_box_tag :incident %>
+                  <%= label_tag :incident, "Incident" %>
+                </ul>
+<ul>
+                 <%= check_box_tag :medicals %>
+                 <%= label_tag :medicals, "Medicals" %>
+  
+   </ul>
+   <ul>
+                  <%= check_box_tag :med_bills %>
+                  <%= label_tag :med_bills, "Medical Bills" %>
+                </ul>
+<ul>
+                  <%= check_box_tag :insurance %>
+                  <%= label_tag :insurance, "Insurance" %>
+   </ul>
+   <ul> 
+                  <%= check_box_tag :contacts %>
+                  <%= label_tag :contacts, "Contacts" %>
+</ul>
+<ul>
+                  <%= check_box_tag :tasks %>
+                  <%= label_tag :tasks, "Tasks" %>
+</ul>
+<ul>
+                  <%= check_box_tag :documents %>
+                  <%= label_tag :documents, "Documents" %>
+</ul>
+<ul>
+                  <%= check_box_tag :notes %>
+                  <%= label_tag :notes, "Notes" %>
+               </ul>
+              </div>
+        </div>
+</div>
+
+<div class="top-table-container">
+<table id="info-table1">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Case Administration</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+    <!-- This is a hidden field that needs to be present so that the case_number can be incremented by 1, PLEASE DO NOT REMOVE without applying the incrementing -->
+    <%= f.text_field :case_number, :readonly => true, :value =>  Case.increment_number(@firm, action_name.to_s, @case), label: false, :class =>'table-input', :hidden => true %>
+    <tr>
+        <td class="col-one">
+          <strong>Case Name:</strong>
+        </td>
+        <td>
+              <%= f.text_field :name, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Docket Number:</strong>
+        </td>
+        <td>
+              <%= f.text_field :docket_number, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Judge:</strong>
+        </td>
+        <td>
+         <% @case.case_contacts.where("role = 'Judge'").each do |d| %>
+          <%= d.contact.first_name %> <%= d.contact.last_name %>
+           <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Court:</strong>
+        </td>
+        <td>
+          <%= f.text_field :court, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+          <strong>County:</strong>
+        </td>
+        <td>
+          <%= f.text_field :county, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+           <strong>State:</strong>
+        </td>
+        <td>
+        <%= f.input :state, as: :select, collection: us_states, label: false, :class => 'table-input', :include_blank => false %>
+        </td>
+      </tr>
+      <tr>
+        <td class="col-one">
+           <strong>Fee Agreement Signed?</strong>
+        </td>
+        <td>
+                <div class='radio'>
+                <%= f.radio_button :fee_agreement, 'true' %> 
+                <%= label :fee_agreement, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :fee_agreement, 'false' %>
+                <%= f.label :fee_agreement, 'No', :value => 'No'%>
+            </div>
+        </td>
+      </tr>
+  </tbody>
+</table>
+<table id="info-table2">
+<thead>
+  <tr class="right-top">
+    <td colspan="2" class="gray-back">
+      <strong>Key Dates</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+     <tr>
+      <td class="col-one">
+        <strong>Date of Incident: </strong><span id="doi" title="Edit the DOI from the Incident tab" style="cursor: pointer;" class="glyphicon glyphicon-info-sign pull-right"></span>
+      </td>
+        <td>
+            <%= @case.incident.try(:incident_date) %>
+        </td>
+     </tr>
+    <tr>
+      <td class="col-one">
+        <strong>SOL: </strong><span id="sol" title="Manually changing the SOL will disable auto-calculations" style="cursor: pointer; color: #D82B25;" class="glyphicon glyphicon-exclamation-sign pull-right"></span>
+      </td>
+        <td>
+          <%= f.date_field :statute_of_limitations, label: false, :class => 'table-input' %>
+        </td>
+     </tr>
+  <tr>
+        <td class="right">
+            <strong>Date of Intake:</strong>
+        </td>
+        <td>
+          <%= @case.date_of_intake %>
+        </td>
+      </tr>
+      <tr>
+      <td class="col-one">
+        <strong>Case Open Date:</strong>
+      </td>
+        <td>
+         <%= @case.created_at.strftime("%b %e, %Y") %>
+        </td>
+     </tr>
+      <tr>
+        <td class="right">
+           <strong>Hearing Date:</strong>
+        </td>
+        <td>
+              <%= f.date_field :hearing_date, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="col-one">
+           <strong>Transferred to Lit:</strong>
+        </td>
+        <td>
+              <%= @case.transfer_date.try(:strftime, "%b %e, %Y")  %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+            <strong>Date Filed Suit:</strong>
+        </td>
+        <td>
+            <%= f.date_field :filed_suit_date, label: false, :class => 'table-input' %>  
+        </td>
+      </tr>
+           <tr>
+        <td class="col-one">
+           <strong>Trial Date:</strong>
+        </td>
+        <td>
+            <%= f.date_field :trial_date, label: false, :class => 'table-input' %>  
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+<hr class="invis">
+
+<div class="bottom-table-container">
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>General Overview</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+      <tr>
+        <td class="right">
+          <strong>Status:</strong>
+        </td>
+        <td>
+          <%= f.input :status, collection: Case::STATUS, :class => 'table-input', label: false, :include_blank => false %>
+        </td>
+         <td class="right">
+          <strong>Date Closed:</strong>
+        </td>
+        <td>
+        <%= f.date_field :closing_date, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+           <strong>Type:</strong>
+        </td>
+        <td>
+          <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input', :include_blank => false %>
+        </td>
+        <td class="right">
+          <strong>Sub type:</strong>
+        </td>
+        <td>
+          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, :class => 'table-input', :include_blank => true %>
+        </td>
+      </tr>
+       <tr>
+        <td>
+          <strong>Topic:</strong>
+        </td>
+        <td colspan="3">
+              <%= f.text_field :topic, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+       <tr>
+        <td class="right big-row">
+            <strong>Case Summary:</strong>
+        </td>
+        <td colspan="3" class="big-row">
+          <%= f.text_area :description, label: false, :class => 'table-text' %>
+        </td>
+      </tr>
+  </tbody>
+</table>
+</div>
+
+<% end %>
+
+  <script>
+    $(document).ready(function() { $("select").select2({allowClear: true}); });
+  </script>
+<script type='text/javascript'>
+  $(function() {
+    $('#doi').tipsy({gravity: 's', fade: true});
+    $('#sol').tipsy({gravity: 's', fade: true});
+  });
+</script>
+

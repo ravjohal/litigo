@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   post 'templates_get_addressee' => 'templates#get_addressee', as: :get_addressee_attrs
   post 'templates_generate_docx' => 'templates#generate_docx', as: :generate_docx
   get 'download_docx/:id' => 'templates#download_docx', as: :download_docx
+  post 'upload_docx' => 'templates#upload_docx', as: :upload_docx
 
   resources :time_entries, :except => [:new]
   put 'set_timer' => 'time_entries#set_timer', as: :set_timer

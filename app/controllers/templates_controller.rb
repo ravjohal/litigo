@@ -5,7 +5,7 @@ class TemplatesController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
   respond_to :docx
   before_filter :authenticate_user!
-  before_action :set_template, only: [:show, :edit, :update, :update_html, :destroy, :generate_document, :generate_docx]
+  before_action :set_template, only: [:show, :edit, :update, :update_html, :destroy, :generate_document, :upload_docx, :generate_docx]
   before_action :set_user, :set_firm
 
   # GET /templates
@@ -196,6 +196,15 @@ class TemplatesController < ApplicationController
         render docx: 'download_docx', content: template_document.html_content, filename: template_document.name
       end
     end
+  end
+
+  def upload_docx
+    file_name = params[:name].present? ? params[:name] : @template.name.downcase.tr(' ', '_')
+    file = Htmltoword::Document.create params[:html], file_name
+    logger.info "file: #{file.inspect}\n\n\n"
+    document = Document.create(:author => @user.name, :doc_type => "generated docx from #{@template.try(:name)}", :user_id => @user.id,
+                               :firm_id => @firm.id, :document => file)
+    render :json => { success: true, href: document_path(document) }
   end
 
   # DELETE /templates/1

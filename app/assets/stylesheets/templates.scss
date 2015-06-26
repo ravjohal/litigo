@@ -98,6 +98,15 @@
   display: inline-block;
 }
 
+#temp-custom {
+  ul.dropdown-menu {
+    li {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+  }
+}
 
 
 .ui-state-active {

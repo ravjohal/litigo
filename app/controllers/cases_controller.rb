@@ -20,10 +20,14 @@ class CasesController < ApplicationController
 
   def new
     @case = Case.new
-
   end
 
   def edit
+    @case = Case.find(params[:id])
+    restrict_access("cases") if @case.firm_id != @firm.id
+  end
+
+  def copy_case
     @case = Case.find(params[:id])
     restrict_access("cases") if @case.firm_id != @firm.id
   end

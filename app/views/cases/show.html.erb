@@ -7,6 +7,9 @@
               <ul>
                   <li><%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %></li>
                   <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
+                  <li>
+                    <%= link_to "Copy", copy_case_path(@case), :class => 'dark' %>
+                  </li>
                   <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
                   <li style="height: 30px;"><%= link_to @case,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Case"></span> <% end %></li>
               </ul>

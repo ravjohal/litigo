@@ -11,6 +11,11 @@ class Medical < ActiveRecord::Base
 	belongs_to :user
   before_save :set_tasks_due_dates
 
+  amoeba do
+    enable
+    clone [:medical_bills]
+  end
+
 
   accepts_nested_attributes_for :injuries, :allow_destroy => true
 	accepts_nested_attributes_for :medical_bills, :reject_if => :all_blank, :allow_destroy => true

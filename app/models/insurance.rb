@@ -12,6 +12,10 @@ class Insurance < ActiveRecord::Base
 
   accepts_nested_attributes_for :children, :reject_if => :all_blank, :allow_destroy => :true
 
+  amoeba do
+    enable
+  end
+
   def self.total_policy_limit_amount(case_)
   	Insurance.where(:case_id => case_.id).sum(:policy_limit)
   end

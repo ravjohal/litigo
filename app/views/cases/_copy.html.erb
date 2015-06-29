@@ -1,0 +1,83 @@
+
+<%= simple_form_for existing_case, :url => copy_case_create_path(existing_case), :method => :post do |f| %>
+
+  <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+           <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+            <h1>Copy Case</h1><br>
+          </div>
+          <div class="modal-body">
+
+          <table class="new_case_form table-condensed">
+            <tbody>
+           <tr>
+              <td>
+                <strong>Case Name:</strong>
+              </td>
+              <td>
+                    <%= f.text_field :name, label: false, :class => 'table-input' %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Check all items you would like to copy to the new case:
+              </td>
+            </tr>
+            <tr>
+              <td>
+               <ul>
+ 
+                  <%= check_box_tag :incident %>
+                  <%= label_tag :incident, "Incident" %>
+                </ul>
+<ul>
+                 <%= check_box_tag :medicals %>
+                 <%= label_tag :medicals, "Medicals" %>
+  
+   </ul>
+   <ul>
+                  <%= check_box_tag :med_bills %>
+                  <%= label_tag :med_bills, "Medical Bills" %>
+                </ul>
+<ul>
+                  <%= check_box_tag :insurance %>
+                  <%= label_tag :insurance, "Insurance" %>
+   </ul>
+   <ul> 
+                  <%= check_box_tag :contacts %>
+                  <%= label_tag :contacts, "Contacts" %>
+</ul>
+<ul>
+                  <%= check_box_tag :tasks %>
+                  <%= label_tag :tasks, "Tasks" %>
+</ul>
+<ul>
+                  <%= check_box_tag :documents %>
+                  <%= label_tag :documents, "Documents" %>
+</ul>
+<ul>
+                  <%= check_box_tag :notes %>
+                  <%= label_tag :notes, "Notes" %>
+               </ul> 
+               </td>             
+            </tr>
+            </tbody>
+          </table>
+              
+        </div><!--end of modal-body-->
+          <div class="modal-footer">
+            <div class="pull-left">
+              <a class="close" data-dismiss="modal">Cancel</a>
+            </div>
+
+            <div class="form-actions">
+                <%= f.submit "Copy", :class =>"btn btn-info", :style => 'font-size: 18px;'%>
+            </div>
+            </div><!--end of modal-footer-->
+        </div><!--end of modal-content-->
+      </div><!--end of modal-dialog-->
+<% end %>
+
+
+

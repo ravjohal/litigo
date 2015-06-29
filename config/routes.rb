@@ -125,6 +125,7 @@ Rails.application.routes.draw do
   get "contacts/:id/company information" => 'contacts#coinfo', as: :contact_coinfo
   get 'cases/:case_id/assign_contacts' => 'contacts#assign_contacts', as: :assign_contacts
   post 'cases/:case_id/update_case_contacts' => 'contacts#update_case_contacts', as: :update_case_contacts
+  post 'cases/:id/copy' => 'cases#create', as: :copy_case_create
   resources :medicals do
     resources :injuries
   end

@@ -206,6 +206,7 @@
     $('#save_to_app').click(function (e) {
       e.preventDefault();
       var html = $('.template_html_show').clone();
+      var case_id = $('#case').val();
       html.find("select").remove();
       html.find(".custom_input").remove();
       html.find('.insertion').removeClass();
@@ -213,7 +214,7 @@
         url: "/upload_docx",
         type: 'POST',
         dataType: "json",
-        data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val()},
+        data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val(), case_id: case_id },
         success: function (data) {
           window.location.href = data.href;
         }

@@ -201,9 +201,11 @@ class TemplatesController < ApplicationController
   def upload_docx
     file_name = params[:name].present? ? params[:name] : @template.name.downcase.tr(' ', '_')
     file = Htmltoword::Document.create params[:html], file_name
-    logger.info "file: #{file.inspect}\n\n\n"
     document = Document.create(:author => @user.name, :doc_type => "generated docx from #{@template.try(:name)}", :user_id => @user.id,
                                :firm_id => @firm.id, :document => file)
+    if params[:case_id].present?
+      case_document = CaseDocument.create(case_id: params[:case_id], document_id: document.id)
+    end
     render :json => { success: true, href: document_path(document) }
   end
 

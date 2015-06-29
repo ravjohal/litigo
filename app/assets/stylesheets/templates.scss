@@ -99,7 +99,12 @@
 }
 
 #temp-custom {
+  #generate_doc {
+    display: block;
+  }
   ul.dropdown-menu {
+    margin-top: 0!important;
+    left: 0!important;
     li {
       width: 100%;
       padding: 0;

@@ -41,7 +41,6 @@ class CasesController < ApplicationController
     if @new_copy_case
       incident = params[:incident]
       medicals = params[:medicals]
-      med_bills = params[:med_bills]
       insurance = params[:insurance]
       contacts = params[:contacts]
       tasks = params[:tasks]
@@ -67,10 +66,6 @@ class CasesController < ApplicationController
         insurance.firm = @firm
         insurance.save
       end
-      if !med_bills && @case.medical
-        @case.medical.medical_bills.destroy if !med_bills
-      end
-      
       if !contacts
         @case.case_contacts.each do |con|
           con.delete
@@ -83,6 +78,8 @@ class CasesController < ApplicationController
         end
       end
       @case.notes.delete if !notes
+      @case.time_entries.delete
+      @case.expenses.delete
     else
       @case = Case.new(case_params)
       @case.sol_priority = 0 if case_params[:statute_of_limitations].present?

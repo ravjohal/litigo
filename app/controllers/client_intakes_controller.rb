@@ -137,6 +137,10 @@ class ClientIntakesController < ApplicationController
           end
         end
         CaseContact.create(case_id: @case.id, contact_id: contact.id, role: 'Plaintiff')
+        user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id)
+        if user_account_contact.present?
+          CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, role: 'Attorney')
+        end
         @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }

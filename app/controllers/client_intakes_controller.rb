@@ -103,6 +103,15 @@ class ClientIntakesController < ApplicationController
       medical.firm = @firm
       medical.save
 
+      if @lead.primary_injury.present?
+        injury = medical.injuries.build
+        injury.injury_type = @lead.try(:primary_injury)
+        injury.region = @lead.try(:primary_region)
+        injury.primary_injury = true
+        injury.firm = @firm
+        injury.save
+      end
+
       insurance = @case.build_insurance
       insurance.firm = @firm
       insurance.save

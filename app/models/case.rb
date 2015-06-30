@@ -67,6 +67,7 @@ class Case < ActiveRecord::Base
   accepts_nested_attributes_for :resolution, :allow_destroy => true
 
   validates :name, presence: true
+  validates_uniqueness_of :name, :case_sensitive => false
   # validates :case_number, presence: true
   validates :case_type, presence: true
   # validates :subtype, presence: true

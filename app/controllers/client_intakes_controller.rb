@@ -48,7 +48,7 @@ class ClientIntakesController < ApplicationController
     @lead.screener_id = current_user.id
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to @lead, notice: 'Client intake was successfully created.' }
+        format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }
@@ -62,7 +62,7 @@ class ClientIntakesController < ApplicationController
   def update
     respond_to do |format|
       if @lead.update(client_intake_params)
-        format.html { redirect_to @lead, notice: 'Client intake was successfully updated.' }
+        format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully updated.' }
         format.json { render :show, status: :ok, location: @lead }
       else
         format.html { render :edit }

@@ -39,9 +39,9 @@ class LeadsDatatable
   def fetch_leads
     #fetch_model = @user_leads ? @user : @firm
     if @user_leads
-      leads = @firm.leads.where(attorney_id: @user.id)
+      leads = @firm.leads.where(attorney_id: @user.id).send(params[:leadsScope])
     else
-      leads = @firm.leads
+      leads = @firm.leads.send(params[:leadsScope])
     end
 
     if params[:iSortCol_0].to_i == 1

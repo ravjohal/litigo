@@ -68,4 +68,20 @@ class Lead < ActiveRecord::Base
         #                           }]
     }
   end
+
+  def self.active_leads_scope
+    where(status: ['pending_review', 'appointment_scheduled'])
+  end
+
+  def self.accepted_leads_scope
+    where(status: 'accepted')
+  end
+
+  def self.rejected_leads_scope
+    where(status: 'rejected')
+  end
+
+  def self.inactive_leads_scope
+    where(status: 'inactive')
+  end
 end

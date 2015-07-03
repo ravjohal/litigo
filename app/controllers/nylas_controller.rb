@@ -11,7 +11,7 @@ class NylasController < ApplicationController
     inbox_token = @inbox.token_for_code(params[:code])
     session[:inbox_token] = inbox_token
 
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, inbox_token)
+    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, inbox_token)
     ns = @inbox.namespaces.first
     calendars = ns.calendars.all
     namespace = Namespace.find_or_initialize_by(user_id: @user.id, namespace_id: ns.namespace_id)
@@ -26,6 +26,6 @@ class NylasController < ApplicationController
 
   private
   def set_inbox
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, nil)
+    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, nil)
   end
 end

@@ -20,7 +20,6 @@ class CasesController < ApplicationController
 
   def new
     @case = Case.new
-
   end
 
   def edit
@@ -37,29 +36,74 @@ class CasesController < ApplicationController
     # else
     #   params[:case][:medical_attributes].delete(:injuries_attributes)
     # end
+    @case = nil
+    @new_copy_case = Case.find(params[:id]) if params[:id]
+    if @new_copy_case
+      incident = params[:incident]
+      medicals = params[:medicals]
+      insurance = params[:insurance]
+      contacts = params[:contacts]
+      tasks = params[:tasks]
+      documents = params[:documents]
+      notes = params[:notes]
+      @case = @new_copy_case.amoeba_dup
+      #puts "WAHAT ----------------------------- " + @case.inspect
+      @case.name = params[:case][:name]
+      @case.case_number = Case.increment_number(@firm, "new", @case)
 
-    @case = Case.new(case_params)
-    @case.sol_priority = 0 if case_params[:statute_of_limitations].present?
-    @case.user = @user
-    @case.firm = @firm
+      if !incident
+        incident = @case.build_incident
+        incident.firm = @firm
+        incident.save
+      end
+      if !medicals
+        medical = @case.build_medical
+        medical.firm = @firm
+        medical.save
+      end
+      if !insurance
+        insurance = @case.build_insurance
+        insurance.firm = @firm
+        insurance.save
+      end
+      if !contacts
+        @case.case_contacts.each do |con|
+          con.delete
+        end
+      end
+      @case.tasks.delete if !tasks
+      if !documents
+        @case.case_documents.each do |doc|
+          doc.delete
+        end
+      end
+      @case.notes.delete if !notes
+      @case.time_entries.delete
+      @case.expenses.delete
+    else
+      @case = Case.new(case_params)
+      @case.sol_priority = 0 if case_params[:statute_of_limitations].present?
+      if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
+        incident = @case.build_incident
+        incident.firm = @firm
+        incident.save
 
-    if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
-      incident = @case.build_incident
-      incident.firm = @firm
-      incident.save
+        medical = @case.build_medical
+        medical.firm = @firm
+        medical.save
 
-      medical = @case.build_medical
-      medical.firm = @firm
-      medical.save
-
-      insurance = @case.build_insurance
-      insurance.firm = @firm
-      insurance.save
+        insurance = @case.build_insurance
+        insurance.firm = @firm
+        insurance.save
+      end
     end
 
     resolution = @case.build_resolution
     resolution.firm = @firm
     resolution.save
+
+    @case.user = @user
+    @case.firm = @firm
 
     # injury = medical.tasks.create
     # injury.firm = @firm

@@ -1,61 +1,81 @@
-<div id="show-buttons">  
-    <ul>
-            <div id="temp-custom">
-                  <ul>
-                        <li><%= link_to @template, :class => 'dark' do %>
-                            <span id="temp" class="glyphicon glyphicon-arrow-left pull-right" title="Back to Template"></span>
-                        <% end %></li>
-                        <li><%= link_to 'Preview', '#', id: 'preview_docx', class: 'dark' %></li>
-                        <li><%= link_to 'GENERATE DOCUMENT', '#', id: 'create_docx', class: 'action-button' %></li>
-                  </ul>
-       </div>
-    </ul>
+<div id="show-buttons">
+  <ul>
+    <div id="temp-custom">
+      <ul>
+        <li><%= link_to @template, :class => 'dark' do %>
+            <span id="temp" class="glyphicon glyphicon-arrow-left pull-right" title="Back to Template"></span>
+          <% end %></li>
+        <li><%= link_to 'Preview', '#', id: 'preview_docx', class: 'dark' %></li>
+        <li class="dropdown">
+          <%= link_to "", class: 'dropdown-toggle action-button', id: 'generate_doc', data: {toggle: "dropdown"} do %>
+            GENERATE DOCUMENT
+            <span class="caret"></span>
+          <% end %>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
+            <li><%= link_to "Download", '#', id: 'create_docx' %></li>
+            <li><%= link_to 'Save to App', '', id: 'save_to_app' %></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </ul>
 </div> <!-- case buttons div -->
 
 <div class="template-model">
-<div class="row">
+  <div class="row">
     <div class="col-md-6">
-    <h3>Document Name <span id="name" title="This will be the name of the file" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span></h3> 
-          <div class="form-group">
-              
-              <%= text_field_tag :template_name, '', :class => 'table-input', :placeholder => 'If name is blank, doc will take template name' %>
-          </div>
-    </div>
-    <div class="col-md-6">
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-          <div class="form-group">
-              <%= label_tag :case, 'Select Case' %> <span id="cs-sel" title="This will restrict options to only the selected case" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span><br/>
-              <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Select a case", :class => 'table-input' %>
-          </div>
-    </div>
-    <div class="col-md-6">
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <%= label_tag :addressee, 'Addressee' %> <span id="addy" title="This will populate any addressee fields" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span> <br/>
-            <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map {|contact| [contact.name_with_company, contact.id] }), :prompt => "Add Addressee", :class => 'table-input'  %>
-        </div>
+      <h3>Document Name
+        <span id="name" title="This will be the name of the file" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span>
+      </h3>
+
+      <div class="form-group">
+
+        <%= text_field_tag :template_name, '', :class => 'table-input', :placeholder => 'If name is blank, doc will take template name' %>
       </div>
-      <div class="col-md-6">
     </div>
-</div>
-<div class="row">
-     <div class="col-md-8">
-          <div class="instructions">
-              <ul>
-                  <li>If you do not wish to use a field (e.g. Company in the address), simply leave it blank and it will be ignored</li>
-                  <li>After clicking 'Generate Document' your document will downloaded and located in your Downloads folder</li>
-                  <li>Paragraphs are preserved in the final Word document but may look different when viewing them in the browser</li>
-              </ul>
-          </div>
+    <div class="col-md-6">
     </div>
-    <div class="col-md-4">
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= label_tag :case, 'Select Case' %>
+        <span id="cs-sel" title="This will restrict options to only the selected case" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span><br/>
+        <%= select_tag :case, options_for_select(@firm.cases.pluck(:name, :id)), :prompt => "Select a case", :class => 'table-input' %>
+      </div>
     </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= label_tag :addressee, 'Addressee' %>
+        <span id="addy" title="This will populate any addressee fields" style="cursor: pointer; font-size: 12px;" class="glyphicon glyphicon-question-sign"></span>
+        <br/>
+        <%= select_tag :addressee, options_for_select(@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map { |contact| [contact.name_with_company, contact.id] }), :prompt => "Add Addressee", :class => 'table-input' %>
+      </div>
+    </div>
+    <div class="col-md-6">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="instructions">
+        <ul>
+          <li>If you do not wish to use a field (e.g. Company in the address), simply leave it blank and it will be
+            ignored
+          </li>
+          <li>After clicking 'Generate Document' your document will downloaded and located in your Downloads folder</li>
+          <li>Paragraphs are preserved in the final Word document but may look different when viewing them in the
+            browser
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-2">
+    </div>
+  </div>
 </div>
 </div>
 
@@ -69,11 +89,12 @@
       <div class="template_html_show"><%= raw @html %></div>
     </div>
     <div class="col-md-1 col-lg-2"></div>
-  </div> <!-- row end -->
+  </div>
+  <!-- row end -->
 </div>
 <script>
   $(document).ready(function () {
-    $('.template-model select, .template_html_show select').select2({ width: 'resolve' });
+    $('.template-model select, .template_html_show select').select2({width: 'resolve'});
     $('#input_date').datepicker();
     $('#case').change(function (e) {
       var case_id = $(this).val();
@@ -135,16 +156,16 @@
           addressee_attrs.push(attr);
         });
 
-        if (addressee_attrs.length){
+        if (addressee_attrs.length) {
           $.ajax({
             url: "/templates_get_addressee",
             type: 'POST',
             dataType: "json",
             data: {addressee_attrs: addressee_attrs, id: addressee_id},
-            success: function(data){
+            success: function (data) {
               console.log(data.addressee_attrs_values);
               $.each(data.addressee_attrs_values, function (attr, val) {
-                $('.insertion[data-model="Addressee"][data-attr="'+attr+'"]').html(val);
+                $('.insertion[data-model="Addressee"][data-attr="' + attr + '"]').html(val);
               });
             }
           });
@@ -181,6 +202,24 @@
               window.location.href = '/download_docx/'+id+'.docx';
             }
           });
+    });
+
+    $('#save_to_app').click(function (e) {
+      e.preventDefault();
+      var html = $('.template_html_show').clone();
+      var case_id = $('#case').val();
+      html.find("select").remove();
+      html.find(".custom_input").remove();
+      html.find('.insertion').removeClass();
+      $.ajax({
+        url: "/upload_docx",
+        type: 'POST',
+        dataType: "json",
+        data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val(), case_id: case_id },
+        success: function (data) {
+          window.location.href = data.href;
+        }
+      });
     });
     var preview = false;
     $('#preview_docx').click(function (e) {

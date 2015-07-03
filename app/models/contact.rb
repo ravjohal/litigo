@@ -16,6 +16,11 @@ class Contact < ActiveRecord::Base
   has_many :cases, :through => :case_contacts
   has_many :phones
 
+  amoeba do
+    enable
+    propagate
+  end
+
   accepts_nested_attributes_for :phones, :reject_if => :all_blank, :allow_destroy => :true
 
   after_save :check_sol

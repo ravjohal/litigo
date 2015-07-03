@@ -74,6 +74,10 @@ class Case < ActiveRecord::Base
   #validates :closing_date, presence: true , if: "self.closed?"
   #validates :closing_date, absence: true, if: "self.pending? || self.open?"
 
+  amoeba do
+    enable
+  end
+
   def self.search(search)
     if search
       where('lower(name) LIKE ?', "%#{search}%")

@@ -89,44 +89,22 @@
       </tr>
          <tr>
         <td class="right">
-          <strong>Other Phone 1:</strong>
-        </td>
-        <td>
-              <%= @company.phone_number_1 %>
-        </td>
-      </tr>
-             <tr>
-        <td class="right">
-          <strong>Other Phone 2:</strong>
-        </td>
-        <td>
-              <%= @company.phone_number_2 %>
-        </td>
-      </tr>
-         <tr>
-        <td class="right">
           <strong>Main Fax:</strong>
         </td>
         <td>
               <%= @company.fax_number %>
         </td>
       </tr>
-          <tr>
-        <td class="right">
-          <strong>Other Fax 1:</strong>
+     <% @company.try(:phones).each do |phone| %>
+      <tr>
+        <td>
+          <Strong><%= phone.label + ':' %></Strong>
         </td>
         <td>
-              <%= @company.fax_number_1 %>
+          <%= phone.number %>
         </td>
       </tr>
-          <tr>
-        <td class="right">
-          <strong>Other Fax 2:</strong>
-        </td>
-        <td>
-              <%= @company.fax_number_2 %>
-        </td>
-      </tr>
+      <% end %>
   </tbody>
 </table>
 </div>

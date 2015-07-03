@@ -38,6 +38,7 @@ class NotesController < ApplicationController
   # GET /notes/new
   def new
     @note = Note.new
+    @note.task = Task.new
   end
 
   # GET /notes/1/edit
@@ -60,9 +61,20 @@ class NotesController < ApplicationController
 
     @note.user = @user
     @note.firm = @firm
-    
+
     respond_to do |format|
       if @note.save
+        if note_params[:add_task]
+          task = Task.new(name: note_params[:task_name], due_date: note_params[:task_due_date], sms_reminder: note_params[:task_sms_reminder],
+                             email_reminder: note_params[:task_email_reminder], description: note_params[:task_description],
+                             user_id: @user.id, firm_id: @firm.id, owner_id: note_params[:task_owner_id], secondary_owner_id: note_params[:task_secondary_owner_id],
+                             case_id: note_params[:case_id], google_calendar_id: note_params[:task_google_calendar_id])
+          if task.save
+            if task.due_date.present?
+              task.create_event
+            end
+          end
+        end
         format.html { redirect_to path_notes, notice: 'Note was successfully created.' }
         format.json { render :show, status: :created, location: @note }
       else
@@ -107,6 +119,9 @@ class NotesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def note_params
-      params.require(:note).permit(:note, :case_id, :user_id, :firm_id, :note_type, :created_at, :updated_at, :author)
+      params.require(:note).permit(:note, :case_id, :user_id, :firm_id, :note_type, :created_at, :updated_at, :author,
+                                   :task_name, :task_due_date, :task_sms_reminder, :task_email_reminder, :add_task,
+                                   :task_description, :task_owner_id, :task_secondary_owner_id,
+                                   :task_add_event, :task_google_calendar_id)
     end
 end

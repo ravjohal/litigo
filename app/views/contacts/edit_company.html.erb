@@ -31,7 +31,15 @@
     </td>
   </tr>
 </thead>
-  <tbody>
+<tfoot>
+      <tr style="background-color: transparent;" class="doc-link">
+        <td colspan="2">
+         <%= link_to_add_association 'Add New Number', f, :phones, :"data-association-insertion-node" => "tbody#contacts", :"data-association-insertion-method" => "append", :partial => "phone_fields", class: 'phone pull-right' %>
+                 
+        </td>
+      </tr>
+</tfoot>
+  <tbody id="contacts">
         <tr>
         <td class="right">
           <strong>Company Name:</strong>
@@ -88,22 +96,6 @@
               <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
-      <tr>
-        <td class="right">
-          <strong>Other Phone 1:</strong>
-        </td>
-        <td>
-              <%= f.text_field :phone_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-          <tr>
-        <td class="right">
-          <strong>Other Phone 2:</strong>
-        </td>
-        <td>
-              <%= f.text_field :phone_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
          <tr>
         <td class="right">
           <strong>Fax:</strong>
@@ -112,21 +104,10 @@
               <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
-           <tr>
-        <td class="right">
-          <strong>Other Fax 1:</strong>
-        </td>
-        <td>
-              <%= f.text_field :fax_number_1, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-       <tr>
-        <td class="right">
-          <strong>Other Fax 2:</strong>
-        </td>
-        <td>
-              <%= f.text_field :fax_number_2, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
+        <tr>
+           <%= f.simple_fields_for :phones do |phone| %>
+                      <%= render 'phone_fields', :f => phone %>
+            <% end %>
       </tr>
   </tbody>
 </table>

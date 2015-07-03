@@ -23,6 +23,7 @@ gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave_direct', '~> 0.0.15'
 gem 'figaro', '~> 1.0.0'
 gem 'font-awesome-rails', '~> 4.2.0.0'
+gem 'omniauth-google-oauth2', '~> 0.2.6'    # Allows oauth2 support for Google
 gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.8.0'               # Replacement for curl commands to grab contacts from google
 gem 'active_link_to', '~> 1.0.2'
@@ -53,6 +54,7 @@ gem 'htmltoword', '~> 0.2.0'
 gem 'docx_replace', '~> 1.0.3'
 gem 'docx', '~> 0.2.07', :require => ["docx"]
 gem 'dossier', '~> 2.12.2'
+gem 'amoeba'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 0.17.1'
 

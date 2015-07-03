@@ -1,4 +1,4 @@
- <div id="index-buttons">
+<div id="index-buttons">
               <ul>
                   <li>
                     <div id="top-custom">
@@ -8,8 +8,8 @@
                     </div>
                   </li>
               </ul>
-   </div>
-   <div style="margin-top: 70px;">
+</div>
+<div style="margin-top: 70px;">
 <h3>My Leads</h3>
 </div>
 <%= render :partial => 'table', :locals => { :id => 'user_leads'} %>
@@ -28,6 +28,38 @@
     $('.table tbody').on( 'click', 'tr', function (e) {
       var id = $(e.currentTarget).data('id');
       $('table.rowlink').rowlink()
+    });
+
+    var leads_scope = {user_leads: 'active_leads_scope', leads: 'active_leads_scope'};
+
+    $('.table').each(function(i, table) {
+      $(table).dataTable({
+        language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search",
+          lengthMenu: "View _MENU_"
+        },
+        sDom: '<"toolbar">Rfrtlip',
+        aaSorting: [[ 0, "desc" ]],
+        bProcessing: true,
+        bServerSide: true,
+        sAjaxSource: $(table).data('source'),
+        fnServerParams: function ( aoData ) {
+          aoData.push( {'name': "leadsScope", 'value': leads_scope[$(table).attr('id')] } );
+        }
+      });
+    });
+
+    $("div.toolbar").html("<%= render(partial: 'client_intakes/filter_button') %>");
+
+    $('.lead-filter .dropdown-menu li a').click(function (e) {
+      e.preventDefault();
+      var text = $(this).text();
+      var leads_owner = $(this).closest('.lead-filter').closest('.dataTables_wrapper').find('.table').attr('id');
+      $(this).closest('.lead-filter').find('a.btn-default').html(text.toUpperCase()+" <span class='caret'></span>");
+      var table = $('#'+leads_owner).dataTable();
+      leads_scope[leads_owner] = $(this).data('scope');
+      table.fnDraw();
     });
   });
 </script>

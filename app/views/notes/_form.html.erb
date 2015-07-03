@@ -59,9 +59,68 @@
                   <%= f.text_area :note, label: false, :class => 'table-text' %>
               </td>
           </tr>
+          <tr>
+            <td>
+              <strong>Add Task:</strong>
+            </td>
+            <td>
+              <%= f.check_box :add_task, {}, true, false %>
+            </td>
+          </tr>
+
+            <tr class="task_field">
+              <td>
+                <strong>Task:</strong>
+              </td>
+              <td>
+                <%= f.text_field :task_name, label: false, :class => 'table-input' %>
+              </td>
+            </tr>
+            <tr class="task_field">
+              <td>
+                <strong>Task Owner: </strong>
+              </td>
+              <td>
+                <%= f.select :task_owner_id, @firm.users.map {|u| [u.name, u.id]}, :selected => current_user.id, :input_html => {:id => "owner_select"}, label: false %>
+              </td>
+            </tr>
+            <tr class="task_field">
+              <td>
+                <strong>Secondary Owner: </strong>
+              </td>
+              <td>
+                <%= f.select :task_secondary_owner_id, @firm.users.map {|u| [u.name, u.id]}, :input_html => {:id => "secondary_owner_select"}, label: false, :include_blank => true %>
+              </td>
+            </tr>
+
+            <tr class="task_field">
+              <td>
+                <strong>Due Date:</strong>
+              </td>
+              <td>
+                <%= f.date_field :task_due_date, label: false, :class => 'table-input' %>
+              </td>
+            </tr>
+            <tr class="task_field">
+              <td>
+                <strong>Task Description:</strong>
+              </td>
+              <td class="big-row">
+                <%= f.text_area :task_description, label: false, :class => 'table-text' %>
+              </td>
+            </tr>
+            <tr class="task_field">
+              <td>
+                <strong>Add to My Calendar:</strong>
+              </td>
+              <td>
+                <%= f.check_box :task_add_event, {:checked => true}, true, false %>
+                <%= f.select :task_google_calendar_id, @user.google_calendars.map{ |c| [c.summary, c.google_id] }, include_blank: true, label: false, :class => 'table-input' %>
+              </td>
+            </tr>
         </tbody>
     </table>
-            
+
         <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>
           </div><!--end of modal-body-->
           
@@ -83,5 +142,14 @@
 
 <% end %>
   <script>
-    $(document).ready(function() { $("#note_select, td select").select2(); });
+    $(document).ready(function() {
+      $("#note_select, td select").select2();
+      $('#note_add_task').change(function (e) {
+        if($(this).is(':checked')) {
+          $('.task_field').show();
+        } else {
+          $('.task_field').hide();
+        }
+      })
+    });
   </script>

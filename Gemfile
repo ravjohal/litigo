@@ -53,7 +53,8 @@ gem 'htmltoword', '~> 0.2.0'
 gem 'docx_replace', '~> 1.0.3'
 gem 'docx', '~> 0.2.07', :require => ["docx"]
 gem 'dossier', '~> 2.12.2'
-gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
+# gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
+gem 'nylas', '~> 0.17.1'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

@@ -98,7 +98,7 @@ class EventsController < ApplicationController
       end
       if calendar.present?
         namespace = calendar.namespace
-        @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
         nylas_namespace = @inbox.namespaces.first
         if @event.class.name == 'Event'
           n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => @event.title, :description => @event.description,
@@ -147,7 +147,7 @@ class EventsController < ApplicationController
       end
       if calendar.present?
         namespace = calendar.namespace
-        @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
         nylas_namespace = @inbox.namespaces.first
         n_event = nylas_namespace.events.find(@event.nylas_event_id)
         n_event.title = @event.title
@@ -171,7 +171,7 @@ class EventsController < ApplicationController
     if @event.update(event_drag_params)
       if calendar.present?
         namespace = calendar.namespace
-        @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
         nylas_namespace = @inbox.namespaces.first
         n_event = nylas_namespace.events.find(@event.nylas_event_id)
         n_event.when = {:start_time => @event.starts_at.to_i, :end_time => @event.ends_at.to_i}
@@ -193,7 +193,7 @@ class EventsController < ApplicationController
     if @event.destroy
       if nylas_event_id.present? && calendar.present?
         namespace = calendar.namespace
-        @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
         nylas_namespace = @inbox.namespaces.first
         n_event = nylas_namespace.events.find(nylas_event_id).destroy
       end
@@ -222,39 +222,43 @@ class EventsController < ApplicationController
     namespaces.each do |namespace|
       active_calendars = namespace.calendars.where(active: true)
       if active_calendars.present?
-        @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
         ns = @inbox.namespaces.first
         cursor = namespace.cursor.present? ? namespace.cursor : ns.get_cursor(namespace.last_sync.to_i)
         last_cursor = nil
-        ns.deltas(cursor, [Inbox::Tag, Inbox::Calendar, Inbox::Contact, Inbox::Message, Inbox::File, Inbox::Thread]) do |event, ne|
-          if ne.is_a?(Inbox::Event)
+        ns.deltas(cursor, [Nylas::Tag, Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]) do |event, ne|
+          if ne.is_a?(Nylas::Event)
               if event == "create" or event == "modify"
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
                 if calendar.present?
                   event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
-                  event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
-                                          location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                          when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: calendar.id,
-                                          namespace_id: namespace.id)
-                  case ne.when['object']
-                    when "date"
-                      event.starts_at = ne.when['date']
-                      event.ends_at = ne.when['date']
-                    when "datespan"
-                      event.starts_at = ne.when['start_date']
-                      event.ends_at = ne.when['end_date']
-                    when "time"
-                      event.starts_at = Time.at(ne.when['time']).utc.to_datetime
-                      event.ends_at = Time.at(ne.when['time']).utc.to_datetime
-                    when "timespan"
-                      event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
-                      event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
-                  end
-                  event.save
-                  ne.participants.each do |np|
-                    participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
-                    ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
-                    ep.update(status: np['status'])
+                  if ne.status == 'cancelled'
+                    event.destroy
+                  else
+                    event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
+                                            location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
+                                            when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: calendar.id,
+                                            namespace_id: namespace.id)
+                    case ne.when['object']
+                      when "date"
+                        event.starts_at = ne.when['date']
+                        event.ends_at = ne.when['date']
+                      when "datespan"
+                        event.starts_at = ne.when['start_date']
+                        event.ends_at = ne.when['end_date']
+                      when "time"
+                        event.starts_at = Time.at(ne.when['time']).utc.to_datetime
+                        event.ends_at = Time.at(ne.when['time']).utc.to_datetime
+                      when "timespan"
+                        event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
+                        event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
+                    end
+                    event.save
+                    ne.participants.each do |np|
+                      participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
+                      ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
+                      ep.update(status: np['status'])
+                    end
                   end
                 end
               elsif event == "delete"

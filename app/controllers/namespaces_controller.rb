@@ -8,7 +8,7 @@ class NamespacesController < ApplicationController
   def index
     @namespaces = @user.namespaces
     if @namespaces.present?
-      @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
+      @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
       @inbox.accounts.each do |a|
         ns = @namespaces.find_by(account_id: a.account_id)
         status = a.sync_state.downcase == 'running' ? 'active' : a.sync_state.downcase
@@ -19,7 +19,7 @@ class NamespacesController < ApplicationController
 
   def get_calendars
     namespace = Namespace.find(params[:id])
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
     nylas_namespace = @inbox.namespaces.first
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
@@ -36,7 +36,7 @@ class NamespacesController < ApplicationController
   def get_mass_calendar_events
     namespace = Namespace.find(params[:namespace_id])
     sync_period = params[:sync_period].to_i
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
     ns = @inbox.namespaces.first
     events_synced = 0
     active_calendar_ids = params[:active_ids]
@@ -108,7 +108,7 @@ class NamespacesController < ApplicationController
   # GET /namespaces/1
   # GET /namespaces/1.json
   def show
-    @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespace.inbox_token)
+    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespace.inbox_token)
     nylas_namespace = @inbox.namespaces.first
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|

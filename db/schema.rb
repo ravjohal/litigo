@@ -151,7 +151,7 @@ ActiveRecord::Schema.define(version: 20150624124329) do
     t.integer  "event_id"
     t.integer  "firm_id"
     t.integer  "user_account_id"
-    t.string   "corporation"
+    t.boolean  "corporation"
     t.string   "encrypted_ssn"
     t.datetime "date_of_birth"
     t.string   "zip_code"
@@ -352,7 +352,7 @@ ActiveRecord::Schema.define(version: 20150624124329) do
     t.datetime "updated_at"
     t.boolean  "prior_complaint"
     t.boolean  "primary_injury",                              default: false
-    t.boolean  "ongoing_pain"
+    t.boolean  "ongoing_pain",                                default: false
     t.integer  "user_id"
     t.integer  "case_id"
   end
@@ -476,6 +476,26 @@ ActiveRecord::Schema.define(version: 20150624124329) do
     t.string   "cursor"
     t.integer  "sync_period"
     t.datetime "last_sync"
+  end
+
+  create_table "new_events", force: :cascade do |t|
+    t.string   "nylas_event_id"
+    t.string   "nylas_calendar_id"
+    t.string   "nylas_namespace_id"
+    t.text     "description"
+    t.string   "location"
+    t.boolean  "read_only"
+    t.string   "title"
+    t.boolean  "busy"
+    t.string   "status"
+    t.integer  "namespace_id"
+    t.integer  "calendar_id"
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.integer  "firm_id"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.string   "when_type"
   end
 
   create_table "notes", force: :cascade do |t|

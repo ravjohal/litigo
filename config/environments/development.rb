@@ -57,4 +57,6 @@ Rails.application.configure do
   # Some custom environmental variables for development environment
   #ENV['GOOGLE_CLIENT_ID'] = '736572132161-nupqnfql638fre8s0fm8k9hga9gfj834.apps.googleusercontent.com'
   #ENV['GOOGLE_CLIENT_SECRET'] = 'cm6QzGOP3xdZB2d9UsZEYmUq'
+  config.inbox_app_id = Rails.application.secrets.inbox_app_id
+  config.inbox_app_secret = Rails.application.secrets.inbox_app_secret
 end

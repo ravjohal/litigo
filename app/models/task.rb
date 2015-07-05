@@ -13,7 +13,7 @@ class Task < ActiveRecord::Base
   before_update :toggle_event
   before_save :reset_event_date
 
-  attr_accessor :add_event, :google_calendar_id
+  attr_accessor :add_event, :calendar_id
 
   def set_due_date!(date)
     if date.present?
@@ -28,19 +28,28 @@ class Task < ActiveRecord::Base
   end
 
   def create_event
-    event = Event.create(subject: "Task - #{self.try(:case).try(:name)}",
-                 date: self.due_date,
-                 all_day: true,
-                 notes: self.description,
+    event = Event.create(title: "Task - #{self.try(:case).try(:name)}",
+                 description: self.description,
                  task_id: self.id,
-                 start: self.due_date,
-                 end: self.due_date,
-                 owner_id: self.user_id,
+                 starts_at: self.due_date,
+                 ends_at: self.due_date,
+                 user_id: self.user_id,
                  firm_id: self.firm_id
     )
-    if self.google_calendar_id.present?
-      event.google_calendar_id = self.google_calendar_id
-      GoogleCalendars.create_event(self.user, event)
+    if self.calendar_id.present?
+      event.calendar_id = self.calendar_id
+      calendar = event.calendar
+      namespace = calendar.namespace
+      @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
+      nylas_namespace = @inbox.namespaces.first
+      n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => event.title, :description => event.description,
+                                             :location => event.location, :when => {:start_time => event.starts_at.to_i,
+                                                                                     :end_time => event.ends_at.to_i},
+                                             :participants => event.participants.map {|p| { :email => p.email, :name => p.name}})
+      n_event.save!
+      event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
+                    nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
+                    when_type: n_event.when['object'])
     end
   end
 

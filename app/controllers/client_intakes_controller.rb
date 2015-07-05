@@ -48,7 +48,7 @@ class ClientIntakesController < ApplicationController
     @lead.screener_id = current_user.id
     respond_to do |format|
       if @lead.save
-        format.html { redirect_to @lead, notice: 'Client intake was successfully created.' }
+        format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
         format.html { render :new }
@@ -62,7 +62,7 @@ class ClientIntakesController < ApplicationController
   def update
     respond_to do |format|
       if @lead.update(client_intake_params)
-        format.html { redirect_to @lead, notice: 'Client intake was successfully updated.' }
+        format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully updated.' }
         format.json { render :show, status: :ok, location: @lead }
       else
         format.html { render :edit }
@@ -103,6 +103,15 @@ class ClientIntakesController < ApplicationController
       medical.firm = @firm
       medical.save
 
+      if @lead.primary_injury.present?
+        injury = medical.injuries.build
+        injury.injury_type = @lead.try(:primary_injury)
+        injury.region = @lead.try(:primary_region)
+        injury.primary_injury = true
+        injury.firm = @firm
+        injury.save
+      end
+
       insurance = @case.build_insurance
       insurance.firm = @firm
       insurance.save
@@ -137,6 +146,10 @@ class ClientIntakesController < ApplicationController
           end
         end
         CaseContact.create(case_id: @case.id, contact_id: contact.id, role: 'Plaintiff')
+        user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id)
+        if user_account_contact.present?
+          CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, role: 'Attorney')
+        end
         @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }
         format.json { render :show, status: :created, location: @case }

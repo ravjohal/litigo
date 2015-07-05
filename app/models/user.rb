@@ -14,10 +14,9 @@ class User < ActiveRecord::Base
   has_many :template_documents
   has_many :tasks #this user created these tasks
 
-  has_many :user_events, :dependent => :destroy
-  has_many :events, :through => :user_events
+  has_many :events
+  has_many :event_series
 
-  has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id'
   has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id' #this user owns these tasks
   has_many :owned_tasks_secondary, class_name: 'Task', foreign_key: 'secondary_owner_id' #this user owns these tasks
   has_many :contacts
@@ -36,6 +35,10 @@ class User < ActiveRecord::Base
   has_many :companies
   has_many :medical_bills
   has_many :expenses
+  has_many :namespaces, :dependent => :destroy
+  has_many :calendars, :through => :namespaces
+  has_many :participants, :through => :events
+
 
   belongs_to :firm
   validates_presence_of :first_name, :last_name
@@ -87,6 +90,10 @@ class User < ActiveRecord::Base
     else
       COLORS[index]
     end
+  end
+
+  def edit_event_allowed?
+    self.edit_events_permit || self.is_admin?
   end
 
 end

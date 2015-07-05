@@ -128,7 +128,7 @@
     });
     $('#cancel_selection').click(function (e) {
       e.preventDefault();
-      $('.template_html').html('<%= @template.html_content.html_safe %>');
+      $('.template_html').html('<%=  @template.html_content.squish.html_safe %>');
     });
 
     $( "form.edit_template" ).submit(function( event ) {

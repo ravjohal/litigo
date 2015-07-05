@@ -1,0 +1,99 @@
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong>Account Settings</strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'SYNC SELECTED CALENDARS', '', :class => 'action-button sync_calendars' %></li>
+      </ul>
+    </div>
+  </div>
+  <strong style="color: white;">A</strong>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/profile_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="incase-tabs-gap"></div>
+
+<div class="events-profile">
+  <p><strong>Name:</strong> <%= @namespace.name %></p>
+
+  <p><strong>Email:</strong> <%= @namespace.email_address %></p>
+
+  <p><strong>Provider:</strong> <%= @namespace.provider %></p>
+
+  <strong>How far back would you like to sync?</strong><br/>
+  <div class="radio" style="width: 200px;">
+  <%= collection_radio_buttons :sync_period, :sync_period, Namespace::SYNC_PERIODS.map {|k,v| [k, v]}, :first, :last, {checked: @namespace.sync_period.present? ? @namespace.sync_period : 0}, class: 'sync_period' %>
+  </div>
+
+  <h3><%= @namespace.provider %> Calendars</h3>
+  <table class="table table-striped table-hover">
+    <thead class="user-table-head">
+    <tr>
+      <th>Sync</th>
+      <th>Name</th>
+      <th>Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @namespace.calendars.each do |calendar| %>
+      <% if calendar.name != 'Emailed events' %>
+        <tr>
+          <td><%= check_box_tag "calendar_id[#{calendar.id}]", calendar.id, calendar.active, class: 'calendar_ids' %></td>
+          <td><%= calendar.name %></td>
+          <td><%= calendar.description %></td>
+        </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.sync_calendars').click(function (e) {
+      e.preventDefault();
+      var active_calendar_ids = [];
+      var inactive_calendar_ids = [];
+      var self = this;
+      var link = $(this);
+      var sync_period = $('.sync_period:checked').val();
+      $(this).html("<img src='/assets/ajaxSpinner.gif' height='24' width='24' style='display: inline-block'>");
+      $('.calendar_ids').each(function (i, obj) {
+        if($(obj).is(':checked')) {
+          active_calendar_ids.push($(obj).val());
+        } else {
+          inactive_calendar_ids.push($(obj).val());
+        }
+      });
+      $.ajax({
+        url: "<%= get_mass_calendar_events_path %>",
+        type: 'POST',
+        dataType: "json",
+        data: {active_ids: active_calendar_ids, inactive_ids: inactive_calendar_ids, namespace_id: '<%= @namespace.id %>',
+                sync_period: sync_period},
+        success: function(data){
+          $(self).html('<%= link_to 'SYNC SELECED CALENDARS', '', :class => 'action-button sync_calendars' %>');
+          $('.alert').remove();
+          $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+          setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+        },
+        error: function (data) {
+          $(self).html('<%= link_to 'Sync calendars', '', :class => 'dark sync_calendars' %>');
+          $('.alert').remove();
+          $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+          setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+        }
+      });
+//
+    });
+
+  });
+</script>

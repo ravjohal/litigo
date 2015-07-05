@@ -44,16 +44,6 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  var formatAMPM = function(date) {
-    var hours = date.getHours();
-    var minutes = date.getMinutes();
-    var ampm = hours >= 12 ? 'PM' : 'AM';
-    hours = hours % 12;
-    hours = hours ? hours : 12; // the hour '0' should be '12'
-    minutes = minutes < 10 ? '0'+minutes : minutes;
-    var strTime = hours + ':' + minutes + ' ' + ampm;
-    return strTime;
-  };
 
   var events = {};
   var eventsSources = <%= @event_sources.to_json.html_safe %>;
@@ -80,7 +70,7 @@ $(document).ready(function() {
       if (result) {
         $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'style='margin-top: -30px; position: absolute; padding: 0;'>");
 //        window.location.href = "/auth/google_oauth2?state=calendar";
-        window.location.href = "<%= refresh_google_events_path %>";
+        window.location.href = "<%= refresh_events_path %>";
       }
     });
   });
@@ -106,16 +96,17 @@ $(document).ready(function() {
     defaultView: 'agendaWeek',
     eventSources: events,
     editable: true,
-    eventDrop: function(event, delta, revertFunc) {
+    eventDrop: function(event, delta, minuteDelta, allDay, revertFunc) {
       if (confirm("Are you sure about this change?")) {
         $.ajax({
           type: "POST",
           url: '/event_drag/',
-          data: {event: {start: event.start, end: event.end}, id: event.id},
+          data: {event: {starts_at: event.start, ends_at: event.end}, id: event.id},
           success: function(data)
           {
             $('.alert').remove();
             $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+            setTimeout(function(){ $('.alert').fadeOut() }, 2000);
           }
         });
       }
@@ -124,12 +115,29 @@ $(document).ready(function() {
       }
 
     },
+    eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
+      if (confirm("Are you sure about this change?")) {
+        $.ajax({
+          type: "POST",
+          url: '/event_drag/',
+          data: {event: {starts_at: event.start, ends_at: event.end}, id: event.id},
+          success: function(data)
+          {
+            $('.alert').remove();
+            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+            setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+          }
+        });
+      }
+      else {
+        revertFunc();
+      }
+    },
     firstHour: 8
   });
 
   $('.firm-users input').change(function (e) {
     var user_id = $(this).val();
-    console.log('user_id', user_id);
     if($(this).is(":checked")) {
       $('#calendar').fullCalendar( 'addEventSource', {
         events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
@@ -159,6 +167,37 @@ $(document).ready(function() {
       checkboxes.prop('checked', false).change()
     }
   });
+
+  var refreshNamespaces = function(){
+    $.ajax({
+          url: "<%= refresh_events_path %>",
+          type: 'GET',
+          dataType: "json",
+          data: {},
+          success: function(data){
+            if (data.events_synced > 0) {
+              $.each(eventsSources, function (user_id, hash) {
+                $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events);
+              });
+              eventsSources = data.events;
+              var checkboxes = $('.user_ids');
+              $.each(checkboxes, function (i ,obj) {
+                var user_id = $(obj).val();
+                if ($(obj).is(":checked")) {
+                  $('#calendar').fullCalendar( 'addEventSource', {
+                    events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
+                    color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff'
+                  } )
+                }
+              });
+              $('.alert').remove();
+              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+              setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+            }
+          }
+        });
+  };
+  refreshNamespaces();
 
   function rgb2hex(rgb) {
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;

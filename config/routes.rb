@@ -71,13 +71,19 @@ Rails.application.routes.draw do
   #get '/dashboard/:id' => 'users#show', as: :user_root
   get '/auth/google_oauth2/callback' => 'users#save_google_oauth'
   get '/auth/failure' => 'users#fail_google_oauth'
-  get 'refresh_google_events' => 'events#refresh_google_events'
+  get 'refresh_events' => 'events#refresh_events'
   # get '/dashboards/select_calendar'
   post '/dashboards/select_calendar'
   get  "dropbox/main"
   post "dropbox/upload"
   get  "dropbox/auth_start"
   get  "dropbox/auth_finish"
+  get 'login_callback' => 'nylas#login_callback'
+  get 'login' => 'nylas#login'
+  resources :namespaces
+  post 'get_events' => 'namespaces#get_events', as: :get_events
+  post 'get_calendars' => 'namespaces#get_calendars', as: :get_calendars
+  post 'get_mass_calendar_events' => 'namespaces#get_mass_calendar_events', as: :get_mass_calendar_events
 
   # Visitor routes
   get "/about" => 'visitors#about', as: :about
@@ -99,6 +105,7 @@ Rails.application.routes.draw do
     get '/confirm/:id' => 'registrations#confirm_signup_email', as: :confirm_signup_email
     patch '/users/update_profile' => 'registrations#update_profile'
     get "/users/invitation/existing_user_invited/:id" => 'invitations#existing_user_invited', as: :existing_user_invited
+    post "edit_events_permit" => 'invitations#edit_events_permit', as: :edit_events_permit
 
   end
   resources :expenses

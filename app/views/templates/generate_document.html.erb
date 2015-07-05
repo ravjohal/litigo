@@ -77,6 +77,7 @@
     </div>
   </div>
 </div>
+</div>
 
 
 
@@ -176,12 +177,12 @@
       var val = $(this).val();
       $(this).parent().find('ins').html(val);
       $(this).parent().addClass('green');
-      if (val != '') {
+      if(val != '') {
         $(this).parent().find('.select2-container').hide();
       }
     });
 
-    $('ins').click(function (e) {
+    $('ins').click(function(e){
       $(this).parent().find('.select2-container').show();
     });
 
@@ -192,15 +193,15 @@
       html.find(".custom_input").remove();
       html.find('.insertion').removeClass();
       $.ajax({
-        url: "/templates_generate_docx",
-        type: 'POST',
-        dataType: "json",
-        data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val()},
-        success: function (data) {
-          var id = data.id;
-          window.location.href = '/download_docx/' + id + '.docx';
-        }
-      });
+            url: "/templates_generate_docx",
+            type: 'POST',
+            dataType: "json",
+            data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val()},
+            success: function(data){
+              var id = data.id;
+              window.location.href = '/download_docx/'+id+'.docx';
+            }
+          });
     });
 
     $('#save_to_app').click(function (e) {
@@ -237,7 +238,7 @@
   });
 </script>
 <script type='text/javascript'>
-  $(function () {
+  $(function() {
     $('#name').tipsy({gravity: 's', fade: true});
     $('#cs-sel').tipsy({gravity: 's', fade: true});
     $('#addy').tipsy({gravity: 's', fade: true});

@@ -9,40 +9,38 @@
     <div style="margin-left:40px;">
       <p id="notice"><%= notice %></p>
       <p>
-        <strong>Subject:</strong>
-        <%= @event.subject %>
+        <strong>Title:</strong>
+        <%= @event.title %>
       </p>
 
       <p>
         <strong>Location:</strong>
         <%= @event.location %>
       </p>
-         <p>
-        <strong>Invitee(s):</strong>
-        <%= @event.contacts.map {|c| c.name}.join(', ') %>
-      </p>
-        <p>
-        <strong>Case:</strong>
-        <% @event.cases.each do |c| %>
-        <%= link_to(c.name, case_path(c), class: 'case_link') %>
-        <% end %>
+      <p>
+        <strong>Owner:</strong>
+        <%= @event.try(:user).try(:name) %>
       </p>
       <p>
-        <strong>All Day Event?</strong>
-        <%= boolean_as_yesno @event.all_day %>
+        <strong>Participants:</strong>
+        <%= @event.participants.map {|c| c.name}.join(', ') %>
       </p>
       <p>
         <strong>Start Time:</strong>
-        <%= @event.start.to_datetime.strftime("%b %e, %Y %l:%M %p") %>
+        <%= @event.starts_at.strftime("%b %e, %Y %l:%M %p") %>
       </p>
 
       <p>
         <strong>End Time:</strong>
-        <%= @event.end.to_datetime.strftime("%b %e, %Y %l:%M %p") %>
+        <%= @event.ends_at.strftime("%b %e, %Y %l:%M %p") %>
+      </p>
+      <p>
+        <strong>External calendar:</strong>
+        <%= "#{@event.try(:calendar).try(:namespace).try(:full_name)}: #{@event.try(:calendar).try(:name)}" %>
       </p>
       <p>
         <strong>Description:</strong>
-        <%= @event.notes %>
+        <%= @event.description %>
       </p>
     </div>
 

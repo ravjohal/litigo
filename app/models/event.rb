@@ -8,7 +8,7 @@ class Event < ActiveRecord::Base
   has_many :event_participants, :dependent => :destroy
   has_many :participants, :through => :event_participants
 
-  attr_accessor :start_date, :start_time, :end_date, :end_time, :recur, :period, :frequency, :recur_start_date, :recur_end_date
+  attr_accessor :start_date, :start_time, :end_date, :end_time, :recur, :period, :frequency, :recur_start_date, :recur_end_date, :update_all_events
   validates_presence_of :starts_at, :ends_at
   validate :end_after_start
 

@@ -83,30 +83,50 @@
             </td>
           </tr>
         <!-- Uncoment when nylas recurring events would be working fine -->
-          <!--<tr>-->
-            <!--<td><strong>Recurring event:</strong></td>-->
-            <!--<td><%# f.check_box :recur, {}, true, false %></td>-->
-          <!--</tr>-->
+          <% if @event.new_record? %>
+          <tr>
+            <td><strong>Recurring event:</strong></td>
+            <td><%= f.check_box :recur, {checked: @event.event_series_id.present?}, true, false %></td>
+          </tr>
 
-          <!--<tr class="recur_block">-->
-            <!--<td><strong>Repeats:</strong></td>-->
-            <!--<td><%# f.select :period, Event::REPEATS %></td>-->
-          <!--</tr>-->
+          <tr class="recur_block">
+            <td><strong>Repeats:</strong></td>
+            <td><%= f.select :period, Event::REPEATS %></td>
+          </tr>
 
-          <!--<tr class="recur_block">-->
-            <!--<td><strong>Repeat every:</strong></td>-->
-            <!--<td><%# f.select :frequency, (1..30).to_a %> <span id = "period">day</span></td>-->
-          <!--</tr>-->
+          <tr class="recur_block">
+            <td><strong>Repeat every:</strong></td>
+            <td><%= f.select :frequency, (1..30).to_a %> <span id = "period">day</span></td>
+          </tr>
 
-          <!--<tr class="recur_block">-->
-            <!--<td><strong>Date of Start:</strong></td>-->
-            <!--<td><%# f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>-->
-          <!--</tr>-->
+          <tr class="recur_block">
+            <td><strong>Date of Start:</strong></td>
+            <td><%= f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>
+          </tr>
 
-          <!--<tr class="recur_block">-->
-            <!--<td><strong>Date of End:</strong></td>-->
-            <!--<td><%# f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>-->
-          <!--</tr>-->
+          <tr class="recur_block">
+            <td><strong>Date of End:</strong></td>
+            <td><%= f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>
+          </tr>
+          <% end %>
+
+          <% if @event.event_series.present? %>
+            <tr>
+              <td><strong>Repeat:</strong></td>
+              <td><%= @event.try(:event_series).try(:period) %>, frequency: <%= @event.try(:event_series).try(:frequency) %></td>
+            </tr>
+            <tr>
+              <td><strong>From:</strong></td>
+              <td><%= @event.try(:event_series).try(:recur_start_date).try(:strftime, "%b %e, %Y") %></td>
+            </tr>
+            <tr>
+              <td><strong>Till:</strong></td>
+              <td><%= @event.try(:event_series).try(:recur_end_date).try(:strftime, "%b %e, %Y") %></td>
+            </tr>
+          <% end %>
+
+          <%= f.hidden_field :event_series_id %>
+          <%= f.hidden_field :update_all_events %>
 
           </tbody>
         </table>
@@ -120,10 +140,11 @@
         </div>
 
         <div class="form-actions">
-          <% if @event.present? %>
-            <%= link_to @event, :class => 'btn btn-danger', method: :delete, data: {confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?'} do %>
-              Delete
-            <% end %>
+          <% if !@event.new_record? %>
+            <%# link_to @event, :id => 'delete_event', :class => 'btn btn-danger', method: :delete, data: {confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?'} do %>
+              <!--Delete-->
+            <%# end %>
+            <%= link_to 'Delete', '#', :id => 'delete_event', :class => 'btn btn-danger' %>
           <% end %>
           <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
         </div>
@@ -146,20 +167,24 @@
       pickDate: false
     });
 
-    var end_time_manual_set = false;
-
     $('#event_start_date, #event_start_time').change(function (e) {
       var start_date = $('#event_start_date').val();
       var start_time = $('#event_start_time').val();
       var end_date_time = moment(start_date + ' ' + start_time, 'MM/DD/YYYY HH:mm A').add(1, 'h')
       $('#event_end_date').val(end_date_time.format('M/D/YYYY')).change();
       $('#event_end_time').val(end_date_time.format('h:mm A')).change();
+      $('#event_recur_start_date').val(start_date);
     });
 
     $('#invitee_select').tagit({
       availableTags: <%= @emails_autocomplete.to_json.html_safe %>
     });
+
+    if ($('#event_recur').is(':checked')) {
+      $('.recur_block').show();
+    }
   });
+
   $('#event_recur').change(function (e) {
     if($(this).is(':checked')){
       $('.recur_block').show();
@@ -188,9 +213,8 @@
           period_val = 'day';
       }
       $('#period').html(period_val);
-    })
+    });
     $('#event_all_day').change(function (e) {
-      console.log($(this).is(':checked'));
       if($(this).is(':checked')) {
         $('#event_start_time').val('').hide();
         $('#event_end_time').val('').hide();
@@ -201,7 +225,39 @@
         $('#event_start_time').val(formatAMPM(sd)).show();
         $('#event_end_time').val(formatAMPM(ed)).show();
       }
+    });
+    $('.edit_event').submit(function () {
+      if($('#event_event_series_id').val() == '') {
+        return true;
+      } else {
+        if(confirm('Would you like to update all recurring events?')){
+          $('#event_update_all_events').val(true);
+        } else {
+          $('#event_update_all_events').val(false);
+        };
+        return true;
+      }
+    });
+    $('#delete_event').click(function (e) {
+      e.preventDefault();
+      if(confirm('WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?')){
+        if($('#event_event_series_id').val() != '') {
+          var delete_all = confirm('Would you like to delete all recurring events?');
+        }
+        $.ajax({
+          url: "/events/<%= @event.id %>",
+          type: 'DELETE',
+          dataType: "json",
+          data: {delete_all: delete_all},
+          success: function(data){
+            window.location.href = "/events";
+          }
+        });
+      } else {
+        $('.close').click();
+      }
     })
+
 </script>
 <script type='text/javascript'>
   $(function () {

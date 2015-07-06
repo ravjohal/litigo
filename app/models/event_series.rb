@@ -46,16 +46,7 @@ class EventSeries < ActiveRecord::Base
       }
 
       if event.update(event_attrs)
-        participants = event_params[:participants].split(",") if event_params[:participants].present?
-        if participants.present?
-          event_participants = event.event_participants.where(event_id: event.id).to_a
-          participants.each do |p_email|
-            participant = Participant.find_or_create_by(email: p_email)
-            event_participant = EventParticipant.find_or_create_by(event_id: event.id, participant_id: participant.id)
-            event_participants.delete(event_participant)
-          end
-          event_participants.each {|ep| ep.destroy }
-        end
+        event.update_participants(event_params[:participants]) if event_params[:participants].present?
         if calendar.present?
           namespace = calendar.namespace
           @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
@@ -86,5 +77,17 @@ class EventSeries < ActiveRecord::Base
     end
     return p
   end
-  
+
+  def assign_participants(str)
+    if str.present?
+      participants = str.split(",")
+      participants.each do |p_email|
+        participant = Participant.find_or_create_by(email: p_email)
+        self.events.each do |e|
+          event_participant = EventParticipant.create(event_id: e.id, participant_id: participant.id)
+        end
+      end
+    end
+  end
+
 end

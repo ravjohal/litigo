@@ -241,9 +241,11 @@ class EventsController < ApplicationController
                       when "date"
                         event.starts_at = ne.when['date']
                         event.ends_at = ne.when['date']
+                        event.all_day = true
                       when "datespan"
                         event.starts_at = ne.when['start_date']
                         event.ends_at = ne.when['end_date']
+                        event.all_day = true
                       when "time"
                         event.starts_at = Time.at(ne.when['time']).utc.to_datetime
                         event.ends_at = Time.at(ne.when['time']).utc.to_datetime

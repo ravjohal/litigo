@@ -55,32 +55,23 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
+    attrs = {
+          title: event_params[:title],
+          description: event_params[:description],
+          location: event_params[:location],
+          starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+          ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
+          all_day: event_params[:all_day],
+          user_id: @user.id,
+          firm_id: @firm.id
+    }
     if event_params[:recur]
-      @event = EventSeries.new({
-                                   title: event_params[:title],
-                                   description: event_params[:description],
-                                   location: event_params[:location],
-                                   starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-                                   ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-                                   all_day: event_params[:all_day],
-                                   user_id: @user.id,
-                                   firm_id: @firm.id,
-                                   period: event_params[:period],
-                                   frequency: event_params[:frequency],
-                                   recur_start_date: Date.strptime(event_params[:recur_start_date], "%m/%d/%Y"),
-                                   recur_end_date: Date.strptime(event_params[:recur_end_date], "%m/%d/%Y")
-                               })
+      @event = EventSeries.new(attrs.merge({period: event_params[:period],
+                                            frequency: event_params[:frequency],
+                                            recur_start_date: Date.strptime(event_params[:recur_start_date], "%m/%d/%Y"),
+                                            recur_end_date: Date.strptime(event_params[:recur_end_date], "%m/%d/%Y")}))
     else
-      @event = Event.new({
-                             title: event_params[:title],
-                             description: event_params[:description],
-                             location: event_params[:location],
-                             starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-                             ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-                             all_day: event_params[:all_day],
-                             user_id: @user.id,
-                             firm_id: @firm.id
-                         })
+      @event = Event.new(attrs)
     end
     if @event.save
       @event.assign_participants(event_params[:participants]) if event_params[:participants].present?

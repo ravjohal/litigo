@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  include NylasHelper
   before_filter :authenticate_user!
   before_action :set_event, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
@@ -82,20 +83,7 @@ class EventsController < ApplicationController
                          })
     end
     if @event.save
-      participants = event_params[:participants].split(",") if event_params[:participants].present?
-      if participants.present?
-        participants.each do |p_email|
-          participant = Participant.find_or_create_by(email: p_email)
-          if @event.class.name == 'Event'
-            event_participant = EventParticipant.create(event_id: @event.id, participant_id: participant.id)
-          elsif @event.class.name == 'EventSeries'
-            @event.events.each do |e|
-              event_participant = EventParticipant.create(event_id: e.id, participant_id: participant.id)
-            end
-          end
-
-        end
-      end
+      @event.assign_participants(event_params[:participants]) if event_params[:participants].present?
       if calendar.present?
         namespace = calendar.namespace
         @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
@@ -146,16 +134,7 @@ class EventsController < ApplicationController
       @event.event_series.update_events_until_end_time(event_params)
     else
       if @event.update(attrs)
-        participants = event_params[:participants].split(",") if event_params[:participants].present?
-        if participants.present?
-          event_participants = @event.event_participants.where(event_id: @event.id).to_a
-          participants.each do |p_email|
-            participant = Participant.find_or_create_by(email: p_email)
-            event_participant = EventParticipant.find_or_create_by(event_id: @event.id, participant_id: participant.id)
-            event_participants.delete(event_participant)
-          end
-          event_participants.each {|ep| ep.destroy }
-        end
+        @event.update_participants(event_params[:participants]) if event_params[:participants].present?
         if calendar.present?
           namespace = calendar.namespace
           @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)

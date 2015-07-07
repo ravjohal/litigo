@@ -23,4 +23,6 @@ describe Contact do
                            :state, :country, :phone_number, :fax_number, :email, :gender, :age, :user, :event, :phone_number, :fax_number ) }
   end
 
+
+
 end

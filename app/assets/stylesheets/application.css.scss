@@ -49,6 +49,13 @@ width: 200px;
 
 .alert {
   z-index: 2000;
+  a {
+    color: blue;
+    &:hover {
+      color: #0000c8;
+      text-decoration: underline;
+    }
+  }
 }
 //.modal-body {
 //  input {

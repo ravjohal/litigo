@@ -24,3 +24,15 @@ Feature: Contact tab
     And I should logged in
     And I create the contact trough the case management
     Then The contact for user with email "artem.suchov@gmail.com" should be saved to the db with the right fields
+
+  @javascript
+  Scenario: I create a Contact
+    When I visit sign up page
+    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
+    Then I get the confirmation email and confirm it
+    Then I should be logged in user
+    And when I fill in the modal window
+    And I should logged in
+    And I create the contact trough the case management
+    Then The contact for user with email "artem.suchov@gmail.com" should be saved to the db with the right fields
+    Then I create the similar contact trough the case management

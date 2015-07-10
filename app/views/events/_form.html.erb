@@ -12,7 +12,14 @@
 
         <table class="case-form table-condensed">
           <tbody>
-
+          <tr>
+            <td>
+              <strong>Calendar:</strong>
+            </td>
+            <td>
+              <%= f.select :calendar_id, @firm.calendars.where(active: true).map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
+            </td>
+          </tr>
           <tr>
             <td>
               <strong>Event Name:</strong>
@@ -27,15 +34,6 @@
             </td>
             <td>
               <%= f.text_field :location, label: false, :class => 'table-input' %>
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <strong>Event
-                Owner:</strong><span id="owner" title="This event will be added to the selected calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
-            </td>
-            <td>
-              <%= f.select :calendar_id, @firm.calendars.where(active: true).map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
             </td>
           </tr>
           <tr>

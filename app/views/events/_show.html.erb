@@ -9,7 +9,11 @@
     <div style="margin-left:40px;">
       <p id="notice"><%= notice %></p>
       <p>
-        <strong>Title:</strong>
+        <strong>Calendar:</strong>
+        <%= "#{@event.try(:calendar).try(:namespace).try(:full_name)}: #{@event.try(:calendar).try(:name)}" %>
+      </p>
+      <p>
+        <strong>Event Name:</strong>
         <%= @event.title %>
       </p>
 
@@ -18,11 +22,7 @@
         <%= @event.location %>
       </p>
       <p>
-        <strong>Owner:</strong>
-        <%= @event.try(:user).try(:name) %>
-      </p>
-      <p>
-        <strong>Participants:</strong>
+        <strong>Invitees:</strong>
         <%= @event.participants.map {|c| c.name}.join(', ') %>
       </p>
       <p>
@@ -34,10 +34,7 @@
         <strong>End Time:</strong>
         <%= @event.ends_at.strftime("%b %e, %Y %l:%M %p") %>
       </p>
-      <p>
-        <strong>External calendar:</strong>
-        <%= "#{@event.try(:calendar).try(:namespace).try(:full_name)}: #{@event.try(:calendar).try(:name)}" %>
-      </p>
+      
       <p>
         <strong>Description:</strong>
         <%= @event.description %>

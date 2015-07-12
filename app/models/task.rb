@@ -37,8 +37,8 @@ class Task < ActiveRecord::Base
                  firm_id: self.firm_id
     )
     if self.calendar_id.present?
-      event.calendar_id = self.calendar_id
-      calendar = event.calendar
+      calendar = Calendar.find(self.calendar_id)
+      event.calendar = calendar
       namespace = calendar.namespace
       @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
       nylas_namespace = @inbox.namespaces.first

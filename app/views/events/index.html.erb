@@ -98,6 +98,7 @@ $(document).ready(function() {
     editable: true,
     eventDrop: function(event, delta, minuteDelta, allDay, revertFunc) {
       if (confirm("Are you sure about this change?")) {
+        console.log('event.id:', event.id, 'event.start:', event.start, 'event.end:', event.end);
         $.ajax({
           type: "POST",
           url: "<%= event_drag_path %>",

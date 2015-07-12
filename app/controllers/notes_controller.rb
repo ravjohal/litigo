@@ -68,7 +68,7 @@ class NotesController < ApplicationController
           task = Task.new(name: note_params[:task_name], due_date: note_params[:task_due_date], sms_reminder: note_params[:task_sms_reminder],
                              email_reminder: note_params[:task_email_reminder], description: note_params[:task_description],
                              user_id: @user.id, firm_id: @firm.id, owner_id: note_params[:task_owner_id], secondary_owner_id: note_params[:task_secondary_owner_id],
-                             case_id: note_params[:case_id], google_calendar_id: note_params[:task_google_calendar_id])
+                             case_id: note_params[:case_id], calendar_id: note_params[:task_calendar_id])
           if task.save
             if task.due_date.present?
               task.create_event
@@ -122,6 +122,6 @@ class NotesController < ApplicationController
       params.require(:note).permit(:note, :case_id, :user_id, :firm_id, :note_type, :created_at, :updated_at, :author,
                                    :task_name, :task_due_date, :task_sms_reminder, :task_email_reminder, :add_task,
                                    :task_description, :task_owner_id, :task_secondary_owner_id,
-                                   :task_add_event, :task_google_calendar_id)
+                                   :task_add_event, :task_calendar_id)
     end
 end

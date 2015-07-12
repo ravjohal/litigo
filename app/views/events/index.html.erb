@@ -101,7 +101,7 @@ $(document).ready(function() {
         $.ajax({
           type: "POST",
           url: "<%= event_drag_path %>",
-          data: {event: {starts_at: event.start, ends_at: event.allDay ? event.start : event.end}, id: event.id},
+          data: {event: {starts_at: event.start, ends_at: event.end == null ? event.start : event.end}, id: event.id},
           success: function(data)
           {
             $('.alert').remove();
@@ -120,7 +120,7 @@ $(document).ready(function() {
         $.ajax({
           type: "POST",
           url: "<%= event_drag_path %>",
-          data: {event: {starts_at: event.start, ends_at: event.allDay ? event.start : event.end}, id: event.id},
+          data: {event: {starts_at: event.start, ends_at: event.end == null ? event.start : event.end}, id: event.id},
           success: function(data)
           {
             $('.alert').remove();

@@ -100,7 +100,7 @@ $(document).ready(function() {
       if (confirm("Are you sure about this change?")) {
         $.ajax({
           type: "POST",
-          url: '/event_drag/',
+          url: "<%= event_drag_path %>",
           data: {event: {starts_at: event.start, ends_at: event.end}, id: event.id},
           success: function(data)
           {

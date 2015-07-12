@@ -41,13 +41,13 @@
       <td>
   <%= form_for(user) do |f| %>
     <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'btn btn-default' %>
+    <%= f.submit 'Change Role', :class => 'btn btn-default btn-xs' %>
   <% end %>
 </td>
 <td>
   <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn delete btn-danger') unless user == current_user %>
 </td>
-      <td><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
+      <td class="text-center"><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
 
     </tr>
      <% end %>

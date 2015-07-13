@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608095218) do
+ActiveRecord::Schema.define(version: 20150624124329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,15 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   create_table "attorneys_events", id: false, force: :cascade do |t|
     t.integer "attorney_id"
     t.integer "event_id"
+  end
+
+  create_table "calendars", force: :cascade do |t|
+    t.string  "description"
+    t.string  "calendar_id"
+    t.string  "name"
+    t.integer "namespace_id"
+    t.string  "nylas_namespace_id"
+    t.boolean "active"
   end
 
   create_table "case_contacts", force: :cascade do |t|
@@ -226,38 +235,49 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   add_index "event_attendees", ["contact_id"], name: "index_event_attendees_on_contact_id", using: :btree
   add_index "event_attendees", ["event_id"], name: "index_event_attendees_on_event_id", using: :btree
 
-  create_table "events", force: :cascade do |t|
-    t.string   "subject",              limit: 255
-    t.string   "location",             limit: 255
-    t.date     "date"
-    t.time     "time"
-    t.boolean  "all_day",                          default: false
-    t.boolean  "reminder",                         default: false
-    t.text     "notes"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "owner_id"
-    t.integer  "firm_id"
-    t.string   "google_id"
-    t.string   "etag"
-    t.string   "status"
-    t.string   "html_link"
-    t.string   "summary"
-    t.datetime "start"
-    t.datetime "end"
-    t.boolean  "end_time_unspecified",             default: false
-    t.string   "transparency"
-    t.string   "visibility"
-    t.string   "iCalUID"
-    t.integer  "sequence"
-    t.string   "google_calendar_id"
-    t.integer  "task_id"
+  create_table "event_participants", force: :cascade do |t|
+    t.string  "status"
+    t.integer "event_id"
+    t.integer "participant_id"
   end
 
-  add_index "events", ["firm_id"], name: "index_events_on_firm_id", using: :btree
-  add_index "events", ["google_calendar_id"], name: "index_events_on_google_calendar_id", using: :btree
-  add_index "events", ["google_id"], name: "index_events_on_google_id", using: :btree
-  add_index "events", ["owner_id"], name: "index_events_on_owner_id", using: :btree
+  create_table "event_series", force: :cascade do |t|
+    t.integer  "frequency",        default: 1
+    t.string   "period",           default: "monthly"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.datetime "recur_start_date"
+    t.datetime "recur_end_date"
+    t.string   "when_type"
+    t.boolean  "all_day",          default: false
+    t.integer  "user_id"
+    t.integer  "firm_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "nylas_event_id"
+    t.string   "nylas_calendar_id"
+    t.string   "nylas_namespace_id"
+    t.text     "description"
+    t.string   "location"
+    t.boolean  "read_only"
+    t.string   "title"
+    t.boolean  "busy"
+    t.string   "status"
+    t.integer  "namespace_id"
+    t.integer  "calendar_id"
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.integer  "firm_id"
+    t.datetime "starts_at"
+    t.datetime "ends_at"
+    t.string   "when_type"
+    t.boolean  "recur",              default: false
+    t.integer  "event_series_id"
+    t.boolean  "all_day"
+  end
 
   create_table "expenses", force: :cascade do |t|
     t.integer  "user_id"
@@ -473,6 +493,20 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   add_index "medicals", ["case_id"], name: "index_medicals_on_case_id", using: :btree
   add_index "medicals", ["firm_id"], name: "index_medicals_on_firm_id", using: :btree
 
+  create_table "namespaces", force: :cascade do |t|
+    t.string   "namespace_id"
+    t.string   "account_id"
+    t.string   "email_address"
+    t.string   "name"
+    t.string   "provider"
+    t.integer  "user_id"
+    t.string   "inbox_token"
+    t.string   "account_status"
+    t.string   "cursor"
+    t.integer  "sync_period"
+    t.datetime "last_sync"
+  end
+
   create_table "notes", force: :cascade do |t|
     t.text     "note"
     t.datetime "created_at"
@@ -487,6 +521,44 @@ ActiveRecord::Schema.define(version: 20150608095218) do
   add_index "notes", ["case_id"], name: "index_notes_on_case_id", using: :btree
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
+
+  create_table "old_events", force: :cascade do |t|
+    t.string   "subject",              limit: 255
+    t.string   "location",             limit: 255
+    t.date     "date"
+    t.time     "time"
+    t.boolean  "all_day",                          default: false
+    t.boolean  "reminder",                         default: false
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.integer  "firm_id"
+    t.string   "google_id"
+    t.string   "etag"
+    t.string   "status"
+    t.string   "html_link"
+    t.string   "summary"
+    t.datetime "start"
+    t.datetime "end"
+    t.boolean  "end_time_unspecified",             default: false
+    t.string   "transparency"
+    t.string   "visibility"
+    t.string   "iCalUID"
+    t.integer  "sequence"
+    t.string   "google_calendar_id"
+    t.integer  "task_id"
+  end
+
+  add_index "old_events", ["firm_id"], name: "index_old_events_on_firm_id", using: :btree
+  add_index "old_events", ["google_calendar_id"], name: "index_old_events_on_google_calendar_id", using: :btree
+  add_index "old_events", ["google_id"], name: "index_old_events_on_google_id", using: :btree
+  add_index "old_events", ["owner_id"], name: "index_old_events_on_owner_id", using: :btree
+
+  create_table "participants", force: :cascade do |t|
+    t.string "email"
+    t.string "name"
+  end
 
   create_table "phones", force: :cascade do |t|
     t.string   "label"
@@ -686,6 +758,7 @@ ActiveRecord::Schema.define(version: 20150608095218) do
     t.integer  "hourly_rate"
     t.string   "middle_name"
     t.string   "events_color"
+    t.boolean  "edit_events_permit",                 default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

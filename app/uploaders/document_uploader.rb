@@ -48,6 +48,8 @@ class DocumentUploader < CarrierWave::Uploader::Base
     # "something.jpg" if original_filename
     if original_filename.present? && file.extension == 'docx'
       "#{original_filename[0, original_filename.index(".docx")]}.#{file.extension}"
+    else
+      original_filename
     end
   end
 

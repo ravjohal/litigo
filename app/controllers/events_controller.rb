@@ -248,7 +248,7 @@ class EventsController < ApplicationController
               if event == "create" or event == "modify"
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
                 if calendar.present?
-                  event = Event.find_or_initialize_by(user_id: calendar.user.id, nylas_event_id: ne.id)
+                  event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
                   if ne.status == 'cancelled'
                     event.destroy
                   else

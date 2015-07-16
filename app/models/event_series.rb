@@ -1,4 +1,6 @@
 class EventSeries < ActiveRecord::Base
+  # Recurring events is an Event Series
+
   belongs_to :user
   belongs_to :firm
   has_many :events, :dependent => :destroy

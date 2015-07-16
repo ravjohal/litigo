@@ -14,13 +14,31 @@ class EventsController < ApplicationController
     @users.each_with_index do |user, index|
       hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
-      user.events.each do |event|
-        event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-        events << event
+      user.calendars.each do |calendar| 
+        #puts "Calendar ------------------------------------------ " + calendar.inspect
+        calendar.events.each do |event|
+          event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+          events << event
+          #puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
+        end
       end
       hash[:events] = events
       @event_sources[user.id] = hash
     end
+
+    #puts "EVENT SOURCES &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + @event_sources.inspect
+    # @users.each_with_index do |user, index|
+    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+    #   events = []
+    #   if user.calendars
+    #     user.events.where(:calendar_id => user.calendars.pluck(:id)).each do |event|
+    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+    #       events << event
+    #     end
+    #   end
+    #   hash[:events] = events
+    #   @event_sources[user.id] = hash
+    # end
     @emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end
@@ -55,6 +73,7 @@ class EventsController < ApplicationController
   # POST /events.json
   def create
     calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
+    user_id_for_hash = calendar ? calendar.user.id : @user.id
     attrs = {
           title: event_params[:title],
           description: event_params[:description],
@@ -62,7 +81,7 @@ class EventsController < ApplicationController
           starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
           ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
           all_day: event_params[:all_day],
-          user_id: @user.id,
+          user_id: user_id_for_hash,
           firm_id: @firm.id
     }
     if event_params[:recur]
@@ -229,13 +248,13 @@ class EventsController < ApplicationController
               if event == "create" or event == "modify"
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
                 if calendar.present?
-                  event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
+                  event = Event.find_or_initialize_by(user_id: calendar.user.id, nylas_event_id: ne.id)
                   if ne.status == 'cancelled'
                     event.destroy
                   else
                     event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
                                             location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                            when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: calendar.id,
+                                            when_type: ne.when['object'], user_id: calendar.user.id, firm_id: @firm.id, calendar_id: calendar.id,
                                             namespace_id: namespace.id)
                     case ne.when['object']
                       when "date"

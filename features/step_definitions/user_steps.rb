@@ -15,9 +15,13 @@ When(/^I fill in the sign up form with valid data$/) do
 end
 
 Then(/^I should be logged in user$/) do
+  step 'I should be logged in user with email "artem.suchov@gmail.com" and password "password"'
+end
+
+When(/^I should be logged in user with email "(.*?)" and password "(.*?)"$/) do |email, password|
   visit '/users/sign_in'
-  fill_in 'user_email', with: 'artem.suchov@gmail.com'
-  fill_in 'user_password', with: 'password'
+  fill_in 'user_email', with: email
+  fill_in 'user_password', with: password
   click_on 'SIGN IN'
   expect(page).to have_content('Welcome!')
   expect(page).to have_content('We just need a few more details before using your case management software:')
@@ -40,6 +44,14 @@ end
 
 Then(/^I should logged in$/) do
   expect(page).to have_content('Firm and Contact were successfully created.')
+end
+
+Given(/^Confirmed user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)"$/) do |first_name, last_name, email, password|
+  FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
+end
+
+Given(/^Confirmed default user exists$/) do
+  step 'Confirmed user exists with first name "Artem", last name "Suchov", email "artem.suchov@gmail.com" and password "password"'
 end
 
 When(/^I fill in the sign up form with invalid data$/) do
@@ -90,4 +102,14 @@ When(/^I sign up and login$/) do
   step 'I should be logged in user'
   step 'when I fill in the modal window'
   step 'I should logged in'
+end
+
+When(/^I login$/) do
+  step 'I should be logged in user with email "artem.suchov@gmail.com" and password "password"'
+  step 'when I fill in the modal window'
+  step 'I should logged in'
+end
+
+When(/^I login with email "(.*?)" and password "(.*?)"$/) do |email, password|
+  step "I should be logged in user with email \"#{email}\" and password \"#{password}\""
 end

@@ -4,9 +4,12 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead
-    When Signup and Login
-    And I click on and create lead
-    Then I verify lead has been created for user: "artem.suchov@gmail.com"
-    Then I edit lead
-    Then I verify lead has been changed for user: "artem.suchov@gmail.com"
+    When I sign up and login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    Then I check message "Client intake was successfully created."
+    And I verify lead has been created for user: "artem.suchov@gmail.com"
+    And I verify lead first name "Leeds" and last name "United" for user: "artem.suchov@gmail.com"
+    When I edit lead
+    And I verify lead first name "Leeds 2" and last name "United 2" for user: "artem.suchov@gmail.com"
     Then I delete lead

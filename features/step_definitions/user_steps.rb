@@ -83,7 +83,7 @@ When (/^I log in with email "(.*?)" and password "(.*?)"$/) do |arg1, arg2|
   expect(page).to have_content('We just need a few more details before using your case management software:')
 end
 
-When(/^Signup and Login$/) do
+When(/^I sign up and login$/) do
   step 'I visit sign up page'
   step 'I am a logged in user with email "artem.suchov@gmail.com" and password "password"'
   step 'I get the confirmation email and confirm it'

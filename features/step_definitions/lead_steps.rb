@@ -1,20 +1,32 @@
-When(/^I click on and create lead$/) do
-  click_on 'Caller Intake'
-  step 'I create a lead'
+When(/^I click on "(.*?)"$/) do |button|
+  click_on button
 end
 
 When(/^I create a lead$/) do
+  step 'I create a lead with name "Leeds" and last name "United"'
+end
+
+When(/^I create a lead with name "(.*?)" and last name "(.*?)"$/) do |first_name, last_name|
   click_on 'NEW CALLER INTAKE'
   sleep 0.5
-  fill_in 'lead_first_name', with: 'Leeds'
-  fill_in 'lead_last_name', with: 'United'
+  fill_in 'lead_first_name', with: first_name
+  fill_in 'lead_last_name', with: last_name
   click_on 'Create Lead'
-  expect(page).to have_content('Client intake was successfully created.')
+end
+
+Then(/^I check message "(.*?)"$/) do |message|
+  expect(page).to have_content(message)
 end
 
 Then(/^I verify lead has been created for user: "(.*?)"$/) do |arg1|
-  u = User.where(email: arg1).last
-  expect(Lead.where(id: u.id).last.first_name).to eq 'Leeds'
+  step "I verify lead first name \"Leeds\" and last name \"United\" for user: \"#{arg1}\""
+end
+
+Then(/^I verify lead first name "(.*?)" and last name "(.*?)" for user: "(.*?)"$/) do |first_name, last_name, user|
+  u = User.where(email: user).last
+  lead = Lead.where(id: u.id).last
+  expect(lead.first_name).to eq first_name
+  expect(lead.last_name).to eq last_name
 end
 
 When(/^I edit lead$/) do

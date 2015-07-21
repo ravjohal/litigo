@@ -5,7 +5,7 @@ SimpleCov.start
 # newer version of cucumber-rails. Consider adding your own code to a new file
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
-ENV["RAILS_ENV"] ||= "test"
+ENV['RAILS_ENV'] ||= 'test'
 require 'factory_girl'
 require 'cucumber/rails'
 require 'capybara/firebug'

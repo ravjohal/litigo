@@ -85,9 +85,9 @@ end
 
 When(/^Signup and Login$/) do
   step 'I visit sign up page'
-  step 'I am a logged in user with email #{artem.suchov@gmail.com} and password #{password}'
+  step 'I am a logged in user with email "artem.suchov@gmail.com" and password "password"'
   step 'I get the confirmation email and confirm it'
   step 'I should be logged in user'
-  step 'I fill in the modal window'
+  step 'when I fill in the modal window'
   step 'I should logged in'
 end

@@ -55,8 +55,53 @@ When(/^I delete lead$/) do
 end
 
 When(/^I fill lead case fields$/) do
-  select "Personal Injury", :from => "lead_case_type"
-  select "Open Wound", :from => "lead_primary_injury"
+  select 'Personal Injury', :from => 'lead_case_type'
+  select 'Open Wound', :from => 'lead_primary_injury'
+end
+
+When(/^I check lead text field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
+  click_on 'Edit'
+  sleep 0.5
+  fill_in "lead_#{field}", with: text
+  click_on 'Save'
+  step "I verify lead field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
+end
+
+When(/^I check contact lead text field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
+  step 'I click on "CONTACT"'
+  step "I check lead text field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
+end
+
+When(/^I check lead select field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
+  click_on 'Edit'
+  sleep 0.5
+  select text, :from => "lead_#{field}"
+  click_on 'Save'
+  step "I verify lead field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
+end
+
+When(/^I check contact lead select field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
+  step 'I click on "CONTACT"'
+  step "I check lead select field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
+end
+
+When(/^I check lead select with option value "(.*?)" for field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |validate_value, field, text, user|
+  click_on 'Edit'
+  sleep 0.5
+  select text, :from => "lead_#{field}"
+  click_on 'Save'
+  step "I verify lead field \"#{field}\" by \"#{validate_value}\" for user: \"#{user}\""
+end
+
+When(/^I check contact lead select with option value "(.*?)" for field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |validate_value, field, text, user|
+  step 'I click on "CONTACT"'
+  step "I check lead select with option value \"#{validate_value}\" for field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
+end
+
+When(/^I verify lead field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
+  u = User.where(email: user).last
+  lead = Lead.where(id: u.id).last
+  expect(lead.attributes[field].to_s).to eq(text.to_s)
 end
 
 Then(/^I verify lead case was created for user: "(.*?)"$/) do |user|

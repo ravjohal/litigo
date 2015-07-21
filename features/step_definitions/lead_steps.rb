@@ -2,6 +2,10 @@ When(/^I click on "(.*?)"$/) do |button|
   click_on button
 end
 
+When(/^I click to element with id "(.*?)"$/) do |id|
+  find("##{id}").click
+end
+
 When(/^I create a lead$/) do
   step 'I create a lead with name "Leeds" and last name "United"'
 end
@@ -48,5 +52,15 @@ end
 When(/^I delete lead$/) do
   find('#delete').click
   page.driver.browser.switch_to.alert.accept
-  expect(page).to have_content('Client intake was successfully destroyed.')
+end
+
+When(/^I fill lead case fields$/) do
+  select "Personal Injury", :from => "lead_case_type"
+  select "Open Wound", :from => "lead_primary_injury"
+end
+
+Then(/^I verify lead case was created for user: "(.*?)"$/) do |user|
+  u = User.where(email: user).last
+  lead = Lead.where(id: u.id).last
+  expect(lead.case).to_not be_nil
 end

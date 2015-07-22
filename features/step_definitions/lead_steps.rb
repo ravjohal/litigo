@@ -2,8 +2,16 @@ When(/^I click on "(.*?)"$/) do |button|
   click_on button
 end
 
+When(/^I click to tab "(.*?)"$/) do |tab|
+  find('#nav-tabs-custom').click_on tab
+end
+
 When(/^I click to element with id "(.*?)"$/) do |id|
   find("##{id}").click
+end
+
+When(/^I click to element with selector "(.*?)"$/) do |id|
+  find("#{id}").click
 end
 
 When(/^I create a lead$/) do
@@ -108,4 +116,12 @@ Then(/^I verify lead case was created for user: "(.*?)"$/) do |user|
   u = User.where(email: user).last
   lead = Lead.where(id: u.id).last
   expect(lead.case).to_not be_nil
+end
+
+Then(/^should exist tab "(.*?)"$/) do |tab|
+  expect(find('#nav-tabs-custom')).to have_content(tab)
+end
+
+Then /^I should have text "(.*?)"$/ do |text|
+  expect(page).to have_content(text)
 end

@@ -1,5 +1,5 @@
 Then(/^I create a case step by step$/) do
-  click_on 'CASE MANAGEMENT'
+  click_on 'Case Management'
   click_on 'CASES'
   step 'I create a case'
 end
@@ -9,6 +9,7 @@ When(/^I create a case$/) do
   click_on 'NEW CASE'
   sleep 0.5
   fill_in 'case_name', with: 'some case'
+  select 'Domestic', :from => 'case_case_type'
   click_on 'Create Case'
   expect(page).to have_content('Case was successfully created.')
 end

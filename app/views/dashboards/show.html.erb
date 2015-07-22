@@ -1,5 +1,4 @@
 <% if @user.show_onboarding %>
-<%= render 'calendars_modal' if @calendars %>
  <div class="row">
     <div class="col-md-12">
           <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
@@ -128,9 +127,9 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-  <% if @calendars %>
-    $("#modal-window2").modal('show');
-  <% end %>
+  // <% if @calendars %>
+  //   $("#modal-window2").modal('show');
+  // <% end %>
     $('.new-modal').click(function (e) {
       e.preventDefault();
       var instance = $(e.currentTarget).data('id');

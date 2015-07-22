@@ -33,6 +33,20 @@ Feature: Create Lead Test
     And I verify lead case was created for user: "artem.suchov@gmail.com"
 
   @javascript
+  Scenario: I create a lead, accept case and check case number
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    When I click on "Edit"
+    And I fill lead case fields
+    And I click on "Save"
+    And I click to element with id "accept"
+    Then I should have text "Case #: 1"
+    When I create a case
+    Then I should have text "Case #: 2"
+
+  @javascript
   Scenario: I create a lead and edit fields
     Given Confirmed default user exists
     When I login
@@ -60,3 +74,52 @@ Feature: Create Lead Test
     And I check contact lead text field "city" by "bla bla" for user: "artem.suchov@gmail.com"
     And I check contact lead text field "zip_code" by "85454" for user: "artem.suchov@gmail.com"
     And I check contact lead select with option value "HI" for field "state" by "Hawaii" for user: "artem.suchov@gmail.com"
+
+  @javascript
+  Scenario: I create a lead and check tabs exist
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    And I click on "Caller Intake"
+    And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
+    Then should exist tab "DETAILS"
+    And should exist tab "CONTACT"
+    And should exist tab "DOCUMENTS"
+
+  @javascript
+  Scenario: I create a lead and check details tab
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    And I click on "Caller Intake"
+    And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
+    Then should exist tab "DETAILS"
+    When I click on "DETAILS"
+    Then I should have text "Lead Information"
+
+  @javascript
+  Scenario: I create a lead and check contact tab
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    And I click on "Caller Intake"
+    And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
+    Then should exist tab "CONTACT"
+    When I click on "CONTACT"
+    Then I should have text "Contact Information"
+
+  @javascript
+  Scenario: I create a lead and check documents tab
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    And I click on "Caller Intake"
+    And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
+    Then should exist tab "DOCUMENTS"
+    When I click to tab "DOCUMENTS"
+    Then I should have text "My Documents"
+    And I should have text "Lead Documents"

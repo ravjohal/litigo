@@ -8,9 +8,9 @@ class DashboardsController < ApplicationController
       if !current_user.contact_user
          create_contact(User::USER_ROLES[current_user.invitation_role.to_i].to_s.humanize, current_user, current_user.firm)
       end
-      if params[:google_auth]
-        @calendars = @user.google_calendars
-      end
+      # if params[:google_auth]
+      #   @calendars = @user.google_calendars
+      # end
       #p "CALENDARS ---------------> " + @calendars.first.summary.to_s
       render :show
     else

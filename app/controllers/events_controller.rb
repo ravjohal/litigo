@@ -255,7 +255,7 @@ class EventsController < ApplicationController
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
                 puts " ACTIVE CALENDAR: 777777777777777777777777777777777777 " + calendar.inspect 
                 if calendar.present?
-                  event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
+                  event = Event.find_or_initialize_by(nylas_event_id: ne.id)
                   puts " EVEN FIND OR INITIALIZE BY ))))))))))))))))))))))))))))))))))))))))))  " + event.inspect
                   if ne.status == 'cancelled'
                     event.destroy
@@ -305,7 +305,7 @@ class EventsController < ApplicationController
         events << event
       end
       hash[:events] = events
-      puts " HASH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + hash.inspect
+      #puts " HASH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + hash.inspect
       @event_sources[user.id] = hash
     end
 

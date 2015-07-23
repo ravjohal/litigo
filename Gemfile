@@ -58,6 +58,7 @@ gem 'amoeba'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 0.17.1'
 gem 'newrelic_rpm'
+gem 'rack-timeout'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

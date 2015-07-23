@@ -102,44 +102,114 @@ Then (/^case should be created$/) do
 end
 
 Then (/^task list with task_draft should be created$/) do
-  user = User.find_by(email: 'andrew@rubyriders.com')
+  step 'task list with task_draft should be created by user with email "artem.suchov@gmail.com"'
+end
+
+Then (/^task list with task_draft should be created by user with email "(.*?)"$/) do |email|
+  user = User.find_by(email: email)
   firm = user.firm
+
   expect(TaskList.where(name: 'Test Task List')).to exist
   task_list = TaskList.last
-  task_draft = task_list.task_drafts.last
   expect(task_list.name).to eq('Test Task List')
   expect(task_list.view_permission).to eq('author')
   expect(task_list.amend_permission).to eq('author')
   expect(task_list.user_id).to eq(user.id)
   expect(task_list.firm_id).to eq(firm.id)
-  expect(task_draft.name).to eq('Parent task')
-  expect(task_draft.due_term).to eq(3)
-  expect(task_draft.due_term).to eq(3)
-  expect(task_draft.conjunction).to eq('before')
-  expect(task_draft.anchor_date).to eq('close date')
-  expect(task_draft.description).to eq('Parent task description')
+  expect(task_list.task_import).to eq('automatic')
+  expect(task_list.case_type).to eq('Personal Injury')
+  expect(task_list.case_creator).to eq('all_firm')
+
+  task_draft_1 = task_list.task_drafts.first
+  expect(task_draft_1.name).to eq('Parent task')
+  expect(task_draft_1.description).to eq('Parent task description')
+  expect(task_draft_1.due_term).to eq(3)
+  expect(task_draft_1.conjunction).to eq('After')
+  expect(task_draft_1.anchor_date).to eq('affair.created_at')
+
+  task_draft_2 = task_list.task_drafts.last
+  expect(task_draft_2.name).to eq('Parent task 2')
+  expect(task_draft_2.description).to eq('Parent task 2 description')
+  expect(task_draft_2.due_term).to eq(23)
+  expect(task_draft_2.conjunction).to eq('After')
+  expect(task_draft_2.anchor_date).to eq('affair.created_at')
 end
 
-Then (/^task list with dependent task_draft should be created$/) do
-  user = User.find_by(email: 'andrew@rubyriders.com')
+Then (/^task list with manual and task_draft should be created by user with email "(.*?)"$/) do |email|
+  user = User.find_by(email: email)
+  firm = user.firm
+
+  expect(TaskList.where(name: 'Test Task List')).to exist
+  task_list = TaskList.last
+  expect(task_list.name).to eq('Test Task List')
+  expect(task_list.view_permission).to eq('all_firm')
+  expect(task_list.amend_permission).to eq('all_firm')
+  expect(task_list.user_id).to eq(user.id)
+  expect(task_list.firm_id).to eq(firm.id)
+  expect(task_list.task_import).to eq('manual')
+
+  expect(task_list.task_drafts.size).to eq(2)
+
+  task_draft_1 = task_list.task_drafts.first
+  expect(task_draft_1.name).to eq('Parent task')
+  expect(task_draft_1.description).to eq('Parent task description')
+  expect(task_draft_1.due_term).to eq(3)
+  expect(task_draft_1.conjunction).to eq('After')
+  expect(task_draft_1.anchor_date).to eq('affair.created_at')
+
+  expect(task_draft_1.children.size).to eq(2)
+  task_1 = task_draft_1.children.first
+  expect(task_1.name).to eq('Child task 1')
+  expect(task_1.description).to eq('Child task description')
+  expect(task_1.due_term).to eq(1)
+  expect(task_1.conjunction).to eq('After')
+  expect(task_1.anchor_date).to eq('parent')
+
+  task_2 = task_draft_1.children.last
+  expect(task_2.name).to eq('Child task 2')
+  expect(task_2.description).to eq('Child task description 2')
+  expect(task_2.due_term).to eq(2)
+  expect(task_2.conjunction).to eq('After')
+  expect(task_2.anchor_date).to eq('parent')
+
+  task_draft_2 = task_list.task_drafts.last
+  expect(task_draft_2.name).to eq('Parent task 2')
+  expect(task_draft_2.description).to eq('Parent task 2 description')
+  expect(task_draft_2.due_term).to eq(23)
+  expect(task_draft_2.conjunction).to eq('After')
+  expect(task_draft_2.anchor_date).to eq('affair.created_at')
+end
+
+Then(/^task list with dependent task_draft should be created$/) do
+  step 'task list with dependent task_draft should be created by user with email "artem.suchov@gmail.com"'
+end
+
+Then(/^task list with manual and task_draft should be created$/) do
+  step 'task list with manual and task_draft should be created by user with email "artem.suchov@gmail.com"'
+end
+
+Then (/^task list with dependent task_draft should be created by user with email "(.*?)"$/) do |email|
+  user = User.find_by email: email
   firm = user.firm
   expect(TaskList.where(name: 'Test Task List')).to exist
   task_list = TaskList.last
-  task_draft = task_list.task_drafts.last
+  task_draft = task_list.task_drafts.first
   dependent_task_draft = task_draft.children.last
   expect(task_list.name).to eq('Test Task List')
   expect(task_list.view_permission).to eq('author')
   expect(task_list.amend_permission).to eq('author')
   expect(task_list.user_id).to eq(user.id)
   expect(task_list.firm_id).to eq(firm.id)
+
   expect(task_draft.name).to eq('Parent task')
   expect(task_draft.due_term).to eq(3)
-  expect(task_draft.conjunction).to eq('before')
-  expect(task_draft.anchor_date).to eq('close date')
+  expect(task_draft.conjunction).to eq('After')
+  expect(task_draft.anchor_date).to eq('affair.created_at')
   expect(task_draft.description).to eq('Parent task description')
+
   expect(dependent_task_draft.name).to eq('Dependent task')
   expect(dependent_task_draft.due_term).to eq(2)
-  expect(dependent_task_draft.conjunction).to eq('after')
-  expect(dependent_task_draft.anchor_date).to eq('previous task')
+  expect(dependent_task_draft.conjunction).to eq('After')
+  expect(dependent_task_draft.anchor_date).to eq('parent')
   expect(dependent_task_draft.description).to eq('Dependent task description')
 end

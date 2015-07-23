@@ -37,6 +37,10 @@ class TaskDraft < ActiveRecord::Base
 
   def return_due_date(affair, parent=nil)
     due_date = nil
+
+    self.anchor_date ||= 'parent'
+    self.conjunction ||= 'After'
+
     ad = anchor_date.split('.')
     operator = self.conjunction.downcase == 'after' ? '+' : '-'
     if ad.count > 1

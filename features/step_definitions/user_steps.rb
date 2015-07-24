@@ -27,6 +27,13 @@ When(/^I should be logged in user with email "(.*?)" and password "(.*?)"$/) do 
   expect(page).to have_content('We just need a few more details before using your case management software:')
 end
 
+When(/^I should be just login with email "(.*?)" and password "(.*?)"$/) do |email, password|
+  visit '/users/sign_in'
+  fill_in 'user_email', with: email
+  fill_in 'user_password', with: password
+  click_on 'SIGN IN'
+end
+
 Then(/^I get the confirmation email and confirm it$/) do
   email = ActionMailer::Base.cached_deliveries.last
   token = email.body.to_s.match(/3000\/(.+)">/x)[1]
@@ -52,6 +59,17 @@ end
 
 Given(/^Confirmed default user exists$/) do
   step 'Confirmed user exists with first name "Artem", last name "Suchov", email "artem.suchov@gmail.com" and password "password"'
+end
+
+Given(/^Firm for default user exist$/) do
+  step 'Firm exist for user: "artem.suchov@gmail.com"'
+end
+
+Given(/^Firm exist for user: "(.*?)"$/) do |email|
+  firm = FactoryGirl.create(:firm)
+  user = User.find_by :email => email
+  user.firm = firm
+  user.save!
 end
 
 When(/^I fill in the sign up form with invalid data$/) do
@@ -108,6 +126,10 @@ When(/^I login$/) do
   step 'I should be logged in user with email "artem.suchov@gmail.com" and password "password"'
   step 'when I fill in the modal window'
   step 'I should logged in'
+end
+
+When(/^I login without firm$/) do
+  step 'I should be just login with email "artem.suchov@gmail.com" and password "password"'
 end
 
 When(/^I login with email "(.*?)" and password "(.*?)"$/) do |email, password|

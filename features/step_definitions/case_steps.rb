@@ -55,3 +55,23 @@ Then(/^all tabs are created$/) do
   click_on 'TASKS'
   expect(page).to have_content('NEW TASK')
 end
+
+Given(/^Default case exist$/) do
+  step 'Default case exist for user: "artem.suchov@gmail.com"'
+end
+
+Given(/^Default case exist for user: "(.*?)"$/) do |email|
+  user = User.find_by :email => email
+  firm = user.firm
+  FactoryGirl.create(:case, user: user, firm: firm)
+end
+
+When(/^I go to first case$/) do
+  step 'I click "CASES"'
+  step 'I click to element with selector "#user_cases tr > td > a"'
+end
+
+When(/^I go to first firm case$/) do
+  step 'I click "CASES"'
+  step 'I click to element with selector "#cases tr > td > a"'
+end

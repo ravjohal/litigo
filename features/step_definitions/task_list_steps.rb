@@ -1,4 +1,4 @@
-Given(/^I populate task list form$/) do
+When(/^I populate task list form$/) do
   step 'I click "Case Management"'
   step 'I click "TASKS"'
   step 'I click "TASK ITEMS"'
@@ -6,7 +6,7 @@ Given(/^I populate task list form$/) do
   step 'I fill Task List form'
 end
 
-Given(/^I populate task list form manual$/) do
+When(/^I populate task list form manual$/) do
   step 'I click "Case Management"'
   step 'I click "TASKS"'
   step 'I click "TASK ITEMS"'
@@ -15,13 +15,14 @@ Given(/^I populate task list form manual$/) do
 end
 
 When(/^I fill Task List form$/) do
-  sleep 1
+  sleep 0.5
   fill_in 'task_list_name', with: 'Test Task List'
   select 'Author Only', from: 'task_list_view_permission'
   select 'Author Only', from: 'task_list_amend_permission'
   choose 'task_list_task_import_automatic'
+  sleep 0.5
   select 'Personal Injury', from: 'task_list_case_type'
-  choose 'task_list_case_creator_all_firm'
+  # choose 'task_list_case_creator_all_firm'
   click_on 'ADD TASK'
   step 'I fill task 1 row with name "Parent task" and description "Parent task description" and days "3"'
   step 'I fill task 2 row with name "Parent task 2" and description "Parent task 2 description" and days "23"'
@@ -60,4 +61,14 @@ When(/^I add dependent task draft$/) do
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[name]']").val('Dependent task')))
   page.execute_script(%($('.parent_task_draft_1').find("textarea[name*='[description]']").val('Dependent task description')))
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[due_term]']").val('2')))
+end
+
+When(/^I go to import saved task list$/) do
+  step 'I click to tab "TASKS"'
+  step 'I click "TASK ITEMS"'
+  step 'I click "Import Saved Task List"'
+end
+
+When(/^I fill import list?/) do
+  page.execute_script(%($("input.import_task_lists").attr('checked', 'checked')))
 end

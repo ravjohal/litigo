@@ -62,7 +62,7 @@ class EventsController < ApplicationController
     restrict_access("events") if @event.user.firm != current_user.firm
     @model = @event
     @emails_autocomplete = emails_autocomplete
-    if !@event.read_only && (current_user == @event.user || current_user.edit_event_allowed?)
+    if !@event.read_only && (current_user == @event.calendar.user || current_user.edit_event_allowed?)
       render partial: 'events/edit'
     else
       render partial: 'events/show'
@@ -302,9 +302,11 @@ class EventsController < ApplicationController
     @users.each_with_index do |user, index|
       hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
-      user.events.each do |event|
-        event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
-        events << event
+      user.calendars.each do |calendar|
+          calendar.events.each do |event|
+          event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
+          events << event
+        end
       end
       hash[:events] = events
       #puts " HASH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + hash.inspect

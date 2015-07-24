@@ -74,7 +74,7 @@ class EventsController < ApplicationController
   def create
     calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
     #user_id_for_hash = calendar ? @user.id : @user.id
-    puts "USER RIGHT NOW: --------->> " + @user.inspect
+    #puts "USER RIGHT NOW: --------->> " + @user.inspect
     attrs = {
           title: event_params[:title],
           description: event_params[:description],
@@ -94,7 +94,7 @@ class EventsController < ApplicationController
       @event = Event.new(attrs)
     end
     if @event.save
-      puts "EVENT ******************************************************** " + @event.inspect
+      #puts "EVENT ******************************************************** " + @event.inspect
       @event.assign_participants(event_params[:participants]) if event_params[:participants].present?
       if calendar.present?
         namespace = calendar.namespace
@@ -106,11 +106,11 @@ class EventsController < ApplicationController
                                                                                          :end_time => @event.ends_at.to_i},
                                                  :participants => @event.participants.map {|p| { :email => p.email, :name => p.name}})
           n_event.save!
-          puts "n_event >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + n_event.inspect
+          #puts "n_event >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + n_event.inspect
           @event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
                         nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
                         when_type: n_event.when['object'])
-          puts "EVENT AFTER UPDATE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ " + @event.inspect 
+          #puts "EVENT AFTER UPDATE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ " + @event.inspect 
         #TODO figure out how to send recuring events to nylas
         elsif @event.class.name == 'EventSeries'
           @event.events.each do |e|
@@ -247,16 +247,18 @@ class EventsController < ApplicationController
         ns = @inbox.namespaces.first
         cursor = namespace.cursor.present? ? namespace.cursor : ns.get_cursor(namespace.last_sync.to_i) #the last update of the namespace (to figure out the deltas)
         last_cursor = nil
-        ns.deltas(cursor, [Nylas::Tag, Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]) do |event, ne| # exclude all those in array, only need events for now
+        #puts " CURSOR: " + namespace.inspect + " --- " + cursor.inspect
+        ns.deltas(cursor, exclude=[Nylas::Tag, Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]) do |event, ne| # exclude all those in array, only need events for now
           # event = action done by Nylas (modify, create, etc)
           # ne = hash of event, details of the event
+          #puts " NE :::::::::::::::::::::::::::::::::::::::::::::::::::::: " + event.inspect + "  ----> " + ne.inspect
           if ne.is_a?(Nylas::Event)
               if event == "create" or event == "modify"
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
-                puts " ACTIVE CALENDAR: 777777777777777777777777777777777777 " + calendar.inspect 
+                #puts " ACTIVE CALENDAR: 777777777777777777777777777777777777 " + calendar.inspect 
                 if calendar.present?
                   event = Event.find_or_initialize_by(nylas_event_id: ne.id)
-                  puts " EVEN FIND OR INITIALIZE BY ))))))))))))))))))))))))))))))))))))))))))  " + event.inspect
+                  #puts " EVEN FIND OR INITIALIZE BY ))))))))))))))))))))))))))))))))))))))))))  " + event.inspect
                   if ne.status == 'cancelled'
                     event.destroy
                   else
@@ -309,7 +311,7 @@ class EventsController < ApplicationController
       @event_sources[user.id] = hash
     end
 
-    puts " EVENT SOURCES ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ " + @event_sources.inspect 
+    #puts " EVENT SOURCES ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ " + @event_sources.inspect 
     message = "#{events_synced} events were synced."
     respond_to do |format|
       format.html {redirect_to request.referrer , notice: message}

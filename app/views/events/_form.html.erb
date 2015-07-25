@@ -1,7 +1,7 @@
 <%= simple_form_for(@event || @event = Event.new) do |f| %>
   <%= f.error_notification %>
 
-<% if action_name == "index" %>
+<% if action_name == "index" || action_name == "edit" %>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -146,7 +146,7 @@
           </tbody>
         </table>
         <br>
-<% if action_name == "index" %>
+<% if action_name == "index" || action_name == "edit" %>
       </div>
       <!--end of modal-body-->
 
@@ -164,7 +164,7 @@
           <% end %>
           <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
         </div>
-<% if action_name == "index" %>
+<% if action_name == "index" || action_name == "edit" %>
       </div>
       <!--end of modal-footer-->
     </div>

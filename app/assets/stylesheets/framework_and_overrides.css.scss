@@ -1081,16 +1081,16 @@ margin-top: 10px;
 }
 
 a.add-btn {
-  margin-left: 10px;
-  border: 1px solid transparent;
+  border: 1px solid #ccc;
   border-radius: 4px;
-  color: #ccc;
+  color: #000000;
   padding: 4px 5px;
+  width: 100%;
 }
 a.add-btn:hover {
   border: 1px solid #ccc;
   border-radius: 4px;
-  color: #000000;
+  color: #3FC2D8;
   padding: 4px 5px;
 }
 

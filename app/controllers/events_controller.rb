@@ -42,7 +42,7 @@ class EventsController < ApplicationController
     #   hash[:events] = events
     #   @event_sources[user.id] = hash
     # end
-    #@emails_autocomplete = emails_autocomplete
+    @emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end
 
@@ -234,7 +234,7 @@ class EventsController < ApplicationController
     @user.events.map do |event|
       event.participants.map {|participant| users_emails << participant.email unless participant.email == @user.email}
     end
-    return users_emails.uniq
+    return users_emails.uniq.compact
   end
 
   def refresh_events

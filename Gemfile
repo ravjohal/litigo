@@ -59,6 +59,7 @@ gem 'amoeba'
 gem 'nylas', '~> 0.17.1'
 gem 'newrelic_rpm'
 gem 'rack-timeout'
+gem 'rack-mini-profiler'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

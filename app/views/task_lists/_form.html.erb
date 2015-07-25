@@ -82,10 +82,15 @@
 <script>
   $(document).ready(function () {
     $("#note_select, select").select2();
-    $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-    });
+    (function(){
+      var $tip = $('.tip');
+      if (typeof $tip.tipr !== "undefined") {
+        $tip.tipr({
+          'speed': 500,
+          'mode': 'top'
+        });
+      }
+    })();
     <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'asc'} %>
     $('.add_fields').click(function () {
       $("html, body").animate({ scrollTop: $(document).height() }, 1000);

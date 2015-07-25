@@ -1,5 +1,5 @@
 Then(/^I create a case step by step$/) do
-  click_on 'CASE MANAGEMENT'
+  click_on 'Case Management'
   click_on 'CASES'
   step 'I create a case'
 end
@@ -9,6 +9,7 @@ When(/^I create a case$/) do
   click_on 'NEW CASE'
   sleep 0.5
   fill_in 'case_name', with: 'some case'
+  select 'Domestic', :from => 'case_case_type'
   click_on 'Create Case'
   expect(page).to have_content('Case was successfully created.')
 end
@@ -53,4 +54,24 @@ Then(/^all tabs are created$/) do
   expect(page).to have_content('NEW CONTACT')
   click_on 'TASKS'
   expect(page).to have_content('NEW TASK')
+end
+
+Given(/^Default case exist$/) do
+  step 'Default case exist for user: "artem.suchov@gmail.com"'
+end
+
+Given(/^Default case exist for user: "(.*?)"$/) do |email|
+  user = User.find_by :email => email
+  firm = user.firm
+  FactoryGirl.create(:case, user: user, firm: firm)
+end
+
+When(/^I go to first case$/) do
+  step 'I click "CASES"'
+  step 'I click to element with selector "#user_cases tr > td > a"'
+end
+
+When(/^I go to first firm case$/) do
+  step 'I click "CASES"'
+  step 'I click to element with selector "#cases tr > td > a"'
 end

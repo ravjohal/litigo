@@ -53,7 +53,7 @@ setCounties = ->
        console.log "Something failed"
 
 $(document).ready ->
-  setCounties()
+  #setCounties()
 
   $(document).on "click", "#btnFilterReset", ->
     $("#f_state").val("")

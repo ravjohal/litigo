@@ -46,7 +46,7 @@
             </div>
     <% end %>
     </div>
-    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_case_path, class: 'new-modal', data: {id: 'case'} do %>
+    <div class="col-xs-6 col-sm-3 col-md-2"><%= link_to new_case_path, class: 'new-modal3', data: {id: 'case'} do %>
             <div class="tile-new-grey">
                   <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-close"></span></div>
                   <div class="tile-text">New Case</div>
@@ -126,37 +126,4 @@
   <p>Email: <%= @user.email if @user.email %></p>
   <p>Show Onboarding: <%= @user.show_onboarding if @user.show_onboarding %></p>
 <% end %>
-
-<script type="text/javascript" charset="utf-8">
-  <% if @calendars %>
-    $("#modal-window2").modal('show');
-  <% end %>
-    $('.new-modal').click(function (e) {
-      e.preventDefault();
-      var instance = $(e.currentTarget).data('id');
-      switch(instance) {
-        case 'lead':
-          $("#modal-window").html("<%= escape_javascript(render 'client_intakes/form') %>").modal('show');
-          break;
-        case 'case':
-          $("#modal-window").html("<%= escape_javascript(render 'cases/form', new_case: Case.new) %>").modal('show');
-          break;
-        case 'contact':
-          $("#modal-window").html("<%= escape_javascript(render 'contacts/form', new_contact: Contact.new) %>").modal('show');
-          break;
-        case 'task':
-          $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: Task.new) %>").modal('show');
-          break;
-        case 'document':
-          $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: Document.new) %>").modal('show');
-          break;
-        case 'event':
-          $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new) %>").modal('show');
-          break;
-        case 'note':
-          $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: Note.new) %>").modal('show');
-          break;
-      }
-    });
-</script>
 

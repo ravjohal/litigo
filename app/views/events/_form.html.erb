@@ -105,13 +105,13 @@
           </tr>
 
           <tr class="recur_block">
-            <td><strong>Repeats:</strong></td>
+            <td><strong>Repeat:</strong></td>
             <td><%= f.select :period, Event::REPEATS %></td>
           </tr>
 
           <tr class="recur_block">
-            <td><strong>Repeat every:</strong></td>
-            <td><%= f.select :frequency, (1..30).to_a %> <span id = "period">day</span></td>
+            <td><strong>Every:</strong></td>
+            <td><%= f.select :frequency, (1..30).to_a %> <span id = "period">day(s)</span></td>
           </tr>
 
           <tr class="recur_block">
@@ -210,23 +210,23 @@
   });
     $('#event_period').change(function (e) {
       var period = $(this).val();
-      var period_val = 'day';
+      var period_val = 'day(s)';
       switch (period) {
         case 'Daily':
-          period_val = 'day';
+          period_val = 'day(s)';
           break;
         case 'Weekly':
-          period_val = 'week';
+          period_val = 'week(s)';
           break;
         case 'Monthly':
-          period_val = 'month';
+          period_val = 'month(s)';
           break;
         case 'Yearly':
-          period_val = 'year';
+          period_val = 'year(s)';
           break;
 
         default:
-          period_val = 'day';
+          period_val = 'day(s)';
       }
       $('#period').html(period_val);
     });

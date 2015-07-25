@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_tenant #, :set_firm
+  #before_action :set_tenant #, :set_firm
   around_filter :set_time_zone
 
   protected

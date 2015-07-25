@@ -1,5 +1,8 @@
-
-<div style="width: 800px; margin: 0 auto 0 -50px;">
+<h1>New Document</h1>
+<br>
+<div style="width: 800px; background-color: #F2F2F2 !important;">
 		<%= render 'form', new_document: @document%>
+		<div class="pull-right">
+        <%= link_to "Cancel", user_root_path(@user), :class => 'close' %>
+    </div>
 </div>
-<%= link_to 'Back', documents_path %>

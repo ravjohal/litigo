@@ -7,13 +7,7 @@
         <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
 
         <h1>Calendar Event</h1>
-        <% if !@event.new_record? %>
-          <% if @event.created_at == @event.updated_at %>
-              Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
-          <% else %>
-              Updated By: <%= @event.user.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
-          <% end %>
-        <% end %>
+       
       </div>
       <div class="modal-body">
 
@@ -25,6 +19,19 @@
             </td>
             <td>
               <%= f.select :calendar_id, @firm.calendars.where(active: true).where.not("calendars.name LIKE ? OR calendars.name Like ?", "%Birthday%", "%Holiday%").map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
+            </td>
+          </tr>
+             <tr>
+            <td>
+            </td>
+            <td style="font-size: 10px;">
+              <% if !@event.new_record? %>
+                <% if @event.created_at == @event.updated_at %>
+                  Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
+                <% else %>
+                  Updated By: <%= @event.user.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
+                <% end %>
+              <% end %>
             </td>
           </tr>
           <tr>
@@ -105,12 +112,12 @@
           </tr>
 
           <tr class="recur_block">
-            <td><strong>Date of Start:</strong></td>
+            <td><strong>Series Start:</strong></td>
             <td><%= f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>
           </tr>
 
           <tr class="recur_block">
-            <td><strong>Date of End:</strong></td>
+            <td><strong>Series End:</strong></td>
             <td><%= f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>
           </tr>
           <% end %>
@@ -125,7 +132,7 @@
               <td><%= @event.try(:event_series).try(:recur_start_date).try(:strftime, "%b %e, %Y") %></td>
             </tr>
             <tr>
-              <td><strong>Till:</strong></td>
+              <td><strong>Until:</strong></td>
               <td><%= @event.try(:event_series).try(:recur_end_date).try(:strftime, "%b %e, %Y") %></td>
             </tr>
           <% end %>
@@ -135,7 +142,7 @@
 
           </tbody>
         </table>
-
+        <br>
       </div>
       <!--end of modal-body-->
 

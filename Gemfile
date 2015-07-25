@@ -85,7 +85,7 @@ group :test do
   gem 'rspec-activemodel-mocks', '~> 1.0.1'           # RSpec test doubles for ActiveModel and ActiveRecord
   gem 'capybara', '~> 2.4.1'
   gem 'database_cleaner', '~> 1.3.0'                  # database_cleaner is not required, but highly recommended
-  gem 'selenium-webdriver', '~> 2.43.0'
+  gem 'selenium-webdriver', '~> 2.45.0'
   gem 'capybara-firebug', '~> 2.0.0'
   gem 'cucumber-rails', '~> 1.4.0', :require => false  # Cucumber Generator and Runtime for Rails
   gem 'cucumber_factory', '~> 1.10.0'                  # allows you to create ActiveRecord models from your Cucumber features without writing step definitions for each model

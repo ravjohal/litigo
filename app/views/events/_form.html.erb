@@ -1,16 +1,19 @@
 <%= simple_form_for(@event || @event = Event.new) do |f| %>
   <%= f.error_notification %>
 
+<% if action_name == "index" %>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
+
         <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
 
         <h1>Calendar Event</h1>
        
       </div>
+    
       <div class="modal-body">
-
+<% end %>
         <table class="case-form table-condensed">
           <tbody>
           <tr>
@@ -143,6 +146,7 @@
           </tbody>
         </table>
         <br>
+<% if action_name == "index" %>
       </div>
       <!--end of modal-body-->
 
@@ -150,7 +154,7 @@
         <div class="pull-left">
           <a class="close" data-dismiss="modal">Cancel</a>
         </div>
-
+<% end %>
         <div class="form-actions">
           <% if !@event.new_record? %>
             <%# link_to @event, :id => 'delete_event', :class => 'btn btn-danger', method: :delete, data: {confirm: 'WARNING! Deleting an event will remove the event from all calendars. Would you like to continue?'} do %>
@@ -160,13 +164,13 @@
           <% end %>
           <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
         </div>
-
+<% if action_name == "index" %>
       </div>
       <!--end of modal-footer-->
     </div>
     <!--end of modal-content-->
   </div><!--end of modal-dialog-->
-
+<% end %>
 <% end %>
 <script>
   $(document).ready(function () {

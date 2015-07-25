@@ -11,6 +11,9 @@ class EventsController < ApplicationController
   def index
     @users = @firm.users
     @event_sources = {}
+
+    #events = @firm.events.group_by{|e| [e.user_id, e.calendar_id]}
+    #puts " EVENTS GROUPED -----------------------------------------------------------> " + events.inspect
     @users.each_with_index do |user, index|
       hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       events = []
@@ -39,7 +42,7 @@ class EventsController < ApplicationController
     #   hash[:events] = events
     #   @event_sources[user.id] = hash
     # end
-    @emails_autocomplete = emails_autocomplete
+    #@emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end
 

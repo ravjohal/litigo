@@ -1,14 +1,31 @@
-<span class="inv_fields">
-  <label for="email" style="margin-bottom: 10px;">Email</label>
-  <input type="email" class="inv_email" name="users[0][email]"/>
-  <label for="role" style="margin-left: 10px;">as</label>
-  <select class="inv_role" name="users[0][role]">
-    <option selected="selected" value="2">Attorney</option>
-    <option value="1">Administrator</option>
-    <option value="0">Staff</option>
-  </select>
-  <a class="remove_invitee" style="margin-left: 10px;"href="#">Remove</a><br/>
-</span>
+<span class="inv_fields" >
+    <div class="row">
+    <div class="col-md-1">
+    </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="email" style="margin-bottom: 5px;">Email</label>
+          <input type="email" class="inv_email form-control" name="users[0][email]"/>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="form-group">
+          <label for="role" style="margin-left: 5px;">Role</label>
+          <select class="inv_role form-control" name="users[0][role]">
+            <option selected="selected" value="2">Attorney</option>
+            <option value="1">Administrator</option>
+            <option value="0">Staff</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-1">
+      </div>
+      <br>
+      <a class="remove_invitee remove" style="margin-left: 10px; color: red;"href="#">X</a>
+    </div>
+  </span>
+
+
 <script type="text/javascript" charset="utf-8">
   $('.remove_invitee').click(function(e){
     e.preventDefault();

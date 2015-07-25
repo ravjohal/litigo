@@ -1,19 +1,46 @@
 <% if current_user.admin? %>
 <div style="width: 900px; margin: 0 auto;">
-  <strong>Invite additional users to your firm</strong><%= link_to "+ ADD EMPLOYEE", '#', :class => 'add-btn pull-right', id: "add_invitee" %>
+  <div class="text-center">
+    <h1><span style="color: #3FC2D8; margin: 10px 20px 0 0; " class="glyphicon glyphicon-send"></span>Invite Employees</h1>
+    <div style="margin-bottom: 20px;">
+          New memembers will automatically be connected to all firm information
+    </div>
+</div>
+<hr style="height: 1px; background: #ccc;"
   <div class="invite_form">
-  <br>
-  <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
-    <div class="invitees" style="margin-bottom: 30px;"><%= render 'users/invitations/user_form' %></div>
-  <%= submit_tag "Send Invitations", id: "inv_submit", :class => "sub2-small pull-right"%>
+      <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
+              <div class="invitees" style="margin-bottom: 10px;"><%= render 'users/invitations/user_form' %></div>
+      <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-10">
+                <%= link_to "+ Add Another", '#', :class => 'add-btn', id: "add_invitee" %>
+            </div>
+            <div class="col-md-1">
+            </div>
+      </div>
+      <br>
+      <div class="row" >
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-6">
+                <%= submit_tag "Send Invitations", id: "inv_submit", :class => "btn btn-info", :style => 'width: 100%; padding: 10px;'%>
+             </div>
+             <div class="col-md-3">
+            </div>
+      </div>
   </div>
   <% end %>
 <% end %>
 <br>
 <br>
-<strong>Current users in your firm:</strong>
-</div>
 
+</div>
+<div class="text-center">
+    <h1><span style="color: #3FC2D8; margin: 10px 20px 0 0; " class="glyphicon glyphicon-user"></span>Firm Employees</h1>
+    <div style="margin-bottom: 20px;">
+          A list of current employees in the firm
+    </div>
 
 <table class="user-table table-striped">
   <thead class="user-table-head">
@@ -45,9 +72,9 @@
   <% end %>
 </td>
 <td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'btn delete btn-danger') unless user == current_user %>
+  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure you want to remove this employee from your firm?" }, :method => :delete, :class => 'btn btn-danger btn-xs') unless user == current_user %>
 </td>
-      <td class="text-center"><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
+      <td class="text-center"><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, :style => 'margin-left: 10px; margin-right: 5px;', class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
 
     </tr>
      <% end %>

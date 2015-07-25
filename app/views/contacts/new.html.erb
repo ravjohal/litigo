@@ -1,5 +1,9 @@
-
-<div style="width: 800px; margin: 0 auto 50px -50px;">
+<h1>New Contact</h1>
+<br>
+<div style="width: 800px; background-color: #F2F2F2 !important; margin-left: -50px;">
 	<%= render 'form', new_contact: @contact %>
+	<div class="pull-right">
+        <%= link_to "Cancel", user_root_path(@user), :class => 'close' %>
+    </div>
 </div>
 

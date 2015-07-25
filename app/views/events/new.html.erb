@@ -1,5 +1,7 @@
-<h1>New event</h1>
-
-<%= render 'form', new_event: @event %>
-
-<%= link_to 'Back', events_path %>
+<h1>New Event</h1>
+<br>
+<div style="width: 800px; background-color: #F2F2F2 !important;">
+	<%= render 'form', new_event: @event %>
+<div class="pull-right">
+        <%= link_to "Cancel", user_root_path(@user), :class => 'close' %>
+    </div>

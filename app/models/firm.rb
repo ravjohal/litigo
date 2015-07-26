@@ -19,9 +19,11 @@ class Firm < ActiveRecord::Base
 	has_many :medical_bills
 	has_many :companies
 	has_many :case_contacts
-  has_many :expenses
-  has_many :namespaces, :through => :users
-  has_many :calendars, :through => :namespaces
+	has_many :expenses
+	has_many :namespaces
+	has_many :calendars
+	has_many :participants
+	has_many :event_participants
 	has_many :phones
 
 	validates_presence_of :name

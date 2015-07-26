@@ -23,7 +23,7 @@ class NamespacesController < ApplicationController
     nylas_namespace = @inbox.namespaces.first
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
-      calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id)
+      calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id, firm_id: @firm.id)
       calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
     end
     if calendars.present?
@@ -91,8 +91,8 @@ class NamespacesController < ApplicationController
           end
           event.save
           ne.participants.each do |np|
-            participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
-            ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
+            participant = Participant.find_or_create_by(email: np['email'], name: np['name'], firm_id: @firm.id)
+            ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id, firm_id: @firm.id)
             ep.update(status: np['status'])
           end
           events_synced += 1
@@ -112,7 +112,7 @@ class NamespacesController < ApplicationController
     nylas_namespace = @inbox.namespaces.first
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
-      calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id)
+      calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id, firm_id: @firm.id)
       calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
     end
   end
@@ -130,7 +130,8 @@ class NamespacesController < ApplicationController
   # POST /namespaces.json
   def create
     @namespace = Namespace.new(namespace_params)
-
+    @namespace.firm = @firm
+    
     respond_to do |format|
       if @namespace.save
         format.html { redirect_to @namespace, notice: 'Namespace was successfully created.' }

@@ -742,23 +742,6 @@ ActiveRecord::Schema.define(version: 20150726104105) do
   add_index "time_entries", ["case_id"], name: "index_time_entries_on_case_id", using: :btree
   add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
-  create_table "treatments", force: :cascade do |t|
-    t.integer  "injury_id"
-    t.integer  "firm_id"
-    t.boolean  "surgery"
-    t.integer  "surgery_count"
-    t.string   "surgery_type"
-    t.boolean  "casted_fracture"
-    t.boolean  "stitches"
-    t.boolean  "future_surgery"
-    t.decimal  "future_medicals"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "treatments", ["firm_id"], name: "index_treatments_on_firm_id", using: :btree
-  add_index "treatments", ["injury_id"], name: "index_treatments_on_injury_id", using: :btree
-
   create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"

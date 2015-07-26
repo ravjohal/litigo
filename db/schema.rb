@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725234943) do
+ActiveRecord::Schema.define(version: 20150726104105) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,7 +41,6 @@ ActiveRecord::Schema.define(version: 20150725234943) do
 
   add_index "calendars", ["firm_id"], name: "index_calendars_on_firm_id", using: :btree
   add_index "calendars", ["namespace_id"], name: "index_calendars_on_namespace_id", using: :btree
-  add_index "calendars", ["nylas_namespace_id"], name: "index_calendars_on_nylas_namespace_id", using: :btree
 
   create_table "case_contacts", force: :cascade do |t|
     t.integer  "case_id"
@@ -55,7 +54,6 @@ ActiveRecord::Schema.define(version: 20150725234943) do
 
   add_index "case_contacts", ["case_id"], name: "index_case_contacts_on_case_id", using: :btree
   add_index "case_contacts", ["firm_id"], name: "index_case_contacts_on_firm_id", using: :btree
-  add_index "case_contacts", ["contact_id"], name: "index_case_contacts_on_contact_id", using: :btree
   add_index "case_contacts", ["role"], name: "index_case_contacts_on_role", using: :btree
 
   create_table "case_documents", force: :cascade do |t|
@@ -117,11 +115,10 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.boolean  "fee_agreement",                                               default: false
   end
 
-  add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
-  add_index "cases", ["user_id"], name: "index_cases_on_user_id", using: :btree
-  add_index "cases", ["statute_of_limitations"], name: "index_cases_on_statute_of_limitations", using: :btree
   add_index "cases", ["case_type"], name: "index_cases_on_case_type", using: :btree
-
+  add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
+  add_index "cases", ["subtype"], name: "index_cases_on_subtype", using: :btree
+  add_index "cases", ["user_id"], name: "index_cases_on_user_id", using: :btree
 
   create_table "company_olds", force: :cascade do |t|
     t.string   "name"
@@ -200,9 +197,8 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
   add_index "contacts", ["event_id"], name: "index_contacts_on_event_id", using: :btree
   add_index "contacts", ["firm_id"], name: "index_contacts_on_firm_id", using: :btree
+  add_index "contacts", ["type"], name: "index_contacts_on_type", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
-  add_index "contacts", ["company_id"], name: "index_contacts_on_company_id", using: :btree
-
 
   create_table "documents", force: :cascade do |t|
     t.string   "author",     limit: 255
@@ -241,8 +237,6 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   end
 
   add_index "event_participants", ["firm_id"], name: "index_event_participants_on_firm_id", using: :btree
-  add_index "event_participants", ["event_id"], name: "index_event_participants_on_event_id", using: :btree
-  add_index "event_participants", ["participant_id"], name: "index_event_participants_on_participant_id", using: :btree
 
   create_table "event_series", force: :cascade do |t|
     t.integer  "frequency",        default: 1
@@ -260,8 +254,8 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   end
 
   add_index "event_series", ["firm_id"], name: "index_event_series_on_firm_id", using: :btree
-  add_index "event_series", ["user_id"], name: "index_event_series_on_user_id", using: :btree
   add_index "event_series", ["frequency"], name: "index_event_series_on_frequency", using: :btree
+  add_index "event_series", ["user_id"], name: "index_event_series_on_user_id", using: :btree
 
   create_table "events", force: :cascade do |t|
     t.string   "nylas_event_id"
@@ -275,7 +269,7 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.string   "status"
     t.integer  "namespace_id"
     t.integer  "calendar_id"
-    t.integer  "user_id"
+    t.integer  "created_by"
     t.integer  "task_id"
     t.integer  "firm_id"
     t.datetime "starts_at"
@@ -286,15 +280,16 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.boolean  "all_day"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "last_updated_by"
   end
 
-  add_index "events", ["firm_id"], name: "index_events_on_firm_id", using: :btree
-  add_index "events", ["namespace_id"], name: "index_events_on_namespace_id", using: :btree
   add_index "events", ["calendar_id"], name: "index_events_on_calendar_id", using: :btree
-  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
-  add_index "events", ["nylas_calendar_id"], name: "index_events_on_nylas_calendar_id", using: :btree
+  add_index "events", ["created_by"], name: "index_events_on_created_by", using: :btree
   add_index "events", ["event_series_id"], name: "index_events_on_event_series_id", using: :btree
-  add_index "events", ["all_day"], name: "index_events_on_all_day", using: :btree
+  add_index "events", ["firm_id"], name: "index_events_on_firm_id", using: :btree
+  add_index "events", ["last_updated_by"], name: "index_events_on_last_updated_by", using: :btree
+  add_index "events", ["namespace_id"], name: "index_events_on_namespace_id", using: :btree
+  add_index "events", ["nylas_namespace_id"], name: "index_events_on_nylas_namespace_id", using: :btree
 
   create_table "expenses", force: :cascade do |t|
     t.integer  "user_id"
@@ -310,7 +305,7 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   end
 
   add_index "expenses", ["firm_id"], name: "index_expenses_on_firm_id", using: :btree
-  add_index "expenses", ["case_id"], name: "index_expenses_on_case_id", using: :btree
+  add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "firms", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -406,9 +401,11 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer  "case_id"
   end
 
-  add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
-  add_index "injuries", ["medical_id"], name: "index_injuries_on_medical_id", using: :btree
   add_index "injuries", ["case_id"], name: "index_injuries_on_case_id", using: :btree
+  add_index "injuries", ["firm_id"], name: "index_injuries_on_firm_id", using: :btree
+  add_index "injuries", ["injury_type"], name: "index_injuries_on_injury_type", using: :btree
+  add_index "injuries", ["medical_id"], name: "index_injuries_on_medical_id", using: :btree
+  add_index "injuries", ["region"], name: "index_injuries_on_region", using: :btree
 
   create_table "insurances", force: :cascade do |t|
     t.string   "insurance_type"
@@ -425,9 +422,10 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer  "company_id"
   end
 
-  add_index "insurances", ["firm_id"], name: "index_insurances_on_firm_id", using: :btree
   add_index "insurances", ["case_id"], name: "index_insurances_on_case_id", using: :btree
-  add_index "insurances", ["parent_id"], name: "index_insurances_on_parent_id", using: :btree
+  add_index "insurances", ["company_id"], name: "index_insurances_on_company_id", using: :btree
+  add_index "insurances", ["firm_id"], name: "index_insurances_on_firm_id", using: :btree
+  add_index "insurances", ["insurance_provider"], name: "index_insurances_on_insurance_provider", using: :btree
 
   create_table "leads", force: :cascade do |t|
     t.integer  "screener_id"
@@ -472,10 +470,10 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer  "referring_contact_id"
   end
 
-  add_index "leads", ["firm_id"], name: "index_leads_on_firm_id", using: :btree
   add_index "leads", ["attorney_id"], name: "index_leads_on_attorney_id", using: :btree
+  add_index "leads", ["contact_id"], name: "index_leads_on_contact_id", using: :btree
+  add_index "leads", ["firm_id"], name: "index_leads_on_firm_id", using: :btree
   add_index "leads", ["status"], name: "index_leads_on_status", using: :btree
-  add_index "leads", ["referring_contact_id"], name: "index_leads_on_referring_contact_id", using: :btree
 
   create_table "medical_bills", force: :cascade do |t|
     t.string   "provider"
@@ -496,8 +494,11 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   end
 
   add_index "medical_bills", ["case_id"], name: "index_medical_bills_on_case_id", using: :btree
+  add_index "medical_bills", ["company_id"], name: "index_medical_bills_on_company_id", using: :btree
   add_index "medical_bills", ["firm_id"], name: "index_medical_bills_on_firm_id", using: :btree
+  add_index "medical_bills", ["medical_id"], name: "index_medical_bills_on_medical_id", using: :btree
   add_index "medical_bills", ["parent_id"], name: "index_medical_bills_on_parent_id", using: :btree
+  add_index "medical_bills", ["user_id"], name: "index_medical_bills_on_user_id", using: :btree
 
   create_table "medicals", force: :cascade do |t|
     t.decimal  "total_med_bills",            precision: 10, scale: 2
@@ -542,9 +543,9 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer  "firm_id"
   end
 
+  add_index "namespaces", ["account_status"], name: "index_namespaces_on_account_status", using: :btree
   add_index "namespaces", ["firm_id"], name: "index_namespaces_on_firm_id", using: :btree
-  add_index "namespaces", ["user_id"], name: "index_namespaces_on_user_id", usign: :btree
-  add_index "namespaces", ["email_address"], name: "index_namespaces_on_email_address", usign: :btree
+  add_index "namespaces", ["user_id"], name: "index_namespaces_on_user_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.text     "note"
@@ -601,7 +602,6 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   end
 
   add_index "participants", ["firm_id"], name: "index_participants_on_firm_id", using: :btree
-  add_index "participants", ["email"], name: "index_participants_on_email", using: :btree
 
   create_table "phones", force: :cascade do |t|
     t.string   "label"
@@ -612,6 +612,7 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer  "firm_id"
   end
 
+  add_index "phones", ["contact_id"], name: "index_phones_on_contact_id", using: :btree
   add_index "phones", ["firm_id"], name: "index_phones_on_firm_id", using: :btree
 
   create_table "resolutions", force: :cascade do |t|
@@ -632,6 +633,7 @@ ActiveRecord::Schema.define(version: 20150725234943) do
 
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
+  add_index "resolutions", ["resolution_type"], name: "index_resolutions_on_resolution_type", using: :btree
 
   create_table "task_drafts", force: :cascade do |t|
     t.integer "task_list_id"
@@ -644,8 +646,8 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer "number"
   end
 
-  add_index "task_drafts", ["task_list_id"], name: "index_task_drafts_on_task_list_id", using: :btree
   add_index "task_drafts", ["parent_id"], name: "index_task_drafts_on_parent_id", using: :btree
+  add_index "task_drafts", ["task_list_id"], name: "index_task_drafts_on_task_list_id", using: :btree
 
   create_table "task_lists", force: :cascade do |t|
     t.string   "name"
@@ -660,8 +662,8 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.string   "case_creator"
   end
 
-  add_index "task_lists", ["user_id"], name: "index_task_lists_on_user_id", using: :btree
   add_index "task_lists", ["firm_id"], name: "index_task_lists_on_firm_id", using: :btree
+  add_index "task_lists", ["user_id"], name: "index_task_lists_on_user_id", using: :btree
 
   create_table "tasks", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -686,12 +688,13 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.integer  "secondary_owner_id"
   end
 
-  add_index "tasks", ["firm_id"], name: "index_tasks_on_firm_id", using: :btree
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
-  add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id", using: :btree
   add_index "tasks", ["case_id"], name: "index_tasks_on_case_id", using: :btree
+  add_index "tasks", ["firm_id"], name: "index_tasks_on_firm_id", using: :btree
+  add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id", using: :btree
   add_index "tasks", ["parent_id"], name: "index_tasks_on_parent_id", using: :btree
   add_index "tasks", ["secondary_owner_id"], name: "index_tasks_on_secondary_owner_id", using: :btree
+  add_index "tasks", ["task_draft_id"], name: "index_tasks_on_task_draft_id", using: :btree
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "template_documents", force: :cascade do |t|
     t.text     "html_content"
@@ -703,8 +706,8 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "template_documents", ["user_id"], name: "index_template_documents_on_user_id", using: :btree
   add_index "template_documents", ["firm_id"], name: "index_template_documents_on_firm_id", using: :btree
+  add_index "template_documents", ["user_id"], name: "index_template_documents_on_user_id", using: :btree
 
   create_table "templates", force: :cascade do |t|
     t.integer  "user_id"
@@ -717,8 +720,8 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "templates", ["user_id"], name: "index_templates_on_user_id", using: :btree
   add_index "templates", ["firm_id"], name: "index_templates_on_firm_id", using: :btree
+  add_index "templates", ["user_id"], name: "index_templates_on_user_id", using: :btree
 
   create_table "time_entries", force: :cascade do |t|
     t.integer  "user_id"
@@ -736,6 +739,7 @@ ActiveRecord::Schema.define(version: 20150725234943) do
     t.string   "activity"
   end
 
+  add_index "time_entries", ["case_id"], name: "index_time_entries_on_case_id", using: :btree
   add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
   create_table "treatments", force: :cascade do |t|
@@ -753,6 +757,7 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   end
 
   add_index "treatments", ["firm_id"], name: "index_treatments_on_firm_id", using: :btree
+  add_index "treatments", ["injury_id"], name: "index_treatments_on_injury_id", using: :btree
 
   create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
@@ -813,6 +818,5 @@ ActiveRecord::Schema.define(version: 20150725234943) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
 
 end

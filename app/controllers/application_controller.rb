@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
 
   def in_staging
     if Rails.env.staging?
-      flash[:alert] = "MiniProfiler is initialized"
+      #flash[:alert] = "MiniProfiler is initialized"
       Rack::MiniProfiler.authorize_request
     end
   end
@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
     when "documents"
       redirect_to documents_path, :alert => "Please choose a document that belongs to you"
     when "events"
-      redirect_to events_path, :alert => "Please choose an event that belongs to you"
+      redirect_to events_path, :alert => "Please choose an event that belongs to your firm"
     when "notes"
       redirect_to notes_path, :alert => "Please choose a note that belongs to you"
     when "tasks"

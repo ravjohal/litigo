@@ -304,10 +304,18 @@ class EventsController < ApplicationController
 
   def emails_autocomplete
     users_emails = []
-    @user.firm.users.map {|user| users_emails << user.email unless user.email == @user.email}
-    @user.events.map do |event|
-      event.participants.map {|participant| users_emails << participant.email unless participant.email == @user.email}
-    end
+
+    #TODO: there are three loops (none nested), need to figure out how to combine and get email
+
+    @firm.users.map {|user| users_emails << user.email unless user.email == @user.email}
+    @firm.participants.map {|user| users_emails << user.email unless user.email == @user.email}
+    @firm.contacts.map {|user| users_emails << user.email unless user.email == @user.email}
+    # @user.firm.users.map {|user| users_emails << user.email unless user.email == @user.email}
+    # @user.events.map do |event|
+    #   event.participants.map {|participant| users_emails << participant.email unless participant.email == @user.email}
+    # end
+    #puts "USERS EMAILS +++++++++++++ " + users_emails.inspect
+
     return users_emails.uniq.compact
   end
 

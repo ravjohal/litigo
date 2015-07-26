@@ -1,7 +1,5 @@
 class AddMissingIndexesForAll < ActiveRecord::Migration
   def up
-  	add_index :treatments, :firm_id
-  	add_index :treatments, :injury_id
   	add_index :time_entries, :user_id
   	add_index :time_entries, :case_id
   	add_index :templates, :user_id
@@ -65,8 +63,6 @@ class AddMissingIndexesForAll < ActiveRecord::Migration
   end
 
   def down
-  	remove_index :treatments, :firm_id
-  	remove_index :treatments, :injury_id
   	remove_index :time_entries, :user_id
   	remove_index :time_entries, :case_id
     remove_index :templates, :user_id

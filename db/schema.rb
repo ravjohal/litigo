@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720100837) do
+ActiveRecord::Schema.define(version: 20150725234943) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20150720100837) do
     t.integer "namespace_id"
     t.string  "nylas_namespace_id"
     t.boolean "active"
+    t.integer "firm_id"
   end
 
   create_table "case_contacts", force: :cascade do |t|
@@ -230,6 +231,7 @@ ActiveRecord::Schema.define(version: 20150720100837) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "contact_id"
+    t.integer  "firm_id"
   end
 
   add_index "event_attendees", ["contact_id"], name: "index_event_attendees_on_contact_id", using: :btree
@@ -239,6 +241,7 @@ ActiveRecord::Schema.define(version: 20150720100837) do
     t.string  "status"
     t.integer "event_id"
     t.integer "participant_id"
+    t.integer "firm_id"
   end
 
   create_table "event_series", force: :cascade do |t|
@@ -507,6 +510,7 @@ ActiveRecord::Schema.define(version: 20150720100837) do
     t.string   "cursor"
     t.integer  "sync_period"
     t.datetime "last_sync"
+    t.integer  "firm_id"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -558,8 +562,9 @@ ActiveRecord::Schema.define(version: 20150720100837) do
   add_index "old_events", ["owner_id"], name: "index_old_events_on_owner_id", using: :btree
 
   create_table "participants", force: :cascade do |t|
-    t.string "email"
-    t.string "name"
+    t.string  "email"
+    t.string  "name"
+    t.integer "firm_id"
   end
 
   create_table "phones", force: :cascade do |t|

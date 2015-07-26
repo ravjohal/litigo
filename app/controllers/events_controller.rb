@@ -12,22 +12,89 @@ class EventsController < ApplicationController
     @users = @firm.users
     @event_sources = {}
 
-    #events = @firm.events.group_by{|e| [e.user_id, e.calendar_id]}
-    #puts " EVENTS GROUPED -----------------------------------------------------------> " + events.inspect
-    @users.each_with_index do |user, index|
-      hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-      events = []
-      user.calendars.each do |calendar| 
-        #puts "Calendar ------------------------------------------ " + calendar.inspect
-        calendar.events.each do |event|
-          event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-          events << event
-          #puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
-        end
+    # @users.each_with_index do |user, index|
+    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+      compact_events = []
+
+      
+      @firm.events.each do |event|
+        user = event.calendar ? event.calendar.user : event.user
+        #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+        event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index),
+          id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+        compact_events << event
       end
-      hash[:events] = events
-      @event_sources[user.id] = hash
-    end
+      #puts "COMAPCTED EVENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + compact_events.inspect
+      @event_sources = compact_events.group_by{|d| d[:user_id]}
+
+      #@event_sources.each 
+
+     # puts "EVENTS GROUPD CALENDAR ***************************************** " + @event_sources.inspect
+    # end
+
+    # events_grouped = @firm.events.group_by{|e| [e.user_id, e.calendar_id]}
+    # puts "EVENTS GROUPED -------------------------------------------------------> " + events_grouped.inspect
+    # events_grouped.each do |user_cal, events|
+    #     user = User.find(user_cal.first)
+    #     puts "USER --------> " + user.id.to_s
+    #     hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+    #     events_for_calendar = []
+    #     puts "USER_CAL.LAST  " + user_cal.last.to_s + "\n"
+    #     if user_cal.last #if there is a calendar assoicated with this user
+    #       calendar = Calendar.find(user_cal.last) 
+    #       puts "CALENDARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR " + calendar.inspect
+    #       calendar.events.each do |event|
+    #         event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+    #         events_for_calendar << event
+    #         puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
+    #       end  
+    #     else
+    #       events.each do |event|
+    #         event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+    #         events_for_calendar << event
+    #       end
+    #     end
+
+    #     hash[:events] = events_for_calendar
+    #     puts "HASH ++++++++++++++++++++++++++++++++++++++++++++ " + hash.inspect
+    #     @event_sources[user.id] = hash 
+    #     #puts "EVENT SOURCES ++++++++++++++++++++++++++++++++++++++++++++ " + @event_sources.inspect
+    #     end
+
+    #events_grouped = @firm.events.group_by(&:user_id)
+    #puts " EVENTS GROUPED -----------------------------------------------------------> " + events.inspect
+    # events_grouped.each do |user_cal, events|
+    #     user = User.find(u_id)
+    #     puts "USER --------> " + user.id.to_s
+    #     hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+        
+    #     events_for_calendar = []
+    #     events.each do |event|
+    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+    #       events_for_calendar << event
+    #       #puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
+    #     end  
+
+    #     hash[:events] = events_for_calendar
+    #     puts "HASH ++++++++++++++++++++++++++++++++++++++++++++ " + hash.inspect
+    #     @event_sources[user.id] = hash 
+    #     #puts "EVENT SOURCES ++++++++++++++++++++++++++++++++++++++++++++ " + @event_sources.inspect
+    #     end
+    #     puts "EVENT SOURCES ++++++++++++++++++++++++++++++++++++++++++++ " + @event_sources.inspect
+    # @users.each_with_index do |user, index|
+    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+    #   events = []
+    #   user.calendars.each do |calendar| 
+    #     #puts "Calendar ------------------------------------------ " + calendar.inspect
+    #     calendar.events.each do |event|
+    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+    #       events << event
+    #       #puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
+    #     end
+    #   end
+    #   hash[:events] = events
+    #   @event_sources[user.id] = hash
+    # end
 
     #puts "EVENT SOURCES &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + @event_sources.inspect
     # @users.each_with_index do |user, index|
@@ -50,7 +117,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-    restrict_access("events") if @event.user_id != current_user.id     
+    restrict_access("events") if @event.user.firm != current_user.firm
   end
 
   # GET /events/new
@@ -65,10 +132,14 @@ class EventsController < ApplicationController
     restrict_access("events") if @event.user.firm != current_user.firm
     @model = @event
     @emails_autocomplete = emails_autocomplete
-    if !@event.read_only && (current_user == @event.calendar.user || current_user.edit_event_allowed?)
-      render partial: 'events/edit'
+    if @event.calendar
+      if !@event.read_only && (current_user == @event.calendar.user || current_user.edit_event_allowed?)
+        render partial: 'events/edit'
+      else
+        render partial: 'events/show'
+      end
     else
-      render partial: 'events/show'
+      render partial: 'events/edit'
     end
   end
 
@@ -85,7 +156,8 @@ class EventsController < ApplicationController
           starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
           ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
           all_day: event_params[:all_day],
-          user_id: @user.id,
+          created_by: @user.id,
+          last_updated_by: @user.id,
           firm_id: @firm.id
     }
     if event_params[:recur]
@@ -123,7 +195,7 @@ class EventsController < ApplicationController
                                                    :participants => e.participants.map {|p| { :email => p.email, :name => p.name}})
             n_event.save!
             e.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
-                          nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
+                          nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id, 
                           when_type: n_event.when['object'])
           end
         end
@@ -145,7 +217,8 @@ class EventsController < ApplicationController
         location: event_params[:location],
         starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
         ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        all_day: event_params[:all_day]
+        all_day: event_params[:all_day],
+        last_updated_by: @user.id
     }
     if @event.event_series.present? && event_params[:update_all_events] == 'true'
       @event.event_series.update_events_until_end_time(event_params)
@@ -175,7 +248,7 @@ class EventsController < ApplicationController
   end
 
   def event_drag
-    @event = current_user.firm.events.find(params[:id].to_i)
+    @event = @firm.events.find(params[:id].to_i)
     calendar = @event.calendar
     if @event.update(event_drag_params)
       if calendar.present?
@@ -185,6 +258,7 @@ class EventsController < ApplicationController
         n_event = nylas_namespace.events.find(@event.nylas_event_id)
         n_event.when = {:start_time => @event.starts_at.to_i, :end_time => @event.ends_at.to_i}
         n_event.save!
+        @event.update(last_updated_by: @user.id)
         @event.update(when_type: n_event.when['object']) if n_event.when['object'] != @event.when_type
       end
       message = @event.errors.present? ? @event.errors.full_messages.to_sentence : 'Event was successfully updated.'
@@ -267,7 +341,7 @@ class EventsController < ApplicationController
                   else
                     event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
                                             location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                            when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: calendar.id,
+                                            when_type: ne.when['object'], created_by: @user.id, last_updated_by: @user.id, firm_id: @firm.id, calendar_id: calendar.id,
                                             namespace_id: namespace.id)
                     case ne.when['object']
                       when "date"
@@ -302,19 +376,42 @@ class EventsController < ApplicationController
       end
     end
 
-    @users.each_with_index do |user, index|
-      hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-      events = []
-      user.calendars.each do |calendar|
-          calendar.events.each do |event|
-          event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
-          events << event
-        end
+    #@users = @firm.users
+    @event_sources = {}
+
+    # @users.each_with_index do |user, index|
+    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+      compact_events = []
+
+      
+      @firm.events.each do |event|
+        user = event.calendar ? event.calendar.user : event.user
+        #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+        event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index),
+          id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
+        compact_events << event
       end
-      hash[:events] = events
-      #puts " HASH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + hash.inspect
-      @event_sources[user.id] = hash
-    end
+      #puts "COMAPCTED EVENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + compact_events.inspect
+      @event_sources = compact_events.group_by{|d| d[:user_id]}
+
+      #@event_sources.each 
+
+      #puts "EVENTS GROUPD CALENDAR ***************************************** " + @event_sources.inspect
+    
+
+    # @users.each_with_index do |user, index|
+    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
+    #   events = []
+    #   user.calendars.each do |calendar|
+    #       calendar.events.each do |event|
+    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
+    #       events << event
+    #     end
+    #   end
+    #   hash[:events] = events
+    #   #puts " HASH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + hash.inspect
+    #   @event_sources[user.id] = hash
+    # end
 
     #puts " EVENT SOURCES ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ " + @event_sources.inspect 
     message = "#{events_synced} events were synced."
@@ -325,9 +422,9 @@ class EventsController < ApplicationController
   end
 
   def get_user_events
-    user = User.find(params[:user_id])
-    @events = @firm.events.where(owner_id: user.id)
-    events_list = @firm.events.where(owner_id: user.id).select([:id, :subject, :start, :end, :all_day]).map {|e| {id: e.id,
+    #user = User.find(params[:user_id])
+    @events = @user.events
+    events_list = @events.select([:id, :subject, :start, :end, :all_day]).map {|e| {id: e.id,
                                                                                                  title: '',
                                                                                                  start: e.all_day ? "#{e.start.to_date}" : "#{e.start.to_datetime}",
                                                                                                  end: e.all_day ? "#{e.end.to_date-1.day}" : "#{e.end.to_datetime}",
@@ -347,11 +444,11 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time,
                                   :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency,
-                                  :recur_start_date, :recur_end_date, :event_series_id, :update_all_events)
+                                  :recur_start_date, :recur_end_date, :event_series_id, :update_all_events, :last_updated_by)
   end
 
   def event_drag_params
-    params.require(:event).permit(:starts_at, :ends_at)
+    params.require(:event).permit(:starts_at, :ends_at, :last_updated_by)
   end
 
   def user_time_zone(&block)

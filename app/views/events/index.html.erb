@@ -12,9 +12,9 @@
                 </li>
                 <% @event_sources.each do |user_id, event_source| %>
                 <li>
-                  <span class="user_color" style="background-color: <%= event_source[:color] %>"></span>
+                  <span class="user_color" style="background-color: <%= event_source.first[:color] %>"></span>
                   <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids'  %>
-                  <%= label_tag "user_ids[#{event_source[:user_name]}]", event_source[:user_name] %>
+                  <%= label_tag "user_ids[#{event_source.first[:user_name]}]", event_source.first[:user_name] %>
                 </li>
                 <% end %>
               </ul>
@@ -140,17 +140,17 @@ $(document).ready(function() {
     var user_id = $(this).val();
     if($(this).is(":checked")) {
       $('#calendar').fullCalendar( 'addEventSource', {
-        events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
-        color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff'
+        events: eventsSources[user_id] != undefined ? eventsSources[user_id] : [],
+        color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff'
       } )
     } else {
-      $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events)
+      $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id])
     }
   });
 
   $.each(eventsSources, function (user_id, hash) {
     $('#calendar').fullCalendar( 'addEventSource', {
-      events: hash.events,
+      events: hash,
       color: hash.color
     });
     if (current_user_id != user_id) {

@@ -25,23 +25,23 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def assign_participants(str)
+  def assign_participants(str, firm_id)
     if str.present?
       participants = str.split(",")
       participants.each do |p_email|
-        participant = Participant.find_or_create_by(email: p_email)
-        event_participant = EventParticipant.create(event_id: self.id, participant_id: participant.id)
+        participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
+        event_participant = EventParticipant.create(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
       end
     end
   end
 
-  def update_participants(str)
+  def update_participants(str, firm_id)
     if str.present?
       participants = str.split(",")
       event_participants = self.event_participants.to_a
         participants.each do |p_email|
-          participant = Participant.find_or_create_by(email: p_email)
-          event_participant = EventParticipant.find_or_create_by(event_id: self.id, participant_id: participant.id)
+          participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
+          event_participant = EventParticipant.find_or_create_by(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
           event_participants.delete(event_participant)
         end
         event_participants.each {|ep| ep.destroy }

@@ -14,11 +14,11 @@ class NylasController < ApplicationController
     @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, inbox_token)
     ns = @inbox.namespaces.first
     calendars = ns.calendars.all
-    namespace = Namespace.find_or_initialize_by(user_id: @user.id, namespace_id: ns.namespace_id)
+    namespace = Namespace.find_or_initialize_by(user_id: @user.id, namespace_id: ns.namespace_id, firm_id: @firm.id)
     namespace.update(account_id: ns.account_id, email_address: ns.email_address, name: ns.name, provider: ns.provider,
                      inbox_token: inbox_token)
     calendars.each do |nc|
-      calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id)
+      calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id, firm_id: @firm.id)
       calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
     end
     redirect_to namespaces_path

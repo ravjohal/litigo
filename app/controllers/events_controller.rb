@@ -98,7 +98,7 @@ class EventsController < ApplicationController
     end
     if @event.save
       #puts "EVENT ******************************************************** " + @event.inspect
-      @event.assign_participants(event_params[:participants]) if event_params[:participants].present?
+      @event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
       if calendar.present?
         namespace = calendar.namespace
         @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
@@ -151,7 +151,7 @@ class EventsController < ApplicationController
       @event.event_series.update_events_until_end_time(event_params)
     else
       if @event.update(attrs)
-        @event.update_participants(event_params[:participants]) if event_params[:participants].present?
+        @event.update_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
         if calendar.present?
           namespace = calendar.namespace
           @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
@@ -287,8 +287,8 @@ class EventsController < ApplicationController
                     end
                     event.save
                     ne.participants.each do |np|
-                      participant = Participant.find_or_create_by(email: np['email'], name: np['name'])
-                      ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id)
+                      participant = Participant.find_or_create_by(email: np['email'], name: np['name'], firm_id: @firm.id)
+                      ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id, firm_id: @firm.id)
                       ep.update(status: np['status'])
                     end
                   end

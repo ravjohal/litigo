@@ -12,7 +12,7 @@ Then(/^The document for user with email "(.*?)" should be saved to the db$/) do 
 end
 
 Then(/^I create the document through case management$/) do
-  click_on 'CASE MANAGEMENT'
+  click_on 'Case Management'
   click_on 'DOCUMENTS'
   click_on 'NEW DOCUMENT'
   fill_in 'document_doc_type', with: 'some type'

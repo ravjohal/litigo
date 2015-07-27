@@ -42,7 +42,7 @@ Then(/^I get the confirmation email and confirm it$/) do
 end
 
 #TODO select tag - rewrite
-Then(/^when I fill in the modal window$/) do
+Then(/^I fill in the modal window$/) do
   fill_in 'firm_name', with: 'RubyRiders'
   #select("#Attorney", :from => "#firm_contact_type")
   fill_in 'firm_phone', with: '4081234567'
@@ -103,7 +103,7 @@ Then(/^I should see the sign_up form again$/) do
 end
 
 Then(/^I go to sign_out page$/) do
-  click_on 'SIGN OUT'
+  click_on 'Sign Out'
 end
 
 Then(/^I should be signed out$/) do
@@ -141,7 +141,7 @@ end
 
 When(/^I login$/) do
   step 'I should be logged in user with email "artem.suchov@gmail.com" and password "password"'
-  step 'when I fill in the modal window'
+  step 'I fill in the modal window'
   step 'I should logged in'
 end
 
@@ -171,4 +171,8 @@ end
 
 Then(/user with email "(.*?)" should have role "(.*?)"/) do |email, role|
   expect(User.where(email: email).first.role).to eq(role)
+end
+
+When(/^I click to user dropdown$/) do
+  page.execute_script(%($('#dropdownMenu1').click()))
 end

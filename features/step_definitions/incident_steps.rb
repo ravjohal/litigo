@@ -15,7 +15,7 @@
 # end
 
 Then(/^I create the incident$/) do
-  click_on 'CASE MANAGEMENT'
+  click_on 'Case Management'
   click_on 'CASES'
   click_on 'some'
   click_on 'INCIDENT'

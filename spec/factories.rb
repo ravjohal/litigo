@@ -38,6 +38,14 @@ FactoryGirl.define do
     first_name "1#{Faker::Lorem.characters(7)}"
     last_name "1#{Faker::Lorem.characters(7)}"
     password "1#{Faker::Lorem.characters(7)}"
+    factory :admin_user do
+      role :admin
+    end
+    factory :invited_user do
+      role :attorney
+      firm_id 1
+      invited_by_id 1
+    end
   end
 
   factory :case do

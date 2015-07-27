@@ -104,18 +104,20 @@ class UsersController < ApplicationController
   def update_contact_user(user_)
     #puts "UPDATING USER --------------------------------- " + user_.inspect
     contact = user_.contact_user
-    if (user_.role == "admin" || user_.role == "attorney") && contact.type != "Attorney"
-     # puts "ATTORNEYYYYYYYYYYYYYYYYYYYYYYY BEFORE" + contact.inspect
-      contact_user = contact.becomes!(Attorney)
-      contact_user.user_account = user_
-      contact_user.save!
-      #puts "ATTORNEYYYYYYYYYYYYYYYYYYYYYYY AFTER" + user_.contact_user.inspect
-    elsif @user.role == "staff" && contact.type != "Staff"
-      #puts "STAFFFFFFFFFFFFFFFFFFFFFFFFFFF BEFORE" + contact.inspect  
-      contact_user = contact.becomes!(Staff)
-      contact_user.user_account = user_
-      contact_user.save!
-      #puts "STAFFFFFFFFFFFFFFFFFFFFFFFFFFF AFTER" + user_.contact_user.inspect  
+    if contact
+      if (user_.role == "admin" || user_.role == "attorney") && contact.type != "Attorney"
+        # puts "ATTORNEYYYYYYYYYYYYYYYYYYYYYYY BEFORE" + contact.inspect
+        contact_user = contact.becomes!(Attorney)
+        contact_user.user_account = user_
+        contact_user.save!
+        #puts "ATTORNEYYYYYYYYYYYYYYYYYYYYYYY AFTER" + user_.contact_user.inspect
+      elsif @user.role == "staff" && contact.type != "Staff"
+        #puts "STAFFFFFFFFFFFFFFFFFFFFFFFFFFF BEFORE" + contact.inspect
+        contact_user = contact.becomes!(Staff)
+        contact_user.user_account = user_
+        contact_user.save!
+        #puts "STAFFFFFFFFFFFFFFFFFFFFFFFFFFF AFTER" + user_.contact_user.inspect
+      end
     end
   end
 

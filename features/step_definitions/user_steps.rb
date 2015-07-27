@@ -57,8 +57,25 @@ Given(/^Confirmed user exists with first name "(.*?)", last name "(.*?)", email 
   FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
 end
 
+Given(/^Confirmed admin user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)"$/) do |first_name, last_name, email, password|
+  FactoryGirl.create(:admin_user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
+end
+
+Given(/^Confirmed invited user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)" for user with email "(.*?)"$/) do |first_name, last_name, email, password, admin_user|
+  _user = User.find_by email: admin_user
+  FactoryGirl.create(:invited_user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id, invited_by_id: _user.id)
+end
+
 Given(/^Confirmed default user exists$/) do
   step 'Confirmed user exists with first name "Artem", last name "Suchov", email "artem.suchov@gmail.com" and password "password"'
+end
+
+Given(/^Confirmed default admin user exists$/) do
+  step 'Confirmed admin user exists with first name "Artem", last name "Suchov", email "artem.suchov@gmail.com" and password "password"'
+end
+
+Given(/^Confirmed default invited user for default user$/) do
+  step 'Confirmed invited user exists with first name "Andrew", last name "Suchov", email "andrew.suchov@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"'
 end
 
 Given(/^Firm for default user exist$/) do
@@ -134,4 +151,24 @@ end
 
 When(/^I login with email "(.*?)" and password "(.*?)"$/) do |email, password|
   step "I should be logged in user with email \"#{email}\" and password \"#{password}\""
+end
+
+When(/^I fill invite form with email "(.*?)"$/) do |email|
+  page.execute_script(%($("input[name*='[email]']").val('#{email}')))
+end
+
+When(/^I change invited user role field$/) do
+  within '#edit_user_2' do
+    select 'Staff', from: 'user_role'
+    click_on 'Change Role'
+  end
+end
+
+Then(/it should be database record for invited user "(.*?)" from "(.*?)"/) do |invited_email, user_email|
+  user = User.where(email: user_email).pluck(:id)
+  expect(User.where(email: invited_email, invited_by_id: user[0]).count).to eq(1)
+end
+
+Then(/user with email "(.*?)" should have role "(.*?)"/) do |email, role|
+  expect(User.where(email: email).first.role).to eq(role)
 end

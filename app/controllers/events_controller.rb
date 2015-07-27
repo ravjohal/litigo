@@ -18,7 +18,7 @@ class EventsController < ApplicationController
 
       
       @firm.events.each do |event|
-        user = event.calendar ? event.calendar.user : event.user
+        user = event.owner
         #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
         event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index),
           id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
@@ -158,6 +158,7 @@ class EventsController < ApplicationController
           all_day: event_params[:all_day],
           created_by: @user.id,
           last_updated_by: @user.id,
+          owner_id: calendar ? calendar.user.id : @user.id,
           firm_id: @firm.id
     }
     if event_params[:recur]
@@ -196,7 +197,7 @@ class EventsController < ApplicationController
             n_event.save!
             e.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
                           nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id, 
-                          when_type: n_event.when['object'])
+                          when_type: n_event.when['object'], firm_id: @firm.id)
           end
         end
       end
@@ -349,7 +350,7 @@ class EventsController < ApplicationController
                   else
                     event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
                                             location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                            when_type: ne.when['object'], created_by: @user.id, last_updated_by: @user.id, firm_id: @firm.id, calendar_id: calendar.id,
+                                            when_type: ne.when['object'], created_by: @user.id, last_updated_by: @user.id, owner_id: calendar ? calendar.user.id : @user.id,firm_id: @firm.id, calendar_id: calendar.id,
                                             namespace_id: namespace.id)
                     case ne.when['object']
                       when "date"
@@ -393,7 +394,7 @@ class EventsController < ApplicationController
 
       
       @firm.events.each do |event|
-        user = event.calendar ? event.calendar.user : event.user
+        user = event.owner
         #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
         event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index),
           id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }

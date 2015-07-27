@@ -70,10 +70,10 @@ class NamespacesController < ApplicationController
       events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
       events.all.each do |ne|
         if nylas_calendar_ids.has_value?(ne.calendar_id)
-          event = Event.find_or_initialize_by(user_id: @user.id, nylas_event_id: ne.id)
+          event = Event.find_or_initialize_by(nylas_event_id: ne.id)
           event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
                                   location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                  when_type: ne.when['object'], user_id: @user.id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id),
+                                  when_type: ne.when['object'], created_by: @user.id, owner_id: namespace.user_id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id),
                                   namespace_id: namespace.id)
           case ne.when['object']
             when "date"

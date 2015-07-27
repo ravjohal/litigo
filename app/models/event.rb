@@ -1,5 +1,6 @@
 class Event < ActiveRecord::Base
 	belongs_to :user, class_name: 'User', foreign_key: 'created_by'
+  belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
 	belongs_to :firm
 	belongs_to :task
 	belongs_to :calendar

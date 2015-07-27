@@ -201,6 +201,7 @@ main {
 
 
  input.sub-btn{
+ margin-right: 10px;
   padding-right: 25px;
   padding-left: 25px;
   font-size: 14px;
@@ -215,7 +216,7 @@ main {
   letter-spacing: 2px;
   border-radius: 4px;
   color: white;
-  height: 45px;
+  height: 60px;
   }
   input.sub-btn:hover{
   background:#0483A0;
@@ -224,6 +225,24 @@ main {
   color: white;
   }
 
+a.sub-btn-outline{
+margin-left: 10px;
+padding: 20px;
+  font-size: 14px;
+    background: transparent;
+  border: .2em solid #3FC2D8;
+  cursor:pointer;
+  letter-spacing: 2px;
+  border-radius: 4px;
+  color: white;
+  height: 45px;
+  }
+  input.sub-btn:hover{
+  background:#0483A0;
+  border: .2em solid #0483A0;
+  transition: .2s;
+  color: white;
+  }
 
 section {
   @extend .row;

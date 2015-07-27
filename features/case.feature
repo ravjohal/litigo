@@ -8,7 +8,7 @@ Feature: Case feature
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it
     Then I should be logged in user
-    And when I fill in the modal window
+    When I fill in the modal window
     And I should logged in
     And I create a case step by step
     Then I verify required fields for case for user with email "artem.suchov@gmail.com"
@@ -19,7 +19,7 @@ Feature: Case feature
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it
     Then I should be logged in user
-    And when I fill in the modal window
+    When I fill in the modal window
     And I should logged in
     And I create a case step by step
     And I verify required fields for case for user with email "artem.suchov@gmail.com"
@@ -32,7 +32,8 @@ Feature: Case feature
     Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
     Then I get the confirmation email and confirm it
     Then I should be logged in user
-    And when I fill in the modal window
+    When I fill in the modal window
     And I should logged in
     And I create a case step by step
+    And I wait for "10" seconds
     Then all tabs are created

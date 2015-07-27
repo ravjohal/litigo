@@ -38,12 +38,12 @@ end
 Then(/^all tabs are created$/) do
   click_on 'RESOLUTION'
   expect(page).to have_content('Resolution Amount:')
-  click_on 'MEDICAL'
-  expect(page).to have_content('Medical Overview')
-  click_on 'INCIDENT'
-  expect(page).to have_content('Incident date:')
-  click_on 'INSURANCE'
-  expect(page).to have_content('Insurance Summary')
+  # click_on 'MEDICAL'
+  # expect(page).to have_content('Medical Overview')
+  # click_on 'INCIDENT'
+  # expect(page).to have_content('Incident date:')
+  # click_on 'INSURANCE'
+  # expect(page).to have_content('Insurance Summary')
   click_on 'DETAILS'
   expect(page).to have_content('Case Administration')
   click_on 'DOCUMENTS'
@@ -53,7 +53,7 @@ Then(/^all tabs are created$/) do
   click_on 'CONTACTS'
   expect(page).to have_content('NEW CONTACT')
   click_on 'TASKS'
-  expect(page).to have_content('NEW TASK')
+  expect(page).to have_content('My Tasks')
 end
 
 Given(/^Default case exist$/) do

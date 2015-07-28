@@ -66,6 +66,11 @@ Given(/^Confirmed invited user exists with first name "(.*?)", last name "(.*?)"
   FactoryGirl.create(:invited_user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id, invited_by_id: _user.id)
 end
 
+Given(/^Confirmed firm user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)" for user with email "(.*?)"$/) do |first_name, last_name, email, password, admin_user|
+  _user = User.find_by email: admin_user
+  FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id)
+end
+
 Given(/^Confirmed default user exists$/) do
   step 'Confirmed user exists with first name "Artem", last name "Suchov", email "artem.suchov@gmail.com" and password "password"'
 end
@@ -175,4 +180,29 @@ end
 
 When(/^I click to user dropdown$/) do
   page.execute_script(%($('#dropdownMenu1').click()))
+end
+
+Then /^I should see a JS alert$/ do
+  expect(page.driver.browser.switch_to.alert).to_not be_nil
+end
+
+Then /^I should not see a JS alert$/ do
+  alert = driver.switch_to.alert rescue 'exception happened'
+  expect(alert).to eq('exception happened')
+end
+
+Then /^I should see a "(.*?)" JS alert dialog$/ do |text|
+  expect(page.driver.browser.switch_to.alert.text).to eql(text)
+end
+
+When /^I should close alert$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^I dismiss popup$/ do
+  page.driver.browser.switch_to.alert.dismiss
 end

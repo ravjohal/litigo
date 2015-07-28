@@ -41,7 +41,6 @@
     </td>
     <td class="doc-link">
         <%= f.select "#{contact_type.downcase.parameterize.underscore}", options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => @case.select_contact_role(contact_type).map(&:id)), {prompt: "Select #{contact_type}"}, {:class => 'contacts_select', :multiple => true} %>
-     
     </td>
     <td>
       <%= text_field_tag "note[#{contact_type.downcase.parameterize.underscore}]", nil, :value => @case.get_role_note(contact_type), :class => 'table-input' %>
@@ -56,16 +55,31 @@
 <script>
   $(document).ready(function () {
     $('select').select2();
-    var selected_contacts_ids = [];
+    var selected_contacts_ids_count = {};
+
+    function addToSelected(id) {
+      if (!selected_contacts_ids_count.hasOwnProperty(id)) selected_contacts_ids_count[id] = 0;
+      selected_contacts_ids_count[id]++;
+    }
+
+    function removeFromSelected(id) {
+      if (!selected_contacts_ids_count.hasOwnProperty(id)) selected_contacts_ids_count[id] = 0;
+      selected_contacts_ids_count[id]--;
+    }
+
     $('.contacts_select :selected').each(function (i, obj) {
-      selected_contacts_ids.push($(obj).val());
+      addToSelected($(obj).val());
     });
     $('.contacts_select').change(function (e) {
-      var contact_id = this.value;
-      if($.inArray(contact_id, selected_contacts_ids) > -1){
-        alert('There is a contact on multiple roles, please confirm that is what you intended.')
-      } else {
-        selected_contacts_ids.push(contact_id);
+      if (e.hasOwnProperty('added')) {
+        var contact_id = e.added.id;
+        if (!selected_contacts_ids_count.hasOwnProperty(contact_id)) selected_contacts_ids_count[contact_id] = 0;
+        if(selected_contacts_ids_count[contact_id] > 0) {
+          alert('There is a contact on multiple roles, please confirm that is what you intended.')
+        }
+        addToSelected(contact_id);
+      } else if (e.hasOwnProperty('removed')) {
+        removeFromSelected(e.removed.id);
       }
     })
   });

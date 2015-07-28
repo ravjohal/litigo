@@ -75,3 +75,16 @@ When(/^I go to first firm case$/) do
   step 'I click "CASES"'
   step 'I click to element with selector "#cases tr > td > a"'
 end
+
+When(/^I select "(.*?)" from "(.*?)"$/) do |value, select_id|
+  within "#s2id_#{select_id}" do
+    first('.select2-choices').click
+  end
+  find('.select2-result-label', text: value).click
+end
+
+When(/^I clear select "(.*?)"$/) do |select_id|
+  within "#s2id_#{select_id}" do
+    first('.select2-search-choice-close').click
+  end
+end

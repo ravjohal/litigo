@@ -90,7 +90,9 @@ FactoryGirl.define do
   end
 
   factory :task do
-
+    name "#{Faker::Lorem.characters(8)}"
+    due_date 1.week.from_now
+    description "#{Faker::Lorem.characters(50)}"
   end
 
   factory :witness do

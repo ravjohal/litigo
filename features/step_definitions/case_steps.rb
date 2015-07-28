@@ -87,6 +87,13 @@ When(/^I select "(.*?)" from "(.*?)"$/) do |value, select_id|
   find('.select2-result-label', text: value).click
 end
 
+When(/^I select first item from "(.*?)"$/) do |select_id|
+  within "#s2id_#{select_id}" do
+    first('.select2-default').click
+  end
+  first('.select2-result-label').click
+end
+
 When(/^I clear select "(.*?)"$/) do |select_id|
   within "#s2id_#{select_id}" do
     first('.select2-search-choice-close').click

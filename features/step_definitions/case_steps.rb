@@ -1,7 +1,11 @@
 Then(/^I create a case step by step$/) do
+  step 'I go to cases'
+  step 'I create a case'
+end
+
+When /^I go to cases$/ do
   click_on 'Case Management'
   click_on 'CASES'
-  step 'I create a case'
 end
 
 When(/^I create a case$/) do
@@ -87,4 +91,9 @@ When(/^I clear select "(.*?)"$/) do |select_id|
   within "#s2id_#{select_id}" do
     first('.select2-search-choice-close').click
   end
+end
+
+Then(/^I verify assigned contact "(.*?)" for user "(.*?)"$/) do |contact_type, email|
+  _case = Case.last
+  expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: contact_type, :contacts => {:email => email}).size).to eq(1)
 end

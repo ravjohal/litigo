@@ -82,3 +82,8 @@ Then /^The task should be edited success$/ do
   expect(task.due_date.strftime('%F')).to eq '2017-12-12'
   expect(task.completed.strftime('%F')).to eq '2018-12-12'
 end
+
+Then /^User tasks should be empty for email "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  expect(Task.where(user_id: user.id).count).to eq(0)
+end

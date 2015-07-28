@@ -35,3 +35,16 @@ Feature: Task tab
     And I click "Save"
     Then I should have text "Task successfully updated."
     And The task should be edited success
+
+  @javascript
+  Scenario: I remove task
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist
+    And Default task exist
+    When I login without firm
+    And I go to first task
+    And I click to element with id "delete"
+    And I confirm popup
+    Then I should have text "Task successfully deleted."
+    And User tasks should be empty for email "artem.suchov@gmail.com"

@@ -3,6 +3,11 @@ Then(/^I create a case step by step$/) do
   step 'I create a case'
 end
 
+Then(/^I create a case step by step detailed$/) do
+  step 'I go to cases'
+  step 'I create a case detailed'
+end
+
 When /^I go to cases$/ do
   click_on 'Case Management'
   click_on 'CASES'
@@ -18,10 +23,51 @@ When(/^I create a case$/) do
   expect(page).to have_content('Case was successfully created.')
 end
 
+When(/^I create a case detailed$/) do
+  visit '/cases'
+  click_on 'NEW CASE'
+  sleep 0.5
+  fill_in 'case_name', with: 'some case'
+  select 'Domestic', :from => 'case_case_type'
+  step 'I select "Artem Suchov" from "case_attorney"'
+  step 'I select "Artem Suchov" from "case_staff"'
+  step 'I select first item from "case_state"'
+  step 'I select first item from "case_subtype"'
+  fill_in 'case_topic', with: 'Case Topic'
+  fill_in 'case_description', with: 'Case Summary'
+  click_on 'Create Case'
+end
+
+When /^I fill case details form$/ do
+  fill_in 'case_name', with: 'NewCaseName'
+  fill_in 'case_docket_number', with: '12345'
+  fill_in 'case_court', with: '12345789'
+  fill_in 'case_county', with: '123123'
+  select 'Arizona', from: 'case_state'
+  fill_in 'case_statute_of_limitations', with: '12.12.2015'
+  fill_in 'case_hearing_date', with: '12.12.2015'
+  fill_in 'case_filed_suit_date', with: '12.12.2015'
+  fill_in 'case_trial_date', with: '12.12.2015'
+  select 'Litigation', from: 'case_status'
+  fill_in 'case_topic', with: 'NewCaseTopic'
+  fill_in 'case_description', with: 'NewCaseSummary'
+  select 'Intentional Tort', from: 'case_subtype'
+end
+
 Then(/^I verify required fields for case for user with email "(.*?)"$/) do |arg1|
   u = User.where(email: arg1).last
-  expect(Case.where(id: u.id).last.name).to eq 'some case'
-  expect(Case.where(id: u.id).last.case_number).to eq 1
+  _case = u.cases.last
+  expect(_case.name).to eq 'some case'
+  expect(_case.case_number).to eq 1
+end
+
+Then(/^I verify required fields for detailed case for user with email "(.*?)"$/) do |arg1|
+  u = User.where(email: arg1).last
+  _case = u.cases.last
+  expect(_case.name).to eq 'some case'
+  expect(_case.case_number).to eq 1
+  expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: 'Attorney', :contacts => {:email => arg1}).size).to eq(1)
+  expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: 'Staff', :contacts => {:email => arg1}).size).to eq(1)
 end
 
 Then(/^I change the case fields$/) do
@@ -34,9 +80,10 @@ end
 
 Then(/^I verify required fields for case for user with email "(.*?)" are changed$/) do |arg1|
   u = User.where(email: arg1).last
-  expect(Case.where(id: u.id).last.name).to eq 'some other case'
-  expect(Case.where(id: u.id).last.docket_number).to eq '11'
-  expect(Case.where(id: u.id).last.case_number).to eq 1
+  _case = Case.where(id: u.id).last
+  expect(_case.name).to eq 'some other case'
+  expect(_case.docket_number).to eq '11'
+  expect(_case.case_number).to eq 1
 end
 
 Then(/^all tabs are created$/) do
@@ -80,32 +127,32 @@ When(/^I go to first firm case$/) do
   step 'I click to element with selector "#cases tr > td > a"'
 end
 
-When(/^I select "(.*?)" from "(.*?)"$/) do |value, select_id|
-  within "#s2id_#{select_id}" do
-    first('.select2-choices').click
-  end
-  find('.select2-result-label', text: value).click
-end
-
-When(/^I select first item from "(.*?)"$/) do |select_id|
-  within "#s2id_#{select_id}" do
-    first('.select2-default').click
-  end
-  first('.select2-result-label').click
-end
-
-When(/^I clear select "(.*?)"$/) do |select_id|
-  within "#s2id_#{select_id}" do
-    first('.select2-search-choice-close').click
-  end
-end
-
 Then(/^I verify assigned contact "(.*?)" for user "(.*?)"$/) do |contact_type, email|
   _case = Case.last
   expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: contact_type, :contacts => {:email => email}).size).to eq(1)
 end
 
-Then(/^select "(.*?)" should have "(\d+)" options?$/) do |select_id, count|
-  number_of_columns = page.all(:xpath, "//select[@id='#{select_id}']//option").length
-  expect(number_of_columns).to eq(count.to_i+1)
+Then /^I verify case details tab$/ do
+  step 'I should have text "case_name"'
+  step 'I should have text "AL"'
+  step 'I should have text "Case Topic"'
+  step 'I should have text "Case Summary"'
+  step "I should have text \"#{Time.now.strftime('%b %e, %Y')}\""
+end
+
+Then /^I verify case details updated for user "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  _case = user.cases.first
+  expect(_case.name).to eq 'NewCaseName'
+  expect(_case.docket_number.to_s).to eq '12345'
+  expect(_case.court.to_s).to eq '12345789'
+  expect(_case.county.to_s).to eq '123123'
+  expect(_case.state.to_s).to eq 'AZ'
+  expect(_case.statute_of_limitations.to_s).to eq '2015-12-12'
+  expect(_case.hearing_date.to_s).to eq '2015-12-12'
+  expect(_case.filed_suit_date.to_s).to eq '2015-12-12'
+  expect(_case.status.to_s).to eq 'Litigation'
+  expect(_case.topic.to_s).to eq 'NewCaseTopic'
+  expect(_case.description.to_s).to eq 'NewCaseSummary'
+  expect(_case.subtype.to_s).to eq 'Intentional Tort'
 end

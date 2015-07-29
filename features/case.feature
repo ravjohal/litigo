@@ -38,6 +38,17 @@ Feature: Case feature
     Then all tabs are created
 
   @javascript
+  Scenario: Verify that the tabs are created including medical
+    When I visit sign up page
+    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
+    Then I get the confirmation email and confirm it
+    Then I should be logged in user
+    When I fill in the modal window
+    And I should logged in
+    And I create a medical case step by step
+    Then all tabs are created includint medical
+
+  @javascript
   Scenario: I can assign Case Contacts and it should have message for assign same contact for several fields
     Given Confirmed default admin user exists
     And Firm for default user exist

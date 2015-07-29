@@ -3,6 +3,11 @@ Then(/^I create a case step by step$/) do
   step 'I create a case'
 end
 
+Then(/^I create a medical case step by step$/) do
+  step 'I go to cases'
+  step 'I create a medical case'
+end
+
 Then(/^I create a case step by step detailed$/) do
   step 'I go to cases'
   step 'I create a case detailed'
@@ -11,6 +16,20 @@ end
 When /^I go to cases$/ do
   click_on 'Case Management'
   click_on 'CASES'
+end
+
+When(/^I create a medical case$/) do
+  visit '/cases'
+  click_on 'NEW CASE'
+  sleep 0.5
+  fill_in 'case_name', with: 'some medical case'
+  step 'I select first item from "case_state"'
+  select 'Personal Injury', :from => 'case_case_type'
+  select 'Insurance Bad Faith', :from => 'case_subtype'
+  fill_in 'case_topic', with: 'Case Medical Topic'
+  fill_in 'case_description', with: 'Case Medical Summary'
+  click_on 'Create Case'
+  expect(page).to have_content('Case was successfully created.')
 end
 
 When(/^I create a case$/) do
@@ -89,12 +108,27 @@ end
 Then(/^all tabs are created$/) do
   click_on 'RESOLUTION'
   expect(page).to have_content('Resolution Amount:')
-  # click_on 'MEDICAL'
-  # expect(page).to have_content('Medical Overview')
-  # click_on 'INCIDENT'
-  # expect(page).to have_content('Incident date:')
-  # click_on 'INSURANCE'
-  # expect(page).to have_content('Insurance Summary')
+  click_on 'DETAILS'
+  expect(page).to have_content('Case Administration')
+  click_on 'DOCUMENTS'
+  expect(page).to have_content('NEW DOCUMENT')
+  click_on 'NOTES'
+  expect(page).to have_content('NEW NOTE')
+  click_on 'CONTACTS'
+  expect(page).to have_content('NEW CONTACT')
+  click_on 'TASKS'
+  expect(page).to have_content('My Tasks')
+  end
+
+Then(/^all tabs are created includint medical$/) do
+  click_on 'RESOLUTION'
+  expect(page).to have_content('Resolution Amount:')
+  click_on 'MEDICAL'
+  expect(page).to have_content('Medical Bills')
+  click_on 'INCIDENT'
+  expect(page).to have_content('Incident Summary')
+  click_on 'INSURANCE'
+  expect(page).to have_content('Insurance Summary')
   click_on 'DETAILS'
   expect(page).to have_content('Case Administration')
   click_on 'DOCUMENTS'
@@ -111,10 +145,20 @@ Given(/^Default case exist$/) do
   step 'Default case exist for user: "artem.suchov@gmail.com"'
 end
 
+Given(/^Default medical case exist$/) do
+  step 'Default medical case exist for user: "artem.suchov@gmail.com"'
+end
+
 Given(/^Default case exist for user: "(.*?)"$/) do |email|
   user = User.find_by :email => email
   firm = user.firm
   FactoryGirl.create(:case, user: user, firm: firm)
+end
+
+Given(/^Default medical case exist for user: "(.*?)"$/) do |email|
+  user = User.find_by :email => email
+  firm = user.firm
+  FactoryGirl.create(:medical_case, user: user, firm: firm)
 end
 
 When(/^I go to first case$/) do

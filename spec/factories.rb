@@ -75,6 +75,15 @@ FactoryGirl.define do
     subtype "subtype #{Faker::Lorem.characters(7)}"
     name "#{Faker::Lorem.characters(8)}"
     description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
+    factory :medical_case do
+      case_type 'Personal Injury'
+      subtype 'Insurance Bad Faith'
+      after(:create) do |incident_case|
+        FactoryGirl.create(:incident, case: incident_case)
+        FactoryGirl.create(:medical, case: incident_case)
+        FactoryGirl.create(:insurance, case: incident_case)
+      end
+    end
   end
 
   factory :case_with_incident, parent: :case do
@@ -91,6 +100,16 @@ FactoryGirl.define do
     airbag_deployed [true, false].sample
     speed "20"
   end
+
+  factory :medical do
+    total_med_bills Random.rand(100)
+    subrogated_amount Random.rand(100)
+  end
+
+  factory :insurance do
+
+  end
+
 
   factory :client do
     first_name "#{Faker::Lorem.characters(8)}"

@@ -103,7 +103,8 @@ FactoryGirl.define do
   end
 
   factory :note do
-
+    note "#{Faker::Lorem.characters(8)}"
+    note_type 'General'
   end
 
   factory :plantiff do

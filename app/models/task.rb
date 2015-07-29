@@ -28,16 +28,21 @@ class Task < ActiveRecord::Base
   end
 
   def create_event
+    if self.calendar_id.present?
+      calendar = Calendar.find(self.calendar_id)
+    end
+
     event = Event.create(title: "Task - #{self.try(:case).try(:name)}",
                  description: self.description,
                  task_id: self.id,
                  starts_at: self.due_date,
                  ends_at: self.due_date,
-                 user_id: self.user_id,
+                 created_by: self.user_id,
+                 last_updated_by: self.user_id,
+                 owner_id: calendar ? self.calendar.user_id : self.user_id,
                  firm_id: self.firm_id
     )
-    if self.calendar_id.present?
-      calendar = Calendar.find(self.calendar_id)
+    if calendar
       event.calendar = calendar
       namespace = calendar.namespace
       @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)

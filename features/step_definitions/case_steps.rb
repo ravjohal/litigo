@@ -104,3 +104,8 @@ Then(/^I verify assigned contact "(.*?)" for user "(.*?)"$/) do |contact_type, e
   _case = Case.last
   expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: contact_type, :contacts => {:email => email}).size).to eq(1)
 end
+
+Then(/^select "(.*?)" should have "(\d+)" options?$/) do |select_id, count|
+  number_of_columns = page.all(:xpath, "//select[@id='#{select_id}']//option").length
+  expect(number_of_columns).to eq(count.to_i+1)
+end

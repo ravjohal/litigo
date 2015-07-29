@@ -33,7 +33,7 @@ class Task < ActiveRecord::Base
                  task_id: self.id,
                  starts_at: self.due_date,
                  ends_at: self.due_date,
-                 user_id: self.user_id,
+                 created_by: self.user_id,
                  firm_id: self.firm_id
     )
     if self.calendar_id.present?

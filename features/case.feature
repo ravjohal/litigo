@@ -35,7 +35,6 @@ Feature: Case feature
     When I fill in the modal window
     And I should logged in
     And I create a case step by step
-    And I wait for "10" seconds
     Then all tabs are created
 
   @javascript
@@ -104,3 +103,17 @@ Feature: Case feature
     And I verify assigned contact "Staff" for user "dimmon908@gmail.com"
     And I verify assigned contact "Plaintiff" for user "artem.suchov@gmail.com"
     And I verify assigned contact "Judge" for user "dimmon908@gmail.com"
+
+  @javascript
+  Scenario: I check case details tab
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    When I login without firm
+    And I create a case step by step detailed
+    Then I should have text "Case was successfully created."
+    And I verify required fields for detailed case for user with email "artem.suchov@gmail.com"
+    And I verify case details tab
+    When I click on "Edit"
+    And I fill case details form
+    And I click "Save"
+    Then I verify case details updated for user "artem.suchov@gmail.com"

@@ -7,14 +7,6 @@ Then (/^I see dashboard with creation quick-links$/) do
   expect(page).to have_content('New Note')
 end
 
-When (/^I click "(.*?)"$/) do |arg|
-  click_on arg
-end
-
-When(/^I wait for "(.*?)" seconds$/) do |seconds|
-  sleep seconds.to_f
-end
-
 Then (/^I return to dashboard$/) do
   visit '/'
 end

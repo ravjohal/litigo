@@ -17,6 +17,27 @@ FactoryGirl.define do
     last_name "#{Faker::Lorem.characters(8)}"
   end
 
+  factory :namespace do
+    namespace_id "#{Faker::Lorem.characters(32)}"
+    account_id "#{Faker::Lorem.characters(32)}"
+    email_address "#{Faker::Lorem.characters(8)}-@factory.com"
+    name "#{Faker::Lorem.characters(8)}"
+    provider 'factory'
+    account_status 'active'
+    sync_period 3
+  end
+
+  factory :calendar do
+    description "#{Faker::Lorem.characters(20)}"
+    calendar_id "#{Faker::Lorem.characters(32)}"
+    name "#{Faker::Lorem.characters(8)}"
+    active true
+    factory :disabled_calendar do
+      active false
+    end
+  end
+
+
   factory :event do
 
   end

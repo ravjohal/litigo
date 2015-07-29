@@ -1,13 +1,29 @@
-Then(/^I create the task$/) do
-  visit '/tasks'
-  click_on 'TASK ITEMS'
-  click_on 'New Task'
+When(/^I create the task$/) do
+  step 'I open create task modal'
   fill_in 'task_name', with: 'My firs task'
   step 'I select first item from "task_select"'
   step 'I select first item from "secondary_owner_select"'
   fill_in 'task_due_date', with: '12.12.2014'
   fill_in 'task_description', with: 'Task description'
   uncheck 'task_add_event'
+  click_on 'Create Task'
+end
+
+When /^I open create task modal$/ do
+  visit '/tasks'
+  click_on 'TASK ITEMS'
+  click_on 'New Task'
+end
+
+When(/^I create the task with calendar$/) do
+  step 'I open create task modal'
+  fill_in 'task_name', with: 'My firs task'
+  step 'I select first item from "task_select"'
+  step 'I select first item from "secondary_owner_select"'
+  fill_in 'task_due_date', with: '12.12.2014'
+  fill_in 'task_description', with: 'Task description'
+  step 'I select first item from "task_calendar_id"'
+  # sleep 30
   click_on 'Create Task'
 end
 

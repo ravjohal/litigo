@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727065113) do
+ActiveRecord::Schema.define(version: 20150730063611) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -195,7 +195,6 @@ ActiveRecord::Schema.define(version: 20150727065113) do
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
-  add_index "contacts", ["event_id"], name: "index_contacts_on_event_id", using: :btree
   add_index "contacts", ["firm_id"], name: "index_contacts_on_firm_id", using: :btree
   add_index "contacts", ["type"], name: "index_contacts_on_type", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
@@ -422,12 +421,11 @@ ActiveRecord::Schema.define(version: 20150727065113) do
     t.integer  "parent_id"
     t.integer  "user_id"
     t.integer  "company_id"
+    t.decimal  "amount_paid"
   end
 
-  add_index "insurances", ["case_id"], name: "index_insurances_on_case_id", using: :btree
   add_index "insurances", ["company_id"], name: "index_insurances_on_company_id", using: :btree
   add_index "insurances", ["firm_id"], name: "index_insurances_on_firm_id", using: :btree
-  add_index "insurances", ["insurance_provider"], name: "index_insurances_on_insurance_provider", using: :btree
 
   create_table "leads", force: :cascade do |t|
     t.integer  "screener_id"
@@ -496,11 +494,10 @@ ActiveRecord::Schema.define(version: 20150727065113) do
   end
 
   add_index "medical_bills", ["case_id"], name: "index_medical_bills_on_case_id", using: :btree
-  add_index "medical_bills", ["company_id"], name: "index_medical_bills_on_company_id", using: :btree
+  add_index "medical_bills", ["company_id"], name: "index_medical_bills_on_company_id", where: "(company_id <> NULL::integer)", using: :btree
   add_index "medical_bills", ["firm_id"], name: "index_medical_bills_on_firm_id", using: :btree
   add_index "medical_bills", ["medical_id"], name: "index_medical_bills_on_medical_id", using: :btree
-  add_index "medical_bills", ["parent_id"], name: "index_medical_bills_on_parent_id", using: :btree
-  add_index "medical_bills", ["user_id"], name: "index_medical_bills_on_user_id", using: :btree
+  add_index "medical_bills", ["parent_id"], name: "index_medical_bills_on_parent_id", where: "(parent_id <> NULL::integer)", using: :btree
 
   create_table "medicals", force: :cascade do |t|
     t.decimal  "total_med_bills",            precision: 10, scale: 2
@@ -693,7 +690,6 @@ ActiveRecord::Schema.define(version: 20150727065113) do
   add_index "tasks", ["case_id"], name: "index_tasks_on_case_id", using: :btree
   add_index "tasks", ["firm_id"], name: "index_tasks_on_firm_id", using: :btree
   add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id", using: :btree
-  add_index "tasks", ["parent_id"], name: "index_tasks_on_parent_id", using: :btree
   add_index "tasks", ["secondary_owner_id"], name: "index_tasks_on_secondary_owner_id", using: :btree
   add_index "tasks", ["task_draft_id"], name: "index_tasks_on_task_draft_id", using: :btree
   add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree

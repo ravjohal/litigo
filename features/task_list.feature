@@ -54,7 +54,7 @@ Feature: Create Task List
     And I fill import list
     And I click "IMPORT TASK LIST(S)"
     And I wait for "0.5" seconds
-    Then I should have text "Task list(s) were successfully imported"
+    Then I should have message "Task list(s) were successfully imported"
     And task list without dependent task_draft should be imported
 
   @javascript
@@ -71,7 +71,7 @@ Feature: Create Task List
     And I fill import list
     And I click "IMPORT TASK LIST(S)"
     And I wait for "0.5" seconds
-    Then I should have text "Task list(s) were successfully imported"
+    Then I should have message "Task list(s) were successfully imported"
     And task list with dependent task_draft should be imported
 
   @javascript
@@ -91,5 +91,5 @@ Feature: Create Task List
     And I fill import list
     And I click "IMPORT TASK LIST(S)"
     And I wait for "0.5" seconds
-    Then I should have text "Task list(s) were successfully imported"
+    Then I should have message "Task list(s) were successfully imported"
     And task list should contain tasks from couple lists

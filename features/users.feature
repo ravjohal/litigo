@@ -10,7 +10,7 @@ Feature: Check Users functionality
     And I click on "ADMIN"
     And I fill invite form with email "andrew@rubyriders.com"
     And I click on "Send Invitations"
-    Then I should have text "Invitations were sent to: andrew@rubyriders.com"
+    Then I should have message "Invitations were sent to: andrew@rubyriders.com"
     And it should be database record for invited user "andrew@rubyriders.com" from "artem.suchov@gmail.com"
 
   @javascript
@@ -25,6 +25,6 @@ Feature: Check Users functionality
     And I should have text "Andrew Suchov"
     And I should have text "andrew.suchov@gmail.com"
     And I change invited user role field
-    Then I should have text "User updated."
+    Then I should have message "User updated."
     When I wait for "0.2" seconds
     And user with email "andrew.suchov@gmail.com" should have role "staff"

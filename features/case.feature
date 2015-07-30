@@ -86,7 +86,7 @@ Feature: Case feature
     When I select "Dmitriy Svinin" from "case_staff"
     Then I should not see a JS alert
     When I click on "Save"
-    Then I should have text "Contact was successfully updated."
+    Then I should have message "Contact was successfully updated."
 
   @javascript
   Scenario: I can assign Case Contacts and verify it save successfully
@@ -109,7 +109,7 @@ Feature: Case feature
     And I select "Dmitriy Svinin" from "case_judge"
     And I should close alert
     And I click on "Save"
-    Then I should have text "Contact was successfully updated."
+    Then I should have message "Contact was successfully updated."
     And I verify assigned contact "Attorney" for user "artem.suchov@gmail.com"
     And I verify assigned contact "Staff" for user "dimmon908@gmail.com"
     And I verify assigned contact "Plaintiff" for user "artem.suchov@gmail.com"
@@ -121,7 +121,7 @@ Feature: Case feature
     And Firm for default user exist
     When I login without firm
     And I create a case step by step detailed
-    Then I should have text "Case was successfully created."
+    Then I should have message "Case was successfully created."
     And I verify required fields for detailed case for user with email "artem.suchov@gmail.com"
     And I verify case details tab
     When I click on "Edit"

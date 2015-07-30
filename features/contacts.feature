@@ -36,7 +36,7 @@ Feature: Contact tab
     And I click on "Edit"
     And I fill edit contact form
     And I click "Save"
-    Then I should have text "Company was successfully created."
+    Then I should have message "Company was successfully created."
     And The contact info should be saved
 
   @javascript
@@ -48,5 +48,5 @@ Feature: Contact tab
     And I click on "Suchov Artem"
     And I click to element with id "delete"
     And I confirm popup
-    Then I should have text "Contact was successfully destroyed."
+    Then I should have message "Contact was successfully destroyed."
     And User contacts should be empty for email "artem.suchov@gmail.com"

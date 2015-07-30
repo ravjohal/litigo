@@ -35,22 +35,21 @@ Feature: Medical tab
     And I click on "Case Management"
     And I go to first firm case
     And I click to tab "MEDICALS"
-    And I click to tab "MEDICALS"
     And I wait for "0.3" seconds
     And I click on "Edit"
     And I fill case medicals form
     And I add bill row to medicals form with "12345", "2000", "320"
     And I add bill row to medicals form with "12345789", "1500", "100"
     And I click on "Save"
-    Then I should have text "Medical was successfully updated."
+    Then I should have message "Medical was successfully updated."
     And case medical should be updated
     When I click on "ADD INJURY"
     And I fill injury form
     And I click on "Create Injury"
-    Then I should have text "Injury was successfully created."
+    Then I should have message "Injury was successfully created."
     And I verify medical injury count should be 1
     And I verify created injury
     When I click to element with id "delete"
     And I confirm popup
-    Then I should have text "Injury was successfully destroyed."
+    Then I should have message "Injury was successfully destroyed."
     And I verify medical injury count should be 0

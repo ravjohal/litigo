@@ -47,6 +47,10 @@ Then /^I should have text "(.*?)"$/ do |text|
   expect(page).to have_content(text)
 end
 
+Then /^I should have message "(.*?)"$/ do |text|
+  expect(find('.alert')).to have_content(text)
+end
+
 When(/^I click on "(.*?)"$/) do |button|
   click_on button
 end

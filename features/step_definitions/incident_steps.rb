@@ -20,6 +20,12 @@ When /^I fill incident form field$/ do
   fill_in 'incident_defendant_liability', with: '80'
 end
 
+When /^I fill lead incident form field$/ do
+  fill_in 'incident_incident_date', with: '12.12.2015'
+  fill_in 'incident_location', with: 'Alabama'
+  fill_in 'incident_defendant_liability', with: '80'
+end
+
 When /^I fill incident form field for update$/ do
   fill_in 'incident_incident_date', with: '10.10.2015'
   fill_in 'incident_location', with: 'Alabama2'

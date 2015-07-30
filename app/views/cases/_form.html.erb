@@ -93,10 +93,11 @@
           </tr>
           <tr>
                 <td>
-                  <strong>Subtype:</strong>
+                  <strong>Sub Type:</strong>
                 </td>
                <td colspan="3">
-                  <%= f.select :subtype, Case::SUB_TYPES, label: false, :include_blank => true %>
+               <%= f.input :subtype, collection: Case::SUB_TYPES, as: :grouped_select, :group_method => :last, label: false, :class => 'table-input', :step => 'any' %>
+                  <!-- <%= f.select :subtype, Case::SUB_TYPES, label: false, :include_blank => true %> -->
             </td>
           </tr>
         

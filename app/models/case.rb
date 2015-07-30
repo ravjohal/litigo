@@ -1,7 +1,6 @@
 class Case < ActiveRecord::Base
 
-  TYPES = ['Personal Injury', 'Wrongful Death', 'Bankruptcy', 'Criminal', 'Contract', 'Domestic', 'Immigration', 'Real Estate', 'Wills', 'Trusts', 'Estates']
-  SUB_TYPES = ['Motor Vehicle', 'Medical Malpractice', 'Dog Bite', 'Product Liability', 'Slip and Fall', 'Premise Liability', 'Insurance Bad Faith', 'Intentional Tort', 'Workers Compensation']
+  TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Estates', 'Family Law', 'Immigration', 'Personal Injury', 'Probate', 'Real Estate', 'Taxation', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
   STATUS = ['Active', 'Done Treating', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
 
@@ -77,6 +76,79 @@ class Case < ActiveRecord::Base
 
   amoeba do
     enable
+  end
+
+  SUB_TYPES = {
+      'Bankruptcy' => {
+          'Bankruptcy (general)' => 'Bankruptcy (general)',
+      },
+      'Business Entities' => {
+          'LLC, Corp or Partnership' => 'LLC, Corp or Partnership',
+          'Trademark or Copywright' => 'Trademark or Copywright',
+          'Patent' => 'Patent'
+      },
+      'Civil Litigation' => {
+           'Civil Litigation (general)' => 'Civil Litigation (general)',
+           'Business Litigation (general)' => 'Business Litigation (general)',
+           'Contract Dispute' => 'Contract Dispute',
+           'Construction Litigation' => 'Construction Litigation',
+           'Consumer Litigation' => 'Consumer Litigation',
+           'Product Defect' => 'Product Defect'
+      },
+      'Criminal Defense' => {
+            'Misdemeanor'  => 'Misdemeanor',
+            'Felony'  => 'Felony',
+            'DUI'  => 'DUI',
+            'Drug Possession'  => 'Drug Possession',
+      },
+      'Employment Law' => {
+          'Employmee Discrimination' => 'Employmee Discrimination',
+          'Employement Contract' => 'Employement Contract',
+          'Sexual Harassment' => 'Sexual Harassment',
+          'Wage and Hour Claims' => 'Wage and Hour Claims',
+          'Wrongful Termination' => 'Wrongful Termination'
+      },
+      'Estates' => {
+          'Power of Attorney' => 'Power of Attorney',
+          'Wills' => 'Wills',
+          'Revocable Trust' => 'Revocable Trust'
+      },
+      'Family Law' => {
+          'Divorce' => 'Divorce',
+          'Prenuptial Agreement' => 'Prenuptial Agreement',
+          'Postnuptial Agreement' => 'Postnuptial Agreement',
+      },
+       'Personal Injury' => {
+          'Dog Bite' => 'Dog Bite',
+          'Insurance Bad Faith' => 'Insurance Bad Faith',
+          'Intentional Tort' => 'Intentional Tort',
+          'Medical Malpractice' => 'Medical Malpractice',
+          'Motor Vehicle' => 'Motor Vehicle',
+          'Product Liability' => 'Product Liability',
+          'Premise Liability' => 'Premise Liability',
+          'Slip and Fall' => 'Slip and Fall',
+          'Workers Compensation' => 'Workers Compensation'
+      },
+       'Probate' => {
+          'Probate (general)' => 'Probate (general)'
+      },
+       'Real Estate' => {
+          'Landlord-tenant Dispute' => 'Landlord-tenant Dispute',
+          'Boundaries or Easements' => 'Boundaries or Easements',
+          'Commercial Lease' => 'Commercial Lease',
+          'Residential Lease' => 'Residential Lease',
+          'Non-disclosure/Fraud' => 'Non-disclosure/Fraud'
+      },
+       'Taxation' => {
+          'Foreclosure' => 'Foreclosure',
+      },
+       'Wrongful Death' => {
+          'Wrongful Death' => 'Wrongful Death',
+      },
+  }
+
+  def full_subtype_list
+    SUB_TYPES.select { |k, v| v.key(self.sub_types) }.values[0].key(self.sub_types) if self.sub_types.present?
   end
 
   def self.search(search)

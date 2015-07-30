@@ -18,7 +18,7 @@ Feature: Document tab
     When I login without firm
     And I create a case
     And I create the document with file upload
-    Then I should have text "Document was successfully created."
+    Then I should have message "Document was successfully created."
     Then The document with file for user with email "artem.suchov@gmail.com" should be saved to the db
 
   @javascript

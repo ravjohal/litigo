@@ -9,7 +9,7 @@ Feature: Task tab
     When I login without firm
     And I create a case
     And I create the task
-    Then I should have text "Task successfully created."
+    Then I should have message "Task successfully created."
     And The task for user with email "artem.suchov@gmail.com" should be saved to the db
 
   @javascript
@@ -18,7 +18,7 @@ Feature: Task tab
     And Firm for default user exist
     When I login without firm
     And I create the task through case management
-    Then I should have text "Task successfully created."
+    Then I should have message "Task successfully created."
     And The task for user with email "artem.suchov@gmail.com" should be saved to the db with the right fields
 
   @javascript
@@ -54,7 +54,7 @@ Feature: Task tab
     And I click "Edit"
     And I fill task form
     And I click "Save"
-    Then I should have text "Task successfully updated."
+    Then I should have message "Task successfully updated."
     And The task should be edited success
 
   @javascript
@@ -67,5 +67,5 @@ Feature: Task tab
     And I go to first task
     And I click to element with id "delete"
     And I confirm popup
-    Then I should have text "Task successfully deleted."
+    Then I should have message "Task successfully deleted."
     And User tasks should be empty for email "artem.suchov@gmail.com"

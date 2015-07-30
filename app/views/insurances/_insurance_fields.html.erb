@@ -13,7 +13,10 @@
       </td>
       <td>
           <%= f.text_field :policy_limit, :class => 'table-input' %>
-    </td>
+      </td>
+      <td>
+          <%= f.text_field :amount_paid, :class => 'table-input' %>
+      </td>      
     <td class="insurance-icon" style="text-align: center;">
       <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
     </td>

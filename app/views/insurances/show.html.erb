@@ -26,7 +26,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="5" class="gray-back">
+    <td colspan="6" class="gray-back">
       <strong>Insurance Summary</strong>
     </td>
   </tr>
@@ -39,6 +39,9 @@
           <td style="text-align: right;">
               <strong><%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %></strong>
           </td>
+          <td style="text-align: right;">
+              <strong><%= number_to_currency Insurance.total_amount_paid(@case), precision: 0 %></strong>
+          </td>          
       </tr>
 </tfoot>
   <tbody>
@@ -58,6 +61,9 @@
           <td style="text-align: right;">
               <strong>Policy Limit</strong>
           </td>
+          <td style="text-align: right;">
+              <strong>Amount Paid</strong>
+          </td>          
       </tr>
       <% @insurance_children.each do |insurance| %>
       <tr>
@@ -75,7 +81,10 @@
           </td>
           <td style="text-align: right;">
               <%= number_to_currency insurance.policy_limit, precision: 0 %>
-        </td>
+          </td>
+          <td style="text-align: right;">
+              <%= number_to_currency insurance.amount_paid, precision: 0 %>
+          </td>          
       </tr>
       <% end %>
   </tbody>

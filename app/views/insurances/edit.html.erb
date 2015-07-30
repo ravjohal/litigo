@@ -27,7 +27,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="6" class="gray-back">
+    <td colspan="7" class="gray-back">
       <strong>Insurance Summary</strong>
     </td>
   </tr>
@@ -35,10 +35,13 @@
 <tfoot>
       <tr>
           <td colspan="4" style="text-align: left;">
-              <strong>Total Policy Limits</strong>
+              <strong>Totals</strong>
           </td>
           <td style="text-align: right;">
               <strong><%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %></strong>
+          </td>
+          <td style="text-align: right;">
+            <strong><%= number_to_currency Insurance.total_amount_paid(@case), precision: 0 %></strong>
           </td>
           <td>
           </td>
@@ -61,6 +64,9 @@
           <td style="text-align: right;">
               <strong>Policy Limit</strong>
           </td>
+          <td style="text-align: right;">
+              <strong>Amount Paid</strong>
+          </td>          
           <td style="text-align: center;">
           </td>
       </tr>

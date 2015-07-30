@@ -1,5 +1,5 @@
 class MedicalBill < ActiveRecord::Base
-	before_save :paid_amount_negative, :save_firm_case_user
+	before_save :paid_adjustment_amount_negative, :save_firm_case_user
 
 	belongs_to :user
 	belongs_to :firm
@@ -12,12 +12,13 @@ class MedicalBill < ActiveRecord::Base
 
 	#accepts_nested_attributes_for :children, :reject_if => :all_blank, :allow_destroy => true
 
-	def paid_amount_negative
+	def paid_adjustment_amount_negative
 		self.paid_amount = -(self.paid_amount.abs) if self.paid_amount
+		self.adjustments = -(self.adjustments.abs) if self.adjustments
 	end
 
-  	def total_billed_paid_amounts
-  		self.billed_amount.to_i + self.paid_amount.to_i
+  	def total_billed_adjustment_paid_amounts
+  		self.billed_amount.to_i + self.paid_amount.to_i + self.adjustments.to_i
   	end
 
   	def save_firm_case_user

@@ -168,7 +168,7 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="7" class="gray-back">
+    <td colspan="8" class="gray-back">
       <strong>Medical Bills </strong><span id="edmed" title="Click 'Edit' to add a new bill" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
     </td>
   </tr>
@@ -190,6 +190,9 @@
            <td style="text-align: right;">
               <strong>Billed Amount $</strong>
           </td>
+           <td style="text-align: right;">
+              <strong>Adjustment Amount $</strong>
+          </td>          
           <td style="text-align: right;">
               <strong>Paid Amount $</strong>
           </td>
@@ -215,10 +218,13 @@
                <%= number_to_currency med.billed_amount %>
             </td>
             <td style="text-align: right;">
+               <%= number_to_currency med.adjustments %>
+            </td>            
+            <td style="text-align: right;">
                <%= number_to_currency med.paid_amount %>
           </td>
            <td style="text-align: right;">
-            <%= number_to_currency med.total_billed_paid_amounts %>
+            <%= number_to_currency med.total_billed_adjustment_paid_amounts %>
           </td>
         </tr>
         
@@ -230,6 +236,9 @@
           <td style="text-align: right;">
               <strong><%= number_to_currency @medical.total_billed %></strong>
           </td>
+          <td style="text-align: right;">
+              <strong><%= number_to_currency @medical.total_adjustments %></strong>
+          </td>          
           <td style="text-align: right;">
             <strong><%= number_to_currency @medical.total_paid %></strong>
           </td>

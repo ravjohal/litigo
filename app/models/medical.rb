@@ -15,17 +15,21 @@ class Medical < ActiveRecord::Base
   accepts_nested_attributes_for :injuries, :allow_destroy => true
 	accepts_nested_attributes_for :medical_bills, :reject_if => :all_blank, :allow_destroy => true
 
-	def total_billed
-  		self.medical_bills.sum(:billed_amount) if self.medical_bills.present?
-  	end
+  def total_billed
+		self.medical_bills.sum(:billed_amount) if self.medical_bills.present?
+	end
 
-  	def total_paid
-  		self.medical_bills.sum(:paid_amount) if self.medical_bills.present?
-  	end
+  def total_adjustments
+    self.medical_bills.sum(:adjustments) if self.medical_bills.present?
+  end
 
-  	def total_owed
-  		self.total_billed + self.total_paid if self.medical_bills.present?
-    end
+	def total_paid
+		self.medical_bills.sum(:paid_amount) if self.medical_bills.present?
+	end
+
+	def total_owed
+		self.total_billed + self.total_adjustments + self.total_paid if self.medical_bills.present?
+  end
 
   def set_tasks_due_dates
     attrs = TaskDraft::ANCHOR_DATE_HASH['medical'].keys & self.changed

@@ -1,5 +1,5 @@
 class Insurance < ActiveRecord::Base
-	before_save :save_firm_case_user_for_child
+	before_create :save_firm_case_user_for_child
 
   INSURANCE_PROVIDERS = ['Allstate', 'State Farm', 'GIECO', 'Progressive', 'AAA', 'American Family', 'Mercury', 'Nationwide', 'Farmers', 'Travelers', 'Esurance', 'Self-insured', 'Other']
 
@@ -18,6 +18,10 @@ class Insurance < ActiveRecord::Base
 
   def self.total_policy_limit_amount(case_)
   	Insurance.where(:case_id => case_.id).sum(:policy_limit)
+  end
+
+  def self.total_amount_paid(case_)
+    Insurance.where(:case_id => case_.id).sum(:amount_paid)
   end
 
   def save_firm_case_user_for_child

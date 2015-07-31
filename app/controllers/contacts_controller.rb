@@ -111,12 +111,14 @@ class ContactsController < ApplicationController
       if @contact.update(contact_params)
         if @contact.type == "Company"
           company_contacts = params[:contact][:contacts_attributes] if params[:contact][:contacts_attributes]
-          company_contacts.each do |key, contact_param|
-            contact = Contact.find(contact_param[:id])
-            destroy = contact_param[:_destroy]
-            if destroy == "1"
-              contact.company_id = ""
-              contact.save!
+          if company_contacts
+            company_contacts.each do |key, contact_param|
+              contact = Contact.find(contact_param[:id])
+              destroy = contact_param[:_destroy]
+              if destroy == "1"
+                contact.company_id = ""
+                contact.save!
+              end
             end
           end
           format.html { redirect_to company_path(@contact), notice: 'Company was successfully updated.' }

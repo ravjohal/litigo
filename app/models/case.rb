@@ -149,13 +149,17 @@ class Case < ActiveRecord::Base
       elsif model.class.name == 'Incident'
         if case_type == 'Personal Injury'
           if subtype == 'Medical Malpractice'
-            self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 3) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 3)
+            calculated_sol = model.incident_date + 1.years
+            self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 3) if statute_of_limitations.blank? || ((sol_priority.blank? || sol_priority >= 3) && (statute_of_limitations != calculated_sol))
           elsif subtype == 'Intentional Tort'
-            self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 4) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 4)
+            calculated_sol = model.incident_date + 1.years
+            self.update(statute_of_limitations: model.incident_date + 1.years, sol_priority: 4) if statute_of_limitations.blank? || ((sol_priority.blank? || sol_priority >= 4) && (statute_of_limitations != calculated_sol))
           elsif subtype == 'Insurance Bad Faith'
-            self.update(statute_of_limitations: model.incident_date + 4.years, sol_priority: 5) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 5)
+            calculated_sol = model.incident_date + 4.years
+            self.update(statute_of_limitations: model.incident_date + 4.years, sol_priority: 5) if statute_of_limitations.blank? || ((sol_priority.blank? || sol_priority >= 5) && (statute_of_limitations != calculated_sol))
           else
-            self.update(statute_of_limitations: model.incident_date + 2.years, sol_priority: 6) if statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 6)
+            calculated_sol = model.incident_date + 2.years
+            self.update(statute_of_limitations: calculated_sol, sol_priority: 6) if statute_of_limitations.blank? || ((sol_priority.blank? || sol_priority >= 6) && (statute_of_limitations != calculated_sol))
           end
         end
       end

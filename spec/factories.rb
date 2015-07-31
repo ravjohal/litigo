@@ -11,6 +11,18 @@ FactoryGirl.define do
     type "#{Faker::Lorem.characters(8)}"
   end
 
+  factory :contact_similar, class: Contact do
+    first_name "#{Faker::Lorem.characters(8)}"
+    last_name "#{Faker::Lorem.characters(8)}"
+    type "#{Faker::Lorem.characters(8)}"
+  end
+
+  factory :contact_another, class: Contact do
+    first_name "#{Faker::Lorem.characters(10)}"
+    last_name "#{Faker::Lorem.characters(10)}"
+    type "#{Faker::Lorem.characters(8)}"
+  end
+
   factory :attorney do
     attorney_type "#{Faker::Lorem.characters(8)}"
     first_name "#{Faker::Lorem.characters(8)}"

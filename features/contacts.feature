@@ -43,3 +43,12 @@ Feature: Contact tab
     And I confirm popup
     Then I should have message "Contact was successfully destroyed."
     And User contacts should be empty for email "artem.suchov@gmail.com"
+
+  @javascript
+  Scenario: I create a Contact
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    And I create the contact trough the case management
+    Then The contact for user with email "artem.suchov@gmail.com" should be saved to the db with the right fields
+    Then I create the similar contact trough the case management

@@ -36,6 +36,7 @@ Feature: Create Task List
     And Firm for default user exist
     And Default case exist
     When I login without firm
+    And I click "Case Management"
     And I go to first firm case
     And I go to import saved task list
     And I click "IMPORT TASK LIST(S)"
@@ -90,6 +91,6 @@ Feature: Create Task List
     And I go to import saved task list
     And I fill import list
     And I click "IMPORT TASK LIST(S)"
-    And I wait for "0.5" seconds
+    And I wait for "0.3" seconds
     Then I should have message "Task list(s) were successfully imported"
     And task list should contain tasks from couple lists

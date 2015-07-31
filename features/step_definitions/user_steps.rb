@@ -140,7 +140,7 @@ When(/^I sign up and login$/) do
   step 'I am a logged in user with email "artem.suchov@gmail.com" and password "password"'
   step 'I get the confirmation email and confirm it'
   step 'I should be logged in user'
-  step 'when I fill in the modal window'
+  step 'I fill in the modal window'
   step 'I should logged in'
 end
 

@@ -4,27 +4,20 @@ Feature: Contact tab
 
   @javascript
   Scenario: I create a case and create the contact
-    When I visit sign up page
-    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
-    Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    When I fill in the modal window
-    And I should logged in
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
     And I create a case
     And I create the contact
     Then The contact for user with email "artem.suchov@gmail.com" should be saved to the db
 
   @javascript
   Scenario: I create a Contact (not case tabs)
-    When I visit sign up page
-    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
-    Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    When I fill in the modal window
-    And I should logged in
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
     And I create the contact trough the case management
     Then The contact for user with email "artem.suchov@gmail.com" should be saved to the db with the right fields
-
 
   @javascript
   Scenario: I edit the contact
@@ -36,7 +29,7 @@ Feature: Contact tab
     And I click on "Edit"
     And I fill edit contact form
     And I click "Save"
-    Then I should have message "Company was successfully created."
+    Then I should have message "Company was successfully updated."
     And The contact info should be saved
 
   @javascript

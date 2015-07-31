@@ -4,23 +4,17 @@ Feature: Case feature
 
   @javascript
   Scenario: I create a case and verify required fields
-    When I visit sign up page
-    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
-    Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    When I fill in the modal window
-    And I should logged in
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
     And I create a case step by step
     Then I verify required fields for case for user with email "artem.suchov@gmail.com"
 
   @javascript
   Scenario: I can edit the details of the case
-    When I visit sign up page
-    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
-    Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    When I fill in the modal window
-    And I should logged in
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
     And I create a case step by step
     And I verify required fields for case for user with email "artem.suchov@gmail.com"
     And I change the case fields
@@ -28,23 +22,17 @@ Feature: Case feature
 
   @javascript
   Scenario: Verify that the tabs are created: Details, Incident, Medical, Insurance, Contacts, Calendar, Tasks, Documents, Notes, Resolution
-    When I visit sign up page
-    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
-    Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    When I fill in the modal window
-    And I should logged in
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
     And I create a case step by step
     Then all tabs are created
 
   @javascript
   Scenario: Verify that the tabs are created including medical
-    When I visit sign up page
-    Given I am a logged in user with email "artem.suchov@gmail.com" and password "password"
-    Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    When I fill in the modal window
-    And I should logged in
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
     And I create a medical case step by step
     Then all tabs are created includint medical
 
@@ -123,6 +111,7 @@ Feature: Case feature
     And I create a case step by step detailed
     Then I should have message "Case was successfully created."
     And I verify required fields for detailed case for user with email "artem.suchov@gmail.com"
+    And I wait for "0.2" seconds
     And I verify case details tab
     When I click on "Edit"
     And I fill case details form

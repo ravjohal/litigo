@@ -8,6 +8,7 @@ end
 
 When /^I change insurance row "(.*?)" field "(.*?)" with "(.*?)"$/ do |index, field, value|
   page.execute_script(%($($('#children>tr.insurance-field')[#{(index.to_i-1).to_s}]).find("input[name*='[#{field}]']").val('#{value}')))
+  sleep 0.1
 end
 
 When /^I remove insurance row "(\d+)"$/ do |index|

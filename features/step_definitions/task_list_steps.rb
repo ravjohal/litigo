@@ -67,8 +67,11 @@ When(/^I go to import saved task list$/) do
   step 'I click to tab "TASKS"'
   step 'I click "TASK ITEMS"'
   step 'I click "Import Saved Task List"'
+  sleep 0.1
 end
 
 When(/^I fill import list?/) do
+  sleep 0.1
   page.execute_script(%($("input.import_task_lists").attr('checked', 'checked')))
+  sleep 0.1
 end

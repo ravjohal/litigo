@@ -41,8 +41,10 @@ When /^I fill edit contact form$/ do
   select 'Alabama', from: 'contact_state'
   fill_in 'contact_zip_code', with: '23456789'
   fill_in 'contact_email', with: 'example@example.com'
-  fill_in 'contact_phone_number', with: '(888) 888-8888'
-  fill_in 'contact_mobile', with: '(888) 888-8888'
+  # fill_in 'contact_phone_number', with: '(888) 888-8888'
+  # fill_in 'contact_mobile', with: '(888) 888-8888'
+  page.execute_script(%($('#contact_phone_number').val('(888) 888-8888')))
+  page.execute_script(%($('#contact_mobile').val('(888) 888-8888')))
   select 'Attorney', from: 'contact_type'
   select 'Mr.', from: 'contact_prefix'
   fill_in 'contact_first_name', with: 'FirstName'
@@ -73,13 +75,13 @@ Then /^The contact info should be saved$/ do
   expect(contact.first_name).to eq('FirstName')
   expect(contact.last_name).to eq('LastName')
   expect(contact.middle_name).to eq('MiddleName')
-  expect(contact.gender).to eq('m')
-  expect(contact.date_of_birth).to eq('12.12.2014')
+  expect(contact.gender).to eq('M')
+  expect(contact.date_of_birth.strftime('%F')).to eq('2014-12-12')
   expect(contact.ssn).to eq('1234567890')
-  expect(contact.major_date).to eq('12.12.2014')
-  expect(contact.date_of_death).to eq('12.12.2014')
+  expect(contact.major_date.strftime('%F')).to eq('2014-12-12')
+  expect(contact.date_of_death.strftime('%F')).to eq('2014-12-12')
   expect(contact.job_description).to eq('Job Description')
-  expect(contact.salary).to eq('123456')
+  expect(contact.salary.to_f).to eq 123456.0
   expect(contact.time_bound).to eq('Hour')
   expect(contact.note).to eq('Contact Note')
 end

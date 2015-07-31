@@ -4,7 +4,9 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead
-    When I sign up and login
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
     And I click on "Caller Intake"
     And I create a lead with name "Leeds" and last name "United"
     Then I check message "Client intake was successfully created."
@@ -18,7 +20,9 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and accept case
-    When I sign up and login
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
     And I click on "Caller Intake"
     And I create a lead with name "Leeds" and last name "United"
     And I click to element with id "accept"

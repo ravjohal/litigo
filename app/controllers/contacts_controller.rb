@@ -78,10 +78,22 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to path_contacts, notice: 'Contact was successfully created.' }
+        format.html {
+          if request.xhr?
+            render json: @contact
+          else
+            redirect_to path_contacts, notice: 'Contact was successfully created.'
+          end
+        }
         format.json { render :show, status: :created, contact: @contact }
       else
-        format.html { render :new }
+        format.html {
+          if request.xhr?
+            render json: @contact.errors, status: :unprocessable_entity
+          else
+            render :new
+          end
+        }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -235,7 +247,8 @@ class ContactsController < ApplicationController
       params.require(:contact).permit(:company_name, :first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
                                       :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
-                                      :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2, 
+                                      :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2,
+                                      :sure,
                                       :firms_attributes => [:name, :address, :zip],
                                       :contacts_attributes => [:id, :_destroy, :company_id],
                                       :phones_attributes => [:id, :label, :number, :contact_id, :firm_id, :_destroy])

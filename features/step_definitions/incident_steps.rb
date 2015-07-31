@@ -26,6 +26,18 @@ When /^I fill lead incident form field$/ do
   fill_in 'incident_defendant_liability', with: '80'
 end
 
+When /^I fill lead motor vehicle incident form field$/ do
+  step 'I fill lead incident form field'
+  fill_in 'incident_property_damage', with: '80'
+  fill_in 'incident_speed', with: '80'
+  choose 'incident_alcohol_involved_false'
+  choose 'incident_weather_factor_true'
+  choose 'incident_airbag_deployed_false'
+  choose 'incident_police_report_true'
+  fill_in 'incident_police_report_number', with: '123456789'
+  choose 'incident_towed_true'
+end
+
 When /^I fill incident form field for update$/ do
   fill_in 'incident_incident_date', with: '10.10.2015'
   fill_in 'incident_location', with: 'Alabama2'

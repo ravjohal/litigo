@@ -46,6 +46,7 @@
 //= require lib/sugar.min
 //= require lib/jquery.stopwatch
 //= require lib/tipsy
+//= require lib/jquery-bootstrap-modal-steps
 //= require slick
 //= require lib/evol.colorpicker.min
 //= require moment

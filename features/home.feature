@@ -5,4 +5,4 @@ Feature: Home page
   Scenario: I visit home page as a guest
     Given I am a guest
     When I visit home page
-    Then the page should show "Legal Insights to Build a Winning Case"
+    Then the page should show "LEGAL INSIGHTS TO BUILD A WINNING CASE"

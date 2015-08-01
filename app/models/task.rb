@@ -38,11 +38,8 @@ class Task < ActiveRecord::Base
                  starts_at: self.due_date,
                  ends_at: self.due_date,
                  created_by: self.user_id,
-<<<<<<< HEAD
                  last_updated_by: self.user_id,
                  owner_id: calendar ? self.calendar.user_id : self.user_id,
-=======
->>>>>>> August_03_2015
                  firm_id: self.firm_id
     )
     if calendar

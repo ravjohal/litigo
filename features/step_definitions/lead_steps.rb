@@ -1,21 +1,59 @@
-When(/^I click on "(.*?)"$/) do |button|
-  click_on button
-end
-
-When(/^I click to tab "(.*?)"$/) do |tab|
-  find('#nav-tabs-custom').click_on tab
-end
-
-When(/^I click to element with id "(.*?)"$/) do |id|
-  find("##{id}").click
-end
-
-When(/^I click to element with selector "(.*?)"$/) do |id|
-  find("#{id}").click
-end
-
 When(/^I create a lead$/) do
   step 'I create a lead with name "Leeds" and last name "United"'
+end
+
+When(/^I create a medical lead$/) do
+  click_on 'NEW CALLER INTAKE'
+  sleep 0.5
+  fill_in 'lead_first_name', with: 'TestFirstName'
+  fill_in 'lead_last_name', with: 'TestLastName'
+  fill_in 'lead_phone', with: '(999) 999-9999'
+  fill_in 'lead_address', with: 'TestAddress'
+  fill_in 'lead_city', with: 'TestCity'
+  select 'Alabama', from: 'lead_state'
+  fill_in 'lead_zip_code', with: '123456'
+  select 'Google', from: 'lead_marketing_channel'
+  fill_in 'lead_note', with: 'TestNote'
+  click_on 'Create Lead'
+end
+
+When(/^I create a ohio medical lead$/) do
+  click_on 'NEW CALLER INTAKE'
+  sleep 0.5
+  fill_in 'lead_first_name', with: 'TestFirstName'
+  fill_in 'lead_last_name', with: 'TestLastName'
+  fill_in 'lead_phone', with: '(999) 999-9999'
+  fill_in 'lead_address', with: 'TestAddress'
+  fill_in 'lead_city', with: 'TestCity'
+  select 'Ohio', from: 'lead_state'
+  fill_in 'lead_zip_code', with: '123456'
+  select 'Google', from: 'lead_marketing_channel'
+  fill_in 'lead_note', with: 'TestNote'
+  click_on 'Create Lead'
+end
+
+When /^I edit a medical lead$/ do
+  click_on 'Edit'
+  sleep 0.5
+  select 'Personal Injury', from: 'lead_case_type'
+  select 'Insurance Bad Faith', from: 'lead_sub_type'
+  fill_in 'lead_estimated_value', with: 10000
+  fill_in 'lead_lead_policy_limit', with: 1000
+  select 'Truama', from: 'lead_primary_injury'
+  select 'Head', from: 'lead_primary_region'
+  fill_in 'lead_incident_date', with: '12.12.2014'
+  end
+
+When /^I edit a motor vehicle medical lead$/ do
+  click_on 'Edit'
+  sleep 0.5
+  select 'Personal Injury', from: 'lead_case_type'
+  select 'Motor Vehicle', from: 'lead_sub_type'
+  fill_in 'lead_estimated_value', with: 10000
+  fill_in 'lead_lead_policy_limit', with: 1000
+  select 'Truama', from: 'lead_primary_injury'
+  select 'Head', from: 'lead_primary_region'
+  fill_in 'lead_incident_date', with: '12.12.2014'
 end
 
 When(/^I create a lead with name "(.*?)" and last name "(.*?)"$/) do |first_name, last_name|
@@ -24,6 +62,10 @@ When(/^I create a lead with name "(.*?)" and last name "(.*?)"$/) do |first_name
   fill_in 'lead_first_name', with: first_name
   fill_in 'lead_last_name', with: last_name
   click_on 'Create Lead'
+end
+
+When /^I fill lead copy case form$/ do
+  fill_in 'case_name', with: 'NewLeadCaseCopy'
 end
 
 Then(/^I check message "(.*?)"$/) do |message|
@@ -116,12 +158,4 @@ Then(/^I verify lead case was created for user: "(.*?)"$/) do |user|
   u = User.where(email: user).last
   lead = Lead.where(id: u.id).last
   expect(lead.case).to_not be_nil
-end
-
-Then(/^should exist tab "(.*?)"$/) do |tab|
-  expect(find('#nav-tabs-custom')).to have_content(tab)
-end
-
-Then /^I should have text "(.*?)"$/ do |text|
-  expect(page).to have_content(text)
 end

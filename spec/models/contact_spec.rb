@@ -23,4 +23,39 @@ describe Contact do
                            :state, :country, :phone_number, :fax_number, :email, :gender, :age, :user, :event, :phone_number, :fax_number ) }
   end
 
+  # describe '#similar_contact?' do
+  #   let!(:contact) {create :contact}
+  #   let(:contact_similar) {build :contact_similar}
+  #   let(:contact_another) {build :contact_another}
+  #
+  #   context 'when we have similar contact' do
+  #     it 'must return true' { contact_similar.similar_contact?.should be_true }
+  #     it 'must return false' { contact_another.similar_contact?.should be_false }
+  #   end
+  # end
+
+  # describe '#similar_contact' do
+  #   let!(:contact) {create :contact}
+  #   let(:contact_similar) {build :contact_similar}
+  #   let(:contact_another) {build :contact_another}
+  #
+  #   context 'when we have similar contact' do
+  #     it 'must find similar' { contact_similar.similar_contact.should == contact }
+  #     it 'must not find similar' { contact_another.similar_contact.should != contact }
+  #   end
+  # end
+
+  # describe '#check_similar' do
+  #   context 'when we have similar contact' do
+  #     let!(:contact) {create :contact}
+  #     let(:contact_similar) {build :contact_similar}
+  #     it 'must be invalid' { contact_similar.valid?.should be_false }
+  #     it 'must be valid with sure' {
+  #       contact_similar.sure!
+  #       contact_similar.valid?.should be_true
+  #     }
+  #   end
+  #
+  # end
+
 end

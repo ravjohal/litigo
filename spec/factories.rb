@@ -11,11 +11,44 @@ FactoryGirl.define do
     type "#{Faker::Lorem.characters(8)}"
   end
 
+  factory :contact_similar, class: Contact do
+    first_name "#{Faker::Lorem.characters(8)}"
+    last_name "#{Faker::Lorem.characters(8)}"
+    type "#{Faker::Lorem.characters(8)}"
+  end
+
+  factory :contact_another, class: Contact do
+    first_name "#{Faker::Lorem.characters(10)}"
+    last_name "#{Faker::Lorem.characters(10)}"
+    type "#{Faker::Lorem.characters(8)}"
+  end
+
   factory :attorney do
     attorney_type "#{Faker::Lorem.characters(8)}"
     first_name "#{Faker::Lorem.characters(8)}"
     last_name "#{Faker::Lorem.characters(8)}"
   end
+
+  factory :namespace do
+    namespace_id "#{Faker::Lorem.characters(32)}"
+    account_id "#{Faker::Lorem.characters(32)}"
+    email_address "#{Faker::Lorem.characters(8)}-@factory.com"
+    name "#{Faker::Lorem.characters(8)}"
+    provider 'factory'
+    account_status 'active'
+    sync_period 3
+  end
+
+  factory :calendar do
+    description "#{Faker::Lorem.characters(20)}"
+    calendar_id "#{Faker::Lorem.characters(32)}"
+    name "#{Faker::Lorem.characters(8)}"
+    active true
+    factory :disabled_calendar do
+      active false
+    end
+  end
+
 
   factory :event do
 
@@ -38,6 +71,14 @@ FactoryGirl.define do
     first_name "1#{Faker::Lorem.characters(7)}"
     last_name "1#{Faker::Lorem.characters(7)}"
     password "1#{Faker::Lorem.characters(7)}"
+    factory :admin_user do
+      role :admin
+    end
+    factory :invited_user do
+      role :attorney
+      firm_id 1
+      invited_by_id 1
+    end
   end
 
   factory :case do
@@ -46,6 +87,15 @@ FactoryGirl.define do
     subtype "subtype #{Faker::Lorem.characters(7)}"
     name "#{Faker::Lorem.characters(8)}"
     description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
+    factory :medical_case do
+      case_type 'Personal Injury'
+      subtype 'Insurance Bad Faith'
+      after(:create) do |incident_case|
+        FactoryGirl.create(:incident, case: incident_case)
+        FactoryGirl.create(:medical, case: incident_case)
+        FactoryGirl.create(:insurance, case: incident_case)
+      end
+    end
   end
 
   factory :case_with_incident, parent: :case do
@@ -63,6 +113,16 @@ FactoryGirl.define do
     speed "20"
   end
 
+  factory :medical do
+    total_med_bills Random.rand(100)
+    subrogated_amount Random.rand(100)
+  end
+
+  factory :insurance do
+
+  end
+
+
   factory :client do
     first_name "#{Faker::Lorem.characters(8)}"
     last_name "#{Faker::Lorem.characters(8)}"
@@ -74,7 +134,8 @@ FactoryGirl.define do
   end
 
   factory :note do
-
+    note "#{Faker::Lorem.characters(8)}"
+    note_type 'General'
   end
 
   factory :plantiff do
@@ -82,7 +143,9 @@ FactoryGirl.define do
   end
 
   factory :task do
-
+    name "#{Faker::Lorem.characters(8)}"
+    due_date 1.week.from_now
+    description "#{Faker::Lorem.characters(50)}"
   end
 
   factory :witness do

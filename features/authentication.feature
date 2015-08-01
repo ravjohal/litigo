@@ -1,31 +1,32 @@
-Feature: User Registragion
+Feature: User Registration
 
   To sign_up in application user goes to sign_up form, which consists only from first and last name, email and password fields and a button.
   After sign_up user is logged in and ready to work with application.
 
-    @javascript
-  Scenario: Successfull user sign_up
+  @javascript
+  Scenario: Successful user sign_up
     Given I am a guest
     When I visit sign up page
     And I fill in the sign up form with valid data
     Then I get the confirmation email and confirm it
-    Then I should be logged in user
-    And when I fill in the modal window
+    And I should be logged in user
+    When I fill in the modal window
     Then I should logged in
 
-    @javascript
+  @javascript
   Scenario: User try to sign up with invalid data
     Given I am a guest
     When I visit sign up page
     And I fill in the sign up form with invalid data
     Then I should see the sign_up form again
 
-    @javascript
+  @javascript
   Scenario: User Log out
     When I visit sign up page
     And I fill in the sign up form with valid data
     Then I get the confirmation email and confirm it
     Then I should be logged in user
-    And when I fill in the modal window
-    Then I go to sign_out page
-    And I should be signed out
+    When I fill in the modal window
+    And I click to user dropdown
+    And I go to sign_out page
+    Then I should be signed out

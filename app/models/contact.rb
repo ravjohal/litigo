@@ -16,6 +16,8 @@ class Contact < ActiveRecord::Base
   has_many :cases, :through => :case_contacts
   has_many :phones
 
+  # attr_accessor :sure
+
   amoeba do
     enable
     propagate
@@ -27,6 +29,8 @@ class Contact < ActiveRecord::Base
   before_save :check_sol
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
+
+  # validate :check_similar
 
   def self.inherited(child)
     child.instance_eval do
@@ -89,5 +93,25 @@ class Contact < ActiveRecord::Base
       company = self.company_name.present? ? "#{self.company_name}" : ''
       return "#{name}"+"#{company}"
       end
-    end
+  end
+
+
+  private
+
+  # def similar_contact?
+  #   new_record? ? Contact.where(firm_id: firm_id, first_name: first_name, last_name: last_name).any? : Contact.where('firm_id = :firm_id AND first_name = :first_name AND last_name = :last_name AND id != :id', {firm_id: firm_id, first_name: first_name, last_name: last_name, id: id}).any?
+  # end
+  #
+  # def similar_contact
+  #   Contact.where(firm_id: firm_id, first_name: first_name, last_name: last_name).first
+  # end
+  #
+  # def sure!
+  #   self.sure = true
+  # end
+
+  # def check_similar
+  #   errors.add :similar, I18n.t('activerecord.errors.models.contact.attributes.base.similar', :link => Rails.application.routes.url_helpers.contact_path(similar_contact)) if sure.blank? && similar_contact?
+  # end
+
 end

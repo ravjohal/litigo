@@ -29,3 +29,6 @@ en:
           attributes:
             base:
               similar: 'We have similar found contact. Maybe you are mean this <a href="%{link}">contact</a> instead. Close modal for cancel or type to "Create Contact" again for create similar contact'
+  contact:
+    notice:
+      similar_list: "We were found list of the similar contacts"

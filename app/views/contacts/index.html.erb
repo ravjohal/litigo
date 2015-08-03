@@ -52,6 +52,9 @@
 
 <% if @case %>
 <div class="top-table-container">
+
+  <%= render 'contacts/similar_list' %>
+
   <table id="info-table3">
     <thead>
     <tr class="right-top">
@@ -89,6 +92,9 @@
 
 <% else %>
   <div class="table-responsive">
+
+    <%= render 'contacts/similar_list' %>
+
     <table id="tasks" class="table table-striped table-hover rowlink contacts_table">
       <thead class="user-table-head">
       <tr>

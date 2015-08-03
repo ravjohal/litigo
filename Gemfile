@@ -63,6 +63,7 @@ gem 'rack-mini-profiler'
 gem 'redis'
 gem 'resque', "~> 1.22.0"
 gem 'resque-scheduler'
+gem 'font_assets'
 
 group :development do
   gem "disable_assets_logger", "~> 1.0.0"

@@ -58,7 +58,7 @@ gem 'amoeba'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 0.17.1'
 gem 'newrelic_rpm'
-gem 'rack-timeout'
+# gem 'rack-timeout'
 gem 'rack-mini-profiler'
 gem 'redis'
 gem 'resque', "~> 1.22.0"
@@ -106,10 +106,6 @@ group :development, :test do
   gem 'spring', '~> 1.1.3'
 end
 
-group :staging do
-  gem 'rails_12factor', '~>0.0.3'
-end
-
-group :production do
+group :staging, :production do
   gem 'rails_12factor', '~> 0.0.3'
 end

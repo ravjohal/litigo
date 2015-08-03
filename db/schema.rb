@@ -120,6 +120,11 @@ ActiveRecord::Schema.define(version: 20150730063611) do
   add_index "cases", ["subtype"], name: "index_cases_on_subtype", using: :btree
   add_index "cases", ["user_id"], name: "index_cases_on_user_id", using: :btree
 
+  create_table "clients", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "company_olds", force: :cascade do |t|
     t.string   "name"
     t.text     "address"
@@ -198,6 +203,19 @@ ActiveRecord::Schema.define(version: 20150730063611) do
   add_index "contacts", ["firm_id"], name: "index_contacts_on_firm_id", using: :btree
   add_index "contacts", ["type"], name: "index_contacts_on_type", using: :btree
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
+
+  create_table "defendants", force: :cascade do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "documents", force: :cascade do |t|
     t.string   "author",     limit: 255
@@ -614,6 +632,19 @@ ActiveRecord::Schema.define(version: 20150730063611) do
   add_index "phones", ["contact_id"], name: "index_phones_on_contact_id", using: :btree
   add_index "phones", ["firm_id"], name: "index_phones_on_firm_id", using: :btree
 
+  create_table "plantiffs", force: :cascade do |t|
+    t.boolean  "married"
+    t.boolean  "employed"
+    t.text     "job_description"
+    t.float    "salary"
+    t.boolean  "parent"
+    t.boolean  "felony_convictions"
+    t.boolean  "last_ten_years"
+    t.integer  "jury_likeability"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "resolutions", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "firm_id"
@@ -633,6 +664,12 @@ ActiveRecord::Schema.define(version: 20150730063611) do
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
   add_index "resolutions", ["resolution_type"], name: "index_resolutions_on_resolution_type", using: :btree
+
+  create_table "staffs", force: :cascade do |t|
+    t.string   "staff_type", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "task_drafts", force: :cascade do |t|
     t.integer "task_list_id"
@@ -740,6 +777,20 @@ ActiveRecord::Schema.define(version: 20150730063611) do
   add_index "time_entries", ["case_id"], name: "index_time_entries_on_case_id", using: :btree
   add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
+  create_table "treatments", force: :cascade do |t|
+    t.integer  "injury_id"
+    t.integer  "firm_id"
+    t.boolean  "surgery"
+    t.integer  "surgery_count"
+    t.string   "surgery_type"
+    t.boolean  "casted_fracture"
+    t.boolean  "stitches"
+    t.boolean  "future_surgery"
+    t.decimal  "future_medicals"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "user_events", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "event_id"
@@ -799,5 +850,13 @@ ActiveRecord::Schema.define(version: 20150730063611) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "witnesses", force: :cascade do |t|
+    t.string   "witness_type",    limit: 255
+    t.string   "witness_subtype", limit: 255
+    t.string   "witness_doctype", limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

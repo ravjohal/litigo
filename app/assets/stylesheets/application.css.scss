@@ -44,15 +44,30 @@ $icon-font-path: "/assets/";
 	margin: -45px auto 0 auto;
 }
 
+.info {
+  background: #d9edf7;
+  ul.list {
+    li {
+      a {
+        color: blue;
+        &:hover {
+          color: #0000c8;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
 .alert {
   z-index: 2000;
-//  a {
-//    color: blue;
-//    &:hover {
-//      color: #0000c8;
-//      text-decoration: underline;
-//    }
-//  }
+  a {
+    color: blue;
+    &:hover {
+      color: #0000c8;
+      text-decoration: underline;
+    }
+  }
 }
 //.modal-body {
 //  input {

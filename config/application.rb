@@ -47,6 +47,7 @@ module Litigo
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    config.font_assets.origin = '*'
     # Added to prevent rake assets:precompile errors on heroku deploys per https://devcenter.heroku.com/articles/rails-asset-pipeline#troubleshooting
     #config.assets.initialize_on_precompile = false
     #fix for iframe in Rails 4 http://goo.gl/ihyLIQ

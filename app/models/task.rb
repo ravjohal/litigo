@@ -39,7 +39,7 @@ class Task < ActiveRecord::Base
                  ends_at: self.due_date,
                  created_by: self.user_id,
                  last_updated_by: self.user_id,
-                 owner_id: calendar ? self.calendar.user_id : self.user_id,
+                 owner_id: calendar ? calendar.user.id : self.user_id,
                  firm_id: self.firm_id
     )
     if calendar

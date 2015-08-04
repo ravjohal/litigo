@@ -1,7 +1,7 @@
 class NamespacesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_user, :set_firm
-  before_action :set_namespace, only: [:show, :edit, :update, :destroy]
+  before_action :set_namespace, only: [:show, :edit, :update, :destroy, :destroy_calendar]
 
   # GET /namespaces
   # GET /namespaces.json
@@ -167,6 +167,18 @@ class NamespacesController < ApplicationController
       end
     end
   end
+
+  # DELETE /namespaces/1/1
+  # DELETE /namespaces/1/1.json
+  # def destroy_calendar
+  #   @calendar = Calendar.find params[:calendar_id]
+  #   if @calendar.destroy
+  #     respond_to do |format|
+  #       format.html { redirect_to namespace_url(@namespace), notice: 'Calendar was successfully destroyed.' }
+  #       format.json { head :no_content }
+  #     end
+  #   end
+  # end
 
   private
     # Use callbacks to share common setup or constraints between actions.

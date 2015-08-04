@@ -66,3 +66,7 @@ end
 When(/^I click to element with selector "(.*?)"$/) do |id|
   find("#{id}").click
 end
+
+Given /^PENDING/ do
+  pending
+end

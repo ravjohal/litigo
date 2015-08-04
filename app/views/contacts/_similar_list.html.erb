@@ -1,6 +1,6 @@
 <% unless @saved_contact.blank? %>
   <%= content_tag(:div, class: 'info') do %>
-    <h2><%= t('contact.notice.similar_list') %></h2>
+    <h3><%= t('contact.notice.similar_list') %></h3>
     <%= content_tag(:ul, :class => 'list') do %>
        <% @saved_contact.similar_contacts.each do |member| %>
         <%= content_tag(:li, :id => "similar-contact-#{member.id}") do %>

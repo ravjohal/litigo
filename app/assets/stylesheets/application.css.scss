@@ -46,13 +46,17 @@ $icon-font-path: "/assets/";
 
 .info {
   background: #d9edf7;
+  padding: 10px;
+  h3 {
+    text-align: center;
+    margin-top: 5px;
+  }
   ul.list {
     li {
       a {
-        color: blue;
+        color: #3FC2D8;
         &:hover {
-          color: #0000c8;
-          text-decoration: underline;
+          color: #0483A0;
         }
       }
     }

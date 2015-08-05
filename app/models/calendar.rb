@@ -10,6 +10,6 @@ class Calendar < ActiveRecord::Base
   end
 
   def user
-  	self.namespace.user
+  	self.namespace.includes(:user).user
   end
 end

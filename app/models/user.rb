@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
 
   include ActiveCalendars
 
+  def active_calendars
+    calendars.includes(:namespace).where(:active => true)
+  end
+
   def name
     self.first_name.present? && self.last_name.present? ? "#{self.first_name} #{self.last_name}" : self.email
   end

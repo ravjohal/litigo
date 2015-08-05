@@ -21,7 +21,7 @@
               <strong>Calendar:</strong>
             </td>
             <td>
-              <%= f.select :calendar_id, @firm.calendars.where(active: true).where.not("calendars.name LIKE ? OR calendars.name Like ?", "%Birthday%", "%Holiday%").map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
+              <%= f.select :calendar_id, @firm.calendars.includes[:namespace].where(active: true).where.not("calendars.name LIKE ? OR calendars.name Like ?", "%Birthday%", "%Holiday%").map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
             </td>
           </tr>
              <tr>

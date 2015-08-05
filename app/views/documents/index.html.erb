@@ -75,7 +75,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @my_documents.each do |document| %>
+        <% @my_documents.includes(:cases).each do |document| %>
           <tr data-id="<%= document.id %>">
             <td><div class="larger-td"><%= document.author %></div></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>
@@ -126,7 +126,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @documents.each do |document| %>
+        <% @documents.includes(:cases).each do |document| %>
           <tr data-id="<%= document.id %>">
             <td><div class="larger-td"><%= document.author %></div></td>
             <td><%= document.cases.map {|c| c.name}.join(', ') %></td>

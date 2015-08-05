@@ -350,7 +350,7 @@ class EventsController < ApplicationController
                   else
                     event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
                                             location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                            when_type: ne.when['object'], created_by: @user.id, last_updated_by: @user.id, owner_id: calendar ? calendar.user.id : @user.id,firm_id: @firm.id, calendar_id: calendar.id,
+                                            when_type: ne.when['object'], created_by: event.id ? event.user.id : @user.id, last_updated_by: @user.id, owner_id: calendar ? calendar.user.id : @user.id,firm_id: @firm.id, calendar_id: calendar.id,
                                             namespace_id: namespace.id)
                     case ne.when['object']
                       when "date"

@@ -34,7 +34,7 @@
     </tr>
     </thead>
     <tbody>
-    <% @time_entries.each do |time_entry| %>
+    <% @time_entries.includes(:user, :case).each do |time_entry| %>
       <tr data-id="<%= time_entry.id %>">
         <td  style="vertical-align: middle;"><%= link_to time_entry.user.name, time_entry_path(time_entry) %></td>
         <td style="vertical-align: middle;"><%= time_entry.date %></td>

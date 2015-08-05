@@ -4,6 +4,6 @@ class Calendar < ActiveRecord::Base
   belongs_to :firm
 
   def user
-  	self.namespace.includes[:user].user
+  	self.namespace.includes(:user).user
   end
 end

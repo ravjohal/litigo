@@ -84,7 +84,7 @@ Rails.application.routes.draw do
   post 'get_events' => 'namespaces#get_events', as: :get_events
   post 'get_calendars' => 'namespaces#get_calendars', as: :get_calendars
   post 'get_mass_calendar_events' => 'namespaces#get_mass_calendar_events', as: :get_mass_calendar_events
-  # delete 'namespaces/:id/:calendar_id' => 'namespaces#destroy_calendar', as: :calendar
+  delete 'namespaces/:id/:calendar_id' => 'namespaces#destroy_calendar', as: :calendar
 
   # Visitor routes
   get "/about" => 'visitors#about', as: :about

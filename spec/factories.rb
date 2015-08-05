@@ -36,7 +36,15 @@ FactoryGirl.define do
     name "#{Faker::Lorem.characters(8)}"
     provider 'factory'
     account_status 'active'
-    sync_period 3
+    factory :default_namespace do
+      namespace_id 'angjx1hjrostsm309j3ti44m1'
+      account_id 'mdyvil9u4ndniu5s5hqhiz0x'
+      email_address 'litigo1test@gmail.com'
+      name 'Test Test'
+      provider 'gmail'
+      inbox_token '3vP0XYtecGCTy2jEJdcgsE5GnKy9be'
+      account_status 'active'
+    end
   end
 
   factory :calendar do
@@ -46,6 +54,11 @@ FactoryGirl.define do
     active true
     factory :disabled_calendar do
       active false
+    end
+    factory :default_calendar do
+      name 'litigo1test@gmail.com'
+      calendar_id '4pgc6gtka9v1gqbatccqub56w'
+      nylas_namespace_id 'angjx1hjrostsm309j3ti44m1'
     end
   end
 

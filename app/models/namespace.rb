@@ -5,6 +5,8 @@ class Namespace < ActiveRecord::Base
   has_many :events, :dependent => :destroy
   SYNC_PERIODS = {'3' => 'Sync last 3 months', '6'=> 'Sync last 6 months', '12' => 'Sync Last year', '0' => 'Sync all calendar events'}
 
+  include ActiveCalendars
+
   def full_name
     name.present? ? "#{name}/#{provider}" : email_address
   end

@@ -36,6 +36,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def updated_by
+    User.find(self.last_updated_by)
+  end
+
   def update_participants(str, firm_id)
     if str.present?
       participants = str.split(",")

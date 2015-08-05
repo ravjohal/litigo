@@ -40,15 +40,19 @@
       <th>Sync</th>
       <th>Name</th>
       <th>Description</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <% @namespace.calendars.each do |calendar| %>
+    <% @namespace.enabled_calendars.each do |calendar| %>
       <% if calendar.name != 'Emailed events' %>
         <tr>
           <td><%= check_box_tag "calendar_id[#{calendar.id}]", calendar.id, calendar.active, class: 'calendar_ids' %></td>
           <td><%= calendar.name %></td>
           <td><%= calendar.description %></td>
+          <td>
+            <%= link_to 'Delete calendar', calendar_path(@namespace, calendar), :data => { :confirm => 'Are you sure?'}, :method => :delete, :class => 'btn btn-danger delete' %>
+          </td>
         </tr>
       <% end %>
     <% end %>

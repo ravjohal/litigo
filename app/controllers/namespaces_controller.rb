@@ -170,15 +170,15 @@ class NamespacesController < ApplicationController
 
   # DELETE /namespaces/1/1
   # DELETE /namespaces/1/1.json
-  # def destroy_calendar
-  #   @calendar = Calendar.find params[:calendar_id]
-  #   if @calendar.destroy
-  #     respond_to do |format|
-  #       format.html { redirect_to namespace_url(@namespace), notice: 'Calendar was successfully destroyed.' }
-  #       format.json { head :no_content }
-  #     end
-  #   end
-  # end
+  def destroy_calendar
+    @calendar = Calendar.find params[:calendar_id]
+    if @calendar.delete!
+      respond_to do |format|
+        format.html { redirect_to namespace_url(@namespace), notice: 'Calendar was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    end
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

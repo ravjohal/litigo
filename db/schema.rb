@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150730063611) do
+ActiveRecord::Schema.define(version: 20150804124415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,8 +37,10 @@ ActiveRecord::Schema.define(version: 20150730063611) do
     t.string  "nylas_namespace_id"
     t.boolean "active"
     t.integer "firm_id"
+    t.boolean "deleted",            default: false
   end
 
+  add_index "calendars", ["deleted"], name: "index_calendars_on_deleted", using: :btree
   add_index "calendars", ["firm_id"], name: "index_calendars_on_firm_id", using: :btree
   add_index "calendars", ["namespace_id"], name: "index_calendars_on_namespace_id", using: :btree
 

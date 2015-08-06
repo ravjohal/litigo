@@ -26,6 +26,10 @@ When /^I activate calendars for simple namespace$/ do
   step 'I activate calendars for namespace "litigo1test@gmail.com"'
 end
 
+When /^I activate calendars for second simple namespace$/ do
+  step 'I activate calendars for namespace "litigo2test@gmail.com"'
+end
+
 When /^I activate calendars for namespace "(.*?)"$/ do |namespace|
   find('td', :text => namespace).click
   sleep 0.1
@@ -39,12 +43,24 @@ When /^I add simple namespace$/ do
   step 'I add namespace with email "litigo1test@gmail.com" and password "password_litigo"'
 end
 
+When /^I add second simple namespace$/ do
+  step 'I add namespace with email "litigo2test@gmail.com" and password "password_litigo"'
+end
+
 When /^I delete simple namespace$/ do
   step 'I delete namespace "litigo1test@gmail.com"'
 end
 
+When /^I delete second simple namespace$/ do
+  step 'I delete namespace "litigo2test@gmail.com"'
+end
+
 When /^I delete simple namespace calendar$/ do
   step 'I delete calendar "litigo1test@gmail.com" in namespace "litigo1test@gmail.com"'
+end
+
+When /^I delete second simple namespace calendar$/ do
+  step 'I delete calendar "litigo2test@gmail.com" in namespace "litigo2test@gmail.com"'
 end
 
 When /^I delete namespace "(.*?)"$/ do |namespace|

@@ -22,7 +22,21 @@ When /^I sync events$/ do
   sleep 15
 end
 
+When /^I remove participant in event "(.*?)"$/ do |event_name|
+  find('span', :text => event_name).click
+  sleep 10
+  page.execute_script(%($('#invitee_select').val('')))
+  page.execute_script(%($('#invitee_select + ul > li > input').val('')))
+  click_on 'Update Event'
+  sleep 15
+end
+
 Then /^I verify last synced events$/ do
   event = Event.last
   expect(event.all_day).to be true
+end
+
+Then /^I should verify removed event to user "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  pending
 end

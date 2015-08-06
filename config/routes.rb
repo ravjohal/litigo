@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
-
+  # following is for blitz
+  get '/mu-f704049e-f3df3cc6-83647836-c13c790e' do
+    '42'
+  end
   get 'reports' => 'reports#index', as: :reports
   get 'reports/show' => 'reports#show', as: :report_show
   get 'reports/all_leads_by_channel' => 'reports#leads_by_channel_report', as: :reports_leads_by_channel

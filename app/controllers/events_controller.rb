@@ -372,9 +372,11 @@ class EventsController < ApplicationController
                     when "time"
                       event.starts_at = Time.at(ne.when['time']).utc.to_datetime
                       event.ends_at = Time.at(ne.when['time']).utc.to_datetime
+                      event.all_day = false
                     when "timespan"
                       event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
                       event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
+                      event.all_day = false
                   end
                   event.save
                   ne.participants.each do |np|

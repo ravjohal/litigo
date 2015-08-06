@@ -10,6 +10,6 @@ class Calendar < ActiveRecord::Base
   end
 
   def user
-  	self.namespace.includes(:user).user
+    self.namespace.user # It use instance, non relation - so use "includes" produce error
   end
 end

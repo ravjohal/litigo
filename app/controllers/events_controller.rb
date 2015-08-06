@@ -230,7 +230,7 @@ class EventsController < ApplicationController
       @event.event_series.update_events_until_end_time(event_params)
     else
       if @event.update(attrs)
-        @event.update_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
+        @event.update_participants(event_params[:participants], @firm.id) unless event_params[:participants].nil?
         if calendar.present?
           namespace = calendar.namespace
           @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)

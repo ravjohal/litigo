@@ -67,6 +67,11 @@ When(/^I click to element with selector "(.*?)"$/) do |id|
   find("#{id}").click
 end
 
+When /^I push delete button$/ do
+  step 'I click to element with id "delete"'
+  step 'I confirm popup'
+end
+
 Given /^PENDING/ do
   pending
 end

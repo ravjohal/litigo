@@ -99,6 +99,24 @@ When(/^I fill import list?/) do
   sleep 0.1
 end
 
+When /^I delete parent task in list$/ do
+  within '#DataTables_Table_0' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
+  end
+  sleep 0.3
+  first('#task_list_task_drafts_attributes_0__destroy + a').click
+  click_on 'Save'
+end
+
+When /^I delete child task in list$/ do
+  within '#DataTables_Table_0' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
+  end
+  sleep 0.3
+  first('#task_list_task_drafts_attributes_0_children_attributes_0__destroy + a').click
+  click_on 'Save'
+end
+
 Then /^I verify updated task list$/ do
   list = TaskList.last
   expect(list.name).to eq 'NewListName'
@@ -114,4 +132,15 @@ Then /^I verify updated task list$/ do
   expect(dependent_task_draft.name).to eq 'NewChild1'
   expect(dependent_task_draft.description).to eq 'NewChild1'
   expect(dependent_task_draft.due_term).to eq 22
+end
+
+Then /^I verify deleted parent task in list$/ do
+  list = TaskList.last
+  expect(list.task_drafts.count).to eq 1
+end
+
+Then /^I verify deleted child task in list$/ do
+  list = TaskList.last
+  expect(list.task_drafts.count).to eq 2
+  expect(list.task_drafts.first.children.count).to eq 1
 end

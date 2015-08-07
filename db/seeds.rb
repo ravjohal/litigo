@@ -5826,6 +5826,7 @@ incidents = [{"id"=>1,"case_id"=>1,"firm_id"=>1,"incident_date"=>"5/12/10","stat
 {"id"=>2904,"case_id"=>2904,"firm_id"=>1,"incident_date"=>"6/27/13","statute_of_limitations"=>"6/27/15","property_damage"=>nil,"airbag_deployed"=>nil,"speed"=>nil,"police_report"=>nil,"towed"=>nil,"insurance_provider"=>""}]
 
 incidents.each do |i| 
+	i.delete(:statute_of_limitations)
 	Incident.create!(i)
 end
 

@@ -142,3 +142,4 @@ Feature: Create Lead Test
     When I accept case
     Then I check message "Case was successfully created."
     And I verify accepted case with incident date for user: "artem.suchov@gmail.com"
+    And I verify assigned contact "Attorney" for user "artem.suchov@gmail.com"

@@ -148,10 +148,10 @@ class ClientIntakesController < ApplicationController
             CaseDocument.create(case_id: @case.id, document_id: doc.id)
           end
         end
-        CaseContact.create(case_id: @case.id, contact_id: contact.id, role: 'Plaintiff')
+        CaseContact.create(case_id: @case.id, contact_id: contact.id, firm_id: @case.firm_id, role: 'Plaintiff')
         user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id)
         if user_account_contact.present?
-          CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, role: 'Attorney')
+          CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, firm_id: @case.firm_id, role: 'Attorney')
         end
         @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }

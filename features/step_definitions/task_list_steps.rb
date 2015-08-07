@@ -1,16 +1,17 @@
-When(/^I populate task list form$/) do
+When /^I open new task list form$/ do
   step 'I click "Case Management"'
   step 'I click "TASKS"'
   step 'I click "TASK ITEMS"'
   step 'I click "Create New Task List"'
+end
+
+When(/^I populate task list form$/) do
+  step 'I open new task list form'
   step 'I fill Task List form'
 end
 
 When(/^I populate task list form manual$/) do
-  step 'I click "Case Management"'
-  step 'I click "TASKS"'
-  step 'I click "TASK ITEMS"'
-  step 'I click "Create New Task List"'
+  step 'I open new task list form'
   step 'I fill Task List form manual'
 end
 
@@ -56,8 +57,12 @@ When(/^I add child to task row (\d+) with name "(.*?)" and description "(.*?)" a
   page.execute_script(%($('.parent_task_draft_#{id}:first').find("input[name*='[due_term]']").val('#{day}')))
 end
 
-When(/^I add dependent task draft$/) do
+When /^I add new empty dependent task draft$/ do
   page.find('.glyphicon-plus').click
+end
+
+When(/^I add dependent task draft$/) do
+  step 'I add new empty dependent task draft'
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[name]']").val('Dependent task')))
   page.execute_script(%($('.parent_task_draft_1').find("textarea[name*='[description]']").val('Dependent task description')))
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[due_term]']").val('2')))

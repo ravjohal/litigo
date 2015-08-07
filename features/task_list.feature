@@ -94,3 +94,14 @@ Feature: Create Task List
     And I wait for "0.3" seconds
     Then I should have message "Task list(s) were successfully imported"
     And task list should contain tasks from couple lists
+
+  @javascript
+  Scenario: I should not be able to create Task list without name
+    Given Confirmed default user exists
+    And Firm for default user exist
+    And Default case exist
+    When I login without firm
+    And I open new task list form
+    And I add new empty dependent task draft
+    And I click "Save"
+    Then I should have message "Please review the problems below:"

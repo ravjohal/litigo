@@ -116,3 +116,25 @@ Feature: Create Task List
     Then I check message "Task List was successfully added"
     When I edit task list
     Then I verify updated task list
+
+  @javascript
+  Scenario: I should be able to delete parent task in Task List
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
+    And I populate task list form manual
+    And I click "Save"
+    Then I check message "Task List was successfully added"
+    When I delete parent task in list
+    Then I verify deleted parent task in list
+
+  @javascript
+  Scenario: I should be able to delete child task in Task List
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
+    And I populate task list form manual
+    And I click "Save"
+    Then I check message "Task List was successfully added"
+    When I delete child task in list
+    Then I verify deleted child task in list

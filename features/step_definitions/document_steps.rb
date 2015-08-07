@@ -4,7 +4,16 @@ Then(/^I create the document$/) do
   fill_in 'document_doc_type', with: 'text'
   click_on 'Create Document'
   expect(page).to have_content('Document was successfully created.')
+end
+
+When /^I edit the document$/ do
+  within '#my_docs' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
   end
+  sleep 0.3
+  fill_in 'document_doc_type', with: 'new doc desc'
+  click_on 'Save'
+end
 
 Then(/^I create the document with file upload$/) do
   visit '/documents'
@@ -40,5 +49,10 @@ Then(/^The document for user with email "(.*?)" should be saved to the db with t
   u = User.where(email: arg1).first
   expect(Document.where(id: u.id).first.author).to eq 'Artem Suchov'
   expect(Document.where(id: u.id).first.doc_type).to eq 'some type'
+end
+
+Then /^I verify edited document for user "(.*?)"$/ do |email|
+  u = User.where(email: email).first
+  expect(Document.where(id: u.id).first.doc_type).to eq 'new doc desc'
 end
 

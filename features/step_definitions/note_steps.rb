@@ -30,6 +30,12 @@ When(/^I create a note$/) do
   expect(page).to have_content('Note was successfully created.')
 end
 
+When /^I delete a note$/ do
+  step 'I click to element with selector "#tasks tr > td > a"'
+  step 'I push delete button'
+
+end
+
 When(/^I create a note with task$/) do
   visit '/notes'
   click_on 'NEW NOTE'
@@ -105,4 +111,9 @@ Then(/^The case note for user with email "(.*?)" should be saved to the db$/) do
   expect(note.author).to eq 'Artem Suchov'
   expect(note.note).to eq 'TestNote'
   expect(note.case_id).to eq _case.id
+end
+
+Then /^I verify deleted note for user with email "(.*?)"$/ do |email|
+  u = User.where(email: email).first
+  expect(u.notes.size).to eq 0
 end

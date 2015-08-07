@@ -65,7 +65,6 @@ Feature: Task tab
     And Default task exist
     When I login without firm
     And I go to first task
-    And I click to element with id "delete"
-    And I confirm popup
+    And I push delete button
     Then I should have message "Task successfully deleted."
     And User tasks should be empty for email "artem.suchov@gmail.com"

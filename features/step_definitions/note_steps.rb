@@ -11,7 +11,7 @@ end
 
 
 When /^I go to notes/ do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'NOTES'
 end
 

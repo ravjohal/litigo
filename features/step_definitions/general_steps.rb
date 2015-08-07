@@ -72,6 +72,10 @@ When /^I push delete button$/ do
   step 'I confirm popup'
 end
 
+When /^I open case management menu$/ do
+  click_on 'Case Management'
+end
+
 Given /^PENDING/ do
   pending
 end

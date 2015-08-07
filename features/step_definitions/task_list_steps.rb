@@ -1,5 +1,5 @@
 When /^I open new task list form$/ do
-  step 'I click "Case Management"'
+  step 'I open case management menu'
   step 'I click "TASKS"'
   step 'I click "TASK ITEMS"'
   step 'I click "Create New Task List"'

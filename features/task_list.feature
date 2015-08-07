@@ -36,7 +36,7 @@ Feature: Create Task List
     And Firm for default user exist
     And Default case exist
     When I login without firm
-    And I click "Case Management"
+    And I open case management menu
     And I go to first firm case
     And I go to import saved task list
     And I click "IMPORT TASK LIST(S)"
@@ -84,7 +84,7 @@ Feature: Create Task List
     And I populate task list form
     And I add dependent task draft
     And I click "Save"
-    And I click "Case Management"
+    And I open case management menu
     And I populate task list form
     And I click "Save"
     And I go to first firm case

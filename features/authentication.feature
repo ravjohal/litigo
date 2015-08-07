@@ -61,3 +61,16 @@ Feature: User Registration
     And I fill new invited user form for user with email "andrew@rubyriders.com" and password "password"
     Then I should have message "Your password was set successfully. You are now signed in."
     And I verify invited firm user
+
+  @javascript
+  Scenario: User's first sing up
+    Given Confirmed default admin user exists
+    When I login
+    Then I see dashboard with creation quick-links
+
+  @javascript
+  Scenario: User's existing sing up
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    When I login without firm
+    Then I see dashboard with creation quick-links

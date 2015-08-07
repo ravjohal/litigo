@@ -105,3 +105,14 @@ Feature: Create Task List
     And I add new empty dependent task draft
     And I click "Save"
     Then I should have message "Please review the problems below:"
+
+  @javascript
+  Scenario: I should be able to edit Task List
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
+    And I populate task list form manual
+    And I click "Save"
+    Then I check message "Task List was successfully added"
+    When I edit task list
+    Then I verify updated task list

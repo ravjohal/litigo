@@ -68,6 +68,24 @@ When(/^I add dependent task draft$/) do
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[due_term]']").val('2')))
 end
 
+When /^I edit task list$/ do
+  within '#DataTables_Table_0' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
+  end
+  sleep 0.3
+  fill_in 'task_list_name', with: 'NewListName'
+
+  fill_in 'task_list_task_drafts_attributes_0_name', with: 'NewParent1'
+  fill_in 'task_list_task_drafts_attributes_0_description', with: 'NewParent1'
+  fill_in 'task_list_task_drafts_attributes_0_due_term', with: 11
+
+  fill_in 'task_list_task_drafts_attributes_0_children_attributes_0_name', with: 'NewChild1'
+  fill_in 'task_list_task_drafts_attributes_0_children_attributes_0_description', with: 'NewChild1'
+  fill_in 'task_list_task_drafts_attributes_0_children_attributes_0_due_term', with: 22
+
+  click_on 'Save'
+end
+
 When(/^I go to import saved task list$/) do
   step 'I click to tab "TASKS"'
   step 'I click "TASK ITEMS"'
@@ -79,4 +97,21 @@ When(/^I fill import list?/) do
   sleep 0.1
   page.execute_script(%($("input.import_task_lists").attr('checked', 'checked')))
   sleep 0.1
+end
+
+Then /^I verify updated task list$/ do
+  list = TaskList.last
+  expect(list.name).to eq 'NewListName'
+  expect(list.task_drafts.count).to eq 2
+  expect(list.task_drafts.first.children.count).to eq 2
+
+  task_draft = list.task_drafts.first
+  expect(task_draft.name).to eq 'NewParent1'
+  expect(task_draft.description).to eq 'NewParent1'
+  expect(task_draft.due_term).to eq 11
+
+  dependent_task_draft = task_draft.children.first
+  expect(dependent_task_draft.name).to eq 'NewChild1'
+  expect(dependent_task_draft.description).to eq 'NewChild1'
+  expect(dependent_task_draft.due_term).to eq 22
 end

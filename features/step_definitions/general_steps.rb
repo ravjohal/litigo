@@ -76,6 +76,35 @@ When /^I open case management menu$/ do
   click_on 'Case Management'
 end
 
+When(/^I click to user dropdown$/) do
+  page.execute_script(%($('#dropdownMenu1').click()))
+end
+
+Then /^I should see a JS alert$/ do
+  expect(page.driver.browser.switch_to.alert).to_not be_nil
+end
+
+Then /^I should not see a JS alert$/ do
+  alert = driver.switch_to.alert rescue 'exception happened'
+  expect(alert).to eq('exception happened')
+end
+
+Then /^I should see a "(.*?)" JS alert dialog$/ do |text|
+  expect(page.driver.browser.switch_to.alert.text).to eql(text)
+end
+
+When /^I should close alert$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^I confirm popup$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+When /^I dismiss popup$/ do
+  page.driver.browser.switch_to.alert.dismiss
+end
+
 Given /^PENDING/ do
   pending
 end

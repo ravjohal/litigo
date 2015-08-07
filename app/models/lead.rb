@@ -8,49 +8,54 @@ class Lead < ActiveRecord::Base
   has_many :documents
 
   CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Phone book', 'Other']
-  STATUS = {pending_review: "New Lead - Pending Review", appointment_scheduled: "Appt. Scheduled", rejected: "Rejected", accepted: "Accepted", inactive: "Inactive"}
+  STATUS = {pending_review: 'New Lead - Pending Review', appointment_scheduled: 'Appt. Scheduled', rejected: 'Rejected', accepted: 'Accepted', inactive: 'Inactive'}
 
   include PgSearch
   pg_search_scope :search_lead, against: [:first_name, :last_name, :estimated_value, :status],
-                  using: {tsearch: {dictionary: "english", prefix: true}},
+                  using: {tsearch: {dictionary: :english, prefix: true}},
                   associated_against: { :screener => [:name, :email]  }
 
   def name
-    return "#{self.first_name} #{self.last_name}"
+    "#{first_name} #{last_name}"
   end
 
   def generate_case_attrs(user)
-    return {
-        "name" => "#{self.last_name} #{self.incident_date}",
-        "case_number" => Case.increment_number(firm, 'accept_case', nil),
-        "case_type" => self.case_type,
-        "subtype" => self.sub_type,
-        "firm_id" => self.firm_id,
-        "user_id" => user.id,
-        "description" => self.case_summary,
-        "status" => 'Negotiation',
-        :state => state,
-        "medical_attributes" => {
-            "firm_id" => self.firm_id,
-            "hospitalization" => self.hospitalized,
-            "injuries_attributes" => [{
-                                          "injury_type" => self.primary_injury,
-                                          "region" => self.primary_region,
-                                          "firm_id" => self.firm_id,
-                                          "primary_injury" => true
+    {
+        :name => "#{last_name} #{incident_date}",
+        :case_number => Case.increment_number(firm, 'accept_case', nil),
+        :case_type => case_type,
+        :subtype => sub_type,
+        :firm_id => firm_id,
+        :user_id => user.id,
+        :description => case_summary,
+        :status => 'Negotiation',
+        state: state,
+        :medical_attributes => {
+            :firm_id => firm_id,
+            :hospitalization => hospitalized,
+            :injuries_attributes => [{
+                                          :injury_type => primary_injury,
+                                          :region => primary_region,
+                                          :firm_id => firm_id,
+                                          :primary_injury => true
                                       }]
         },
-        "insurance_attributes" => {
-            "insurance_provider" => self.lead_insurance,
-            "firm_id" => self.firm_id,
-            "policy_limit" => self.lead_policy_limit
+        incident_attributes: {
+            :incident_date => incident_date,
+            :firm_id => firm_id,
+            :user_id => user.id
         },
-        "notes_attributes" => [{
-                                   "note" => self.note,
-                                   "firm_id" => self.firm_id,
-                                   "user_id" => user.id,
-                                   "author" => user.name,
-                                   "note_type" => 'Status'
+        :insurance_attributes => {
+            :insurance_provider => lead_insurance,
+            :firm_id => firm_id,
+            :policy_limit => lead_policy_limit
+        },
+        :notes_attributes => [{
+                                   :note => note,
+                                   :firm_id => firm_id,
+                                   :user_id => user.id,
+                                   :author => user.name,
+                                   :note_type => 'Status'
                                }],
         # "contacts_attributes" => [{
         #                               "type" => 'Plaintiff',

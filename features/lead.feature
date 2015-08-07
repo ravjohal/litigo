@@ -32,7 +32,7 @@ Feature: Create Lead Test
     And I fill lead case fields
     And I click on "Save"
     Then I check message "Client intake was successfully updated."
-    And I click to element with id "accept"
+    And I accept case
     Then I check message "Case was successfully created."
     And I verify lead case was created for user: "artem.suchov@gmail.com"
 
@@ -45,7 +45,7 @@ Feature: Create Lead Test
     When I click on "Edit"
     And I fill lead case fields
     And I click on "Save"
-    And I click to element with id "accept"
+    And I accept case
     Then I should have text "Case #: 1"
     When I create a case
     Then I should have text "Case #: 2"
@@ -127,3 +127,18 @@ Feature: Create Lead Test
     When I click to tab "DOCUMENTS"
     Then I should have text "My Documents"
     And I should have text "Lead Documents"
+
+  @javascript
+  Scenario: I create a lead with incident date and check incident in accepted case tab
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    When I click on "Edit"
+    And I fill lead case fields
+    And I fill lead case with incident fields
+    And I click on "Save"
+    Then I check message "Client intake was successfully updated."
+    When I accept case
+    Then I check message "Case was successfully created."
+    And I verify accepted case with incident date for user: "artem.suchov@gmail.com"

@@ -99,6 +99,10 @@ Then(/^I verify lead has been changed for user: "(.*?)"$/) do |arg1|
   expect(lead.last_name).to  eq 'United 2'
 end
 
+When /^I accept case$/ do
+  step 'I click to element with id "accept"'
+end
+
 When(/^I delete lead$/) do
   find('#delete').click
   page.driver.browser.switch_to.alert.accept
@@ -107,6 +111,10 @@ end
 When(/^I fill lead case fields$/) do
   select 'Personal Injury', :from => 'lead_case_type'
   select 'Open Wound', :from => 'lead_primary_injury'
+end
+
+When /^I fill lead case with incident fields$/ do
+  fill_in 'lead_incident_date', with: 10.days.ago.strftime('%d.%m.%Y')
 end
 
 When(/^I check lead text field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
@@ -158,4 +166,14 @@ Then(/^I verify lead case was created for user: "(.*?)"$/) do |user|
   u = User.where(email: user).last
   lead = Lead.where(id: u.id).last
   expect(lead.case).to_not be_nil
+end
+
+Then /^I verify accepted case with incident date for user: "(.*?)"$/ do |email|
+  u = User.where(email: email).last
+  lead = Lead.where(id: u.id).last
+  _case = lead.case
+  expect(_case).to_not be_nil
+  expect(_case.incident).to_not be_nil
+  expect(_case.incident.incident_date).to eq lead.incident_date
+  expect(_case.incident.incident_date.strftime('%d.%m.%Y')).to eq 10.days.ago.strftime('%d.%m.%Y')
 end

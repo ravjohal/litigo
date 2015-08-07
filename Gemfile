@@ -106,10 +106,6 @@ group :development, :test do
   gem 'spring', '~> 1.1.3'
 end
 
-group :staging do
-  gem 'rails_12factor', '~>0.0.3'
-end
-
-group :production do
+group :staging, :production do
   gem 'rails_12factor', '~> 0.0.3'
 end

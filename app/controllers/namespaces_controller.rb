@@ -1,7 +1,7 @@
 class NamespacesController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_user, :set_firm
-  before_action :set_namespace, only: [:show, :edit, :update, :destroy]
+  before_action :set_namespace, only: [:show, :edit, :update, :destroy, :destroy_calendar]
 
   # GET /namespaces
   # GET /namespaces.json
@@ -163,6 +163,18 @@ class NamespacesController < ApplicationController
     if @namespace.destroy
       respond_to do |format|
         format.html { redirect_to namespaces_url, notice: 'Namespace was successfully destroyed.' }
+        format.json { head :no_content }
+      end
+    end
+  end
+
+  # DELETE /namespaces/1/1
+  # DELETE /namespaces/1/1.json
+  def destroy_calendar
+    @calendar = Calendar.find params[:calendar_id]
+    if @calendar.delete!
+      respond_to do |format|
+        format.html { redirect_to namespace_url(@namespace), notice: 'Calendar was successfully destroyed.' }
         format.json { head :no_content }
       end
     end

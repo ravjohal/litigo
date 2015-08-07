@@ -46,6 +46,28 @@ When /^I fill injury form$/ do
   choose 'injury_ongoing_pain_true'
 end
 
+When /^I update case medicals injury$/ do
+  select 'Face', from: 'medical_injuries_attributes_0_region'
+  select 'TBI', from: 'medical_injuries_attributes_0_injury_type'
+  fill_in 'medical_injuries_attributes_0_code', with: '12345678'
+  choose 'medical_injuries_attributes_0_dominant_side_false'
+  choose 'medical_injuries_attributes_0_joint_fracture_false'
+  choose 'medical_injuries_attributes_0_displaced_fracture_false'
+  choose 'medical_injuries_attributes_0_disfigurement_false'
+  choose 'medical_injuries_attributes_0_permanence_false'
+  choose 'medical_injuries_attributes_0_disabled_true'
+  fill_in 'medical_injuries_attributes_0_disabled_percent', with: 20
+  choose 'medical_injuries_attributes_0_prior_complaint_false'
+  choose 'medical_injuries_attributes_0_surgery_false'
+  fill_in 'medical_injuries_attributes_0_surgery_count', with: '12'
+  select 'Arthroscopic', from: 'medical_injuries_attributes_0_surgery_type'
+  choose 'medical_injuries_attributes_0_casted_fracture_true'
+  choose 'medical_injuries_attributes_0_stitches_false'
+  choose 'medical_injuries_attributes_0_future_surgery_false'
+  fill_in 'medical_injuries_attributes_0_future_medicals', with: '123456'
+  choose 'medical_injuries_attributes_0_ongoing_pain_true'
+end
+
 Then(/^I create the medical$/) do
   click_on 'MEDICALS'
   sleep 0.3
@@ -127,6 +149,32 @@ Then /^I verify created injury$/ do
   expect(last_injury.prior_complaint).to be true
   expect(last_injury.surgery).to be true
   expect(last_injury.surgery_count).to eq 10
+  expect(last_injury.surgery_type).to eq 'Arthroscopic'
+  expect(last_injury.casted_fracture).to be true
+  expect(last_injury.stitches).to be false
+  expect(last_injury.future_surgery).to be false
+  expect(last_injury.ongoing_pain).to be true
+  expect(last_injury.future_medicals.to_i).to eq 123456
+
+end
+
+Then /^I verify updated injury$/ do
+  _case = Case.last
+  medical = _case.medical
+
+  last_injury = medical.injuries.last
+  expect(last_injury.region).to eq 'Face'
+  expect(last_injury.injury_type).to eq 'TBI'
+  expect(last_injury.code).to eq '12345678'
+  expect(last_injury.dominant_side).to be false
+  expect(last_injury.joint_fracture).to be false
+  expect(last_injury.disfigurement).to be false
+  expect(last_injury.permanence).to be false
+  expect(last_injury.disabled).to be true
+  expect(last_injury.disabled_percent).to eq 20
+  expect(last_injury.prior_complaint).to be false
+  expect(last_injury.surgery).to be false
+  expect(last_injury.surgery_count).to eq 12
   expect(last_injury.surgery_type).to eq 'Arthroscopic'
   expect(last_injury.casted_fracture).to be true
   expect(last_injury.stitches).to be false

@@ -21,7 +21,7 @@
               <strong>Calendar:</strong>
             </td>
             <td>
-              <%= f.select :calendar_id, @firm.calendars.where(active: true).where.not("calendars.name LIKE ? OR calendars.name Like ?", "%Birthday%", "%Holiday%").map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
+              <%= f.select :calendar_id, @firm.active_calendars.includes(:namespace).where(active: true).where.not("calendars.name LIKE ? OR calendars.name Like ?", "%Birthday%", "%Holiday%").map { |cal| ["#{cal.namespace.full_name}: #{cal.name}", cal.id] }, :include_blank => true, :class => 'table-input' %>
             </td>
           </tr>
              <tr>
@@ -32,7 +32,9 @@
                 <% if @event.created_at == @event.updated_at %>
                   Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
                 <% else %>
-                  Updated By: <%= @event.user.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
+                  Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s  -%>
+                  <br />
+                  Updated By: <%= @event.updated_by.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
                 <% end %>
               <% end %>
             </td>

@@ -30,6 +30,7 @@
       <th>Email address</th>
       <th>Provider</th>
       <th>Sync Status</th>
+      <th>Actions</th>
     </tr>
     </thead>
     <tbody>
@@ -39,6 +40,9 @@
         <td><%= ns.email_address %></td>
         <td><%= ns.provider %></td>
         <td><%= ns.account_status %></td>
+        <td>
+          <%= link_to 'Delete namespace', namespace_path(ns), :data => { :confirm => 'Are you sure?'}, :method => :delete, :class => 'btn btn-danger delete' %>
+        </td>
       </tr>
     <% end %>
     </tbody>
@@ -47,7 +51,7 @@
 <script>
   $(document).ready(function () {
     $('.namespace_row').click(function (e) {
-      if (!$('.get_calendars').is(e.target)){
+      if (!$('.get_calendars').is(e.target) && !$(e.target).hasClass('delete')){
         var id = $(this).data('id');
         if(id != undefined) {
           window.location.href = "/namespaces/"+id;

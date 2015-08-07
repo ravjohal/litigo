@@ -34,6 +34,10 @@ Feature: Medical tab
     Then I should have message "Injury was successfully created."
     And I verify medical injury count should be 1
     And I verify created injury
+    And I click on "Edit"
+    And I update case medicals injury
+    And I click on "Save"
+    Then I verify updated injury
     When I click to element with id "delete"
     And I confirm popup
     Then I should have message "Injury was successfully destroyed."

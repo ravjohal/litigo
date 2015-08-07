@@ -128,7 +128,7 @@
           <strong>Google Calendar:</strong>
         </td>
         <td colspan="2">
-          <%= f.select :google_calendar_id, user_google_calendars, selected: @task.try(:event).try(:google_calendar_id), include_blank: true, label: false %>
+         <%= f.select :calendar_id, @user.active_calendars.map{ |c| ["#{c.namespace.full_name}: #{c.name}", c.id] }, include_blank: true, label: false, :class => 'table-input' %>
         </td>
       </tr>
   </tbody>

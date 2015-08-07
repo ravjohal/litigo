@@ -45,7 +45,7 @@ Then(/^The document with file for user with email "(.*?)" should be saved to the
 end
 
 Then(/^I create the document through case management$/) do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'DOCUMENTS'
   click_on 'NEW DOCUMENT'
   fill_in 'document_doc_type', with: 'some type'

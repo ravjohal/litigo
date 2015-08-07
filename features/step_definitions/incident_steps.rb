@@ -45,7 +45,7 @@ When /^I fill incident form field for update$/ do
 end
 
 Then(/^I create the incident$/) do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'CASES'
   click_on 'some'
   click_on 'INCIDENT'

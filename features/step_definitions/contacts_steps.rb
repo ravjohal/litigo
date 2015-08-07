@@ -9,7 +9,7 @@ Then(/^I create the contact$/) do
 end
 
 When /^I go to contacts$/ do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'CONTACTS'
 end
 
@@ -20,7 +20,7 @@ Then(/^The contact for user with email "(.*?)" should be saved to the db$/) do |
 end
 
 Then(/^I create the contact trough the case management$/) do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'CONTACTS'
   click_on 'NEW CONTACT'
   fill_in 'contact_first_name', with: 'Artem'

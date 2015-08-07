@@ -27,6 +27,10 @@ Capybara.configure do |config|
   config.match = :prefer_exact
   config.ignore_hidden_elements = false
 end
+
+Capybara.server_port = 59531
+
+
 Capybara.register_driver :selenium do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
   Capybara::Selenium::Driver.new( app, :browser => :firefox, :profile => profile )

@@ -4,6 +4,7 @@ class Contact < ActiveRecord::Base
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
 
   TYPES = ['Attorney', 'Staff', 'Plaintiff', 'Defendant', 'Judge', 'Witness', 'Expert', 'Physician', 'Adjuster', 'General', 'Company']
+
   has_many :event_attendees
 	belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event
@@ -16,8 +17,6 @@ class Contact < ActiveRecord::Base
   has_many :cases, :through => :case_contacts
   has_many :phones
 
-  # attr_accessor :sure
-
   amoeba do
     enable
     propagate
@@ -29,8 +28,6 @@ class Contact < ActiveRecord::Base
   before_save :check_sol
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
-
-  # validate :check_similar
 
   def self.inherited(child)
     child.instance_eval do
@@ -92,26 +89,21 @@ class Contact < ActiveRecord::Base
       name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''
       company = self.company_name.present? ? "#{self.company_name}" : ''
       return "#{name}"+"#{company}"
-      end
+    end
   end
 
+  def similar_scope
+    Contact.where(firm_id: firm_id, last_name: last_name)
+  end
 
-  private
+  def similar_contacts
+    similar_scope.where.not(id: id)
+  end
 
-  # def similar_contact?
-  #   new_record? ? Contact.where(firm_id: firm_id, first_name: first_name, last_name: last_name).any? : Contact.where('firm_id = :firm_id AND first_name = :first_name AND last_name = :last_name AND id != :id', {firm_id: firm_id, first_name: first_name, last_name: last_name, id: id}).any?
-  # end
-  #
-  # def similar_contact
-  #   Contact.where(firm_id: firm_id, first_name: first_name, last_name: last_name).first
-  # end
-  #
-  # def sure!
-  #   self.sure = true
-  # end
-
-  # def check_similar
-  #   errors.add :similar, I18n.t('activerecord.errors.models.contact.attributes.base.similar', :link => Rails.application.routes.url_helpers.contact_path(similar_contact)) if sure.blank? && similar_contact?
-  # end
+  def similar_contact?
+    new_record? ?
+        similar_scope.any? :
+        similar_contacts.any?
+  end
 
 end

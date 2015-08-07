@@ -50,8 +50,10 @@ class User < ActiveRecord::Base
 
   COLORS = [ '#0266C8', '#F90101', '#F2B50F', '#00933B', '#9966FF', '#FF6666', '#7E989C', '#00CC99', '#000099', '#FFCC66', '#00B700', '#f200ff', '#ff9900']
 
+  include ActiveCalendars
+
   def active_calendars
-    calendars.where(:active => true)
+    calendars.includes(:namespace).where(:active => true)
   end
 
   def name

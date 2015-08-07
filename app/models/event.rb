@@ -31,21 +31,43 @@ class Event < ActiveRecord::Base
       participants = str.split(",")
       participants.each do |p_email|
         participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
-        event_participant = EventParticipant.create(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
+        EventParticipant.create(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
       end
     end
   end
 
+  def updated_by
+    User.find(self.last_updated_by)
+  end
+
   def update_participants(str, firm_id)
-    if str.present?
-      participants = str.split(",")
-      event_participants = self.event_participants.to_a
-        participants.each do |p_email|
-          participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
-          event_participant = EventParticipant.find_or_create_by(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
-          event_participants.delete(event_participant)
-        end
-        event_participants.each {|ep| ep.destroy }
+    unless str.nil?
+      participants = str.split(',')
+      existed_participants = self.participants.map {|a| a.email}
+      # event_participants = self.event_participants.to_a
+
+      deleted_participiants = existed_participants - participants
+      new_participiants = participants - existed_participants
+      # common_participiants = participants & existed_participants
+
+      new_participiants.each do |p_email|
+        participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
+        EventParticipant.create(event_id: id, participant_id: participant.id, firm_id: firm_id)
+      end
+
+      deleted_participiants.each do |p_email|
+        participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
+        EventParticipant.delete_all(event_id: id, participant_id: participant.id, firm_id: firm_id)
+      end
+
+      # participants.each do |p_email|
+      #   participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
+      #   event_participant = EventParticipant.find_or_create_by(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
+      #   event_participants.delete(event_participant)
+      # end
+      # event_participants.each {|ep| ep.destroy }
+      self.event_participants.reload
+      self.participants.reload
     end
   end
 end

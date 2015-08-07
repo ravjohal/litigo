@@ -37,7 +37,17 @@ When(/^I create a case$/) do
   click_on 'NEW CASE'
   sleep 0.5
   fill_in 'case_name', with: 'some case'
-  select 'Domestic', :from => 'case_case_type'
+  select 'Bankruptcy', :from => 'case_case_type'
+  click_on 'Create Case'
+  expect(page).to have_content('Case was successfully created.')
+end
+
+When(/^I create a second case$/) do
+  visit '/cases'
+  click_on 'NEW CASE'
+  sleep 0.5
+  fill_in 'case_name', with: 'some case 2'
+  select 'Bankruptcy', :from => 'case_case_type'
   click_on 'Create Case'
   expect(page).to have_content('Case was successfully created.')
 end
@@ -47,7 +57,7 @@ When(/^I create a case detailed$/) do
   click_on 'NEW CASE'
   sleep 0.5
   fill_in 'case_name', with: 'some case'
-  select 'Domestic', :from => 'case_case_type'
+  select 'Bankruptcy', :from => 'case_case_type'
   step 'I select "Artem Suchov" from "case_attorney"'
   step 'I select "Artem Suchov" from "case_staff"'
   step 'I select first item from "case_state"'
@@ -78,6 +88,14 @@ Then(/^I verify required fields for case for user with email "(.*?)"$/) do |arg1
   _case = u.cases.last
   expect(_case.name).to eq 'some case'
   expect(_case.case_number).to eq 1
+end
+
+Then(/^I verify required fields for second case for user with email "(.*?)"$/) do |arg1|
+  u = User.where(email: arg1).last
+  _case = u.cases.last
+  _first_case = u.cases.first
+  expect(_case.name).to eq 'some case 2'
+  expect(_case.case_number).to eq(_first_case.case_number+1)
 end
 
 Then(/^I verify required fields for detailed case for user with email "(.*?)"$/) do |arg1|

@@ -18,12 +18,21 @@ end
 When(/^I create the task with calendar$/) do
   step 'I open create task modal'
   fill_in 'task_name', with: 'My firs task'
+  step 'I select first item from "secondary_owner_select"'
+  fill_in 'task_due_date', with: '12.12.2014'
+  fill_in 'task_description', with: 'Task description'
+  step 'I select first item from "task_calendar_id"'
+  click_on 'Create Task'
+end
+
+When(/^I create the case task with calendar$/) do
+  step 'I open create task modal'
+  fill_in 'task_name', with: 'My firs task'
   step 'I select first item from "task_select"'
   step 'I select first item from "secondary_owner_select"'
   fill_in 'task_due_date', with: '12.12.2014'
   fill_in 'task_description', with: 'Task description'
   step 'I select first item from "task_calendar_id"'
-  # sleep 30
   click_on 'Create Task'
 end
 

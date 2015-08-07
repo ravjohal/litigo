@@ -11,6 +11,17 @@ Feature: Case feature
     Then I verify required fields for case for user with email "artem.suchov@gmail.com"
 
   @javascript
+  Scenario: I create a couple of cases and verify case numbers
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    And I create a case step by step
+    Then I verify required fields for case for user with email "artem.suchov@gmail.com"
+    And I click on "CASES"
+    And I create a second case
+    Then I verify required fields for second case for user with email "artem.suchov@gmail.com"
+
+  @javascript
   Scenario: I can edit the details of the case
     Given Confirmed default admin user exists
     And Firm for default user exist

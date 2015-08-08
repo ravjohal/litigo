@@ -73,7 +73,6 @@ group :development do
   gem 'rails_layout', '~> 1.0.23'
   gem 'awesome_print', '~> 1.2.0'       # Nicely formatted data structures in console, for example 'ap User.first'
   gem 'meta_request'
-  gem 'rack-mini-profiler'
 end
 
 group :development, :test, :staging do
@@ -81,6 +80,7 @@ group :development, :test, :staging do
   gem 'factory_girl_rails', '~> 4.4.1'                # Test data generator -- see spec/factories/factories.rb
   gem 'git-smart', '~> 0.1.9'                         # Allows 'git smart-pull' for less merge messes
   gem 'faker', '~> 1.2.0'                             # Easy way to add fake data: names, email addresses, etc.
+  gem 'rack-mini-profiler'
 end
 
 group :test do

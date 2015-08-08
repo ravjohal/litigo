@@ -11,14 +11,14 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     if get_case
-      @tasks = @case.tasks.active_tasks_scope
-      @my_tasks = @case.tasks.where("owner_id = ? OR secondary_owner_id = ?", @user.id, @user.id).active_tasks_scope
+      @tasks = @case.tasks.includes(:case, :owner).active_tasks_scope
+      @my_tasks = @case.tasks.includes(:case, :owner).where("owner_id = ? OR secondary_owner_id = ?", @user.id, @user.id).active_tasks_scope
       @new_path = new_case_task_path(@case)
       @tasks_a = [@case, Task.new] #for modal partial rendering
     else
       # @my_tasks = @user.owned_tasks.active_tasks_scope
-      @my_tasks = Task.where("owner_id = ? OR secondary_owner_id = ? AND firm_id = ?", @user.id, @user.id, @firm.id).active_tasks_scope
-      @tasks = @firm.tasks.active_tasks_scope
+      @my_tasks = @firm.tasks.includes(:case, :owner).where("owner_id = ? OR secondary_owner_id = ? AND firm_id = ?", @user.id, @user.id, @firm.id).active_tasks_scope
+      @tasks = @firm.tasks.includes(:case, :owner).active_tasks_scope
       @new_path = new_task_path
       @tasks_a = Task.new #for modal partial rendering
     end

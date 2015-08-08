@@ -59,7 +59,6 @@ gem 'amoeba'
 gem 'nylas', '~> 0.17.1'
 gem 'newrelic_rpm'
 gem 'rack-timeout'
-gem 'rack-mini-profiler'
 gem 'redis'
 gem 'resque', "~> 1.22.0"
 gem 'resque-scheduler'
@@ -74,6 +73,7 @@ group :development do
   gem 'rails_layout', '~> 1.0.23'
   gem 'awesome_print', '~> 1.2.0'       # Nicely formatted data structures in console, for example 'ap User.first'
   gem 'meta_request'
+  gem 'rack-mini-profiler'
 end
 
 group :development, :test, :staging do

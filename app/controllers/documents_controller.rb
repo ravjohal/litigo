@@ -13,9 +13,9 @@ class DocumentsController < ApplicationController
       @new_path = new_case_document_path(@case)
       @documents_a = [@case, Document.new] #for modal partial rendering
     else
-      @documents = @firm.documents
+      @documents = @firm.documents.includes(:cases)
       # @my_documents = @documents.joins(:cases => [{:contacts => :user}]).where(:contacts => {:user_account_id => @user.id})
-      @my_documents = @user.documents
+      @my_documents = @user.documents.includes(:cases)
       @new_path = new_document_path
       @documents_a = Document.new #for modal partial rendering
     end

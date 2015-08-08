@@ -89,66 +89,69 @@ class ClientIntakesController < ApplicationController
 
   def accept_case
     return redirect_to lead_path(@lead), alert: "Case already creaded from that lead" if @lead.case.present?
+
     case_attributes = @lead.generate_case_attrs(@user)
     @case = Case.new(case_attributes)
     @case.current_user_id = @user.id
     @case.lead = @lead
 
-    if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
-      incident = @case.build_incident
-      incident.firm = @firm
-      incident.save
-
-      medical = @case.build_medical
-      medical.firm = @firm
-      medical.save
-
-      if @lead.primary_injury.present?
-        injury = medical.injuries.build
-        injury.injury_type = @lead.try(:primary_injury)
-        injury.region = @lead.try(:primary_region)
-        injury.primary_injury = true
-        injury.firm = @firm
-        injury.save
-      end
-
-      insurance = @case.build_insurance
-      insurance.firm = @firm
-      insurance.save
-    end
-
-    resolution = @case.build_resolution
-    resolution.firm = @firm
-    resolution.save
-
-    contact = Contact.create({
-                                       :type => 'Plaintiff',
-                                       :first_name => @lead.first_name,
-                                       :last_name => @lead.last_name,
-                                       :address => @lead.address,
-                                       :city => @lead.city,
-                                       :state => @lead.state,
-                                       :zip_code => @lead.zip_code,
-                                       :email => @lead.email,
-                                       :phone_number => @lead.phone,
-                                       :date_of_birth => @lead.dob,
-                                       :encrypted_ssn => @lead.ssn,
-                                       :firm_id => @lead.firm_id,
-                                       :user_id => @user.id
-                                   })
-
     respond_to do |format|
       if @case.save
+
+        if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
+          incident = @case.build_incident
+          incident.firm = @firm
+          incident.incident_date = @lead.incident_date if @lead.incident_date.present?
+          incident.save
+
+          medical = @case.build_medical
+          medical.firm = @firm
+          medical.save
+
+          if @lead.primary_injury.present?
+            injury = medical.injuries.build
+            injury.injury_type = @lead.try(:primary_injury)
+            injury.region = @lead.try(:primary_region)
+            injury.primary_injury = true
+            injury.firm = @firm
+            injury.save
+          end
+
+          insurance = @case.build_insurance
+          insurance.firm = @firm
+          insurance.save
+        end
+
+        resolution = @case.build_resolution
+        resolution.firm = @firm
+        resolution.save
+
+        contact = Contact.create({
+                                     :type => 'Plaintiff',
+                                     :first_name => @lead.first_name,
+                                     :last_name => @lead.last_name,
+                                     :address => @lead.address,
+                                     :city => @lead.city,
+                                     :state => @lead.state,
+                                     :zip_code => @lead.zip_code,
+                                     :email => @lead.email,
+                                     :phone_number => @lead.phone,
+                                     :date_of_birth => @lead.dob,
+                                     :encrypted_ssn => @lead.ssn,
+                                     :firm_id => @lead.firm_id,
+                                     :user_id => @user.id
+                                 })
+
         # @lead.update(case_id: @case.id)
         if @lead.documents.present?
           @lead.documents.each do |doc|
             CaseDocument.create(case_id: @case.id, document_id: doc.id)
           end
         end
-        CaseContact.create(case_id: @case.id, contact_id: contact.id, role: 'Plaintiff')
+        CaseContact.create(case_id: @case.id, contact_id: contact.id, firm_id: @case.firm_id, role: 'Plaintiff')
         user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id)
         if user_account_contact.present?
-          CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, role: 'Attorney')
+          CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, firm_id: @case.firm_id, role: 'Attorney')
         end
         @case.check_sol
         format.html { redirect_to case_path(@case), notice: 'Case was successfully created.' }

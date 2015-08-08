@@ -17,7 +17,7 @@ Feature: Medical tab
     And Firm for default user exist
     And Default medical case exist
     When I login without firm
-    And I click on "Case Management"
+    And I open case management menu
     And I go to first firm case
     And I click to tab "MEDICALS"
     And I wait for "0.3" seconds
@@ -38,7 +38,6 @@ Feature: Medical tab
     And I update case medicals injury
     And I click on "Save"
     Then I verify updated injury
-    When I click to element with id "delete"
-    And I confirm popup
+    When I push delete button
     Then I should have message "Injury was successfully destroyed."
     And I verify medical injury count should be 0

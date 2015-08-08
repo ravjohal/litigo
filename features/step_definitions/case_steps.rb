@@ -14,7 +14,7 @@ Then(/^I create a case step by step detailed$/) do
 end
 
 When /^I go to cases$/ do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'CASES'
 end
 
@@ -217,4 +217,9 @@ Then /^I verify case details updated for user "(.*?)"$/ do |email|
   expect(_case.topic.to_s).to eq 'NewCaseTopic'
   expect(_case.description.to_s).to eq 'NewCaseSummary'
   expect(_case.subtype.to_s).to eq 'Intentional Tort'
+end
+
+Then /^I verity deleted case for user "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  expect(user.cases.size).to eq 0
 end

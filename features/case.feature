@@ -128,3 +128,15 @@ Feature: Case feature
     And I fill case details form
     And I click "Save"
     Then I verify case details updated for user "artem.suchov@gmail.com"
+
+  @javascript
+  Scenario: I should be able to delete case
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist
+    And I login without firm
+    And I open case management menu
+    And I go to first firm case
+    And I push delete button
+    Then I should have message "Case was successfully deleted."
+    And I verity deleted case for user "artem.suchov@gmail.com"

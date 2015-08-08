@@ -1,16 +1,17 @@
-When(/^I populate task list form$/) do
-  step 'I click "Case Management"'
+When /^I open new task list form$/ do
+  step 'I open case management menu'
   step 'I click "TASKS"'
   step 'I click "TASK ITEMS"'
   step 'I click "Create New Task List"'
+end
+
+When(/^I populate task list form$/) do
+  step 'I open new task list form'
   step 'I fill Task List form'
 end
 
 When(/^I populate task list form manual$/) do
-  step 'I click "Case Management"'
-  step 'I click "TASKS"'
-  step 'I click "TASK ITEMS"'
-  step 'I click "Create New Task List"'
+  step 'I open new task list form'
   step 'I fill Task List form manual'
 end
 
@@ -56,11 +57,33 @@ When(/^I add child to task row (\d+) with name "(.*?)" and description "(.*?)" a
   page.execute_script(%($('.parent_task_draft_#{id}:first').find("input[name*='[due_term]']").val('#{day}')))
 end
 
-When(/^I add dependent task draft$/) do
+When /^I add new empty dependent task draft$/ do
   page.find('.glyphicon-plus').click
+end
+
+When(/^I add dependent task draft$/) do
+  step 'I add new empty dependent task draft'
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[name]']").val('Dependent task')))
   page.execute_script(%($('.parent_task_draft_1').find("textarea[name*='[description]']").val('Dependent task description')))
   page.execute_script(%($('.parent_task_draft_1').find("input[name*='[due_term]']").val('2')))
+end
+
+When /^I edit task list$/ do
+  within '#DataTables_Table_0' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
+  end
+  sleep 0.3
+  fill_in 'task_list_name', with: 'NewListName'
+
+  fill_in 'task_list_task_drafts_attributes_0_name', with: 'NewParent1'
+  fill_in 'task_list_task_drafts_attributes_0_description', with: 'NewParent1'
+  fill_in 'task_list_task_drafts_attributes_0_due_term', with: 11
+
+  fill_in 'task_list_task_drafts_attributes_0_children_attributes_0_name', with: 'NewChild1'
+  fill_in 'task_list_task_drafts_attributes_0_children_attributes_0_description', with: 'NewChild1'
+  fill_in 'task_list_task_drafts_attributes_0_children_attributes_0_due_term', with: 22
+
+  click_on 'Save'
 end
 
 When(/^I go to import saved task list$/) do
@@ -74,4 +97,50 @@ When(/^I fill import list?/) do
   sleep 0.1
   page.execute_script(%($("input.import_task_lists").attr('checked', 'checked')))
   sleep 0.1
+end
+
+When /^I delete parent task in list$/ do
+  within '#DataTables_Table_0' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
+  end
+  sleep 0.3
+  first('#task_list_task_drafts_attributes_0__destroy + a').click
+  click_on 'Save'
+end
+
+When /^I delete child task in list$/ do
+  within '#DataTables_Table_0' do
+    first('tr > td > a.dark-small > span.glyphicon-pencil').click
+  end
+  sleep 0.3
+  first('#task_list_task_drafts_attributes_0_children_attributes_0__destroy + a').click
+  click_on 'Save'
+end
+
+Then /^I verify updated task list$/ do
+  list = TaskList.last
+  expect(list.name).to eq 'NewListName'
+  expect(list.task_drafts.count).to eq 2
+  expect(list.task_drafts.first.children.count).to eq 2
+
+  task_draft = list.task_drafts.first
+  expect(task_draft.name).to eq 'NewParent1'
+  expect(task_draft.description).to eq 'NewParent1'
+  expect(task_draft.due_term).to eq 11
+
+  dependent_task_draft = task_draft.children.first
+  expect(dependent_task_draft.name).to eq 'NewChild1'
+  expect(dependent_task_draft.description).to eq 'NewChild1'
+  expect(dependent_task_draft.due_term).to eq 22
+end
+
+Then /^I verify deleted parent task in list$/ do
+  list = TaskList.last
+  expect(list.task_drafts.count).to eq 1
+end
+
+Then /^I verify deleted child task in list$/ do
+  list = TaskList.last
+  expect(list.task_drafts.count).to eq 2
+  expect(list.task_drafts.first.children.count).to eq 1
 end

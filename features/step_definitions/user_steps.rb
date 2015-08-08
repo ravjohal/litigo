@@ -174,6 +174,20 @@ When(/^I change invited user role field$/) do
   end
 end
 
+When /^I to to invite users page$/ do
+  step 'I click on "Add Users to Firm"'
+  sleep 0.5
+end
+
+When /^I fill new invited user form for user with email "(.*?)" and password "(.*?)"$/ do |email, password|
+  fill_in 'user_first_name', with: 'Test'
+  fill_in 'user_last_name', with: 'Test'
+  fill_in 'user_password', with: password
+  fill_in 'user_password_confirmation', with: password
+  click_on 'Set my password'
+end
+
+
 Then(/it should be database record for invited user "(.*?)" from "(.*?)"/) do |invited_email, user_email|
   user = User.where(email: user_email).pluck(:id)
   expect(User.where(email: invited_email, invited_by_id: user[0]).count).to eq(1)
@@ -183,31 +197,7 @@ Then(/user with email "(.*?)" should have role "(.*?)"/) do |email, role|
   expect(User.where(email: email).first.role).to eq(role)
 end
 
-When(/^I click to user dropdown$/) do
-  page.execute_script(%($('#dropdownMenu1').click()))
-end
-
-Then /^I should see a JS alert$/ do
-  expect(page.driver.browser.switch_to.alert).to_not be_nil
-end
-
-Then /^I should not see a JS alert$/ do
-  alert = driver.switch_to.alert rescue 'exception happened'
-  expect(alert).to eq('exception happened')
-end
-
-Then /^I should see a "(.*?)" JS alert dialog$/ do |text|
-  expect(page.driver.browser.switch_to.alert.text).to eql(text)
-end
-
-When /^I should close alert$/ do
-  page.driver.browser.switch_to.alert.accept
-end
-
-When /^I confirm popup$/ do
-  page.driver.browser.switch_to.alert.accept
-end
-
-When /^I dismiss popup$/ do
-  page.driver.browser.switch_to.alert.dismiss
+Then /^I verify invited firm user$/ do
+  firm = Firm.last
+  expect(firm.users.count).to eq 2
 end

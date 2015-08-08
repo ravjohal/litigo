@@ -36,7 +36,7 @@ Feature: Create Task List
     And Firm for default user exist
     And Default case exist
     When I login without firm
-    And I click "Case Management"
+    And I open case management menu
     And I go to first firm case
     And I go to import saved task list
     And I click "IMPORT TASK LIST(S)"
@@ -84,7 +84,7 @@ Feature: Create Task List
     And I populate task list form
     And I add dependent task draft
     And I click "Save"
-    And I click "Case Management"
+    And I open case management menu
     And I populate task list form
     And I click "Save"
     And I go to first firm case
@@ -94,3 +94,47 @@ Feature: Create Task List
     And I wait for "0.3" seconds
     Then I should have message "Task list(s) were successfully imported"
     And task list should contain tasks from couple lists
+
+  @javascript
+  Scenario: I should not be able to create Task list without name
+    Given Confirmed default user exists
+    And Firm for default user exist
+    And Default case exist
+    When I login without firm
+    And I open new task list form
+    And I add new empty dependent task draft
+    And I click "Save"
+    Then I should have message "Please review the problems below:"
+
+  @javascript
+  Scenario: I should be able to edit Task List
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
+    And I populate task list form manual
+    And I click "Save"
+    Then I check message "Task List was successfully added"
+    When I edit task list
+    Then I verify updated task list
+
+  @javascript
+  Scenario: I should be able to delete parent task in Task List
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
+    And I populate task list form manual
+    And I click "Save"
+    Then I check message "Task List was successfully added"
+    When I delete parent task in list
+    Then I verify deleted parent task in list
+
+  @javascript
+  Scenario: I should be able to delete child task in Task List
+    Given Confirmed default user exists
+    And Firm for default user exist
+    When I login without firm
+    And I populate task list form manual
+    And I click "Save"
+    Then I check message "Task List was successfully added"
+    When I delete child task in list
+    Then I verify deleted child task in list

@@ -80,7 +80,7 @@ Given(/^Default task exist for user: "(.*?)"$/) do |email|
 end
 
 When /^I go to tasks$/ do
-  click_on 'Case Management'
+  step 'I open case management menu'
   click_on 'TASKS'
 end
 

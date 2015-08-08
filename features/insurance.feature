@@ -8,7 +8,7 @@ Feature: Insurance tab
     And Firm for default user exist
     And Default medical case exist
     When I login without firm
-    And I click on "Case Management"
+    And I open case management menu
     And I go to first firm case
     And I click to tab "INSURANCE"
     And I wait for "0.3" seconds

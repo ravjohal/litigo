@@ -39,8 +39,7 @@ Feature: Contact tab
     And I login without firm
     And I go to contacts
     And I click on "Suchov Artem"
-    And I click to element with id "delete"
-    And I confirm popup
+    And I push delete button
     Then I should have message "Contact was successfully destroyed."
     And User contacts should be empty for email "artem.suchov@gmail.com"
 

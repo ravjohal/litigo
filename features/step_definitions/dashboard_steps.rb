@@ -183,6 +183,10 @@ Then(/^task list should contain tasks from couple lists$/) do
   step 'task list should contain tasks from couple lists by user with email "artem.suchov@gmail.com"'
 end
 
+Then /^I should be on dashboard$/ do
+
+end
+
 Then (/^task list with dependent task_draft should be created by user with email "(.*?)"$/) do |email|
   user = User.find_by email: email
   firm = user.firm

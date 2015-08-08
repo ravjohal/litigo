@@ -10,7 +10,7 @@ class UserEmails < ActionMailer::Base
     mail(to: @send_to,
          from: "\"Litigo\" <ben@litigo.co>",
          subject: "Invitation instructions",
-         content_type: "text/html") unless Rails.env.test?
+         content_type: "text/html") # unless Rails.env.test?
   end
 
   # def invite_new_user(options)

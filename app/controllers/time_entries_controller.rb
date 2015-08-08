@@ -7,7 +7,7 @@ class TimeEntriesController < ApplicationController
   # GET /time_entries
   # GET /time_entries.json
   def index
-    @time_entries = @firm.time_entries
+    @time_entries = @firm.time_entries.includes(:user, :case)
   end
 
   # GET /time_entries/1

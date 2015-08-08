@@ -52,7 +52,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @my_notes.includes(:case).each do |note| %>
+      <% @my_notes.each do |note| %>
         <tr data-id="<%= note.id %>">
           <td class="case_name"><%= note.case.name if note.case.present? %></td>
           <td><%= link_to note.author, note_path(note)  %></td>
@@ -85,7 +85,7 @@
       </tr>
       </thead>
       <tbody>
-      <% @notes.includes(:case).each do |note| %>
+      <% @notes.each do |note| %>
         <tr data-id="<%= note.id %>">
           <td class="case_name doc-link"><%= note.case.name if note.case.present? %></td>
           <td><%= link_to note.author, note_path(note)  %></td>

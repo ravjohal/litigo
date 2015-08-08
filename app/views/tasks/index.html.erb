@@ -81,7 +81,7 @@
     </tr>
     </thead>
     <tbody>
-    <% @my_tasks.includes(:case, :owner).each do |task| %>
+    <% @my_tasks.each do |task| %>
       <tr class="<%= task.row_color%>" id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.try(:owner).try(:name)%></td>
@@ -115,7 +115,7 @@
     </tr>
     </thead>
     <tbody>
-    <% @tasks.includes(:case, :owner).each do |task| %>
+    <% @tasks.each do |task| %>
       <tr class="<%= task.row_color%>" id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.try(:owner).try(:name) %></td>

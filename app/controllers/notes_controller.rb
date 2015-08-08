@@ -17,10 +17,10 @@ class NotesController < ApplicationController
       @notes_a = [@case, Note.new] #for modal partial rendering
       # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect
     else
-      @notes = @firm.notes.order("created_at desc")
+      @notes = @firm.notes.includes(:case).order("created_at desc")
 
       # @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:user_account_id => @user.id})
-      @my_notes = @user.notes
+      @my_notes = @user.notes.includes(:case)
       # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect
       @new_path = new_note_path
       @notes_a = Note.new #for modal partial rendering

@@ -115,7 +115,7 @@
               </td>
               <td>
                 <%= f.check_box :task_add_event, {:checked => true}, true, false %>
-                <%= f.select :task_calendar_id, @user.active_calendars.includes(:namespace).map{ |c| ["#{c.namespace.full_name}: #{c.name}", c.id] }, include_blank: true, label: false, :class => 'table-input' %>
+                <%= f.select :task_calendar_id, @user.active_calendars.map{ |c| ["#{c.namespace.full_name}: #{c.name}", c.id] }, include_blank: true, label: false, :class => 'table-input' %>
               </td>
             </tr>
         </tbody>

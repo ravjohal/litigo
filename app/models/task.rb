@@ -10,7 +10,7 @@ class Task < ActiveRecord::Base
 	belongs_to :owner, class_name: 'User' #this is the person who is the primary owner of this task
 	belongs_to :secondary_owner, class_name: 'User' #the secondary owner of this task
   belongs_to :task_draft
-  before_update :toggle_event
+  #before_update :toggle_event
   before_save :reset_event_date
 
   attr_accessor :add_event, :calendar_id

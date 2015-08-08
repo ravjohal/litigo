@@ -215,7 +215,7 @@
           <strong>Sub type:</strong>
         </td>
         <td>
-          <%= f.input :subtype, label: false, collection: Case::SUB_TYPES, :class => 'table-input', :include_blank => true %>
+          <%= f.input :subtype, collection: Case::SUB_TYPES, as: :grouped_select, :group_method => :last, label: false, :class => 'table-input', :step => 'any' %>
         </td>
       </tr>
        <tr>

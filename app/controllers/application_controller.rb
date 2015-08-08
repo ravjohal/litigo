@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   def in_staging
     if Rails.env.staging?
       #flash[:alert] = "MiniProfiler is initialized"
-      Rack::MiniProfiler.authorize_request
+      #Rack::MiniProfiler.authorize_request
     end
   end
 

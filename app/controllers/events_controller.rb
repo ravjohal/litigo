@@ -16,7 +16,7 @@ class EventsController < ApplicationController
     #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
     compact_events = []
 
-    @firm.events.each do |event|
+    @firm.events.includes(:owner).each do |event|
       user = event.owner
       #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
       event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(@users.to_a.index(user)),

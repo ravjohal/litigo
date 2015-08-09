@@ -32,7 +32,7 @@ class Task < ActiveRecord::Base
       calendar = Calendar.find(self.calendar_id)
     end
 
-    event = Event.create(title: "Task - #{self.try(:case).try(:name)}",
+    event = Event.create(title: "#{self.try(:name)} - #{self.try(:case).try(:name)}",
                  description: self.description,
                  task_id: self.id,
                  starts_at: self.due_date,

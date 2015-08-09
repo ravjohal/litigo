@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150809002104) do
+ActiveRecord::Schema.define(version: 20150809013826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -688,8 +688,6 @@ ActiveRecord::Schema.define(version: 20150809002104) do
   add_index "tasks", ["firm_id"], name: "index_tasks_on_firm_id", using: :btree
   add_index "tasks", ["owner_id"], name: "index_tasks_on_owner_id", using: :btree
   add_index "tasks", ["secondary_owner_id"], name: "index_tasks_on_secondary_owner_id", using: :btree
-  add_index "tasks", ["task_draft_id"], name: "index_tasks_on_task_draft_id", using: :btree
-  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id", using: :btree
 
   create_table "template_documents", force: :cascade do |t|
     t.text     "html_content"

@@ -74,7 +74,7 @@
         <strong>Add to Calendar:</strong>
       </td>
       <td colspan="2">
-        <%= f.check_box :add_event, {:checked => true}, true, false %>
+        <%= f.check_box :add_event, {:checked => false}, true, false %>
         <%= f.select :calendar_id, @user.active_calendars.map{ |c| ["#{c.namespace.full_name}: #{c.name}", c.id] }, include_blank: true, label: false, :class => 'table-input' %>
       </td>
     </tr>

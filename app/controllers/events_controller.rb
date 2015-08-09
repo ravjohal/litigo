@@ -311,9 +311,8 @@ class EventsController < ApplicationController
   def emails_autocomplete
     users_emails = []
 
-    #TODO: there are three loops (none nested), need to figure out how to combine and get email
+    #TODO: there are two loops (none nested), need to figure out how to combine and get email
 
-    @firm.users.map { |user| users_emails << user.email unless user.email == @user.email }
     @firm.participants.map { |user| users_emails << user.email unless user.email == @user.email }
     @firm.contacts.map { |user| users_emails << user.email unless user.email == @user.email }
     # @user.firm.users.map {|user| users_emails << user.email unless user.email == @user.email}

@@ -44,18 +44,18 @@
 <% else %>
   <div id="index-buttons">
     <ul>
-      <li><%= link_to "javascript:window.print()", :class => 'dark' do %>
+      <li><%= link_to 'javascript:window.print()', :class => 'dark' do %>
           <span id="print" class="glyphicon glyphicon-print tip" title="Print Tasks"></span>
         <% end %></li>
       <div id="top-custom">
         <ul>
           <li class="dropdown task-list">
-            <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
+            <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: 'dropdown', :style => 'display:inline;'} do %>
               TASK ITEMS
               <span class="caret"></span>
             <% end %>
             <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
-              <li style="padding: 0; display: inline;"><%= link_to "New Task", @new_path, {:id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
+              <li style="padding: 0; display: inline;"><%= link_to 'New Task', @new_path, {:id => 'new_modal', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
               <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Create New Task List', new_task_list_path %></li>
               <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Modify Saved Task List', task_lists_path %></li>
             </ul>
@@ -88,8 +88,8 @@
         <td>
           <div class="larger-td"><%= task.name %></div>
         </td>
-        <td><%= task.try(:due_date).try(:strftime, "%b %e, %Y") %></td>
-        <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {"task-completed" => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
+        <td><%= task.try(:due_date).try(:strftime, '%b %e, %Y') %></td>
+        <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {'task-completed' => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
       </tr>
     <% end %>
     </tbody>
@@ -122,7 +122,7 @@
         <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
-        <td><%= task.try(:due_date).try(:strftime, "%b %e, %Y") %></td>
+        <td><%= task.try(:due_date).try(:strftime, '%b %e, %Y') %></td>
       </tr>
     <% end %>
     </tbody>
@@ -136,34 +136,38 @@
       $("#modal-window").html("<%= escape_javascript(render 'tasks/form', new_task: @tasks_a ) %>");
     });
 
-    var complete_task = function () {
-      $(".complete-task").click(function (e) {
-        var id = $(e.currentTarget).data('task-completed');
-        var tasks_owner = $(this).closest('.dataTables_wrapper').find('.table').attr('id');
-        var parent_tr = $(this).parents('tr');
-        $.ajax({
-          type: "post",
-          url: '/tasks/complete_task',
-          data: {'task': {"task_id": id}},
-          success: function (data) {
-            tables.table('#'+tasks_owner).row( parent_tr ).remove().draw();
-            $('.alert').remove();
-            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
-            setTimeout(function () {
-              $('.alert-success').fadeOut();
-            }, 2000);
-          },
-          error: function (responce, status, error) {
-            $('.alert').remove();
-            $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + responce.responseText + "</div>");
-            setTimeout(function () {
-              $('.alert-danger').fadeOut();
-            }, 4000);
-          }
-        });
+    $(document).on('click', ".complete-task", function (e) {
+      var id = $(e.currentTarget).data('task-completed');
+      var tasks_owner = $(this).closest('.dataTables_wrapper').find('.table').attr('id');
+      var parent_tr = $(this).parents('tr');
+      $.ajax({
+        type: "post",
+        url: '/tasks/complete_task',
+        data: {'task': {"task_id": id}},
+        success: function (data) {
+          tables.table('#'+tasks_owner).row( parent_tr ).remove().draw();
+          $('.alert').remove();
+          $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+          setTimeout(function () {
+            $('.alert-success').fadeOut();
+          }, 2000);
+        },
+        error: function (responce, status, error) {
+          $('.alert').remove();
+          $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + responce.responseText + "</div>");
+          setTimeout(function () {
+            $('.alert-danger').fadeOut();
+          }, 4000);
+        }
       });
-    };
-    complete_task();
+    });
+    $(document).on('click', '.table tbody tr', function (e) {
+      if($(e.target).attr('href') === undefined && !$(e.target).hasClass('complete-task')){
+        var task_id = $(this).attr('id');
+        window.location = "/tasks/"+task_id;
+      }
+    });
+
     var tables = $('.table').DataTable({
       language: {
         search: "_INPUT_",
@@ -175,23 +179,6 @@
     });
     $("div.toolbar").html("<%= render(partial: 'tasks/filter_button') %>");
 
-    var row_link = function () {
-      $('.table tbody tr').click(function (e) {
-        console.log('row_link');
-        if($(e.target).attr('href') === undefined && !$(e.target).hasClass('complete-task')){
-          var task_id = $(this).attr('id');
-          window.location = "/tasks/"+task_id;
-        }
-      });
-    };
-    row_link();
-
-    tables.on( 'search.dt order.dt page.dt', function () {
-      console.log('dt.event');
-      complete_task();
-      row_link();
-    });
-
     $('.task-filter .dropdown-menu li a').click(function (e) {
       e.preventDefault();
       var text = $(this).text();
@@ -199,12 +186,7 @@
       var tasks_owner = $(this).closest('.task-filter').closest('.dataTables_wrapper').find('.table').attr('id');
       var case_id = '<%= @case.present? ? @case.id : nil %>';
       $(this).closest('.task-filter').find('a.btn-default').html(text.toUpperCase()+" <span class='caret'></span>");
-      tables.table('#'+tasks_owner).ajax.url('<%= get_tasks_path %>?tasks_owner='+tasks_owner+'&tasks_scope='+tasks_scope+'&case_id='+case_id).load(function (data) {
-        complete_task();
-        row_link();
-      });
-
-
+      tables.table('#'+tasks_owner).ajax.url('<%= get_tasks_path %>?tasks_owner='+tasks_owner+'&tasks_scope='+tasks_scope+'&case_id='+case_id).load(function (data) {});
     });
   });
 </script>

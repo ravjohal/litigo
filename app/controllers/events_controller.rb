@@ -343,7 +343,7 @@ class EventsController < ApplicationController
           # ne = hash of event, details of the event
           #puts " NE :::::::::::::::::::::::::::::::::::::::::::::::::::::: " + event.inspect + "  ----> " + ne.inspect
           if ne.is_a?(Nylas::Event)
-            if event == "create" or event == "modify"
+            if event == 'create' or event == 'modify'
               calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
               #puts " ACTIVE CALENDAR: 777777777777777777777777777777777777 " + calendar.inspect
               if calendar.present?
@@ -353,36 +353,8 @@ class EventsController < ApplicationController
                   event.destroy
                 else
                   if event.id && !event.changed?
-                    event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
-                                          location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                          when_type: ne.when['object'], created_by: event.id ? event.created_by : @user.id, last_updated_by: @user.id, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id, calendar_id: calendar.id,
-                                          namespace_id: namespace.id)
-                    case ne.when['object']
-                      when "date"
-                        parsed_date = Time.parse ne.when['date']
-                        event.starts_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
-                        event.ends_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
-                        event.all_day = true
-                      when "datespan"
-                        parsed_date = Time.parse ne.when['start_date']
-                        event.starts_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
-                        parsed_date = Time.parse ne.when['end_date']
-                        event.ends_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
-                        event.all_day = true
-                      when "time"
-                        event.starts_at = Time.at(ne.when['time']).utc.to_datetime
-                        event.ends_at = Time.at(ne.when['time']).utc.to_datetime
-                        event.all_day = false
-                      when "timespan"
-                        event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
-                        event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
-                        event.all_day = false
-                    end
-                    event.save
-                    ne.participants.each do |np|
-                      participant = Participant.find_or_create_by(email: np['email'], name: np['name'], firm_id: @firm.id)
-                      ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id, firm_id: @firm.id)
-                      ep.update(status: np['status'])
+                    event.assign_nylas_object! ne, @firm do
+                      event.assign_attributes created_by: event.id ? event.created_by : @user.id, last_updated_by: @user.id, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: namespace.id
                     end
                   end
                 end

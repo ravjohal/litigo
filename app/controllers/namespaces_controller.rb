@@ -36,70 +36,43 @@ class NamespacesController < ApplicationController
   def get_mass_calendar_events
     namespace = Namespace.find(params[:namespace_id])
     sync_period = params[:sync_period].to_i
+
+    user_calendars = @user.calendars
+
     @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
     ns = @inbox.namespaces.first
     events_synced = 0
     active_calendar_ids = params[:active_ids]
     inactive_calendar_ids = params[:inactive_ids]
-    user_calendars = @user.calendars
     nylas_calendar_ids = {}
 
     if active_calendar_ids.present?
-      active_calendar_ids.each do |active_id|
-        cal = user_calendars.find(active_id)
-        if cal.present?
-          nylas_calendar_ids[active_id] = cal.try(:calendar_id)
-          cal.update(active: true)
-        end
-      end
+      user_calendars.select(:id, :calendar_id).where(id: active_calendar_ids).each { |cal| nylas_calendar_ids[cal.id] = cal.try(:calendar_id) }
+      user_calendars.where(id: active_calendar_ids).update_all active: true
     end
+
     deleted_events = 0
     if inactive_calendar_ids.present?
-      inactive_calendar_ids.each do |inactive_id|
-        cal = user_calendars.find(inactive_id)
-        if cal.present?
-          cal.update(active: false)
-          cal_events = cal.events
-          deleted_events += cal_events.count
-          cal_events.destroy_all
-        end
-      end
+      event_condition = Event.where(calendar_id: inactive_calendar_ids)
+      deleted_events += event_condition.count
+      event_condition.destroy_all
+      user_calendars.where(id: inactive_calendar_ids).update_all active: false
     end
 
     if active_calendar_ids.present?
       events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
-      events.all.each do |ne|
+      events.each do |ne|
         if nylas_calendar_ids.has_value?(ne.calendar_id)
           event = Event.find_or_initialize_by(nylas_event_id: ne.id)
-          event.assign_attributes(nylas_calendar_id: ne.calendar_id, nylas_namespace_id: ne.namespace_id, description: ne.description,
-                                  location: ne.location, read_only: ne.read_only, title: ne.title, busy: ne.try(:busy), status: ne.try(:status),
-                                  when_type: ne.when['object'], created_by: @user.id, owner_id: namespace.user_id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id),
-                                  namespace_id: namespace.id)
-          case ne.when['object']
-            when "date"
-              event.starts_at = ne.when['date']
-              event.ends_at = ne.when['date']
-            when "datespan"
-              event.starts_at = ne.when['start_date']
-              event.ends_at = ne.when['end_date']
-            when "time"
-              event.starts_at = Time.at(ne.when['time']).utc.to_datetime
-              event.ends_at = Time.at(ne.when['time']).utc.to_datetime
-            when "timespan"
-              event.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
-              event.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
-          end
-          event.save
-          ne.participants.each do |np|
-            participant = Participant.find_or_create_by(email: np['email'], name: np['name'], firm_id: @firm.id)
-            ep = EventParticipant.find_or_initialize_by(event_id: event.id, participant_id: participant.id, firm_id: @firm.id)
-            ep.update(status: np['status'])
+          event.assign_nylas_object! ne, @firm do
+            event.assign_attributes created_by: @user.id, owner_id: namespace.user_id, firm_id: @firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id), namespace_id: namespace.id
           end
           events_synced += 1
         end
       end
       namespace.update(last_sync: Time.now, sync_period: sync_period)
     end
+
     message = "#{events_synced} events were synchronized."
     message += " #{deleted_events} events were deleted." if deleted_events > 0
     render :json => { success: true, message: message }

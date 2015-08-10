@@ -59,6 +59,7 @@
                   <%= f.text_area :note, label: false, :class => 'table-text' %>
               </td>
           </tr>
+<% if false %> <!-- START OF COMMENT -->            
           <tr>
             <td>
               <strong>Add Task:</strong>
@@ -108,16 +109,19 @@
               <td class="big-row">
                 <%= f.text_area :task_description, label: false, :class => 'table-text' %>
               </td>
-            </tr>
+            </tr>            
             <tr class="task_field">
               <td>
                 <strong>Add to My Calendar:</strong>
               </td>
               <td>
+                
                 <%= f.check_box :task_add_event, {:checked => true}, true, false %>
+                
                 <%= f.select :task_calendar_id, @user.active_calendars.map{ |c| ["#{c.namespace.full_name}: #{c.name}", c.id] }, include_blank: true, label: false, :class => 'table-input' %>
               </td>
             </tr>
+<% end %> <!-- END OF COMMENT -->
         </tbody>
     </table>
     <br>

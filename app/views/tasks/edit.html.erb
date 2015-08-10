@@ -115,6 +115,7 @@
           <%= f.text_area :description, :class => 'table-text'  %>
         </td>
       </tr>
+<% if false %> <!-- START OF COMMENT -->
        <tr>
         <td class="right">
           <strong>Add to My Calendar:</strong>
@@ -131,6 +132,7 @@
          <%= f.select :calendar_id, @user.active_calendars.map{ |c| ["#{c.namespace.full_name}: #{c.name}", c.id] }, include_blank: true, label: false, :class => 'table-input' %>
         </td>
       </tr>
+<% end %> <!-- END OF COMMENT -->
   </tbody>
 </table>
 

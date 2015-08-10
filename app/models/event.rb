@@ -13,16 +13,67 @@ class Event < ActiveRecord::Base
   validates_presence_of :starts_at, :ends_at
   validate :end_after_start
 
-  REPEATS = [
-      "Daily"          ,
-      "Weekly"         ,
-      "Monthly"        ,
-      "Yearly"
-  ]
+  REPEATS = %w(Daily Weekly Monthly Yearly)
+
+  def apply_nylas_event(ne)
+    case ne.when['object']
+      when 'date'
+        parsed_date = Time.parse ne.when['date']
+        self.starts_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        self.ends_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        self.all_day = true
+      when 'datespan'
+        parsed_date = Time.parse ne.when['start_date']
+        self.starts_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        parsed_date = Time.parse ne.when['end_date']
+        self.ends_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        self.all_day = true
+      when 'time'
+        self.starts_at = Time.at(ne.when['time']).utc.to_datetime
+        self.ends_at = Time.at(ne.when['time']).utc.to_datetime
+        self.all_day = false
+      when 'timespan'
+        self.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
+        self.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
+        self.all_day = false
+    end
+  end
+
+  def assign_nylas_object(ne)
+    assign_attributes(
+        nylas_calendar_id: ne.calendar_id,
+        nylas_namespace_id: ne.namespace_id,
+        description: ne.description,
+        location: ne.location,
+        read_only: ne.read_only,
+        title: ne.title,
+        busy: ne.try(:busy),
+        status: ne.try(:status),
+        when_type: ne.when['object']
+    )
+    yield if block_given?
+  end
+
+  def assign_nylas_object!(ne, firm)
+    assign_nylas_object ne
+    yield if block_given?
+    apply_nylas_event! ne
+
+    ne.participants.each do |np|
+      participant = Participant.find_or_create_by(email: np['email'], name: np['name'], firm_id: firm.id)
+      ep = EventParticipant.find_or_initialize_by(event_id: id, participant_id: participant.id, firm_id: firm.id)
+      ep.update(status: np['status'])
+    end
+  end
+
+  def apply_nylas_event!(ne)
+    apply_nylas_event ne
+    save
+  end
 
   def end_after_start
     if self.starts_at.present? && self.ends_at.present? && self.ends_at < self.starts_at
-      errors.add(:starts_at, "Date Later Than End Date")
+      errors.add(:starts_at, 'Date Later Than End Date')
     end
   end
 

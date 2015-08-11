@@ -149,7 +149,8 @@ class ClientIntakesController < ApplicationController
           end
         end
         CaseContact.create(case_id: @case.id, contact_id: contact.id, firm_id: @case.firm_id, role: 'Plaintiff')
-        user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id)
+
+        user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id, firm_id: @case.firm_id)
         if user_account_contact.present?
           CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, firm_id: @case.firm_id, role: 'Attorney')
         end

@@ -39,8 +39,8 @@ class NamespacesController < ApplicationController
 
     user_calendars = @user.calendars
 
-    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-    ns = @inbox.namespaces.first
+    ns = namespace.nylas_namespace
+
     events_synced = 0
     active_calendar_ids = params[:active_ids]
     inactive_calendar_ids = params[:inactive_ids]

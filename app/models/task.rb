@@ -45,8 +45,7 @@ class Task < ActiveRecord::Base
     if calendar
       event.calendar = calendar
       namespace = calendar.namespace
-      @inbox = Inbox::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-      nylas_namespace = @inbox.namespaces.first
+      nylas_namespace = namespace.nylas_namespace
       n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => event.title, :description => event.description,
                                              :location => event.location, :when => {:start_time => event.starts_at.to_i,
                                                                                      :end_time => event.ends_at.to_i},

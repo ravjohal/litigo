@@ -27,19 +27,29 @@
              <tr>
             <td>
             </td>
-            <% if false %> <!-- START OF COMMENT -->
             <td style="font-size: 10px;">
               <% if !@event.new_record? %>
-                <% if @event.created_at == @event.updated_at %>
-                  Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
-                <% else %>
-                  Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s  -%>
+                <% if @event.created_by == 0 && @event.last_updated_by == 0 %>
+                  Created By: <%= "External Calendar, last synced on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s  -%>
+                <% elsif @event.created_by == 0 && @event.last_updated_by != 0 %>
+                  Created By: <%= "External Calendar, last synced on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s  -%>
                   <br />
-                  Updated By: <%= @event.updated_by.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s %>
+                  Updated By: <%= @event.user.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s -%>
+                <% elsif @event.last_updated_by == 0 && @event.created_by != 0  %>
+                  Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s -%>
+                  <br />
+                  Updated By: <%= "External Calendar, last synced on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s  -%>
+                <% else %>
+                  <% if @event.created_at == @event.updated_at %>
+                    Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s -%>
+                  <% else %>
+                    Created By: <%= @event.user.name + " on " + @event.created_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s -%>
+                    <br />
+                    Updated By: <%= @event.user.name + " on " + @event.updated_at.try(:strftime, "%b %e, %Y %l:%M %p").to_s -%>
+                  <% end %>
                 <% end %>
               <% end %>
             </td>
-            <% end %> <!-- END OF COMMENT -->
           </tr>
           <tr>
             <td>

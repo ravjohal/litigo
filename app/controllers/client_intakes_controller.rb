@@ -88,7 +88,7 @@ class ClientIntakesController < ApplicationController
   end
 
   def accept_case
-    return redirect_to lead_path(@lead), alert: "Case already creaded from that lead" if @lead.case.present?
+    return redirect_to lead_path(@lead), alert: "Case already creaded from that lead" if Case.where(:lead_id => @lead.id).exists?
 
     case_attributes = @lead.generate_case_attrs(@user)
     @case = Case.new(case_attributes)
@@ -150,7 +150,7 @@ class ClientIntakesController < ApplicationController
         end
         CaseContact.create(case_id: @case.id, contact_id: contact.id, firm_id: @case.firm_id, role: 'Plaintiff')
 
-        user_account_contact = Contact.find_by(user_account_id: @lead.attorney_id, firm_id: @case.firm_id)
+        user_account_contact =  Contact.select(:id).where(:user_account_id => @lead.attorney_id).first
         if user_account_contact.present?
           CaseContact.create(case_id: @case.id, contact_id: user_account_contact.id, firm_id: @case.firm_id, role: 'Attorney')
         end

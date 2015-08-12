@@ -354,7 +354,7 @@ class EventsController < ApplicationController
                 else
                   if event.id && !event.changed?
                     event.assign_nylas_object! ne, @firm do
-                      event.assign_attributes created_by: 0, last_updated_by: 0, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: namespace.id
+                      event.assign_attributes created_by: event.id ? event.created_by : 0, last_updated_by: event.id ? event.last_updated_by : 0, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: namespace.id
                     end
                   end
                 end

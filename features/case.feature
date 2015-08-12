@@ -140,3 +140,259 @@ Feature: Case feature
     And I push delete button
     Then I should have message "Case was successfully deleted."
     And I verity deleted case for user "artem.suchov@gmail.com"
+
+  @javascript
+  Scenario: I should be able to open case through index page
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist
+    And I login without firm
+    And I open case management menu
+    And I go to first firm case
+    Then I should have text "Case #: 1"
+
+  @javascript
+  Scenario: I should be able to open case index page and see firm cases are sorted on # in descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with name "Name1"
+    And Default case exist with name "Name2"
+    And Default case exist with name "Name3"
+    And I login without firm
+    And I go to cases
+    Then I verify sorted firm cases on descending #
+
+  @javascript
+  Scenario: I should be able to open case index page and see own cases are sorted on # in descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with name "Name1"
+    And Default case exist with name "Name2"
+    And Default case exist with name "Name3"
+    And I login without firm
+    And I go to cases
+    Then I verify sorted own cases on descending #
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with name "Abc"
+    And Default case exist with name "Bcd"
+    And Default case exist with name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Case Name"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically in ascending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with name "Abc"
+    And Default case exist with name "Bcd"
+    And Default case exist with name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Case Name"
+    And I wait for "1" seconds
+    And I click on table "user_cases" header "Case Name"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically in descending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in type by ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with type and name "Abc"
+    And Default case exist with type and name "Bcd"
+    And Default case exist with type and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Case Type"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically type in ascending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in type by descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with type and name "Abc"
+    And Default case exist with type and name "Bcd"
+    And Default case exist with type and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Case Type"
+    And I wait for "1" seconds
+    And I click on table "user_cases" header "Case Type"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically type in descending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in summary by ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with summary and name "Abc"
+    And Default case exist with summary and name "Bcd"
+    And Default case exist with summary and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Case Summary"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically summary in ascending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in summary by descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with summary and name "Abc"
+    And Default case exist with summary and name "Bcd"
+    And Default case exist with summary and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Case Summary"
+    And I wait for "1" seconds
+    And I click on table "user_cases" header "Case Summary"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically summary in descending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in status by ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with status and name "Abc"
+    And Default case exist with status and name "Bcd"
+    And Default case exist with status and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Status"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically status in ascending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in status by descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with status and name "Abc"
+    And Default case exist with status and name "Bcd"
+    And Default case exist with status and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "user_cases" header "Status"
+    And I wait for "1" seconds
+    And I click on table "user_cases" header "Status"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically status in descending for "user_cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with name "Abc"
+    And Default case exist with name "Bcd"
+    And Default case exist with name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Case Name"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically in ascending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with name "Abc"
+    And Default case exist with name "Bcd"
+    And Default case exist with name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Case Name"
+    And I wait for "1" seconds
+    And I click on table "cases" header "Case Name"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically in descending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in type by ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with type and name "Abc"
+    And Default case exist with type and name "Bcd"
+    And Default case exist with type and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Case Type"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically type in ascending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in type by descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with type and name "Abc"
+    And Default case exist with type and name "Bcd"
+    And Default case exist with type and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Case Type"
+    And I wait for "1" seconds
+    And I click on table "cases" header "Case Type"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically type in descending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in summary by ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with summary and name "Abc"
+    And Default case exist with summary and name "Bcd"
+    And Default case exist with summary and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Case Summary"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically summary in ascending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in summary by descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with summary and name "Abc"
+    And Default case exist with summary and name "Bcd"
+    And Default case exist with summary and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Case Summary"
+    And I wait for "1" seconds
+    And I click on table "cases" header "Case Summary"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically summary in descending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in status by ascending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with status and name "Abc"
+    And Default case exist with status and name "Bcd"
+    And Default case exist with status and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Status"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically status in ascending for "cases"
+
+  @javascript
+  Scenario: I should be able to sort cases alphabetically in status by descending order
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with status and name "Abc"
+    And Default case exist with status and name "Bcd"
+    And Default case exist with status and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I click on table "cases" header "Status"
+    And I wait for "1" seconds
+    And I click on table "cases" header "Status"
+    And I wait for "1" seconds
+    Then I verify sorted cases alphabetically status in descending for "cases"

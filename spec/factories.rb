@@ -95,11 +95,11 @@ FactoryGirl.define do
   end
 
   factory :case do
-    case_number "#{Random.rand(5)}"
+    sequence(:case_number)
+    name "#{Faker::Lorem.characters(8)} #{Time.now.to_i}"
     case_type "case type #{Faker::Lorem.characters(7)}"
     subtype "subtype #{Faker::Lorem.characters(7)}"
-    name "#{Faker::Lorem.characters(8)}"
-    description "#{Faker::Lorem.words(Random.rand(10)).join(" ")}"
+    description "#{Faker::Lorem.words(Random.rand(10)).join(' ')}"
     factory :medical_case do
       case_type 'Personal Injury'
       subtype 'Insurance Bad Faith'

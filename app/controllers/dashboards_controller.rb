@@ -5,9 +5,7 @@ class DashboardsController < ApplicationController
   def new
     @lead = Lead.new
     if current_user.firm
-      if !current_user.contact_user
-         create_contact(User::USER_ROLES[current_user.invitation_role.to_i].to_s.humanize, current_user, current_user.firm)
-      end
+      current_user.create_contact User::USER_ROLES[current_user.invitation_role.to_i].to_s.humanize unless current_user.contact_user
       # if params[:google_auth]
       #   @calendars = @user.google_calendars
       # end
@@ -63,9 +61,7 @@ class DashboardsController < ApplicationController
       if @firm.save
         @user.save!
         UserSignedUpNotifier.send_notification(@user).deliver
-        if !Contact.find_by_email(@user.email)
-          create_contact_from_parms
-        end
+        create_contact_from_parms if Contact.where(user_account_id: @user.id, email: @user.email).count < 1
         format.html { redirect_to dashboard_path(@user), notice: 'Firm and Contact were successfully created.' }
         #format.json { render :show, status: :created, location: @firm }
       else
@@ -84,16 +80,6 @@ class DashboardsController < ApplicationController
     if class_string_name == "Staff/Paralegal"
       class_string_name = "Staff"
     end
-    create_contact(class_string_name, @user, @firm)
-  end
-end
-
-# Security vulnerability fix where constantize can be injected and changed through urls; http://blog.littleimpact.de/index.php/2008/08/13/constantize-with-care/
-class String
-  def constantize_with_care(list_of_klasses=[])
-    list_of_klasses.each do |klass|
-      return self.constantize if self == klass.to_s
-    end
-    raise "I'm not allowed to constantize #{self}!"
+    @user.create_contact(class_string_name, @firm)
   end
 end

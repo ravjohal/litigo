@@ -45,7 +45,10 @@ class CasesDatatable
     end
 
     if params[:iSortCol_0].to_i == 3
-      cases = cases.joins(:medical).order("total_med_bills #{sort_direction}")
+      # cases = cases.joins(:medical).order("total_med_bills #{sort_direction}")
+      cases = cases.order("description #{sort_direction}")
+    elsif params[:iSortCol_0].to_i == 4
+      cases = cases.order("status #{sort_direction}")
     else
       cases = cases.order("#{sort_column} #{sort_direction}")
     end

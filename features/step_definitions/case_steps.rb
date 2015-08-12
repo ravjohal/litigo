@@ -162,6 +162,36 @@ end
 Given(/^Default case exist$/) do
   step 'Default case exist for user: "artem.suchov@gmail.com"'
 end
+Given(/^Default case exist with name "(.*?)"$/) do |name|
+  step "Default case exist for user \"artem.suchov@gmail.com\" with name \"#{name}\""
+end
+
+Given(/^Default case exist with type "(.*?)"$/) do |type|
+  user = User.find_by :email => 'artem.suchov@gmail.com'
+  firm = user.firm
+  _case = FactoryGirl.create(:case, user: user, firm: firm, case_type: type)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
+end
+
+Given(/^Default case exist with type and name "(.*?)"$/) do |type|
+  user = User.find_by :email => 'artem.suchov@gmail.com'
+  firm = user.firm
+  _case = FactoryGirl.create(:case, user: user, firm: firm, subtype: type, name: type, :case_type => type)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
+end
+
+Given(/^Default case exist with summary and name "(.*?)"$/) do |type|
+  user = User.find_by :email => 'artem.suchov@gmail.com'
+  firm = user.firm
+  _case = FactoryGirl.create(:case, user: user, firm: firm, description: type, name: type)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
+end
+Given(/^Default case exist with status and name "(.*?)"$/) do |type|
+  user = User.find_by :email => 'artem.suchov@gmail.com'
+  firm = user.firm
+  _case = FactoryGirl.create(:case, user: user, firm: firm, status: type, name: type)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
+end
 
 Given(/^Default medical case exist$/) do
   step 'Default medical case exist for user: "artem.suchov@gmail.com"'
@@ -170,13 +200,22 @@ end
 Given(/^Default case exist for user: "(.*?)"$/) do |email|
   user = User.find_by :email => email
   firm = user.firm
-  FactoryGirl.create(:case, user: user, firm: firm)
+  _case = FactoryGirl.create(:case, user: user, firm: firm)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
+end
+
+Given(/^Default case exist for user "(.*?)" with name "(.*?)"$/) do |email, name|
+  user = User.find_by :email => email
+  firm = user.firm
+  _case = FactoryGirl.create(:case, user: user, firm: firm, name: name)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
 end
 
 Given(/^Default medical case exist for user: "(.*?)"$/) do |email|
   user = User.find_by :email => email
   firm = user.firm
-  FactoryGirl.create(:medical_case, user: user, firm: firm)
+  _case = FactoryGirl.create(:medical_case, user: user, firm: firm)
+  CaseContact.create(case_id: _case.id, contact_id: user.contact_user.try(:id), firm_id: firm.id, role: 'Attorney')
 end
 
 When(/^I go to first case$/) do
@@ -186,6 +225,7 @@ end
 
 When(/^I go to first firm case$/) do
   step 'I click "CASES"'
+  sleep 10
   step 'I click to element with selector "#cases tr > td > a"'
 end
 
@@ -222,4 +262,74 @@ end
 Then /^I verity deleted case for user "(.*?)"$/ do |email|
   user = User.find_by email: email
   expect(user.cases.size).to eq 0
+end
+
+Then /^I verify sorted firm cases on descending \#$/ do
+  cases = page.find('#cases')
+  expect(cases.find('tbody > tr:nth-child(1) > td:first-child')).to have_content '3'
+  expect(cases.find('tbody > tr:nth-child(2) > td:first-child')).to have_content '2'
+  expect(cases.find('tbody > tr:nth-child(3) > td:first-child')).to have_content '1'
+end
+
+Then /^I verify sorted own cases on descending \#$/ do
+  cases = page.find('#user_cases')
+  expect(cases.find('tbody > tr:nth-child(1) > td:first-child')).to have_content '3'
+  expect(cases.find('tbody > tr:nth-child(2) > td:first-child')).to have_content '2'
+  expect(cases.find('tbody > tr:nth-child(3) > td:first-child')).to have_content '1'
+end
+
+Then /^I verify sorted cases alphabetically in descending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(2)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(2)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(2)')).to have_content 'Abc'
+end
+
+Then /^I verify sorted cases alphabetically in ascending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(2)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(2)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(2)')).to have_content 'Abc'
+end
+
+Then /^I verify sorted cases alphabetically type in ascending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(3)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(3)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(3)')).to have_content 'Abc'
+end
+
+Then /^I verify sorted cases alphabetically type in descending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(3)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(3)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(3)')).to have_content 'Abc'
+  end
+
+Then /^I verify sorted cases alphabetically summary in ascending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(4)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(4)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(4)')).to have_content 'Abc'
+end
+
+Then /^I verify sorted cases alphabetically summary in descending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(4)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(4)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(4)')).to have_content 'Abc'
+  end
+
+Then /^I verify sorted cases alphabetically status in ascending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(5)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(5)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(5)')).to have_content 'Abc'
+end
+
+Then /^I verify sorted cases alphabetically status in descending for "(.*?)"$/ do |table|
+  cases = page.find "##{table}"
+  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(5)')).to have_content 'Cde'
+  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(5)')).to have_content 'Bcd'
+  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(5)')).to have_content 'Abc'
 end

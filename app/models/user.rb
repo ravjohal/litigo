@@ -52,6 +52,18 @@ class User < ActiveRecord::Base
 
   include ActiveCalendars
 
+  def create_contact(role, firm = self.firm)
+    klass = role
+    contact = klass.constantize_with_care(Contact::TYPES).new(:type => role)
+    contact.first_name = first_name
+    contact.last_name = last_name
+    contact.email = email
+    contact.user = self
+    contact.firm = firm
+    contact.user_account = self
+    contact.save!
+  end
+
   def active_calendars
     calendars.includes(:namespace).where(:active => true)
   end

@@ -54,7 +54,7 @@ Then(/^I should logged in$/) do
 end
 
 Given(/^Confirmed user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)"$/) do |first_name, last_name, email, password|
-  FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
+  _user = FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
 end
 
 Given(/^Confirmed admin user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)"$/) do |first_name, last_name, email, password|
@@ -92,6 +92,8 @@ Given(/^Firm exist for user: "(.*?)"$/) do |email|
   user = User.find_by :email => email
   user.firm = firm
   user.save!
+
+  user.create_contact :attorney.to_s.humanize, firm
 end
 
 When(/^I fill in the sign up form with invalid data$/) do

@@ -55,6 +55,18 @@ When(/^I click on "(.*?)"$/) do |button|
   click_on button
 end
 
+When(/^I click on table header "(.*?)"$/) do |button|
+  within 'table' do
+    find('th', :text => button).click
+  end
+end
+
+When(/^I click on table "(.*?)" header "(.*?)"$/) do |table_id, button|
+  within "##{table_id}" do
+    find('th', :text => button).click
+  end
+end
+
 When(/^I click to tab "(.*?)"$/) do |tab|
   find('#nav-tabs-custom').click_on tab
 end

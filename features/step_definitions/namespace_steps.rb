@@ -117,3 +117,14 @@ Then /^I verify deleted calendar for user "(.*?)"$/ do |email|
   expect(user.enabled_calendars.size).to eq 0
   expect(user.events.size).to eq 0
 end
+
+Then /^I should have created namespace for user "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  expect(user.namespaces.size).to eq 1
+  expect(user.calendars.size).to eq 1
+end
+
+Then /^Calendar should by synced for user "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  expect(user.events.size > 0).to be_true
+end

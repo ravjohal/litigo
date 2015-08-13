@@ -25,6 +25,7 @@ class Firm < ActiveRecord::Base
 	has_many :participants
 	has_many :event_participants
 	has_many :phones
+	has_many :interrogatories
 
 	validates_presence_of :name
 	validates_uniqueness_of :name

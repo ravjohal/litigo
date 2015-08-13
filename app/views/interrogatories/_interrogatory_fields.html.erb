@@ -1,0 +1,29 @@
+    <tr class="nested-fields interrogatory-field">
+      <td>
+          <%= f.text_area :question, :class => 'table-input' %>
+      </td>
+      <td>
+          <%= f.text_area :response, :class => 'table-input' %>
+      </td>
+      <td>
+          <%= f.text_field :requester, :class => 'table-input' %>
+      </td>
+      <td>
+          <%= f.text_field :responder, :class => 'table-input' %>
+      </td>    
+    <td class="insurance-icon" style="text-align: center;">
+      <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
+    </td>
+  </tr>
+
+<script type="text/javascript" charset="utf-8">
+  $("select").select2();
+  $('#children').on('cocoon:after-remove', function(e, insertedItem) {
+
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#remove').tipsy({gravity: 's', fade: true});
+  });
+</script>

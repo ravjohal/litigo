@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150812063108) do
+ActiveRecord::Schema.define(version: 20150813081739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -423,6 +423,24 @@ ActiveRecord::Schema.define(version: 20150812063108) do
 
   add_index "insurances", ["company_id"], name: "index_insurances_on_company_id", using: :btree
   add_index "insurances", ["firm_id"], name: "index_insurances_on_firm_id", using: :btree
+
+  create_table "interrogatories", force: :cascade do |t|
+    t.text     "question"
+    t.text     "response"
+    t.string   "requester"
+    t.string   "responder"
+    t.integer  "firm_id"
+    t.integer  "case_id"
+    t.integer  "created_by_id"
+    t.integer  "last_updated_by_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "interrogatories", ["case_id"], name: "index_interrogatories_on_case_id", using: :btree
+  add_index "interrogatories", ["created_by_id"], name: "index_interrogatories_on_created_by_id", using: :btree
+  add_index "interrogatories", ["firm_id"], name: "index_interrogatories_on_firm_id", using: :btree
 
   create_table "leads", force: :cascade do |t|
     t.integer  "screener_id"

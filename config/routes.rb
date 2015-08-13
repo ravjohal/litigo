@@ -124,6 +124,7 @@ Rails.application.routes.draw do
     resources :medicals
     resources :insurances
     resources :expenses
+    resources :interrogatories
   end
 
   get "cases/:id/summary" => 'cases#summary', as: :case_summary

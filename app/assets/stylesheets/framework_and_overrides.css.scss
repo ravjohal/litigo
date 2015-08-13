@@ -714,7 +714,7 @@ vertical-align: middle;
 #nav-tabs-custom{
   margin-left: -10px;
   position: relative;
-  margin-top: 35px;
+  margin-top: 36px;
   z-index: 1000;
   width: 100%;
   padding: 0 0 0 5px;
@@ -727,13 +727,13 @@ vertical-align: middle;
   display: inline-block;
 }
 #nav-tabs-custom a{
-  color: #B1B8C2;
-  font-weight: 400;
+   color: #B1B8C2;
+  font-weight: 700;
   font-size: 13px;
   letter-spacing: 1px;
   text-decoration: none;
-  padding-right: 10px;
-  padding-left: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
   padding-bottom: 8px;
    transition: .3s;
 }
@@ -744,7 +744,7 @@ vertical-align: middle;
   text-decoration: none;
 }
 #nav-tabs-custom a:active{
-  font-weight: 400;
+   font-weight: 700;
   cursor: pointer;
   letter-spacing: 1px;
   color: #323A45;

@@ -1,35 +1,35 @@
 
 
-<ul id="nav-tabs-custom" role="tablist" class="menu">
-<a class="more" href="#show_all">MORE</a>
-  <li> <%= active_link_to 'SUMMARY', case_summary_path(@case), :class_active => 'navigated' %></li>
-  <li <%= is_active('cases') %>><%= active_link_to 'DETAILS', case_path(@case), :class_active => 'navigated',  :active => [['cases'], ['show', 'edit']] %></li>
+<ul id="nav-tabs-custom" role="tablist" class="menu" style="font-weight: 700;">
+<a class="more" href="#show_all">MORE <span class=" "></span></a>
+  <li> <%= active_link_to 'Summary', case_summary_path(@case), :class_active => 'navigated' %></li>
+  <li <%= is_active('cases') %>><%= active_link_to 'Details', case_path(@case), :class_active => 'navigated',  :active => [['cases'], ['show', 'edit']] %></li>
   <% if @case.incident.present? %>
-    <li<%= is_active('incidents') %>><%= active_link_to 'INCIDENT', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
+    <li<%= is_active('incidents') %>><%= active_link_to 'Incident', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.medical.present? %>
-    <li<%= is_active('medicals') %>><%= active_link_to 'MEDICALS', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
+    <li<%= is_active('medicals') %>><%= active_link_to 'Medicals', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.insurance.present? %>
-    <li<%= is_active('insurance') %>><%= active_link_to 'INSURANCE', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
+    <li<%= is_active('insurance') %>><%= active_link_to 'Insurance', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
   <% end %>
    <% if @case.contacts %>
-     <li><%= active_link_to 'CONTACTS', case_contacts_path(@case), :class_active => 'navigated', :active => [['contacts'], ['index', 'assign_contacts']] %></li>
+     <li><%= active_link_to 'Contacts', case_contacts_path(@case), :class_active => 'navigated', :active => [['contacts'], ['index', 'assign_contacts']] %></li>
   <% end %>
   <% if @case.tasks %>
-     <li><%= active_link_to 'TASKS', case_tasks_path(@case), :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'Tasks', case_tasks_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.documents %>
-     <li><%= active_link_to 'DOCUMENTS', case_documents_path(@case) , :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'Documents', case_documents_path(@case) , :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.notes %>
-     <li><%= active_link_to 'NOTES', case_notes_path(@case) , :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'Notes', case_notes_path(@case) , :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.resolution %>
-     <li><%= active_link_to 'RESOLUTION', case_resolution_path(@case, @case.resolution) , :class_active => 'navigated' %></li>
+     <li><%= active_link_to 'Resolution', case_resolution_path(@case, @case.resolution) , :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.expenses || @case.time_entries%>
-    <li><%= active_link_to 'TIME & EXPENSE', case_expenses_path(@case) , :class_active => 'navigated' %></li>
+    <li><%= active_link_to 'Time & Expense', case_expenses_path(@case) , :class_active => 'navigated' %></li>
   <% end %>
 </ul>
 <br />

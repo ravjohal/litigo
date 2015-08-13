@@ -1,5 +1,5 @@
 <ul id="nav-tabs-custom" role="tablist">
-  <li <%= is_active('client_intakes') %>><%= active_link_to 'DETAILS', lead_path(@lead), :class_active => 'navigated',  :active => [['client_intakes'], ['show']] %></li>
-  <li><%= active_link_to 'CONTACT', lead_contact_path(@lead) , :class_active => 'navigated' %></li>
-  <li><%= active_link_to 'DOCUMENTS', lead_documents_path(@lead) , :class_active => 'navigated' %></li>
+  <li <%= is_active('client_intakes') %>><%= active_link_to 'Details', lead_path(@lead), :class_active => 'navigated',  :active => [['client_intakes'], ['show']] %></li>
+  <li><%= active_link_to 'Contact', lead_contact_path(@lead) , :class_active => 'navigated' %></li>
+  <li><%= active_link_to 'Documents', lead_documents_path(@lead) , :class_active => 'navigated' %></li>
 </ul>

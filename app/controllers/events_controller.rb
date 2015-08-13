@@ -11,91 +11,8 @@ class EventsController < ApplicationController
   def index
     prepare_event_sources
 
-    # @users.each_with_index do |user, index|
-    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-
-    #@event_sources.each
-
-    # puts "EVENTS GROUPD CALENDAR ***************************************** " + @event_sources.inspect
-    # end
-
-    # events_grouped = @firm.events.group_by{|e| [e.user_id, e.calendar_id]}
-    # puts "EVENTS GROUPED -------------------------------------------------------> " + events_grouped.inspect
-    # events_grouped.each do |user_cal, events|
-    #     user = User.find(user_cal.first)
-    #     puts "USER --------> " + user.id.to_s
-    #     hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-    #     events_for_calendar = []
-    #     puts "USER_CAL.LAST  " + user_cal.last.to_s + "\n"
-    #     if user_cal.last #if there is a calendar assoicated with this user
-    #       calendar = Calendar.find(user_cal.last) 
-    #       puts "CALENDARRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR " + calendar.inspect
-    #       calendar.events.each do |event|
-    #         event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-    #         events_for_calendar << event
-    #         puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
-    #       end  
-    #     else
-    #       events.each do |event|
-    #         event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-    #         events_for_calendar << event
-    #       end
-    #     end
-
-    #     hash[:events] = events_for_calendar
-    #     puts "HASH ++++++++++++++++++++++++++++++++++++++++++++ " + hash.inspect
-    #     @event_sources[user.id] = hash 
-    #     #puts "EVENT SOURCES ++++++++++++++++++++++++++++++++++++++++++++ " + @event_sources.inspect
-    #     end
-
-    #events_grouped = @firm.events.group_by(&:user_id)
-    #puts " EVENTS GROUPED -----------------------------------------------------------> " + events.inspect
-    # events_grouped.each do |user_cal, events|
-    #     user = User.find(u_id)
-    #     puts "USER --------> " + user.id.to_s
-    #     hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-
-    #     events_for_calendar = []
-    #     events.each do |event|
-    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-    #       events_for_calendar << event
-    #       #puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
-    #     end  
-
-    #     hash[:events] = events_for_calendar
-    #     puts "HASH ++++++++++++++++++++++++++++++++++++++++++++ " + hash.inspect
-    #     @event_sources[user.id] = hash 
-    #     #puts "EVENT SOURCES ++++++++++++++++++++++++++++++++++++++++++++ " + @event_sources.inspect
-    #     end
-    #     puts "EVENT SOURCES ++++++++++++++++++++++++++++++++++++++++++++ " + @event_sources.inspect
-    # @users.each_with_index do |user, index|
-    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-    #   events = []
-    #   user.calendars.each do |calendar| 
-    #     #puts "Calendar ------------------------------------------ " + calendar.inspect
-    #     calendar.events.each do |event|
-    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-    #       events << event
-    #       #puts "EVENT ++++++++++++++++++++++++++++++++++++++++++++ " + event.inspect
-    #     end
-    #   end
-    #   hash[:events] = events
-    #   @event_sources[user.id] = hash
-    # end
-
-    #puts "EVENT SOURCES &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + @event_sources.inspect
-    # @users.each_with_index do |user, index|
-    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-    #   events = []
-    #   if user.calendars
-    #     user.events.where(:calendar_id => user.calendars.pluck(:id)).each do |event|
-    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day }
-    #       events << event
-    #     end
-    #   end
-    #   hash[:events] = events
-    #   @event_sources[user.id] = hash
-    # end
+    # for populating the auto_complete dropdown
+    # TODO: need to think how to NOT call it twice (since it is being called in refresh_events as well)
     @emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end
@@ -194,11 +111,6 @@ class EventsController < ApplicationController
 
     @firm.participants.map { |user| users_emails << user.email unless user.email == @user.email }
     @firm.contacts.map { |user| users_emails << user.email unless user.email == @user.email }
-    # @user.firm.users.map {|user| users_emails << user.email unless user.email == @user.email}
-    # @user.events.map do |event|
-    #   event.participants.map {|participant| users_emails << participant.email unless participant.email == @user.email}
-    # end
-    #puts "USERS EMAILS +++++++++++++ " + users_emails.inspect
 
     users_emails.uniq.compact
   end

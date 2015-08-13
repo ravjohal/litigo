@@ -396,3 +396,33 @@ Feature: Case feature
     And I click on table "cases" header "Status"
     And I wait for "1" seconds
     Then I verify sorted cases alphabetically status in descending for "cases"
+
+  @javascript
+  Scenario: I should be able to make search in own user cases
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with status and name "Abc"
+    And Default case exist with status and name "Bcd"
+    And Default case exist with status and name "Bca"
+    And Default case exist with status and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I fill case search field "user_cases" with "Ab"
+    Then I should have cases "1" in table "user_cases"
+    When I fill case search field "user_cases" with "bc"
+    Then I should have cases "3,2" in table "user_cases"
+
+  @javascript
+  Scenario: I should be able to make search in firm cases
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist with status and name "Abc"
+    And Default case exist with status and name "Bcd"
+    And Default case exist with status and name "Bca"
+    And Default case exist with status and name "Cde"
+    And I login without firm
+    And I go to cases
+    And I fill case search field "cases" with "Ab"
+    Then I should have cases "1" in table "cases"
+    When I fill case search field "cases" with "bc"
+    Then I should have cases "3,2" in table "cases"

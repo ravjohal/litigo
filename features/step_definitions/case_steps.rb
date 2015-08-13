@@ -16,6 +16,7 @@ end
 When /^I go to cases$/ do
   step 'I open case management menu'
   click_on 'CASES'
+  sleep 0.3
 end
 
 When(/^I create a medical case$/) do
@@ -229,6 +230,13 @@ When(/^I go to first firm case$/) do
   step 'I click to element with selector "#cases tr > td > a"'
 end
 
+When /^I fill case search field "(.*?)" with "(.*?)"$/ do |id, value|
+  step "I fill field with selector \"##{id}_filter input\" with \"#{value}\""
+  step "I fill field with selector \"##{id}_filter input\" with \"#{value}\""
+  sleep 0.2
+  sleep 2
+end
+
 Then(/^I verify assigned contact "(.*?)" for user "(.*?)"$/) do |contact_type, email|
   _case = Case.last
   expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: contact_type, :contacts => {:email => email}).size).to eq(1)
@@ -332,4 +340,9 @@ Then /^I verify sorted cases alphabetically status in descending for "(.*?)"$/ d
   expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(5)')).to have_content 'Cde'
   expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(5)')).to have_content 'Bcd'
   expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(5)')).to have_content 'Abc'
+end
+
+Then /^I should have cases "(.*?)" in table "(.*?)"$/ do |case_nums, table|
+  cases = page.find "##{table}"
+  case_nums.split(',').each_with_index { |num, index| expect(cases.find("tbody > tr:nth-child(#{index.to_i+1}) > td:nth-child(1)")).to have_content num }
 end

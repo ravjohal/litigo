@@ -117,6 +117,14 @@ When /^I dismiss popup$/ do
   page.driver.browser.switch_to.alert.dismiss
 end
 
+When /^I fill field "(.*?)" with "(.*?)"$/ do |id, value|
+  fill_in id, with: value
+end
+
+When /^I fill field with selector "(.*?)" with "(.*?)"$/ do |selector, value|
+  page.execute_script(%($('#{selector}').val('#{value}').trigger('keydown').trigger('keyup')))
+end
+
 Given /^PENDING/ do
   pending
 end

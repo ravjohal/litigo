@@ -8,6 +8,7 @@ class Case < ActiveRecord::Base
 
   has_one :incident, dependent: :destroy
   has_one :insurance, -> { where(parent_id: nil) }, dependent: :destroy
+  has_one :interrogatory, -> { where(parent_id: nil) }, dependent: :destroy
   has_one :medical, dependent: :destroy
   has_one :resolution, dependent: :destroy
 

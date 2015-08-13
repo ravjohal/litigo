@@ -25,6 +25,16 @@ Feature: Events functionality
     And I sync events
     And I verify last synced events
 
+  @javascript
+  Scenario: I create event for two users and try to update participants
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    When I add simple namespace
+    Then I should have created namespace for user "artem.suchov@gmail.com"
+    When I activate calendars for simple namespace
+    Then Calendar should by synced for user "artem.suchov@gmail.com"
+
 #  @javascript
 #  Scenario: I create event for two users and try to update participants
 #    Given Confirmed default admin user exists

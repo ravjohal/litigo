@@ -41,6 +41,12 @@ Then(/^I get the confirmation email and confirm it$/) do
   sleep 0.5
 end
 
+Then(/^I should receive confirmation email for user "(.*?)"$/) do |user_email|
+  email = ActionMailer::Base.cached_deliveries.last
+  expect(email.to[0].to_s).to eq user_email
+  expect(email.subject.to_s).to eq 'Confirmation instructions'
+end
+
 #TODO select tag - rewrite
 Then(/^I fill in the modal window$/) do
   fill_in 'firm_name', with: 'RubyRiders'
@@ -105,6 +111,13 @@ When(/^I fill in the sign up form with invalid data$/) do
   click_on 'SIGN UP'
 end
 
+When(/^I fill in the sign in form with second user$/) do
+  visit '/users/sign_in'
+  fill_in 'user_email', with: 'andrew.suchov@gmail.com'
+  fill_in 'user_password', with: 'password'
+  click_on 'SIGN IN'
+end
+
 Then(/^I should see the sign_up form again$/) do
   expect(current_path).to eq new_user_registration_path
 end
@@ -166,7 +179,9 @@ When(/^I login with email "(.*?)" and password "(.*?)"$/) do |email, password|
 end
 
 When(/^I fill invite form with email "(.*?)"$/) do |email|
+  sleep 0.1
   page.execute_script(%($("input[name*='[email]']").val('#{email}')))
+  sleep 0.1
 end
 
 When(/^I change invited user role field$/) do
@@ -202,4 +217,10 @@ end
 Then /^I verify invited firm user$/ do
   firm = Firm.last
   expect(firm.users.count).to eq 2
+end
+
+Then /^Invite email should be sended to "(.*?)"$/ do |_email|
+  email = ActionMailer::Base.cached_deliveries.last
+  expect(email.to[0].to_s).to eq _email
+  expect(email.subject).to eq 'Invitation instructions'
 end

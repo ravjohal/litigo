@@ -190,7 +190,7 @@
   </tbody>
 </table>
 
- <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", :class => 'action-button med-plus pull-right' %>
+ <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", :class => 'action-button med-plus pull-right' %> 
 <div class="clearfix"></div>
   <div id="medical-bills">
        <table class="medicals" style="margin-top: 40px;">
@@ -199,16 +199,6 @@
                       <td colspan="8" class="gray-back">
                         <strong>Medical Bills</strong>
                       </td>
-              </tr>
-              <tr style="background-color: white;">
-                    <td><strong>Provider</strong></td>
-                    <td><strong>Physician</strong></td>
-                    <td><strong>Acct. No</strong></td>
-                    <td><strong>Date of Service</strong></td>
-                    <td><strong>Billed</strong></td>
-                    <td><strong>Adjustments</strong></td>
-                    <td><strong>Paid Amount</strong></td>
-                    <td></td>
               </tr>
               </thead>
       <tbody id="medical_bills" class="medical_bills_table">

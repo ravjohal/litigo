@@ -1,8 +1,8 @@
 <div id="nav-tabs-custom">
   <ul id="nav-tabs-custom" role="tablist">
-    <li><%= active_link_to 'PROFILE', users_profile_path, :class_active => 'navigated' %></li>
-    <li><%= active_link_to 'SETTINGS', users_settings_path, :class_active => 'navigated' %></li>
-    <% if current_user.admin? %><li><%= active_link_to 'MANAGE USERS', users_admin_path, :class_active => 'navigated' %></li><% end %>
-    <li><%= active_link_to 'CALENDARS', namespaces_path, :class_active => 'navigated' %></li>
+    <li><%= active_link_to 'Profile', users_profile_path, :class_active => 'navigated' %></li>
+    <li><%= active_link_to 'Settings', users_settings_path, :class_active => 'navigated' %></li>
+    <% if current_user.admin? %><li><%= active_link_to 'Manage Users', users_admin_path, :class_active => 'navigated' %></li><% end %>
+    <li><%= active_link_to 'Calendars', namespaces_path, :class_active => 'navigated' %></li>
   </ul>
 </div>

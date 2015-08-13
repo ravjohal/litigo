@@ -174,64 +174,51 @@
   </tr>
 </thead>
   <tbody>
-      <tr>
-          <td>
-              <strong>Provider</strong>
-          </td>
-          <td>
-              <strong>Physician</strong>
-          </td>
-          <td>
-              <strong>Acct. No</strong>
-          </td>
-          <td>
-              <strong>Date of Service</strong>
-          </td>
-           <td style="text-align: right;">
-              <strong>Billed Amount</strong>
-          </td>
-           <td style="text-align: right;">
-              <strong>Adjustments</strong>
-          </td>          
-          <td style="text-align: right;">
-              <strong>Paid Amount</strong>
-          </td>
-           <td style="text-align: right;">
-              <strong>Net Owed</strong>
-          </td>
-      </tr>
       <% @medical.medical_bills.each do |med| %>
-        <tr>
-            <td>
-               <%= med.company.name if med.company %>
+        <tr class="nested-fields medical-bill-field">
+            <td colspan="2">
+             <strong>Date of Service</strong><br>
+              <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>
             </td>
-            <td>
-               <%= med.physician.name if med.physician %>
+             <td colspan="2">
+            <strong>Provider</strong><br>
+              <%= med.company.name if med.company %>
             </td>
-            <td>
-                <%= med.account_number if med.account_number %>
+             <td colspan="4">
+             <strong>Services Rendered</strong><br>
+              <%= med.services %>
             </td>
-            <td>
-               <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>
+          </tr>
+          <tr class="nested-fields medical-bill-field" style="border-bottom: 2px solid black">
+            <td colspan="2">
+              <strong>Physician</strong><br>
+              <%= med.physician.name if med.physician %>
+            </td>
+            <td colspan="2">
+                <strong>Account Number</strong><br>
+              <%= med.account_number if med.account_number %>
             </td>
             <td style="text-align: right;">
-               <%= number_to_currency med.billed_amount %>
+            <strong>Billed</strong><br>
+              <%= number_to_currency med.billed_amount %>
             </td>
             <td style="text-align: right;">
-               <%= number_to_currency med.adjustments %>
-            </td>            
+            <strong>Adjustment</strong><br>
+              <%= number_to_currency med.adjustments %>
+            </td>    
             <td style="text-align: right;">
-               <%= number_to_currency med.paid_amount %>
-          </td>
-           <td style="text-align: right;">
-            <%= number_to_currency med.total_billed_adjustment_paid_amounts %>
-          </td>
-        </tr>
-        
+            <strong>Paid</strong><br>
+              <%= number_to_currency med.paid_amount %>
+            </td>
+            <td style="text-align: right;">
+            <strong>Net Owed</strong><br>
+              <%= number_to_currency med.total_billed_adjustment_paid_amounts %>
+            </td>
+          </tr>
       <% end %>
-         <tr>
+         <tr style="border-bottom: 2px solid black; border-style: double;">
           <td colspan="4" style="text-align: left;">
-              <strong>Total</strong>
+              <strong>Totals</strong>
           </td>
           <td style="text-align: right;">
               <strong><%= number_to_currency @medical.total_billed %></strong>

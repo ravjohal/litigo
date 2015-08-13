@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   include NylasHelper
   before_filter :authenticate_user!
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy, :event_drag]
   before_action :set_user, :set_firm
 
   #around_filter :user_time_zone, if: :current_user
@@ -9,22 +9,10 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    @users = @firm.users
-    @event_sources = {}
+    prepare_event_sources
 
     # @users.each_with_index do |user, index|
     #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-    compact_events = []
-
-    @firm.events.includes(:owner).each do |event|
-      user = event.owner
-      #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-      event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(@users.to_a.index(user)),
-               id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
-      compact_events << event
-    end
-    #puts "COMAPCTED EVENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + compact_events.inspect
-    @event_sources = compact_events.group_by { |d| d[:user_id] }
 
     #@event_sources.each
 
@@ -116,7 +104,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-    restrict_access("events") if @event.user.firm != current_user.firm
+    restrict_access('events') if @event.user.firm != current_user.firm
   end
 
   # GET /events/new
@@ -127,7 +115,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    restrict_access("events") if @event.user.firm != current_user.firm
+    restrict_access('events') if @event.user.firm != current_user.firm
     @model = @event
     @emails_autocomplete = emails_autocomplete
     if @event.calendar
@@ -146,68 +134,21 @@ class EventsController < ApplicationController
   def create
     calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
     calendar ||= nil
-    #user_id_for_hash = calendar ? @user.id : @user.id
-    #puts "USER RIGHT NOW: --------->> " + @user.inspect
-    attrs = {
-        title: event_params[:title],
-        description: event_params[:description],
-        location: event_params[:location],
-        starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        all_day: event_params[:all_day],
-        created_by: @user.id,
-        last_updated_by: @user.id,
-        owner_id: calendar ? calendar.namespace.user_id : @user.id,
-        firm_id: @firm.id
-    }
+
+    attrs = prepare_event_attr.merge({created_by: @user.id, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id})
+
     if event_params[:recur]
-      @event = EventSeries.new(attrs.merge({period: event_params[:period],
-                                            frequency: event_params[:frequency],
-                                            recur_start_date: Date.strptime(event_params[:recur_start_date], '%m/%d/%Y'),
-                                            recur_end_date: Date.strptime(event_params[:recur_end_date], '%m/%d/%Y')}))
+      event = EventSeries.new(attrs.merge({period: event_params[:period], frequency: event_params[:frequency], recur_start_date: parse_query_date(:recur_start_date), recur_end_date: parse_query_date(:recur_end_date)}))
     else
-      @event = Event.new(attrs)
+      event = Event.new(attrs)
     end
-    if @event.save
-      #puts "EVENT ******************************************************** " + @event.inspect
-      @event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
-      if calendar.present?
-        namespace = calendar.namespace
-        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-        nylas_namespace = @inbox.namespaces.first
-        if @event.class.name == 'Event'
-          if @event.all_day?
-            time_attributes = {:object => 'date', :date => @event.starts_at.strftime('%Y-%m-%d')}
-          else
-            time_attributes = {:start_time => @event.starts_at.to_i, :end_time => @event.ends_at.to_i}
-          end
 
-
-          n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => @event.title, :description => @event.description,
-                                                 :location => @event.location, :when => time_attributes,
-                                                 :participants => @event.participants.map { |p| {:email => p.email, :name => p.name} })
-          n_event.save!
-          #puts "n_event >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + n_event.inspect
-          @event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
-                        nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
-                        when_type: n_event.when['object'])
-          #puts "EVENT AFTER UPDATE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ " + @event.inspect 
-          #TODO figure out how to send recuring events to nylas
-        elsif @event.class.name == 'EventSeries'
-          @event.events.each do |e|
-            n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => e.title, :description => e.description,
-                                                   :location => e.location, :when => {:start_time => e.starts_at.to_i,
-                                                                                      :end_time => e.ends_at.to_i},
-                                                   :participants => e.participants.map { |p| {:email => p.email, :name => p.name} })
-            n_event.save!
-            e.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
-                     nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
-                     when_type: n_event.when['object'], firm_id: @firm.id)
-          end
-        end
-      end
+    if event.save
+      event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
+      event.create_process calendar, calendar.namespace.nylas_namespace, @firm.id unless calendar.blank?
     end
-    message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
+
+    message = event.errors.present? ? {error: event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
     respond_to do |format|
       format.html { redirect_to request.referrer, :flash => message }
     end
@@ -216,57 +157,15 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
-    attrs = {
-        title: event_params[:title],
-        description: event_params[:description],
-        location: event_params[:location],
-        starts_at: event_params[:all_day] ? Date.strptime(event_params[:start_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:start_date]} #{event_params[:start_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        ends_at: event_params[:all_day] ? Date.strptime(event_params[:end_date], '%m/%d/%Y').strftime('%Y-%m-%d') : DateTime.strptime("#{event_params[:end_date]} #{event_params[:end_time]}", '%m/%d/%Y %H:%M %p').strftime('%Y-%m-%d %H:%M %p'),
-        all_day: event_params[:all_day],
-        last_updated_by: @user.id
-    }
-    if @event.event_series.present? && event_params[:update_all_events] == 'true'
-      @event.event_series.update_events_until_end_time(event_params)
-    else
-      if @event.update(attrs)
-        @event.update_participants(event_params[:participants], @firm.id) unless event_params[:participants].nil?
-        if calendar.present?
-          namespace = calendar.namespace
-          @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-          nylas_namespace = @inbox.namespaces.first
-          n_event = nylas_namespace.events.find(@event.nylas_event_id)
-          n_event.title = @event.title
-          n_event.description = @event.description
-          n_event.location = @event.location
-          n_event.when = {:start_time => @event.starts_at.to_i, :end_time => @event.ends_at.to_i}
-          n_event.participants = @event.participants.map { |p| {:email => p.email, :name => p.name} }
-          n_event.save!
-          @event.update(when_type: n_event.when['object']) if n_event.when['object'] != @event.when_type
-        end
-      end
-    end
-
-    message = @event.errors.present? ? {error: @event.errors.full_messages.to_sentence} : {notice: 'Event was successfully updated.'}
+    @event.make_update event_params, prepare_event_attr, @firm.id
+    message = @event.errors.blank? ? {notice: 'Event was successfully updated.'} : {error: @event.errors.full_messages.to_sentence}
     respond_to do |format|
       format.html { redirect_to request.referrer, :flash => message }
     end
   end
 
   def event_drag
-    @event = @firm.events.find(params[:id].to_i)
-    calendar = @event.calendar
-    if @event.update(event_drag_params)
-      if calendar.present?
-        namespace = calendar.namespace
-        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-        nylas_namespace = @inbox.namespaces.first
-        n_event = nylas_namespace.events.find(@event.nylas_event_id)
-        n_event.when = {:start_time => @event.starts_at.to_i, :end_time => @event.ends_at.to_i}
-        n_event.save!
-        @event.update(last_updated_by: @user.id)
-        @event.update(when_type: n_event.when['object']) if n_event.when['object'] != @event.when_type
-      end
+    if @event && @event.drag_update(event_drag_params, @user.id)
       message = @event.errors.present? ? @event.errors.full_messages.to_sentence : 'Event was successfully updated.'
       render :json => {success: true, message: message}
     else
@@ -278,29 +177,9 @@ class EventsController < ApplicationController
   # DELETE /events/1.json
   def destroy
     if params[:delete_all] == 'true' && @event.event_series.present?
-      @event.event_series.events.each do |e|
-        calendar = e.calendar
-        nylas_event_id = e.nylas_event_id
-        if e.destroy
-          if nylas_event_id.present? && calendar.present?
-            namespace = calendar.namespace
-            @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-            nylas_namespace = @inbox.namespaces.first
-            n_event = nylas_namespace.events.find(nylas_event_id).destroy
-          end
-        end
-      end
+      @event.destroy_series
     else
-      calendar = @event.calendar
-      nylas_event_id = @event.nylas_event_id
-      if @event.destroy
-        if nylas_event_id.present? && calendar.present?
-          namespace = calendar.namespace
-          @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-          nylas_namespace = @inbox.namespaces.first
-          n_event = nylas_namespace.events.find(nylas_event_id).destroy
-        end
-      end
+      @event.nylas_destroy
     end
     respond_to do |format|
       format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
@@ -321,42 +200,29 @@ class EventsController < ApplicationController
     # end
     #puts "USERS EMAILS +++++++++++++ " + users_emails.inspect
 
-    return users_emails.uniq.compact
+    users_emails.uniq.compact
   end
 
   def refresh_events
     events_synced = 0
-
-    @event_sources = {}
-    @users = @firm.users
-    namespaces = @firm.namespaces
-    namespaces.includes(:calendars).each do |namespace|
+    @firm.namespaces.includes(:calendars).each do |namespace|
       active_calendars = namespace.active_calendars
       if active_calendars.present?
-        @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-        ns = @inbox.namespaces.first
-        cursor = namespace.cursor.present? ? namespace.cursor : ns.get_cursor(namespace.last_sync.to_i) #the last update of the namespace (to figure out the deltas)
+        ns = namespace.nylas_namespace
+        cursor = namespace.nylas_cursor
         last_cursor = nil
-        #puts " CURSOR: " + namespace.inspect + " --- " + cursor.inspect
-        ns.deltas(cursor, exclude=[Nylas::Tag, Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]) do |event, ne| # exclude all those in array, only need events for now
-          # event = action done by Nylas (modify, create, etc)
-          # ne = hash of event, details of the event
-          #puts " NE :::::::::::::::::::::::::::::::::::::::::::::::::::::: " + event.inspect + "  ----> " + ne.inspect
+        user_id = @user.id
+
+        ns.deltas(cursor, Namespace::NYLAS_EXCLUDE_DELTA) do |n_event, ne|
           if ne.is_a?(Nylas::Event)
-            if event == 'create' or event == 'modify'
+            if n_event == 'create' or n_event == 'modify'
               calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
-              #puts " ACTIVE CALENDAR: 777777777777777777777777777777777777 " + calendar.inspect
               if calendar.present?
                 event = Event.find_or_initialize_by(nylas_event_id: ne.id)
-                #puts " EVEN FIND OR INITIALIZE BY ))))))))))))))))))))))))))))))))))))))))))  " + event.inspect
                 if ne.status == 'cancelled'
                   event.destroy
                 else
-                  if event.id && !event.changed?
-                    event.assign_nylas_object! ne, @firm do
-                      event.assign_attributes created_by: event.id ? event.created_by : @user.id, last_updated_by: @user.id, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: namespace.id
-                    end
-                  end
+                  event.assign_nylas_while_refresh ne, @firm, user_id, calendar, namespace
                 end
               end
             end
@@ -367,68 +233,43 @@ class EventsController < ApplicationController
         namespace.update(cursor: last_cursor) if last_cursor.present?
       end
     end
-
-    #@users = @firm.users
-    @event_sources = {}
-
-    # @users.each_with_index do |user, index|
-    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-    compact_events = []
-
-    @firm.events.includes(:owner).each do |event|
-      user = event.owner
-      #hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-      event = {user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(@users.to_a.index(user)),
-               id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
-      compact_events << event
-    end
-    #puts "COMAPCTED EVENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% " + compact_events.inspect
-    @event_sources = compact_events.group_by { |d| d[:user_id] }
-
-    #@event_sources.each
-
-    #puts "EVENTS GROUPD CALENDAR ***************************************** " + @event_sources.inspect
-
-
-    # @users.each_with_index do |user, index|
-    #   hash = {user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(index)}
-    #   events = []
-    #   user.calendars.each do |calendar|
-    #       calendar.events.each do |event|
-    #       event = {id: event.id, title: event.title, start: event.starts_at, end: event.ends_at, allDay: event.all_day}
-    #       events << event
-    #     end
-    #   end
-    #   hash[:events] = events
-    #   #puts " HASH &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + hash.inspect
-    #   @event_sources[user.id] = hash
-    # end
-
-    #puts " EVENT SOURCES ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ " + @event_sources.inspect 
     message = "#{events_synced} events were synced."
+
     respond_to do |format|
       format.html { redirect_to request.referrer, notice: message }
-      format.json { render json: {events: @event_sources, events_synced: events_synced, message: message} }
+      format.json {
+        prepare_event_sources
+        render json: {events: @event_sources, events_synced: events_synced, message: message}
+      }
     end
   end
 
   def get_user_events
     #user = User.find(params[:user_id])
     @events = @user.events
-    events_list = @events.select([:id, :subject, :start, :end, :all_day]).map { |e| {id: e.id,
-                                                                                     title: '',
-                                                                                     start: e.all_day ? "#{e.start.to_date}" : "#{e.start.to_datetime}",
-                                                                                     end: e.all_day ? "#{e.end.to_date-1.day}" : "#{e.end.to_datetime}",
-                                                                                     allDay: e.all_day} }
+    events_list = @events.select([:id, :subject, :start, :end, :all_day]).map { |e| e.to_json_hash }
     respond_to do |format|
       format.json { render json: {events: events_list} }
     end
   end
 
   private
+
+  def prepare_event_sources
+    @users ||= @firm.users
+
+    compact_events = @firm.events.includes(:owner).map do |event|
+      user = event.owner
+      event.to_json_hash.merge({ user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(@users.to_a.index(user)) })
+    end
+
+    @event_sources = compact_events.group_by { |d| d[:user_id] } || {}
+  end
+
+
   # Use callbacks to share common setup or constraints between actions.
   def set_event
-    @event = Event.find(params[:id])
+    @event = Event.find(params[:id].to_i)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -445,4 +286,29 @@ class EventsController < ApplicationController
   def user_time_zone(&block)
     Time.use_zone(current_user.time_zone, &block)
   end
+
+  def parse_query_date(date)
+    EventDateConverter.parse_query_date event_params[date]
+  end
+
+  def convert_query_date(date)
+    EventDateConverter.convert_query_date event_params[date]
+  end
+
+  def convert_query_time(date, time)
+    EventDateConverter.convert_query_time event_params[date], event_params[time]
+  end
+
+  def prepare_event_attr
+    {
+        title: event_params[:title],
+        description: event_params[:description],
+        location: event_params[:location],
+        starts_at: event_params[:all_day] ? convert_query_date(:start_date) : convert_query_time(:start_date, :start_time),
+        ends_at: event_params[:all_day] ? convert_query_date(:end_date) : convert_query_time(:end_date, :end_time),
+        all_day: event_params[:all_day],
+        last_updated_by: @user.id
+    }
+  end
+
 end

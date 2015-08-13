@@ -207,11 +207,10 @@ class Event < ActiveRecord::Base
 
   # @param [Inbox::Event] ne
   # @param [Firm] firm
-  # @param [Integer] user_id
   # @param [Calendar] calendar
   # @param [Namespace] namespace
-  def assign_nylas_while_refresh(ne, firm, user_id, calendar, namespace)
-    assign_nylas_object!(ne, firm) { assign_attributes last_updated_by: user_id, owner_id: calendar.namespace.user_id, firm_id: firm.id, calendar_id: calendar.id, namespace_id: namespace.id } if id && !changed?
+  def assign_nylas_while_refresh(ne, firm, calendar, namespace)
+    assign_nylas_object!(ne, firm) { assign_attributes owner_id: calendar.namespace.user_id, firm_id: firm.id, calendar_id: calendar.id, namespace_id: namespace.id } if id && !changed?
   end
 
 end

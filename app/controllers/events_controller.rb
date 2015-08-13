@@ -211,7 +211,6 @@ class EventsController < ApplicationController
         ns = namespace.nylas_namespace
         cursor = namespace.nylas_cursor
         last_cursor = nil
-        user_id = @user.id
 
         ns.deltas(cursor, Namespace::NYLAS_EXCLUDE_DELTA) do |n_event, ne|
           if ne.is_a?(Nylas::Event)
@@ -222,12 +221,7 @@ class EventsController < ApplicationController
                 if ne.status == 'cancelled'
                   event.destroy
                 else
-                  event.assign_nylas_while_refresh ne, @firm, user_id, calendar, namespace
-                  if event.id && !event.changed?
-                    event.assign_nylas_object! ne, @firm do
-                      event.assign_attributes created_by: event.id ? event.created_by : 0, last_updated_by: event.id ? event.last_updated_by : 0, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id, calendar_id: calendar.id, namespace_id: namespace.id
-                    end
-                  end
+                  event.assign_nylas_while_refresh ne, @firm, calendar, namespace
                 end
               end
             end

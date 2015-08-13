@@ -1,4 +1,8 @@
+require 'resque/server'
+
 Rails.application.routes.draw do
+
+  mount Resque::Server.new, at: "/resque"
 
   get 'reports' => 'reports#index', as: :reports
   get 'reports/show' => 'reports#show', as: :report_show
@@ -137,6 +141,7 @@ Rails.application.routes.draw do
     resources :injuries
   end
   get "emails_autocomplete" => "events#emails_autocomplete"
+  get "sync_calendar" => "events#sync_calendar"
   post "event_drag" => "events#event_drag"
   post "get_user_events" => "events#get_user_events", as: :get_user_events
   post "send_feedback_clean" => "users#send_feedback_clean", :defaults => { :format => :json }

@@ -26,42 +26,51 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="4" class="gray-back">
-      <strong>Interrogatory Summary</strong>
+    <td colspan="11" class="gray-back">
+      <strong>Interrogatories</strong>
+    <a href="#" class="toggler" data-prod-cat="1" style="color:white; float: right;">Show Replies</a>
     </td>
   </tr>
 </thead>
   <tbody>
+  <% @interrogatory_children.each do |interrogatory| %>
   <tr>
-          <td class="right">
-              <strong>Question</strong>
+          <td class="text-center">
+              <strong><%= @interrogatory.id %></strong><br>
           </td>
-          <td class="right">
-              <strong>Response</strong>
-          </td>
-          <td class="right">
-              <strong>Requester</strong>
-          </td>
-           <td class="right">
-              <strong>Response</strong>
-          </td>      
-      </tr>
-      <% @interrogatory_children.each do |interrogatory| %>
-      <tr>
-          <td>
-              <%= interrogatory.try(:question) %>
-          </td>
-          <td>
-              <%= interrogatory.try(:response) %>
-          </td>
-          <td>
+          <td class="right" colspan="2">
+              <strong>Requester</strong><br>
               <%= interrogatory.try(:requester) %>
           </td>
-          <td>
+          <td class="right" colspan="4">
+              <strong>Interrogatory</strong><br>
+              <%= interrogatory.try(:question) %><br>
+          </td>
+          <td class="text-center" colspan="2">
+              <strong>Date Requested</strong><br>
+              <%= interrogatory.try(:req_date) %>
+          </td>
+          <td class="text-center" colspan="2">
+              <strong>Date Replied</strong><br>
+              <%= interrogatory.try(:res_date) %>
+          </td>
+  </tr>
+      <tr class="cat1" style="display:none; border-bottom: 2px solid black;">
+        <td>
+        </td>
+          <td class="right" colspan="2">
+              <strong>Responder</strong><br>
               <%= interrogatory.try(:responder) %>
-          </td>        
+          </td>
+          <td class="right" colspan="4">
+              <strong>Reply</strong><br>
+              <%= interrogatory.try(:response) %>
+          </td>
+           <td class="text-center" colspan="4 ">
+              [Doc link goes here]
+          </td>
       </tr>
-      <% end %>
+    <% end %> 
   </tbody>
 </table>
 </div>
@@ -69,4 +78,12 @@
   $(function() {
     $('#print').tipsy({gravity: 'ne', fade: true});
   });
+</script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".toggler").click(function(e){
+        e.preventDefault();
+        $('.cat'+$(this).attr('data-prod-cat')).toggle();
+    });
+});
 </script>

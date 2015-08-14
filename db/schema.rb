@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813081739) do
+ActiveRecord::Schema.define(version: 20150814071414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -436,6 +436,8 @@ ActiveRecord::Schema.define(version: 20150813081739) do
     t.integer  "parent_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.date     "req_date"
+    t.date     "rep_date"
   end
 
   add_index "interrogatories", ["case_id"], name: "index_interrogatories_on_case_id", using: :btree
@@ -489,6 +491,21 @@ ActiveRecord::Schema.define(version: 20150813081739) do
   add_index "leads", ["contact_id"], name: "index_leads_on_contact_id", using: :btree
   add_index "leads", ["firm_id"], name: "index_leads_on_firm_id", using: :btree
   add_index "leads", ["status"], name: "index_leads_on_status", using: :btree
+
+  create_table "litigations", force: :cascade do |t|
+    t.integer  "firm_id"
+    t.integer  "case_id"
+    t.integer  "parent_id"
+    t.integer  "user_id"
+    t.string   "requester"
+    t.string   "responder"
+    t.text     "interrogatory"
+    t.text     "int_reply"
+    t.date     "int_date"
+    t.date     "reply_date"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
 
   create_table "medical_bills", force: :cascade do |t|
     t.string   "provider"

@@ -1,20 +1,41 @@
-    <tr class="nested-fields interrogatory-field">
-      <td>
-          <%= f.text_area :question, :class => 'table-input' %>
-      </td>
-      <td>
-          <%= f.text_area :response, :class => 'table-input' %>
-      </td>
-      <td>
-          <%= f.text_field :requester, :class => 'table-input' %>
-      </td>
-      <td>
-          <%= f.text_field :responder, :class => 'table-input' %>
-      </td>    
-    <td class="insurance-icon" style="text-align: center;">
-      <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
-    </td>
+      <tr class="nested-fields interrogatory-field">
+          <td class="text-center">
+              <strong><%= @interrogatory.id %></strong>
+          </td>
+          <td class="right" colspan="2">
+              <strong>Requester</strong><br>
+              <%= f.text_field :requester, :class => 'table-input' %>
+          </td>
+          <td class="right" colspan="4">
+              <strong>Interrogatory</strong><br>
+              <%= f.text_area :question, :class => 'table-input' %>
+          </td>
+          <td class="right" colspan="2">
+              <strong>Date Requested</strong><br>
+              <%= f.date_field :req_date, :class => 'table-input' %>
+          </td>
+          <td class="right" colspan="2">
+              <strong>Date Replied</strong><br>
+              <%= f.date_field :req_date, :class => 'table-input' %>
+          </td>
   </tr>
+  <tr class="nested-fields interrogatory-field" style="border-bottom: 2px solid black;">
+           <td class="insurance-icon" style="text-align: center;">
+                <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Interrogatory"></span><% end %>
+        </td>
+          <td class="right" colspan="2">
+              <strong>Responder</strong><br>
+              <%= f.text_field :responder, :class => 'table-input' %>
+          </td>
+          <td class="right" colspan="4">
+              <strong>Reply</strong><br>
+              <%= f.text_field :response, :class => 'table-input' %>
+              <br>
+          </td>
+           <td class="text-center" colspan="4">
+              [Choose File button goes here]
+          </td>
+      </tr>
 
 <script type="text/javascript" charset="utf-8">
   $("select").select2();

@@ -1,4 +1,28 @@
+# module ScaledJob
+#   def after_enqueue_scale_workers(*args)
+#     Rails.logger.info "Scaling worker count up"
+#     Scaler.up! if Redis.info[:pending].to_i > 25
+#   end
+# end
+
+module LoggedJob
+  def before_perform_log_job(*args)
+    Rails.logger.info "About to perform #{self} with #{args.inspect}"
+  end
+end
+
+module RetriedJob
+  def on_failure_retry(e, *args)
+    Rails.logger.info "Performing #{self} caused an exception (#{e}). Retrying..."
+    Resque.enqueue self, *args
+  end
+end
+
+
 class SyncCalendar
+  extend LoggedJob
+  extend RetriedJob
+  # extend ScaledJob
 
 	@queue = :calendar
 

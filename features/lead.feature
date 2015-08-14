@@ -234,3 +234,23 @@ Feature: Create Lead Test
     Then I verify sorted rows in table "leads" in column "5" by values "Appt. Scheduled,Appt. Scheduled,Appt. Scheduled,New Lead - Pending Review,New Lead - Pending Review"
     When I click on table "leads" header "Status"
     Then I verify sorted rows in table "leads" in column "5" by values "New Lead - Pending Review,New Lead - Pending Review,Appt. Scheduled,Appt. Scheduled,Appt. Scheduled"
+
+  @javascript
+  Scenario: I should be able to make search on lead index page
+    Given Confirmed default user exists
+    And Firm for default user exist
+    And Confirmed firm user exists with first name "Aaaaa", last name "Aaaaaaa", email "aaaaaaa@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And Confirmed firm user exists with first name "Bbbbb", last name "Bbbbbbb", email "bbbbbbb@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And Confirmed firm user exists with first name "Ccccc", last name "Ccccccc", email "ccccccc@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameA" and "LastNameA" and date "08/08/2014" and estimated "100" and status "pending_review"
+    And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameB" and "LastNameB" and date "09/09/2014" and estimated "200" and status "appointment_scheduled"
+    And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "aaaaaaa@gmail.com" with name "FirstNameAa" and "LastNameAa" and date "10/10/2014" and estimated "300" and status "appointment_scheduled"
+    And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "bbbbbbb@gmail.com" with name "FirstNameBb" and "LastNameBb" and date "11/11/2014" and estimated "400" and status "appointment_scheduled"
+    And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "ccccccc@gmail.com" with name "FirstNameCc" and "LastNameCc" and date "12/12/2014" and estimated "500" and status "pending_review"
+    When I login without firm
+    And I click on "Caller Intake"
+#    And I wait for "10" seconds
+    And I fill case search field "user_leads" with "FirstNameA"
+    Then I verify sorted rows in table "user_leads" in column "3" by values "FirstNameA"
+    And I fill case search field "leads" with "FirstNameA"
+    Then I verify sorted rows in table "leads" in column "3" by values "FirstNameAa,FirstNameA"

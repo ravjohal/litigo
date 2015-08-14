@@ -27,28 +27,12 @@
 <table id="info-table3">
 <thead>
   <tr class="right-top">
-    <td colspan="5" class="gray-back">
-      <strong>Interrogatory Summary</strong>
+    <td colspan="11" class="gray-back">
+      <strong>Interrogatories</strong>
     </td>
   </tr>
 </thead>
   <tbody id="children">
-      <tr>
-          <td class="right">
-              <strong>Interrogatory</strong>
-          </td>
-          <td class="right">
-              <strong>Response</strong>
-          </td>
-          <td class="right">
-              <strong>Requester</strong>
-          </td>
-           <td class="right">
-              <strong>Response</strong>
-          </td>
-          <td style="text-align: center;">
-          </td>
-      </tr>
       <%= f.simple_fields_for :children do |interrogatory| %>
         <%= render 'interrogatory_fields', :f => interrogatory %>
       <% end %>

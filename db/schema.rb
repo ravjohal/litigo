@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150813081739) do
+ActiveRecord::Schema.define(version: 20150814103543) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -427,8 +427,6 @@ ActiveRecord::Schema.define(version: 20150813081739) do
   create_table "interrogatories", force: :cascade do |t|
     t.text     "question"
     t.text     "response"
-    t.string   "requester"
-    t.string   "responder"
     t.integer  "firm_id"
     t.integer  "case_id"
     t.integer  "created_by_id"
@@ -436,6 +434,11 @@ ActiveRecord::Schema.define(version: 20150813081739) do
     t.integer  "parent_id"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.date     "req_date"
+    t.date     "rep_date"
+    t.string   "document"
+    t.integer  "requester_id"
+    t.integer  "responder_id"
   end
 
   add_index "interrogatories", ["case_id"], name: "index_interrogatories_on_case_id", using: :btree

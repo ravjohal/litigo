@@ -61,7 +61,7 @@ Then /^I verify saved case incident$/ do
   expect(incident).to_not be_nil
   expect(incident.location).to eq 'Alabama'
   expect(incident.defendant_liability.to_f).to eq 80.0
-  expect(incident.incident_date.strftime('%F')).to eq '2015-12-12'
+  expect(simple_input_format_date(incident.incident_date)).to eq '2015-12-12'
 end
 
 Then /^I verify updated case incident$/ do
@@ -70,7 +70,7 @@ Then /^I verify updated case incident$/ do
   expect(incident).to_not be_nil
   expect(incident.location).to eq 'Alabama2'
   expect(incident.defendant_liability.to_f).to eq 90.0
-  expect(incident.incident_date.strftime('%F')).to eq '2015-10-10'
+  expect(simple_input_format_date(incident.incident_date)).to eq '2015-10-10'
 end
 
 Then(/^The incident for user with email "(.*?)" should be saved to the db$/) do |arg1|
@@ -79,5 +79,5 @@ Then(/^The incident for user with email "(.*?)" should be saved to the db$/) do 
   expect(incident).to_not be_nil
   expect(incident.location).to eq 'Alabama'
   expect(incident.defendant_liability.to_f).to eq 80.0
-  expect(incident.incident_date.strftime('%F')).to eq '2015-12-12'
+  expect(simple_input_format_date(incident.incident_date)).to eq '2015-12-12'
 end

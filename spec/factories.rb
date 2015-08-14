@@ -11,6 +11,21 @@ FactoryGirl.define do
     type "#{Faker::Lorem.characters(8)}"
   end
 
+  factory :lead do
+    first_name Faker::Name.first_name
+    last_name Faker::Name.last_name
+    address "#{Faker::Address.street_name} #{Faker::Address.street_address}"
+    city Faker::Address.city
+    state Faker::Address.state_abbr
+    zip_code Faker::Address.zip_code
+    phone Faker::PhoneNumber.cell_phone
+    dob Faker::Date.backward(365*30)
+    ssn "#{Faker::Number.number(10)}"
+    marketing_channel 'Google'
+    note Faker::Lorem.paragraph
+  end
+
+
   factory :contact_similar, class: Contact do
     first_name "#{Faker::Lorem.characters(8)}"
     last_name "#{Faker::Lorem.characters(8)}"

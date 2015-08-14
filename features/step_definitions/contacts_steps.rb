@@ -84,10 +84,10 @@ Then /^The contact info should be saved$/ do
   expect(contact.last_name).to eq('LastName')
   expect(contact.middle_name).to eq('MiddleName')
   expect(contact.gender).to eq('M')
-  expect(contact.date_of_birth.strftime('%F')).to eq('2014-12-12')
+  expect(simple_input_format_date(contact.date_of_birth)).to eq('2014-12-12')
   expect(contact.ssn).to eq('1234567890')
-  expect(contact.major_date.strftime('%F')).to eq('2014-12-12')
-  expect(contact.date_of_death.strftime('%F')).to eq('2014-12-12')
+  expect(simple_input_format_date(contact.major_date)).to eq('2014-12-12')
+  expect(simple_input_format_date(contact.date_of_death)).to eq('2014-12-12')
   expect(contact.job_description).to eq('Job Description')
   expect(contact.salary.to_f).to eq 123456.0
   expect(contact.time_bound).to eq('Hour')

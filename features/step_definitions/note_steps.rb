@@ -100,7 +100,7 @@ Then(/^The note with task for user with email "(.*?)" should be saved to the db$
   task = u.tasks.first
   expect(task.name).to eq 'NewNoteTaskName'
   expect(task.description).to eq 'NewNoteTaskDescription'
-  expect(task.due_date.strftime('%F')).to eq '2015-12-12'
+  expect(simple_input_format_date(task.due_date)).to eq '2015-12-12'
 end
 
 Then(/^The case note for user with email "(.*?)" should be saved to the db$/) do |arg1|

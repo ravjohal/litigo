@@ -1,3 +1,54 @@
+Given /^Default lead for default user$/ do
+  step 'Default lead for user "artem.suchov@gmail.com"'
+end
+
+Given /^Default lead for user "(.*?)"$/ do |email|
+  step "Exist lead for user \"#{email}\""
+end
+
+Given /^Exist simple lead for user "(.*?)"$/ do |email|
+  user = User.find_by email: email
+  firm = user.firm
+  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm)
+end
+
+Given /^Exist lead in date "(.*?)" for user "(.*?)"$/ do |date, email|
+  user = User.find_by email: email
+  firm = user.firm
+  Time.zone = user.time_zone if user
+
+  time_strptime = Time.strptime(date, '%m/%d/%Y')
+  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+end
+
+Given /^Exist advanced lead for user "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)"$/ do |email, first_name, last_name, date|
+  user = User.find_by email: email
+  firm = user.firm
+  Time.zone = user.time_zone if user
+  time_strptime = Time.strptime(date, '%m/%d/%Y')
+  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+end
+
+Given /^Exist lead for attorney "(.*?)" and user "(.*?)" and date "(.*?)"$/ do |email_attorney, email, date|
+  user = User.find_by email: email
+  firm = user.firm
+
+  attorney = User.find_by email: email_attorney
+  Time.zone = user.time_zone if user
+  time_strptime = Time.strptime(date, '%m/%d/%Y')
+  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+end
+
+Given /^Exist difficult lead for user "(.*?)" for attorney "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)"$/ do |email, email_attorney, first_name, last_name, date|
+  user = User.find_by email: email
+  firm = user.firm
+
+  attorney = User.find_by email: email_attorney
+  Time.zone = user.time_zone if user
+  time_strptime = Time.strptime(date, '%m/%d/%Y')
+  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+end
+
 When(/^I create a lead$/) do
   step 'I create a lead with name "Leeds" and last name "United"'
 end
@@ -99,6 +150,29 @@ Then(/^I verify lead has been changed for user: "(.*?)"$/) do |arg1|
   expect(lead.last_name).to  eq 'United 2'
 end
 
+When /^I add document for lead$/ do
+  step 'I click to tab "Documents"'
+  click_on 'NEW LEAD DOCUMENT'
+  step 'I fill document popup'
+end
+
+When /^I edit lead contact$/ do
+  click_on 'Edit'
+  fill_in 'lead_first_name', with: 'NewLeadFirstName'
+  fill_in 'lead_last_name', with: 'NewLeadLastName'
+  choose 'lead_attorney_already_true'
+  fill_in 'lead_attorney_name', with: 'NewAttorneyName'
+  fill_in 'lead_dob', with: input_format_date(20.years.ago)
+  fill_in 'lead_ssn', with: '12345'
+  fill_in 'lead_phone', with: '(999) 999-9999'
+  fill_in 'lead_email', with: 'somenew@email.com'
+  fill_in 'lead_address', with: 'NewAddress'
+  fill_in 'lead_city', with: 'NewCity'
+  select 'Maryland', from: 'lead_state'
+  fill_in 'lead_zip_code', with: '123456'
+  click_on 'Save'
+end
+
 When /^I accept case$/ do
   step 'I click to element with id "accept"'
 end
@@ -110,11 +184,13 @@ end
 
 When(/^I fill lead case fields$/) do
   select 'Personal Injury', :from => 'lead_case_type'
+  select 'Wrongful Death', :from => 'lead_sub_type'
   select 'Open Wound', :from => 'lead_primary_injury'
+  fill_in 'lead_estimated_value', with: '12345'
 end
 
 When /^I fill lead case with incident fields$/ do
-  fill_in 'lead_incident_date', with: 10.days.ago.strftime('%d.%m.%Y')
+  fill_in 'lead_incident_date', with: input_format_date(10.days.ago)
 end
 
 When(/^I check lead text field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
@@ -175,5 +251,81 @@ Then /^I verify accepted case with incident date for user: "(.*?)"$/ do |email|
   expect(_case).to_not be_nil
   expect(_case.incident).to_not be_nil
   expect(_case.incident.incident_date).to eq lead.incident_date
-  expect(_case.incident.incident_date.strftime('%d.%m.%Y')).to eq 10.days.ago.strftime('%d.%m.%Y')
+  expect(input_format_date(_case.incident.incident_date)).to eq input_format_date(10.days.ago)
+end
+
+Then /^I verify case date of intake$/ do
+  user = User.last
+  tr = page.find('td', :text => 'Date of Intake:').find(:xpath, './/..')
+  expect(tr).to have_content(simple_format_date(Time.now.in_time_zone(user.time_zone)))
+end
+Then /^I verify case type$/ do
+  tr = page.find('td', :text => 'Type:').find(:xpath, './/..')
+  expect(tr).to have_content('Personal Injury')
+end
+Then /^I verify case sub type$/ do
+  tr = page.find('td', :text => 'Subtype:').find(:xpath, './/..')
+  expect(tr).to have_content('Wrongful Death')
+end
+Then /^I verify case injury$/ do
+  lead = Lead.last
+  _case = Case.last
+  expect(_case).to_not be_nil
+  expect(_case.medical).to_not be_nil
+  expect(_case.medical.injuries.size).to eq 1
+  expect(_case.medical.injuries.first.injury_type).to eq lead.primary_injury
+end
+Then /^I verify case notes$/ do
+  lead = Lead.last
+  _case = Case.last
+  expect(_case).to_not be_nil
+  expect(_case.notes.size).to eq 1
+  expect(_case.notes.first.note).to eq lead.note
+end
+Then /^I verify case resolution$/ do
+  lead = Lead.last
+  _case = Case.last
+  expect(_case).to_not be_nil
+  expect(_case.resolution).to_not be_nil
+  expect(_case.resolution.estimated_value).to eq lead.estimated_value
+end
+Then /^I verify case summary$/ do
+  lead = Lead.last
+  _case = Case.last
+  expect(_case).to_not be_nil
+  expect(_case.description).to eq lead.case_summary
+end
+Then /^I verify case documents$/ do
+  lead = Lead.last
+  _case = Case.last
+  expect(_case).to_not be_nil
+  expect(_case.documents.size).to eq lead.documents.size
+  expect(_case.documents.first.doc_type).to eq lead.documents.first.doc_type
+  expect(_case.documents.first.document.instance_of?DocumentUploader).to be_truthy
+  expect(_case.documents.first.document.to_s.split('/').last).to eq lead.documents.first.document.to_s.split('/').last
+end
+
+Then /^I verify lead document$/ do
+  lead = Lead.last
+  expect(lead.documents.size).to eq 1
+  expect(lead.documents.first.doc_type).to eq 'text'
+  expect(lead.documents.first.document.instance_of?DocumentUploader).to be_truthy
+  expect(lead.documents.first.document.to_s.split('/').last).to eq 'document_ok.txt'
+end
+
+Then /^I verify lead contact has been changed$/ do
+  lead = Lead.last
+  expect(lead).to_not be_nil
+  expect(lead.first_name).to eq 'NewLeadFirstName'
+  expect(lead.last_name).to eq 'NewLeadLastName'
+  expect(lead.attorney_name).to eq 'NewAttorneyName'
+  expect(input_format_date(lead.dob)).to eq(input_format_date(20.years.ago))
+  expect(lead.attorney_already).to be true
+  expect(lead.ssn).to eq '12345'
+  expect(lead.phone).to eq '(999) 999-9999'
+  expect(lead.email).to eq 'somenew@email.com'
+  expect(lead.address).to eq 'NewAddress'
+  expect(lead.city).to eq 'NewCity'
+  expect(lead.state).to eq 'MD'
+  expect(lead.zip_code).to eq 123456
 end

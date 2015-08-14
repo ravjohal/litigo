@@ -241,13 +241,18 @@ Then(/^I verify assigned contact "(.*?)" for user "(.*?)"$/) do |contact_type, e
   _case = Case.last
   expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: contact_type, :contacts => {:email => email}).size).to eq(1)
 end
+Then(/^I verify assigned contact by type "(.*?)" for user with first name "(.*?)" and last name "(.*?)"$/) do |contact_type, first_name, last_name|
+  _case = Case.last
+  expect(_case.case_contacts.joins(:contact).where(case_id: _case.id, firm_id: _case.firm_id, role: contact_type, :contacts => {:first_name => first_name, :last_name => last_name}).size).to eq(1)
+end
 
 Then /^I verify case details tab$/ do
+  user = User.last
   step 'I should have text "case_name"'
   step 'I should have text "AL"'
   step 'I should have text "Case Topic"'
   step 'I should have text "Case Summary"'
-  step "I should have text \"#{Time.now.strftime('%b %e, %Y')}\""
+  step "I should have text \"#{simple_format_date(Time.now.in_time_zone(user.time_zone))}\""
 end
 
 Then /^I verify case details updated for user "(.*?)"$/ do |email|
@@ -273,76 +278,45 @@ Then /^I verity deleted case for user "(.*?)"$/ do |email|
 end
 
 Then /^I verify sorted firm cases on descending \#$/ do
-  cases = page.find('#cases')
-  expect(cases.find('tbody > tr:nth-child(1) > td:first-child')).to have_content '3'
-  expect(cases.find('tbody > tr:nth-child(2) > td:first-child')).to have_content '2'
-  expect(cases.find('tbody > tr:nth-child(3) > td:first-child')).to have_content '1'
+  step 'I verify sorted rows in table "cases" in column "1" by values "3,2,1"'
 end
 
 Then /^I verify sorted own cases on descending \#$/ do
-  cases = page.find('#user_cases')
-  expect(cases.find('tbody > tr:nth-child(1) > td:first-child')).to have_content '3'
-  expect(cases.find('tbody > tr:nth-child(2) > td:first-child')).to have_content '2'
-  expect(cases.find('tbody > tr:nth-child(3) > td:first-child')).to have_content '1'
+  step 'I verify sorted rows in table "user_cases" in column "1" by values "3,2,1"'
 end
 
 Then /^I verify sorted cases alphabetically in descending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(2)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(2)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(2)')).to have_content 'Abc'
+  step "I verify sorted rows in table \"#{table}\" in column \"2\" by values \"Cde,Bcd,Abc\""
 end
 
 Then /^I verify sorted cases alphabetically in ascending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(2)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(2)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(2)')).to have_content 'Abc'
+  step "I verify sorted rows in table \"#{table}\" in column \"2\" by values \"Abc,Bcd,Cde\""
 end
 
 Then /^I verify sorted cases alphabetically type in ascending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(3)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(3)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(3)')).to have_content 'Abc'
+  step "I verify sorted rows in table \"#{table}\" in column \"3\" by values \"Abc,Bcd,Cde\""
 end
 
 Then /^I verify sorted cases alphabetically type in descending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(3)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(3)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(3)')).to have_content 'Abc'
-  end
+  step "I verify sorted rows in table \"#{table}\" in column \"3\" by values \"Cde,Bcd,Abc\""
+end
 
 Then /^I verify sorted cases alphabetically summary in ascending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(4)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(4)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(4)')).to have_content 'Abc'
+  step "I verify sorted rows in table \"#{table}\" in column \"4\" by values \"Abc,Bcd,Cde\""
 end
 
 Then /^I verify sorted cases alphabetically summary in descending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(4)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(4)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(4)')).to have_content 'Abc'
-  end
+  step "I verify sorted rows in table \"#{table}\" in column \"4\" by values \"Cde,Bcd,Abc\""
+end
 
 Then /^I verify sorted cases alphabetically status in ascending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(5)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(5)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(5)')).to have_content 'Abc'
+  step "I verify sorted rows in table \"#{table}\" in column \"5\" by values \"Abc,Bcd,Cde\""
 end
 
 Then /^I verify sorted cases alphabetically status in descending for "(.*?)"$/ do |table|
-  cases = page.find "##{table}"
-  expect(cases.find('tbody > tr:nth-child(1) > td:nth-child(5)')).to have_content 'Cde'
-  expect(cases.find('tbody > tr:nth-child(2) > td:nth-child(5)')).to have_content 'Bcd'
-  expect(cases.find('tbody > tr:nth-child(3) > td:nth-child(5)')).to have_content 'Abc'
+  step "I verify sorted rows in table \"#{table}\" in column \"5\" by values \"Cde,Bcd,Abc\""
 end
 
 Then /^I should have cases "(.*?)" in table "(.*?)"$/ do |case_nums, table|
-  cases = page.find "##{table}"
-  case_nums.split(',').each_with_index { |num, index| expect(cases.find("tbody > tr:nth-child(#{index.to_i+1}) > td:nth-child(1)")).to have_content num }
+  step "I verify sorted rows in table \"#{table}\" in column \"1\" by values \"#{case_nums}\""
 end

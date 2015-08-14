@@ -125,6 +125,13 @@ When /^I fill field with selector "(.*?)" with "(.*?)"$/ do |selector, value|
   page.execute_script(%($('#{selector}').val('#{value}').trigger('keydown').trigger('keyup')))
 end
 
+Then /^I verify sorted rows in table "(.*?)" in column "(\d+)" by values "(.*?)"$/ do |table, column, values|
+  table = page.find("##{table}")
+  values.to_s.split(',').each_with_index do |value, index|
+    expect(table.find("tbody > tr:nth-child(#{index.to_i+1}) > td:nth-child(#{column})")).to have_content value
+  end
+end
+
 Given /^PENDING/ do
   pending
 end

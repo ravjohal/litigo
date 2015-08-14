@@ -19,10 +19,7 @@ Then(/^I should be logged in user$/) do
 end
 
 When(/^I should be logged in user with email "(.*?)" and password "(.*?)"$/) do |email, password|
-  visit '/users/sign_in'
-  fill_in 'user_email', with: email
-  fill_in 'user_password', with: password
-  click_on 'SIGN IN'
+  step "I should be just login with email \"#{email}\" and password \"#{password}\""
   expect(page).to have_content('Welcome!')
   expect(page).to have_content('We just need a few more details before using your case management software:')
 end
@@ -32,6 +29,8 @@ When(/^I should be just login with email "(.*?)" and password "(.*?)"$/) do |ema
   fill_in 'user_email', with: email
   fill_in 'user_password', with: password
   click_on 'SIGN IN'
+  user = User.find_by email: email
+  Time.zone = user.time_zone if user
 end
 
 Then(/^I get the confirmation email and confirm it$/) do
@@ -112,10 +111,7 @@ When(/^I fill in the sign up form with invalid data$/) do
 end
 
 When(/^I fill in the sign in form with second user$/) do
-  visit '/users/sign_in'
-  fill_in 'user_email', with: 'andrew.suchov@gmail.com'
-  fill_in 'user_password', with: 'password'
-  click_on 'SIGN IN'
+  step "I should be just login with email \"andrew.suchov@gmail.com\" and password \"password\""
 end
 
 Then(/^I should see the sign_up form again$/) do
@@ -147,10 +143,7 @@ end
 
 
 When (/^I log in with email "(.*?)" and password "(.*?)"$/) do |arg1, arg2|
-  visit '/users/sign_in'
-  fill_in 'user_email', with: arg1
-  fill_in 'user_password', with: arg2
-  click_on 'SIGN IN'
+  step "I should be just login with email \"#{arg1}\" and password \"#{arg2}\""
   expect(page).to have_content('Welcome!')
   expect(page).to have_content('We just need a few more details before using your case management software:')
 end

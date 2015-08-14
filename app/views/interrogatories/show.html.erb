@@ -40,7 +40,7 @@
           </td>
           <td class="right" colspan="2">
               <strong>Requester</strong><br>
-              <%= interrogatory.try(:requester).name %>
+              <%= interrogatory.requester.try(:name) %>
           </td>
           <td class="right" colspan="4">
               <strong>Interrogatory</strong><br>
@@ -60,7 +60,7 @@
         </td>
           <td class="right" colspan="2">
               <strong>Responder</strong><br>
-              <%= interrogatory.try(:responder).name %>
+              <%= interrogatory.responder.try(:name) %>
           </td>
           <td class="right" colspan="4">
               <strong>Reply</strong><br>

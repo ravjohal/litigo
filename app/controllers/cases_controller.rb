@@ -42,6 +42,7 @@ class CasesController < ApplicationController
     @new_copy_case = Case.find(params[:id]) if params[:id]
     if @new_copy_case
       incident = params[:incident]
+      interrogatory = params[:interrogatory]
       medicals = params[:medicals]
       insurance = params[:insurance]
       contacts = params[:contacts]
@@ -53,6 +54,12 @@ class CasesController < ApplicationController
       @case.name = params[:case][:name]
       @case.case_number = Case.increment_number(@firm, "new", @case)
 
+      if !interrogatory
+        interrogatory = @case.build_interrogatory
+        interrogatory.firm = @firm
+        interrogatory.user = @user
+        interrogatory.save
+      end
       if !incident
         incident = @case.build_incident
         incident.firm = @firm
@@ -97,6 +104,11 @@ class CasesController < ApplicationController
         insurance = @case.build_insurance
         insurance.firm = @firm
         insurance.save
+
+        interrogatory = @case.build_interrogatory
+        interrogatory.firm = @firm
+        interrogatory.user = @user
+        interrogatory.save
       end
     end
 
@@ -176,6 +188,8 @@ class CasesController < ApplicationController
         :injuries_attributes => [:injury_type, :region, :code, :created_at, :updated_at, :primary_injury, :id]],
         :insurance_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy,
         :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy]], 
+        :interrogatory_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :rep_date, :req_date,
+        :children_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :id, :rep_date, :req_date, :_destroy]],
         :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
         :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [], :attorney => [], :staff => [])
     end

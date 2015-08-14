@@ -79,7 +79,7 @@ group :development, :test, :staging do
   gem 'minitest', '~> 5.4.0'
   gem 'factory_girl_rails', '~> 4.4.1'                # Test data generator -- see spec/factories/factories.rb
   gem 'git-smart', '~> 0.1.9'                         # Allows 'git smart-pull' for less merge messes
-  gem 'faker', '~> 1.2.0'                             # Easy way to add fake data: names, email addresses, etc.
+  gem 'faker', '~> 1.4.3'                             # Easy way to add fake data: names, email addresses, etc.
   gem 'rack-mini-profiler'
 end
 

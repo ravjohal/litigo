@@ -4,6 +4,8 @@ class TimeEntriesController < ApplicationController
   before_action :set_user, :set_firm
   respond_to :html, :xml, :json
 
+  helper DatesHelper
+
   # GET /time_entries
   # GET /time_entries.json
   def index

@@ -80,7 +80,7 @@
           <strong>Statute of Limitations:</strong>
         </td>
         <td>
-          <%= @case.statute_of_limitations.try(:strftime, "%b %e, %Y") %>
+          <%= simple_format_date @case.statute_of_limitations %>
         </td>
       </tr>
       <tr>
@@ -88,7 +88,7 @@
            <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= @case.trial_date.try(:strftime, "%b %e, %Y")  %>
+          <%= simple_format_date @case.trial_date  %>
         </td>
       </tr>
      
@@ -105,7 +105,7 @@
           <strong>Transfer Date</strong>
         </td>
         <td>
-          <%= @case.transfer_date.try(:strftime, "%b %e, %Y")  %>
+          <%= simple_format_date @case.transfer_date  %>
         </td>
       </tr>
   </tbody>

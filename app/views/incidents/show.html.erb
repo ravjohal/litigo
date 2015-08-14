@@ -7,7 +7,7 @@
               <ul>
                   <li><%= link_to 'Edit', edit_case_incident_path(@case, @incident), :class => 'dark' %></li>
                   <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %></li>
+                  <li><%= link_to '',  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
               </ul>
           </div>
     </div>
@@ -37,7 +37,7 @@
         <strong>Date of Incident:</strong>
         </td>
         <td>
-        <%= @incident.incident_date.strftime("%b %e, %Y") if @incident.incident_date.present? %>
+        <%= simple_format_date @incident.incident_date if @incident.incident_date.present? %>
           
         </td>
       </tr>
@@ -130,7 +130,7 @@
         <strong>Discovery Date:</strong>
         </td>
         <td>
-            <%= @incident.discovery_date.strftime("%b %e, %Y") if @incident.discovery_date.present? %>
+            <%= simple_format_date @incident.discovery_date if @incident.discovery_date.present? %>
         </td>
       </tr>
       <tr>
@@ -138,7 +138,7 @@
         <strong>Date of final treatment with negligent provider:</strong>
         </td>
         <td>
-             <%= @incident.final_treatment_date.strftime("%b %e, %Y") if @incident.final_treatment_date.present? %> 
+             <%= simple_format_date @incident.final_treatment_date if @incident.final_treatment_date.present? %>
         </td>
       </tr>
         <tr>
@@ -163,7 +163,7 @@
           <strong>Date product first sold</strong>
         </td>
         <td>
-          <%= @incident.first_sold_date.strftime("%b %e, %Y") if @incident.first_sold_date.present? %>
+          <%= simple_format_date @incident.first_sold_date if @incident.first_sold_date.present? %>
         </td>
       </tr>
       <% end %>

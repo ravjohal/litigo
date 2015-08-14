@@ -3,6 +3,8 @@ class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm
 
+  helper DatesHelper
+
   # GET /documents
   # GET /documents.json
   def index

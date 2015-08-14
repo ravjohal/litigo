@@ -1,7 +1,7 @@
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong><%= @expense.expense %>, <%= @expense.created_date.try(:strftime, "%b %e, %Y") %></strong><br>
+      <strong><%= @expense.expense %>, <%= simple_format_date @expense.created_date %></strong><br>
     </div>
     <div id="case-buttons">
       <ul>
@@ -44,7 +44,7 @@
       <strong>Created Date:</strong>
     </td>
     <td>
-      <%= @expense.created_date.try(:strftime, "%b %e, %Y") %>
+      <%= simple_format_date @expense.created_date %>
     </td>
   </tr>
   <tr>

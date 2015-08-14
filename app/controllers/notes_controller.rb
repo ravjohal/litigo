@@ -2,7 +2,9 @@ class NotesController < ApplicationController
   respond_to :html, :json
   before_filter :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, :set_firm 
+  before_action :set_user, :set_firm
+
+  helper DatesHelper
 
   # GET /notes
   # GET /notes.json

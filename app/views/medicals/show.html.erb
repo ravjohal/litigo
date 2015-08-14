@@ -124,7 +124,7 @@
           <strong>Date of Final Treatment:</strong>
         </td>
         <td>
-          <%= @medical.final_treatment_date.strftime("%b %e, %Y") if @medical.final_treatment_date.present? %>
+          <%= simple_format_date @medical.final_treatment_date if @medical.final_treatment_date.present? %>
         </td>
       </tr>
   </tbody>
@@ -178,7 +178,7 @@
         <tr class="nested-fields medical-bill-field">
             <td colspan="2">
              <strong>Date of Service</strong><br>
-              <%= med.date_of_service.strftime("%b %e, %Y") if med.date_of_service.present? %>
+              <%= simple_format_date med.date_of_service if med.date_of_service.present? %>
             </td>
              <td colspan="2">
             <strong>Provider</strong><br>

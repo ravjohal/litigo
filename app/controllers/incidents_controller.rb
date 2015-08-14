@@ -4,6 +4,8 @@ class IncidentsController < ApplicationController
   before_action :get_case
   before_action :set_user, :set_firm
 
+  helper DatesHelper
+
   def show
     @incident = @case.incident
   end

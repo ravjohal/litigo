@@ -3,6 +3,8 @@ class ClientIntakesController < ApplicationController
   before_action :set_client_intake
   before_action :set_user, :set_firm
 
+  helper DatesHelper
+
   # GET /client_intakes
   # GET /client_intakes.json
   def index
@@ -124,6 +126,7 @@ class ClientIntakesController < ApplicationController
 
         resolution = @case.build_resolution
         resolution.firm = @firm
+        resolution.estimated_value = @lead.estimated_value
         resolution.save
 
         contact = Contact.create({
@@ -174,6 +177,6 @@ class ClientIntakesController < ApplicationController
                                   :phone_book, :referred_by, :screener_id, :case_type, :sub_type, :estimated_value, 
                                   :lead_policy_limit, :primary_injury, :primary_region, :incident_date, :case_summary, 
                                   :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address, 
-                                  :city, :zip_code, :state, :referring_contact_id)
+                                  :city, :zip_code, :state, :referring_contact_id, :ssn)
     end
 end

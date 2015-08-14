@@ -4,6 +4,8 @@ class CasesController < ApplicationController
   before_action :set_case, only: [:show, :edit, :update, :destroy, :doc]
   before_action :set_user, :set_firm
 
+  helper DatesHelper
+
   def index
     #@cases = @firm.cases.includes(:medical)
     @new_path = new_case_path

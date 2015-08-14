@@ -27,12 +27,12 @@
       </p>
       <p>
         <strong>Start Time:</strong>
-        <%= @event.starts_at.strftime("%b %e, %Y %l:%M %p") %>
+        <%= simple_format_datetime @event.starts_at %>
       </p>
 
       <p>
         <strong>End Time:</strong>
-        <%= @event.ends_at.strftime("%b %e, %Y %l:%M %p") %>
+        <%= simple_format_datetime @event.ends_at %>
       </p>
       
       <p>

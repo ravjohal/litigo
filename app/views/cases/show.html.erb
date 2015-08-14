@@ -110,7 +110,7 @@
         <strong>Date of Incident:</strong>
       </td>
         <td>
-            <%= @case.incident.try(:incident_date).try(:strftime, "%b %e, %Y") %>
+            <%= simple_format_date @case.incident.try(:incident_date) %>
         </td>
      </tr>
   <tr>
@@ -118,7 +118,7 @@
         <strong>SOL:</strong>
       </td>
         <td>
-            <%= @case.statute_of_limitations.try(:strftime, "%b %e, %Y") %>
+            <%= simple_format_date @case.statute_of_limitations %>
         </td>
      </tr>
   <tr>
@@ -126,7 +126,7 @@
         <strong>Date of Intake:</strong>
       </td>
         <td>
-          <%= @case.date_of_intake %>
+          <%= simple_format_date @case.date_of_intake %>
         </td>
      </tr>
    <tr>
@@ -134,7 +134,7 @@
         <strong>Case Open Date:</strong>
       </td>
         <td>
-         <%= @case.created_at.strftime("%b %e, %Y") %>
+         <%= simple_format_date @case.created_at %>
         </td>
      </tr> 
       <tr>
@@ -142,7 +142,7 @@
            <strong>Hearing Date:</strong>
         </td>
         <td>
-            <%= @case.hearing_date.try(:strftime, "%b %e, %Y")  %>
+            <%= simple_format_date @case.hearing_date  %>
         </td>
       </tr>
       <tr>
@@ -150,7 +150,7 @@
            <strong>Transferred to Lit:</strong>
         </td>
         <td>
-          <%= @case.transfer_date.try(:strftime, "%b %e, %Y")  %>
+          <%= simple_format_date @case.transfer_date  %>
         </td>
       </tr>
       <tr>
@@ -158,7 +158,7 @@
             <strong>Date Filed Suit:</strong>
         </td>
         <td>
-              <%= @case.filed_suit_date.try(:strftime, "%b %e, %Y")  %>
+              <%= simple_format_date @case.filed_suit_date  %>
         </td>
       </tr>
       <tr>
@@ -166,7 +166,7 @@
            <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= @case.trial_date.try(:strftime, "%b %e, %Y")  %>
+          <%= simple_format_date @case.trial_date  %>
         </td>
       </tr>
   </tbody>
@@ -196,7 +196,7 @@
           <strong>Date Closed:</strong>
         </td>
         <td>
-          <%= @case.closing_date.try(:strftime, "%b %e, %Y")  %>
+          <%= simple_format_date @case.closing_date  %>
         </td>
       </tr>
       <tr>

@@ -6,6 +6,8 @@ class EventsController < ApplicationController
 
   #around_filter :user_time_zone, if: :current_user
 
+  helper DatesHelper
+
   # GET /events
   # GET /events.json
   def index

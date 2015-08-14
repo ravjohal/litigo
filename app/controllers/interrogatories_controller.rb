@@ -72,7 +72,7 @@ class InterrogatoriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def interrogatory_params
-      params.require(:interrogatory).permit(:question, :response, :requester, :responder, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, 
-                                            :children_attributes => [:question, :response, :requester, :responder, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :id, :_destroy])
+      params.require(:interrogatory).permit(:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :rep_date, :req_date,
+                                            :children_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :id, :rep_date, :req_date, :_destroy])
     end
 end

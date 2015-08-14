@@ -5,7 +5,7 @@
         <strong><%= @case.name %></strong><br>
       </div>
       <div id="case-buttons">
-        <ul>
+
                  <div id="top-custom">
         <ul>
       <li class="dropdown task-list">
@@ -74,7 +74,7 @@
     <% @time_entries.each do |time_entry| %>
       <tr data-id="<%= time_entry.id %>">
         <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= link_to time_entry.try(:user).try(:name), time_entry %></div></td>
-        <td style="vertical-align: middle;"><%= time_entry.date.try(:strftime, "%b %e, %Y") %></td>
+        <td style="vertical-align: middle;"><%= simple_format_date time_entry.date %></td>
         <td style="vertical-align: middle;"><%= time_entry.activity %></td>
         <td style="vertical-align: middle;"><%= time_entry.charge_type %></td>
         <td style="vertical-align: middle;"><%= time_entry.hours %></td>
@@ -103,7 +103,7 @@
       <% @expenses.each do |expense| %>
         <tr data-id="<%= expense.id %>">
           <td class="mid-td"><div class="larger-td" style='padding-top:12px;'><%= link_to expense.user.try(:name), @case.present? ? case_expense_path(@case, expense) : expense %></div></td>
-          <td style="vertical-align: middle;"><%= expense.created_date.try(:strftime, "%b %e, %Y") %></td>
+          <td style="vertical-align: middle;"><%= simple_format_date expense.created_date %></td>
           <td style="vertical-align: middle;"><%= expense.expense %></td>
           <td style="vertical-align: middle;"><%= number_to_currency expense.amount %></td>
         </tr>

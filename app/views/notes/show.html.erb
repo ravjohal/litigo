@@ -37,7 +37,7 @@
           <strong>Creation Date:</strong>
         </td>
         <td colspan="2">
-          <%= @note.created_at.strftime("%b %e, %Y %l:%M %p") %>
+          <%= simple_format_datetime @note.created_at %>
         </td>
       </tr>
       <tr>

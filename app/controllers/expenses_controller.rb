@@ -3,6 +3,8 @@ class ExpensesController < ApplicationController
   before_action :set_expense, only: [:show, :edit, :update, :destroy]
   before_action :set_user, :set_firm, :get_case
 
+  helper DatesHelper
+
 
   # GET /expenses
   # GET /expenses.json

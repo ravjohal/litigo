@@ -8,7 +8,7 @@
               <ul>
                   <li><%= link_to 'Edit', edit_case_resolution_path(@case, @resolution), :class => 'dark' %></li>
                   <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %></li>
+                  <li><%= link_to "javascript:window.print()",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
               </ul>
           </div>
     </div>
@@ -38,7 +38,7 @@
           <strong>Expected Close Date:</strong>
         </td>
         <td>
-            <%= @resolution.expected_close.try(:strftime, "%b %e, %Y") %>
+            <%= simple_format_date @resolution.expected_close %>
         </td>
       </tr>
       <tr>
@@ -75,7 +75,7 @@
           <strong>Actual Close Date:</strong>
         </td>
         <td>
-          <%= @case.closing_date.try(:strftime, "%b %e, %Y") %>
+          <%= simple_format_date @case.closing_date %>
         </td>
       </tr>
        <tr>

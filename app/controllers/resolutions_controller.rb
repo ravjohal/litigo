@@ -5,6 +5,8 @@ class ResolutionsController < ApplicationController
   before_action :set_user, :set_firm
   respond_to :html
 
+  helper DatesHelper
+
 
   def show
     @resolution = @case.resolution

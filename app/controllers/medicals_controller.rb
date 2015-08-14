@@ -4,6 +4,8 @@ class MedicalsController < ApplicationController
   before_action :set_user, :set_firm
   # before_action :set_medical, only: [:show, :edit, :update, :destroy]
 
+  helper DatesHelper
+
   # # GET /medicals
   # # GET /medicals.json
   # def index

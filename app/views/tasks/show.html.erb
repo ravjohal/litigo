@@ -63,7 +63,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-            <%= @task.due_date.try(:strftime, "%b %e, %Y") %>
+            <%= simple_format_date @task.due_date %>
         </td>
       </tr>
          <tr>
@@ -82,7 +82,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-          <%= @task.completed.try(:strftime, "%b %e, %Y") %>
+          <%= simple_format_date @task.completed %>
         </td>
       </tr>
         <tr>
@@ -115,7 +115,7 @@
           <strong>Calendar Event:</strong>
         </td>
         <td colspan="2">
-          <%= "#{@task.try(:event).try(:subject)} dd #{@task.try(:event).try(:start).try(:strftime, "%b %e, %Y")}" %>
+          <%= "#{@task.try(:event).try(:subject)} dd #{simple_format_date @task.try(:event).try(:start)}" %>
         </td>
       </tr>
       <% end %>

@@ -9,8 +9,8 @@ When /^I add simple all_day event$/ do
   fill_in 'event_location', with: 'Simple location'
   page.execute_script(%($('#invitee_select').val('litigo2test@gmail.com')))
   page.execute_script(%($('#invitee_select + ul > li > input').val('litigo2test@gmail.com')))
-  fill_in 'event_start_date', with: 2.day.from_now.strftime('%m/%d/%Y')
-  fill_in 'event_end_date', with: 2.day.from_now.strftime('%m/%d/%Y')
+  fill_in 'event_start_date', with: date_to_input(2.day.from_now)
+  fill_in 'event_end_date', with: date_to_input(2.day.from_now)
   check 'event_all_day'
   fill_in 'event_description', with: 'Simple description'
   click_on 'Create Event'

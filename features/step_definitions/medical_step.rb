@@ -117,7 +117,7 @@ Then /^case medical should be updated$/ do
   expect(medical.treatment_type.to_a.include?('Chiro')).to be true
   expect(medical.treatment_type.to_a.include?('Meds')).to be true
   expect(medical.treatment_gap).to be true
-  expect(medical.final_treatment_date.strftime('%F')).to eq '2015-12-12'
+  expect(simple_input_format_date(medical.final_treatment_date)).to eq '2015-12-12'
   expect(medical.injury_summary).to eq 'Medical Summary'
 
   expect(medical.medical_bills.count).to eq 2

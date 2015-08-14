@@ -26,6 +26,10 @@ end
 Then(/^I create the document with file upload$/) do
   visit '/documents'
   click_on 'NEW DOCUMENT'
+  step 'I fill document popup'
+end
+
+When /^I fill document popup$/ do
   fill_in 'document_doc_type', with: 'text'
   attach_file(:document_document, Rails.root.join('features', 'upload-files', 'document_ok.txt'))
   click_on 'Create Document'

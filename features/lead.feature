@@ -129,7 +129,7 @@ Feature: Create Lead Test
     And I should have text "Lead Documents"
 
   @javascript
-  Scenario: I create a lead with incident date and check incident in accepted case tab
+  Scenario: I create a lead and check case data
     Given Confirmed default user exists
     When I login
     And I click on "Caller Intake"
@@ -139,7 +139,77 @@ Feature: Create Lead Test
     And I fill lead case with incident fields
     And I click on "Save"
     Then I check message "Client intake was successfully updated."
+    And I click to tab "Documents"
+    When I add document for lead
+    And I click to tab "Details"
     When I accept case
     Then I check message "Case was successfully created."
     And I verify accepted case with incident date for user: "artem.suchov@gmail.com"
     And I verify assigned contact "Attorney" for user "artem.suchov@gmail.com"
+    And I verify assigned contact by type "Plaintiff" for user with first name "Leeds" and last name "United"
+    And I verify case date of intake
+    And I verify case type
+    And I verify case sub type
+    And I verify case injury
+    And I verify case notes
+    And I verify case resolution
+    And I verify case summary
+    And I verify case documents
+
+  @javascript
+  Scenario: I should be able to add document to lead
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    When I click on "Edit"
+    And I fill lead case fields
+    And I fill lead case with incident fields
+    And I click on "Save"
+    Then I check message "Client intake was successfully updated."
+    And I click to tab "Documents"
+    When I add document for lead
+    Then I verify lead document
+
+  @javascript
+  Scenario: I should be able to change lead contact
+    Given Confirmed default user exists
+    When I login
+    And I click on "Caller Intake"
+    And I create a lead with name "Leeds" and last name "United"
+    When I click on "Edit"
+    And I fill lead case fields
+    And I fill lead case with incident fields
+    And I click on "Save"
+    Then I check message "Client intake was successfully updated."
+    And I click to tab "Contact"
+    When I edit lead contact
+    Then I verify lead contact has been changed
+
+  @javascript
+  Scenario: I should be able to sort table in lead index page
+    Given Confirmed default user exists
+    And Firm for default user exist
+    And Confirmed firm user exists with first name "Aaaaa", last name "Aaaaaaa", email "aaaaaaa@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And Confirmed firm user exists with first name "Bbbbb", last name "Bbbbbbb", email "bbbbbbb@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And Confirmed firm user exists with first name "Ccccc", last name "Ccccccc", email "ccccccc@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameA" and "LastNameA" and date "08/08/2014"
+    And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameB" and "LastNameB" and date "09/09/2014"
+    And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "aaaaaaa@gmail.com" with name "FirstNameAa" and "LastNameAa" and date "10/10/2014"
+    And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "bbbbbbb@gmail.com" with name "FirstNameBb" and "LastNameBb" and date "11/11/2014"
+    And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "ccccccc@gmail.com" with name "FirstNameCc" and "LastNameCc" and date "12/12/2014"
+    When I login without firm
+    And I click on "Caller Intake"
+    Then I verify sorted rows in table "user_leads" in column "1" by values "09/09/2014,08/08/2014"
+    Then I verify sorted rows in table "leads" in column "1" by values "12/12/2014,11/11/2014,10/10/2014,09/09/2014,08/08/2014"
+    When I click on table "user_leads" header "Call Date"
+    Then I verify sorted rows in table "user_leads" in column "1" by values "08/08/2014,09/09/2014"
+    When I click on table "leads" header "Call Date"
+    Then I verify sorted rows in table "leads" in column "1" by values "08/08/2014,09/09/2014,10/10/2014,11/11/2014,12/12/2014"
+    When I click on table "leads" header "Assigned Attorney"
+#    And I wait for "30" seconds
+#    Then I verify sorted rows in table "leads" in column "2" by values "Aaaaa Aaaaaaa aaaaaaa@gmail.com,Bbbbb Bbbbbbb bbbbbbb@gmail.com,Ccccc Ccccccc ccccccc@gmail.com,Artem Suchov artem.suchov@gmail.com,Artem Suchov artem.suchov@gmail.com"
+#    When I click on table "leads" header "Assigned Attorney"
+#    Then I verify sorted rows in table "leads" in column "2" by values "Aaaaa Aaaaaaa aaaaaaa@gmail.com,Bbbbb Bbbbbbb bbbbbbb@gmail.com,Ccccc Ccccccc ccccccc@gmail.com,Artem Suchov artem.suchov@gmail.com,Artem Suchov artem.suchov@gmail.com"
+#    When I click on table "user_leads" header "Injured Party Name"
+#    Then I verify sorted rows in table "user_leads" in column "2" by values "Aaaaa Aaaaaaa aaaaaaa@gmail.com,Bbbbb Bbbbbbb bbbbbbb@gmail.com,Ccccc Ccccccc ccccccc@gmail.com,Artem Suchov artem.suchov@gmail.com,Artem Suchov artem.suchov@gmail.com"

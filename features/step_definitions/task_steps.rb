@@ -40,7 +40,7 @@ Then(/^The task for user with email "(.*?)" should be saved to the db$/) do |arg
   u = User.where(email: arg1).first
   task = Task.where(id: u.id).first
   expect(task.name).to eq 'My firs task'
-  expect(task.due_date.strftime('%F')).to eq '2014-12-12'
+  expect(simple_input_format_date(task.due_date)).to eq '2014-12-12'
   expect(task.description).to eq 'Task description'
   expect(task.case_id.to_i).to eq 1
   expect(task.secondary_owner_id.to_i).to eq 1
@@ -62,7 +62,7 @@ Then(/^The task for user with email "(.*?)" should be saved to the db with the r
   u = User.where(email: arg1).first
   task = Task.where(id: u.id).first
   expect(task.name).to eq 'some name'
-  expect(task.due_date.strftime('%F')).to eq '2014-12-12'
+  expect(simple_input_format_date(task.due_date)).to eq '2014-12-12'
   expect(task.description).to eq 'Task description'
   expect(task.case_id.to_i).to eq 0
   expect(task.secondary_owner_id.to_i).to eq 1
@@ -104,8 +104,8 @@ Then /^The task should be edited success$/ do
   expect(task.description).to eq 'NewTaskDescription'
   expect(task.estimated_time).to eq 100.0
   expect(task.estimated_time_unit).to eq 'Hour(s)'
-  expect(task.due_date.strftime('%F')).to eq '2017-12-12'
-  expect(task.completed.strftime('%F')).to eq '2018-12-12'
+  expect(simple_input_format_date(task.due_date)).to eq '2017-12-12'
+  expect(simple_input_format_date(task.completed)).to eq '2018-12-12'
 end
 
 Then /^User tasks should be empty for email "(.*?)"$/ do |email|

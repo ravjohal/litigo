@@ -192,7 +192,7 @@ class Case < ActiveRecord::Base
   end
 
   def date_of_intake
-    self.lead.created_at.strftime("%b %e, %Y") if self.lead
+    lead.created_at if lead
   end
 
   def primary_injury
@@ -282,7 +282,7 @@ class Case < ActiveRecord::Base
     if self.status_changed?
       if status == 'Litigation'
         self.transfer_date = Date.today
-      elsif ['Active', 'Discovery', 'Negotiation'].include?(status)
+      elsif %w(Active Discovery Negotiation).include?(status)
         self.transfer_date = nil
       end
     end
@@ -333,7 +333,7 @@ class Case < ActiveRecord::Base
       end
     end
     check_sol
-    return true
+    true
   end
 
 end

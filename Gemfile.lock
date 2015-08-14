@@ -199,7 +199,7 @@ GEM
     factory_girl_rails (4.4.1)
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
-    faker (1.2.0)
+    faker (1.4.3)
       i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
@@ -586,7 +586,7 @@ DEPENDENCIES
   dossier (~> 2.12.2)
   dropbox-sdk (~> 1.6.4)
   factory_girl_rails (~> 4.4.1)
-  faker (~> 1.2.0)
+  faker (~> 1.4.3)
   ffi (~> 1.9.5)
   figaro (~> 1.0.0)
   fog (~> 1.24.0)
@@ -643,3 +643,6 @@ DEPENDENCIES
   unicorn (~> 4.8.3)
   web-console (~> 2.0.0.beta4)
   will_paginate (~> 3.0.7)
+
+BUNDLED WITH
+   1.10.5

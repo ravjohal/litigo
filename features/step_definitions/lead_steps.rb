@@ -21,12 +21,12 @@ Given /^Exist lead in date "(.*?)" for user "(.*?)"$/ do |date, email|
   FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
 end
 
-Given /^Exist advanced lead for user "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)"$/ do |email, first_name, last_name, date|
+Given /^Exist advanced lead for user "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)" and estimated "(\d+)" and status "(.*?)"$/ do |email, first_name, last_name, date, estimated_value, status|
   user = User.find_by email: email
   firm = user.firm
   Time.zone = user.time_zone if user
   time_strptime = Time.strptime(date, '%m/%d/%Y')
-  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset), estimated_value: estimated_value, status: status)
 end
 
 Given /^Exist lead for attorney "(.*?)" and user "(.*?)" and date "(.*?)"$/ do |email_attorney, email, date|
@@ -39,14 +39,14 @@ Given /^Exist lead for attorney "(.*?)" and user "(.*?)" and date "(.*?)"$/ do |
   FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
 end
 
-Given /^Exist difficult lead for user "(.*?)" for attorney "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)"$/ do |email, email_attorney, first_name, last_name, date|
+Given /^Exist difficult lead for user "(.*?)" for attorney "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)" and estimated "(\d+)" and status "(.*?)"$/ do |email, email_attorney, first_name, last_name, date, estimated_value, status|
   user = User.find_by email: email
   firm = user.firm
 
   attorney = User.find_by email: email_attorney
   Time.zone = user.time_zone if user
   time_strptime = Time.strptime(date, '%m/%d/%Y')
-  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset), estimated_value: estimated_value, status: status)
 end
 
 When(/^I create a lead$/) do

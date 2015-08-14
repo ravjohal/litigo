@@ -234,7 +234,9 @@ When /^I fill case search field "(.*?)" with "(.*?)"$/ do |id, value|
   step "I fill field with selector \"##{id}_filter input\" with \"#{value}\""
   step "I fill field with selector \"##{id}_filter input\" with \"#{value}\""
   sleep 0.2
-  sleep 2
+  step "I fill field with selector \"##{id}_filter input\" with \"#{value}\""
+  step "I fill field with selector \"##{id}_filter input\" with \"#{value}\""
+  sleep 0.2
 end
 
 Then(/^I verify assigned contact "(.*?)" for user "(.*?)"$/) do |contact_type, email|

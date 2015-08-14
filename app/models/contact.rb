@@ -16,6 +16,8 @@ class Contact < ActiveRecord::Base
   has_many :case_contacts, :dependent => :destroy
   has_many :cases, :through => :case_contacts
   has_many :phones
+  has_many :requesters, class_name: 'Interrogatory', foreign_key: 'requester_id'
+  has_many :responders, class_name: 'Interrogatory', foreign_key: 'responder_id'
 
   amoeba do
     enable

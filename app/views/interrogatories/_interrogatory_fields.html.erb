@@ -1,14 +1,15 @@
+
       <tr class="nested-fields interrogatory-field">
           <td class="text-center">
-              <strong><%= @interrogatory.id %></strong>
+              <strong><%= f.options[:child_index].to_i + 1 if f.object.id %></strong>
           </td>
           <td class="right" colspan="2">
               <strong>Requester</strong><br>
-              <%= f.text_field :requester, :class => 'table-input' %>
+              <%= f.association :requester, :class => 'table-input', :label => false %>
           </td>
           <td class="right" colspan="4">
               <strong>Interrogatory</strong><br>
-              <%= f.text_area :question, :class => 'table-input' %>
+              <%= f.text_field :question, :class => 'table-input' %>
           </td>
           <td class="right" colspan="2">
               <strong>Date Requested</strong><br>
@@ -16,32 +17,33 @@
           </td>
           <td class="right" colspan="2">
               <strong>Date Replied</strong><br>
-              <%= f.date_field :req_date, :class => 'table-input' %>
+              <%= f.date_field :rep_date, :class => 'table-input' %>
           </td>
-  </tr>
-  <tr class="nested-fields interrogatory-field" style="border-bottom: 2px solid black;">
-           <td class="insurance-icon" style="text-align: center;">
-                <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Interrogatory"></span><% end %>
-        </td>
+    </tr>
+    <tr class="nested-fields interrogatory-field" style="border-bottom: 2px solid black;">
+          <td class="insurance-icon" style="text-align: center;">
+                <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Interrogatory"></span><% end %> 
+          </td>
           <td class="right" colspan="2">
               <strong>Responder</strong><br>
-              <%= f.text_field :responder, :class => 'table-input' %>
+              <%= f.association :responder, :class => 'table-input', :label => false %>
           </td>
           <td class="right" colspan="4">
               <strong>Reply</strong><br>
               <%= f.text_field :response, :class => 'table-input' %>
               <br>
           </td>
-           <td class="text-center" colspan="4">
-              [Choose File button goes here]
+           <td class="text-center doc-link" style="text-align: left;" colspan="4">
+            <% if f.object.document.file %>
+              Existing Document: <%= link_to f.object.document.file.filename, f.object.document_url %>
+              <br />
+            <% end %>
+            <%= f.file_field :document, label: false, :class => 'table-input-file' %>
           </td>
       </tr>
 
 <script type="text/javascript" charset="utf-8">
   $("select").select2();
-  $('#children').on('cocoon:after-remove', function(e, insertedItem) {
-
-  });
 </script>
 <script type='text/javascript'>
   $(function() {

@@ -33,14 +33,14 @@
   </tr>
 </thead>
   <tbody>
-  <% @interrogatory_children.each do |interrogatory| %>
+  <% @interrogatory_children.each_with_index do |interrogatory, index| %>
   <tr>
           <td class="text-center">
-              <strong><%= @interrogatory.id %></strong><br>
+              <strong><%= index + 1 %></strong><br>
           </td>
           <td class="right" colspan="2">
               <strong>Requester</strong><br>
-              <%= interrogatory.try(:requester) %>
+              <%= interrogatory.try(:requester).name %>
           </td>
           <td class="right" colspan="4">
               <strong>Interrogatory</strong><br>
@@ -52,7 +52,7 @@
           </td>
           <td class="text-center" colspan="2">
               <strong>Date Replied</strong><br>
-              <%= interrogatory.try(:res_date) %>
+              <%= interrogatory.try(:rep_date) %>
           </td>
   </tr>
       <tr class="cat1" style="display:none; border-bottom: 2px solid black;">
@@ -60,14 +60,16 @@
         </td>
           <td class="right" colspan="2">
               <strong>Responder</strong><br>
-              <%= interrogatory.try(:responder) %>
+              <%= interrogatory.try(:responder).name %>
           </td>
           <td class="right" colspan="4">
               <strong>Reply</strong><br>
               <%= interrogatory.try(:response) %>
           </td>
-           <td class="text-center" colspan="4 ">
-              [Doc link goes here]
+           <td class="text-center doc-link" colspan="4 ">
+              <% if interrogatory.document.file %>
+                  <%= link_to interrogatory.document.file.filename, interrogatory.document_url %>
+              <% end %>
           </td>
       </tr>
     <% end %> 

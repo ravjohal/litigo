@@ -19,7 +19,7 @@ Feature: Medical tab
     When I login without firm
     And I open case management menu
     And I go to first firm case
-    And I click to tab "MEDICALS"
+    And I click to tab "Medicals"
     And I wait for "0.3" seconds
     And I click on "Edit"
     And I fill case medicals form

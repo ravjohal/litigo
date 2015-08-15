@@ -442,3 +442,17 @@ Feature: Case feature
     And I wait for "0.1" seconds
     And I click to tab "Summary"
     Then I should have last notes "Note44444,Note33333,Note22222"
+
+  @javascript
+  Scenario: It should verify case total medicals
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default medical case exist
+    And Create medical bill for default case with amount "1000", "1000", "1000"
+    And Create medical bill for default case with amount "2000", "2000", "2000"
+    And I login without firm
+    And I open case management menu
+    And I go to first case
+    And I wait for "0.1" seconds
+    And I click to tab "Summary"
+    Then I verify case total medicals to "$3,000.00"

@@ -146,6 +146,13 @@ FactoryGirl.define do
     subrogated_amount Random.rand(100)
   end
 
+  factory :medical_bill do
+    date_of_service Faker::Date.backward(365)
+    billed_amount Faker::Number.number(6)
+    paid_amount Faker::Number.number(6)
+    adjustments Faker::Number.number(6)
+  end
+
   factory :insurance do
 
   end

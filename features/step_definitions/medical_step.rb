@@ -1,3 +1,24 @@
+Given /^Create medical bill for case "(.*?)"$/ do |name|
+  _case = Case.find_by name: name
+  user = _case.user
+  medical = _case.medical
+  FactoryGirl.create(:medical_bill, firm: user.firm, user: user, case: _case, medical: medical)
+end
+
+Given /^Create medical bill for default case$/ do
+  _case = Case.last
+  user = _case.user
+  medical = _case.medical
+  FactoryGirl.create(:medical_bill, firm: user.firm, user: user, case: _case, medical: medical)
+end
+
+Given /^Create medical bill for default case with amount "(.*?)", "(.*?)", "(.*?)"$/ do |billed, paid, adjustments|
+  _case = Case.last
+  user = _case.user
+  medical = _case.medical
+  FactoryGirl.create(:medical_bill, firm: user.firm, user: user, case: _case, medical: medical, billed_amount: billed, paid_amount: paid, adjustments: adjustments)
+end
+
 When /^I fill case medicals form$/ do
   choose 'medical_injuries_within_three_days_true'
   choose 'medical_hospitalization_true'

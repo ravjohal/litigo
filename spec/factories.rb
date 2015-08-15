@@ -154,7 +154,10 @@ FactoryGirl.define do
   end
 
   factory :insurance do
-
+    insurance_type "#{Faker::Lorem.characters(8)}"
+    insurance_provider "#{Faker::Lorem.characters(8)}"
+    policy_limit Faker::Number.number(6)
+    amount_paid Faker::Number.number(6)
   end
 
 

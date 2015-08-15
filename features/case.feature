@@ -456,3 +456,17 @@ Feature: Case feature
     And I wait for "0.1" seconds
     And I click to tab "Summary"
     Then I verify case total medicals to "$3,000.00"
+
+  @javascript
+  Scenario: It should verify case policy limits
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist
+    And Create insurance bill for default case with amount "1000", "1000"
+    And Create insurance bill for default case with amount "2000", "2000"
+    And I login without firm
+    And I open case management menu
+    And I go to first case
+    And I wait for "0.1" seconds
+    And I click to tab "Summary"
+    Then I verify case policy limits to "$3,000"

@@ -9,6 +9,17 @@ Given /^Default case note exist$/ do
   FactoryGirl.create(:note, user: user, firm: user.firm, case: _case)
 end
 
+Given /^Create note for default case with note "(.*?)" and date "(.*?)"$/ do |note, date|
+  user = User.last
+  _case = user.cases.last
+  FactoryGirl.create(:note, user: user, firm: user.firm, case: _case, note: note, created_at: convert_date_by_user_timezone(date, user))
+end
+
+Given /^Create note for case "(.*?)" with note "(.*?)" and date "(.*?)"$/ do |case_name, note, date|
+  _case = Case.find_by name: case_name
+  user = _case.user
+  FactoryGirl.create(:note, user: user, firm: user.firm, case: _case, note: note, created_at: convert_date_by_user_timezone(date, user))
+end
 
 When /^I go to notes/ do
   step 'I open case management menu'
@@ -116,4 +127,11 @@ end
 Then /^I verify deleted note for user with email "(.*?)"$/ do |email|
   u = User.where(email: email).first
   expect(u.notes.size).to eq 0
+end
+
+Then /^I should have last notes "(.*?)"$/ do |notes|
+  _notes = notes.split ','
+  parent_element(find('h3', :text => 'Recent Activity')).all('table tbody > tr').each_with_index do |element, index|
+    expect(element).to have_content _notes[index]
+  end
 end

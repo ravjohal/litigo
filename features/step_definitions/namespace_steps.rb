@@ -66,7 +66,7 @@ end
 When /^I delete namespace "(.*?)"$/ do |namespace|
   step 'I go to calendars'
   sleep 20
-  # find('td', :text => namespace).find(:xpath, './/..').find('a').click
+  # parent_element()find('td', :text => namespace)).find('a').click
   page.execute_script(%($('a.delete').click()))
   step 'I confirm popup'
   sleep 10
@@ -77,7 +77,7 @@ When /^I delete calendar "(.*?)" in namespace "(.*?)"$/ do |calendar, namespace|
   sleep 20
   find('td', :text => namespace).click
   sleep 10
-  # find('td', :text => calendar).find(:xpath, './/..').find('a').click
+  # parent_element()find('td', :text => calendar)).find('a').click
   page.execute_script(%($('a.delete').click()))
   step 'I confirm popup'
   sleep 10

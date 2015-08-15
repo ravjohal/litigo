@@ -426,3 +426,19 @@ Feature: Case feature
     Then I should have cases "1" in table "cases"
     When I fill case search field "cases" with "bc"
     Then I should have cases "3,2" in table "cases"
+
+  @javascript
+  Scenario: It should display 3 last notes in case summary
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Default case exist
+    And Create note for default case with note "Note11111" and date "08/08/2014"
+    And Create note for default case with note "Note22222" and date "09/09/2014"
+    And Create note for default case with note "Note33333" and date "10/10/2014"
+    And Create note for default case with note "Note44444" and date "11/11/2014"
+    And I login without firm
+    And I open case management menu
+    And I go to first case
+    And I wait for "0.1" seconds
+    And I click to tab "Summary"
+    Then I should have last notes "Note44444,Note33333,Note22222"

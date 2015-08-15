@@ -67,6 +67,14 @@ When(/^I click on table "(.*?)" header "(.*?)"$/) do |table_id, button|
   end
 end
 
+When /^I change filter in "(.*?)" to "(.*?)"$/ do |table, value|
+  within "##{table}_wrapper" do
+    find('a.dropdown-toggle.btn').click
+    sleep 0.1
+    click_on value
+  end
+end
+
 When(/^I click to tab "(.*?)"$/) do |tab|
   find('#nav-tabs-custom').click_on tab
 end

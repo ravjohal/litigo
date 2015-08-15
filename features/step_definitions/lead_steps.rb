@@ -15,18 +15,13 @@ end
 Given /^Exist lead in date "(.*?)" for user "(.*?)"$/ do |date, email|
   user = User.find_by email: email
   firm = user.firm
-  Time.zone = user.time_zone if user
-
-  time_strptime = Time.strptime(date, '%m/%d/%Y')
-  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, created_at: convert_date_by_user_timezone(date, user))
 end
 
 Given /^Exist advanced lead for user "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)" and estimated "(\d+)" and status "(.*?)"$/ do |email, first_name, last_name, date, estimated_value, status|
   user = User.find_by email: email
   firm = user.firm
-  Time.zone = user.time_zone if user
-  time_strptime = Time.strptime(date, '%m/%d/%Y')
-  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset), estimated_value: estimated_value, status: status)
+  FactoryGirl.create(:lead, attorney: user, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: convert_date_by_user_timezone(date, user), estimated_value: estimated_value, status: status)
 end
 
 Given /^Exist lead for attorney "(.*?)" and user "(.*?)" and date "(.*?)"$/ do |email_attorney, email, date|
@@ -34,9 +29,7 @@ Given /^Exist lead for attorney "(.*?)" and user "(.*?)" and date "(.*?)"$/ do |
   firm = user.firm
 
   attorney = User.find_by email: email_attorney
-  Time.zone = user.time_zone if user
-  time_strptime = Time.strptime(date, '%m/%d/%Y')
-  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset))
+  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, created_at: convert_date_by_user_timezone(date, user))
 end
 
 Given /^Exist difficult lead for user "(.*?)" for attorney "(.*?)" with name "(.*?)" and "(.*?)" and date "(.*?)" and estimated "(\d+)" and status "(.*?)"$/ do |email, email_attorney, first_name, last_name, date, estimated_value, status|
@@ -44,9 +37,7 @@ Given /^Exist difficult lead for user "(.*?)" for attorney "(.*?)" with name "(.
   firm = user.firm
 
   attorney = User.find_by email: email_attorney
-  Time.zone = user.time_zone if user
-  time_strptime = Time.strptime(date, '%m/%d/%Y')
-  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: (time_strptime - Time.zone.utc_offset + time_strptime.utc_offset), estimated_value: estimated_value, status: status)
+  FactoryGirl.create(:lead, attorney: attorney, screener: user, firm: firm, first_name: first_name, last_name: last_name, created_at: convert_date_by_user_timezone(date, user), estimated_value: estimated_value, status: status)
 end
 
 When(/^I create a lead$/) do
@@ -256,15 +247,15 @@ end
 
 Then /^I verify case date of intake$/ do
   user = User.last
-  tr = page.find('td', :text => 'Date of Intake:').find(:xpath, './/..')
+  tr = parent_element page.find('td', :text => 'Date of Intake:')
   expect(tr).to have_content(simple_format_date(Time.now.in_time_zone(user.time_zone)))
 end
 Then /^I verify case type$/ do
-  tr = page.find('td', :text => 'Type:').find(:xpath, './/..')
+  tr = parent_element page.find('td', :text => 'Type:')
   expect(tr).to have_content('Personal Injury')
 end
 Then /^I verify case sub type$/ do
-  tr = page.find('td', :text => 'Subtype:').find(:xpath, './/..')
+  tr = parent_element page.find('td', :text => 'Subtype:')
   expect(tr).to have_content('Wrongful Death')
 end
 Then /^I verify case injury$/ do

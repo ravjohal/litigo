@@ -20,4 +20,10 @@ module DatesHelper
     date.try(:strftime, '%F')
   end
 
+  def convert_date_by_user_timezone(date, user)
+    Time.zone = user.time_zone if user
+    time_strptime = Time.strptime(date, '%m/%d/%Y')
+    time_strptime - Time.zone.utc_offset + time_strptime.utc_offset
+  end
+
 end

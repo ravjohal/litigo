@@ -1,5 +1,7 @@
-
-      <tr class="nested-fields interrogatory-field">
+<tr class="nested-fields medical-bill-field" style="border-bottom: 2px solid black">
+  <td colspan="4" style="padding: 0;">
+    <table>
+      <tr>
           <td class="text-center">
               <strong><%= f.options[:child_index].to_i + 1 if f.object.id %></strong>
           </td>
@@ -19,8 +21,8 @@
               <strong>Date Replied</strong><br>
               <%= f.date_field :rep_date, :class => 'table-input' %>
           </td>
-    </tr>
-    <tr class="nested-fields interrogatory-field" style="border-bottom: 2px solid black;">
+      </tr>
+      <tr style="border-bottom: 2px solid black;">
           <td class="insurance-icon" style="text-align: center;">
                 <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Interrogatory"></span><% end %> 
           </td>
@@ -41,6 +43,9 @@
             <%= f.file_field :document, label: false, :class => 'table-input-file' %>
           </td>
       </tr>
+    </table>
+  </td>
+</tr>
 
 <script type="text/javascript" charset="utf-8">
   $("select").select2({allowClear: true});

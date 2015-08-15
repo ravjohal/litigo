@@ -1,5 +1,5 @@
   
-  <tr class="nested-fields medical-bill-field">
+  <tr class="nested-fields medical-bill-field remove-tr-1">
    <td colspan="1">
      <strong>Date of Service</strong><br>
       <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
@@ -17,7 +17,7 @@
     <%= link_to_remove_association f, class: 'pull-right remove_medical_bills remove' do %><span id="remove" class="glyphicon glyphicon-remove" original-title="Remove Medical Bill"></span><% end %>
     </td>
   </tr>
-  <tr class="nested-fields medical-bill-field" style="border-bottom: 2px solid black">
+  <tr class="nested-fields medical-bill-field remove-tr-2" style="border-bottom: 2px solid black">
     <td>
       <strong>Physician</strong><br>
       <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
@@ -45,11 +45,25 @@
 
 <script type="text/javascript" charset="utf-8">
   $("select").select2();
-  $('#medical_bills').on('cocoon:after-remove', function(e, insertedItem) {
+  $(document).ready(function() {
+    $('#medical_bills')
+        .on('cocoon:before-remove', function(e, row) {
+          $(row).addClass('clicked');
+          if ($(row).hasClass('remove-tr-1')) {
+            var next = $(row).next();
+            if (next && !next.hasClass('clicked')) {
+              next.find('a.remove').click();
+            }
+          } else if ($(row).hasClass('remove-tr-2')) {
+            var prev = $(row).prev();
+            if (prev && !prev.hasClass('clicked'))
+              prev.find('a.remove').click();
+          }
+        });
   });
 </script>
 <script type='text/javascript'>
   $(function() {
-    $('#remove').tipsy({gravity: 's', fade: true});
+    $('.remove').tipsy({gravity: 's', fade: true});
   });
 </script>

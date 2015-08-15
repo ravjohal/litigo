@@ -11,7 +11,7 @@ before_fork do |server, worker|
   end
 
   @resque_pid ||= spawn("bundle exec rake " + \
-  "resque:work QUEUES=calendar,mailer")
+  "resque:work QUEUES=*")
 
   defined?(ActiveRecord::Base) and
       ActiveRecord::Base.connection.disconnect!

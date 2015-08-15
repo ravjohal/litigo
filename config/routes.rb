@@ -2,8 +2,9 @@ require 'resque/server'
 
 Rails.application.routes.draw do
 
-  mount Resque::Server.new, at: "/resque"
-
+  authenticated :user do
+    mount Resque::Server.new, at: "/resque"
+  end
   get 'reports' => 'reports#index', as: :reports
   get 'reports/show' => 'reports#show', as: :report_show
   get 'reports/all_leads_by_channel' => 'reports#leads_by_channel_report', as: :reports_leads_by_channel

@@ -59,21 +59,21 @@ Then(/^I should logged in$/) do
 end
 
 Given(/^Confirmed user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)"$/) do |first_name, last_name, email, password|
-  _user = FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
+  _user = FactoryGirl.create(:user, first_name: first_name, last_name: last_name, name: "#{first_name} #{last_name}", email: email, password: password, confirmed_at: Time.now)
 end
 
 Given(/^Confirmed admin user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)"$/) do |first_name, last_name, email, password|
-  FactoryGirl.create(:admin_user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now)
+  FactoryGirl.create(:admin_user, first_name: first_name, last_name: last_name, name: "#{first_name} #{last_name}", email: email, password: password, confirmed_at: Time.now)
 end
 
 Given(/^Confirmed invited user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)" for user with email "(.*?)"$/) do |first_name, last_name, email, password, admin_user|
   _user = User.find_by email: admin_user
-  FactoryGirl.create(:invited_user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id, invited_by_id: _user.id)
+  FactoryGirl.create(:invited_user, first_name: first_name, last_name: last_name, name: "#{first_name} #{last_name}", email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id, invited_by_id: _user.id)
 end
 
 Given(/^Confirmed firm user exists with first name "(.*?)", last name "(.*?)", email "(.*?)" and password "(.*?)" for user with email "(.*?)"$/) do |first_name, last_name, email, password, admin_user|
   _user = User.find_by email: admin_user
-  FactoryGirl.create(:user, first_name: first_name, last_name: last_name, email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id)
+  FactoryGirl.create(:user, first_name: first_name, last_name: last_name, name: "#{first_name} #{last_name}", email: email, password: password, confirmed_at: Time.now, firm_id: _user.firm_id)
 end
 
 Given(/^Confirmed default user exists$/) do

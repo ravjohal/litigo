@@ -257,6 +257,10 @@ end
 Then /^I verify case sub type$/ do
   tr = parent_element page.find('td', :text => 'Subtype:')
   expect(tr).to have_content('Wrongful Death')
+  end
+Then /^I verify case total medicals to "(.*?)"$/ do |text|
+  tr = parent_element page.find('td', :text => 'Total Medicals:')
+  expect(tr).to have_content(text)
 end
 Then /^I verify case injury$/ do
   lead = Lead.last

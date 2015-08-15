@@ -1,69 +1,57 @@
-  
-  <tr class="nested-fields medical-bill-field remove-tr-1">
-   <td colspan="1">
-     <strong>Date of Service</strong><br>
-      <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
-    </td>
-    <td colspan="3">
-    <strong>Provider</strong><br>
-      <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :id => 'company' %>
-    </td>
-    
-     <td colspan="3">
-     <strong>Services Rendered</strong><br>
-      <%= f.text_field :services, label: false, :class => 'table-input' %>
-    </td>
-    <td class="medical-icon" colspan="4">
-    <%= link_to_remove_association f, class: 'pull-right remove_medical_bills remove' do %><span id="remove" class="glyphicon glyphicon-remove" original-title="Remove Medical Bill"></span><% end %>
-    </td>
-  </tr>
-  <tr class="nested-fields medical-bill-field remove-tr-2" style="border-bottom: 2px solid black">
-    <td>
-      <strong>Physician</strong><br>
-      <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
-    </td>
-    <td colspan="3">
-      <strong>Account Number</strong><br>
-      <%= f.text_field :account_number, label: false, :class => 'table-input' %>
-    </td>
-    <td>
-    <strong>Billed</strong><br>
-      <%= f.text_field :billed_amount, label: false, :class => 'table-input' %>
-    </td>
-    <td>
-    <strong>Adjustment</strong><br>
-      <%= f.text_field :adjustments, label: false, :class => 'table-input' %>
-    </td>    
-    <td>
-    <strong>Paid</strong><br>
-      <%= f.text_field :paid_amount, label: false, :class => 'table-input' %>
-    </td>
-    <td>
-      <%= link_to_remove_association f, class: 'pull-right remove_medical_bills remove' do %><span id="remove" class="glyphicon glyphicon-remove" original-title="Remove Medical Bill"></span><% end %>
-    </td>
-  </tr>
+<tr class="nested-fields medical-bill-field remove-tr-1" style="border-bottom: 2px solid black">
+  <td colspan="7" style="padding: 0;">
+    <table>
+      <tr>
+        <td colspan="1">
+          <strong>Date of Service</strong><br>
+          <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
+        </td>
+        <td colspan="3">
+          <strong>Provider</strong><br>
+          <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :id => 'company' %>
+        </td>
+
+        <td colspan="3">
+          <strong>Services Rendered</strong><br>
+          <%= f.text_field :services, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Physician</strong><br>
+          <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
+        </td>
+        <td colspan="3">
+          <strong>Account Number</strong><br>
+          <%= f.text_field :account_number, label: false, :class => 'table-input' %>
+        </td>
+        <td>
+          <strong>Billed</strong><br>
+          <%= f.text_field :billed_amount, label: false, :class => 'table-input' %>
+        </td>
+        <td>
+          <strong>Adjustment</strong><br>
+          <%= f.text_field :adjustments, label: false, :class => 'table-input' %>
+        </td>
+        <td>
+          <strong>Paid</strong><br>
+          <%= f.text_field :paid_amount, label: false, :class => 'table-input' %>
+        </td>
+      </tr>
+    </table>
+  </td>
+  <td class="medical-icon" colspan="4">
+    <%= link_to_remove_association f, class: 'pull-right remove_medical_bills remove' do %>
+      <span id="remove" class="glyphicon glyphicon-remove" original-title="Remove Medical Bill"></span>
+    <% end %>
+  </td>
+</tr>
 
 <script type="text/javascript" charset="utf-8">
   $("select").select2();
-  $(document).ready(function() {
-    $('#medical_bills')
-        .on('cocoon:before-remove', function(e, row) {
-          $(row).addClass('clicked');
-          if ($(row).hasClass('remove-tr-1')) {
-            var next = $(row).next();
-            if (next && !next.hasClass('clicked')) {
-              next.find('a.remove').click();
-            }
-          } else if ($(row).hasClass('remove-tr-2')) {
-            var prev = $(row).prev();
-            if (prev && !prev.hasClass('clicked'))
-              prev.find('a.remove').click();
-          }
-        });
-  });
 </script>
 <script type='text/javascript'>
-  $(function() {
+  $(function () {
     $('.remove').tipsy({gravity: 's', fade: true});
   });
 </script>

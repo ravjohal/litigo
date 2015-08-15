@@ -1,3 +1,21 @@
+Given /^Create insurance for case "(.*?)"$/ do |name|
+  _case = Case.find_by name: name
+  user = _case.user
+  FactoryGirl.create(:insurance, firm: user.firm, user: user, case: _case)
+end
+
+Given /^Create insurance bill for default case$/ do
+  _case = Case.last
+  user = _case.user
+  FactoryGirl.create(:insurance, firm: user.firm, user: user, case: _case)
+end
+
+Given /^Create insurance bill for default case with amount "(.*?)", "(.*?)"$/ do |billed, paid|
+  _case = Case.last
+  user = _case.user
+  FactoryGirl.create(:insurance, firm: user.firm, user: user, case: _case, policy_limit: billed, amount_paid: paid)
+end
+
 When(/^I add insurance row with type: "(.*?)", holder: "(.*?)", claim_number: "(.*?)", policy_limit: "(.*?)"$/) do |insurance_type, policy_holder, claim_number, policy_limit|
   click_on 'ADD INSURANCE'
   page.execute_script(%($('#children>tr.insurance-field:last').find("input[name*='[insurance_type]']").val('#{insurance_type}')))

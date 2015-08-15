@@ -261,6 +261,10 @@ Then /^I verify case sub type$/ do
 Then /^I verify case total medicals to "(.*?)"$/ do |text|
   tr = parent_element page.find('td', :text => 'Total Medicals:')
   expect(tr).to have_content(text)
+  end
+Then /^I verify case policy limits to "(.*?)"$/ do |text|
+  tr = parent_element page.find('td', :text => 'Total Policy Limits:')
+  expect(tr).to have_content(text)
 end
 Then /^I verify case injury$/ do
   lead = Lead.last

@@ -29,7 +29,6 @@
       <th>Name</th>
       <th>Email address</th>
       <th>Provider</th>
-      <th>Sync Status</th>
       <th>Actions</th>
     </tr>
     </thead>
@@ -39,9 +38,8 @@
         <td><%= ns.name %></td>
         <td><%= ns.email_address %></td>
         <td><%= ns.provider %></td>
-        <td><%= ns.account_status %></td>
         <td>
-          <%= link_to 'Delete namespace', namespace_path(ns), :data => { :confirm => 'Are you sure?'}, :method => :delete, :class => 'btn btn-danger delete' %>
+          <%= link_to 'Delete Account', namespace_path(ns), :data => { :confirm => 'Are you sure?'}, :method => :delete, :class => 'btn btn-danger btn-xs' %>
         </td>
       </tr>
     <% end %>

@@ -1,41 +1,41 @@
-<tr class="nested-fields medical-bill-field" style="border-bottom: 2px solid black">
-  <td colspan="4" style="padding: 0;">
+<tr class="nested-fields medical-bill-field" style="border-bottom: 1px solid black">
+  <td colspan="11" style="padding: 0;">
     <table>
       <tr>
           <td class="text-center">
               <strong><%= f.options[:child_index].to_i + 1 if f.object.id %></strong>
           </td>
-          <td class="right" colspan="2">
+          <td class="right" colspan="">
               <strong>Requester</strong><br>
               <%= f.association :requester, :class => 'table-input', :label => false %>
           </td>
-          <td class="right" colspan="4">
+          <td class="right" colspan="">
               <strong>Interrogatory</strong><br>
               <%= f.text_field :question, :class => 'table-input' %>
           </td>
-          <td class="right" colspan="2">
+          <td class="right" colspan="">
               <strong>Date Requested</strong><br>
               <%= f.date_field :req_date, :class => 'table-input' %>
           </td>
-          <td class="right" colspan="2">
+          <td class="right" colspan="">
               <strong>Date Replied</strong><br>
               <%= f.date_field :rep_date, :class => 'table-input' %>
           </td>
       </tr>
       <tr style="border-bottom: 2px solid black;">
-          <td class="insurance-icon" style="text-align: center;">
-                <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Interrogatory"></span><% end %> 
+          <td>   
           </td>
-          <td class="right" colspan="2">
+          <td class="right" colspan="">
               <strong>Responder</strong><br>
               <%= f.association :responder, :class => 'table-input', :label => false %>
           </td>
-          <td class="right" colspan="4">
+          <td class="right" colspan="">
               <strong>Reply</strong><br>
               <%= f.text_field :response, :class => 'table-input' %>
               <br>
           </td>
-           <td class="text-center doc-link" style="text-align: left;" colspan="4">
+          
+           <td class="text-center doc-link" style="text-align: left;" colspan="2">
             <% if f.object.document.file %>
               Existing Document: <%= link_to f.object.document.file.filename, f.object.document_url %>
               <br />
@@ -44,6 +44,11 @@
           </td>
       </tr>
     </table>
+  </td>
+  <td colspan="1" style="text-align: center; border-bottom: 2px solid black;">
+  <%= link_to_remove_association f, class: 'remove_children remove' do %>
+      <span id="remove" class="glyphicon glyphicon-remove" original-title="Remove Interrogatory"></span>
+    <% end %>
   </td>
 </tr>
 

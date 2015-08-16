@@ -23,7 +23,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     @event = Event.find(params[:id])
-    restrict_access('events') if @event.user.firm != current_user.firm
+    restrict_access('events') if @event.firm != current_user.firm
   end
 
   # GET /events/new
@@ -34,7 +34,7 @@ class EventsController < ApplicationController
   # GET /events/1/edit
   def edit
     @event = Event.find(params[:id])
-    restrict_access('events') if @event.user.firm != current_user.firm
+    restrict_access('events') if @event.firm != current_user.firm
     @model = @event
     @emails_autocomplete = emails_autocomplete
     if @event.calendar

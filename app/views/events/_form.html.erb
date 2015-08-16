@@ -30,11 +30,11 @@
             <td style="font-size: 10px;">
               <% unless @event.new_record? %>
                 <% if @event.created_by == 0 && @event.last_updated_by == 0 %>
-                  Created By: <%= "External Calendar, last synced on #{simple_format_datetime @event.updated_at}" -%>
+                  Created By: <%= "External Calendar, last synced on #{simple_format_datetime @event.created_at}" -%>
                 <% elsif @event.created_by == 0 && @event.last_updated_by != 0 %>
-                  Created By: <%= "External Calendar, last synced on #{simple_format_datetime @event.updated_at}" -%>
+                  Created By: <%= "External Calendar, last synced on #{simple_format_datetime @event.created_at}" -%>
                   <br />
-                  Updated By: <%= "#{@event.user.name} on #{simple_format_datetime @event.updated_at}" -%>
+                  Updated By: <%= "#{User.find(@event.last_updated_by).name} on #{simple_format_datetime @event.updated_at}" -%>
                 <% elsif @event.last_updated_by == 0 && @event.created_by != 0  %>
                   Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
                   <br />
@@ -45,7 +45,7 @@
                   <% else %>
                     Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
                     <br />
-                    Updated By: <%= "#{@event.user.name} on #{simple_format_datetime @event.updated_at}" -%>
+                    Updated By: <%= "#{User.find(@event.last_updated_by).name} on #{simple_format_datetime @event.updated_at}" -%>
                   <% end %>
                 <% end %>
               <% end %>

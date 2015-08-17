@@ -45,7 +45,9 @@
           <strong>Case(s):</strong>
         </td >
         <td colspan="2">
-          <%= @document.cases.map {|c| c.name}.join(', ') %>
+          <div class="doc-link">
+            <%= raw @document.cases.map {|c| link_to c.name, c}.join(', ') %>
+          </div>
         </td>
       </tr>
       <tr>

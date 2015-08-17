@@ -27,7 +27,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1.json
   def show
     @document = Document.find(params[:id])
-    restrict_access("documents") if @document.firm_id != @firm.id   
+    restrict_access("documents") if @document.firm_id != @firm.id
+    get_case
   end
 
   # GET /documents/new

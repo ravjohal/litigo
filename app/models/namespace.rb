@@ -38,7 +38,7 @@ class Namespace < ActiveRecord::Base
   private
 
     def delete_from_nylas
-      nylas_account.destroy rescue nil
-      nylas_namespace.destroy rescue nil
+      # nylas_account.destroy rescue nil
+      # nylas_namespace.destroy rescue nil
     end
 end

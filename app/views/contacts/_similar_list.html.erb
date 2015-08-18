@@ -5,7 +5,7 @@
     <%= content_tag(:ul, :class => 'list') do %>
        <% @saved_contact.similar_contacts.each do |member| %>
         <%= content_tag(:li, :id => "similar-contact-#{member.id}") do %>
-          <%= link_to member.name, contact_path(member) %>
+          <%= link_to member.name, contact_path(member) %>, <%= member.type %> - Cases: <%= raw member.cases.map {|c| link_to c.name, c}.join(', ') %>
         <% end %>
       <% end %>
     <% end %>

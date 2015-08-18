@@ -14,7 +14,7 @@ class Contact < ActiveRecord::Base
   belongs_to :lead
   has_one :referred_lead, class_name: 'Lead'
   has_many :case_contacts, :dependent => :destroy
-  has_many :cases, :through => :case_contacts
+  has_and_belongs_to_many :cases, :join_table => 'case_contacts'
   has_many :phones
   has_many :requesters, class_name: 'Interrogatory', foreign_key: 'requester_id'
   has_many :responders, class_name: 'Interrogatory', foreign_key: 'responder_id'
@@ -95,7 +95,7 @@ class Contact < ActiveRecord::Base
   end
 
   def similar_scope
-    Contact.where(firm_id: firm_id, last_name: last_name)
+    Contact.where(firm_id: firm_id, last_name: last_name).joins(:cases)
   end
 
   def similar_contacts

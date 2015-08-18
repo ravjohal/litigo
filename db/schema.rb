@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814103543) do
+ActiveRecord::Schema.define(version: 20150818084252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,18 +202,20 @@ ActiveRecord::Schema.define(version: 20150814103543) do
   add_index "contacts", ["user_id"], name: "index_contacts_on_user_id", using: :btree
 
   create_table "documents", force: :cascade do |t|
-    t.string   "author",     limit: 255
-    t.string   "doc_type",   limit: 255
-    t.string   "template",   limit: 255
+    t.string   "author",           limit: 255
+    t.string   "doc_type",         limit: 255
+    t.string   "template",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "document",   limit: 255
+    t.string   "document",         limit: 255
     t.integer  "firm_id"
     t.integer  "lead_id"
+    t.integer  "interrogatory_id"
   end
 
   add_index "documents", ["firm_id"], name: "index_documents_on_firm_id", using: :btree
+  add_index "documents", ["interrogatory_id"], name: "index_documents_on_interrogatory_id", using: :btree
   add_index "documents", ["user_id"], name: "index_documents_on_user_id", using: :btree
 
   create_table "event_attendees", force: :cascade do |t|
@@ -436,7 +438,6 @@ ActiveRecord::Schema.define(version: 20150814103543) do
     t.datetime "updated_at",         null: false
     t.date     "req_date"
     t.date     "rep_date"
-    t.string   "document"
     t.integer  "requester_id"
     t.integer  "responder_id"
   end

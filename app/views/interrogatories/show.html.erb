@@ -67,8 +67,8 @@
               <%= interrogatory.try(:response) %>
           </td>
            <td class="text-center doc-link" colspan="4 ">
-              <% if interrogatory.document.file %>
-                  <%= link_to interrogatory.document.file.filename, interrogatory.document_url %>
+              <% if interrogatory.try(:document).try(:document).try(:file) %>
+                  <%= link_to interrogatory.document.document.file.filename, interrogatory.document.document_url %>
               <% end %>
           </td>
       </tr>

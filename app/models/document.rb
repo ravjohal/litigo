@@ -5,6 +5,7 @@ class Document < ActiveRecord::Base
 
 	has_many :case_documents, :dependent => :destroy
 	has_many :cases, :through => :case_documents
+	belongs_to :interrogatory
 
 	mount_uploader :document, DocumentUploader
 

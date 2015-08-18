@@ -36,11 +36,16 @@
           </td>
           
            <td class="text-center doc-link" style="text-align: left;" colspan="2">
-            <% if f.object.document.file %>
-              Existing Document: <%= link_to f.object.document.file.filename, f.object.document_url %>
+            <% if f.object.document.try(:document).try(:file) %>
+              Existing Document: <%= link_to f.object.document.document.file.filename, f.object.document.document_url %>
               <br />
             <% end %>
-            <%= f.file_field :document, label: false, :class => 'table-input-file' %>
+            <%= f.simple_fields_for :document, f.object.document ? f.object.document : @interrogatory.build_document do |d| %>
+              <%= d.file_field :document, label: false, :class => 'table-input-file' %>
+              <%= d.input :author, as: :hidden, :input_html => {value: @user.name} %>
+              <%= d.input :firm_id, :input_html => {value: @firm.id}, as: :hidden %>
+              <%= d.input :user_id, :input_html => {value: @user.id}, as: :hidden %> 
+            <% end %>
           </td>
       </tr>
     </table>

@@ -18,16 +18,17 @@ class Interrogatory < ActiveRecord::Base
 
 	def save_firm_case_user_for_child
 		if self.parent_id
-			self.case = self.parent.case
-			self.firm = self.parent.firm
-			self.user = self.parent.user
+			self.case = parent.case
+			self.firm = parent.firm
+			self.user = parent.user
 		end
 	end
 
 	def update_document
-		if self.document
-			self.document.doc_type = "Interrogatory: " + self.try(:question)
-			self.document.cases << self.case
+		if document
+			document.doc_type = "Interrogatory: " + try(:question)
+			document.cases << self.case unless CaseDocument.where(case_id: case_id, document_id: document.id).exists?
+			document.save
 		end
 	end
 

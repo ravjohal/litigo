@@ -95,7 +95,7 @@ class Contact < ActiveRecord::Base
   end
 
   def similar_scope
-    Contact.where(firm_id: firm_id, last_name: last_name).joins(:cases)
+    Contact.where(firm_id: firm_id).where('lower(last_name) = ?', last_name.to_s.downcase).joins(:cases)
   end
 
   def similar_contacts

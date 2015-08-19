@@ -19,14 +19,14 @@ class Event < ActiveRecord::Base
     case ne.when['object']
       when 'date'
         parsed_date = Time.parse ne.when['date']
-        self.starts_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
-        self.ends_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        self.starts_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
+        self.ends_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         self.all_day = true
       when 'datespan'
         parsed_date = Time.parse ne.when['start_date']
-        self.starts_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        self.starts_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         parsed_date = Time.parse ne.when['end_date']
-        self.ends_at = (parsed_date + parsed_date.utc_offset - Time.zone.utc_offset).in_time_zone(Time.zone).to_datetime
+        self.ends_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         self.all_day = true
       when 'time'
         self.starts_at = Time.at(ne.when['time']).utc.to_datetime
@@ -152,8 +152,8 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def main_update_hadler(attrs, event_params, calendar, firm_id)
-    update_process event_params, calendar, firm_id if update(attrs)
+  def main_update_handler(attrs, event_params, calendar, firm_id)
+    update_process(event_params, calendar, firm_id) if update(attrs)
   end
 
   def make_update(event_params, attrs, firm_id)
@@ -163,7 +163,7 @@ class Event < ActiveRecord::Base
     if event_series.present? && event_params[:update_all_events] == 'true'
       event_series.update_events_until_end_time(event_params, firm_id, attrs, calendar)
     else
-      main_update_hadler attrs, event_params, calendar, firm_id
+      main_update_handler attrs, event_params, calendar, firm_id
     end
   end
 

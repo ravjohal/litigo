@@ -1,0 +1,96 @@
+<div id="show-buttons">
+  <ul>
+    <div id="temp-custom">
+      <ul>
+        <li>
+          <%= link_to case_documents_path(case_id: @case.id), :class => 'dark' do %>
+            <span id="temp" class="glyphicon glyphicon-arrow-left pull-right" title="Back to Documents"></span>
+          <% end %>
+        </li>
+        <li><%= link_to 'Edit', '#', id: 'preview_docx', class: 'dark' %></li>
+        <li class="dropdown">
+          <%= link_to "", class: 'dropdown-toggle action-button', id: 'generate_doc', data: {toggle: "dropdown"} do %>
+            GENERATE DOCUMENT
+            <span class="caret"></span>
+          <% end %>
+          <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
+            <li><%= link_to "Download to local", '#', id: 'create_docx' %></li>
+            <li><%= link_to 'Save directly to Litigo', '', id: 'save_to_app' %></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </ul>
+</div>
+<div class="template_block" style="padding-top: 50px;">
+  <div class="row">
+    <div class="col-md-1 col-lg-2"></div>
+    <div class="col-md-10 col-lg-8">
+      <div class="template_html_show"><%= raw @html %></div>
+    </div>
+    <div class="col-md-1 col-lg-2"></div>
+  </div>
+  <!-- row end -->
+</div>
+<script>
+  $(document).ready(function () {
+    $('#create_docx').click(function (e) {
+      e.preventDefault();
+      var html = $('.template_html_show').clone();
+      html.find("select").remove();
+      html.find(".custom_input").remove();
+      html.find('.insertion').removeClass();
+      $.ajax({
+        url: "/settlement_generate_docx",
+        type: 'POST',
+        dataType: "json",
+        data: {id: <%= @settlement.id %>, html: html[0].innerHTML},
+        success: function(data){
+          var id = data.id;
+          window.location.href = '/download_docx/'+id+'.docx';
+        }
+      });
+    });
+
+    $('#save_to_app').click(function (e) {
+      e.preventDefault();
+      var html = $('.template_html_show').clone();
+      var case_id = $('#case').val();
+      html.find("select").remove();
+      html.find(".custom_input").remove();
+      html.find('.insertion').removeClass();
+      $.ajax({
+        url: "/upload_docx",
+        type: 'POST',
+        dataType: "json",
+        data: {id: <%= @settlement.template_id %>, html: html[0].innerHTML, name: $('#template_name').val(), case_id: case_id },
+        success: function (data) {
+          window.location.href = data.href;
+        }
+      });
+    });
+
+    var preview = true;
+    $('#preview_docx').click(function (e) {
+      e.preventDefault();
+      preview = !preview;
+      if (preview) {
+        $('.template_html_show .custom_input').hide();
+        $(this).text('Edit');
+      } else {
+        $('.template_html_show .custom_input').show();
+        $(this).text('Preview');
+      }
+      $('.template-model').toggle();
+      $('.template_html_show .insertion').toggleClass('white');
+    })
+  });
+</script>
+<script type='text/javascript'>
+  $(function() {
+    $('#name').tipsy({gravity: 's', fade: true});
+    $('#cs-sel').tipsy({gravity: 's', fade: true});
+    $('#addy').tipsy({gravity: 's', fade: true});
+    $('#temp').tipsy({gravity: 'n', fade: true});
+  });
+</script>

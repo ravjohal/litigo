@@ -119,6 +119,21 @@ class Template < ActiveRecord::Base
 
   before_destroy :clean_s3
 
+  def parse_docx
+      content = ''
+      doc = Docx::Document.open(file.path)
+      doc.paragraphs.each do |p|
+          if p.node.xpath('w:r//w:lastRenderedPageBreak').present?
+              content = content + %q(<div class="page-break"></div>) + p.to_html
+          else
+              content = content + p.to_html
+          end
+
+      end
+      self.html_content = content
+      content
+  end
+
   def valid_zip?
     zip = Zip::File.open(file.path)
     true

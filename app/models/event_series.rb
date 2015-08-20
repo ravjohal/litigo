@@ -43,7 +43,7 @@ class EventSeries < ActiveRecord::Base
         starts_at: event_params[:all_day] ? event.starts_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.starts_at), event_params[:start_time]),
         ends_at: event_params[:all_day] ? event.ends_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.ends_at), event_params[:end_time])
       })
-      event.main_update_hadler event_attrs, event_params, calendar, firm_id
+      event.main_update_handler event_attrs, event_params, calendar, firm_id
     end
 
   end

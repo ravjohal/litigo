@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post 'templates_get_case' => 'templates#get_case', as: :get_case
   post 'templates_get_addressee' => 'templates#get_addressee', as: :get_addressee_attrs
   post 'templates_generate_docx' => 'templates#generate_docx', as: :generate_docx
+  post 'settlement_generate_docx' => 'settlements#generate_docx', as: :settlement_generate_docx
   get 'download_docx/:id' => 'templates#download_docx', as: :download_docx
   post 'upload_docx' => 'templates#upload_docx', as: :upload_docx
 
@@ -127,6 +128,7 @@ Rails.application.routes.draw do
     resources :insurances
     resources :expenses
     resources :interrogatories
+    resources :settlements
   end
 
   get "cases/:id/summary" => 'cases#summary', as: :case_summary

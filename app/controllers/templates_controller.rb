@@ -37,18 +37,8 @@ class TemplatesController < ApplicationController
     @template.user = @user
     @template.firm = @firm
     if File.extname(@template.file.file.filename) == '.docx'
-      content = ''
       if @template.valid_zip?
-        doc = Docx::Document.open(@template.file.path)
-        doc.paragraphs.each do |p|
-          if p.node.xpath('w:r//w:lastRenderedPageBreak').present?
-            content = content + %q(<div class="page-break"></div>) + p.to_html
-          else
-            content = content + p.to_html
-          end
-
-        end
-        @template.html_content = content
+        @template.parse_docx
         respond_to do |format|
           if @template.save
             format.html { redirect_to template_path(@template), notice: 'Template was successfully created.' }

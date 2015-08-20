@@ -203,11 +203,19 @@ class Case < ActiveRecord::Base
   #   self.plaintiffs.find_by(type: 'Plaintiff')
   # end
 
+  def plantiff_contacts
+    case_contacts.where(role: 'Plaintiff')
+  end
+
+  def attorney_contacts
+    case_contacts.where(role: 'Attorney')
+  end
+
 
   def calculate_sol(model, options=nil)
     if state == 'OH'
       if model.class.name == 'CaseContact' && model.role == 'Plaintiff'
-        plaintiffs_contacts = self.case_contacts.where(role: 'Plaintiff').collect {|cc| cc.contact}
+        plaintiffs_contacts = plantiff_contacts.collect {|cc| cc.contact}
         if case_type == 'Wrongful Death'
           if options.present? && options[:date_of_death_changed]
             min_death_date = plaintiffs_contacts.map { |d| d.date_of_death }.min
@@ -242,7 +250,7 @@ class Case < ActiveRecord::Base
   def check_sol
     if state == 'OH'
       if sol_priority != 0
-        plaintiffs_contacts = self.case_contacts.where(role: 'Plaintiff').collect {|cc| cc.contact}
+        plaintiffs_contacts = plantiff_contacts.collect {|cc| cc.contact}
         self.assign_attributes(statute_of_limitations: nil, sol_priority: nil)
         if case_type == 'Personal Injury'
           if subtype == 'Medical Malpractice'

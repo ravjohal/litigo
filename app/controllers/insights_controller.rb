@@ -6,7 +6,7 @@ class InsightsController < ApplicationController
   
   def index
     @injuries = Injury.select(:injury_type).where("injury_type != ''").order(injury_type: :asc).distinct
-    puts " IS IT RUNNING THE QUERIES? " + @injuries.to_s
+    #puts " IS IT RUNNING THE QUERIES? " + @injuries.to_s
     @regions = Injury.select(:region).where("region != ''").order(region: :asc).distinct
     @us_states = us_states
   end

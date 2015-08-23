@@ -73,7 +73,6 @@ class ApplicationController < ActionController::Base
   def create_contact(type, user_, firm_)
     klass = type
     hash_ = {:type => type} #need to pass in hash for new method
-    puts "HASH =====>> " + hash_.inspect
     contact = klass.constantize_with_care(Contact::TYPES).new(hash_)
     contact.first_name = user_.first_name
     contact.last_name = user_.last_name

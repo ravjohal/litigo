@@ -46,8 +46,6 @@ class DashboardsController < ApplicationController
       #@firm.zip = params[:zip]
       @firm.tenant = tenant
 
-      puts "FIRM NAME SIGN UP: " + tenant
-
       @user.firm = @firm
       @user.role = :admin
       @user.time_zone = time_zone

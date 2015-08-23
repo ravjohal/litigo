@@ -80,12 +80,10 @@ class InvitationsController < Devise::InvitationsController
     invitation_token = Devise.token_generator.digest(User, :invitation_token, params[:invitation_token])
     user = User.find_by(invitation_token: invitation_token)
     if user.present? && user.encrypted_password.present?
-      puts "WHERE AM I ?  ------ Looks like EDIT ------ "
       user.accept_invitation
       inviter = User.find(user.invited_by_id)
       user.firm_id = inviter.firm_id
       user.role = user.invitation_role
-      puts "INVITATION ROLE WHEN SIGNED UP -------------> " + user.role.to_s
       user.invitation_role = nil
       user.save!
 

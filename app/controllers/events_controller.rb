@@ -36,6 +36,11 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     restrict_access('events') if @event.firm != current_user.firm
     @model = @event
+     
+    @updated_minus_created_ms = (@event.updated_at - @event.created_at).to_f
+
+    #puts ">>>>>>>>>>>>>>>>>>>Event UPDATED AT " + @event.updated_at.to_f.to_s + "    MINUS   " + @event.created_at.to_f.to_s + " EQUALS " + @updated_minus_created_ms.to_s
+
     @emails_autocomplete = emails_autocomplete
     if @event.calendar
       if !@event.read_only && (current_user == @event.calendar.user || current_user.edit_event_allowed?)

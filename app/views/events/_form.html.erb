@@ -40,7 +40,7 @@
                   <br />
                   Updated By: <%= "External Calendar, last synced on #{simple_format_datetime @event.updated_at}" -%>
                 <% else %>
-                  <% if @event.created_at == @event.updated_at %>
+                  <% if (@event.created_at == @event.updated_at) || (@updated_minus_created_ms < 10) %>
                     Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
                   <% else %>
                     Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>

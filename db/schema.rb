@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818084252) do
+ActiveRecord::Schema.define(version: 20150818152245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -653,6 +653,21 @@ ActiveRecord::Schema.define(version: 20150818084252) do
   add_index "resolutions", ["case_id"], name: "index_resolutions_on_case_id", using: :btree
   add_index "resolutions", ["firm_id"], name: "index_resolutions_on_firm_id", using: :btree
   add_index "resolutions", ["resolution_type"], name: "index_resolutions_on_resolution_type", using: :btree
+
+  create_table "settlements", force: :cascade do |t|
+    t.integer  "firm_id"
+    t.integer  "case_id"
+    t.integer  "created_by_id"
+    t.integer  "last_updated_by_id"
+    t.integer  "template_id",        default: 0
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "settlements", ["case_id"], name: "index_settlements_on_case_id", using: :btree
+  add_index "settlements", ["created_by_id"], name: "index_settlements_on_created_by_id", using: :btree
+  add_index "settlements", ["firm_id"], name: "index_settlements_on_firm_id", using: :btree
+  add_index "settlements", ["template_id"], name: "index_settlements_on_template_id", using: :btree
 
   create_table "task_drafts", force: :cascade do |t|
     t.integer "task_list_id"

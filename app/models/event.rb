@@ -140,15 +140,20 @@ class Event < ActiveRecord::Base
     update_participants(event_params[:participants], firm_id) unless event_params[:participants].nil?
     unless calendar.blank?
       nylas_namespace = calendar.namespace.nylas_namespace
+      puts "NYLAS EVENT ID ----------------------------------- " + event_params.inspect + " nylas_event_id >>>>>>>>>>>>>>>>>>>>>>>>> " + nylas_event_id.to_s
       n_event = nylas_namespace.events.find(nylas_event_id)
-      n_event.title = title
-      n_event.description = description
-      n_event.location = location
-      n_event.when = nylas_time_attributes
-      n_event.participants = participants.map { |p| {:email => p.email, :name => p.name} }
-      n_event.save!
 
-      update(when_type: n_event.when['object']) if n_event.when['object'] != when_type
+      if !n_event
+        create_process calendar, nylas_namespace, firm_id
+      else
+        n_event.title = title
+        n_event.description = description
+        n_event.location = location
+        n_event.when = nylas_time_attributes
+        n_event.participants = participants.map { |p| {:email => p.email, :name => p.name} }
+        n_event.save!
+        update(when_type: n_event.when['object']) if n_event.when['object'] != when_type
+      end
     end
   end
 

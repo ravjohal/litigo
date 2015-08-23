@@ -35,7 +35,7 @@
                   Created By: <%= "External Calendar, last synced on #{simple_format_datetime @event.created_at}" -%>
                   <br />
                   Updated By: <%= "#{User.find(@event.last_updated_by).name} on #{simple_format_datetime @event.updated_at}" -%>
-                <% elsif @event.last_updated_by == 0 && @event.created_by != 0  %>
+                <% elsif (@event.last_updated_by == 0 || @event.last_updated_by == nil) && @event.created_by != 0  %>
                   Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
                   <br />
                   Updated By: <%= "External Calendar, last synced on #{simple_format_datetime @event.updated_at}" -%>

@@ -2,8 +2,34 @@ When /^I go to events page$/ do
   visit '/events'
 end
 
-When /^I add simple all_day event$/ do
+When /^I go to calendar events page$/ do
+  click_on 'CALENDAR'
+end
+
+When /^I open create event popup$/ do
   click_on 'NEW EVENT'
+end
+
+When /^I fill event without calendar$/ do
+  fill_in 'event_title', with: 'NewEvent1'
+  fill_in 'event_location', with: 'NewEventLocation1'
+
+  starts_date = Time.now + 5.day + 65.minutes
+  ends_date = Time.now + 5.day + 95.minutes
+
+  step "I fill input \"event_start_date\" with value \"#{date_to_input_with_zero(starts_date)}\""
+  step "I fill input \"event_start_time\" with value \"#{time_to_input(starts_date)}\""
+
+  step "I fill input \"event_end_date\" with value \"#{date_to_input_with_zero(ends_date)}\""
+  step "I fill input \"event_end_time\" with value \"#{time_to_input(ends_date)}\""
+
+  fill_in 'event_description', with: 'SomeDescription1'
+
+  click_on 'Create Event'
+end
+
+When /^I add simple all_day event$/ do
+  step 'I open create event popup'
   step 'I select first item from "event_calendar_id"'
   fill_in 'event_title', with: 'Simple event'
   fill_in 'event_location', with: 'Simple location'
@@ -39,4 +65,43 @@ end
 Then /^I should verify removed event to user "(.*?)"$/ do |email|
   user = User.find_by email: email
   pending
+end
+
+Then /^I verify calendar event popup shown$/ do
+  expect(page).to have_content 'Calendar Event'
+  expect(page).to have_css('div#modal-window')
+  expect(page).to have_css('form#new_event')
+end
+
+Then /^I verify calendar event was created$/ do
+  event = Event.last
+
+  expect(event).to_not be_nil
+  expect(event.title).to eq 'NewEvent1'
+  expect(event.location).to eq 'NewEventLocation1'
+  expect(event.description).to eq 'SomeDescription1'
+
+  starts_date = Time.now + 5.day + 65.minutes
+  ends_date = Time.now + 5.day + 95.minutes
+
+  expect(date_to_input_with_zero(event.starts_at)).to eq date_to_input_with_zero(starts_date)
+  expect(time_to_input(event.starts_at)).to eq time_to_input(starts_date)
+
+  expect(date_to_input_with_zero(event.ends_at)).to eq date_to_input_with_zero(ends_date)
+  expect(time_to_input(event.ends_at)).to eq time_to_input(ends_date)
+end
+
+Then /^I verify created event shown fields$/ do
+  starts_date = Time.now + 5.day + 65.minutes
+  ends_date = Time.now + 5.day + 95.minutes
+
+  expect(find('#event_title').value).to eq 'NewEvent1'
+  expect(find('#event_location').value).to eq 'NewEventLocation1'
+  expect(find('#event_description').value).to eq 'SomeDescription1'
+
+  expect(find('#event_start_date').value).to eq(date_to_input_with_zero(starts_date))
+  expect(find('#event_start_time').value).to eq(time_to_input(starts_date))
+
+  expect(find('#event_end_date').value).to eq(date_to_input_with_zero(ends_date))
+  expect(find('#event_end_time').value).to eq(time_to_input(ends_date))
 end

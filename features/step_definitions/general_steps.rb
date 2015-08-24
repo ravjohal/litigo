@@ -87,6 +87,10 @@ When(/^I click to element with selector "(.*?)"$/) do |id|
   find("#{id}").click
 end
 
+When(/^I click to element "(.*?)" with text "(.*?)"$/) do |element, text|
+  find(element, :text => text).click
+end
+
 When /^I push delete button$/ do
   step 'I click to element with id "delete"'
   step 'I confirm popup'
@@ -127,6 +131,11 @@ end
 
 When /^I fill field "(.*?)" with "(.*?)"$/ do |id, value|
   fill_in id, with: value
+end
+
+When /^I fill input "(.*?)" with value "(.*?)"$/ do |id, value|
+  page.execute_script(%(document.getElementById('#{id}').value = '#{value}';))
+  sleep 0.1
 end
 
 When /^I fill field with selector "(.*?)" with "(.*?)"$/ do |selector, value|

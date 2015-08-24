@@ -140,11 +140,11 @@ class Event < ActiveRecord::Base
     update_participants(event_params[:participants], firm_id) unless event_params[:participants].nil?
     unless calendar.blank?
       nylas_namespace = calendar.namespace.nylas_namespace
-      n_event = nylas_namespace.events.find(nylas_event_id)
-
-      if !n_event
+      
+      if self.calendar != calendar
         create_process calendar, nylas_namespace, firm_id
       else
+        n_event = nylas_namespace.events.find(nylas_event_id)
         n_event.title = title
         n_event.description = description
         n_event.location = location

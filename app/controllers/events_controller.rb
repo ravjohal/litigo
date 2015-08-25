@@ -192,7 +192,7 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time,
+    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time, :case_id,
                                   :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency,
                                   :recur_start_date, :recur_end_date, :event_series_id, :update_all_events, :last_updated_by)
   end
@@ -225,7 +225,8 @@ class EventsController < ApplicationController
         starts_at: event_params[:all_day] ? convert_query_date(:start_date) : convert_query_time(:start_date, :start_time),
         ends_at: event_params[:all_day] ? convert_query_date(:end_date) : convert_query_time(:end_date, :end_time),
         all_day: event_params[:all_day],
-        last_updated_by: @user.id
+        last_updated_by: @user.id,
+        case_id: event_params[:case_id]
     }
   end
 

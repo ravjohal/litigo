@@ -1,11 +1,14 @@
 class Event < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'created_by'
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+
+  belongs_to :case
   belongs_to :firm
   belongs_to :task
   belongs_to :calendar
   belongs_to :namespace
   belongs_to :event_series
+
   has_many :event_participants, :dependent => :destroy
   has_many :participants, :through => :event_participants
 

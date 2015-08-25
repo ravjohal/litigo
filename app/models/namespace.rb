@@ -23,7 +23,7 @@ class Namespace < ActiveRecord::Base
   end
 
   def nylas_account
-    @nylas_account ||= nylas_inbox.accounts.first
+    @nylas_account ||= nylas_inbox.accounts.find(account_id)
   end
 
   def full_name
@@ -33,6 +33,15 @@ class Namespace < ActiveRecord::Base
   # @return [Integer] the last update of the namespace (to figure out the deltas)
   def nylas_cursor
     cursor.blank? ? nylas_namespace.get_cursor(last_sync.to_i) : cursor
+  end
+
+  def check_for_exists_in_nylas
+    if inbox_token
+      begin
+        destroy if nylas_account && nylas_account0.billing_state.to_s == 'deleted'
+      rescue Exception => _
+      end
+    end
   end
 
   private

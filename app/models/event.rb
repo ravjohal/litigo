@@ -42,18 +42,30 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def assign_nylas_object(ne)
-    assign_attributes(
+  def nylas_object_to_attributes(ne)
+    is_reminder = false
+    base_title = ne.title
+    if base_title.to_s.include?' [Reminder]'
+      is_reminder = true
+      base_title.slice! ' [Reminder]'
+    end
+
+    {
         nylas_calendar_id: ne.calendar_id,
         nylas_namespace_id: ne.namespace_id,
         description: ne.description,
         location: ne.location,
         read_only: ne.read_only,
-        title: ne.title,
+        title: base_title,
         busy: ne.try(:busy),
         status: ne.try(:status),
-        when_type: ne.when['object']
-    )
+        when_type: ne.when['object'],
+        is_reminder: is_reminder
+    }
+  end
+
+  def assign_nylas_object(ne)
+    assign_attributes(nylas_object_to_attributes(ne))
     yield if block_given?
   end
 
@@ -129,9 +141,21 @@ class Event < ActiveRecord::Base
     all_day? ? {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')} : {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
   end
 
-  def create_process(calendar, nylas_namespace, firm_id = nil)
+  def title_for_nylas
+    res = title
+    res << ' [Reminder]' if is_reminder?
+    res
+  end
 
-    n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => title, :description => description, :location => location, :when => nylas_time_attributes, :participants => participants.map { |p| {:email => p.email, :name => p.name} })
+  def create_process(calendar, nylas_namespace, firm_id = nil)
+    n_event = nylas_namespace.events.build(
+        :calendar_id => calendar.calendar_id,
+        :title => title_for_nylas,
+        :description => description,
+        :location => location,
+        :when => nylas_time_attributes,
+        :participants => participants.map { |p| {:email => p.email, :name => p.name} }
+    )
     n_event.save!
 
     update_attributes = {calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id, nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id, when_type: n_event.when['object']}
@@ -148,7 +172,7 @@ class Event < ActiveRecord::Base
         create_process calendar, nylas_namespace, firm_id
       else
         n_event = nylas_namespace.events.find(nylas_event_id)
-        n_event.title = title
+        n_event.title = title_for_nylas
         n_event.description = description
         n_event.location = location
         n_event.when = nylas_time_attributes

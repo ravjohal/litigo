@@ -19,8 +19,7 @@ class NamespacesController < ApplicationController
 
   def get_calendars
     namespace = Namespace.find(params[:id])
-    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-    nylas_namespace = @inbox.namespaces.first
+    nylas_namespace = namespace.nylas_namespace
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id, firm_id: @firm.id)
@@ -43,8 +42,7 @@ class NamespacesController < ApplicationController
   # GET /namespaces/1
   # GET /namespaces/1.json
   def show
-    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespace.inbox_token)
-    nylas_namespace = @inbox.namespaces.first
+    nylas_namespace = @namespace.nylas_namespace
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id, firm_id: @firm.id)

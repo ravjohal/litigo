@@ -112,6 +112,33 @@ class User < ActiveRecord::Base
     end
   end
 
+  # @param [Event] event
+  # @param [Array<User>] users
+  # @return [String]
+  def color_by_event(event, users)
+    return '#FFFFFF' if event.is_reminder?
+    events_color.present? ? events_color : color(users.to_a.index(self))
+  end
+
+  # @param [Event] event
+  # @return [String]
+  def text_color_by_event(event)
+    return '#222222' if event.is_reminder?
+    '#FFFFFF'
+  end
+
+  # @param [Array<User>] users
+  # @param [Event] event
+  # @return [Hash]
+  def hash_for_event(event, users)
+    {
+        user_id: id,
+        user_name: name,
+        color: color_by_event(event, users),
+        textColor: text_color_by_event(event)
+    }
+  end
+
   def edit_event_allowed?
     self.edit_events_permit || self.is_admin?
   end

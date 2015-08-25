@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825110911) do
+ActiveRecord::Schema.define(version: 20150825174255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -286,6 +286,7 @@ ActiveRecord::Schema.define(version: 20150825110911) do
     t.integer  "last_updated_by"
     t.integer  "owner_id"
     t.integer  "case_id"
+    t.boolean  "is_reminder",        default: false
   end
 
   add_index "events", ["case_id"], name: "index_events_on_case_id", using: :btree

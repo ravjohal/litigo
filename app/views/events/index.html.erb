@@ -143,7 +143,8 @@ $(document).ready(function() {
     if($(this).is(":checked")) {
       $('#calendar').fullCalendar( 'addEventSource', {
         events: eventsSources[user_id] != undefined ? eventsSources[user_id] : [],
-        color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff'
+        color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff',
+        textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].first.textColor : '#ffffff'
       } )
     } else {
       $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id])
@@ -153,7 +154,8 @@ $(document).ready(function() {
   $.each(eventsSources, function (user_id, hash) {
     $('#calendar').fullCalendar( 'addEventSource', {
       events: hash,
-      color: hash.color
+      color: hash.color,
+      textColor: hash.textColor
     });
     if (current_user_id != user_id) {
       $('#user_ids_'+user_id).prop('checked', false).change();
@@ -188,7 +190,8 @@ $(document).ready(function() {
                 if ($(obj).is(":checked")) {
                   $('#calendar').fullCalendar( 'addEventSource', {
                     events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
-                    color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff'
+                    color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff',
+                    textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].textColor : '#ffffff'
                   } )
                 }
               });

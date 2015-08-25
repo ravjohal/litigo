@@ -11,10 +11,19 @@ class CaseSolReport < Dossier::Report
  # WHERE "notes"."firm_id" = $1 AND "contacts"."user_account_id" = 23
 
   def sql
-    Case.joins(:case_contacts, :incident).where("cases.firm_id = :firm_id 
-    	AND case_contacts.role IN ('Attorney', 'Staff')
-    	AND case_contacts.contact_id IN :attorney_contact_id 
-    	AND cast(statute_of_limitations as date) between :start_date and :end_date"
+    Case.joins(:case_contacts, :incident).where("CASE
+      WHEN :dates_given THEN
+        cases.firm_id = :firm_id 
+      	AND case_contacts.role IN ('Attorney', 'Staff')
+      	AND case_contacts.contact_id IN :attorney_contact_id
+        AND cases.status NOT IN ('Pending Close', 'Closed')
+      	AND cast(statute_of_limitations as date) between :start_date and :end_date
+      ELSE 
+        cases.firm_id = :firm_id 
+        AND case_contacts.role IN ('Attorney', 'Staff')
+        AND case_contacts.contact_id IN :attorney_contact_id
+        AND cases.status NOT IN ('Pending Close', 'Closed')
+      END"
     	).group("cases.id").select("case_number, name, subtype, statute_of_limitations, filed_suit_date"
     	).to_sql
 
@@ -41,6 +50,14 @@ class CaseSolReport < Dossier::Report
 
   def firm_id
 	  options[:firm_id]
+  end
+
+  def dates_given
+    if options[:start_date] == '' && options[:end_date] == ''
+      false
+    else
+      true
+    end
   end
 
   def start_date

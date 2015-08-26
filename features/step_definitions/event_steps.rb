@@ -10,6 +10,11 @@ When /^I open create event popup$/ do
   click_on 'NEW EVENT'
 end
 
+When /^I enabled all users events$/ do
+  click_on 'Select Users'
+  check 'select_all'
+end
+
 When /^I fill event without calendar$/ do
   fill_in 'event_title', with: 'NewEvent1'
   fill_in 'event_location', with: 'NewEventLocation1'
@@ -26,6 +31,18 @@ When /^I fill event without calendar$/ do
   fill_in 'event_description', with: 'SomeDescription1'
 
   click_on 'Create Event'
+end
+
+When /^I update event$/ do
+  starts_date = Time.now + 85.minutes
+  step "I fill input \"event_start_date\" with value \"#{date_to_input_with_zero(starts_date)}\""
+  step "I fill input \"event_start_time\" with value \"#{time_to_input(starts_date)}\""
+  click_on 'Update Event'
+end
+
+When /^I update event calendar$/ do
+  step 'I select first item from "event_calendar_id"'
+  click_on 'Update Event'
 end
 
 When /^I fill event with calendar$/ do
@@ -145,4 +162,18 @@ Then /^I verify event placed to nylas$/ do
   expect(ne.title).to eq event.title
   expect(ne.when['start_time']).to eq event.starts_at.to_i
   expect(ne.when['end_time']).to eq event.ends_at.to_i
+end
+
+Then /^I check event was updated$/ do
+  starts_date = Time.now + 85.minutes
+  event = Event.last
+
+  expect(date_to_input_with_zero(event.starts_at)).to eq date_to_input_with_zero(starts_date)
+  expect(time_to_input(event.starts_at)).to eq time_to_input(starts_date)
+  expect(event.last_updated_by).to eq event.user.id
+end
+
+Then /^I check calendar event was updated$/ do
+  event = Event.last
+  expect(event.calendar).to_not be_nil
 end

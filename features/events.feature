@@ -58,7 +58,7 @@ Feature: Events functionality
     And I wait for "0.2" seconds
     Then I should have message "Event was successfully created."
     And I verify calendar event was created
-    When I click to element by javascript with selector "div.fc-event"
+    When I click to element with selector "div.fc-event"
     And I wait for "0.2" seconds
     Then I verify created event shown fields
 
@@ -76,6 +76,67 @@ Feature: Events functionality
     And I wait for "0.2" seconds
     Then I verify event with calendar event was created
     And I verify event placed to nylas
+
+  @javascript
+  Scenario: I should be able to update event time
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    And I open case management menu
+    And I go to calendar events page
+    And I open create event popup
+    And I fill event without calendar
+    And I wait for "0.2" seconds
+    Then I should have message "Event was successfully created."
+    When I click to element with selector "div.fc-event"
+    And I wait for "0.2" seconds
+    And I update event
+    And I wait for "0.2" seconds
+    Then I should have message "Event was successfully updated."
+    And I check event was updated
+
+  @javascript
+  Scenario: I should be able to update event calendar
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    And I open case management menu
+    And I go to calendar events page
+    And I open create event popup
+    And I fill event without calendar
+    And I wait for "0.2" seconds
+    Then I should have message "Event was successfully created."
+    When I add simple namespace
+    And I activate calendars for simple namespace
+    And I wait for "0.2" seconds
+    And I open case management menu
+    And I go to calendar events page
+    When I click to element with selector "div.fc-event"
+    And I wait for "0.2" seconds
+    And I update event calendar
+    And I wait for "0.2" seconds
+    Then I should have message "Event was successfully updated."
+    And I check calendar event was updated
+
+  @javascript
+  Scenario: I should not be able to edit readonly event
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And Confirmed firm user exists with first name "Test2", last name "Test2", email "test2@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
+    And I login without firm
+    And I open case management menu
+    And I go to calendar events page
+    And I open create event popup
+    And I fill event without calendar
+    And I wait for "0.2" seconds
+    Then I should have message "Event was successfully created."
+    When I make sign out
+    And I should be just login with email "test2@gmail.com" and password "password"
+    And I open case management menu
+    And I go to calendar events page
+    And I enabled all users events
+    And I click to element with selector "div.fc-event"
+    Then I should have text "Calendar Event"
 
 #  @javascript
 #  Scenario: I create event for two users and try to update participants

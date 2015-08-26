@@ -58,9 +58,24 @@ Feature: Events functionality
     And I wait for "0.2" seconds
     Then I should have message "Event was successfully created."
     And I verify calendar event was created
-    When I click to element with selector "div.fc-event"
+    When I click to element by javascript with selector "div.fc-event"
     And I wait for "0.2" seconds
     Then I verify created event shown fields
+
+  @javascript
+  Scenario: I should be able to create event with calendar
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    When I add simple namespace
+    And I activate calendars for simple namespace
+    And I open case management menu
+    And I go to calendar events page
+    And I open create event popup
+    And I fill event with calendar
+    And I wait for "0.2" seconds
+    Then I verify event with calendar event was created
+    And I verify event placed to nylas
 
 #  @javascript
 #  Scenario: I create event for two users and try to update participants

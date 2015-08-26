@@ -1,6 +1,6 @@
 When /^I go to calendars$/ do
   click_on 'Profile'
-  click_on 'CALENDARS'
+  click_on 'Calendars'
 end
 
 

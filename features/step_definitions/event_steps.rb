@@ -14,8 +14,8 @@ When /^I fill event without calendar$/ do
   fill_in 'event_title', with: 'NewEvent1'
   fill_in 'event_location', with: 'NewEventLocation1'
 
-  starts_date = Time.now + 5.day + 65.minutes
-  ends_date = Time.now + 5.day + 95.minutes
+  starts_date = Time.now + 65.minutes
+  ends_date = Time.now + 95.minutes
 
   step "I fill input \"event_start_date\" with value \"#{date_to_input_with_zero(starts_date)}\""
   step "I fill input \"event_start_time\" with value \"#{time_to_input(starts_date)}\""
@@ -26,6 +26,12 @@ When /^I fill event without calendar$/ do
   fill_in 'event_description', with: 'SomeDescription1'
 
   click_on 'Create Event'
+end
+
+When /^I fill event with calendar$/ do
+  step 'I select first item from "event_calendar_id"'
+  sleep 0.2
+  step 'I fill event without calendar'
 end
 
 When /^I add simple all_day event$/ do
@@ -81,8 +87,27 @@ Then /^I verify calendar event was created$/ do
   expect(event.location).to eq 'NewEventLocation1'
   expect(event.description).to eq 'SomeDescription1'
 
-  starts_date = Time.now + 5.day + 65.minutes
-  ends_date = Time.now + 5.day + 95.minutes
+  starts_date = Time.now + 65.minutes
+  ends_date = Time.now + 95.minutes
+
+  expect(date_to_input_with_zero(event.starts_at)).to eq date_to_input_with_zero(starts_date)
+  expect(time_to_input(event.starts_at)).to eq time_to_input(starts_date)
+
+  expect(date_to_input_with_zero(event.ends_at)).to eq date_to_input_with_zero(ends_date)
+  expect(time_to_input(event.ends_at)).to eq time_to_input(ends_date)
+  end
+
+Then /^I verify event with calendar event was created$/ do
+  event = Event.last
+
+  expect(event).to_not be_nil
+  expect(event.calendar_id).to_not be_nil
+  expect(event.title).to eq 'NewEvent1'
+  expect(event.location).to eq 'NewEventLocation1'
+  expect(event.description).to eq 'SomeDescription1'
+
+  starts_date = Time.now + 65.minutes
+  ends_date = Time.now + 95.minutes
 
   expect(date_to_input_with_zero(event.starts_at)).to eq date_to_input_with_zero(starts_date)
   expect(time_to_input(event.starts_at)).to eq time_to_input(starts_date)
@@ -92,8 +117,8 @@ Then /^I verify calendar event was created$/ do
 end
 
 Then /^I verify created event shown fields$/ do
-  starts_date = Time.now + 5.day + 65.minutes
-  ends_date = Time.now + 5.day + 95.minutes
+  starts_date = Time.now + 65.minutes
+  ends_date = Time.now + 95.minutes
 
   expect(find('#event_title').value).to eq 'NewEvent1'
   expect(find('#event_location').value).to eq 'NewEventLocation1'
@@ -104,4 +129,20 @@ Then /^I verify created event shown fields$/ do
 
   expect(find('#event_end_date').value).to eq(date_to_input_with_zero(ends_date))
   expect(find('#event_end_time').value).to eq(time_to_input(ends_date))
+end
+
+Then /^I verify event placed to nylas$/ do
+  event = Event.last
+  namespace = Namespace.last
+
+  nylas_namespace = namespace.nylas_namespace
+  ne = nylas_namespace.events.find(event.nylas_event_id)
+
+  expect(ne).to_not be_nil
+  expect(ne.description).to eq event.description
+  expect(ne.location).to eq event.location
+  expect(ne.read_only).to eq event.read_only
+  expect(ne.title).to eq event.title
+  expect(ne.when['start_time']).to eq event.starts_at.to_i
+  expect(ne.when['end_time']).to eq event.ends_at.to_i
 end

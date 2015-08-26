@@ -66,6 +66,12 @@ When /^I add simple all_day event$/ do
   sleep 10
 end
 
+When /^I change event external calendar$/ do
+  step 'I select "2" item from "event_calendar_id"'
+  click_on 'Update Event'
+  sleep 0.3
+end
+
 When /^I sync events$/ do
   step 'I click to element with id "sync"'
   sleep 15

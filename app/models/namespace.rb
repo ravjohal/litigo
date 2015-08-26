@@ -44,9 +44,22 @@ class Namespace < ActiveRecord::Base
     end
   end
 
+  def disable_nylas_account
+    if nylas_account
+      nylas_account.billing_state = 'deleted'
+      nylas_account.save!
+    end
+  end
+
   private
 
     def delete_from_nylas
+      begin
+        disable_nylas_account
+      rescue Exception => e
+        a2 = 3
+      end
+
       # nylas_account.destroy rescue nil
       # nylas_namespace.destroy rescue nil
     end

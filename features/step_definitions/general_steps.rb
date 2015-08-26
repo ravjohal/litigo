@@ -25,6 +25,13 @@ When(/^I select first item from "(.*?)"$/) do |select_id|
   first('.select2-result-label').click
 end
 
+When(/^I select "(\d+)" item from "(.*?)"$/) do |number, select_id|
+  within "#s2id_#{select_id}" do
+    first('.select2-default').click
+  end
+  all('.select2-result-label')[number.to_i-1].click
+end
+
 When(/^I clear select "(.*?)"$/) do |select_id|
   within "#s2id_#{select_id}" do
     first('.select2-search-choice-close').click

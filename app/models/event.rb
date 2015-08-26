@@ -163,15 +163,21 @@ class Event < ActiveRecord::Base
     update(update_attributes)
   end
 
-  def update_process(event_params, calendar, firm_id)
+  # @param [Hash] event_params
+  # @param [Calendar] calendar
+  # @param [Calendar] old_calendar
+  # @param [Number] firm_id
+  def update_process(event_params, calendar, old_calendar, firm_id)
     update_participants(event_params[:participants], firm_id) unless event_params[:participants].nil?
+
+    nylas_destroy(old_calendar.namespace.nylas_namespace, true) if old_calendar.try(:id).to_i != calendar.try(:id).to_i && old_calendar.try(:id).to_i > 0
+
     unless calendar.blank?
-      nylas_namespace = calendar.namespace.nylas_namespace
-      
-      if self.calendar != calendar
-        create_process calendar, nylas_namespace, firm_id
+
+      if old_calendar.try(:id).to_i != calendar.try(:id).to_i
+        create_process(calendar, calendar.namespace.nylas_namespace, firm_id)
       else
-        n_event = nylas_namespace.events.find(nylas_event_id)
+        n_event = calendar.namespace.nylas_namespace.events.find(nylas_event_id)
         n_event.title = title_for_nylas
         n_event.description = description
         n_event.location = location
@@ -183,8 +189,9 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def main_update_handler(attrs, event_params, calendar, firm_id)
-    update_process(event_params, calendar, firm_id) if update(attrs)
+  def main_update_handler(attrs, event_params, calendar, firm_id, old_calendar = nil)
+    old_calendar ||= self.calendar
+    update_process(event_params, calendar, old_calendar, firm_id) if update(attrs)
   end
 
   def make_update(event_params, attrs, firm_id)
@@ -216,12 +223,12 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def nylas_destroy(nylas_namespace = nil)
+  def nylas_destroy(nylas_namespace = nil, just_nylas = false)
     nylas_namespace ||= calendar.try(:namespace).try(:nylas_namespace)
-    nylas_namespace.events.delete(nylas_event_id) if destroy && nylas_event_id.present? && nylas_namespace.present?
+    nylas_namespace.events.find(nylas_event_id).try(:destroy) if (just_nylas || destroy) && nylas_event_id.present? && nylas_namespace.present?
   end
 
-  def destroy_series
+  def destroy_series(nylas_namespace = nil)
     nylas_namespace ||= calendar.try(:namespace).try(:nylas_namespace)
     event_series.events.each { |e| e.nylas_destroy nylas_namespace }
   end

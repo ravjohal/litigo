@@ -138,6 +138,22 @@ Feature: Events functionality
     And I click to element with selector "div.fc-event"
     Then I should have text "Calendar Event"
 
+  @javascript
+  Scenario: I should be able to create event with calendar and move event to another calendar
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    And I login without firm
+    When I add simple namespace
+    And I activate calendars for simple namespace
+    And I open case management menu
+    And I go to calendar events page
+    And I open create event popup
+    And I fill event with calendar
+    And I wait for "0.2" seconds
+    And I click to element with selector "div.fc-event"
+    And I change event external calendar
+    Then I verify that event remove from "litigo1test@gmail.com" and move to new calendar
+
 #  @javascript
 #  Scenario: I create event for two users and try to update participants
 #    Given Confirmed default admin user exists

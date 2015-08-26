@@ -227,7 +227,8 @@ class EventsController < ApplicationController
         all_day: event_params[:all_day],
         last_updated_by: @user.id,
         case_id: event_params[:case_id],
-        is_reminder: event_params[:is_reminder]
+        is_reminder: event_params[:is_reminder],
+        calendar_id: event_params[:calendar_id]
     }
   end
 

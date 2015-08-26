@@ -45,7 +45,6 @@ class SyncCalendar
 
 	    if active_calendar_ids.present?
 	      user_calendars.select(:id, :calendar_id).where(id: active_calendar_ids).each { |cal| nylas_calendar_ids[cal.id] = cal.try(:calendar_id) }
-	      user_calendars.where(id: active_calendar_ids).update_all active: true
 	    end
 
 	    deleted_events = 0
@@ -53,7 +52,6 @@ class SyncCalendar
 	      event_condition = Event.where(calendar_id: inactive_calendar_ids)
 	      deleted_events += event_condition.count
 	      event_condition.destroy_all
-	      user_calendars.where(id: inactive_calendar_ids).update_all active: false
 	    end
 
 	    if active_calendar_ids.present?

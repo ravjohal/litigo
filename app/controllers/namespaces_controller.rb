@@ -35,6 +35,13 @@ class NamespacesController < ApplicationController
   def get_mass_calendar_events
     sync_calendar(params, @user.id)
 
+    user_calendars = @user.calendars
+    active_calendar_ids = params[:active_ids]
+    inactive_calendar_ids = params[:inactive_ids]
+
+    user_calendars.where(id: active_calendar_ids).update_all(active: true)    if active_calendar_ids.present?
+    user_calendars.where(id: inactive_calendar_ids).update_all(active: false) if inactive_calendar_ids.present?
+
     message = "Background process is running to sync your calendar(s).  Please check your calendar shortly." 
     render :json => { success: true, message: message }
   end

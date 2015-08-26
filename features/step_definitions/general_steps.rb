@@ -87,6 +87,10 @@ When(/^I click to element with selector "(.*?)"$/) do |id|
   find("#{id}").click
 end
 
+When(/^I click to element by javascript with selector "(.*?)"$/) do |id|
+  page.execute_script(%($('#{id}').click()))
+end
+
 When(/^I click to element "(.*?)" with text "(.*?)"$/) do |element, text|
   find(element, :text => text).click
 end

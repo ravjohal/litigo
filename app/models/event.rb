@@ -138,7 +138,15 @@ class Event < ActiveRecord::Base
   end
 
   def nylas_time_attributes
-    all_day? ? {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')} : {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
+    if all_day?
+      if starts_at.strftime('%Y-%m-%d') == ends_at.strftime('%Y-%m-%d')
+        {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')}
+      else
+        {:object => 'datespan', :start_date => starts_at.strftime('%Y-%m-%d'), :end_date => ends_at.strftime('%Y-%m-%d')}
+      end
+    else
+      {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
+    end
   end
 
   def title_for_nylas

@@ -4,3 +4,6 @@ if Rails.env.staging? || Rails.env.production?
 end
 
 #Dir["/app/app/workers/*.rb"].each { |file| require file }
+
+require 'resque_scheduler'
+Resque.schedule = YAML.load_file(Rails.root.join('config/rescue_schedule.yml'))

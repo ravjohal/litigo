@@ -1,0 +1,8 @@
+queue_check_namespaces:
+  every:
+      - "30s"
+      - :first_in: '30s'
+  class: "CheckNamespace"
+  queue: namespaces
+  args:
+  description: "This job will check each namespace for status account on nylas"

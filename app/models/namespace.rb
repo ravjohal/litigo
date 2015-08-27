@@ -55,7 +55,7 @@ class Namespace < ActiveRecord::Base
 
     def delete_from_nylas
       begin
-        disable_nylas_account
+        # disable_nylas_account
       rescue Exception => e
         a2 = 3
       end

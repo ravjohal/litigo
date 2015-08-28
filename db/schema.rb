@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150825174255) do
+ActiveRecord::Schema.define(version: 20150828062622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -563,9 +563,11 @@ ActiveRecord::Schema.define(version: 20150825174255) do
     t.integer  "sync_period"
     t.datetime "last_sync"
     t.integer  "firm_id"
+    t.boolean  "enabled",        default: true
   end
 
   add_index "namespaces", ["account_status"], name: "index_namespaces_on_account_status", using: :btree
+  add_index "namespaces", ["enabled"], name: "index_namespaces_on_enabled", using: :btree
   add_index "namespaces", ["firm_id"], name: "index_namespaces_on_firm_id", using: :btree
   add_index "namespaces", ["user_id"], name: "index_namespaces_on_user_id", using: :btree
 

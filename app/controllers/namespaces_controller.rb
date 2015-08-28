@@ -6,7 +6,7 @@ class NamespacesController < ApplicationController
   # GET /namespaces
   # GET /namespaces.json
   def index
-    @namespaces = @user.namespaces
+    @namespaces = @user.enabled_namespaces
     # if @namespaces.present?
     #   @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
     #   @inbox.accounts.each do |a|
@@ -100,7 +100,7 @@ class NamespacesController < ApplicationController
   # DELETE /namespaces/1
   # DELETE /namespaces/1.json
   def destroy
-    if @namespace.destroy
+    if @namespace.delayed_destroy
       respond_to do |format|
         format.html { redirect_to namespaces_url, notice: 'Namespace was successfully destroyed.' }
         format.json { head :no_content }

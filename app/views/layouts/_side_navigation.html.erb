@@ -1,23 +1,21 @@
 <ul class="nav nav-sidebar">
-  <li>
+  <!-- <li>
     <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
-  </li>
+  </li> -->
   <li>
-    <%= active_link_to "Caller Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cli', :id => 'client-intake', :active => [['client_intakes'], []] %>
+    <%= active_link_to "Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cli', :id => 'client-intake', :active => [['client_intakes'], []] %>
   </li>
   <li id="first">
-    <%= active_link_to " Case Management", '#', :id => 'case-management', :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'events', 'tasks', 'interrogatories', 'contacts', 'documents', 'notes', 'incidents', 'medicals', 'resolutions', 'insurances', 'task_lists', 'templates', 'companies'], []] %>
-    <ul>
-      <li><%= active_link_to "CASES", cases_path, :class_active => 'enabled' %></li>
-      <li><%= active_link_to "CONTACTS", contacts_path, :class_active => 'enabled', :active => @case.present? ? '' : [['contacts'], []] %></li>
-      <li><%= active_link_to "TASKS", tasks_path, :class_active => 'enabled', :active => @case.present? ? '' : [['tasks', 'task_lists'], []] %></li>
-      <li><%= active_link_to "DOCUMENTS", documents_path, :class_active => 'enabled', :active => @case.present? ? '' : [['documents', 'templates'], []] %></li>
-      <li><%= active_link_to "NOTES", notes_path, :class_active => 'enabled' %></li>
-      <li><%= active_link_to "CALENDAR", events_path, :class_active => 'enabled' %></li>
-    </ul>
-  </li>
+    <%= active_link_to " Cases", cases_path, :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'incidents', 'medicals', 'resolutions', 'insurances'], []] %>
+    </li>
+    <li>
+    <%= active_link_to "Contacts", contacts_path, :class_active => 'tester', :class => 'nav-sidebar__prf', :active => @case.present? ? '' : [['contacts'], []] %></li>
+      <li><%= active_link_to " Tasks", tasks_path, :class_active => 'tester', :class => 'nav-sidebar__task', :active => @case.present? ? '' : [['tasks', 'task_lists'], []] %></li>
+      <li><%= active_link_to "Documents", documents_path, :class_active => 'tester', :class => 'nav-sidebar__doc', :active => @case.present? ? '' : [['documents', 'templates'], []] %></li>
+      <li><%= active_link_to " Notes", notes_path, :class_active => 'tester', :class => 'nav-sidebar__pen' %></li>
+      <li><%= active_link_to "Calendar", events_path, :class_active => 'tester', :class => 'nav-sidebar__cal' %></li>
   <li>
-    <%= active_link_to "Time & Expense", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__time', :active => [['time_entries', @case.present? ? '' : 'expenses']], :id => 'time_entries' %>
+    <%= active_link_to "Expenses", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__bil', :active => [['time_entries', @case.present? ? '' : 'expenses']], :id => 'time_entries' %>
   </li>
   <!-- <li>
       <%= active_link_to " Billing", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
@@ -32,16 +30,14 @@
     </ul> -->
   </li>
   <li>
-        <%= active_link_to "Reporting", reports_path , :class_active => 'tester', :class => 'nav-sidebar__cev', :active => [['reports']], :id => 'CaseEval' %>
+        <%= active_link_to "Reports", reports_path , :class_active => 'tester', :class => 'nav-sidebar__cev', :active => [['reports']], :id => 'CaseEval' %>
     </li>
-  <li>
-    <%= active_link_to "Profile", users_profile_path, :class_active => 'tester', :class => 'nav-sidebar__prf', :active => [['registrations', 'namespaces']], :id => 'profile' %>
-  </li>
-  <div class="timer">
+  
+  <!-- <div class="timer">
     <li style="border-top: 1px solid #4B6172; border-bottom: 1px solid #33424E;">
       <div class="clock-block">
         <!--<input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>-->
-        <div id="clock" class="timer-clock">00:00:00</div>
+     <!--   <div id="clock" class="timer-clock">00:00:00</div>
       </div>
       <ul class="timer-controls">
         <li><a href='#' id="startstopbutton" type="button" title="Start/Stop Timer">
@@ -55,7 +51,7 @@
         <textarea id="output" style="height: 90%; display:none;"></textarea>
       </ul>
     </li>
-  </div>
+  </div> -->
 </ul>
 
 <script>

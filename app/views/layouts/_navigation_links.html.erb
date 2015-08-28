@@ -5,12 +5,12 @@
     <button class="nav-dropdown-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
       <%= current_user.name %>
       <span class="caret"></span>
+      <br><span style="font-size: 10px;"><%= @firm.name %></span>
     </button>
     <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <!-- <li role="presentation"><%= link_to 'Page Tour', :id => "page_tour" %></li> -->
       <li role="presentation"><a href="#menu-toggle" class="side-menu-toggle" id="menu-toggle">Toggle Side Menu 
                     </a></li>
-      <li role="presentation"><%= link_to 'Account Settings', users_profile_path %></li>
+      <li role="presentation"><%= link_to 'Profile & Settings', users_profile_path %></li>
       <li role="presentation"><%= link_to 'Sign Out', destroy_user_session_path, :method => 'delete' %></li>
     </ul>
   </div>
@@ -19,9 +19,3 @@
   <li><%= link_to 'Sign in', new_user_session_path %></li>
   <li><%= link_to 'Sign up', new_user_registration_path %></li>
 <% end %>
-<script>
-  $('.tip-tour').tipr({
-    'speed': 500,
-    'mode': 'bottom'
-  });
-</script>

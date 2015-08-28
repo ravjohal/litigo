@@ -8,6 +8,9 @@ class Namespace < ActiveRecord::Base
   # exclude all those in array, only need events for now
   NYLAS_EXCLUDE_DELTA = [Nylas::Tag, Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]
 
+  scope :enabled, -> { where(:enabled => true) }
+  scope :disabled, -> { where(:enabled => false) }
+
   include ActiveCalendars
 
   before_destroy :delete_from_nylas
@@ -49,6 +52,11 @@ class Namespace < ActiveRecord::Base
       nylas_account.billing_state = 'deleted'
       nylas_account.save!
     end
+  end
+
+  def delayed_destroy
+    self.enabled = false
+    save
   end
 
   private

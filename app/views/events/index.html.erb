@@ -29,7 +29,7 @@
                 <%= link_to "", :class => 'dark', :style => 'vertical-align: middle;' do %>
                     <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
                   <% end %>
-                  <% if @user.namespaces %>
+                  <% if @user.try(:enabled_namespaces).try(:count).to_i > 0 %>
                     <%= link_to refresh_events_path,  :class => 'dark-small', :style => 'vertical-align: middle;' do %><span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span> <% end %>
                   <% end %>
                 <%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>

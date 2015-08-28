@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   USER_ROLES = [:staff, :admin, :attorney]
   enum role: USER_ROLES
+
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_show_onboarding, :if => :new_record?
 
@@ -52,6 +53,7 @@ class User < ActiveRecord::Base
   COLORS = [ '#0266C8', '#F90101', '#F2B50F', '#00933B', '#9966FF', '#FF6666', '#7E989C', '#00CC99', '#000099', '#FFCC66', '#00B700', '#f200ff', '#ff9900']
 
   include ActiveCalendars
+  include ActiveNamespaces
 
   def create_contact(role, firm = self.firm)
     klass = role

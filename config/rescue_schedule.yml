@@ -1,8 +1,16 @@
 queue_check_namespaces:
   every:
-      - "30s"
-      - :first_in: '30s'
+      - "10m"
+      - :first_in: '180s'
   class: "CheckNamespace"
   queue: namespaces
   args:
   description: "This job will check each namespace for status account on nylas"
+queue_delete_namespaces:
+  every:
+      - "10m"
+      - :first_in: '60s'
+  class: "DelayedDeleteNamespace"
+  queue: namespaces
+  args:
+  description: "This job will delete disabled namespaces, calendar and events"

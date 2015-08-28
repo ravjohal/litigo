@@ -124,7 +124,7 @@ class EventsController < ApplicationController
 
   def refresh_events
     events_synced = 0
-    @firm.namespaces.includes(:calendars).each do |namespace|
+    @firm.enabled_namespaces.includes(:calendars).each do |namespace|
       active_calendars = namespace.active_calendars
       if active_calendars.present?
         ns = namespace.nylas_namespace

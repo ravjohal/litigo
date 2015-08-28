@@ -253,13 +253,10 @@ display: none;
   border-color: #0483A0;
 }
 .navbar-brand {
-  background-image: url(/assets/lightlogo.png);
+  background-image: url(/assets/light-house.png);
   background-repeat: no-repeat;
-  background-size: 95px 40px;
-  width: 100px;
-  height: 33px;
-  margin-top: 14px;
-  margin-left: 40px !important;
+  background-size: 25px 30px; 
+  margin: 16px auto 0 auto;
 }
 
 .navbar-fixed-top {
@@ -288,7 +285,7 @@ display: none;
   width: 100%;
   background: #fff;
   border-bottom: 1px solid #ccc;
-  height: 138px;
+  height: 134px;
   margin-bottom: 62px;
 }
 #case-buttons{
@@ -410,7 +407,7 @@ input:focus {
   border: none;
 }
 .incase-tabs-gap{
-  padding-bottom: 64px;
+  padding-bottom: 62px;
 }
 .incase-tabs-gap-double{
   padding-bottom: 182px;
@@ -688,6 +685,10 @@ thead{
   border-bottom: 1px solid #ccc;
 }
 
+.index-table-space {
+  margin-top: 73px;
+}
+
 .sorting {
   background: none;
 }
@@ -714,7 +715,7 @@ vertical-align: middle;
 #nav-tabs-custom{
   margin-left: -10px;
   position: relative;
-  margin-top: 36px;
+  margin-top: 32px;
   z-index: 1000;
   width: 100%;
   padding: 0 0 0 5px;

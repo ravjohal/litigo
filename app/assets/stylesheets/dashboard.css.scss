@@ -4,7 +4,7 @@
 
 
 .dash-form {
-	width: 100%;
+  width: 100%;
     padding: 0;
   tr {
     width: 100%;
@@ -186,4 +186,85 @@
   font-size: 44px;
   color: #7B8CA4;
   padding: 15px 20px;
+}
+
+
+.cf:after {
+  content: ' ';
+  height: 0;
+  visibility: hidden;
+  display: block;
+  clear: both;
+}
+ 
+.cf { zoom: 1; }
+ 
+.step-wrapper {
+  width: 100%;
+}
+ 
+.step-wrapper .step-header {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+ 
+.step-wrapper .step-header-item {
+  float: left;
+  padding: 10px 20px;
+  font-size: 24px;
+  text-align: center;
+  color: #666;
+}
+ 
+.step-wrapper .step-header .activated { color: #000; }
+ 
+.step-wrapper .step-header .active { color: #0af; }
+ 
+.step-wrapper .step-body .step-body-item {
+  display: none;
+}
+ 
+.step-wrapper .step-body .active { display: block; }
+ 
+ 
+.step-wrapper .step-footer .step-btn {
+  font-size: 18px;
+}
+ 
+.step-wrapper .step-footer .step-btn:hover {
+  color: #000;
+  border-color: #d0d0d0;
+  box-shadow: 0 1px 2px -1px #ccc;
+}
+
+.gmail {
+  background: url('/assets/gmail.png');
+  width: 200px;
+  height: 100px;
+  background-size: 200px 100px;
+  background-repeat: no-repeat;
+}
+.yahoo {
+  background: url('/assets/yahoo.png');
+  width: 200px;
+  height: 50px;
+  background-size: 200px 50px;
+  background-repeat: no-repeat;
+}
+.outlook {
+  background: url('/assets/outlook.png');
+  width: 200px;
+  height: 60px;
+  background-size: 200px 60px;
+  background-repeat: no-repeat;
+}
+.icloud {
+  background: url('/assets/icloud.png');
+  width: 200px;
+  height: 80px;
+  background-size: 200px 80px;
+  background-repeat: no-repeat;
 }

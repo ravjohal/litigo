@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150818152245) do
+ActiveRecord::Schema.define(version: 20150828062622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -285,8 +285,11 @@ ActiveRecord::Schema.define(version: 20150818152245) do
     t.datetime "updated_at"
     t.integer  "last_updated_by"
     t.integer  "owner_id"
+    t.integer  "case_id"
+    t.boolean  "is_reminder",        default: false
   end
 
+  add_index "events", ["case_id"], name: "index_events_on_case_id", using: :btree
   add_index "events", ["firm_id"], name: "index_events_on_firm_id", using: :btree
   add_index "events", ["nylas_event_id"], name: "index_events_on_nylas_event_id", using: :btree
   add_index "events", ["owner_id"], name: "index_events_on_owner_id", using: :btree
@@ -560,9 +563,11 @@ ActiveRecord::Schema.define(version: 20150818152245) do
     t.integer  "sync_period"
     t.datetime "last_sync"
     t.integer  "firm_id"
+    t.boolean  "enabled",        default: true
   end
 
   add_index "namespaces", ["account_status"], name: "index_namespaces_on_account_status", using: :btree
+  add_index "namespaces", ["enabled"], name: "index_namespaces_on_enabled", using: :btree
   add_index "namespaces", ["firm_id"], name: "index_namespaces_on_firm_id", using: :btree
   add_index "namespaces", ["user_id"], name: "index_namespaces_on_user_id", using: :btree
 

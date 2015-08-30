@@ -16,6 +16,14 @@ module DatesHelper
     date.try(:strftime, '%m/%d/%Y')
   end
 
+  def date_to_input_with_zero(date)
+    date.try(:strftime, '%-m/%d/%Y')
+  end
+
+  def time_to_input(date)
+    date.try(:strftime, '%I:%M %p')
+  end
+
   def simple_input_format_date(date)
     date.try(:strftime, '%F')
   end

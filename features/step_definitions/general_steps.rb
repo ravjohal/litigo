@@ -25,6 +25,13 @@ When(/^I select first item from "(.*?)"$/) do |select_id|
   first('.select2-result-label').click
 end
 
+When(/^I select "(\d+)" item from "(.*?)"$/) do |number, select_id|
+  within "#s2id_#{select_id}" do
+    first('.select2-default').click
+  end
+  all('.select2-result-label')[number.to_i-1].click
+end
+
 When(/^I clear select "(.*?)"$/) do |select_id|
   within "#s2id_#{select_id}" do
     first('.select2-search-choice-close').click
@@ -87,6 +94,14 @@ When(/^I click to element with selector "(.*?)"$/) do |id|
   find("#{id}").click
 end
 
+When(/^I click to element by javascript with selector "(.*?)"$/) do |id|
+  page.execute_script(%($('#{id}').click()))
+end
+
+When(/^I click to element "(.*?)" with text "(.*?)"$/) do |element, text|
+  find(element, :text => text).click
+end
+
 When /^I push delete button$/ do
   step 'I click to element with id "delete"'
   step 'I confirm popup'
@@ -127,6 +142,11 @@ end
 
 When /^I fill field "(.*?)" with "(.*?)"$/ do |id, value|
   fill_in id, with: value
+end
+
+When /^I fill input "(.*?)" with value "(.*?)"$/ do |id, value|
+  page.execute_script(%(document.getElementById('#{id}').value = '#{value}';))
+  sleep 0.1
 end
 
 When /^I fill field with selector "(.*?)" with "(.*?)"$/ do |selector, value|

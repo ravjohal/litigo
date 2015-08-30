@@ -1,9 +1,11 @@
 require 'resque/server'
+require 'resque_web'
 
 Rails.application.routes.draw do
 
   authenticated :user do
-    mount Resque::Server.new, at: "/resque"
+    mount Resque::Server.new, at: '/resque'
+    mount ResqueWeb::Engine => '/resque_web'
   end
 
   get 'reports' => 'reports#index', as: :reports

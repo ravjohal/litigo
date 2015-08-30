@@ -1,13 +1,27 @@
 <%# navigation styled for Bootstrap 3.0 %>
 <div class="navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid">
-    <%= render 'layouts/sub_navigation_links' %>
+      <span class="text-center">
+          <a class="navbar-brand" href="/users/profile"></a>   
+      </span>
+<div class="firm-name">
+    <div class="dropdown">
+        <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true" style="background: transparent; border: none; margin-top: -4px;">
+          <span class="glyphicon glyphicon-plus-sign" style="font-size: 130%;"></span>
+          <!-- <span class="caret"></span> -->
+        </button>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="left: 0 !important; margin-top: 15px;"> 
+              <li role="presentation"><%= link_to new_lead_path do %><span class="glyphicon glyphicon-list-alt"> Intake</span><% end %></li>
+              <li role="presentation"><%= link_to new_case_path do %><span class="glyphicon glyphicon-folder-open"> Case</span><% end %></li>
+              <li role="presentation"><%= link_to new_contact_path do %><span class="glyphicon glyphicon-user"> Contact</span><% end %></li>
+              <li role="presentation"><%= link_to new_task_path do %><span class="glyphicon glyphicon-flag"> Task</span><% end %></li>
+              <li role="presentation"><%= link_to new_note_path do %><span class="glyphicon glyphicon-pencil"> Note</span><% end %></li>
+              <li role="presentation"><%= link_to new_document_path do %><span class="glyphicon glyphicon-file"> Document</span><% end %></li>
+              <li role="presentation"><%= link_to new_event_path do %><span class="glyphicon glyphicon-calendar"> Event</span><% end %></li>
+
+            </ul>
+      </div>
   </div>
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/"></a>
-    </div>
-<div class="firm-name"><%= @firm.name %></div>
     <ul class="nav navbar-nav navbar-right">
       <%= render 'layouts/navigation_links' %>
     </ul>

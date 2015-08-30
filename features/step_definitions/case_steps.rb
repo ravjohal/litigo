@@ -125,38 +125,38 @@ Then(/^I verify required fields for case for user with email "(.*?)" are changed
 end
 
 Then(/^all tabs are created$/) do
-  click_on 'RESOLUTION'
+  click_on 'Resolution'
   expect(page).to have_content('Resolution Amount:')
-  click_on 'DETAILS'
+  click_on 'Details'
   expect(page).to have_content('Case Administration')
-  click_on 'DOCUMENTS'
+  click_on 'Documents'
   expect(page).to have_content('NEW DOCUMENT')
-  click_on 'NOTES'
+  click_on 'Notes'
   expect(page).to have_content('NEW NOTE')
-  click_on 'CONTACTS'
+  click_on 'Contacts'
   expect(page).to have_content('NEW CONTACT')
-  click_on 'TASKS'
+  click_on 'Tasks'
   expect(page).to have_content('My Tasks')
-  end
+end
 
 Then(/^all tabs are created includint medical$/) do
-  click_on 'RESOLUTION'
+  click_on 'Resolution'
   expect(page).to have_content('Resolution Amount:')
-  click_on 'MEDICAL'
+  click_on 'Medicals'
   expect(page).to have_content('Medical Bills')
-  click_on 'INCIDENT'
+  click_on 'Incident'
   expect(page).to have_content('Incident Summary')
-  click_on 'INSURANCE'
+  click_on 'Insurance'
   expect(page).to have_content('Insurance Summary')
-  click_on 'DETAILS'
+  click_on 'Details'
   expect(page).to have_content('Case Administration')
-  click_on 'DOCUMENTS'
+  click_on 'Documents'
   expect(page).to have_content('NEW DOCUMENT')
-  click_on 'NOTES'
+  click_on 'Notes'
   expect(page).to have_content('NEW NOTE')
-  click_on 'CONTACTS'
+  click_on 'Contacts'
   expect(page).to have_content('NEW CONTACT')
-  click_on 'TASKS'
+  click_on 'Tasks'
   expect(page).to have_content('My Tasks')
 end
 

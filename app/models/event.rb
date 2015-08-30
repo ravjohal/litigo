@@ -1,11 +1,14 @@
 class Event < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'created_by'
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
+
+  belongs_to :case
   belongs_to :firm
   belongs_to :task
   belongs_to :calendar
   belongs_to :namespace
   belongs_to :event_series
+
   has_many :event_participants, :dependent => :destroy
   has_many :participants, :through => :event_participants
 
@@ -39,18 +42,30 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def assign_nylas_object(ne)
-    assign_attributes(
+  def nylas_object_to_attributes(ne)
+    is_reminder = false
+    base_title = ne.title
+    if base_title.to_s.include?' [Reminder]'
+      is_reminder = true
+      base_title.slice! ' [Reminder]'
+    end
+
+    {
         nylas_calendar_id: ne.calendar_id,
         nylas_namespace_id: ne.namespace_id,
         description: ne.description,
         location: ne.location,
         read_only: ne.read_only,
-        title: ne.title,
+        title: base_title,
         busy: ne.try(:busy),
         status: ne.try(:status),
-        when_type: ne.when['object']
-    )
+        when_type: ne.when['object'],
+        is_reminder: is_reminder
+    }
+  end
+
+  def assign_nylas_object(ne)
+    assign_attributes(nylas_object_to_attributes(ne))
     yield if block_given?
   end
 
@@ -123,12 +138,32 @@ class Event < ActiveRecord::Base
   end
 
   def nylas_time_attributes
-    all_day? ? {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')} : {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
+    if all_day?
+      if starts_at.strftime('%Y-%m-%d') == ends_at.strftime('%Y-%m-%d')
+        {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')}
+      else
+        {:object => 'datespan', :start_date => starts_at.strftime('%Y-%m-%d'), :end_date => ends_at.strftime('%Y-%m-%d')}
+      end
+    else
+      {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
+    end
+  end
+
+  def title_for_nylas
+    res = title
+    res << ' [Reminder]' if is_reminder?
+    res
   end
 
   def create_process(calendar, nylas_namespace, firm_id = nil)
-
-    n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => title, :description => description, :location => location, :when => nylas_time_attributes, :participants => participants.map { |p| {:email => p.email, :name => p.name} })
+    n_event = nylas_namespace.events.build(
+        :calendar_id => calendar.calendar_id,
+        :title => title_for_nylas,
+        :description => description,
+        :location => location,
+        :when => nylas_time_attributes,
+        :participants => participants.map { |p| {:email => p.email, :name => p.name} }
+    )
     n_event.save!
 
     update_attributes = {calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id, nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id, when_type: n_event.when['object']}
@@ -136,16 +171,21 @@ class Event < ActiveRecord::Base
     update(update_attributes)
   end
 
-  def update_process(event_params, calendar, firm_id)
+  # @param [Hash] event_params
+  # @param [Calendar] calendar
+  # @param [Calendar] old_calendar
+  # @param [Number] firm_id
+  def update_process(event_params, calendar, old_calendar, firm_id)
     update_participants(event_params[:participants], firm_id) unless event_params[:participants].nil?
+
+    nylas_destroy(old_calendar.namespace.nylas_namespace, true) if old_calendar.try(:id).to_i != calendar.try(:id).to_i && old_calendar.try(:id).to_i > 0
+
     unless calendar.blank?
-      nylas_namespace = calendar.namespace.nylas_namespace
-      
-      if self.calendar != calendar
-        create_process calendar, nylas_namespace, firm_id
+      if old_calendar.try(:id).to_i != calendar.try(:id).to_i
+        create_process(calendar, calendar.namespace.nylas_namespace, firm_id)
       else
-        n_event = nylas_namespace.events.find(nylas_event_id)
-        n_event.title = title
+        n_event = calendar.namespace.nylas_namespace.events.find(nylas_event_id)
+        n_event.title = title_for_nylas
         n_event.description = description
         n_event.location = location
         n_event.when = nylas_time_attributes
@@ -156,8 +196,9 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def main_update_handler(attrs, event_params, calendar, firm_id)
-    update_process(event_params, calendar, firm_id) if update(attrs)
+  def main_update_handler(attrs, event_params, calendar, firm_id, old_calendar = nil)
+    old_calendar ||= self.calendar
+    update_process(event_params, calendar, old_calendar, firm_id) if update(attrs)
   end
 
   def make_update(event_params, attrs, firm_id)
@@ -189,12 +230,12 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def nylas_destroy(nylas_namespace = nil)
+  def nylas_destroy(nylas_namespace = nil, just_nylas = false)
     nylas_namespace ||= calendar.try(:namespace).try(:nylas_namespace)
-    nylas_namespace.events.delete(nylas_event_id) if destroy && nylas_event_id.present? && nylas_namespace.present?
+    nylas_namespace.events.find(nylas_event_id).try(:destroy) if (just_nylas || destroy) && nylas_event_id.present? && nylas_namespace.present?
   end
 
-  def destroy_series
+  def destroy_series(nylas_namespace = nil)
     nylas_namespace ||= calendar.try(:namespace).try(:nylas_namespace)
     event_series.events.each { |e| e.nylas_destroy nylas_namespace }
   end
@@ -214,7 +255,7 @@ class Event < ActiveRecord::Base
   # @param [Calendar] calendar
   # @param [Namespace] namespace
   def assign_nylas_while_refresh(ne, firm, calendar, namespace)
-    assign_nylas_object!(ne, firm) { assign_attributes owner_id: calendar.namespace.user_id, firm_id: firm.id, calendar_id: calendar.id, namespace_id: namespace.id } if id && !changed?
+    assign_nylas_object!(ne, firm) { assign_attributes owner_id: calendar.namespace.user_id, firm_id: firm.id, calendar_id: calendar.id, namespace_id: namespace.id } #if id && !changed?
   end
 
 end

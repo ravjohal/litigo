@@ -69,6 +69,18 @@
           </tr>
           <tr>
             <td>
+              <strong>Case:</strong>
+            </td>
+            <td>
+              <% unless @case %>
+                  <%= f.association :case, :collection => @firm.cases, :input_html => {:id => 'case_select'}, label: false %>
+              <% else %>
+                  <%= @case.name %>
+              <% end %>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <strong>Invitees:</strong><span id="invite" title="Invitees will receive an email invite and the event will be added to their calendar" style="cursor: pointer; float: right; margin-right: 5px; font-size: 14px;" class="glyphicon glyphicon-question-sign"></span>
             </td>
             <td>
@@ -100,6 +112,15 @@
             </td>
             <td>
               <%= f.check_box :all_day, {}, true, false %>
+            </td>
+          </tr>
+
+          <tr>
+            <td>
+              <strong>Reminder:</strong>
+            </td>
+            <td>
+              <%= f.check_box :is_reminder, {}, true, false %>
             </td>
           </tr>
 

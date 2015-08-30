@@ -12,7 +12,7 @@
                 </li>
                 <% @event_sources.each do |user_id, event_source| %>
                 <li>
-                  <span class="user_color" style="background-color: <%= event_source.first[:color] %>"></span>
+                  <span class="user_color" style="background-color: <%= event_source.first[:userColor] %>"></span>
                   <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids'  %>
                   <%= label_tag "user_ids[#{event_source.first[:user_name]}]", event_source.first[:user_name] %>
                 </li>
@@ -29,7 +29,7 @@
                 <%= link_to "", :class => 'dark', :style => 'vertical-align: middle;' do %>
                     <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
                   <% end %>
-                  <% if @user.namespaces %>
+                  <% if @user.try(:enabled_namespaces).try(:count).to_i > 0 %>
                     <%= link_to refresh_events_path,  :class => 'dark-small', :style => 'vertical-align: middle;' do %><span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span> <% end %>
                   <% end %>
                 <%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
@@ -143,7 +143,8 @@ $(document).ready(function() {
     if($(this).is(":checked")) {
       $('#calendar').fullCalendar( 'addEventSource', {
         events: eventsSources[user_id] != undefined ? eventsSources[user_id] : [],
-        color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff'
+        color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff',
+        textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].first.textColor : '#ffffff'
       } )
     } else {
       $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id])
@@ -153,7 +154,8 @@ $(document).ready(function() {
   $.each(eventsSources, function (user_id, hash) {
     $('#calendar').fullCalendar( 'addEventSource', {
       events: hash,
-      color: hash.color
+      color: hash.color,
+      textColor: hash.textColor
     });
     if (current_user_id != user_id) {
       $('#user_ids_'+user_id).prop('checked', false).change();
@@ -188,7 +190,8 @@ $(document).ready(function() {
                 if ($(obj).is(":checked")) {
                   $('#calendar').fullCalendar( 'addEventSource', {
                     events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
-                    color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff'
+                    color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff',
+                    textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].textColor : '#ffffff'
                   } )
                 }
               });
@@ -199,7 +202,7 @@ $(document).ready(function() {
           }
         });
   };
-  refreshNamespaces();
+  //refreshNamespaces();  //Removed refreshing from js for now as we deal with memory issues. Will move this to background job.
 
   function rgb2hex(rgb) {
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;

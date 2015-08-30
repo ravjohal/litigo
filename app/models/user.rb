@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   USER_ROLES = [:staff, :admin, :attorney]
   enum role: USER_ROLES
+
   after_initialize :set_default_role, :if => :new_record?
   after_initialize :set_show_onboarding, :if => :new_record?
 
@@ -52,6 +53,7 @@ class User < ActiveRecord::Base
   COLORS = [ '#0266C8', '#F90101', '#F2B50F', '#00933B', '#9966FF', '#FF6666', '#7E989C', '#00CC99', '#000099', '#FFCC66', '#00B700', '#f200ff', '#ff9900']
 
   include ActiveCalendars
+  include ActiveNamespaces
 
   def create_contact(role, firm = self.firm)
     klass = role
@@ -110,6 +112,40 @@ class User < ActiveRecord::Base
     else
       COLORS[index]
     end
+  end
+
+  # @param [Event] event
+  # @param [Array<User>] users
+  # @return [String]
+  def color_by_event(event, users)
+    return '#FFFFFF' if event.is_reminder?
+    user_color users
+  end
+
+  # @param [Array<User>] users
+  # @return [String]
+  def user_color(users)
+    events_color.present? ? events_color : color(users.to_a.index(self))
+  end
+
+  # @param [Event] event
+  # @return [String]
+  def text_color_by_event(event)
+    return '#222222' if event.is_reminder?
+    '#FFFFFF'
+  end
+
+  # @param [Array<User>] users
+  # @param [Event] event
+  # @return [Hash]
+  def hash_for_event(event, users)
+    {
+        user_id: id,
+        user_name: name,
+        color: color_by_event(event, users),
+        userColor: user_color(users),
+        textColor: text_color_by_event(event)
+    }
   end
 
   def edit_event_allowed?

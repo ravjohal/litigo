@@ -1,0 +1,12 @@
+queue_delete_namespaces:
+  cron: "30 8 * * *"
+  class: "DelayedDeleteNamespace"
+  queue: namespaces
+  args:
+  description: "This job will delete disabled namespaces, calendar and events"
+queue_calendars:
+  cron: "00 8 * * *"
+  class: "SyncAllCalendars"
+  queue: calendar
+  args:
+  description: "This job will sync all calendars for all firms"

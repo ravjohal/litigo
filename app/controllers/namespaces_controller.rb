@@ -6,7 +6,7 @@ class NamespacesController < ApplicationController
   # GET /namespaces
   # GET /namespaces.json
   def index
-    @namespaces = @user.namespaces
+    @namespaces = @user.enabled_namespaces
     # if @namespaces.present?
     #   @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespaces.first.inbox_token)
     #   @inbox.accounts.each do |a|
@@ -19,8 +19,7 @@ class NamespacesController < ApplicationController
 
   def get_calendars
     namespace = Namespace.find(params[:id])
-    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, namespace.inbox_token)
-    nylas_namespace = @inbox.namespaces.first
+    nylas_namespace = namespace.nylas_namespace
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id, firm_id: @firm.id)
@@ -36,6 +35,13 @@ class NamespacesController < ApplicationController
   def get_mass_calendar_events
     sync_calendar(params, @user.id)
 
+    user_calendars = @user.calendars
+    active_calendar_ids = params[:active_ids]
+    inactive_calendar_ids = params[:inactive_ids]
+
+    user_calendars.where(id: active_calendar_ids).update_all(active: true)    if active_calendar_ids.present?
+    user_calendars.where(id: inactive_calendar_ids).update_all(active: false) if inactive_calendar_ids.present?
+
     message = "Background process is running to sync your calendar(s).  Please check your calendar shortly." 
     render :json => { success: true, message: message }
   end
@@ -43,8 +49,7 @@ class NamespacesController < ApplicationController
   # GET /namespaces/1
   # GET /namespaces/1.json
   def show
-    @inbox = Nylas::API.new(Rails.application.secrets.inbox_app_id, Rails.application.secrets.inbox_app_secret, @namespace.inbox_token)
-    nylas_namespace = @inbox.namespaces.first
+    nylas_namespace = @namespace.nylas_namespace
     calendars = nylas_namespace.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id, firm_id: @firm.id)
@@ -95,7 +100,7 @@ class NamespacesController < ApplicationController
   # DELETE /namespaces/1
   # DELETE /namespaces/1.json
   def destroy
-    if @namespace.destroy
+    if @namespace.delayed_destroy
       respond_to do |format|
         format.html { redirect_to namespaces_url, notice: 'Namespace was successfully destroyed.' }
         format.json { head :no_content }

@@ -202,7 +202,7 @@ $(document).ready(function() {
           }
         });
   };
-  refreshNamespaces();
+  //refreshNamespaces();  //Removed refreshing from js for now as we deal with memory issues. Will move this to background job.
 
   function rgb2hex(rgb) {
     if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;

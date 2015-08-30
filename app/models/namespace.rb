@@ -8,6 +8,9 @@ class Namespace < ActiveRecord::Base
   # exclude all those in array, only need events for now
   NYLAS_EXCLUDE_DELTA = [Nylas::Tag, Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]
 
+  scope :enabled, -> { where(:enabled => true) }
+  scope :disabled, -> { where(:enabled => false) }
+
   include ActiveCalendars
 
   before_destroy :delete_from_nylas
@@ -23,7 +26,7 @@ class Namespace < ActiveRecord::Base
   end
 
   def nylas_account
-    @nylas_account ||= nylas_inbox.accounts.first
+    @nylas_account ||= nylas_inbox.accounts.find(account_id)
   end
 
   def full_name
@@ -35,9 +38,36 @@ class Namespace < ActiveRecord::Base
     cursor.blank? ? nylas_namespace.get_cursor(last_sync.to_i) : cursor
   end
 
+  def check_for_exists_in_nylas
+    if inbox_token
+      begin
+        destroy if nylas_account && nylas_account0.billing_state.to_s == 'deleted'
+      rescue Exception => _
+      end
+    end
+  end
+
+  def disable_nylas_account
+    if nylas_account
+      nylas_account.billing_state = 'deleted'
+      nylas_account.save!
+    end
+  end
+
+  def delayed_destroy
+    self.enabled = false
+    save ? Calendar.where(:namespace_id => id).update_all(:deleted => true) : false
+  end
+
   private
 
     def delete_from_nylas
+      begin
+        # disable_nylas_account
+      rescue Exception => e
+        a2 = 3
+      end
+
       # nylas_account.destroy rescue nil
       # nylas_namespace.destroy rescue nil
     end

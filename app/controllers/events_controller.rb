@@ -124,7 +124,7 @@ class EventsController < ApplicationController
 
   def refresh_events
     events_synced = 0
-    @firm.namespaces.includes(:calendars).each do |namespace|
+    @firm.enabled_namespaces.includes(:calendars).each do |namespace|
       active_calendars = namespace.active_calendars
       if active_calendars.present?
         ns = namespace.nylas_namespace
@@ -178,7 +178,7 @@ class EventsController < ApplicationController
 
     compact_events = @firm.events.includes(:owner).map do |event|
       user = event.owner
-      event.to_json_hash.merge({ user_id: user.id, user_name: user.name, color: user.events_color.present? ? user.events_color : user.color(@users.to_a.index(user)) })
+      event.to_json_hash.merge(user.hash_for_event(event, @users))
     end
 
     @event_sources = compact_events.group_by { |d| d[:user_id] } || {}
@@ -192,8 +192,8 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time,
-                                  :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency,
+    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time, :case_id,
+                                  :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency, :is_reminder,
                                   :recur_start_date, :recur_end_date, :event_series_id, :update_all_events, :last_updated_by)
   end
 
@@ -225,7 +225,10 @@ class EventsController < ApplicationController
         starts_at: event_params[:all_day] ? convert_query_date(:start_date) : convert_query_time(:start_date, :start_time),
         ends_at: event_params[:all_day] ? convert_query_date(:end_date) : convert_query_time(:end_date, :end_time),
         all_day: event_params[:all_day],
-        last_updated_by: @user.id
+        last_updated_by: @user.id,
+        case_id: event_params[:case_id],
+        is_reminder: event_params[:is_reminder],
+        calendar_id: event_params[:calendar_id]
     }
   end
 

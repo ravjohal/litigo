@@ -37,7 +37,6 @@ class EventSeries < ActiveRecord::Base
 
   def update_events_until_end_time(event_params, firm_id, attrs, calendar = nil)
     calendar ||= Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
-
     events.each do |event|
       event_attrs = attrs.merge({
         starts_at: event_params[:all_day] ? event.starts_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.starts_at), event_params[:start_time]),

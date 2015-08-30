@@ -60,8 +60,9 @@ gem 'nylas', '~> 0.17.1'
 gem 'newrelic_rpm'
 gem 'rack-timeout'
 gem 'redis'
-gem 'resque', "~> 1.22.0"
+gem 'resque', '~> 1.24'
 gem 'resque-scheduler'
+gem 'resque-web', require: 'resque_web'
 gem 'font_assets'
 
 group :development do
@@ -99,7 +100,7 @@ end
 
 group :development, :test do
   # Call 'debugger' anywhere in the code to stop execution and get a debugger console
-  gem 'pry-byebug', '~> 2.0.0'
+  # gem 'pry-byebug', '~> 2.0.0'
   # Access an IRB console on exceptions page and /console in development
   gem 'web-console', '~> 2.0.0.beta4'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

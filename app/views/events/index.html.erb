@@ -12,7 +12,7 @@
                 </li>
                 <% @event_sources.each do |user_id, event_source| %>
                 <li>
-                  <span class="user_color" style="background-color: <%= event_source.first[:color] %>"></span>
+                  <span class="user_color" style="background-color: <%= event_source.first[:userColor] %>"></span>
                   <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids'  %>
                   <%= label_tag "user_ids[#{event_source.first[:user_name]}]", event_source.first[:user_name] %>
                 </li>

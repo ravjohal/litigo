@@ -119,6 +119,12 @@ class User < ActiveRecord::Base
   # @return [String]
   def color_by_event(event, users)
     return '#FFFFFF' if event.is_reminder?
+    user_color users
+  end
+
+  # @param [Array<User>] users
+  # @return [String]
+  def user_color(users)
     events_color.present? ? events_color : color(users.to_a.index(self))
   end
 
@@ -137,6 +143,7 @@ class User < ActiveRecord::Base
         user_id: id,
         user_name: name,
         color: color_by_event(event, users),
+        userColor: user_color(users),
         textColor: text_color_by_event(event)
     }
   end

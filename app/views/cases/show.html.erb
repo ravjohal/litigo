@@ -1,289 +1,258 @@
 <div class="case-header">
-    <div class="case-title">
-          <div style="font-size: 24px;">
-                <strong><%= @case.name %></strong><br>
-          </div>
-            <div id="case-buttons">
-              <ul>
-                  <li><%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %></li>
-                  <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
-                  <li>
-                    <%= link_to new_case_path, {:class => "dark", :id => "copy_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'} do %><span id="copy" class="glyphicon glyphicon-folder-close" title="Copy Case"></span><% end %>
-                  </li>
-                  <li style="height: 30px;"><%= link_to @case,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Case"></span> <% end %></li>
-              </ul>
-          </div>
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= @case.name %></strong><br>
     </div>
-    <strong>Case #: </strong><%= @case.case_number %>
-    
-        <div class="container-fluid" style="padding: 0;">
-              <div class="row">
-                      <div class="col-md-12">
-                            <%= render partial: 'shared/case_tabs' %>
-                      </div>
-              </div>
-        </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Edit', edit_case_path(@case), :class => 'dark' %></li>
+        <!-- <li><%= link_to cases_path, :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i>
+        <% end %></li> -->
+        <li><%= link_to "", :class => 'dark' do %>
+              <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+          <% end %></li>
+        <li>
+          <%= link_to new_case_path, {:class => "dark", :id => "copy_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} do %>
+              <span id="copy" class="glyphicon glyphicon-folder-close" title="Copy Case"></span>
+          <% end %>
+        </li>
+        <li style="height: 30px;"><%= link_to @case, :class => 'dark', method: :delete, data: {confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?'} do %>
+              <span id="delete" class="glyphicon glyphicon-trash" title="Delete Case"></span>
+          <% end %></li>
+      </ul>
+    </div>
+  </div>
+  <strong>Case #: </strong><%= @case.case_number %>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/case_tabs' %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="top-table-container">
-<table id="info-table1">
-<thead>
-  <tr class="right-top">
-    <td colspan="2" class="gray-back">
-      <strong>Case Administration</strong>
-    </td>
-  </tr>
-</thead>
-  <tbody>
-   <tr>
-        <td class="col-one">
-          <strong>Case Name:</strong>
-        </td>
-        <td>
-          <%=  @case.name %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
-          <strong>Docket Number:</strong>
-        </td>
-        <td>
-          <%=  @case.docket_number %>
-        </td>
-      </tr>
-      <tr>
-      <td class="col-one">
-          <strong>Judge:</strong>
-        </td>
-      <td>
-          <% @case.case_contacts.where("role = 'Judge'").each do |d| %>
-          <%= d.contact.first_name %> <%= d.contact.last_name %>
-           <% end %>
+  <table id="info-table1">
+    <thead>
+    <tr class="right-top">
+      <td colspan="2" class="gray-back">
+        <strong>Case Administration</strong>
       </td>
-      </tr>
-      <tr>
-        <td class="col-one">
-          <strong>Court:</strong>
-        </td>
-        <td>
-          <%= @case.court %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
-          <strong>County:</strong>
-        </td>
-        <td>
-          <%= @case.county %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
-           <strong>State:</strong>
-        </td>
-        <td>
-          <%= @case.state %>
-        </td>
-      </tr>
-        <tr>
-        <td class="col-one">
-           <strong>Fee Agreement Signed?</strong>
-        </td>
-        <td>
-          <%= boolean_as_yesno @case.fee_agreement %>
-        </td>
-      </tr>
-  </tbody>
-</table>
-<table id="info-table2">
-<thead>
-  <tr class="right-top">
-    <td colspan="2" class="gray-back">
-      <strong>Key Dates</strong>
-    </td>
-  </tr>
-</thead>
-  <tbody>
-       <tr>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="col-one">
+        <strong>Case Name:</strong>
+      </td>
+      <td>
+        <%= @case.name %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Docket Number:</strong>
+      </td>
+      <td>
+        <%= @case.docket_number %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Judge:</strong>
+      </td>
+      <td>
+        <% @case.case_contacts.where("role = 'Judge'").each do |d| %>
+            <%= d.contact.first_name %> <%= d.contact.last_name %>
+        <% end %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Court:</strong>
+      </td>
+      <td>
+        <%= @case.court %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>County:</strong>
+      </td>
+      <td>
+        <%= @case.county %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>State:</strong>
+      </td>
+      <td>
+        <%= @case.state %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Fee Agreement Signed?</strong>
+      </td>
+      <td>
+        <%= boolean_as_yesno @case.fee_agreement %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table id="info-table2">
+    <thead>
+    <tr class="right-top">
+      <td colspan="2" class="gray-back">
+        <strong>Key Dates</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
       <td class="col-one">
         <strong>Date of Incident:</strong>
       </td>
-        <td>
-            <%= simple_format_date @case.incident.try(:incident_date) %>
-        </td>
-     </tr>
-  <tr>
+      <td>
+        <%= simple_format_date @case.incident.try(:incident_date) %>
+      </td>
+    </tr>
+    <tr>
       <td class="col-one">
         <strong>SOL:</strong>
       </td>
-        <td>
-            <%= simple_format_date @case.statute_of_limitations %>
-        </td>
-     </tr>
-  <tr>
+      <td>
+        <%= simple_format_date @case.statute_of_limitations %>
+      </td>
+    </tr>
+    <tr>
       <td class="col-one">
         <strong>Date of Intake:</strong>
       </td>
-        <td>
-          <%= simple_format_date @case.date_of_intake %>
-        </td>
-     </tr>
-   <tr>
+      <td>
+        <%= simple_format_date @case.date_of_intake %>
+      </td>
+    </tr>
+    <tr>
       <td class="col-one">
         <strong>Case Open Date:</strong>
       </td>
-        <td>
-         <%= simple_format_date @case.created_at %>
-        </td>
-     </tr> 
-      <tr>
-        <td class="right">
-           <strong>Hearing Date:</strong>
-        </td>
-        <td>
-            <%= simple_format_date @case.hearing_date  %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
-           <strong>Transferred to Lit:</strong>
-        </td>
-        <td>
-          <%= simple_format_date @case.transfer_date  %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-            <strong>Date Filed Suit:</strong>
-        </td>
-        <td>
-              <%= simple_format_date @case.filed_suit_date  %>
-        </td>
-      </tr>
-      <tr>
-        <td class="col-one">
-           <strong>Trial Date:</strong>
-        </td>
-        <td>
-          <%= simple_format_date @case.trial_date  %>
-        </td>
-      </tr>
-  </tbody>
-</table>
+      <td>
+        <%= simple_format_date @case.created_at %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Hearing Date:</strong>
+      </td>
+      <td>
+        <%= simple_format_date @case.hearing_date %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Transferred to Lit:</strong>
+      </td>
+      <td>
+        <%= simple_format_date @case.transfer_date %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Date Filed Suit:</strong>
+      </td>
+      <td>
+        <%= simple_format_date @case.filed_suit_date %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Trial Date:</strong>
+      </td>
+      <td>
+        <%= simple_format_date @case.trial_date %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 <hr class="invis">
 
 <div class="bottom-table-container">
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="4" class="gray-back">
-      <strong>General Overview</strong>
-    </td>
-  </tr>
-</thead>
-  <tbody>
-      <tr>
-        <td class="right">
-          <strong>Status:</strong>
-        </td>
-        <td>
-          <%= @case.status %>
-        </td>
-         <td class="right">
-          <strong>Date Closed:</strong>
-        </td>
-        <td>
-          <%= simple_format_date @case.closing_date  %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-           <strong>Type:</strong>
-        </td>
-        <td>
-          <%=  @case.case_type %>
-        </td>
-        <td class="right">
-          <strong>Subtype:</strong>
-        </td>
-        <td>
-          <%= @case.subtype %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Topic:</strong>
-        </td>
-        <td colspan="3">
-          <%=  @case.topic %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right big-row">
-            <strong>Case Summary:</strong>
-        </td>
-        <td colspan="3" class="big-row">
-          <%= @case.description %>
-        </td>
-      </tr>
-  </tbody>
-</table>
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="4" class="gray-back">
+        <strong>General Overview</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>Status:</strong>
+      </td>
+      <td>
+        <%= @case.status %>
+      </td>
+      <td class="right">
+        <strong>Date Closed:</strong>
+      </td>
+      <td>
+        <%= simple_format_date @case.closing_date %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Type:</strong>
+      </td>
+      <td>
+        <%= @case.case_type %>
+      </td>
+      <td class="right">
+        <strong>Subtype:</strong>
+      </td>
+      <td>
+        <%= @case.subtype %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Topic:</strong>
+      </td>
+      <td colspan="3">
+        <%= @case.topic %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right big-row">
+        <strong>Case Summary:</strong>
+      </td>
+      <td colspan="3" class="big-row">
+        <%= @case.description %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
-  <div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
+<div id="modal-window" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 
 <script type='text/javascript'>
-  $(function() {
-    $('#delete').tipsy({gravity: 'ne', fade: true});
-    $('#print').tipsy({gravity: 'n', fade: true});
-    $('#copy').tipsy({gravity: 'n', fade: true});
-  });
+    $(function () {
+        $('#delete').tipsy({gravity: 'ne', fade: true});
+        $('#print').tipsy({gravity: 'n', fade: true});
+        $('#copy').tipsy({gravity: 'n', fade: true});
+    });
 </script>
 <script>
-$(document).ready(function() {
-    $('#copy_modal').click(function(event){
-      $("#modal-window").html("<%= escape_javascript(render 'cases/copy', existing_case: @case) %>");
-    });
-  });
-$(document).on('ready', function () {
-    function getHiddenItems() {
-        var isOneLine = true;
-        var topPosition = false;
-        var invisibleItems = $('<ul/>');
-        $('.menu li').each(function () {
-            var thisPosition = $(this).position();
-            if (topPosition === false) {
-                topPosition = thisPosition.top;
-            } else if (thisPosition.top > topPosition) {
-                invisibleItems.append($(this).clone());
-                isOneLine = false;
-            };
+    $(document).ready(function () {
+        $('#copy_modal').click(function (event) {
+            $("#modal-window").html("<%= escape_javascript(render 'cases/copy', existing_case: @case) %>");
         });
-        return isOneLine ? false : invisibleItems;
-    };
-
-    function checkMenu() {
-        $('.more').hide();
-        var hiddenItems = getHiddenItems();
-        if (!hiddenItems) {
-
-            $('.more_menu').html('');
-        } else {
-            $('.more').show();
-            /* What items are not visible now? */
-            hiddenItems = getHiddenItems();
-            $('.more_menu').html('<ul>' + hiddenItems.html() + '</ul>');
-        };
-    };
-    $('.more').on('click', function (e) {
-        e.preventDefault();
-        $('.more').toggleClass('more_menu_opened');
-        $('.more_menu').toggleClass('open');
     });
-    $(window).on('resize', checkMenu);
-    checkMenu();
-});
 </script>

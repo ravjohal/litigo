@@ -27,7 +27,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.6'    # Allows oauth2 support for Google
 gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.8.0'               # Replacement for curl commands to grab contacts from google
 gem 'active_link_to', '~> 1.0.2'
-gem 'jquery-datatables-rails', '~> 2.2.3'
+gem 'jquery-datatables-rails', '~> 3.3.0'
 gem "select2-rails", '3.5.9.1'
 gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'fullcalendar-rails', '~> 1.6.4.0'

@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.1.3'
+ruby '2.2.1'
 gem 'rails', '~> 4.2.0.rc2'
 gem 'ffi', '~> 1.9.5'
 #Rack-based asset packaging system

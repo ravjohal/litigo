@@ -279,8 +279,10 @@ GEM
     jbuilder (2.2.12)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jquery-datatables-rails (2.2.3)
+    jquery-datatables-rails (3.3.0)
+      actionpack (>= 3.1)
       jquery-rails
+      railties (>= 3.1)
       sass-rails
     jquery-datetimepicker-rails (2.3.7.0)
     jquery-rails (3.1.2)
@@ -597,7 +599,7 @@ DEPENDENCIES
   htmltoword (~> 0.2.0)
   hub (~> 1.12.2)
   jbuilder (~> 2.0)
-  jquery-datatables-rails (~> 2.2.3)
+  jquery-datatables-rails (~> 3.3.0)
   jquery-datetimepicker-rails (~> 2.3.7.0)
   jquery-rails (~> 3.1.2)
   jquery-ui-rails (~> 5.0.0)
@@ -641,3 +643,6 @@ DEPENDENCIES
   unicorn (~> 4.8.3)
   web-console (~> 2.0.0.beta4)
   will_paginate (~> 3.0.7)
+
+BUNDLED WITH
+   1.10.6

@@ -1,0 +1,5 @@
+<tr>
+  <td>
+    <%= f.select :user_id, @firm.users.map {|u| [u.name, u.id]}, :class => 'table-input'  %>
+  </td>
+</tr>

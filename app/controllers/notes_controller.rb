@@ -123,6 +123,8 @@ class NotesController < ApplicationController
       params.require(:note).permit(:note, :case_id, :user_id, :firm_id, :note_type, :created_at, :updated_at, :author,
                                    :task_name, :task_due_date, :task_sms_reminder, :task_email_reminder, :add_task,
                                    :task_description, :task_owner_id, :task_secondary_owner_id,
-                                   :task_add_event, :task_calendar_id)
+                                   :task_add_event, :task_calendar_id,
+                                   :notes_user_attributes => [:id, :user_id, :note_id, :_destroy])
+
     end
 end

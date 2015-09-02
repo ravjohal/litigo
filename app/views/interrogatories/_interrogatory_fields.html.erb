@@ -7,7 +7,7 @@
           </td>
           <td class="right" colspan="">
               <strong>Requester</strong><br>
-              <%= f.association :requester, :class => 'table-input', :label => false %>
+              <%= f.association :requester, :collection => @firm.contacts, :class => 'table-input', :label => false %>
           </td>
           <td class="right" colspan="">
               <strong>Interrogatory</strong><br>
@@ -27,7 +27,7 @@
           </td>
           <td class="right" colspan="">
               <strong>Responder</strong><br>
-              <%= f.association :responder, :class => 'table-input', :label => false %>
+              <%= f.association :responder, :collection => @firm.contacts, :class => 'table-input', :label => false %>
           </td>
           <td class="right" colspan="">
               <strong>Reply</strong><br>

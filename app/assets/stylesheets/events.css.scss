@@ -2,141 +2,227 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.grey {
-  display: block;
-  background-color: transparent;
-  height: 57px;
-  margin: -12px -15px;
-  .buttons {
-    float: right;
-    padding-top: 12px;
-    .case-filter {
-      display: inline-block;
-    }
-  }
-}
+//.grey {
+//  display: block;
+//  background-color: transparent;
+//  height: 57px;
+//  margin: -12px -15px;
+//  .buttons {
+//    float: right;
+//    padding-top: 12px;
+//    .case-filter {
+//      display: inline-block;
+//    }
+//  }
+//}
+
 .calendar-table {
   position: relative;
   z-index: 10;
   #calendar {
-  width: 100%;
-  margin: 0 auto;
+    width: 100%;
+    margin: 0 auto;
+
     .fc-header {
       z-index: -10;
     }
-    .fc-border-separate > thead {
-      background-color: #6C6D6D;
-      color: #ccc;
+
+    //.fc-widget-header > table {
+    //  > thead {
+    //    background-color: #fff;
+    //    color: #ccc;
+    //  }
+    //}
+    //.fc-month-view {
+    //  .fc-day-header.fc-widget-header {
+    //    background-color: #38393A;
+    //  }
+    //}
+    //.fc-border-separate, .fc-month-view .fc-widget-header > table {
+    //  > thead {
+    //    background-color: #6C6D6D;
+    //    color: #ccc;
+    //  }
+    //}
+    //
+    .fc-toolbar {
+      margin-bottom: 10px;
+
+      .fc-button {
+        height: 1.9em;
+        line-height: 1.9em;
+      }
+
+      .fc-center {
+        display: inline-block;
+        vertical-align: top;
+        h2 {
+          margin-top: 0;
+          white-space: nowrap;
+        }
+      }
     }
+
+    .fc-row {
+      &.fc-week > .fc-bg {
+        > table {
+          padding: 0;
+        }
+      }
+    }
+
+    .fc-row {
+      > table {
+        > thead {
+          > tr {
+            > th:first-child {
+              width: 43px !important;
+            }
+          }
+        }
+      }
+    }
+
+    .fc-slats {
+      tr {
+        background: transparent;
+        td {
+          background: transparent;
+          border-right-color: transparent;
+        }
+      }
+    }
+
+    .fc-body {
+      .fc-widget-content {
+        .fc-divider.fc-widget-header {
+          width: 100%;
+        }
+      }
+    }
+
   }
 }
 
-@media (max-width: 767px) {
-.calendar-table {
-  position: relative;
-  #calendar {
-  width: 100%;
-  margin: 5px auto;
-    .fc-header {
-      z-index: -10;
-    }
-    .fc-border-separate > thead {
-      background-color: #6C6D6D;
-      color: #ccc;
-    }
-  }
-}
-}
+//
+//@media (max-width: 767px) {
+//  .calendar-table {
+//    position: relative;
+//    #calendar {
+//      width: 100%;
+//      margin: 5px auto;
+//      .fc-header {
+//        z-index: -10;
+//      }
+//      .fc-border-separate > thead {
+//        background-color: #6C6D6D;
+//        color: #ccc;
+//      }
+//    }
+//  }
+//}
 
 .calendar-table td {
- width: 12.86%;
-}
-.calendar-table tr:nth-child(even){
- background: white;
-}
-.calendar-table tr:nth-child(odd){
- background: white;
-}
-.calendar-table tr:nth-child(1) {
-  background: white;
+  //width: 12.86%;
+  background-color: white;
+  .fc-content-skeleton {
+    tr {
+      background-color: transparent;
+      td {
+        background-color: transparent;
+      }
+    }
+  }
 }
 
-div.tagsinput input {
-  padding: 0!important;
-}
+//.calendar-table tr {
+//  background-color: white;
+//}
+//.calendar-table tr:nth-child(even){
+// background: white;
+//}
+//.calendar-table tr:nth-child(odd){
+// background: white;
+//}
+//.calendar-table tr:nth-child(1) {
+//  background: white;
+//}
+
+//div.tagsinput input {
+//  padding: 0 !important;
+//}
+//
 .ui-autocomplete {
   z-index: 9000;
 }
-.picker-switch, .table-condensed{
-  a.btn {
-    color: #428bca;
-    &:hover {
-      color: #000;
-    }
-  }
-}
-
-ul.tagit {
-  border: 1px solid #aaa!important;
-}
-
-.fc-header{
+//
+//.picker-switch, .table-condensed {
+//  a.btn {
+//    color: #428bca;
+//    &:hover {
+//      color: #000;
+//    }
+//  }
+//}
+//
+//ul.tagit {
+//  border: 1px solid #aaa !important;
+//}
+//
+.fc-header, .fc-toolbar {
   width: 95% !important;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
+//  .fc-left, .fc-header-left {
+//    background-color: #f2f2f2;
+//  }
+//  .fc-center, .fc-header-center {
+//    background-color: #f2f2f2;
+//    text-shadow: 0 1px 0 #fff;
+//  }
+//  .fc-right, .fc-header-right {
+//    background-color: #f2f2f2;
+//  }
 }
-.fc-header-left{
-  background-color: #f2f2f2;
-}
-.fc-header-center{
-  background-color: #f2f2f2;
-  text-shadow: 0 1px 0 #fff;
-}
-.fc-header-right{
-  background-color: #f2f2f2;
-}
-.fc-day-header {
-  background-color: #38393A;
-}
-
-
-.fc-agenda .fc-agenda-axis {
-  text-align:left;
-}
-.fc-agenda-allday {
-  background: transparent;
-}
-
-div.fc-view-agendaWeek {
-  table.fc-agenda-allday, table.fc-agenda-slots {
-    tr {
-      background-color: transparent!important;
-    }
-    th.fc-agenda-axis {
-      width: 1%!important;
-      border-right: transparent;
-    }
-  }
-}
-
-div.fc-view-agendaDay {
-  table.fc-agenda-days {
-    th.fc-agenda-axis {
-      width: 1%!important;
-    }
-  }
-  table.fc-agenda-allday, table.fc-agenda-slots {
-    tr {
-      background-color: transparent!important;
-    }
-    th.fc-agenda-axis {
-      width: 1%!important;
-      border-right: transparent;
-    }
-  }
-}
-
+//
+//.fc-agenda .fc-agenda-axis {
+//  text-align: left;
+//}
+//
+//.fc-agenda-allday {
+//  background: transparent;
+//}
+//
+//div.fc-view-agendaWeek {
+//  table.fc-agenda-allday, table.fc-agenda-slots {
+//    tr {
+//      background-color: transparent !important;
+//    }
+//    th.fc-agenda-axis {
+//      width: 1% !important;
+//      border-right: transparent;
+//    }
+//  }
+//}
+//
+//div.fc-view-agendaDay {
+//  table.fc-agenda-days {
+//    th.fc-agenda-axis {
+//      width: 1% !important;
+//    }
+//  }
+//  table.fc-agenda-allday, table.fc-agenda-slots {
+//    tr {
+//      background-color: transparent !important;
+//    }
+//    th.fc-agenda-axis {
+//      width: 1% !important;
+//      border-right: transparent;
+//    }
+//  }
+//}
+//
 .firm-users {
   li {
     margin-left: 10px;
@@ -150,16 +236,18 @@ div.fc-view-agendaDay {
 
 .tagit-choice {
   font-size: 12px;
-  }
+}
 
-#event-buttons{
+#event-buttons {
   margin-bottom: 25px;
 }
-#event-buttons ul{
+
+#event-buttons ul {
   padding: 0 0;
   margin-top: 5px;
 }
-#event-buttons li{
+
+#event-buttons li {
   display: inline;
 }
 

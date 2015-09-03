@@ -5,15 +5,15 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   before_action :configure_permitted_parameters, if: :devise_controller?
   #before_action :set_tenant #, :set_firm
-  before_filter :in_staging
+  #before_filter :in_staging
   around_filter :set_time_zone
 
-  def in_staging
-    if Rails.env.staging?
-      #flash[:alert] = "MiniProfiler is initialized"
-      Rack::MiniProfiler.authorize_request
-    end
-  end
+  # def in_staging
+  #   if Rails.env.staging?
+  #     #flash[:alert] = "MiniProfiler is initialized"
+  #     Rack::MiniProfiler.authorize_request
+  #   end
+  # end
 
   protected
 

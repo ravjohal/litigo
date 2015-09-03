@@ -9,7 +9,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     add_index :contacts, :firm_id
     add_index :contacts, :user_account_id
     add_index :documents, :firm_id
-    add_index :events, :owner_id
     add_index :events, :firm_id
     add_index :events, :google_id
     add_index :events, :google_calendar_id
@@ -37,7 +36,6 @@ class AddMissingIndexes < ActiveRecord::Migration
     remove_index :contacts, :firm_id
     remove_index :contacts, :user_account_id
     remove_index :documents, :firm_id
-    remove_index :events, :owner_id
     remove_index :events, :firm_id
     remove_index :events, :google_id
     remove_index :events, :google_calendar_id

@@ -5,6 +5,7 @@ class CreateFirms < ActiveRecord::Migration
       t.string :address
       t.string :phone
       t.string :fax
+      t.string :tenant
 
       t.timestamps
     end

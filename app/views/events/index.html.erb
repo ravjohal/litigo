@@ -1,234 +1,294 @@
 <div class="event-header">
 </div>
-    <div class="row">
-        <div class="col-md-3">
-        <div class="btn-group pull-left" style="margin-top: 5px;">
-            <button class="btn btn-default dropdown-toggle-users"  data-placeholder="Please select">Select Users <span class="caret"></span></button>
-              <ul class="dropdown-menu firm-users" style="left: 0px;">
-                <li>
-                  <span class="user_color" style="background-color: #ffffff"></span>
-                  <%= check_box_tag "select_all"  %>
-                  <%= label_tag "select_all" %>
-                </li>
-                <% @event_sources.each do |user_id, event_source| %>
-                <li>
-                  <span class="user_color" style="background-color: <%= event_source.first[:userColor] %>"></span>
-                  <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids'  %>
-                  <%= label_tag "user_ids[#{event_source.first[:user_name]}]", event_source.first[:user_name] %>
-                </li>
-                <% end %>
-              </ul>
-        </div>
-        </div>
-        <div class="col-md-5">
-        </div>
-        <div class="col-md-4">
-            <div id="event-buttons" style="float: right;">
-              <ul>
-                <li>
-                <%= link_to "", :class => 'dark', :style => 'vertical-align: middle;' do %>
-                    <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
-                  <% end %>
-                  <% if @user.try(:enabled_namespaces).try(:count).to_i > 0 %>
-                    <%= link_to refresh_events_path,  :class => 'dark-small', :style => 'vertical-align: middle;' do %><span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span> <% end %>
-                  <% end %>
-                <%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'}  %></li>
-              </ul>
-            </div>
-        </div>
-    
+<div class="row">
+  <div class="col-md-3">
+    <div class="btn-group pull-left" style="margin-top: 5px;">
+      <button class="btn btn-default dropdown-toggle-users" data-placeholder="Please select">Select Users
+        <span class="caret"></span></button>
+      <ul class="dropdown-menu firm-users" style="left: 0px;">
+        <li>
+          <span class="user_color" style="background-color: #ffffff"></span>
+          <%= check_box_tag "select_all" %>
+          <%= label_tag "select_all" %>
+        </li>
+        <% @event_sources.each do |user_id, event_source| %>
+          <li>
+            <span class="user_color" style="background-color: <%= event_source.first[:userColor] %>"></span>
+            <%= check_box_tag "user_ids[#{user_id}]", user_id, {:checked => "checked"}, class: 'user_ids' %>
+            <%= label_tag "user_ids[#{event_source.first[:user_name]}]", event_source.first[:user_name] %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-5">
+  </div>
+  <div class="col-md-4">
+    <div id="event-buttons" style="float: right;">
+      <ul>
+        <li>
+          <%= link_to "", :class => 'dark', :style => 'vertical-align: middle;' do %>
+            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+          <% end %>
+          <% if @user.try(:enabled_namespaces).try(:count).to_i > 0 %>
+            <%= link_to refresh_events_path, :class => 'dark-small', :style => 'vertical-align: middle;' do %>
+              <span id="sync" title="Sync Calendar" class="glyphicon glyphicon-refresh"></span>
+            <% end %>
+          <% end %>
+          <%= link_to "NEW #{controller_name.singularize.upcase}", @new_path, {:class => "action-button", :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'} %>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 
 
-  <div class="calendar-table">
-    <div id="calendar"></div>
-  </div>
+<div class="calendar-table">
+  <div id="calendar"></div>
+</div>
 
 <script type="text/javascript">
-$(document).ready(function() {
+  $(document).ready(function () {
 
-  var events = {};
-  var eventsSources = <%= @event_sources.to_json.html_safe %>;
-  var current_user_id = "<%= @user.id %>";
-  $('#new_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
-    var sd = new Date();
-    var ed = new Date();
-        ed.setHours(ed.getHours()+1);
-    var start_date = (sd.getMonth()+1)+'/'+sd.getDate()+'/'+sd.getFullYear();
-    var start_time = formatAMPM(sd);
-    var end_date = (ed.getMonth()+1)+'/'+ed.getDate()+'/'+ed.getFullYear();
-    var end_time = formatAMPM(ed);
+    var events = {};
+    var eventsSources = <%= @event_sources.to_json.html_safe %>;
+    var current_user_id = "<%= @user.id %>";
 
-    $('#modal-window').find('#event_start_date').val(start_date);
-    $('#modal-window').find('#event_start_time').val(start_time);
-    $('#modal-window').find('#event_end_date').val(end_date);
-    $('#modal-window').find('#event_end_time').val(end_time);
-  });
+    var externalEventDateChanges = {};
 
-  $('.dark-small').click(function(e){
-    e.preventDefault();
-    bootbox.confirm("This can take a few moments, would you still like to sync your calendar now?", function(result) {
-      if (result) {
-        $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'style='margin-top: -30px; position: absolute; padding: 0;'>");
-//        window.location.href = "/auth/google_oauth2?state=calendar";
-        window.location.href = "<%= refresh_events_path %>";
-      }
+    $('#new_modal').click(function () {
+      var $modalWindow = $("#modal-window");
+
+      $modalWindow.html("<%= escape_javascript(render 'events/form', new_event: Event.new ) %>");
+
+      var sd = new Date();
+      var ed = new Date();
+      ed.setHours(ed.getHours() + 1);
+
+      var start_date = (sd.getMonth() + 1) + '/' + sd.getDate() + '/' + sd.getFullYear();
+      var start_time = formatAMPM(sd);
+      var end_date = (ed.getMonth() + 1) + '/' + ed.getDate() + '/' + ed.getFullYear();
+      var end_time = formatAMPM(ed);
+
+      $modalWindow.find('#event_start_date').val(start_date);
+      $modalWindow.find('#event_start_time').val(start_time);
+      $modalWindow.find('#event_end_date').val(end_date);
+      $modalWindow.find('#event_end_time').val(end_time);
     });
-  });
-  $('#calendar').fullCalendar({
-    weekMode: 'liquid',
-    eventClick: function(calEvent, jsEvent, view) {
-      $.ajax({
-        type: "GET",
-        url: '/events/' + calEvent.id + '/edit',
-        success: function(data) {
-          if(data != '') {
-            $("#modal-window").html(data);
-            $("#modal-window").modal();
-          }
+
+    $('.dark-small').click(function (e) {
+      e.preventDefault();
+      bootbox.confirm("This can take a few moments, would you still like to sync your calendar now?", function (result) {
+        if (result) {
+          $(e.currentTarget).replaceWith("<img src='/assets/ajaxSpinner.gif' height='24' width='24'style='margin-top: -30px; position: absolute; padding: 0;'>");
+//        window.location.href = "/auth/google_oauth2?state=calendar";
+          window.location.href = "<%= refresh_events_path %>";
         }
       });
-    },
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'month,agendaWeek,agendaDay'
-    },
-    defaultView: 'agendaWeek',
-    eventSources: events,
-    editable: true,
-    eventDrop: function(event, delta, minuteDelta, allDay, revertFunc) {
-      if (confirm("Are you sure about this change?")) {
-        $.ajax({
-          type: "POST",
-          url: "<%= event_drag_path %>",
-          data: {event: {starts_at: event.start, ends_at: event.end == null ? event.start : event.end}, id: event.id},
-          success: function(data)
-          {
-            $('.alert').remove();
-            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
-            setTimeout(function(){ $('.alert').fadeOut() }, 2000);
-          }
-        });
-      }
-      else {
-        revertFunc();
-      }
-
-    },
-    eventResize: function (event, delta, revertFunc, jsEvent, ui, view) {
-      if (confirm("Are you sure about this change?")) {
-        $.ajax({
-          type: "POST",
-          url: "<%= event_drag_path %>",
-          data: {event: {starts_at: event.start, ends_at: event.end == null ? event.start : event.end}, id: event.id},
-          success: function(data)
-          {
-            $('.alert').remove();
-            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
-            setTimeout(function(){ $('.alert').fadeOut() }, 2000);
-          }
-        });
-      }
-      else {
-        revertFunc();
-      }
-    },
-    firstHour: 8
-  }); //end of fullCalendar
-
-  $('.firm-users input').change(function (e) {
-    var user_id = $(this).val();
-    if($(this).is(":checked")) {
-      $('#calendar').fullCalendar( 'addEventSource', {
-        events: eventsSources[user_id] != undefined ? eventsSources[user_id] : [],
-        color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff',
-        textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].first.textColor : '#ffffff'
-      } )
-    } else {
-      $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id])
-    }
-  });
-
-  $.each(eventsSources, function (user_id, hash) {
-    $('#calendar').fullCalendar( 'addEventSource', {
-      events: hash,
-      color: hash.color,
-      textColor: hash.textColor
     });
-    if (current_user_id != user_id) {
-      $('#user_ids_'+user_id).prop('checked', false).change();
-    }
-  });
 
-  $('#select_all').click(function(e){
-    var checkboxes = $('.user_ids');
-    if($(this).is(":checked")) {
-      checkboxes.prop('checked', false).change();
-      checkboxes.prop('checked', true).change();
-    } else {
-      checkboxes.prop('checked', false).change()
-    }
-  });
-
-  var refreshNamespaces = function(){
-    $.ajax({
-          url: "<%= refresh_events_path %>",
-          type: 'GET',
-          dataType: "json",
-          data: {},
-          success: function(data){
-            if (data.events_synced > 0) {
-              $.each(eventsSources, function (user_id, hash) {
-                $('#calendar').fullCalendar( 'removeEventSource', eventsSources[user_id].events);
-              });
-              eventsSources = data.events;
-              var checkboxes = $('.user_ids');
-              $.each(checkboxes, function (i ,obj) {
-                var user_id = $(obj).val();
-                if ($(obj).is(":checked")) {
-                  $('#calendar').fullCalendar( 'addEventSource', {
-                    events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
-                    color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff',
-                    textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].textColor : '#ffffff'
-                  } )
-                }
-              });
-              $('.alert').remove();
-              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
-              setTimeout(function(){ $('.alert').fadeOut() }, 2000);
+    $('#calendar').fullCalendar({
+      weekMode: 'liquid',
+      eventClick: function (calEvent, jsEvent, view) {
+        $.ajax({
+          type: "GET",
+          url: '/events/' + calEvent.id + '/edit',
+          success: function (data) {
+            if (data != '') {
+              var $modal = $("#modal-window");
+              $modal.html(data);
+              $modal.modal();
             }
           }
         });
-  };
-  //refreshNamespaces();  //Removed refreshing from js for now as we deal with memory issues. Will move this to background job.
+      },
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay'
+      },
+      defaultView: 'agendaWeek',
+      eventSources: events,
+      editable: true,
+      eventDrop: function (event, delta, revertFunc) {
+        if (confirm("Are you sure about this change?")) {
 
-  function rgb2hex(rgb) {
-    if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+          if (!externalEventDateChanges.hasOwnProperty(event.id))
+            externalEventDateChanges[event.id] = {};
 
-    rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
-    function hex(x) {
-      return ("0" + parseInt(x).toString(16)).slice(-2);
+          var calculatedStartDate = (externalEventDateChanges[event.id].hasOwnProperty('_start')) ?
+              externalEventDateChanges[event.id]._start.clone() :
+              moment(event._start._i);
+
+          var calculatedEndDate = (externalEventDateChanges[event.id].hasOwnProperty('_end')) ?
+              externalEventDateChanges[event.id]._end.clone() :
+              moment(event._end._i);
+
+          calculatedStartDate.add(delta);
+          calculatedEndDate.add(delta);
+
+          var beforeChange = externalEventDateChanges[event.id];
+          externalEventDateChanges[event.id]._start = calculatedStartDate;
+          externalEventDateChanges[event.id]._end = calculatedEndDate;
+
+          $.ajax({
+            type: "POST",
+            url: "<%= event_drag_path %>",
+            data: {
+              event: {starts_at: calculatedStartDate.format(), ends_at: calculatedEndDate.format()},
+              id: event.id
+            },
+            success: function (data) {
+              $('.alert').remove();
+              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+              setTimeout(function () {
+                $('.alert').fadeOut()
+              }, 2000);
+            },
+            error: function() {
+              externalEventDateChanges[event.id] = beforeChange;
+            }
+          });
+        } else {
+          revertFunc();
+        }
+      },
+      eventResize: function (event, delta, revertFunc) {
+        if (confirm("Are you sure about this change?")) {
+
+          var calculatedStartDate = moment(event.start._i);
+
+          if (!externalEventDateChanges.hasOwnProperty(event.id))
+            externalEventDateChanges[event.id] = {};
+
+          var calculatedEndDate = (externalEventDateChanges[event.id].hasOwnProperty('_end')) ?
+              externalEventDateChanges[event.id]._end.clone() :
+              moment(event._end._i);
+
+          calculatedEndDate.add(delta);
+
+          var beforeChange = externalEventDateChanges[event.id];
+          externalEventDateChanges[event.id]._end = calculatedEndDate;
+          $.ajax({
+            type: "POST",
+            url: "<%= event_drag_path %>",
+            data: {
+              event: {starts_at: calculatedStartDate.format(), ends_at: calculatedEndDate.format()},
+              id: event.id
+            },
+            success: function (data) {
+              $('.alert').remove();
+              $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+              setTimeout(function () {
+                $('.alert').fadeOut()
+              }, 2000);
+            },
+            error: function() {
+              externalEventDateChanges[event.id] = beforeChange;
+            }
+          });
+        } else {
+          revertFunc();
+        }
+      },
+      firstHour: 8
+    }); //end of fullCalendar
+
+    $('.firm-users input').change(function () {
+      var user_id = $(this).val();
+      if ($(this).is(":checked")) {
+        $('#calendar').fullCalendar('addEventSource', {
+          events: eventsSources[user_id] != undefined ? eventsSources[user_id] : [],
+          color: eventsSources[user_id] != undefined ? eventsSources[user_id].first.color : '#ffffff',
+          textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].first.textColor : '#ffffff'
+        })
+      } else {
+        $('#calendar').fullCalendar('removeEventSource', eventsSources[user_id])
+      }
+    });
+
+    $.each(eventsSources, function (user_id, hash) {
+      $('#calendar').fullCalendar('addEventSource', {
+        events: hash,
+        color: hash.color,
+        textColor: hash.textColor
+      });
+      if (current_user_id != user_id) {
+        $('#user_ids_' + user_id).prop('checked', false).change();
+      }
+    });
+
+    $('#select_all').click(function (e) {
+      var checkboxes = $('.user_ids');
+      if ($(this).is(":checked")) {
+        checkboxes.prop('checked', false).change();
+        checkboxes.prop('checked', true).change();
+      } else {
+        checkboxes.prop('checked', false).change()
+      }
+    });
+
+    var refreshNamespaces = function () {
+      $.ajax({
+        url: "<%= refresh_events_path %>",
+        type: 'GET',
+        dataType: "json",
+        data: {},
+        success: function (data) {
+          if (data.events_synced > 0) {
+            $.each(eventsSources, function (user_id, hash) {
+              $('#calendar').fullCalendar('removeEventSource', eventsSources[user_id].events);
+            });
+            eventsSources = data.events;
+            var checkboxes = $('.user_ids');
+            $.each(checkboxes, function (i, obj) {
+              var user_id = $(obj).val();
+              if ($(obj).is(":checked")) {
+                $('#calendar').fullCalendar('addEventSource', {
+                  events: eventsSources[user_id] != undefined ? eventsSources[user_id].events : [],
+                  color: eventsSources[user_id] != undefined ? eventsSources[user_id].color : '#ffffff',
+                  textColor: eventsSources[user_id] != undefined ? eventsSources[user_id].textColor : '#ffffff'
+                })
+              }
+            });
+            $('.alert').remove();
+            $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + data.message + "</div>");
+            setTimeout(function () {
+              $('.alert').fadeOut()
+            }, 2000);
+          }
+        }
+      });
+    };
+    //refreshNamespaces();  //Removed refreshing from js for now as we deal with memory issues. Will move this to background job.
+
+    function rgb2hex(rgb) {
+      if (/^#[0-9A-F]{6}$/i.test(rgb)) return rgb;
+
+      rgb = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
+      function hex(x) {
+        return ("0" + parseInt(x).toString(16)).slice(-2);
+      }
+
+      return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
     }
-    return "#" + hex(rgb[1]) + hex(rgb[2]) + hex(rgb[3]);
-  }
 
-  $('.dropdown-toggle-users').on('click', function (event) {
-    $(this).parent().toggleClass('open');
+    $('.dropdown-toggle-users').on('click', function (event) {
+      $(this).parent().toggleClass('open');
+    });
+    $('body').on('click', function (e) {
+      if (!$('.dropdown-toggle-users').is(e.target)
+          && $('.dropdown-toggle-users').has(e.target).length === 0
+          && $('.open').has(e.target).length === 0
+      ) {
+        $('.dropdown-toggle-users').parent().removeClass('open');
+      }
+    });
   });
-  $('body').on('click', function (e) {
-    if (!$('.dropdown-toggle-users').is(e.target)
-        && $('.dropdown-toggle-users').has(e.target).length === 0
-        && $('.open').has(e.target).length === 0
-    ) {
-      $('.dropdown-toggle-users').parent().removeClass('open');
-    }
-  });
-});
 </script>
 <script type='text/javascript'>
-  $(function() {
+  $(function () {
     $('#sync').tipsy({gravity: 'n', fade: true});
     $('#print').tipsy({gravity: 'n', fade: true});
   });

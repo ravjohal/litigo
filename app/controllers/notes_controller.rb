@@ -51,7 +51,7 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    
+
     if get_case
       @note = @case.notes.build(note_params)
       path_notes = case_notes_path
@@ -59,12 +59,13 @@ class NotesController < ApplicationController
       @note = Note.new(note_params)
       path_notes = notes_path
     end
-
     @note.user = @user
     @note.firm = @firm
 
     respond_to do |format|
       if @note.save
+        @user.notes << @note
+        @user.save
         if note_params[:add_task]
           task = Task.new(name: note_params[:task_name], due_date: note_params[:task_due_date], sms_reminder: note_params[:task_sms_reminder],
                              email_reminder: note_params[:task_email_reminder], description: note_params[:task_description],

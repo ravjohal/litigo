@@ -30,13 +30,13 @@ Feature: Note tab
     Then I should have message "Note was successfully deleted"
     And I verify deleted note for user with email "artem.suchov@gmail.com"
 
-  @javascript
-  Scenario: I create a note with task
-    Given Confirmed default admin user exists
-    And Firm for default user exist
-    When I login without firm
-    And I create a note with task
-    Then The note with task for user with email "artem.suchov@gmail.com" should be saved to the db
+#  @javascript
+#  Scenario: I create a note with task
+#    Given Confirmed default admin user exists
+#    And Firm for default user exist
+#    When I login without firm
+#    And I create a note with task
+#    Then The note with task for user with email "artem.suchov@gmail.com" should be saved to the db
 
   @javascript
   Scenario: I edit a note

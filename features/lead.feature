@@ -87,9 +87,9 @@ Feature: Create Lead Test
     And I create a lead with name "Leeds" and last name "United"
     And I click on "Caller Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
-    Then should exist tab "DETAILS"
-    And should exist tab "CONTACT"
-    And should exist tab "DOCUMENTS"
+    Then should exist tab "Details"
+    And should exist tab "Contact"
+    And should exist tab "Documents"
 
   @javascript
   Scenario: I create a lead and check details tab
@@ -99,8 +99,8 @@ Feature: Create Lead Test
     And I create a lead with name "Leeds" and last name "United"
     And I click on "Caller Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
-    Then should exist tab "DETAILS"
-    When I click on "DETAILS"
+    Then should exist tab "Details"
+    When I click on "Details"
     Then I should have text "Lead Information"
 
   @javascript
@@ -111,8 +111,8 @@ Feature: Create Lead Test
     And I create a lead with name "Leeds" and last name "United"
     And I click on "Caller Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
-    Then should exist tab "CONTACT"
-    When I click on "CONTACT"
+    Then should exist tab "Contact"
+    When I click on "Contact"
     Then I should have text "Contact Information"
 
   @javascript
@@ -123,8 +123,8 @@ Feature: Create Lead Test
     And I create a lead with name "Leeds" and last name "United"
     And I click on "Caller Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
-    Then should exist tab "DOCUMENTS"
-    When I click to tab "DOCUMENTS"
+    Then should exist tab "Documents"
+    When I click to tab "Documents"
     Then I should have text "My Documents"
     And I should have text "Lead Documents"
 

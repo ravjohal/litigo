@@ -22,7 +22,7 @@ class Namespace < ActiveRecord::Base
 
   # @return [Inbox::RestfulModel]
   def nylas_namespace
-    @nylas_namespace ||= nylas_inbox.namespaces.first
+    @nylas_namespace ||= nylas_inbox.account
   end
 
   def nylas_account
@@ -35,13 +35,13 @@ class Namespace < ActiveRecord::Base
 
   # @return [Integer] the last update of the namespace (to figure out the deltas)
   def nylas_cursor
-    cursor.blank? ? nylas_namespace.get_cursor(last_sync.to_i) : cursor
+    cursor.blank? ? nylas_inbox.get_cursor(last_sync.to_i) : cursor
   end
 
   def check_for_exists_in_nylas
     if inbox_token
       begin
-        destroy if nylas_account && nylas_account0.billing_state.to_s == 'deleted'
+        destroy if nylas_account && nylas_account.billing_state.to_s == 'deleted'
       rescue Exception => _
       end
     end

@@ -69,7 +69,7 @@ class EventsController < ApplicationController
 
     if event.save
       event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
-      event.create_process calendar, calendar.namespace.nylas_namespace, @firm.id unless calendar.blank?
+      event.create_process calendar, calendar.namespace.nylas_inbox, @firm.id unless calendar.blank?
     end
 
     message = event.errors.present? ? {error: event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
@@ -127,7 +127,7 @@ class EventsController < ApplicationController
     @firm.enabled_namespaces.includes(:calendars).each do |namespace|
       active_calendars = namespace.active_calendars
       if active_calendars.present?
-        ns = namespace.nylas_namespace
+        ns = namespace.nylas_inbox
         cursor = namespace.nylas_cursor
         last_cursor = nil
 

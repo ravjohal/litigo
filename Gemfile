@@ -52,11 +52,11 @@ gem 'maskedinput-rails', '~> 1.3.1.0'                 # mask used for phone form
 gem 'cocoon', '~> 1.2.6'                              # Unobtrusive nested forms handling
 gem 'htmltoword', '~> 0.2.0'
 gem 'docx_replace', '~> 1.0.3'
-gem 'docx', '~> 0.2.07', :require => ["docx"]
+gem 'docx', '~> 0.2.07', :require => ['docx']
 gem 'dossier', '~> 2.12.2'
 gem 'amoeba'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
-gem 'nylas', '~> 0.17.1'
+gem 'nylas', '~> 1.0.0'
 gem 'newrelic_rpm'
 gem 'rack-timeout'
 gem 'redis'
@@ -66,7 +66,7 @@ gem 'resque-web', require: 'resque_web'
 gem 'font_assets'
 
 group :development do
-  gem "disable_assets_logger", "~> 1.0.0"
+  gem 'disable_assets_logger', '~> 1.0.0'
   gem 'better_errors', '~> 2.0.0'
   gem 'binding_of_caller', '~> 0.7.2', :platforms=>[:mri_21]
   gem 'hub', '~> 1.12.2', :require=>nil

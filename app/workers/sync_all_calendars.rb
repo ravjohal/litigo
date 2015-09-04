@@ -24,7 +24,7 @@ class SyncAllCalendars
       firm.enabled_namespaces.includes(:calendars).each do |namespace|
         active_calendars = namespace.active_calendars
         if active_calendars.present?
-          ns = namespace.nylas_namespace
+          ns = namespace.nylas_inbox
           cursor = namespace.nylas_cursor
           last_cursor = nil
 

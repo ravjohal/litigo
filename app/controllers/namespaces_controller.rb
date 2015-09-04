@@ -19,8 +19,8 @@ class NamespacesController < ApplicationController
 
   def get_calendars
     namespace = Namespace.find(params[:id])
-    nylas_namespace = namespace.nylas_namespace
-    calendars = nylas_namespace.calendars.all
+    nylas = namespace.nylas_inbox
+    calendars = nylas.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id, firm_id: @firm.id)
       calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
@@ -49,8 +49,8 @@ class NamespacesController < ApplicationController
   # GET /namespaces/1
   # GET /namespaces/1.json
   def show
-    nylas_namespace = @namespace.nylas_namespace
-    calendars = nylas_namespace.calendars.all
+    nylas = @namespace.nylas_inbox
+    calendars = nylas.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id, firm_id: @firm.id)
       calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)

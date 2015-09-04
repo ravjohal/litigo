@@ -155,15 +155,16 @@ class Event < ActiveRecord::Base
     res
   end
 
-  def create_process(calendar, nylas_namespace, firm_id = nil)
-    n_event = nylas_namespace.events.build(
+  def create_process(calendar, nylas, firm_id = nil)
+    nylas_event_attributes = {
         :calendar_id => calendar.calendar_id,
         :title => title_for_nylas,
         :description => description,
         :location => location,
         :when => nylas_time_attributes,
         :participants => participants.map { |p| {:email => p.email, :name => p.name} }
-    )
+    }
+    n_event = nylas.events.build nylas_event_attributes
     n_event.save!
 
     update_attributes = {calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id, nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id, when_type: n_event.when['object']}
@@ -178,13 +179,13 @@ class Event < ActiveRecord::Base
   def update_process(event_params, calendar, old_calendar, firm_id)
     update_participants(event_params[:participants], firm_id) unless event_params[:participants].nil?
 
-    nylas_destroy(old_calendar.namespace.nylas_namespace, true) if old_calendar.try(:id).to_i != calendar.try(:id).to_i && old_calendar.try(:id).to_i > 0
+    nylas_destroy(old_calendar.namespace.nylas_inbox, true) if old_calendar.try(:id).to_i != calendar.try(:id).to_i && old_calendar.try(:id).to_i > 0
 
     unless calendar.blank?
       if old_calendar.try(:id).to_i != calendar.try(:id).to_i
-        create_process(calendar, calendar.namespace.nylas_namespace, firm_id)
+        create_process(calendar, calendar.namespace.nylas_inbox, firm_id)
       else
-        n_event = calendar.namespace.nylas_namespace.events.find(nylas_event_id)
+        n_event = calendar.namespace.nylas_inbox.events.find(nylas_event_id)
         n_event.title = title_for_nylas
         n_event.description = description
         n_event.location = location
@@ -216,9 +217,9 @@ class Event < ActiveRecord::Base
     event_drag_params[:last_updated_by] = user_id
     if update(event_drag_params)
       unless calendar.blank?
-        nylas_namespace = calendar.namespace.nylas_namespace
+        nylas = calendar.namespace.nylas_inbox
 
-        n_event = nylas_namespace.events.find(nylas_event_id)
+        n_event = nylas.events.find(nylas_event_id)
         n_event.when = nylas_time_attributes
         n_event.save!
 
@@ -230,14 +231,14 @@ class Event < ActiveRecord::Base
     end
   end
 
-  def nylas_destroy(nylas_namespace = nil, just_nylas = false)
-    nylas_namespace ||= calendar.try(:namespace).try(:nylas_namespace)
-    nylas_namespace.events.find(nylas_event_id).try(:destroy) if (just_nylas || destroy) && nylas_event_id.present? && nylas_namespace.present?
+  def nylas_destroy(nylas = nil, just_nylas = false)
+    nylas ||= calendar.try(:namespace).try(:nylas_inbox)
+    nylas.events.find(nylas_event_id).try(:destroy) if (just_nylas || destroy) && nylas_event_id.present? && nylas.present?
   end
 
-  def destroy_series(nylas_namespace = nil)
-    nylas_namespace ||= calendar.try(:namespace).try(:nylas_namespace)
-    event_series.events.each { |e| e.nylas_destroy nylas_namespace }
+  def destroy_series(nylas = nil)
+    nylas ||= calendar.try(:namespace).try(:nylas_inbox)
+    event_series.events.each { |e| e.nylas_destroy nylas }
   end
 
   def to_json_hash

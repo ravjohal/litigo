@@ -13,7 +13,7 @@ class Interrogatory < ActiveRecord::Base
 	belongs_to :parent, class_name: "Interrogatory"
 
 	accepts_nested_attributes_for :children, :reject_if => :all_blank, :allow_destroy => :true
-	accepts_nested_attributes_for :document, :reject_if => :all_blank, :allow_destroy => :true
+	accepts_nested_attributes_for :document, :reject_if => :all_blank, :allow_destroy => :true, :reject_if => :document_invalid
 
 
 	def save_firm_case_user_for_child
@@ -39,5 +39,9 @@ private
 		rescue Excon::Errors::Error => error
 		puts "Something has gone wrong"
 		false
+	end
+
+	def document_invalid(attributes)
+		attributes['document'] == nil
 	end
 end

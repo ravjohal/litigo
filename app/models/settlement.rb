@@ -28,8 +28,8 @@ class Settlement < ActiveRecord::Base
     html.css(".insertion").each do |span|
       case span['data-model']
         when 'Firm'         then span.inner_html = firm.send(span['data-attr'])
-        when 'Plaintiff'    then span.inner_html = self.case.plantiff_contacts.first.contact.try(:send, span['data-attr'])
-        when 'Attorney'     then span.inner_html = self.case.attorney_contacts.first.contact.try(:send, span['data-attr'])
+        when 'Plaintiff'    then span.inner_html = self.case.plantiff_contacts.first.contact.try(:send, span['data-attr']) if self.case.plantiff_contacts.first
+        when 'Attorney'     then span.inner_html = self.case.attorney_contacts.first.contact.try(:send, span['data-attr']) if self.case.attorney_contacts.first
         when 'Case'
           case span['data-attr']
             when 'close_date'     then span.inner_html = self.case.closing_date.try(:strftime, '%m/%d/%Y').to_s

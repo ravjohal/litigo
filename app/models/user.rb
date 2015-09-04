@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def active_calendars
-    calendars.includes(:namespace).where(:active => true)
+    enabled_calendars.includes(:namespace).where(:active => true)
   end
 
   def name

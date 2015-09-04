@@ -1,83 +1,87 @@
-
-
 <ul id="nav-tabs-custom" role="tablist" class="menu" style="font-weight: 700;">
-<a class="more" href="#show_all">MORE <span class=" "></span></a>
+  <a class="more" href="#show_all">MORE <span class=" "></span></a>
   <li> <%= active_link_to 'Summary', case_summary_path(@case), :class_active => 'navigated' %></li>
-  <li <%= is_active('cases') %>><%= active_link_to 'Details', case_path(@case), :class_active => 'navigated',  :active => [['cases'], ['show', 'edit']] %></li>
+  <li <%= is_active('cases') %>><%= active_link_to 'Details', case_path(@case), :class_active => 'navigated', :active => [['cases'], ['show', 'edit']] %></li>
   <% if @case.incident.present? %>
-    <li<%= is_active('incidents') %>><%= active_link_to 'Incident', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
+      <li<%= is_active('incidents') %>><%= active_link_to 'Incident', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.medical.present? %>
-    <li<%= is_active('medicals') %>><%= active_link_to 'Medicals', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
+      <li<%= is_active('medicals') %>><%= active_link_to 'Medicals', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.insurance.present? %>
-    <li<%= is_active('insurance') %>><%= active_link_to 'Insurance', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
+      <li<%= is_active('insurance') %>><%= active_link_to 'Insurance', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
   <% end %>
-   <% if @case.contacts %>
-     <li><%= active_link_to 'Contacts', case_contacts_path(@case), :class_active => 'navigated', :active => [['contacts'], ['index', 'assign_contacts']] %></li>
+  <% if @case.contacts %>
+      <li><%= active_link_to 'Contacts', case_contacts_path(@case), :class_active => 'navigated', :active => [['contacts'], ['index', 'assign_contacts']] %></li>
   <% end %>
   <% if @case.tasks %>
-     <li><%= active_link_to 'Tasks', case_tasks_path(@case), :class_active => 'navigated' %></li>
+      <li><%= active_link_to 'Tasks', case_tasks_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.documents %>
-     <li><%= active_link_to 'Documents', case_documents_path(@case) , :class_active => 'navigated' %></li>
+      <li><%= active_link_to 'Documents', case_documents_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.notes %>
-     <li><%= active_link_to 'Notes', case_notes_path(@case) , :class_active => 'navigated' %></li>
+      <li><%= active_link_to 'Notes', case_notes_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.interrogatory %>
-     <li><%= active_link_to 'Interrogatories', case_interrogatory_path(@case, @case.interrogatory) , :class_active => 'navigated' %></li>
+      <li><%= active_link_to 'Interrogatories', case_interrogatory_path(@case, @case.interrogatory), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.resolution %>
-     <li><%= active_link_to 'Resolution', case_resolution_path(@case, @case.resolution) , :class_active => 'navigated' %></li>
+      <li><%= active_link_to 'Resolution', case_resolution_path(@case, @case.resolution), :class_active => 'navigated' %></li>
   <% end %>
-  <% if @case.expenses || @case.time_entries%>
-    <li><%= active_link_to 'Time & Expense', case_expenses_path(@case) , :class_active => 'navigated' %></li>
+  <% if @case.expenses || @case.time_entries %>
+      <li><%= active_link_to 'Time & Expense', case_expenses_path(@case), :class_active => 'navigated' %></li>
   <% end %>
 </ul>
-<br />
-<br />
+<br/>
+<br/>
 <div class="more_menu"></div>
 <script>
-  var caseMenu = function () {
-    function getHiddenItems() {
-      var isOneLine = true;
-      var topPosition = false;
-      var invisibleItems = $('<ul/>');
-      $('.menu li').each(function () {
-        var thisPosition = $(this).position();
-        if (topPosition === false) {
-          topPosition = thisPosition.top;
-        } else if (thisPosition.top > topPosition) {
-          invisibleItems.append($(this).clone());
-          isOneLine = false;
-        };
-      });
-      return isOneLine ? false : invisibleItems;
+    var caseMenu = function () {
+        var $more = $('.more');
+
+        function getHiddenItems() {
+            var isOneLine = true;
+            var topPosition = false;
+            var invisibleItems = $('<ul/>');
+            $('.menu li').each(function () {
+                var thisPosition = $(this).position();
+                if (topPosition === false) {
+                    topPosition = thisPosition.top;
+                } else if (thisPosition.top > topPosition) {
+                    invisibleItems.append($(this).clone());
+                    isOneLine = false;
+                }
+            });
+            return isOneLine ? false : invisibleItems;
+        }
+
+        function checkMenu() {
+            $more.hide();
+            var hiddenItems = getHiddenItems();
+            if (!hiddenItems) {
+                $('.more_menu').html('');
+            } else {
+                $more.show();
+                /* What items are not visible now? */
+                hiddenItems = getHiddenItems();
+                $('.more_menu').html('<ul>' + hiddenItems.html() + '</ul>');
+            }
+        }
+
+        if (typeof jQuery._data($more[0], 'events') == 'undefined') {
+            $more.on('click', function (e) {
+                e.preventDefault();
+                $('.more').toggleClass('more_menu_opened');
+                $('.more_menu').toggleClass('opens');
+            });
+        }
+
+        $(window).on('resize', checkMenu);
+        checkMenu();
     };
 
-    function checkMenu() {
-      $('.more').hide();
-      var hiddenItems = getHiddenItems();
-      if (!hiddenItems) {
-
-        $('.more_menu').html('');
-      } else {
-        $('.more').show();
-        /* What items are not visible now? */
-        hiddenItems = getHiddenItems();
-        $('.more_menu').html('<ul>' + hiddenItems.html() + '</ul>');
-      };
-    };
-    $('.more').on('click', function (e) {
-      e.preventDefault();
-      $('.more').toggleClass('more_menu_opened');
-      $('.more_menu').toggleClass('opens');
-    });
-    $(window).on('resize', checkMenu);
-    checkMenu();
-  };
-  $(document).ready(caseMenu);
-  $(document).on('page:load', caseMenu);
-  $(document).on('page:change', caseMenu);
+//    $(document).ready(caseMenu);
+//    $(document).on('page:load', caseMenu);
+    $(document).on('page:change', caseMenu);
 </script>

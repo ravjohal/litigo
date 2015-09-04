@@ -4,7 +4,7 @@ Given(/^I am logged in user$/) do
 end
 
 When(/^I create the resolution$/) do
-  click_on 'RESOLUTION'
+  click_on 'Resolution'
   sleep 0.5
   click_on 'Edit'
   fill_in 'resolution_settlement_demand', with: 1

@@ -164,7 +164,7 @@
       });
     });
 
-    $(document).on('click', '#my_tasks .table tbody tr, #tasks .table tbody tr', function (e) {
+    $(document).on('click', '#my_tasks.table tbody tr, #tasks.table tbody tr', function (e) {
         if ($(e.target).attr('href') === undefined && !$(e.target).hasClass('complete-task')) {
             var task_id = $(this).attr('id');
             if (typeof task_id != "undefined") {

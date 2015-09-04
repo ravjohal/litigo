@@ -1,6 +1,6 @@
 When /^I open new task list form$/ do
   step 'I open case management menu'
-  step 'I click "TASKS"'
+  step 'I click "Tasks"'
   step 'I click "TASK ITEMS"'
   step 'I click "Create New Task List"'
 end
@@ -87,7 +87,7 @@ When /^I edit task list$/ do
 end
 
 When(/^I go to import saved task list$/) do
-  step 'I click to tab "TASKS"'
+  step 'I click to tab "Tasks"'
   step 'I click "TASK ITEMS"'
   step 'I click "Import Saved Task List"'
   sleep 0.1

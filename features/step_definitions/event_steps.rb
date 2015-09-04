@@ -3,7 +3,7 @@ When /^I go to events page$/ do
 end
 
 When /^I go to calendar events page$/ do
-  click_on 'CALENDAR'
+  click_on 'Calendar'
 end
 
 When /^I open create event popup$/ do

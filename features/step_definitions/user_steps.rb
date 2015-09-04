@@ -119,7 +119,7 @@ Then(/^I should see the sign_up form again$/) do
 end
 
 When /^I make sign out$/ do
-  step 'I click to element with id "dropdownMenu1"'
+  step 'I click to element with id "userMenuDropdown"'
   step 'I go to sign_out page'
 end
 

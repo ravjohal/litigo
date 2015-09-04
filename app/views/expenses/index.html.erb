@@ -4,9 +4,7 @@
       <div style="font-size: 24px;">
         <strong><%= @case.name %></strong><br>
       </div>
-      <div id="case-buttons">
-
-                 <div id="top-custom">
+      <div id="case-buttons" style="width: 168px;">
         <ul>
       <li class="dropdown task-list">
         <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: "dropdown", :style => 'display:inline;'} do %>
@@ -19,7 +17,6 @@
         </ul>
       </li>
     </ul>
-    </div>
       </div>
     </div>
     <strong>Case #: </strong><%= @case.case_number %>
@@ -31,6 +28,8 @@
       </div>
     </div>
   </div>
+  <div style="margin-top: 3px;">
+</div>
   <% else %>
     <div class="case-header">
       <div class="case-title">

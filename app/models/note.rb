@@ -1,6 +1,6 @@
 class Note < ActiveRecord::Base
 	belongs_to :case
-	belongs_to :user
+
 	has_many :users, through: :notes_user
 	has_many :notes_user
 	belongs_to :firm

@@ -36,7 +36,7 @@ class SyncCalendar
 
 	    user_calendars = user.calendars
 
-	    ns = namespace.nylas_namespace
+	    ns = namespace.nylas_inbox
 
 	    events_synced = 0
 	    active_calendar_ids = params_[:active_ids]

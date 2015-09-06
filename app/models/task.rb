@@ -45,10 +45,9 @@ class Task < ActiveRecord::Base
     if calendar
       event.calendar = calendar
       namespace = calendar.namespace
-      nylas_namespace = namespace.nylas_namespace
-      n_event = nylas_namespace.events.build(:calendar_id => calendar.calendar_id, :title => event.title, :description => event.description,
-                                             :location => event.location, :when => {:start_time => event.starts_at.to_i,
-                                                                                     :end_time => event.ends_at.to_i},
+      nylas = namespace.nylas_inbox
+      n_event = nylas.events.build(:calendar_id => calendar.calendar_id, :title => event.title, :description => event.description,
+                                             :location => event.location, :when => event.nylas_time_attributes,
                                              :participants => event.participants.map {|p| { :email => p.email, :name => p.name}})
       n_event.save!
       event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,

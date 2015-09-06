@@ -5,7 +5,7 @@ When(/^I create the task$/) do
   step 'I select first item from "secondary_owner_select"'
   fill_in 'task_due_date', with: '12.12.2014'
   fill_in 'task_description', with: 'Task description'
-  uncheck 'task_add_event'
+  # uncheck 'task_add_event'
   click_on 'Create Task'
 end
 
@@ -54,7 +54,7 @@ Then(/^I create the task through case management$/) do
   step 'I select first item from "secondary_owner_select"'
   fill_in 'task_due_date', with: '12.12.2014'
   fill_in 'task_description', with: 'Task description'
-  uncheck 'task_add_event'
+  # uncheck 'task_add_event'
   click_on 'Create Task'
 end
 
@@ -81,7 +81,7 @@ end
 
 When /^I go to tasks$/ do
   step 'I open case management menu'
-  click_on 'TASKS'
+  click_on 'Tasks'
 end
 
 When /^I go to first task$/ do

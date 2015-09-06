@@ -23,7 +23,7 @@ end
 
 When /^I go to notes/ do
   step 'I open case management menu'
-  click_on 'NOTES'
+  click_on 'Notes'
 end
 
 
@@ -71,7 +71,7 @@ When(/^I create a case note$/) do
 end
 
 When(/^I create a note from case$/) do
-  step 'I click to tab "NOTES"'
+  step 'I click to tab "Notes"'
   click_on 'NEW NOTE'
   find("option[value='Medical/Review']").click
   fill_in 'note_note', with: 'TestNote'

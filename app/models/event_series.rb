@@ -73,8 +73,8 @@ class EventSeries < ActiveRecord::Base
     end
   end
 
-  def create_process(calendar, nylas_namespace, firm_id = nil)
-    events.each { |e| e.create_process calendar, nylas_namespace, firm_id }
+  def create_process(calendar, nylas, firm_id = nil)
+    events.each { |e| e.create_process calendar, nylas, firm_id }
   end
 
 end

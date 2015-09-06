@@ -2,12 +2,12 @@
 <% if user_signed_in? %>
   <div class="dropdown">
 
-    <button class="nav-dropdown-btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+    <button class="nav-dropdown-btn dropdown-toggle" type="button" id="userMenuDropdown" data-toggle="dropdown" aria-expanded="true">
       <%= current_user.name %>
       <span class="caret"></span>
       <br><span style="font-size: 10px;"><%= @firm.name %></span>
     </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+    <ul class="dropdown-menu" role="menu" aria-labelledby="userMenuDropdown">
       <li role="presentation"><a href="#menu-toggle" class="side-menu-toggle" id="menu-toggle">Toggle Side Menu 
                     </a></li>
       <li role="presentation"><%= link_to 'Profile & Settings', users_profile_path %></li>

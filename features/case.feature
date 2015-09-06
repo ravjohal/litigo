@@ -17,7 +17,7 @@ Feature: Case feature
     And I login without firm
     And I create a case step by step
     Then I verify required fields for case for user with email "artem.suchov@gmail.com"
-    And I click on "CASES"
+    And I click on "Cases"
     And I create a second case
     Then I verify required fields for second case for user with email "artem.suchov@gmail.com"
 
@@ -57,7 +57,7 @@ Feature: Case feature
     And I go to sign_out page
     And I login without firm
     And I create a case step by step
-    And I click to tab "CONTACTS"
+    And I click to tab "Contacts"
     And I click on "Edit"
     And I select "Artem Suchov" from "case_attorney"
     Then I should not see a JS alert
@@ -98,7 +98,7 @@ Feature: Case feature
     And I login without firm
     And I create a case step by step
     And I wait for "1" seconds
-    And I click to tab "CONTACTS"
+    And I click to tab "Contacts"
     And I should have text "Case Contacts"
     And I click on "Edit"
     And I select "Artem Suchov" from "case_attorney"

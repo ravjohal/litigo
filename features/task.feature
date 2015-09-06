@@ -21,27 +21,27 @@ Feature: Task tab
     Then I should have message "Task successfully created."
     And The task for user with email "artem.suchov@gmail.com" should be saved to the db with the right fields
 
-  @javascript
-  Scenario: I should see both calendar while create task
-    Given Confirmed default admin user exists
-    And Firm for default user exist
-    And Default namespace exist for default user
-    And Default calendar exist for default user
-    And Default calendar exist for default user
-    When I login without firm
-    And I open create task modal
-    Then select "task_calendar_id" should have "2" options
+#  @javascript
+#  Scenario: I should see both calendar while create task
+#    Given Confirmed default admin user exists
+#    And Firm for default user exist
+#    And Default namespace exist for default user
+#    And Default calendar exist for default user
+#    And Default calendar exist for default user
+#    When I login without firm
+#    And I open create task modal
+#    Then select "task_calendar_id" should have "2" options
 
-  @javascript
-  Scenario: I should see only active calendar while create task
-    Given Confirmed default admin user exists
-    And Firm for default user exist
-    And Default namespace exist for default user
-    And Default calendar exist for default user
-    And Default disabled calendar exist for default user
-    When I login without firm
-    And I open create task modal
-    Then select "task_calendar_id" should have "1" option
+#  @javascript
+#  Scenario: I should see only active calendar while create task
+#    Given Confirmed default admin user exists
+#    And Firm for default user exist
+#    And Default namespace exist for default user
+#    And Default calendar exist for default user
+#    And Default disabled calendar exist for default user
+#    When I login without firm
+#    And I open create task modal
+#    Then select "task_calendar_id" should have "1" option
 
   @javascript
   Scenario: I edit task

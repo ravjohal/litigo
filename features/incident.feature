@@ -20,7 +20,7 @@ Feature: Incident tab
     When I login without firm
     And I open case management menu
     And I go to first firm case
-    And I click to tab "INCIDENT"
+    And I click to tab "Incident"
     And I wait for "0.3" seconds
     And I click on "Edit"
     And I fill incident form field
@@ -39,17 +39,17 @@ Feature: Incident tab
     And Firm for default user exist
     And Default medical case exist
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a medical lead
     And I edit a medical lead
     And I click on "Save"
     And I click to element with id "accept"
-    And I click to tab "INCIDENT"
+    And I click to tab "Incident"
     And I wait for "0.3" seconds
     And I click on "Edit"
     And I fill lead incident form field
     And I click on "Save"
-    And I click to tab "DETAILS"
+    And I click to tab "Details"
     And I click to element with id "copy"
     And I fill lead copy case form
     And I click on "Create Copy"
@@ -61,17 +61,17 @@ Feature: Incident tab
     And Firm for default user exist
     And Default medical case exist
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a ohio medical lead
     And I edit a motor vehicle medical lead
     And I click on "Save"
     And I click to element with id "accept"
-    And I click to tab "INCIDENT"
+    And I click to tab "Incident"
     And I wait for "0.3" seconds
     And I click on "Edit"
     And I fill lead motor vehicle incident form field
     And I click on "Save"
-    And I click to tab "DETAILS"
+    And I click to tab "Details"
     And I click to element with id "copy"
     And I fill lead copy case form
     And I click on "Create Copy"

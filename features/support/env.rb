@@ -93,5 +93,5 @@ Before do |scenario|
 end
 
 After do |scenario|
-
+  DatabaseCleaner.clean
 end

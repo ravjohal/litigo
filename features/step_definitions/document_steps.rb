@@ -50,7 +50,7 @@ end
 
 Then(/^I create the document through case management$/) do
   step 'I open case management menu'
-  click_on 'DOCUMENTS'
+  click_on 'Documents'
   click_on 'NEW DOCUMENT'
   fill_in 'document_doc_type', with: 'some type'
   click_on 'Create Document'

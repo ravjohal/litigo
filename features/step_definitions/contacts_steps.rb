@@ -10,7 +10,11 @@ end
 
 When /^I go to contacts$/ do
   step 'I open case management menu'
-  click_on 'CONTACTS'
+  step 'Click to contacts'
+end
+
+When /^Click to contacts$/ do
+  click_on 'Contacts'
 end
 
 Then(/^The contact for user with email "(.*?)" should be saved to the db$/) do |arg1|
@@ -21,7 +25,7 @@ end
 
 Then(/^I create the contact trough the case management$/) do
   step 'I open case management menu'
-  click_on 'CONTACTS'
+  step 'Click to contacts'
   click_on 'NEW CONTACT'
   fill_in 'contact_first_name', with: 'Artem'
   fill_in 'contact_last_name', with: 'Such'

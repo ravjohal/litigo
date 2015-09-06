@@ -107,7 +107,7 @@ Then(/^The medical for user with email "(.*?)" should be saved to the db$/) do |
 end
 
 Then(/^I create the injury$/) do
-  click_on 'MEDICAL'
+  click_on 'Medical'
   click_on 'ADD INJURY'
   find("option[value='Strain/Sprain']").click
   find("option[value='Head']").click

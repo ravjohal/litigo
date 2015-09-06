@@ -5,8 +5,7 @@ Feature: Check Users functionality
     Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
-    And I click on "Artem Suchov"
-    And I click on "Account Settings"
+    And I go to profile
     And I click on "Manage Users"
     And I wait for "0.4" seconds
     And I fill invite form with email "andrew@rubyriders.com"
@@ -21,8 +20,7 @@ Feature: Check Users functionality
     And Firm for default user exist
     And Confirmed default invited user for default user
     When I login without firm
-    And I click on "Artem Suchov"
-    And I click on "Account Settings"
+    And I go to profile
     And I click on "Manage Users"
     And I should have text "Andrew Suchov"
     And I should have text "andrew.suchov@gmail.com"
@@ -37,8 +35,7 @@ Feature: Check Users functionality
     And Firm for default user exist
     And Confirmed default invited user for default user
     When I login without firm
-    And I click on "Artem Suchov"
-    And I click on "Account Settings"
+    And I go to profile
     And I click on "Manage Users"
     And I click on "Delete user"
     And I confirm popup

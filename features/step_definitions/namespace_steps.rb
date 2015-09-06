@@ -1,5 +1,5 @@
 When /^I go to calendars$/ do
-  click_on 'Profile'
+  step 'I go to profile'
   click_on 'Calendars'
 end
 
@@ -11,11 +11,11 @@ When /^I add namespace with email "(.*?)" and password "(.*?)"$/ do |email, pass
 
   fill_in 'login_hint', with: email
   click_on 'Sign In'
-  sleep 0.5
+  sleep 1
 
   fill_in 'Email', with: email
   page.execute_script(%(document.getElementById('next').click()))
-  sleep 0.5
+  sleep 1
 
   fill_in 'Passwd', with: password
   page.execute_script(%(document.getElementById('signIn').click()))
@@ -132,8 +132,8 @@ end
 Then /^I verify that event remove from "(.*?)" and move to new calendar$/ do |old_calendar_email|
   event = Event.last
   old_calendar = Calendar.find_by(name: old_calendar_email)
-  old_event = old_calendar.namespace.nylas_namespace.event.find(event.nylas_event_id) rescue nil
-  new_event = event.calendar.namespace.nylas_namespace.event.find(event.nylas_event_id)
+  old_event = old_calendar.namespace.nylas_inbox.event.find(event.nylas_event_id) rescue nil
+  new_event = event.calendar.namespace.nylas_inbox.event.find(event.nylas_event_id)
   expect(old_event).to be_nil
   expect(new_event).to_not be_nil
 end

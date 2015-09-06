@@ -62,6 +62,17 @@ When(/^I click on "(.*?)"$/) do |button|
   click_on button
 end
 
+When /^I go to profile$/ do
+  step 'I click to element with id "userMenuDropdown"'
+  click_on 'Profile & Settings'
+end
+
+When /^I click on sidebar item "(.*?)"$/ do |button|
+  within '#sidebar-wrapper' do
+    click_on button
+  end
+end
+
 When(/^I click on table header "(.*?)"$/) do |button|
   within 'table' do
     find('th', :text => button).click
@@ -108,11 +119,12 @@ When /^I push delete button$/ do
 end
 
 When /^I open case management menu$/ do
-  click_on 'Case Management'
+  # click_on 'Case Management'
 end
 
 When(/^I click to user dropdown$/) do
-  page.execute_script(%($('#dropdownMenu1').click()))
+  page.execute_script(%($('#userMenuDropdown').click()))
+  sleep 0.1
 end
 
 Then /^I should see a JS alert$/ do

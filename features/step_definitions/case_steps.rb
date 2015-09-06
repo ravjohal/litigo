@@ -14,8 +14,8 @@ Then(/^I create a case step by step detailed$/) do
 end
 
 When /^I go to cases$/ do
-  step 'I open case management menu'
-  click_on 'CASES'
+  # step 'I open case management menu'
+  click_on 'Cases'
   sleep 0.3
 end
 
@@ -58,13 +58,16 @@ When(/^I create a case detailed$/) do
   click_on 'NEW CASE'
   sleep 0.5
   fill_in 'case_name', with: 'some case'
+  fill_in 'case_topic', with: 'Case Topic'
+  fill_in 'case_description', with: 'Case Summary'
+
   select 'Bankruptcy', :from => 'case_case_type'
+
   step 'I select "Artem Suchov" from "case_attorney"'
   step 'I select "Artem Suchov" from "case_staff"'
   step 'I select first item from "case_state"'
   step 'I select first item from "case_subtype"'
-  fill_in 'case_topic', with: 'Case Topic'
-  fill_in 'case_description', with: 'Case Summary'
+
   click_on 'Create Case'
 end
 
@@ -220,12 +223,12 @@ Given(/^Default medical case exist for user: "(.*?)"$/) do |email|
 end
 
 When(/^I go to first case$/) do
-  step 'I click "CASES"'
+  step 'I click "Cases"'
   step 'I click to element with selector "#user_cases tr > td > a"'
 end
 
 When(/^I go to first firm case$/) do
-  step 'I click "CASES"'
+  step 'I click "Cases"'
   sleep 10
   step 'I click to element with selector "#cases tr > td > a"'
 end
@@ -250,6 +253,7 @@ end
 
 Then /^I verify case details tab$/ do
   user = User.last
+  sleep 10
   step 'I should have text "case_name"'
   step 'I should have text "AL"'
   step 'I should have text "Case Topic"'

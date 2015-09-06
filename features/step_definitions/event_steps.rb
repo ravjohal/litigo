@@ -3,7 +3,7 @@ When /^I go to events page$/ do
 end
 
 When /^I go to calendar events page$/ do
-  click_on 'CALENDAR'
+  click_on 'Calendar'
 end
 
 When /^I open create event popup$/ do
@@ -158,8 +158,8 @@ Then /^I verify event placed to nylas$/ do
   event = Event.last
   namespace = Namespace.last
 
-  nylas_namespace = namespace.nylas_namespace
-  ne = nylas_namespace.events.find(event.nylas_event_id)
+  nylas = namespace.nylas_inbox
+  ne = nylas.events.find(event.nylas_event_id)
 
   expect(ne).to_not be_nil
   expect(ne.description).to eq event.description

@@ -7,7 +7,7 @@
             <span id="temp" class="glyphicon glyphicon-arrow-left pull-right" title="Back to Documents"></span>
           <% end %>
         </li>
-        <li><%= link_to 'Edit', '#', id: 'preview_docx', class: 'dark' %></li>
+        <li><% link_to 'Edit', '#', id: 'preview_docx', class: 'dark' %></li>
         <li class="dropdown">
           <%= link_to "", class: 'dropdown-toggle action-button', id: 'generate_doc', data: {toggle: "dropdown"} do %>
             GENERATE DOCUMENT

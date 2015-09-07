@@ -1,6 +1,6 @@
 class NotesUser < ActiveRecord::Base
 
-  belongs_to :user
-  belongs_to :note
+  belongs_to :secondary_owner, class_name: 'User', foreign_key: 'secondary_owner_id'
+  belongs_to :secondary_note,  class_name: 'Note', foreign_key: 'secondary_note_id'
 
 end

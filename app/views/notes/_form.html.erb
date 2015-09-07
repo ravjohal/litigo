@@ -27,7 +27,7 @@
             </td>
             <td>
               <div id="notess">
-                <%= f.simple_fields_for :notes_user, NotesUser.new do |user| %>
+                <%= f.simple_fields_for :notes_users, NotesUser.new do |user| %>
                   <% if !user.object.id.nil? %>
                     <%= render 'notes_user_fields', :f => user %>
                   <% end %>
@@ -39,7 +39,7 @@
             <td>
             </td>
             <td>
-              <%= link_to_add_association 'CC', f, :notes_user,:"data-association-insertion-node" => "div#notess", :"data-association-insertion-method" => "append", :partial => "notes_user_fields", class: 'user pull-right' %>
+              <%= link_to_add_association 'CC', f, :notes_users,:"data-association-insertion-node" => "div#notess", :"data-association-insertion-method" => "append", :partial => "notes_user_fields", class: 'user pull-right' %>
             </td>
           </tr>
           <tr>

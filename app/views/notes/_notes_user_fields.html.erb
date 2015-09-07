@@ -1,6 +1,5 @@
 <div class="nested-fields notes-user-field">
-  <%= f.hidden_field "is_author", :value => false %>
-  <%= f.select :user_id, @firm.users.map {|u| [u.name, u.id]}, :class => 'table-input' %>
+  <%= f.select :secondary_owner_id, @firm.users.map {|u| [u.name, u.id]}, :class => 'table-input' %>
   <%= link_to_remove_association f, class: 'remove pull-right' do %><span id="remove" class="glyphicon glyphicon-remove"  original-title="Remove"></span><% end %>
 </div>
 <script type="text/javascript" charset="utf-8">

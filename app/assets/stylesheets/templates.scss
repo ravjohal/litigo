@@ -27,6 +27,28 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
   }
+
+  p.columns {
+    clear: both;
+    .col-left {
+      //float: left;
+    }
+    .col-right {
+      float: right;
+    }
+
+    &.tab_left_column {
+      padding-left: 67px;
+    }
+
+    &.two_left_columns {
+      position: relative;
+      .col-right {
+        position: absolute;
+        left: 67.5%;
+      }
+    }
+  }
 }
 .template_html {
   border: 1px solid #E8ECF1;

@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
 
     {
         nylas_calendar_id: ne.calendar_id,
-        nylas_namespace_id: ne.namespace_id,
+        nylas_namespace_id: ne.account_id,
         description: ne.description,
         location: ne.location,
         read_only: ne.read_only,
@@ -167,7 +167,7 @@ class Event < ActiveRecord::Base
     n_event = nylas.events.build nylas_event_attributes
     n_event.save!
 
-    update_attributes = {calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id, nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id, when_type: n_event.when['object']}
+    update_attributes = {calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id, nylas_namespace_id: n_event.account_id, namespace_id: calendar.namespace_id, when_type: n_event.when['object']}
     update_attributes[:firm_id] = firm_id if firm_id
     update(update_attributes)
   end

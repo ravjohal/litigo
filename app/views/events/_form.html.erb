@@ -34,18 +34,18 @@
                 <% elsif @event.created_by == 0 && @event.last_updated_by != 0 %>
                   Created By: <%= "External Calendar, last synced on #{simple_format_datetime @event.created_at}" -%>
                   <br />
-                  Updated By: <%= "#{User.find(@event.last_updated_by).name} on #{simple_format_datetime @event.updated_at}" -%>
+                  Updated By: <%= "#{User.find(@event.last_updated_by).try(:name)} on #{simple_format_datetime @event.updated_at}" -%>
                 <% elsif (@event.last_updated_by == 0 || @event.last_updated_by == nil) && @event.created_by != 0  %>
-                  Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
+                  Created By: <%= "#{@event.user.try(:name)} on #{simple_format_datetime @event.created_at}" -%>
                   <br />
                   Updated By: <%= "External Calendar, last synced on #{simple_format_datetime @event.updated_at}" -%>
                 <% else %>
                   <% if (@event.created_at == @event.updated_at) || (@updated_minus_created_ms < 10) %>
-                    Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
+                    Created By: <%= "#{@event.user.try(:name)} on #{simple_format_datetime @event.created_at}" -%>
                   <% else %>
-                    Created By: <%= "#{@event.user.name} on #{simple_format_datetime @event.created_at}" -%>
+                    Created By: <%= "#{@event.user.try(:name)} on #{simple_format_datetime @event.created_at}" -%>
                     <br />
-                    Updated By: <%= "#{User.find(@event.last_updated_by).name} on #{simple_format_datetime @event.updated_at}" -%>
+                    Updated By: <%= "#{User.find(@event.last_updated_by).try(:name)} on #{simple_format_datetime @event.updated_at}" -%>
                   <% end %>
                 <% end %>
               <% end %>

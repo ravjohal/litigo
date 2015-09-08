@@ -181,6 +181,8 @@ class TemplatesController < ApplicationController
 
   def download_docx
     template_document = TemplateDocument.find(params[:id])
+    a123 = Htmltoword::Document.create_with_content(Htmltoword::Document.default_xslt_template, template_document.name, template_document.html_content)
+    a2 =2
     respond_to do |format|
       format.docx do
         render docx: 'download_docx', content: template_document.html_content, filename: template_document.name

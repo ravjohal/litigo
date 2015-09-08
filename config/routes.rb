@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post 'templates_get_addressee' => 'templates#get_addressee', as: :get_addressee_attrs
   post 'templates_generate_docx' => 'templates#generate_docx', as: :generate_docx
   post 'settlement_generate_docx' => 'settlements#generate_docx', as: :settlement_generate_docx
+  get 'settlement_download_docx/:id' => 'settlements#download_docx', as: :settlement_download_docx
   get 'download_docx/:id' => 'templates#download_docx', as: :download_docx
   post 'upload_docx' => 'templates#upload_docx', as: :upload_docx
 

@@ -51,7 +51,7 @@ class Task < ActiveRecord::Base
                                              :participants => event.participants.map {|p| { :email => p.email, :name => p.name}})
       n_event.save!
       event.update(calendar_id: calendar.id, nylas_event_id: n_event.id, nylas_calendar_id: n_event.calendar_id,
-                    nylas_namespace_id: n_event.namespace_id, namespace_id: calendar.namespace_id,
+                    nylas_namespace_id: n_event.account_id, namespace_id: calendar.namespace_id,
                     when_type: n_event.when['object'])
     end
   end

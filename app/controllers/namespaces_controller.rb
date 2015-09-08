@@ -23,7 +23,7 @@ class NamespacesController < ApplicationController
     calendars = nylas.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: namespace.id, calendar_id: nc.id, firm_id: @firm.id)
-      calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
+      calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.account_id)
     end
     if calendars.present?
       render :json => { success: true, message: "#{calendars.count} calendars were fetched." }
@@ -53,7 +53,7 @@ class NamespacesController < ApplicationController
     calendars = nylas.calendars.all
     calendars.each do |nc|
       calendar = Calendar.find_or_initialize_by(namespace_id: @namespace.id, calendar_id: nc.id, firm_id: @firm.id)
-      calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.namespace_id)
+      calendar.update(description: nc.description, name: nc.name, nylas_namespace_id: nc.account_id)
     end
   end
 

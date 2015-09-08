@@ -58,34 +58,39 @@ class Settlement < ActiveRecord::Base
           case span['data-for']
             when 'expense'
               self.case.expenses.to_a.each do |expense|
-                new_span = Nokogiri::HTML::Node.new 'span'
+
+                new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{expense.created_date.try(:strftime, '%m/%d/%Y')} #{expense.description} #{ActionController::Base.helpers.number_to_currency expense.amount.to_f}"
-                new_row = Nokogiri::HTML::Node.new 'p'
+                new_row = Nokogiri::XML::Node.new('p', html)
+
                 new_row['style'] = 'font-size:11pt;'
                 new_row.add_child(new_span)
                 span.after(new_row)
               end
+              span.remove
             when 'medical_bill'
               self.case.medical_bills.to_a.each do |medical_bill|
-                new_span = Nokogiri::HTML::Node.new 'span'
+                new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{medical_bill.provider} #{medical_bill.services} #{ActionController::Base.helpers.number_to_currency medical_bill.total_billed_adjustment_paid_amounts.to_f}"
-                new_row = Nokogiri::HTML::Node.new 'p'
+                new_row = Nokogiri::XML::Node.new('p', html)
                 new_row['style'] = 'font-size:11pt;'
                 new_row.add_child(new_span)
                 span.after(new_row)
               end
+              span.remove
             when 'insurance'
               self.case.insurance.children.to_a.each do |insurance|
-                new_span = Nokogiri::HTML::Node.new 'span'
+                new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{insurance.company.try(:name)} #{ActionController::Base.helpers.number_to_currency insurance.amount_paid.to_f}"
-                new_row = Nokogiri::HTML::Node.new 'p'
+                new_row = Nokogiri::XML::Node.new('p', html)
                 new_row['style'] = 'font-size:11pt;'
                 new_row.add_child(new_span)
                 span.after(new_row)
               end
+              span.remove
           end
       end
     end

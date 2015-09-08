@@ -14,7 +14,7 @@
           <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
             <li style="padding: 0; display: inline;"><%= link_to "Upload Document from local", @new_path, { :id => "new_modal", :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window'} %></li>
             <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Create New from template', templates_path %></li>
-            <!--<li role="presentation" style="padding: 0; display: inline;"><% link_to 'Settlement Sheet ', new_case_settlement_path(case_id: @case.id) %></li>-->
+            <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Settlement Sheet ', new_case_settlement_path(case_id: @case.id) %></li>
           </ul>
         </li>
       </ul>

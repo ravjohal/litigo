@@ -62,8 +62,9 @@ class Settlement < ActiveRecord::Base
                 new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{expense.created_date.try(:strftime, '%m/%d/%Y')} #{expense.description} #{ActionController::Base.helpers.number_to_currency expense.amount.to_f}"
-                new_row = Nokogiri::XML::Node.new('p', html)
 
+                new_row = Nokogiri::XML::Node.new('p', html)
+                new_row['class'] = 'columns left_column'
                 new_row['style'] = 'font-size:11pt;'
                 new_row.add_child(new_span)
                 span.after(new_row)
@@ -74,7 +75,9 @@ class Settlement < ActiveRecord::Base
                 new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{medical_bill.provider} #{medical_bill.services} #{ActionController::Base.helpers.number_to_currency medical_bill.total_billed_adjustment_paid_amounts.to_f}"
+
                 new_row = Nokogiri::XML::Node.new('p', html)
+                new_row['class'] = 'columns left_column'
                 new_row['style'] = 'font-size:11pt;'
                 new_row.add_child(new_span)
                 span.after(new_row)
@@ -85,7 +88,9 @@ class Settlement < ActiveRecord::Base
                 new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{insurance.company.try(:name)} #{ActionController::Base.helpers.number_to_currency insurance.amount_paid.to_f}"
+
                 new_row = Nokogiri::XML::Node.new('p', html)
+                new_row['class'] = 'columns left_column'
                 new_row['style'] = 'font-size:11pt;'
                 new_row.add_child(new_span)
                 span.after(new_row)

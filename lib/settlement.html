@@ -1,64 +1,74 @@
-<p style="font-size:14pt;">
-    <span style="font-size:14pt; text-align: left;"><strong>Settlement Statement</strong></span>
-    <span style="font-size:14pt; text-align: right; float:right;"><span class="insertion" data-model="Firm" data-attr="name" data-name="Firm Name">[Firm Name]</span></span>
-</p>
+<p class="columns two_columns" style="font-size:14pt;"><span class="col-left"><strong>Settlement Statement</strong></span><span class="col-right insertion" data-model="Firm" data-attr="name" data-name="Firm Name">[Firm Name]</span></p>
 <p style="font-size:11pt;">Claimant: <span class="insertion" data-model="Plaintiff" data-attr="name" data-name="Plaintiff Name">[Plaintiff Name]</span></p>
-<p style="font-size:11pt;"> <span class="insertion" data-model="Plaintiff" data-attr="address" data-name="Plaintiff Address">[Plaintiff Address]</span></p>
-<p style="font-size:11pt;"> <span class="insertion" data-model="Plaintiff" data-attr="city" data-name="Plaintiff City">[Plaintiff City]</span>, <span class="insertion" data-model="Plaintiff" data-attr="zip_code" data-name="Plaintiff Zipcode">[Plaintiff Zipcode]</span></p>
+<p class="columns tab_left_column" style="font-size:11pt;"><span class="insertion" data-model="Plaintiff" data-attr="address" data-name="Plaintiff Address">[Plaintiff Address]</span></p>
+<p class="columns tab_left_column" style="font-size:11pt;"><span class="insertion" data-model="Plaintiff" data-attr="city" data-name="Plaintiff City">[Plaintiff City]</span>, <span class="insertion" data-model="Plaintiff" data-attr="zip_code" data-name="Plaintiff Zipcode">[Plaintiff Zipcode]</span></p>
+<p style="font-size:11pt;"></p>
 <p style="font-size:11pt;">Settlement Date: <span class="insertion" data-model="Case" data-attr="close_date" data-name="Case Close Date">[Case Close Date]</span></p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;"><strong>SETTLEMENT:</strong></span>
-    <span style="text-align: right; float:right;"><strong><span class="insertion" data-model="Resolution" data-attr="amount" data-name="Resolution amount">[Resolution amount]</span></strong></span>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;"><strong>SETTLEMENT:</strong></span>
+    <span class="col-right" style="text-align: right;"><strong><span class="insertion" data-model="Resolution" data-attr="amount" data-name="Resolution amount">[Resolution amount]</span></strong></span>
 </p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">LESS ATTORNEY FEES (33.33%):</span>
-    <span style="text-align: right; float:right;"><span class="insertion" data-model="Calculation" data-attr="con_fee_res_amount" data-name="Contignet fee x resolution amount">[Contignet fee x resolution amount]</span></span>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">LESS ATTORNEY FEES (33.33%):</span>
+    <span class="col-right" style="text-align: right;"><span class="insertion" data-model="Calculation" data-attr="con_fee_res_amount" data-name="Contignet fee x resolution amount">[Contignet fee x resolution amount]</span></span>
 </p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">Subtotal:</span>
-    <span style="text-align: right; float:right;">
+<p class="columns two_columns only_right" style="font-size:11pt; color: #eeeeee;">
+    <span class="col-left"> &nbsp; </span>
+    <span class="col-right">______________________________</span>
+</p>
+<p style="font-size:11pt;"></p>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">Subtotal:</span>
+    <span class="col-right" style="text-align: right;">
         <span class="insertion" data-model="Calculation" data-attr="res_amount_att_fee" data-name="Resolution amount - attorney fee">[Resolution amount - attorney fee]</span>
     </span>
 </p>
 <p style="font-size:11pt;">FIRM EXPENSES:</p>
-<p style="font-size:11pt;" class="insertion" data-model="for" data-for="expense" data-attr="description" data-name="[Expense Date] [expense] [expense amount]">[Expense Date] [expense] [expense amount]</p>
+<p style="font-size:11pt;" class="columns tab_left_column insertion" data-model="for" data-for="expense" data-attr="description" data-name="[Expense Date] [expense] [expense amount]">[Expense Date] [expense] [expense amount]</p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">LESS FIRM EXPENSES PAID:</span>
-    <span style="text-align: right; float:right;"><span class="insertion" data-model="Case" data-attr="total_expenses" data-name="Total Case Expenses">[Total Case Expenses]</span></span>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">LESS FIRM EXPENSES PAID:</span>
+    <span class="col-right" style="text-align: right;"><span class="insertion" data-model="Case" data-attr="total_expenses" data-name="Total Case Expenses">[Total Case Expenses]</span></span>
 </p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">Subtotal:</span>
-    <span style="text-align: right; float:right;"><span class="insertion" data-model="Calculation" data-attr="res_amount_att_fee_total_exp" data-name="Resolution amount - attorney fee - total expenses">[Resolution amount - attorney fee - total expenses]</span></span>
+<p class="columns two_columns only_right" style="font-size:11pt; color: #eeeeee;">
+    <span class="col-left"> &nbsp; </span>
+    <span class="col-right">______________________________</span>
+</p>
+<p style="font-size:11pt;"></p>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">Subtotal:</span>
+    <span class="col-right"  style="text-align: right;"><span class="insertion" data-model="Calculation" data-attr="res_amount_att_fee_total_exp" data-name="Resolution amount - attorney fee - total expenses">[Resolution amount - attorney fee - total expenses]</span></span>
 </p>
 <p style="font-size:11pt;text-align:right;"></p>
 <p style="font-size:11pt;">MEDICAL BILLS:</p>
-<p style="font-size:11pt;" class="insertion" data-model="for" data-for="medical_bill" data-attr="description" data-name="[Provider][Service][net owed]">[Provider][Service][net owed]</p>
+<p style="font-size:11pt;" class="columns tab_left_column insertion" data-model="for" data-for="medical_bill" data-attr="description" data-name="[Provider][Service][net owed]">[Provider][Service][net owed]</p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">LESS MEDICALS PAID:</span>
-    <span style="text-align: right; float:right;"><span class="insertion" data-model="Case" data-attr="total_owed" data-name="Total owed">[Total owed]</span></span>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">LESS MEDICALS PAID:</span>
+    <span class="col-right" style="text-align: right;"><span class="insertion" data-model="Case" data-attr="total_owed" data-name="Total owed">[Total owed]</span></span>
 </p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">Subtotal:</span>
-    <span style="text-align: right; float:right;"><span class="insertion" data-model="Calculation" data-attr="res_amount_att_fee_total_exp_net_owed" data-name="Resolution amount - attorney fee - total expenses - net owed">[Resolution amount - attorney fee - total expenses - net owed]</span></span>
+<p class="columns two_columns only_right" style="font-size:11pt; color: #eeeeee;">
+    <span class="col-left"> &nbsp; </span>
+    <span class="col-right">______________________________</span>
+</p>
+<p style="font-size:11pt;"></p>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">Subtotal:</span>
+    <span class="col-right" style="text-align: right;"><span class="insertion" data-model="Calculation" data-attr="res_amount_att_fee_total_exp_net_owed" data-name="Resolution amount - attorney fee - total expenses - net owed">[Resolution amount - attorney fee - total expenses - net owed]</span></span>
 </p>
 <p style="font-size:11pt;text-align:right;"></p>
 <p style="font-size:11pt;">SUBROGATION: </p>
-<p style="font-size:11pt;" class="insertion" data-model="for" data-for="insurance" data-attr="description" data-name="[Insurance Company] [Amount Paid]">[Insurance Company] [Amount Paid]</p>
+<p style="font-size:11pt;" class="columns tab_left_column insertion" data-model="for" data-for="insurance" data-attr="description" data-name="[Insurance Company] [Amount Paid]">[Insurance Company] [Amount Paid]</p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;">
-    <span style="text-align: left;">LESS SUBROGATION:</span>
-    <span style="text-align: right; float:right;"><span class="insertion" data-model="Case" data-attr="subro_paid" data-name="Total Paid">[Total Paid]</span></span>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left" style="text-align: left;">LESS SUBROGATION:</span>
+    <span class="col-right" style="text-align: right;"><span class="insertion" data-model="Case" data-attr="subro_paid" data-name="Total Paid">[Total Paid]</span></span>
 </p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;">
-    <strong><span style="text-align: left;">REMAINING AMOUNT TO CLAIMANT:</span></strong>
-    <strong><span style="text-align: right; float:right;">
+<p class="columns two_columns" style="font-size:11pt;">
+    <strong><span class="col-left" style="text-align: left;">REMAINING AMOUNT TO CLAIMANT:</span></strong>
+    <strong><span class="col-right" style="text-align: right;">
         <span class="insertion" data-model="Calculation" data-attr="res_amount_att_fee_total_exp_net_owed_subro_paid" data-name="Resolution - attyfee - expenses - net owed - subropaid">[Resolution - attyfee - expenses - net owed - subropaid]</span>
     </span></strong>
 </p>
@@ -82,22 +92,28 @@
     expenses incurred in connection with this incident.]</p>
 <p style="font-size:11pt;text-align:both;"></p>
 <p style="font-size:11pt;"></p>
-<div class="page-break"></div>
 <p style="font-size:11pt;"><strong>APPROVED:</strong></p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;">
-    <strong>Claimant: <span class="insertion" data-model="Plaintiff" data-attr="name" data-name="Plaintiff Name">[Plaintiff Name]</span></strong>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left">______________________________</span>
+    <span class="col-right">______________________________</span>
 </p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;">
-    <strong>Attorney: <span class="insertion" data-model="Attorney" data-attr="name" data-name="Attorney Name">[Attorney Name]</span></strong>
+<p class="columns two_left_columns double_columns" style="font-size:11pt;">
+    <span class="col-left">
+        <strong>Claimant: <span class="insertion" data-model="Plaintiff" data-attr="name" data-name="Plaintiff Name">[Plaintiff Name]</span></strong>
+    </span>
+    <span class="col-right">
+        <strong>Attorney: <span class="insertion" data-model="Attorney" data-attr="name" data-name="Attorney Name">[Attorney Name]</span></strong>
+    </span>
 </p>
 <p style="font-size:11pt;"></p>
+<p class="columns two_columns" style="font-size:11pt;">
+    <span class="col-left">______________________________</span>
+    <span class="col-right">______________________________</span>
+</p>
 <p style="font-size:11pt;"></p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;"><strong>Date</strong></p>
-<p style="font-size:11pt;"></p>
-<p style="font-size:11pt;"><hr></p>
-<p style="font-size:11pt;"><strong>Date</strong></p>
+<p class="columns two_left_columns" style="font-size:11pt;">
+    <span class="col-left"><strong>Date</strong></span>
+    <span class="col-right"><strong>Date</strong></span>
+</p>

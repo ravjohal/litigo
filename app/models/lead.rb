@@ -76,7 +76,7 @@ class Lead < ActiveRecord::Base
   end
 
   def self.active_leads_scope
-    where(status: ['pending_review', 'appointment_scheduled'])
+    where(status: ['pending_review', 'appointment_scheduled', 'outside_action'])
   end
 
   def self.accepted_leads_scope

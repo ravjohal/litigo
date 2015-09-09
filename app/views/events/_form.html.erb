@@ -117,7 +117,7 @@
 
           <tr>
             <td>
-              <strong>Reminder:</strong>
+              <strong><%= @event.new_record? ? 'Reminder' : 'Abandon' %>:</strong>
             </td>
             <td>
               <%= f.check_box :is_reminder, {}, true, false %>

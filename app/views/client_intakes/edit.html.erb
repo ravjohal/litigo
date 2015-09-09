@@ -23,18 +23,124 @@
     </div>
   </div>
   <div class="incase-tabs-gap-double"></div>
-<table id="insurance-table" class="lead-table">
+  <table id="info-table3" class="lead-table">
   <thead>
   <tr class="right-top">
     <td colspan="4" class="gray-back">
-      <strong>Lead Information</strong>
+      <strong>Lead Contact Information</strong>
     </td>
   </tr>
   </thead>
   <tbody>
   <tr>
     <td class="right">
-      <strong>Caller Name:</strong><span id="caller" title="Edit the Caller's Name from the Contact tab" style="cursor: pointer;" class="glyphicon glyphicon-question-sign pull-right"></span>
+      <strong>First Name:</strong>
+    </td>
+    <td>
+      <%= f.text_field :first_name, label: false, :class => 'table-input' %>
+    </td>
+        <td class="right">
+      <strong>Last Name:</strong>
+    </td>
+    <td>
+      <%= f.text_field :last_name, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+    <td>
+      <strong>Has Representation?</strong>
+    </td>
+    <td>
+      <div class='radio'>
+                <%= f.radio_button :attorney_already, 'true' %> 
+                <%= label :attorney_already, 'Yes', :value => 'Yes' %>
+            </div>
+            <div class='radio'>
+                <%= f.radio_button :attorney_already, 'false' %>
+                <%= f.label :attorney_already, 'No', :value => 'No'%>
+            </div>
+    </td>
+    <td class="right">
+      <strong>Attorney Name:</strong>
+    </td>
+    <td>
+      <%= f.text_field :attorney_name, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong>Date of Birth:</strong>
+    </td>
+    <td>
+      <%= f.date_field :dob, label: false, :class => 'table-input' %>
+    </td>
+    <td class="right">
+      <strong>SSN:</strong>
+    </td>
+    <td>
+      <%= f.text_field :ssn, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+   <tr>
+    <td class="right">
+      <strong>Phone:</strong>
+    </td>
+    <td>
+      <%= f.telephone_field :phone, label: false, :class => 'table-input Phone', placeholder: '(___)___-____' %>
+    </td>
+    <td class="right">
+      <strong>Email:</strong>
+    </td>
+    <td>
+      <%= f.text_field :email, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>Address:</strong>
+    </td>
+    <td colspan="3">
+      <%= f.text_field :address, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+  <tr>
+    <td class="right">
+      <strong>City:</strong>
+    </td>
+    <td colspan="3">
+      <%= f.text_field :city, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+    <tr>
+    <td class="right">
+      <strong>State:</strong>
+    </td>
+    <td>
+      <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
+    </td>
+    <td class="right">
+      <strong>Zip Code:</strong>
+    </td>
+    <td>
+      <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
+    </td>
+  </tr>
+
+  </tbody>
+</table>
+
+<table id="insurance-table" class="lead-table">
+  <thead>
+  <tr class="right-top">
+    <td colspan="4" class="gray-back">
+      <strong>Lead Details</strong>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="right">
+      <strong>Caller Name:</strong>
     </td>
     <td  colspan="3">
       <%= @lead.name %>
@@ -179,8 +285,8 @@
 <script>
   $(document).ready(function() { $("#note_select, select").select2({allowClear: true}); });
 </script>
-<script type='text/javascript'>
-  $(function() {
-    $('#caller').tipsy({gravity: 's', fade: true});
+<script>
+  $(document).ready(function() {
+    $('.phone').mask("(999) 999-9999");
   });
 </script>

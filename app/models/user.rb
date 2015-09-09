@@ -55,6 +55,14 @@ class User < ActiveRecord::Base
   include ActiveCalendars
   include ActiveNamespaces
 
+  #this method is called by devise to check for "active" state of the model
+  def active_for_authentication?
+    #remember to call the super
+    #then put our own check to determine "active" state using 
+    #our own "is_active" column
+    super and self.is_active?
+  end
+
   def create_contact(role, firm = self.firm)
     klass = role
     contact = klass.constantize_with_care(Contact::TYPES).new(:type => role)
@@ -150,6 +158,10 @@ class User < ActiveRecord::Base
 
   def edit_event_allowed?
     self.edit_events_permit || self.is_admin?
+  end
+
+  def is_active?
+    !self.disabled
   end
 
 end

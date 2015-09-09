@@ -28,7 +28,7 @@ class Lead < ActiveRecord::Base
         :firm_id => firm_id,
         :user_id => user.id,
         :description => case_summary,
-        :status => 'Negotiation',
+        :status => 'Active',
         state: state,
         :medical_attributes => {
             :firm_id => firm_id,

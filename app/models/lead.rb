@@ -23,14 +23,14 @@ class Lead < ActiveRecord::Base
 
   def generate_case_attrs(user)
     {
-        :name => "#{last_name} #{incident_date}",
+        :name => "#{last_name}, #{first_name}",
         :case_number => Case.increment_number(firm, 'accept_case', nil),
         :case_type => case_type,
         :subtype => sub_type,
         :firm_id => firm_id,
         :user_id => user.id,
         :description => case_summary,
-        :status => 'Negotiation',
+        :status => 'Active',
         state: state,
         :medical_attributes => {
             :firm_id => firm_id,
@@ -78,7 +78,7 @@ class Lead < ActiveRecord::Base
   end
 
   def self.active_leads_scope
-    where(status: ['pending_review', 'appointment_scheduled'])
+    where(status: ['pending_review', 'appointment_scheduled', 'outside_action'])
   end
 
   def self.accepted_leads_scope

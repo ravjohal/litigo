@@ -34,6 +34,16 @@
       </tr>
       <tr>
         <td class="right">
+          <strong>CC:</strong>
+        </td>
+        <td colspan="2">
+          <% @note.try(:notes_users).each do |user| %>
+              <%= user.secondary_owner.name %><br />
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
           <strong>Creation Date:</strong>
         </td>
         <td colspan="2">

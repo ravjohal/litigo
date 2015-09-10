@@ -23,6 +23,7 @@ class NotesController < ApplicationController
 
       # @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:user_account_id => @user.id})
       @my_notes = @user.notes.includes(:case)
+      @my_secondary_notes = @user.secondary_notes.includes(:case)
       # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect
       @new_path = new_note_path
       @notes_a = Note.new #for modal partial rendering
@@ -51,7 +52,7 @@ class NotesController < ApplicationController
   # POST /notes
   # POST /notes.json
   def create
-    
+
     if get_case
       @note = @case.notes.build(note_params)
       path_notes = case_notes_path
@@ -59,7 +60,6 @@ class NotesController < ApplicationController
       @note = Note.new(note_params)
       path_notes = notes_path
     end
-
     @note.user = @user
     @note.firm = @firm
 
@@ -123,6 +123,8 @@ class NotesController < ApplicationController
       params.require(:note).permit(:note, :case_id, :user_id, :firm_id, :note_type, :created_at, :updated_at, :author,
                                    :task_name, :task_due_date, :task_sms_reminder, :task_email_reminder, :add_task,
                                    :task_description, :task_owner_id, :task_secondary_owner_id,
-                                   :task_add_event, :task_calendar_id)
+                                   :task_add_event, :task_calendar_id, :secondary_note_id, :secondary_owner_id,
+                                   :notes_users_attributes => [:id, :secondary_note_id, :secondary_owner_id, :_destroy])
+
     end
 end

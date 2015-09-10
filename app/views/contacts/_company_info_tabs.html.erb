@@ -1,0 +1,4 @@
+<ul id="nav-tabs-custom" role="tablist">
+        <li <%= is_active('All') %>><%= active_link_to 'Company Details', company_path(@company), :class_active => 'navigated',  :active => [['contacts'], ['show_company']] %></li>
+         <li><%= active_link_to 'Cases', contact_linked_cases_path, :class_active => 'navigated',  :active => [['contacts'], ['contact_cases']] %></li>
+</ul>

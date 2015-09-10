@@ -590,10 +590,15 @@ ActiveRecord::Schema.define(version: 20150909135009) do
   create_table "notes_users", force: :cascade do |t|
     t.integer  "note_id"
     t.integer  "user_id"
-    t.boolean  "is_author"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "is_author",          default: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "secondary_note_id"
+    t.integer  "secondary_owner_id"
   end
+
+  add_index "notes_users", ["secondary_note_id"], name: "index_notes_users_on_secondary_note_id", using: :btree
+  add_index "notes_users", ["secondary_owner_id"], name: "index_notes_users_on_secondary_owner_id", using: :btree
 
   create_table "old_events", force: :cascade do |t|
     t.string   "subject",              limit: 255

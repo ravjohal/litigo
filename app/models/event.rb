@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   belongs_to :user, class_name: 'User', foreign_key: 'created_by'
   belongs_to :owner, class_name: 'User', foreign_key: 'owner_id'
 
+  belongs_to :lead
   belongs_to :case
   belongs_to :firm
   belongs_to :task
@@ -15,6 +16,9 @@ class Event < ActiveRecord::Base
   attr_accessor :start_date, :start_time, :end_date, :end_time, :recur, :period, :frequency, :recur_start_date, :recur_end_date, :update_all_events
   validates_presence_of :starts_at, :ends_at
   validate :end_after_start
+
+  after_create :set_lead_status
+  after_save :set_lead_apt_date
 
   REPEATS = %w(Daily Weekly Monthly Yearly)
 
@@ -257,6 +261,16 @@ class Event < ActiveRecord::Base
   # @param [Namespace] namespace
   def assign_nylas_while_refresh(ne, firm, calendar, namespace)
     assign_nylas_object!(ne, firm) { assign_attributes owner_id: calendar.namespace.user_id, firm_id: firm.id, calendar_id: calendar.id, namespace_id: namespace.id } #if id && !changed?
+  end
+
+  private
+
+  def set_lead_status
+    Lead.where(id: lead_id).update_all(:status => :appointment_scheduled) if lead_id
+  end
+
+  def set_lead_apt_date
+    Lead.where(id: lead_id).update_all(:appointment_date => starts_at) if lead_id && (new_record? || starts_at_changed?)
   end
 
 end

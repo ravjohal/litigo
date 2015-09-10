@@ -231,6 +231,7 @@ class ContactsController < ApplicationController
   def contact_cases
     @cases = @contact.cases.uniq
     @contacts_a = Contact.new
+    @company = @contact if @contact.type == 'Company'
   end
 
   def remove_contact

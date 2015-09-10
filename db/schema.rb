@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828062622) do
+ActiveRecord::Schema.define(version: 20150909135009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150828062622) do
     t.string   "phone_number_1"
     t.string   "phone_number_2"
     t.string   "company_name"
+    t.string   "ext"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -586,6 +587,14 @@ ActiveRecord::Schema.define(version: 20150828062622) do
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
+  create_table "notes_users", force: :cascade do |t|
+    t.integer  "note_id"
+    t.integer  "user_id"
+    t.boolean  "is_author"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "old_events", force: :cascade do |t|
     t.string   "subject",              limit: 255
     t.string   "location",             limit: 255
@@ -829,6 +838,7 @@ ActiveRecord::Schema.define(version: 20150828062622) do
     t.string   "middle_name"
     t.string   "events_color"
     t.boolean  "edit_events_permit",                 default: false
+    t.boolean  "disabled",                           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

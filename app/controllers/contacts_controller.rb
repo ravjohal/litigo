@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_filter :authenticate_user!
   before_action :get_case, only: [:assign_contacts, :update_case_contacts]
   before_action :case_contacts_params, only: [:update_case_contacts]
-  before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :set_contact, only: [:show, :edit, :update, :destroy, :contact_cases]
   before_action :set_user, :set_firm
 
   helper DatesHelper
@@ -226,6 +226,11 @@ class ContactsController < ApplicationController
 
   def edit_company
     @company = Contact.find(params[:id])
+  end
+
+  def contact_cases
+    @cases = @contact.cases.uniq
+    @contacts_a = Contact.new
   end
 
   def remove_contact

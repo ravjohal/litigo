@@ -2,6 +2,8 @@ class Lead < ActiveRecord::Base
   belongs_to :screener, class_name: 'User', :foreign_key => 'screener_id'
   belongs_to :attorney, class_name: 'User', :foreign_key => 'attorney_id'
   belongs_to :firm
+
+  has_one :event
   has_one :case
   has_one :contact #the contact that gets created once lead has been assigned to a case
   belongs_to :referring_contact, class_name: 'Contact', :foreign_key => 'referring_contact_id'
@@ -89,5 +91,9 @@ class Lead < ActiveRecord::Base
 
   def self.inactive_leads_scope
     where(status: 'inactive')
+  end
+
+  def exist_event?
+    Event.where(:lead_id => id).exists? if id
   end
 end

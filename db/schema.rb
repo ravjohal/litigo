@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150828062622) do
+ActiveRecord::Schema.define(version: 20150910130317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -287,10 +287,12 @@ ActiveRecord::Schema.define(version: 20150828062622) do
     t.integer  "owner_id"
     t.integer  "case_id"
     t.boolean  "is_reminder",        default: false
+    t.integer  "lead_id"
   end
 
   add_index "events", ["case_id"], name: "index_events_on_case_id", using: :btree
   add_index "events", ["firm_id"], name: "index_events_on_firm_id", using: :btree
+  add_index "events", ["lead_id"], name: "index_events_on_lead_id", using: :btree
   add_index "events", ["nylas_event_id"], name: "index_events_on_nylas_event_id", using: :btree
   add_index "events", ["owner_id"], name: "index_events_on_owner_id", using: :btree
 
@@ -829,6 +831,7 @@ ActiveRecord::Schema.define(version: 20150828062622) do
     t.string   "middle_name"
     t.string   "events_color"
     t.boolean  "edit_events_permit",                 default: false
+    t.boolean  "disabled",                           default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

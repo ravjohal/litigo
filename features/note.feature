@@ -20,6 +20,23 @@ Feature: Note tab
     Then The note for user with email "artem.suchov@gmail.com" should be saved to the db
 
   @javascript
+  Scenario: I create a note with CC
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    When I login without firm
+    And I create a note with CC
+    Then The note with CC for user with email "artem.suchov@gmail.com" should be saved to the db
+
+  @javascript
+  Scenario: I show a note with CC
+    Given Confirmed default admin user exists
+    And Firm for default user exist
+    When I login without firm
+    And I create a note with CC
+    And I show a note with CC
+    Then The note with CC for user with email "artem.suchov@gmail.com" has CC name's of firm contacts
+
+  @javascript
   Scenario: I delete a note
     Given Confirmed default admin user exists
     And Firm for default user exist
@@ -49,3 +66,4 @@ Feature: Note tab
     And I edit a note
     And I click on "Save"
     Then The note should be edited for user with email "artem.suchov@gmail.com"
+

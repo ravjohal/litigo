@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150910130317) do
     t.string   "phone_number_1"
     t.string   "phone_number_2"
     t.string   "company_name"
+    t.string   "ext"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -587,6 +588,19 @@ ActiveRecord::Schema.define(version: 20150910130317) do
   add_index "notes", ["case_id"], name: "index_notes_on_case_id", using: :btree
   add_index "notes", ["firm_id"], name: "index_notes_on_firm_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
+
+  create_table "notes_users", force: :cascade do |t|
+    t.integer  "note_id"
+    t.integer  "user_id"
+    t.boolean  "is_author",          default: true
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "secondary_note_id"
+    t.integer  "secondary_owner_id"
+  end
+
+  add_index "notes_users", ["secondary_note_id"], name: "index_notes_users_on_secondary_note_id", using: :btree
+  add_index "notes_users", ["secondary_owner_id"], name: "index_notes_users_on_secondary_owner_id", using: :btree
 
   create_table "old_events", force: :cascade do |t|
     t.string   "subject",              limit: 255

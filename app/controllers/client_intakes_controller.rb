@@ -91,7 +91,7 @@ class ClientIntakesController < ApplicationController
 
   def accept_case
     return redirect_to lead_path(@lead), alert: "Case already creaded from that lead" if Case.where(:lead_id => @lead.id).exists?
-
+    @lead.update_attribute(:status,:accepted)
     case_attributes = @lead.generate_case_attrs(@user)
     @case = Case.new(case_attributes)
     @case.current_user_id = @user.id

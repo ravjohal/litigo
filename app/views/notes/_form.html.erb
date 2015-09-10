@@ -12,7 +12,6 @@
          <div class="modal-body">
     <% end %>
 
-
     <table class="note-form table-condensed">
         <tbody>
           <tr>
@@ -22,6 +21,26 @@
               <td>
                   <%= f.text_field :author, :readonly => true, :value => @user.name, label: false, :class => 'table-input' %>
               </td>
+          </tr>
+          <tr>
+            <td>
+            </td>
+            <td>
+              <div id="notess">
+                <%= f.simple_fields_for :notes_users, NotesUser.new do |user| %>
+                  <% if !user.object.id.nil? %>
+                    <%= render 'notes_user_fields', :f => user %>
+                  <% end %>
+                <% end %>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+            </td>
+            <td>
+              <%= link_to_add_association 'CC', f, :notes_users,:"data-association-insertion-node" => "div#notess", :"data-association-insertion-method" => "append", :partial => "notes_user_fields", class: 'user pull-right' %>
+            </td>
           </tr>
           <tr>
               <td>

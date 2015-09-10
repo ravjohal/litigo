@@ -41,6 +41,21 @@ When(/^I create a note$/) do
   expect(page).to have_content('Note was successfully created.')
 end
 
+When(/^I create a note with CC$/) do
+  visit '/notes'
+  click_on 'NEW NOTE'
+  find("option[value='Medical/Review']").click
+  click_on 'CC'
+  fill_in 'note_note', with: 'TestNote'
+  click_on 'Create Note'
+  expect(page).to have_content('Note was successfully created.')
+end
+
+When(/^I show a note with CC$/) do
+  visit '/notes/1'
+end
+
+
 When /^I delete a note$/ do
   step 'I click to element with selector "#tasks tr > td > a"'
   step 'I push delete button'
@@ -112,6 +127,29 @@ Then(/^The note with task for user with email "(.*?)" should be saved to the db$
   expect(task.name).to eq 'NewNoteTaskName'
   expect(task.description).to eq 'NewNoteTaskDescription'
   expect(simple_input_format_date(task.due_date)).to eq '2015-12-12'
+end
+
+Then(/^The note with CC for user with email "(.*?)" has CC name's of firm contacts$/) do |arg1|
+  u = User.where(email: arg1).first
+  note = u.notes.first
+  expect(page).to have_content("CC")
+  expect(page).to have_content(u.name)
+end
+
+
+
+Then(/^The note with CC for user with email "(.*?)" should be saved to the db$/) do |arg1|
+  u = User.where(email: arg1).first
+  note = Note.where(id: u.id).first
+  expect(note.note_type).to eq 'Medical/Review'
+  expect(note.author).to eq 'Artem Suchov'
+  expect(note.note).to eq 'TestNote'
+  expect(note.case_id.to_i).to eq 0
+  cc = u.secondary_notes.first
+  expect(cc.author).to eq 'Artem Suchov'
+  expect(cc.note).to eq 'TestNote'
+  expect(cc.note_type).to eq 'Medical/Review'
+  expect(cc.case_id.to_i).to eq 0
 end
 
 Then(/^The case note for user with email "(.*?)" should be saved to the db$/) do |arg1|

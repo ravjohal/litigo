@@ -43,6 +43,8 @@ class UsersController < ApplicationController
       user.disabled = true
       user.last_name += " (Inactive)"
       user.save!
+      user.namespaces.each {|namespace| namespace.destroy}
+
       redirect_to users_path, :notice => "User deleted."
     else
       redirect_to users_path, :notice => "Can't delete yourself."

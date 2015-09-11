@@ -47,7 +47,7 @@
         data: {id: <%= @settlement.id %>, html: html[0].innerHTML},
         success: function(data){
           var id = data.id;
-          window.location.href = '/download_docx/'+id+'.docx';
+          window.location.href = '/settlement_download_docx/'+id+'.docx';
         }
       });
     });

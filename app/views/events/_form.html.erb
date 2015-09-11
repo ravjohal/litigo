@@ -117,7 +117,7 @@
 
           <tr>
             <td>
-              <strong>Reminder:</strong>
+              <strong><%= @event.new_record? ? 'Reminder' : 'Abandon' %>:</strong>
             </td>
             <td>
               <%= f.check_box :is_reminder, {}, true, false %>
@@ -175,6 +175,7 @@
             </tr>
           <% end %>
 
+          <%= f.hidden_field :lead_id %>
           <%= f.hidden_field :event_series_id %>
           <%= f.hidden_field :update_all_events %>
 

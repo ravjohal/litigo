@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   post 'templates_get_addressee' => 'templates#get_addressee', as: :get_addressee_attrs
   post 'templates_generate_docx' => 'templates#generate_docx', as: :generate_docx
   post 'settlement_generate_docx' => 'settlements#generate_docx', as: :settlement_generate_docx
+  get 'settlement_download_docx/:id' => 'settlements#download_docx', as: :settlement_download_docx
   get 'download_docx/:id' => 'templates#download_docx', as: :download_docx
   post 'upload_docx' => 'templates#upload_docx', as: :upload_docx
 
@@ -141,6 +142,7 @@ Rails.application.routes.draw do
   get "contacts/:id/contact information" => 'contacts#info', as: :contact_info
   get "contacts/:id/personal information" => 'contacts#personal', as: :contact_personal
   get "contacts/:id/company information" => 'contacts#coinfo', as: :contact_coinfo
+  get "contacts/:id/cases" => 'contacts#contact_cases', as: :contact_linked_cases
   get 'cases/:case_id/assign_contacts' => 'contacts#assign_contacts', as: :assign_contacts
   post 'cases/:case_id/update_case_contacts' => 'contacts#update_case_contacts', as: :update_case_contacts
   post 'cases/:id/copy' => 'cases#create', as: :copy_case_create

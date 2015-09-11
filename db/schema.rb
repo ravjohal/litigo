@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150909045000) do
+ActiveRecord::Schema.define(version: 20150910130317) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150909045000) do
     t.string   "phone_number_1"
     t.string   "phone_number_2"
     t.string   "company_name"
+    t.string   "extension"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -287,10 +288,12 @@ ActiveRecord::Schema.define(version: 20150909045000) do
     t.integer  "owner_id"
     t.integer  "case_id"
     t.boolean  "is_reminder",        default: false
+    t.integer  "lead_id"
   end
 
   add_index "events", ["case_id"], name: "index_events_on_case_id", using: :btree
   add_index "events", ["firm_id"], name: "index_events_on_firm_id", using: :btree
+  add_index "events", ["lead_id"], name: "index_events_on_lead_id", using: :btree
   add_index "events", ["nylas_event_id"], name: "index_events_on_nylas_event_id", using: :btree
   add_index "events", ["owner_id"], name: "index_events_on_owner_id", using: :btree
 
@@ -590,9 +593,14 @@ ActiveRecord::Schema.define(version: 20150909045000) do
     t.integer  "note_id"
     t.integer  "user_id"
     t.boolean  "is_author"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "secondary_note_id"
+    t.integer  "secondary_owner_id"
   end
+
+  add_index "notes_users", ["secondary_note_id"], name: "index_notes_users_on_secondary_note_id", using: :btree
+  add_index "notes_users", ["secondary_owner_id"], name: "index_notes_users_on_secondary_owner_id", using: :btree
 
   create_table "old_events", force: :cascade do |t|
     t.string   "subject",              limit: 255

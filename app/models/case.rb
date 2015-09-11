@@ -1,6 +1,6 @@
 class Case < ActiveRecord::Base
 
-  TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Estates', 'Family Law', 'Immigration', 'Personal Injury', 'Probate', 'Real Estate', 'Taxation', 'Wrongful Death']
+  TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Estates', 'Family Law', 'Immigration', 'Personal Injury', 'Probate', 'Real Estate', 'Taxation', 'Traffic', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
   STATUS = ['Active', 'Done Treating', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
 
@@ -142,6 +142,9 @@ class Case < ActiveRecord::Base
       },
        'Taxation' => {
           'Foreclosure' => 'Foreclosure',
+      },
+       'Traffic' => {
+          'Traffic Violation' => 'Traffic Violation',
       },
        'Wrongful Death' => {
           'Wrongful Death' => 'Wrongful Death',

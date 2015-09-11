@@ -196,7 +196,7 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time, :case_id,
+    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time, :case_id, :lead_id,
                                   :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency, :is_reminder,
                                   :recur_start_date, :recur_end_date, :event_series_id, :update_all_events, :last_updated_by)
   end
@@ -232,7 +232,8 @@ class EventsController < ApplicationController
         last_updated_by: @user.id,
         case_id: event_params[:case_id],
         is_reminder: event_params[:is_reminder],
-        calendar_id: event_params[:calendar_id]
+        calendar_id: event_params[:calendar_id],
+        lead_id: event_params[:lead_id]
     }
   end
 

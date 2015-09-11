@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   has_one :contact_user, class_name: 'Contact', :dependent => :destroy
   has_many :cases
   has_many :notes
+  has_many :notes_users, foreign_key: 'secondary_owner_id'
+  has_many :secondary_notes, through: :notes_users, class_name: 'Note'
   has_many :google_calendars
   has_many :leads, class_name: 'Lead', foreign_key: 'attorney_id'
   has_many :task_lists

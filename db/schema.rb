@@ -194,7 +194,7 @@ ActiveRecord::Schema.define(version: 20150910130317) do
     t.string   "phone_number_1"
     t.string   "phone_number_2"
     t.string   "company_name"
-    t.string   "ext"
+    t.string   "extension"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree

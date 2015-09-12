@@ -7,7 +7,7 @@ Feature: Create Lead Test
     Given Confirmed default user exists
     And Firm for default user exist
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     Then I check message "Client intake was successfully created."
     And I verify lead has been created for user: "artem.suchov@gmail.com"
@@ -23,7 +23,7 @@ Feature: Create Lead Test
     Given Confirmed default user exists
     And Firm for default user exist
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     And I click to element with id "accept"
     Then I check message "Medical injuries injury type can't be blank"
@@ -40,7 +40,7 @@ Feature: Create Lead Test
   Scenario: I create a lead, accept case and check case number
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     When I click on "Edit"
     And I fill lead case fields
@@ -54,7 +54,7 @@ Feature: Create Lead Test
   Scenario: I create a lead and edit fields
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     And I check lead text field "estimated_value" by "10" for user: "artem.suchov@gmail.com"
     And I check lead text field "lead_policy_limit" by "10" for user: "artem.suchov@gmail.com"
@@ -83,9 +83,9 @@ Feature: Create Lead Test
   Scenario: I create a lead and check tabs exist
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
     Then should exist tab "Details"
     And should exist tab "Contact"
@@ -95,9 +95,9 @@ Feature: Create Lead Test
   Scenario: I create a lead and check details tab
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
     Then should exist tab "Details"
     When I click on "Details"
@@ -107,21 +107,21 @@ Feature: Create Lead Test
   Scenario: I create a lead and check contact tab
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
     Then should exist tab "Contact"
-    When I click on "Contact"
+    When I click to tab "Contact"
     Then I should have text "Contact Information"
 
   @javascript
   Scenario: I create a lead and check documents tab
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I click to element with selector "#user_leads > tbody > tr:first-child > td > a"
     Then should exist tab "Documents"
     When I click to tab "Documents"
@@ -132,7 +132,7 @@ Feature: Create Lead Test
   Scenario: I create a lead and check case data
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     When I click on "Edit"
     And I fill lead case fields
@@ -160,7 +160,7 @@ Feature: Create Lead Test
   Scenario: I should be able to add document to lead
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     When I click on "Edit"
     And I fill lead case fields
@@ -175,7 +175,7 @@ Feature: Create Lead Test
   Scenario: I should be able to change lead contact
     Given Confirmed default user exists
     When I login
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
     When I click on "Edit"
     And I fill lead case fields
@@ -199,7 +199,7 @@ Feature: Create Lead Test
     And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "bbbbbbb@gmail.com" with name "FirstNameBb" and "LastNameBb" and date "11/11/2014" and estimated "400" and status "appointment_scheduled"
     And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "ccccccc@gmail.com" with name "FirstNameCc" and "LastNameCc" and date "12/12/2014" and estimated "500" and status "pending_review"
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     Then I verify sorted rows in table "user_leads" in column "1" by values "09/09/2014,08/08/2014"
     Then I verify sorted rows in table "leads" in column "1" by values "12/12/2014,11/11/2014,10/10/2014,09/09/2014,08/08/2014"
     When I click on table "user_leads" header "Call Date"
@@ -248,7 +248,7 @@ Feature: Create Lead Test
     And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "bbbbbbb@gmail.com" with name "FirstNameBb" and "LastNameBb" and date "11/11/2014" and estimated "400" and status "appointment_scheduled"
     And Exist difficult lead for user "artem.suchov@gmail.com" for attorney "ccccccc@gmail.com" with name "FirstNameCc" and "LastNameCc" and date "12/12/2014" and estimated "500" and status "pending_review"
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     And I fill case search field "user_leads" with "FirstNameA"
     Then I verify sorted rows in table "user_leads" in column "3" by values "FirstNameA"
     And I fill case search field "leads" with "FirstNameA"
@@ -264,7 +264,7 @@ Feature: Create Lead Test
     And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameD" and "LastNameD" and date "11/11/2014" and estimated "400" and status "accepted"
     And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameE" and "LastNameE" and date "12/12/2014" and estimated "500" and status "inactive"
     When I login without firm
-    And I click on "Caller Intake"
+    And I click on sidebar item "Intake"
     Then I verify sorted rows in table "user_leads" in column "5" by values "Appt. Scheduled,New Lead - Pending Review"
     And I verify sorted rows in table "leads" in column "5" by values "Appt. Scheduled,New Lead - Pending Review"
     When I change filter in "user_leads" to "Accepted"

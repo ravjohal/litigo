@@ -1,0 +1,15 @@
+<% shown_title = false %>
+<% @case.notes.each do |note| %>
+    <% if note.case_alert %>
+        <div style="background-color: #ff9499; padding: 5px 5px 5px 5px;margin:0;border-radius: 8px;border-bottom: 1px solid #ebccd1;">
+          <% unless shown_title %>
+              <strong>Case Alert</strong><br />
+          <% end %>
+          <% shown_title = true %>
+          <%= note.note %>
+          <div style="float: right;color: #0088CC;">
+            <%= link_to "View Note", note_path(note), :style => "color: #0088CC;" %>
+          </div>
+        </div>
+    <% end %>
+<% end %>

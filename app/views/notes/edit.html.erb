@@ -39,7 +39,7 @@
           <strong>CC:</strong>
         </td>
         <td colspan="2">
-          <% @note.try(:notes_user).each do |user| %>
+          <% @note.try(:notes_user).to_a.each do |user| %>
               <%= user.user.name %><br />
           <% end %>
         </td>
@@ -80,7 +80,14 @@
           <%= f.text_area :note, :class => 'table-text' %>
         </td>
       </tr>
-    
+      <tr>
+        <td class="right big-row">
+          <strong>Case Alert:</strong>
+        </td >
+        <td colspan="2" class="big-row">
+          <%= f.check_box :case_alert, {}  %> Make this note a Case Alert
+        </td>
+      </tr>
   </tbody>
 </table>
 

@@ -21,6 +21,9 @@ describe User do
     it { should have_many :google_calendars }
     it { should have_many(:leads).class_name('Lead').with_foreign_key('attorney_id') }
 
+    it { should have_many(:notes_users).with_foreign_key('secondary_owner_id') }
+    it { should have_many(:secondary_notes).class_name('Note').through(:notes_users) }
+
     it { should belong_to :firm }
   end
 

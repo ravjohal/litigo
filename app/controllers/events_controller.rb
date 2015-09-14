@@ -125,30 +125,34 @@ class EventsController < ApplicationController
   def refresh_events
     events_synced = 0
     @firm.enabled_namespaces.includes(:calendars).each do |namespace|
-      active_calendars = namespace.active_calendars
-      if active_calendars.present?
-        ns = namespace.nylas_inbox
-        cursor = namespace.nylas_cursor
-        last_cursor = nil
+      begin
+        active_calendars = namespace.active_calendars
+        if active_calendars.present?
+          ns = namespace.nylas_inbox
+          cursor = namespace.nylas_cursor
+          last_cursor = nil
 
-        ns.deltas(cursor, Namespace::NYLAS_EXCLUDE_DELTA) do |n_event, ne|
-          if ne.is_a?(Nylas::Event)
-            if n_event == 'create' or n_event == 'modify'
-              calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
-              if calendar.present?
-                event = Event.find_or_initialize_by(nylas_event_id: ne.id)
-                if ne.status == 'cancelled'
-                  event.destroy
-                else
-                  event.assign_nylas_while_refresh ne, @firm, calendar, namespace
+          ns.deltas(cursor, Namespace::NYLAS_EXCLUDE_DELTA) do |n_event, ne|
+            if ne.is_a?(Nylas::Event)
+              if n_event == 'create' or n_event == 'modify'
+                calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
+                if calendar.present?
+                  event = Event.find_or_initialize_by(nylas_event_id: ne.id)
+                  if ne.status == 'cancelled'
+                    event.destroy
+                  else
+                    event.assign_nylas_while_refresh ne, @firm, calendar, namespace
+                  end
                 end
               end
+              events_synced += 1
+              last_cursor = ne.cursor
             end
-            events_synced += 1
-            last_cursor = ne.cursor
           end
+          namespace.update(cursor: last_cursor) if last_cursor.present?
         end
-        namespace.update(cursor: last_cursor) if last_cursor.present?
+      rescue Exception => e
+        Rails.logger.fatal e.message
       end
     end
     message = "#{events_synced} events were synced."
@@ -192,7 +196,7 @@ class EventsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
-    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time, :case_id,
+    params.require(:event).permit(:title, :location, :description, :calendar_id, :summary, :start_date, :start_time, :case_id, :lead_id,
                                   :end_date, :end_time, :all_day, :status, :participants, :recur, :period, :frequency, :is_reminder,
                                   :recur_start_date, :recur_end_date, :event_series_id, :update_all_events, :last_updated_by)
   end
@@ -228,7 +232,8 @@ class EventsController < ApplicationController
         last_updated_by: @user.id,
         case_id: event_params[:case_id],
         is_reminder: event_params[:is_reminder],
-        calendar_id: event_params[:calendar_id]
+        calendar_id: event_params[:calendar_id],
+        lead_id: event_params[:lead_id]
     }
   end
 

@@ -59,10 +59,20 @@ class EventsController < ApplicationController
     calendar = Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
     calendar ||= nil
 
-    attrs = prepare_event_attr.merge({created_by: @user.id, owner_id: calendar ? calendar.namespace.user_id : @user.id, firm_id: @firm.id})
+    attrs = prepare_event_attr.merge({
+                                         created_by: @user.id,
+                                         owner_id: calendar ? calendar.namespace.user_id : @user.id,
+                                         firm_id: @firm.id
+                                     })
 
     if event_params[:recur]
-      event = EventSeries.new(attrs.merge({period: event_params[:period], frequency: event_params[:frequency], recur_start_date: parse_query_date(:recur_start_date), recur_end_date: parse_query_date(:recur_end_date)}))
+      event = EventSeries.new(attrs.merge({
+                                               period: event_params[:period],
+                                               frequency: event_params[:frequency],
+                                               recur_start_date: parse_query_date(:recur_start_date),
+                                               recur_end_date: parse_query_date(:recur_end_date),
+                                               user_id: @user.id
+                                           }))
     else
       event = Event.new(attrs)
     end
@@ -222,6 +232,8 @@ class EventsController < ApplicationController
   def convert_query_time(date, time)
     EventDateConverter.convert_query_time event_params[date], event_params[time]
   end
+
+  # def
 
   def prepare_event_attr
     {

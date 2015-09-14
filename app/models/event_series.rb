@@ -5,12 +5,32 @@ class EventSeries < ActiveRecord::Base
   belongs_to :firm
   has_many :events, :dependent => :destroy
 
-  attr_accessor :title, :description, :location, :update_all_events
+  attr_accessor :title, :description, :location, :update_all_events,
+                :last_updated_by, :case_id, :is_reminder, :calendar_id, :lead_id, :created_by, :owner_id
 
   END_TIME = Date.parse('1 Jan, 2020').to_time
 
   after_create :create_events_until_end_time
-  
+
+  def event_attrs(nst, net)
+    {
+        :title => title,
+        :description => description,
+        :location => location,
+        :all_day => all_day,
+        :starts_at => nst,
+        :ends_at => net,
+        :firm_id => firm_id,
+        :last_updated_by => last_updated_by,
+        :case_id => case_id,
+        :is_reminder => is_reminder,
+        :calendar_id => calendar_id,
+        :lead_id => lead_id,
+        :created_by => created_by,
+        :owner_id => owner_id
+    }
+  end
+
   def create_events_until_end_time
     st = starts_at
     et = ends_at
@@ -19,13 +39,13 @@ class EventSeries < ActiveRecord::Base
     end_time = recur_end_date.present? ? recur_end_date : END_TIME
 
     while frequency.send(p).from_now(st) <= ActiveSupport::TimeZone[user.time_zone].parse("#{ends_at.hour}:#{ends_at.min}:#{ends_at.sec}, #{end_time.day}-#{end_time.month}-#{end_time.year}")+1.send(p)
-      event = events.create(:title => title, :description => description, :location => location, :all_day => all_day, :starts_at => nst,
-                                 :ends_at => net, :firm_id => firm_id, :user_id => user_id)
+      event = events.create(event_attrs(nst, net))
+
       nst = st = frequency.send(p).from_now(st)
       net = et = frequency.send(p).from_now(et)
-      
+
       if period.downcase == 'monthly' or period.downcase == 'yearly'
-        begin 
+        begin
           nst = DateTime.parse("#{starts_at.hour}:#{starts_at.min}:#{starts_at.sec}, #{starts_at.day}-#{st.month}-#{st.year}")
           net = DateTime.parse("#{ends_at.hour}:#{ends_at.min}:#{ends_at.sec}, #{ends_at.day}-#{et.month}-#{et.year}")
         rescue
@@ -39,14 +59,14 @@ class EventSeries < ActiveRecord::Base
     calendar ||= Calendar.find(event_params[:calendar_id]) if event_params[:calendar_id].present?
     events.each do |event|
       event_attrs = attrs.merge({
-        starts_at: event_params[:all_day] ? event.starts_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.starts_at), event_params[:start_time]),
-        ends_at: event_params[:all_day] ? event.ends_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.ends_at), event_params[:end_time])
-      })
+                                    starts_at: event_params[:all_day] ? event.starts_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.starts_at), event_params[:start_time]),
+                                    ends_at: event_params[:all_day] ? event.ends_at : EventDateConverter.convert_query_time(EventDateConverter.convert_time_to_query_date(event.ends_at), event_params[:end_time])
+                                })
       event.main_update_handler event_attrs, event_params, calendar, firm_id
     end
 
   end
-  
+
   def r_period(period)
     case period
       when 'Daily'

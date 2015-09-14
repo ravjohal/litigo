@@ -78,7 +78,14 @@
                   <%= f.text_area :note, label: false, :class => 'table-text' %>
               </td>
           </tr>
-<% if false %> <!-- START OF COMMENT -->            
+          <tr>
+            <td>
+            </td>
+            <td class="case_alert">
+              <%= f.check_box :case_alert, {}, true, false  %> Make this note a Case Alert
+            </td>
+          </tr>
+<% if false %> <!-- START OF COMMENT -->
           <tr>
             <td>
               <strong>Add Task:</strong>

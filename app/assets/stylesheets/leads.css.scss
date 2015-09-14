@@ -2,6 +2,17 @@
   padding-top: 182px!important;
 }
 
+.lead-table {
+  td.rel_td {
+    position: relative;
+    .pull-right {
+      position: absolute;
+      top: 12px;
+      right: 10px;
+    }
+  }
+}
+
 .lead-form{
   width: 100%;
     padding: 0;

@@ -28,30 +28,35 @@ class Event < ActiveRecord::Base
         parsed_date = Time.parse ne.when['date']
         self.starts_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         self.ends_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
-        self.all_day = true
+        # self.all_day = true
       when 'datespan'
         parsed_date = Time.parse ne.when['start_date']
         self.starts_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         parsed_date = Time.parse ne.when['end_date']
         self.ends_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
-        self.all_day = true
+        # self.all_day = true
       when 'time'
         self.starts_at = Time.at(ne.when['time']).utc.to_datetime
         self.ends_at = Time.at(ne.when['time']).utc.to_datetime
-        self.all_day = false
+        # self.all_day = false
       when 'timespan'
         self.starts_at = Time.at(ne.when['start_time']).utc.to_datetime
         self.ends_at = Time.at(ne.when['end_time']).utc.to_datetime
-        self.all_day = false
+        # self.all_day = false
     end
   end
 
   def nylas_object_to_attributes(ne)
     is_reminder = false
+    all_day = false
     base_title = ne.title
     if base_title.to_s.include?' [Reminder]'
       is_reminder = true
       base_title.slice! ' [Reminder]'
+    end
+    if base_title.to_s.include?' [AllDay]'
+      all_day = true
+      base_title.slice! ' [AllDay]'
     end
 
     {
@@ -64,7 +69,8 @@ class Event < ActiveRecord::Base
         busy: ne.try(:busy),
         status: ne.try(:status),
         when_type: ne.when['object'],
-        is_reminder: is_reminder
+        is_reminder: is_reminder,
+        all_day: all_day
     }
   end
 
@@ -142,20 +148,21 @@ class Event < ActiveRecord::Base
   end
 
   def nylas_time_attributes
-    if all_day?
-      if starts_at.strftime('%Y-%m-%d') == ends_at.strftime('%Y-%m-%d')
-        {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')}
-      else
-        {:object => 'datespan', :start_date => starts_at.strftime('%Y-%m-%d'), :end_date => ends_at.strftime('%Y-%m-%d')}
-      end
-    else
+    # if all_day?
+    #   if starts_at.strftime('%Y-%m-%d') == ends_at.strftime('%Y-%m-%d')
+    #     {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')}
+    #   else
+    #     {:object => 'datespan', :start_date => starts_at.strftime('%Y-%m-%d'), :end_date => ends_at.strftime('%Y-%m-%d')}
+    #   end
+    # else
       {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
-    end
+    # end
   end
 
   def title_for_nylas
-    res = title
+    res = "#{title}"
     res << ' [Reminder]' if is_reminder?
+    res << ' [AllDay]' if all_day?
     res
   end
 

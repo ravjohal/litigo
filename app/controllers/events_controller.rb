@@ -182,8 +182,9 @@ class EventsController < ApplicationController
 
     compact_events = @firm.events.includes(:owner).map do |event|
       user = event.owner
-      event.to_json_hash.merge(user.hash_for_event(event, @users))
+      user.disabled? ? nil : event.to_json_hash.merge(user.hash_for_event(event, @users))
     end
+    compact_events.compact!
 
     @event_sources = compact_events.group_by { |d| d[:user_id] } || {}
   end

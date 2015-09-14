@@ -124,7 +124,7 @@ class EventsController < ApplicationController
 
   def refresh_events
     events_synced = 0
-    @firm.enabled_namespaces.includes(:calendars).each do |namespace|
+    @user.enabled_namespaces.includes(:calendars).each do |namespace|
       begin
         active_calendars = namespace.active_calendars
         if active_calendars.present?
@@ -149,6 +149,7 @@ class EventsController < ApplicationController
               last_cursor = ne.cursor
             end
           end
+
           namespace.update(cursor: last_cursor) if last_cursor.present?
         end
       rescue Exception => e

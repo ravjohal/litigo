@@ -10,7 +10,7 @@ Feature: Insurance tab
     When I login without firm
     And I open case management menu
     And I go to first firm case
-    And I click to tab "INSURANCE"
+    And I click to tab "Insurance"
     And I wait for "0.3" seconds
     And I click on "Edit"
     And I add insurance row with type: "Type1", holder: "Holder1", claim_number: "1111111", policy_limit: "1000"

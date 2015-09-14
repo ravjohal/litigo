@@ -7,8 +7,8 @@ class UsersController < ApplicationController
   require 'google/api_client/auth/installed_app'
 
   def index
-    @users = User.all
     @firm = current_user.firm
+    @users = @firm.users.where(:disabled => false)
     authorize @users
   end
 
@@ -40,7 +40,11 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     authorize user
     unless user == current_user
-      user.destroy
+      user.disabled = true
+      user.last_name += " (Inactive)"
+      user.save!
+      user.namespaces.each {|namespace| namespace.destroy}
+
       redirect_to users_path, :notice => "User deleted."
     else
       redirect_to users_path, :notice => "Can't delete yourself."
@@ -122,7 +126,7 @@ class UsersController < ApplicationController
   end
 
   def secure_params
-    params.require(:user).permit(:role, :time_zone, :event_ids => [])
+    params.require(:user).permit(:role, :disabled, :time_zone, :event_ids => [])
   end
 
   def create_google_oauth

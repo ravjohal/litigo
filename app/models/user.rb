@@ -25,6 +25,8 @@ class User < ActiveRecord::Base
   has_one :contact_user, class_name: 'Contact', :dependent => :destroy
   has_many :cases
   has_many :notes
+  has_many :notes_users, foreign_key: 'secondary_owner_id'
+  has_many :secondary_notes, through: :notes_users, class_name: 'Note'
   has_many :google_calendars
   has_many :leads, class_name: 'Lead', foreign_key: 'attorney_id'
   has_many :task_lists
@@ -54,6 +56,14 @@ class User < ActiveRecord::Base
 
   include ActiveCalendars
   include ActiveNamespaces
+
+  #this method is called by devise to check for "active" state of the model
+  def active_for_authentication?
+    #remember to call the super
+    #then put our own check to determine "active" state using 
+    #our own "is_active" column
+    super and self.is_active?
+  end
 
   def create_contact(role, firm = self.firm)
     klass = role
@@ -150,6 +160,10 @@ class User < ActiveRecord::Base
 
   def edit_event_allowed?
     self.edit_events_permit || self.is_admin?
+  end
+
+  def is_active?
+    !self.disabled
   end
 
 end

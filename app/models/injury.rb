@@ -9,5 +9,5 @@ class Injury < ActiveRecord::Base
 	belongs_to :user
 	belongs_to :case
 
-	validates :injury_type, presence: true
+	#validates :injury_type, presence: true
 end

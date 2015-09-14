@@ -2,7 +2,7 @@ class ContactsController < ApplicationController
   before_filter :authenticate_user!
   before_action :get_case, only: [:assign_contacts, :update_case_contacts]
   before_action :case_contacts_params, only: [:update_case_contacts]
-  before_action :set_contact, only: [:show, :edit, :update, :destroy]
+  before_action :set_contact, only: [:show, :edit, :update, :destroy, :contact_cases]
   before_action :set_user, :set_firm
 
   helper DatesHelper
@@ -228,6 +228,12 @@ class ContactsController < ApplicationController
     @company = Contact.find(params[:id])
   end
 
+  def contact_cases
+    @cases = @contact.cases.uniq
+    @contacts_a = Contact.new
+    @company = @contact if @contact.type == 'Company'
+  end
+
   def remove_contact
     contact = Contact.find_by_id(params[:id])
     contact.company = ""
@@ -245,7 +251,7 @@ class ContactsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:company_name, :first_name, :middle_name, :last_name, :address, :city, :state, :ssn, :married, :employed, :parent, :prefix,
-                                      :country, :phone_number, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
+                                      :country, :phone_number, :extension, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2,
                                       :firms_attributes => [:name, :address, :zip],

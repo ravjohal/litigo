@@ -78,8 +78,12 @@ class EventsController < ApplicationController
     end
 
     if event.save
-      event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
-      event.create_process calendar, calendar.namespace.nylas_inbox, @firm.id unless calendar.blank?
+      begin
+        event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?
+        event.create_process calendar, calendar.namespace.nylas_inbox, @firm.id unless calendar.blank?
+      rescue Exception => e
+        Rails.logger.fatal "Error while create event\n - Time: #{Time.now}\n  - Message:#{e.message}\n - Backtrace: #{e.backtrace.join("\n")}"
+      end
     end
 
     message = event.errors.present? ? {error: event.errors.full_messages.to_sentence} : {notice: 'Event was successfully created.'}
@@ -91,7 +95,12 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    @event.make_update event_params, prepare_event_attr, @firm.id
+    begin
+      @event.make_update event_params, prepare_event_attr, @firm.id
+    rescue Exception => e
+      Rails.logger.fatal "Error while update event\n - Time: #{Time.now}\n  - Message:#{e.message}\n - Backtrace: #{e.backtrace.join("\n")}"
+    end
+
     message = @event.errors.blank? ? {notice: 'Event was successfully updated.'} : {error: @event.errors.full_messages.to_sentence}
     respond_to do |format|
       format.html { redirect_to request.referrer, :flash => message }
@@ -134,6 +143,15 @@ class EventsController < ApplicationController
 
   def refresh_events
     events_synced = 0
+
+    updated_events_hash = {}
+
+    new_events = 0
+    updated_events = 0
+    updating_events = 0
+    errors_count = 0
+    errors = []
+
     @user.enabled_namespaces.includes(:calendars).each do |namespace|
       begin
         active_calendars = namespace.active_calendars
@@ -148,6 +166,16 @@ class EventsController < ApplicationController
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
                 if calendar.present?
                   event = Event.find_or_initialize_by(nylas_event_id: ne.id)
+
+                  event.new_record? ?
+                      new_events += 1 :
+                      if updated_events_hash[event.id]
+                        updating_events += 1
+                      else
+                        updated_events += 1
+                        updated_events_hash[event.id] = true
+                      end
+
                   if ne.status == 'cancelled'
                     event.destroy
                   else
@@ -163,10 +191,15 @@ class EventsController < ApplicationController
           namespace.update(cursor: last_cursor) if last_cursor.present?
         end
       rescue Exception => e
-        Rails.logger.fatal e.message
+        Rails.logger.fatal "Error while refresh events\n - Time: #{Time.now}\n  - Namespace: #{namespace.email_address}\n Message:#{e.message}\n - Backtrace: #{e.backtrace.join("\n")}"
+        errors_count += 1
+        errors << "Error with namespace #{namespace.email_address}\n#{e.message}"
       end
     end
+
     message = "#{events_synced} events were synced."
+
+    Rails.logger.fatal "Sync events result for user: #{@user.email}\nTime: #{Time.now}\nCreated events: #{new_events}\nUpdated events: #{updated_events}\nUpdating events: #{updating_events}\nTotal: #{events_synced}"
 
     respond_to do |format|
       format.html { redirect_to request.referrer, notice: message }

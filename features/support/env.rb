@@ -90,6 +90,7 @@ Before do |scenario|
   if page.driver.options[:browser] == :firefox
     page.driver.browser.manage.window.maximize
   end
+  DatabaseCleaner.clean
 end
 
 After do |scenario|

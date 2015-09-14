@@ -126,7 +126,7 @@ Then(/^I verify lead first name "(.*?)" and last name "(.*?)" for user: "(.*?)"$
 end
 
 When(/^I edit lead$/) do
-  click_on 'CONTACT'
+  step 'I click to tab "Contact"'
   click_on 'Edit'
   sleep 0.5
   fill_in 'lead_first_name', with: 'Leeds 2'
@@ -193,7 +193,7 @@ When(/^I check lead text field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field
 end
 
 When(/^I check contact lead text field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
-  step 'I click on "CONTACT"'
+  step 'I click to tab "Contact"'
   step "I check lead text field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
 end
 
@@ -206,7 +206,7 @@ When(/^I check lead select field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |fie
 end
 
 When(/^I check contact lead select field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |field, text, user|
-  step 'I click on "CONTACT"'
+  step 'I click to tab "Contact"'
   step "I check lead select field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
 end
 
@@ -219,7 +219,7 @@ When(/^I check lead select with option value "(.*?)" for field "(.*?)" by "(.*?)
 end
 
 When(/^I check contact lead select with option value "(.*?)" for field "(.*?)" by "(.*?)" for user: "(.*?)"$/) do |validate_value, field, text, user|
-  step 'I click on "CONTACT"'
+  step 'I click to tab "Contact"'
   step "I check lead select with option value \"#{validate_value}\" for field \"#{field}\" by \"#{text}\" for user: \"#{user}\""
 end
 

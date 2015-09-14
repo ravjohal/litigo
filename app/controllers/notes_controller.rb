@@ -15,6 +15,8 @@ class NotesController < ApplicationController
       @notes = @case.notes.order("created_at desc")
       # @my_notes = @notes.joins(:case => [{:contacts => :user}]).where(:contacts => {:user_account_id => @user.id})
       @my_notes = @case.notes.where(:user => current_user)
+      @my_secondary_notes = @case.notes.joins(:notes_users).where('notes_users.secondary_owner_id = ?', current_user.id)
+
       @new_path = new_case_note_path(@case)
       @notes_a = [@case, Note.new] #for modal partial rendering
       # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect

@@ -1,9 +1,9 @@
 <div class="nested-fields notes-user-field">
-  <%= f.select :secondary_owner_id, @firm.users.map {|u| [u.name, u.id]}, :class => 'table-input' %>
+  <%= f.select :secondary_owner_id, @firm.users.map {|u| [u.name, u.id]}, :class => 'table-input-85' %>
   <%= link_to_remove_association f, class: 'remove pull-right' do %><span id="remove" class="glyphicon glyphicon-remove"  original-title="Remove"></span><% end %>
 </div>
 <script type="text/javascript" charset="utf-8">
-    $("select").select2();
+    $("td select").select2();
     $('#notes').on('cocoon:after-remove', function(e, insertedItem) {
 
     });

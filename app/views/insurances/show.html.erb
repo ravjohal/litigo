@@ -1,97 +1,108 @@
 <div class="case-header">
-    <div class="case-title">
-          <div style="font-size: 24px;">
-                <strong><%= @case.name %></strong><br>
-          </div>
-            <div id="case-buttons">
-              <ul>
-                  <li><%= link_to 'Edit', edit_case_insurance_path(@case, @insurance), :class => 'dark' %></li>
-                  <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
-                  <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %></li>
-              </ul>
-          </div>
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong><%= @case.name %></strong><br>
     </div>
-    <strong>Case #: </strong><%= @case.case_number %>
-    
-        <div class="container-fluid" style="padding: 0;">
-              <div class="row">
-                      <div class="col-md-12">
-                            <%= render partial: 'shared/case_tabs' %>
-                      </div>
-              </div>
-        </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Edit', edit_case_insurance_path(@case, @insurance), :class => 'dark' %></li>
+        <!-- <li><%= link_to cases_path, :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span>
+        <% end %></li> -->
+        <li>
+          <%= link_to '', :class => 'dark' do %>
+            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <strong>Case #: </strong><%= @case.case_number %>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/case_tabs' %>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="top-table-container">
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="6" class="gray-back">
-      <strong>Insurance Summary</strong>
-    </td>
-  </tr>
-</thead>
-<tfoot>
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="7" class="gray-back">
+        <strong>Insurance Summary</strong>
+      </td>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <td colspan="5" style="text-align: left;">
+        <strong>Totals</strong>
+      </td>
+      <td style="text-align: right;">
+        <strong><%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %></strong>
+      </td>
+      <td style="text-align: right;">
+        <strong><%= number_to_currency Insurance.total_amount_paid(@case), precision: 0 %></strong>
+      </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>Insurance Provider</strong>
+      </td>
+      <td class="right">
+        <strong>Adjustor</strong>
+      </td>
+      <td class="right">
+        <strong>Insurance Type</strong>
+      </td>
+      <td class="right">
+        <strong>Policy Holder</strong>
+      </td>
+      <td class="right">
+        <strong>Claim Number</strong>
+      </td>
+      <td style="text-align: right;">
+        <strong>Policy Limit</strong>
+      </td>
+      <td style="text-align: right;">
+        <strong>Amount Paid</strong>
+      </td>
+    </tr>
+    <% @insurance_children.each do |insurance| %>
       <tr>
-          <td colspan="4" style="text-align: left;">
-              <strong>Totals</strong>
-          </td>
-          <td style="text-align: right;">
-              <strong><%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %></strong>
-          </td>
-          <td style="text-align: right;">
-              <strong><%= number_to_currency Insurance.total_amount_paid(@case), precision: 0 %></strong>
-          </td>          
+        <td>
+          <%= insurance.company.try(:name) %>
+        </td>
+        <td>
+          <%= insurance.adjustor.try(:name) %>
+        </td>
+        <td>
+          <%= insurance.insurance_type %>
+        </td>
+        <td>
+          <%= insurance.policy_holder %>
+        </td>
+        <td>
+          <%= insurance.claim_number %>
+        </td>
+        <td style="text-align: right;">
+          <%= number_to_currency insurance.policy_limit, precision: 0 %>
+        </td>
+        <td style="text-align: right;">
+          <%= number_to_currency insurance.amount_paid, precision: 0 %>
+        </td>
       </tr>
-</tfoot>
-  <tbody>
-  <tr>
-          <td class="right">
-              <strong>Insurance Provider</strong>
-          </td>
-          <td class="right">
-              <strong>Insurance Type</strong>
-          </td>
-          <td class="right">
-              <strong>Policy Holder</strong>
-          </td>
-           <td class="right">
-              <strong>Claim Number</strong>
-          </td>
-          <td style="text-align: right;">
-              <strong>Policy Limit</strong>
-          </td>
-          <td style="text-align: right;">
-              <strong>Amount Paid</strong>
-          </td>          
-      </tr>
-      <% @insurance_children.each do |insurance| %>
-      <tr>
-          <td>
-              <%= insurance.company.try(:name) %>
-          </td>
-          <td>
-              <%= insurance.insurance_type %>
-          </td>
-          <td>
-              <%= insurance.policy_holder %>
-          </td>
-          <td>
-              <%= insurance.claim_number  %>
-          </td>
-          <td style="text-align: right;">
-              <%= number_to_currency insurance.policy_limit, precision: 0 %>
-          </td>
-          <td style="text-align: right;">
-              <%= number_to_currency insurance.amount_paid, precision: 0 %>
-          </td>          
-      </tr>
-      <% end %>
-  </tbody>
-</table>
+    <% end %>
+    </tbody>
+  </table>
 </div>
 <script type='text/javascript'>
-  $(function() {
+  $(function () {
     $('#print').tipsy({gravity: 'ne', fade: true});
   });
 </script>

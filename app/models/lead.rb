@@ -10,7 +10,15 @@ class Lead < ActiveRecord::Base
   has_many :documents
 
   CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Phone book', 'Other']
-  STATUS = {pending_review: 'New Lead - Pending Review', outside_action: 'Outside Action Needed to Proceed', appointment_scheduled: 'Appt. Scheduled', rejected: 'Rejected', accepted: 'Accepted', inactive: 'Inactive'}
+  STATUS = {
+      pending_review: 'New Lead - Pending Review',
+      outside_action: 'Outside Action Needed to Proceed',
+      appointment_scheduled: 'Appt. Scheduled',
+      rejected: 'Rejected',
+      accepted: 'Accepted',
+      inactive: 'Inactive',
+      declined: 'Declined'
+  }
 
   include PgSearch
   pg_search_scope :search_lead, against: [:first_name, :last_name, :estimated_value, :status],
@@ -86,7 +94,7 @@ class Lead < ActiveRecord::Base
   end
 
   def self.rejected_leads_scope
-    where(status: 'rejected')
+    where(status: ['rejected', 'declined'])
   end
 
   def self.inactive_leads_scope

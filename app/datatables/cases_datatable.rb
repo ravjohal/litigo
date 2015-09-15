@@ -27,6 +27,12 @@ class CasesDatatable
           link_to(one_case.name, one_case),
           one_case.subtype,
           content_tag(:div, one_case.description, class: "table-row-max-h").html_safe,
+          one_case.contacts.where("role = 'Attorney'").map  {|i|
+            "#{i.try(:first_name)} #{i.try(:last_name)}"
+          },
+          one_case.contacts.where("role = 'Staff'").map  {|i|
+            "#{i.try(:first_name)} #{i.try(:last_name)}"
+          },
           one_case.status
       ]
     end

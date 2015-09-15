@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910130317) do
+ActiveRecord::Schema.define(version: 20150915134523) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150910130317) do
     t.string   "role"
     t.integer  "firm_id"
     t.text     "note"
+    t.integer  "source"
   end
 
   add_index "case_contacts", ["case_id"], name: "index_case_contacts_on_case_id", using: :btree
@@ -427,8 +428,10 @@ ActiveRecord::Schema.define(version: 20150910130317) do
     t.integer  "user_id"
     t.integer  "company_id"
     t.decimal  "amount_paid"
+    t.integer  "adjustor_id"
   end
 
+  add_index "insurances", ["adjustor_id"], name: "index_insurances_on_adjustor_id", using: :btree
   add_index "insurances", ["company_id"], name: "index_insurances_on_company_id", using: :btree
   add_index "insurances", ["firm_id"], name: "index_insurances_on_firm_id", using: :btree
 
@@ -484,7 +487,7 @@ ActiveRecord::Schema.define(version: 20150910130317) do
     t.string   "other_insurance"
     t.integer  "other_policy_limit"
     t.string   "status",               default: "pending_review"
-    t.date     "appointment_date"
+    t.datetime "appointment_date"
     t.text     "note"
     t.integer  "firm_id"
     t.datetime "created_at",                                      null: false
@@ -592,7 +595,7 @@ ActiveRecord::Schema.define(version: 20150910130317) do
   create_table "notes_users", force: :cascade do |t|
     t.integer  "note_id"
     t.integer  "user_id"
-    t.boolean  "is_author"
+    t.boolean  "is_author",          default: true
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
     t.integer  "secondary_note_id"

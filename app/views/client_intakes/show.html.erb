@@ -262,7 +262,7 @@
       <strong>Appointment Date:</strong>
     </td>
     <td colspan="3">
-      <%= simple_format_date @lead.appointment_date  %>
+      <%= "#{date_to_input(@lead.appointment_date)} #{time_to_input(@lead.appointment_date)}" %>
     </td>
   </tr>
   <tr>

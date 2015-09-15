@@ -6,6 +6,8 @@ class CaseContact < ActiveRecord::Base
   after_save :check_sol
   #before_create :set_role
 
+  enum source: {manual: 0, insurance: 1}
+
   def set_role
     self.role = self.contact.type.to_s
   end

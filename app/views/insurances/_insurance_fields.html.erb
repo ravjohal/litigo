@@ -3,6 +3,9 @@
           <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :include_blank => '' %>
       </td>
       <td>
+        <%= f.association :adjustor, :collection => @firm.contacts, label: false, :class => 'table-input', :include_blank => '' %>
+      </td>
+      <td>
           <%= f.text_field :insurance_type, :class => 'table-input' %>
       </td>
       <td>

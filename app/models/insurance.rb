@@ -1,12 +1,15 @@
 class Insurance < ActiveRecord::Base
 	before_create :save_firm_case_user_for_child
 
+	before_save :save_case_contacts_adjuster, :if => :need_to_save_adjuster?
+
   INSURANCE_PROVIDERS = ['Allstate', 'State Farm', 'GIECO', 'Progressive', 'AAA', 'American Family', 'Mercury', 'Nationwide', 'Farmers', 'Travelers', 'Esurance', 'Self-insured', 'Other']
 
   belongs_to :case
   belongs_to :firm
   belongs_to :user
   belongs_to :company
+  belongs_to :adjustor, class_name: 'Contact'
   has_many :children, class_name: "Insurance", foreign_key: "parent_id", :dependent => :destroy
   belongs_to :parent, class_name: "Insurance"
 
@@ -31,4 +34,16 @@ class Insurance < ActiveRecord::Base
       self.user = self.parent.user
   	end
   end
+
+  private
+
+  def need_to_save_adjuster?
+    self.case && adjustor_id_changed?
+  end
+
+  def save_case_contacts_adjuster
+    self.case.case_contacts.create({:role => 'Adjuster', contact_id: adjustor_id, source: :insurance}) if adjustor_id && !self.case.case_contacts.where(:role => 'Adjuster', contact_id: adjustor_id).exists?
+    self.case.case_contacts.where(contact_id: adjustor_id_was, :role => 'Adjuster', :source => 1).delete_all if adjustor_id_was && self.case.case_contacts.where(contact_id: adjustor_id_was, :role => 'Adjuster', :source => 1).exists?
+  end
+
 end

@@ -147,7 +147,9 @@
       var id = $(e.currentTarget).data('task-completed');
       var tasks_owner = $(this).closest('.dataTables_wrapper').find('.table').attr('id');
       var parent_tr = $(this).parents('tr');
+      var parent_tr_firm = $("tr[id='" + id + "']");
       $(parent_tr).hide();
+      $(parent_tr_firm).hide();
       $.ajax({
         type: "post",
         url: '/tasks/complete_task',

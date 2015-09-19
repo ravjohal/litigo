@@ -14,15 +14,19 @@
         <div class="container-fluid" style="padding: 0; margin-top: 10px;">
               <div class="row">
                       <div class="col-md-2 col-xs-6">
-                      	Start date<br>
+                      Start date<br>
                      			<%= date_field_tag :start_date, @start_date, :id => 'start-date' %>
                      	</div>
                      	<div class="col-md-2 col-xs-6">
                      	End date<br>
-								<%= date_field_tag :end_date, @end_date, :id => 'end-date' %>
-                      	</div>
-                      	<div class="col-md-5 col-xs-12">
-                      	</div>
+								          <%= date_field_tag :end_date, @end_date, :id => 'end-date' %>
+                      </div>
+                      <div>
+                        Status<br>
+                        <%= select_tag :open_closed, options_for_select(['Opened', 'Closed'], @open_closed) %>
+                      </div>
+                    	<div class="col-md-5 col-xs-12">
+                    	</div>
               </div>
         </div>
 </div>

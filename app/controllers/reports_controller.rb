@@ -36,7 +36,8 @@ class ReportsController < ApplicationController
   def open_close_report
     @start_date = params[:start_date] ? params[:start_date] : Date.today.at_beginning_of_month
     @end_date = params[:end_date] ? params[:end_date] : Date.today.at_end_of_month
-    @open_close_report = OpenCloseReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date)
+    @open_closed = params[:open_closed] ? params[:open_closed] : "Opened"
+    @open_close_report = OpenCloseReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date, open_closed: @open_closed)
   end
 
   def medical_bills_report

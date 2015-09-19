@@ -71,7 +71,7 @@ class Settlement < ActiveRecord::Base
               end
               span.remove
             when 'medical_bill'
-              self.case.medical_bills.to_a.each do |medical_bill|
+              self.case.medical.try(:medical_bills).to_a.each do |medical_bill|
                 new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{medical_bill.provider} #{medical_bill.services} #{ActionController::Base.helpers.number_to_currency medical_bill.total_billed_adjustment_paid_amounts.to_f}"
@@ -84,7 +84,7 @@ class Settlement < ActiveRecord::Base
               end
               span.remove
             when 'insurance'
-              self.case.insurance.children.to_a.each do |insurance|
+              self.case.insurance.try(:children).to_a.each do |insurance|
                 new_span = Nokogiri::XML::Node.new('span', html)
                 new_span['style'] = 'text-align: center;'
                 new_span.inner_html = "#{insurance.company.try(:name)} #{ActionController::Base.helpers.number_to_currency insurance.amount_paid.to_f}"
@@ -101,7 +101,6 @@ class Settlement < ActiveRecord::Base
     end
     html.to_html
   end
-
 
   private
     def update_template

@@ -123,13 +123,13 @@ class TemplatesController < ApplicationController
     if case_attrs.present?
       case_attrs.each do |attr|
         result = try_attr(affair, attr.split('.'))
-        case_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+        case_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result + " "
       end
     end
     if lead_attrs.present?
       lead_attrs.each do |attr|
         result = try_attr(affair.try(:lead), attr.split('.'))
-        lead_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+        lead_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result + " "
       end
     end
     contacts_attrs = []
@@ -164,7 +164,7 @@ class TemplatesController < ApplicationController
     addressee_attrs_values = {}
     addressee_attrs.each do |attr|
       result = try_attr(contact, attr.split('.'))
-      addressee_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result
+      addressee_attrs_values[attr] = result.is_a?(Time) || result.is_a?(Date) ? result.strftime("%B %d, %Y") : result + " "
     end
     render :json => { success: true, addressee_attrs_values: addressee_attrs_values }
   end

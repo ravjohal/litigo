@@ -85,6 +85,7 @@ class TemplatesController < ApplicationController
   def generate_document
     @html = Nokogiri::HTML(@template.html_content.html_safe)
     @html.css(".insertion").each do |span|
+      #puts "SPAN ------------------------> " + span.values.to_s
       if span['data-model'] == 'Date' && span['data-attr'] == 'today'
         span.inner_html = Date.today.strftime("%B %d, %Y")
         span['class'] = ''
@@ -100,11 +101,11 @@ class TemplatesController < ApplicationController
         elsif span['data-attr'] == 'contact_initials'
           span.inner_html = "#{select_tag('firm_contacts_names', options_for_select(@firm.users.map {|user| [user.name.present? ? user.name : user.email, user.initials]}), :prompt => "Firm contact", class: 'custom_input firm_contacts_names')} <ins></ins>"
         else
-          span.inner_html = @firm.send(span['data-attr'])
+          span.inner_html = @firm.send(span['data-attr']) + " " if @firm.send(span['data-attr'])
         end
       elsif span['data-model'] == 'Contact'
         contacts = @firm.contacts
-        span.inner_html = "#{select_tag("contact_#{span['data-attr']}", options_for_select(contacts.map {|contact| [contact.name.present? ? contact.name : contact.email, try_attr(contact, span['data-attr'].split('.'))]}), :prompt => "Contact #{span['data-attr']}", class: "custom_input contact_#{span['data-attr']}")} <ins></ins>"
+        span.inner_html = "#{select_tag("contact_#{span['data-attr']}", options_for_select(contacts.map {|contact| [contact.name.present? ? contact.name : contact.email, try_attr(contact, span['data-attr'].split('.'))]}), :prompt => "Contact #{span['data-attr']}", class: "custom_input contact_#{span['data-attr']}")} <ins></ins> "
       elsif span['data-model'] == 'Company'
         companies = @firm.companies
         span.inner_html = "#{select_tag("company_#{span['data-attr']}", options_for_select(companies.map {|company| [company.name, try_attr(company, span['data-attr'].split('.'))]}), :prompt => "Company #{span['data-attr']}", class: "custom_input company_#{span['data-attr']}")} <ins></ins>"

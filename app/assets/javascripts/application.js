@@ -15,8 +15,9 @@
 //= require jquery_ujs
 //= require dataTables/jquery.dataTables
 //= require turbolinks
+//= require moment
 //= require fullcalendar
-//= require gcal
+//= require fullcalendar/gcal
 //= require jquery-ui
 //= require jquery.validate
 //= require jquery.validate.additional-methods
@@ -49,7 +50,6 @@
 //= require lib/jquery-bootstrap-modal-steps
 //= require slick
 //= require lib/evol.colorpicker.min
-//= require moment
 //= require bootstrap-datetimepicker
 //= require maskedinput
 //= require cocoon

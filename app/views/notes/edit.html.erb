@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'notes/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for @note do |f| %>
 
 <div class="text-center">
@@ -96,17 +97,7 @@
 
 
 
-  <script>
-    $(document).ready(function() { $("#note_select, select").select2(); });
-  </script>
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
-</script>
 
-  
       
       
    

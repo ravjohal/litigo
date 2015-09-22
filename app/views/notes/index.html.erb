@@ -114,12 +114,4 @@
       </tbody>
     </table>
   </div>
-
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#new_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @notes_a ) %>");
-  });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'desc'} %>
-});
-</script>
+<%= render :partial => "notes_index_javascript" %>

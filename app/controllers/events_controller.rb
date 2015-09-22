@@ -15,7 +15,7 @@ class EventsController < ApplicationController
 
     # for populating the auto_complete dropdown
     # TODO: need to think how to NOT call it twice (since it is being called in refresh_events as well)
-    @emails_autocomplete = emails_autocomplete
+    # @emails_autocomplete = emails_autocomplete
     @new_path = new_event_path
   end
 
@@ -41,7 +41,7 @@ class EventsController < ApplicationController
 
     #puts ">>>>>>>>>>>>>>>>>>>Event UPDATED AT " + @event.updated_at.to_f.to_s + "    MINUS   " + @event.created_at.to_f.to_s + " EQUALS " + @updated_minus_created_ms.to_s
 
-    @emails_autocomplete = emails_autocomplete
+    # @emails_autocomplete = emails_autocomplete
     if @event.calendar
       if !@event.read_only && (current_user == @event.calendar.user || current_user.edit_event_allowed?)
         render partial: 'events/edit'
@@ -131,14 +131,16 @@ class EventsController < ApplicationController
   end
 
   def emails_autocomplete
-    users_emails = []
 
-    #TODO: there are two loops (none nested), need to figure out how to combine and get email
+    matches = Soulmate::Matcher.new("contact-#{@firm.id}").matches_for_term(params[:term], {:limit => 30})
+    users_emails = matches.map {|match| match['term'] }
 
-    @firm.participants.map { |user| users_emails << user.email unless user.email == @user.email }
-    @firm.contacts.map { |user| users_emails << user.email unless user.email == @user.email }
+    # @firm.participants.map { |user| users_emails << user.email unless user.email == @user.email }
+    # @firm.contacts.map { |user| users_emails << user.email unless user.email == @user.email }
 
     users_emails.uniq.compact
+
+    render json: users_emails
   end
 
   def refresh_events

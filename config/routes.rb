@@ -44,6 +44,7 @@ Rails.application.routes.draw do
 
   resources :documents
 
+  get '/events/email' => 'events#emails_autocomplete'
   resources :events
 
   resources :client_intakes, as: 'leads'

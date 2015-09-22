@@ -53,7 +53,7 @@
 //= require bootstrap-datetimepicker
 //= require maskedinput
 //= require cocoon
-//= require_tree .
+//= require_directory .
 
 var ready = function(){
     fm_options = {

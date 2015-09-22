@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'notes/form', 'data-turbolinks-track' => true %>
 <%= simple_form_for(new_note) do |f| %>
       <%= f.error_notification %>
 
@@ -163,18 +164,3 @@
     <% end %>
 
 <% end %>
-  <script>
-    $(document).ready(function() {
-      $("#note_select, td select").select2();
-      $('#note_add_task').change(function (e) {
-        if($(this).is(':checked')) {
-          $('.task_field').show();
-        } else {
-          $('.task_field').hide();
-        }
-      })
-    });
-  $('#note_select').change(function (e) {
-      $('.case_alert').show();
-  });
-  </script>

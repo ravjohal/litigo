@@ -31,6 +31,13 @@ class Contact < ActiveRecord::Base
   # validates :phone_number, length: { maximum: 10 }
   # validates :fax_number, length: { maximum: 10 }
 
+  after_save :load_into_soulmate
+
+  def load_into_soulmate
+    loader = Soulmate::Loader.new("contact-#{firm_id}")
+    loader.add('term' => email, 'id' => "contact-#{id}")
+  end
+
   def self.inherited(child)
     child.instance_eval do
       def model_name

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915134523) do
+ActiveRecord::Schema.define(version: 20150922095911) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -586,6 +586,7 @@ ActiveRecord::Schema.define(version: 20150915134523) do
     t.string   "note_type",  limit: 255
     t.string   "author",     limit: 255
     t.integer  "firm_id"
+    t.boolean  "case_alert"
   end
 
   add_index "notes", ["case_id"], name: "index_notes_on_case_id", using: :btree

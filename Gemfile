@@ -64,6 +64,7 @@ gem 'resque', '~> 1.24'
 gem 'resque-scheduler'
 gem 'resque-web', require: 'resque_web'
 gem 'font_assets'
+gem 'soulmate'
 
 group :development do
   gem 'disable_assets_logger', '~> 1.0.0'

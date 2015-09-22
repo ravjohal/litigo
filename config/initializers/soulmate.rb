@@ -1,0 +1,1 @@
+Soulmate.min_complete = 0

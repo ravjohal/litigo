@@ -230,8 +230,11 @@
       $('#event_recur_start_date').val(start_date);
     });
 
-    $('#invitee_select').tagit({
-      availableTags: <%= @emails_autocomplete.to_json.html_safe %>
+    $('#invitee_select').tagit();
+    $('#invitee_select+ul input').keyup(function() {
+      $.ajax({url: 'events/email', data: {term: $(this).val()}}).done(function(data) {
+        $('#invitee_select').tagit({availableTags: data});
+      });
     });
 
     if ($('#event_recur').is(':checked')) {

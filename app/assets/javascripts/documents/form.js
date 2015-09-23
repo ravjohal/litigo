@@ -1,0 +1,1 @@
+$(document).ready(function() { $("#doc_select, td select").select2(); });

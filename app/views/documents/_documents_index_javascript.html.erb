@@ -1,0 +1,20 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#new_modal').click(function(event){
+            $("#modal-window").html("<%= escape_javascript(render 'documents/form', new_document: @documents_a ) %>");
+        });
+        var table = $('.table').dataTable({
+            aoColumnDefs: [
+                { 'bSortable': false, 'aTargets': [ 5,6,7 ] }
+            ],
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search or Filter",
+                lengthMenu: "View _MENU_"
+            },
+            sDom: 'Rfrtlip'
+        });
+    });
+  </script>
+<% end %>

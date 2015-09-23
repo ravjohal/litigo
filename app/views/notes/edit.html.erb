@@ -50,7 +50,7 @@
           <strong>Creation Date:</strong>
         </td>
         <td colspan="2">
-          <%= @note.created_at.strftime("%m/%d/%Y") %>
+          <%= date_to_input_regexp @note.created_at %>
         </td>
       </tr>
       <tr>

@@ -43,7 +43,7 @@
         <% @last_3_notes.each do |note| %>
           <tr>
             <td>
-              <%= note.created_at.strftime("%m/%d/%Y") %>
+              <%= date_to_input_regexp note.created_at %>
             </td>
             <td>
               <%= note.note_type %>
@@ -87,7 +87,7 @@
           <strong>Statute of Limitations:</strong>
         </td>
         <td>
-          <%= simple_format_date @case.statute_of_limitations %>
+          <%= simple_format_date_regexp @case.statute_of_limitations %>
         </td>
       </tr>
       <tr>
@@ -95,7 +95,7 @@
            <strong>Trial Date:</strong>
         </td>
         <td>
-          <%= simple_format_date @case.trial_date  %>
+          <%= simple_format_date_regexp @case.trial_date  %>
         </td>
       </tr>
      
@@ -112,7 +112,7 @@
           <strong>Transfer Date</strong>
         </td>
         <td>
-          <%= simple_format_date @case.transfer_date  %>
+          <%= simple_format_date_regexp @case.transfer_date  %>
         </td>
       </tr>
   </tbody>

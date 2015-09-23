@@ -22,7 +22,17 @@ module DatesHelper
 
   def simple_format_datetime_regexp(date)
     match = reg_exp_date(date)
-    [MONTH[match[1].to_i], match[2], match[0], date.to_s.split(' ')[1]].join(' ')
+    [MONTH[match[1].to_i], match[2]+',', match[0], date.to_s.split(' ')[1]].join(' ')
+  end
+
+  def simple_format_datetime_slash_regexp(date)
+    match = reg_exp_date(date)
+    [match[1], match[2], match[0]].join('/') + ' ' + date.to_s.split(' ')[1]
+  end
+
+  def simple_format_datetime_at_regexp(date)
+    match = reg_exp_date(date)
+    [MONTH[match[1].to_i], match[2]+',', match[0], 'at', date.to_s.split(' ')[1]].join(' ')
   end
 
   def simple_format_date_regexp(date)

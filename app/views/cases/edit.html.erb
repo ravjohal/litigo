@@ -131,7 +131,7 @@
             <strong>Date of Intake:</strong>
         </td>
         <td>
-          <%= simple_format_date @case.date_of_intake %>
+          <%= simple_format_date_regexp @case.date_of_intake %>
         </td>
       </tr>
       <tr>
@@ -139,7 +139,7 @@
         <strong>Case Open Date:</strong>
       </td>
         <td>
-         <%= simple_format_date @case.created_at %>
+         <%= simple_format_date_regexp @case.created_at %>
         </td>
      </tr>
       <tr>
@@ -155,7 +155,7 @@
            <strong>Transferred to Lit:</strong>
         </td>
         <td>
-              <%= simple_format_date @case.transfer_date  %>
+              <%= simple_format_date_regexp @case.transfer_date  %>
         </td>
       </tr>
       <tr>

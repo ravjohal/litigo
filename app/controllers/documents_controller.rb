@@ -109,7 +109,11 @@ class DocumentsController < ApplicationController
           @docx = @document.to_docx_html
           render 'documents/preview_docx'
         when @document.xls?
-          render 'documents/preview_invalid'
+          @xls = @document.to_xls_html
+          render 'documents/preview_xls'
+        when @document.xlsx?
+          @xls = @document.to_xlsx_html
+          render 'documents/preview_xls'
         when @document.pdf?
           @images = @document.pdf_images
           render 'documents/preview_pdf'

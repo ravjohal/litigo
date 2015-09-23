@@ -45,7 +45,7 @@
           <strong>Expected Close Date:</strong>
         </td>
         <td>
-            <%= simple_format_date @resolution.expected_close %>
+            <%= simple_format_date_regexp @resolution.expected_close %>
         </td>
       </tr>
       <tr>
@@ -82,7 +82,7 @@
           <strong>Actual Close Date:</strong>
         </td>
         <td>
-          <%= simple_format_date @case.closing_date %>
+          <%= simple_format_date_regexp @case.closing_date %>
         </td>
       </tr>
        <tr>

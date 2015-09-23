@@ -95,7 +95,7 @@
         <td>
           <div class="larger-td"><%= task.name %></div>
         </td>
-        <td><%= simple_format_date task.try(:due_date) %></td>
+        <td><%= simple_format_date_regexp task.try(:due_date) %></td>
         <td><%= check_box_tag "complete-task-#{task.id}", true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {'task-completed' => "#{task.id}"} %> <%= task.completed if task.completed.present? %></td>
       </tr>
     <% end %>
@@ -129,7 +129,7 @@
         <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
-        <td><%= simple_format_date task.try(:due_date) %></td>
+        <td><%= simple_format_date_regexp task.try(:due_date) %></td>
       </tr>
     <% end %>
     </tbody>

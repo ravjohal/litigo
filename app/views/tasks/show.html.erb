@@ -63,7 +63,7 @@
           <strong>Due date:</strong>
         </td>
         <td colspan="2">
-            <%= simple_format_date @task.due_date %>
+            <%= simple_format_date_regexp @task.due_date %>
         </td>
       </tr>
          <tr>
@@ -82,7 +82,7 @@
           <strong>Completed:</strong>
         </td>
         <td colspan="2">
-          <%= simple_format_date @task.completed %>
+          <%= simple_format_date_regexp @task.completed %>
         </td>
       </tr>
         <tr>

@@ -37,7 +37,7 @@
         <strong>Date of Incident:</strong>
         </td>
         <td>
-        <%= simple_format_date @incident.incident_date if @incident.incident_date.present? %>
+        <%= simple_format_date_regexp @incident.incident_date if @incident.incident_date.present? %>
           
         </td>
       </tr>
@@ -130,7 +130,7 @@
         <strong>Discovery Date:</strong>
         </td>
         <td>
-            <%= simple_format_date @incident.discovery_date if @incident.discovery_date.present? %>
+            <%= simple_format_date_regexp @incident.discovery_date if @incident.discovery_date.present? %>
         </td>
       </tr>
       <tr>
@@ -138,7 +138,7 @@
         <strong>Date of final treatment with negligent provider:</strong>
         </td>
         <td>
-             <%= simple_format_date @incident.final_treatment_date if @incident.final_treatment_date.present? %>
+             <%= simple_format_date_regexp @incident.final_treatment_date if @incident.final_treatment_date.present? %>
         </td>
       </tr>
         <tr>
@@ -163,7 +163,7 @@
           <strong>Date product first sold</strong>
         </td>
         <td>
-          <%= simple_format_date @incident.first_sold_date if @incident.first_sold_date.present? %>
+          <%= simple_format_date_regexp @incident.first_sold_date if @incident.first_sold_date.present? %>
         </td>
       </tr>
       <% end %>

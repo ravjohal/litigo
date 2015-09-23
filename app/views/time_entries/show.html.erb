@@ -1,7 +1,7 @@
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong><%= @time_entry.activity %>- <%= simple_format_date @time_entry.date if @time_entry.date.present? %></strong><br>
+      <strong><%= @time_entry.activity %>- <%= simple_format_date_regexp @time_entry.date if @time_entry.date.present? %></strong><br>
     </div>
     <div id="case-buttons">
       <ul>
@@ -44,7 +44,7 @@
       <strong>Date:</strong>
     </td>
     <td>
-      <%= simple_format_date @time_entry.date if @time_entry.date.present? %>
+      <%= simple_format_date_regexp @time_entry.date if @time_entry.date.present? %>
     </td>
   </tr>
     <tr>

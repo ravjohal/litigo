@@ -64,7 +64,7 @@
           <td class="case_name"><%= note.case.name if note.case.present? %></td>
           <td><%= link_to note.author, note_path(note)  %></td>
           <td><div class="larger-td"><%= note.note %></div></td>
-          <td><%= simple_format_datetime note.created_at %></td>
+          <td><%= simple_format_datetime_regexp note.created_at %></td>
           <td><%= note.note_type %></td>
         </tr>
       <% end %>
@@ -73,7 +73,7 @@
             <td class="case_name"><%= note.case.name if note.case.present? %></td>
             <td><%= link_to note.author, note_path(note)  %></td>
             <td><div class="larger-td"><%= note.note %></div></td>
-            <td><%= simple_format_datetime note.created_at %></td>
+            <td><%= simple_format_datetime_regexp note.created_at %></td>
             <td><%= note.note_type %></td>
           </tr>
       <% end %>
@@ -106,7 +106,7 @@
           <td class="case_name doc-link"><%= note.case.name if note.case.present? %></td>
           <td><%= link_to note.author, note_path(note)  %></td>
           <td><div class="larger-td"><%= note.note %></div></td>
-          <td><%= simple_format_datetime note.created_at %></td>
+          <td><%= simple_format_datetime_regexp note.created_at %></td>
           <td><%= note.note_type %></td>
         </tr>
       <% end %>

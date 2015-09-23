@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'contacts/show', 'data-turbolinks-track' => true %>
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
@@ -29,10 +30,3 @@
 <%= render partial: 'personal_table' %>
 <%= render partial: 'coinfo_table' %>
 
-<script type='text/javascript'>
-  $(function() {
-    $('#print').tipsy({gravity: 'n', fade: true});
-    $('#delete').tipsy({gravity: 'ne', fade: true});
-    $('#back').tipsy({gravity: 'n', fade: true});
-  });
-</script>

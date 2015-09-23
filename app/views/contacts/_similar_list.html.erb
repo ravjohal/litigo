@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'contacts/similar_list', 'data-turbolinks-track' => true %>
 <% unless @saved_contact.blank? %>
   <%= content_tag(:div, class: 'info') do %>
     <h3><%= t('contact.notice.similar_list') %></h3>
@@ -11,14 +12,6 @@
     <% end %>
   <% end %>
 
-  <script type="text/javascript">
-    jQuery(function() {
 
-      jQuery('.info-close').click(function() {
-        $(this).parents('.info').slideUp('slow');
-      });
-
-    });
-  </script>
 
 <% end %>

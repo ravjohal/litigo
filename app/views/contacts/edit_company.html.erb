@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'contacts/edit_company', 'data-turbolinks-track' => true %>
 <%= simple_form_for(@company) do |f| %>
 <div class="case-header">
     <div class="case-title">
@@ -134,16 +135,4 @@
     </table>
   </div>
 <% end %>
-<script type='text/javascript'>
-  $(function() {
-    $('.remove').tipsy({gravity: 's', fade: true});
-  });
-</script>
-<script>
-  $(document).ready(function() { $("td select").select2(); });
-</script>
-<script>
-  $(document).ready(function() {
-    $('.phone').mask("(999) 999-9999");
-  });
-</script>
+

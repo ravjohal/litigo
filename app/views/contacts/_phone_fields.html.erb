@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'contacts/phone_fields', 'data-turbolinks-track' => true %>
     <tr class="nested-fields phone-field">
       <td>
           <%= f.text_field :label, :class => 'table-input', :placeholder => 'New Number' %>
@@ -8,19 +9,3 @@
     </td>
   </tr>
 
-<script type="text/javascript" charset="utf-8">
-  $("select").select2();
-  $('#contacts').on('cocoon:after-remove', function(e, insertedItem) {
-
-  });
-</script>
-<script type='text/javascript'>
-  $(function() {
-    $('#remove').tipsy({gravity: 's', fade: true});
-  });
-</script>
-<script>
-  $(document).ready(function() {
-    $('.phone').mask("(999) 999-9999");
-  });
-</script>

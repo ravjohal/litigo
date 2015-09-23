@@ -39,7 +39,7 @@
            <strong>Creation Date:</strong>
         </td>
         <td colspan="2">
-          <%= @document.created_at.strftime("%m/%d/%y %I:%M %p")%>
+          <%= simple_format_datetime_slash_regexp @document.created_at %>
         </td>
       </tr>     
        <tr>

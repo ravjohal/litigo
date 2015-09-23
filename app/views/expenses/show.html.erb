@@ -1,7 +1,7 @@
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong><%= @expense.expense %>, <%= simple_format_date @expense.created_date %></strong><br>
+      <strong><%= @expense.expense %>, <%= simple_format_date_regexp @expense.created_date %></strong><br>
     </div>
     <div id="case-buttons">
       <ul>
@@ -44,7 +44,7 @@
       <strong>Created Date:</strong>
     </td>
     <td>
-      <%= simple_format_date @expense.created_date %>
+      <%= simple_format_date_regexp @expense.created_date %>
     </td>
   </tr>
   <tr>

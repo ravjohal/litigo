@@ -93,7 +93,7 @@
               <%= if !document.document_url.blank?
                   link_to document.document.file.filename, document.document_url
                   end %></div></td>
-            <td><%= document.created_at.strftime("%m/%d/%y %I:%M %p")  %></td>
+            <td><%= simple_format_datetime_slash_regexp document.created_at  %></td>
             <td>
               <% if @case %>
                 <%= link_to case_document_path(id: document.id, case_id: @case.id),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
@@ -149,7 +149,7 @@
               <%= if !document.document_url.blank?
                   link_to document.document.file.filename, document.document_url
                   end %></div></td>
-            <td><%= simple_format_date document.created_at  %></td>
+            <td><%= simple_format_date_regexp document.created_at  %></td>
             <td><%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
             </td>
             <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>

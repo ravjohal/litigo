@@ -151,7 +151,7 @@
         <strong>Call Date:</strong>
       </td>
       <td colspan="3">
-        <%= @lead.created_at.strftime("%b %d, %Y at %I:%M%p") %>
+        <%= simple_format_datetime_at_regexp @lead.created_at %>
       </td>
     </tr>
     <tr>
@@ -266,7 +266,7 @@
       </td>
       <td colspan="3" class="rel_td">
         <% if @lead.exist_event? %>
-          <%= f.datetime_field :appointment_date, label: false, :class => 'table-input', value: "#{date_to_input(@lead.appointment_date)} #{time_to_input(@lead.appointment_date)}", readonly: @lead.exist_event? %>
+          <%= f.datetime_field :appointment_date, label: false, :class => 'table-input', value: "#{date_to_input_regexp(@lead.appointment_date)} #{time_to_input(@lead.appointment_date)}", readonly: @lead.exist_event? %>
           <%= link_to 'Edit', edit_event_path(@lead.event), {:class => 'user pull-right', :id => 'edit_modal', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'} %>
         <% else %>
           <%= link_to 'Create Event', new_event_path, {:class => 'action-button', :id => 'new_modal', :remote => true, 'data-toggle' => "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'} %>

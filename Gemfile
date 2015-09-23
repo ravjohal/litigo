@@ -58,7 +58,7 @@ gem 'amoeba'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 1.0.0'
 gem 'newrelic_rpm'
-# gem 'rack-timeout'
+gem 'rack-timeout'
 gem 'redis'
 gem 'resque', '~> 1.24'
 gem 'resque-scheduler'

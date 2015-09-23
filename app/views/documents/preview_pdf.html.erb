@@ -1,0 +1,6 @@
+<% @images.each_with_index do |page_img, i| %>
+  <% if i > 0 %>
+    <div class="page-break"></div>
+  <% end %>
+  <%= image_tag page_img %>
+<% end %>

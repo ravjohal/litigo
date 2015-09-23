@@ -1,7 +1,9 @@
 class DocumentsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_document, only: [:show, :edit, :update, :destroy]
+  before_action :set_document, only: [:show, :edit, :update, :destroy, :preview]
   before_action :set_user, :set_firm
+
+  layout 'preview', only: [:preview]
 
   helper DatesHelper
 
@@ -95,6 +97,27 @@ class DocumentsController < ApplicationController
         format.html { render :edit }
         format.json { render json: @document.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def preview
+    if @document.can_preview?
+      case true
+        when @document.image?
+          render 'documents/preview_img'
+        when @document.docx?
+          @docx = @document.to_docx_html
+          render 'documents/preview_docx'
+        when @document.xls?
+          render 'documents/preview_invalid'
+        when @document.pdf?
+          @images = @document.pdf_images
+          render 'documents/preview_pdf'
+        else
+          render 'documents/preview_invalid'
+      end
+    else
+      render 'documents/preview_invalid'
     end
   end
 

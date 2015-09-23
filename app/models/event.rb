@@ -28,13 +28,13 @@ class Event < ActiveRecord::Base
         parsed_date = Time.parse ne.when['date']
         self.starts_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         self.ends_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
-        # self.all_day = true
+        self.all_day = true
       when 'datespan'
         parsed_date = Time.parse ne.when['start_date']
         self.starts_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
         parsed_date = Time.parse ne.when['end_date']
         self.ends_at = Time.zone.local(parsed_date.year, parsed_date.month, parsed_date.day).to_datetime
-        # self.all_day = true
+        self.all_day = true
       when 'time'
         self.starts_at = Time.at(ne.when['time']).utc.to_datetime
         self.ends_at = Time.at(ne.when['time']).utc.to_datetime

@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
   resources :notes
 
+  get '/documents/preview/:id' => 'documents#preview'
   resources :documents
 
   get '/events/email' => 'events#emails_autocomplete'

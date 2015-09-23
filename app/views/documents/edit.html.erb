@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'documents/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for @document do |f| %>
 
 <div class="text-center">
@@ -86,14 +87,3 @@
 
 <% end %>
 
-
-
-  <script>
-    $(document).ready(function() { $("#doc_select, select").select2(); });
-  </script>
-<script>
-     $('.tip').tipr({
-      'speed': 500,
-      'mode': 'top'
-     });
-</script>

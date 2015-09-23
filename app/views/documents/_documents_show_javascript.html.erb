@@ -1,0 +1,18 @@
+<% content_for :javascript do %>
+  <script type='text/javascript'>
+    $(function() {
+        $('#print').tipsy({gravity: 'ne', fade: true});
+        $('#back').tipsy({gravity: 'n', fade: true});
+
+        <% if @document.can_preview? %>
+        $('#new_modal').click(function() {
+            $.ajax({
+                url: '/documents/preview/<%= @document.id %>'
+            }).done(function(data) {
+                $("#modal-window").html(data);
+            })
+        });
+        <% end %>
+    });
+  </script>
+<% end %>

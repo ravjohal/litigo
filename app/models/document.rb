@@ -20,7 +20,7 @@ class Document < ActiveRecord::Base
 	end
 
 	def image?
-		%w(png jpg jpeg bmp).include? file_extension
+		%w(png jpg jpeg bmp gif).include? file_extension
 	end
 
 	def docx?

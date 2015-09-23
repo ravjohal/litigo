@@ -132,14 +132,6 @@
 <% end %>
 
 
-<script type="text/javascript">
-  $(document).ready(function () {
-    $('#new_modal, #assign_modal').click(function (event) {
-      $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
-    });
-    <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
-    $('.tool-tp').tipsy({gravity: 's', fade: true, html: true});
-  });
-</script>
+<%= render :partial => "contacts_index_javascript" %>
 
 

@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'contacts/contact_cases', 'data-turbolinks-track' => true %>
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
@@ -61,11 +62,4 @@
   </div>
 </div>
 
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#new_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render 'contacts/form', new_contact: @contacts_a ) %>");
-  });
-  <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
-});
-</script>
+<%= render :partial => "contact_cases_javascript" %>

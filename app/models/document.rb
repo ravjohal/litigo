@@ -32,7 +32,11 @@ class Document < ActiveRecord::Base
 	end
 
 	def xls?
-		'xls' == file_extension.to_s
+		%w(xls).include? file_extension
+	end
+
+	def xlsx?
+		%w(xlsx xlsm).include? file_extension
 	end
 
 	def pdf_images
@@ -58,6 +62,44 @@ class Document < ActiveRecord::Base
 			else
 				content << p.to_html
 			end
+		end
+		content
+	end
+
+	def to_xlsx_html
+		content = ''
+		workbook = Creek::Book.new document.file.path
+		workbook.sheets.each do |worksheet|
+			table = '<table>'
+			worksheet.rows.each do |row|
+				table << '<tr>'
+				row.each do |key, value|
+					table << "<td>#{value}</td>"
+				end
+				table << '</tr>'
+			end
+			table << '</table>'
+			content << '<div class="page-break"></div>' unless content.blank?
+			content << table
+		end
+		content
+	end
+
+	def to_xls_html
+		content = ''
+		workbook = Spreadsheet.open document.file.path
+		workbook.worksheets.each do |worksheet|
+			table = '<table>'
+			worksheet.rows.each do |row|
+				table << '<tr>'
+				row.each do |value|
+					table << "<td>#{value}</td>"
+				end
+				table << '</tr>'
+			end
+			table << '</table>'
+			content << '<div class="page-break"></div>' unless content.blank?
+			content << table
 		end
 		content
 	end

@@ -35,11 +35,19 @@ class OpenCloseReport < Dossier::Report
 	end
 
 	def start_date
-		options[:start_date]
+		if options[:start_date] == ''
+			'0001-01-01'
+		else
+			options[:start_date]
+		end
 	end
 
 	def end_date
-		options[:end_date]
+		if options[:end_date] == ''
+			'3000-01-01'
+		else
+			options[:end_date]
+		end
 	end
 
 	def opened

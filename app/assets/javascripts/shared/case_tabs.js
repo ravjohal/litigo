@@ -1,0 +1,50 @@
+/**
+ * Created by slava on 24.09.15.
+ */
+var caseMenu = function () {
+    var $more = $('.more');
+
+    function getHiddenItems() {
+        var isOneLine = true;
+        var topPosition = false;
+        var invisibleItems = $('<ul/>');
+        $('.menu li').each(function () {
+            var thisPosition = $(this).position();
+            if (topPosition === false) {
+                topPosition = thisPosition.top;
+            } else if (thisPosition.top > topPosition) {
+                invisibleItems.append($(this).clone());
+                isOneLine = false;
+            }
+        });
+        return isOneLine ? false : invisibleItems;
+    }
+
+    function checkMenu() {
+        $more.hide();
+        var hiddenItems = getHiddenItems();
+        if (!hiddenItems) {
+            $('.more_menu').html('');
+        } else {
+            $more.show();
+            /* What items are not visible now? */
+            hiddenItems = getHiddenItems();
+            $('.more_menu').html('<ul>' + hiddenItems.html() + '</ul>');
+        }
+    }
+
+    if (typeof jQuery._data($more[0], 'events') == 'undefined') {
+        $more.on('click', function (e) {
+            e.preventDefault();
+            $('.more').toggleClass('more_menu_opened');
+            $('.more_menu').toggleClass('opens');
+        });
+    }
+
+    $(window).on('resize', checkMenu);
+    checkMenu();
+};
+
+//    $(document).ready(caseMenu);
+//    $(document).on('page:load', caseMenu);
+$(document).on('page:change', caseMenu);

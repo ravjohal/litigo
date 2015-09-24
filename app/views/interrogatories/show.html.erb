@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'interrogatories/show', 'data-turbolinks-track' => true %>
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
@@ -76,16 +77,3 @@
   </tbody>
 </table>
 </div>
-<script type='text/javascript'>
-  $(function() {
-    $('#print').tipsy({gravity: 'ne', fade: true});
-  });
-</script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $(".toggler").click(function(e){
-        e.preventDefault();
-        $('.cat'+$(this).attr('data-prod-cat')).toggle();
-    });
-});
-</script>

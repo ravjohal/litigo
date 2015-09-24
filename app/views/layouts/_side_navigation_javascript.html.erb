@@ -1,0 +1,132 @@
+<% content_for :javascript do %>
+<script>
+    $(function () {
+        var isFirstOpen = 0;
+        var isSecondOpen = 0;
+        var menu_items = [];
+        $('#first ul li a').each(function () {
+            menu_items.push($(this).attr('href').replace('/', ''))
+        });
+        var path = '<%= controller_name %>';
+        var case_present = <%= @case.present? %>;
+        var internal_menu_items = ['task_lists', 'templates', 'incidents', 'medicals', 'insurances']
+        menu_items = $.merge(menu_items, internal_menu_items);
+        if (document.location && $.inArray(path, menu_items) >= 0 || case_present) {
+            isFirstOpen = 1;
+        }
+
+        if (document.location && document.location.toString().indexOf('/insights') > 0) {
+            isSecondOpen = 1;
+        }
+
+        $('#first').collapsible('default-open', {
+            contentOpen: isFirstOpen
+        });
+        $('#second').collapsible('default-open', {
+            contentOpen: isSecondOpen
+        });
+        $('#case-management').click(function (e) {
+            e.preventDefault();
+            $('.nav-sidebar > li > a').removeClass('tester');
+            $(e.currentTarget).addClass('tester');
+        });
+        $('#legal-insights').click(function (e) {
+            e.preventDefault();
+            $('.nav-sidebar > li > a').removeClass('tester');
+            $(e.currentTarget).addClass('tester');
+        })
+    });
+</script>
+<script>
+    var flagclock = 'stopped';
+
+    var get_timer = function () {
+        $('#clock').html("<img src='/assets/ajaxSpinner.gif' style='height: 25px; width:25px;'>")
+        $.ajax({
+            url: "/get_timer",
+            type: 'PUT',
+            dataType: "json",
+            success: function (data) {
+                var timer = data.timer;
+                if (timer != null) {
+                    if (timer.flagclock == 'stopped') {
+                        time_diff = timer.stop_time - timer.init_timer_time - timer.stop_duration;
+                        $('#clock').stopwatch({startTime: time_diff});
+                        $('#clock').text(timer.clock_value);
+                    } else if (timer.flagclock == 'running') {
+                        time_diff = new Date().getTime() - parseInt(timer.init_timer_time);
+                        if (timer.stop_duration != null) {
+                            time_diff = time_diff - parseInt(timer.stop_duration)
+                        }
+                        flagclock = timer.flagclock;
+                        $('#clock').stopwatch({startTime: time_diff}).stopwatch('start');
+                        $('#control').toggleClass('glyphicon-play glyphicon-stop');
+                    }
+                } else {
+                    $('#clock').text('00:00:00')
+                }
+            }
+        });
+    }
+    get_timer();
+
+    $('#startstopbutton').click(function (e) {
+        e.preventDefault();
+        var data;
+        if ($('#clock').text() == '00:00:00' && flagclock == 'stopped') {
+            flagclock = 'running';
+            var current_time = new Date().getTime()
+            data = {timer: {init_timer_time: current_time, flagclock: flagclock}}
+            $('#clock').stopwatch().stopwatch('reset');
+        } else if ($('#clock').text() != '00:00:00' && flagclock == 'stopped') {
+            flagclock = 'running';
+            data = {timer: {start_time: new Date().getTime(), flagclock: flagclock}}
+        } else if (flagclock == 'running') {
+            flagclock = 'stopped';
+            data = {timer: {stop_time: new Date().getTime(), flagclock: flagclock}}
+        }
+        data.timer.clock_value = $('#clock').text();
+        $.ajax({
+            url: "/set_timer",
+            type: 'PUT',
+            dataType: "json",
+            data: data
+        });
+        $('#clock').stopwatch().stopwatch('toggle');
+        $('#control').toggleClass('glyphicon-play glyphicon-stop');
+    });
+
+    $('#resetbutton').click(function (e) {
+        e.preventDefault();
+        $('#clock').stopwatch().stopwatch('stop');
+        $('#clock').stopwatch().stopwatch('reset');
+        $.ajax({
+            url: "/reset_timer",
+            type: 'PUT',
+            dataType: "json"
+        });
+        flagclock = 'stopped';
+        $('#clock').remove();
+        $('.clock-block').append("<div id='clock' class='timer-clock'>00:00:00</div>")
+        $('#control').removeClass('glyphicon-stop').addClass('glyphicon-play');
+    });
+
+    $('#assignbutton').click(function (e) {
+        e.preventDefault();
+        var modal = $("#modal-window");
+        var hours_val = $('#clock').text().split(':');
+        modal.html("<%= escape_javascript(render 'time_entries/form') %>");
+        $('#time_entry_hours').val(hours_val[0] + '.' + Math.round(parseInt(hours_val[1])/6));
+        modal.modal('show');
+    })
+
+
+</script>
+<script type='text/javascript'>
+    $(function () {
+        $('#startstopbutton').tipsy({gravity: 'sw', fade: true, delayIn: 1000});
+        $('#resetbutton').tipsy({gravity: 's', fade: true, delayIn: 1000});
+        $('#assignbutton').tipsy({gravity: 's', fade: true, delayIn: 1000});
+    });
+</script>
+<% end %>

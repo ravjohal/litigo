@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'medicals/medical_bill_fields', 'data-turbolinks-track' => true %>
 <tr class="nested-fields medical-bill-field remove-tr-1" style="border-bottom: 2px solid black">
   <td colspan="7" style="padding: 0;">
     <table>
@@ -46,12 +47,3 @@
     <% end %>
   </td>
 </tr>
-
-<script type="text/javascript" charset="utf-8">
-  $("select").select2();
-</script>
-<script type='text/javascript'>
-  $(function () {
-    $('.remove').tipsy({gravity: 's', fade: true});
-  });
-</script>

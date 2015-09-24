@@ -1,0 +1,24 @@
+<% content_for :javascript do %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#new_modal').click(function(event){
+            $("#modal-window").html("<%= escape_javascript(render 'templates/form') %>");
+        });
+        var templates_table = $('#templates').dataTable({
+            language: {
+                search: "_INPUT_",
+                searchPlaceholder: "Search or Filter",
+                lengthMenu: "View _MENU_"
+            },
+            sDom: 'Rfrtlip',
+            aaSorting: [[ 0, 'asc' ]]
+        });
+        <% if @template.errors.present? %>
+        var error_text = '<%= @template.errors.full_messages.join('. ') %>';
+        $('.alert').remove();
+        $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + error_text + "</div>");
+        setTimeout(function() {$('.alert').fadeOut();}, 2000);
+        <% end %>
+    });
+</script>
+<% end %>

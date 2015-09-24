@@ -34,6 +34,7 @@ class Contact < ActiveRecord::Base
   after_save :load_into_soulmate
 
   def load_into_soulmate
+    return if email.blank?
     loader = Soulmate::Loader.new("contact-#{firm_id}")
     loader.add('term' => email, 'id' => "contact-#{id}")
   end

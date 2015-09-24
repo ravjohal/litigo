@@ -1,0 +1,155 @@
+<% content_for :javascript do %>
+<script>
+    $(document).ready(function () {
+        $('.template-model select, .template_html_show select').select2({width: 'resolve'});
+        $('#input_date').datepicker();
+        $('#case').change(function (e) {
+            var case_id = $(this).val();
+            var case_attrs = [];
+            var lead_attrs = [];
+            if (case_id == '') {
+                $('.insertion[data-model="Case"], .insertion[data-model="Lead"]').each(function () {
+                    var field = $(this);
+                    field.text(field.data('name'))
+                });
+            } else {
+                $('.insertion[data-model="Case"], .insertion[data-model="Lead"]').each(function () {
+                    var model = $(this).data('model');
+                    var attr = $(this).data('attr');
+                    if (model == 'Case') {
+                        case_attrs.push(attr);
+                    } else if (model == 'Lead') {
+                        lead_attrs.push(attr);
+                    }
+                });
+
+                $.ajax({
+                    url: "/templates_get_case",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {case_attrs: case_attrs, lead_attrs: lead_attrs, id: case_id},
+                    success: function (data) {
+                        $.each(data.case_attrs_values, function (attr, val) {
+                            $('.insertion[data-model="Case"][data-attr="' + attr + '"]').html(val);
+                        });
+                        $.each(data.lead_attrs_values, function (attr, val) {
+                            $('.insertion[data-model="Lead"][data-attr="' + attr + '"]').html(val);
+                        });
+                        $('.insertion[data-model="Contact"]').each(function () {
+                            var attr = $(this).data('attr');
+                            var select = $(this).find('select.custom_input');
+                            var options = $(this).find('select.custom_input option:gt(0)');
+                            options.remove();
+                            $.each(data.contacts, function (i, hash) {
+                                select.append($("<option></option>").attr("value", hash[attr] ? hash[attr] : '').text(hash['name']));
+                            });
+                        });
+                        $('.template_html_show select').select2({width: 'resolve'});
+                    }
+                });
+            }
+        });
+        $('#addressee').change(function (e) {
+            var addressee_id = $(this).val();
+            var addressee_attrs = [];
+            if (addressee_id == '') {
+                $('.insertion[data-model="Addressee"]').each(function () {
+                    var addressee_field = $(this);
+                    addressee_field.text(addressee_field.data('name'))
+                });
+            } else {
+                $('.insertion[data-model="Addressee"]').each(function () {
+                    var attr = $(this).data('attr');
+                    addressee_attrs.push(attr);
+                });
+
+                if (addressee_attrs.length) {
+                    $.ajax({
+                        url: "/templates_get_addressee",
+                        type: 'POST',
+                        dataType: "json",
+                        data: {addressee_attrs: addressee_attrs, id: addressee_id},
+                        success: function (data) {
+                            console.log(data.addressee_attrs_values);
+                            $.each(data.addressee_attrs_values, function (attr, val) {
+                                $('.insertion[data-model="Addressee"][data-attr="' + attr + '"]').html(val);
+                            });
+                        }
+                    });
+                }
+            }
+
+        });
+        $('.custom_input').change(function (e) {
+            var val = $(this).val();
+            $(this).parent().find('ins').html(val);
+            $(this).parent().addClass('green');
+            if(val != '') {
+                $(this).parent().find('.select2-container').hide();
+            }
+        });
+
+        $('ins').click(function(e){
+            $(this).parent().find('.select2-container').show();
+        });
+
+        $('#create_docx').click(function (e) {
+            e.preventDefault();
+            var html = $('.template_html_show').clone();
+            html.find("select").remove();
+            html.find(".custom_input").remove();
+            html.find('.insertion').removeClass();
+            $.ajax({
+                url: "/templates_generate_docx",
+                type: 'POST',
+                dataType: "json",
+                data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val()},
+                success: function(data){
+                    var id = data.id;
+                    window.location.href = '/download_docx/'+id+'.docx';
+                }
+            });
+        });
+
+        $('#save_to_app').click(function (e) {
+            e.preventDefault();
+            var html = $('.template_html_show').clone();
+            var case_id = $('#case').val();
+            html.find("select").remove();
+            html.find(".custom_input").remove();
+            html.find('.insertion').removeClass();
+            $.ajax({
+                url: "/upload_docx",
+                type: 'POST',
+                dataType: "json",
+                data: {id: <%= @template.id %>, html: html[0].innerHTML, name: $('#template_name').val(), case_id: case_id },
+                success: function (data) {
+                    window.location.href = data.href;
+                }
+            });
+        });
+        var preview = false;
+        $('#preview_docx').click(function (e) {
+            e.preventDefault();
+            preview = !preview;
+            if (preview) {
+                $('.template_html_show .custom_input').hide();
+                $(this).text('Edit');
+            } else {
+                $('.template_html_show .custom_input').show();
+                $(this).text('Preview');
+            }
+            $('.template-model').toggle();
+            $('.template_html_show .insertion').toggleClass('white');
+        })
+    });
+</script>
+<script type='text/javascript'>
+    $(function() {
+        $('#name').tipsy({gravity: 's', fade: true});
+        $('#cs-sel').tipsy({gravity: 's', fade: true});
+        $('#addy').tipsy({gravity: 's', fade: true});
+        $('#temp').tipsy({gravity: 'n', fade: true});
+    });
+</script>
+<% end %>

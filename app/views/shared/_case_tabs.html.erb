@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'shared/case_tabs', 'data-turbolinks-track' => true %>
 <ul id="nav-tabs-custom" role="tablist" class="menu" style="font-weight: 700;">
   <a class="more" href="#show_all">MORE <span class=" "></span></a>
   <li> <%= active_link_to 'Summary', case_summary_path(@case), :class_active => 'navigated' %></li>
@@ -36,52 +37,4 @@
 <br/>
 <br/>
 <div class="more_menu"></div>
-<script>
-    var caseMenu = function () {
-        var $more = $('.more');
 
-        function getHiddenItems() {
-            var isOneLine = true;
-            var topPosition = false;
-            var invisibleItems = $('<ul/>');
-            $('.menu li').each(function () {
-                var thisPosition = $(this).position();
-                if (topPosition === false) {
-                    topPosition = thisPosition.top;
-                } else if (thisPosition.top > topPosition) {
-                    invisibleItems.append($(this).clone());
-                    isOneLine = false;
-                }
-            });
-            return isOneLine ? false : invisibleItems;
-        }
-
-        function checkMenu() {
-            $more.hide();
-            var hiddenItems = getHiddenItems();
-            if (!hiddenItems) {
-                $('.more_menu').html('');
-            } else {
-                $more.show();
-                /* What items are not visible now? */
-                hiddenItems = getHiddenItems();
-                $('.more_menu').html('<ul>' + hiddenItems.html() + '</ul>');
-            }
-        }
-
-        if (typeof jQuery._data($more[0], 'events') == 'undefined') {
-            $more.on('click', function (e) {
-                e.preventDefault();
-                $('.more').toggleClass('more_menu_opened');
-                $('.more_menu').toggleClass('opens');
-            });
-        }
-
-        $(window).on('resize', checkMenu);
-        checkMenu();
-    };
-
-//    $(document).ready(caseMenu);
-//    $(document).on('page:load', caseMenu);
-    $(document).on('page:change', caseMenu);
-</script>

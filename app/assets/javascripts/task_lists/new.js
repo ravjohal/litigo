@@ -1,0 +1,5 @@
+if($('.task-draft-field').length == 0) {
+    $(".add_fields").click();
+    $('.task-draft-field').attr('id', 'task_draft_1')
+    $('.add_child').attr('data-association-insertion-node', '#task_draft_1');
+}

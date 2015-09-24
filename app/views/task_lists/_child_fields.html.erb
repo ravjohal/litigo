@@ -20,27 +20,4 @@
     <%= link_to_remove_association f, class: 'dark-small remove_child' do %><span id="child" class="glyphicon glyphicon-trash" title="Remove Child"></span><% end %>
   </td>
 </tr>
-<script type="text/javascript" charset="utf-8">
-  $("select").select2();
-  $('.conjunction-select').on('change', function (e) {
-    var after_options = "<%= raw select_anchor_date_options.map {|arr| "<option value='#{arr[1]}'>#{arr[0]}</option>"}.join('') %>"
-    var before_options = "<%= raw select_before_anchor_date_options.map {|arr| "<option value='#{arr[1]}'>#{arr[0]}</option>"}.join('') %>"
-
-    var raw_name = $(this).attr('name').replace('[conjunction]','');
-    var anchor_select = $("select[name='"+raw_name+"[anchor_date]']")
-    if($(this).val() == 'Before') {
-      anchor_select.empty().append(before_options);
-    } else if($(this).val() == 'After') {
-      anchor_select.empty().append(after_options);
-    }
-  });
-    $('.remove_child').click(function () {
-      $('#child').tipsy('hide');
-    })
-</script>
-<script type='text/javascript'>
-  $(function() {
-    $('#child').tipsy({gravity: 'se', fade: true});
-    $('#dependent').tipsy({gravity: 's', fade: true});
-  });
-</script>
+<%= render :partial => "task_lists_child_fields_javascript" %>

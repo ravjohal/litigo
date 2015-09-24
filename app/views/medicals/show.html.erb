@@ -431,17 +431,4 @@
 </table>
 </div>
 <% end %>
-<script type='text/javascript'>
-  $(function() {
-    $('#print').tipsy({gravity: 'ne', fade: true});
-    $('#delete').tipsy({gravity: 's', fade: true});
-    $('#edmed').tipsy({gravity: 's', fade: true});
-  });
-</script>
-<script type="text/javascript">
-$(document).ready(function() {
-  $('#injury_modal').click(function(event){
-    $("#modal-window").html("<%= escape_javascript(render '/injuries/form', new_injury: [@medical, Injury.new] ) %>");
-  });
-});
-</script>
+<%= render :partial => "medicals_show_javascript" %>

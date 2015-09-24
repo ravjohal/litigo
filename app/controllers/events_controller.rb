@@ -138,9 +138,7 @@ class EventsController < ApplicationController
     # @firm.participants.map { |user| users_emails << user.email unless user.email == @user.email }
     # @firm.contacts.map { |user| users_emails << user.email unless user.email == @user.email }
 
-    users_emails.uniq.compact
-
-    render json: users_emails
+    render json: users_emails.uniq.compact
   end
 
   def refresh_events

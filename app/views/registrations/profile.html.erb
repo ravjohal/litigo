@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'registrations/profile', 'data-turbolinks-track' => true %>
 <div class="case-header">
     <div class="case-title">
           <div style="font-size: 24px;">
@@ -54,8 +55,3 @@
     <%= f.submit 'Update', :class => "sub2-small pull-right" %>
   <% end %>
 </div>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#user_events_color").colorpicker();
-  });
-</script>

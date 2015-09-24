@@ -1,5 +1,6 @@
-<%= javascript_include_tag 'insurances/insurance_fields', 'data-turbolinks-track' => true %>
+
     <tr class="nested-fields insurance-field">
+      <%= javascript_include_tag 'insurances/insurance_fields', 'data-turbolinks-track' => true %>
       <td>
           <%= f.association :company, :collection => @firm.companies, label: false, :class => 'table-input', :include_blank => '' %>
       </td>
@@ -25,5 +26,4 @@
       <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
     </td>
   </tr>
-
 

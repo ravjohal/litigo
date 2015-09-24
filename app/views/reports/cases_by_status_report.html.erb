@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'reports/cases_by_status_report', 'data-turbolinks-track' => true %>
 <%= form_tag reports_cases_by_status_path, method: :get do %>
 <div class="case-header">
     <div class="case-title">
@@ -28,7 +29,3 @@
 <div class="span6">
   <%= render template: 'dossier/reports/show', locals: {report: @cases_by_status_report.run} %>
 </div>
-<script>
-    $(document).ready(function() { $("select").select2({allowClear: true, placeholder: 'All'});
-        });
-  </script>

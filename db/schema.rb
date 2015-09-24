@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922095911) do
+ActiveRecord::Schema.define(version: 20150924061629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -419,7 +419,6 @@ ActiveRecord::Schema.define(version: 20150922095911) do
     t.string   "insurance_provider"
     t.decimal  "policy_limit"
     t.string   "claim_number"
-    t.string   "policy_holder"
     t.integer  "case_id"
     t.integer  "firm_id"
     t.datetime "created_at",         null: false
@@ -429,11 +428,13 @@ ActiveRecord::Schema.define(version: 20150922095911) do
     t.integer  "company_id"
     t.decimal  "amount_paid"
     t.integer  "adjustor_id"
+    t.integer  "policy_holder_id"
   end
 
   add_index "insurances", ["adjustor_id"], name: "index_insurances_on_adjustor_id", using: :btree
   add_index "insurances", ["company_id"], name: "index_insurances_on_company_id", using: :btree
   add_index "insurances", ["firm_id"], name: "index_insurances_on_firm_id", using: :btree
+  add_index "insurances", ["policy_holder_id"], name: "index_insurances_on_policy_holder_id", using: :btree
 
   create_table "interrogatories", force: :cascade do |t|
     t.text     "question"

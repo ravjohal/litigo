@@ -10,6 +10,7 @@ class Insurance < ActiveRecord::Base
   belongs_to :user
   belongs_to :company
   belongs_to :adjustor, class_name: 'Contact'
+  belongs_to :policy_holder_contact, class_name: 'Contact', :foreign_key => :policy_holder_id
   has_many :children, class_name: "Insurance", foreign_key: "parent_id", :dependent => :destroy
   belongs_to :parent, class_name: "Insurance"
 

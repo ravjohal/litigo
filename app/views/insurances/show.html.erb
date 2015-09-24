@@ -85,7 +85,7 @@
           <%= insurance.insurance_type %>
         </td>
         <td>
-          <%= insurance.policy_holder %>
+          <%= insurance.policy_holder_contact.try(:name) %>
         </td>
         <td>
           <%= insurance.claim_number %>

@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'time_entries/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for @time_entry do |f| %>
 <div class="case-header">
   <div class="case-title">
@@ -122,11 +123,3 @@
   </tbody>
 </table>
 <% end %>
-<script type='text/javascript'>
-  $(function() {
-    $('#print').tipsy({gravity: 'n', fade: true});
-    $('#delete').tipsy({gravity: 'n', fade: true});
-    $('#accept').tipsy({gravity: 'ne', fade: true});
-    $(".time_entry-table td #time_entry_case_id, .time_entry-table td #time_entry_aba_code").select2({allowClear: true});
-  });
-</script>

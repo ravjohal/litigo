@@ -47,13 +47,6 @@
   </table>
 </div>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#new_modal').click(function(event){
-      $("#modal-window").html("<%= escape_javascript( render 'time_entries/form') %>");
-    });
-    <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'desc'} %>
-  });
-</script>
+<%= render :partial => "index_javascript" %>
 
 

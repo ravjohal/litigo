@@ -1,4 +1,4 @@
-
+<%= javascript_include_tag 'resolutions/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for([@case, @resolution]) do |f| %>
 
 <div class="case-header">
@@ -117,7 +117,3 @@
 </div>
 
 <% end %>
-<script>
-  $(document).ready(function() { $("select").select2({allowClear: true}); });
-  $('#close').tipsy({gravity: 's', fade: true});
-</script>

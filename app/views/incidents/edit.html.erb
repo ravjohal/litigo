@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'incidents/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for([@case, @incident]) do |f| %>
 
 
@@ -227,11 +228,4 @@
 
 
 
-<script>
-   $(document).ready(function() { $("select").select2(); });
-   $('.tip').tipr({
-    'speed': 500,
-    'mode': 'top'
-   });
-</script>
 

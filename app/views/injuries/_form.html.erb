@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'injuries/form', 'data-turbolinks-track' => true %>
 <%= simple_form_for(new_injury) do |f| %>
   <%= f.error_notification %>
  <div class="modal-dialog">
@@ -277,6 +278,3 @@
     </div><!--end of modal-dialog-->
 
 <% end %>
-<script>
-    $(document).ready(function() { $("select").select2({allowClear: true}); });
-  </script>

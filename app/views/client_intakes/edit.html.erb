@@ -287,45 +287,4 @@
 
 <% end %>
 
-<script>
-  $(document).ready(function () {
-    $("#note_select, select").select2({allowClear: true});
-  });
-</script>
-<script>
-
-
-  <% if @lead.exist_event? %>
-  $('#edit_modal').click(function () {
-    $.ajax({
-      type: "GET",
-      url: '/events/<%=@lead.event.id%>/edit',
-      success: function(data) {
-        if(data != '') {
-          $("#modal-window").html(data);
-          $("#modal-window").modal();
-        }
-      }
-    });
-  });
-  <% else %>
-  $('#new_modal').click(function () {
-    var $modal = $("#modal-window");
-
-    $modal.html("<%= escape_javascript(render 'events/form', new_event: @lead.build_event ) %>");
-    var sd = new Date();
-    var ed = new Date();
-    ed.setHours(ed.getHours() + 1);
-    var start_date = (sd.getMonth() + 1) + '/' + sd.getDate() + '/' + sd.getFullYear();
-    var start_time = formatAMPM(sd);
-    var end_date = (ed.getMonth() + 1) + '/' + ed.getDate() + '/' + ed.getFullYear();
-    var end_time = formatAMPM(ed);
-
-    $modal.find('#event_start_date').val(start_date);
-    $modal.find('#event_start_time').val(start_time);
-    $modal.find('#event_end_date').val(end_date);
-    $modal.find('#event_end_time').val(end_time);
-  });
-  <% end %>
-
-</script>
+<%= render :partial => "client_intakes_edit_javascript" %>

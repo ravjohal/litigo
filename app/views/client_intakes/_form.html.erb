@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'client_intakes/form', 'data-turbolinks-track' => true %>
 <%= simple_form_for @lead || Lead.new do |f| %>
   <%= f.error_notification %>
 
@@ -150,20 +151,3 @@
   <% end %>
 
 <% end %>
-<script>
-  $(document).ready(function() {
-    $("#lead_select, td select").select2();
-    $('#lead_phone').mask("(999) 999-9999");
-  });
-</script>
-<script type="text/javascript">
-$("#phone_book").hide();
-  $("select").bind("change", function() {
-    if ($(this).val() == "Phone book") {
-        $("#phone_book").show();
-    }
-    else {
-        $("#phone_book").hide();
-    }
-});
-</script>

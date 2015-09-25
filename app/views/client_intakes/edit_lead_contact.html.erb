@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'client_intakes/edit_lead_contact', 'data-turbolinks-track' => true %>
 <%= simple_form_for @lead do |f| %>
 
   <div class="case-header">
@@ -134,12 +135,4 @@
 
 
 
-<script>
-  $(document).ready(function() { $("#note_select, select").select2(); });
-</script>
-<script>
-  $(document).ready(function() {
-    $('.phone').mask("(999) 999-9999");
-  });
-</script>
         

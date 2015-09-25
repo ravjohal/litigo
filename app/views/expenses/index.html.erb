@@ -119,12 +119,4 @@
   </div>
 
   <div id="modal-window2" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#new_modal, #new_time_modal').click(function(event){
-        $("#modal-window").html("<%= escape_javascript(render 'expenses/form' ) %>");
-        $("#modal-window2").html("<%= escape_javascript( render 'time_entries/form' ) %>");
-      });
-      <%= render :partial => 'datatable.js', :locals => { :sort_column => 1, :sort_order => 'desc'} %>
-    });
-  </script>
+  <%= render :partial => "expenses_index_javascript" %>

@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'cases/copy', 'data-turbolinks-track' => true %>
 <%= simple_form_for existing_case, :url => copy_case_create_path(existing_case), :method => :post do |f| %>
 
   <div class="modal-dialog">
@@ -73,10 +74,6 @@
         </div><!--end of modal-content-->
       </div><!--end of modal-dialog-->
 <% end %>
-<script type='text/javascript'>
-  $(document).ready(function() {
-    $('#focus-example [title]').tipsy({trigger: 'focus', gravity: 's'});
-  });
-</script>
+
 
 

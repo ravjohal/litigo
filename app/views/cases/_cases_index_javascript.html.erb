@@ -1,0 +1,13 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#new_modal').click(function(event){
+            $("#modal-window").html("<%= escape_javascript(render 'cases/form', new_case: Case.new ) %>");
+        });
+        $('.table tbody').on( 'click', 'tr', function (e) {
+            var id = $(e.currentTarget).data('id');
+            $('table.rowlink').rowlink()
+        });
+    });
+  </script>
+<% end %>

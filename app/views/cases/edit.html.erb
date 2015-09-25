@@ -1,4 +1,4 @@
-
+<%= javascript_include_tag 'cases/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for @case do |f| %>
 
 <div class="case-header">
@@ -240,13 +240,4 @@
 
 <% end %>
 
-  <script>
-    $(document).ready(function() { $("select").select2({allowClear: true}); });
-  </script>
-<script type='text/javascript'>
-  $(function() {
-    $('#doi').tipsy({gravity: 's', fade: true});
-    $('#sol').tipsy({gravity: 's', fade: true});
-  });
-</script>
 

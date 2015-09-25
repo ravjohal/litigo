@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'cases/assign_contacts', 'data-turbolinks-track' => true %>
 <% if @case %>
 <%= simple_form_for @case do |f| %>
   <%= f.error_notification %>
@@ -115,6 +116,3 @@
      <% end %>
 <% end %>
 <% end %>
- <script>
-    $(document).ready(function() { $("#judge_select, #attorney_select, #plaintiff_select, #defendant_select, #staff_select, td select").select2(); });
-  </script>

@@ -108,6 +108,9 @@ class DocumentsController < ApplicationController
         when @document.docx?
           @docx = @document.to_docx_html
           render 'documents/preview_docx'
+        when @document.txt?
+          @xls = @document.txt_file
+          render 'documents/preview_xls'
         when @document.xls?
           @xls = @document.to_xls_html
           render 'documents/preview_xls'

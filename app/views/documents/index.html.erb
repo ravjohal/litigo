@@ -95,13 +95,14 @@
                   end %></div></td>
             <td><%= simple_format_datetime_slash_regexp document.created_at  %></td>
             <td>
-              <% if @case %>
-                <%= link_to case_document_path(id: document.id, case_id: @case.id),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
-              <% else %>
-                <%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="View" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
-              <% end %>
+              <%= link_to document,  :class => 'dark-small preview_doc', 'data-id' => document.id, :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window' do %> <span data-tip="Preview" class="glyphicon glyphicon-eye-open tip"></span> <% end %>
             </td>
-            <td><%= link_to edit_document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>
+            <td>
+              <% if @case %>
+                <%= link_to case_document_path(id: document.id, case_id: @case.id),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>
+              <% else %>
+                <%= link_to document_path(document),  :class => 'dark-small' do %><span data-tip="Edit" class="glyphicon glyphicon-pencil tip"></span> <% end %>
+              <% end %>
             </td>
             <td>
               <% if @case %>

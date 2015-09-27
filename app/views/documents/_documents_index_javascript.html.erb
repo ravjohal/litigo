@@ -15,6 +15,14 @@
             },
             sDom: 'Rfrtlip'
         });
+
+      $('.preview_doc').click(function() {
+        $.ajax({
+          url: '/documents/preview/' + $(this).attr('data-id')
+        }).done(function(data) {
+          $("#modal-window").html(data);
+        })
+      });
     });
   </script>
 <% end %>

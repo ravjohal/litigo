@@ -35,13 +35,36 @@ class Document < ActiveRecord::Base
 		%w(xls).include? file_extension
 	end
 
+	def txt?
+		%w(txt).include? file_extension
+	end
+
 	def xlsx?
 		%w(xlsx xlsm).include? file_extension
 	end
 
+	def tmp_file
+		tmp_file = nil
+		if document.file
+			file_content = document.file.read
+			tmp_file = Tempfile.new(document.file.filename, nil, encoding: file_content.encoding )
+			tmp_file.write file_content
+			tmp_file.close
+		end
+		tmp_file.try(:path)
+	end
+
+	def txt_file
+		content = ''
+		File.open(tmp_file, 'r').each_line do |line|
+			content << "<p>#{line}</p>"
+		end
+		content
+	end
+
 	def pdf_images
 		images = []
-		pdf = Magick::ImageList.new(document.file.path)
+		pdf = Magick::ImageList.new tmp_file
 		tmp_path = Rails.root.join('public', 'tmp')
 		#FileUtils::mkdir_p tmp_path
 		Dir.mkdir(tmp_path) unless File.exists?(tmp_path)
@@ -55,7 +78,7 @@ class Document < ActiveRecord::Base
 
 	def to_docx_html
 		content = ''
-		doc = Docx::Document.open(document.file.path)
+		doc = Docx::Document.open tmp_file
 		doc.paragraphs.each do |p|
 			if p.node.xpath('w:r//w:lastRenderedPageBreak').present?
 				content << %q(<div class="page-break"></div>) + p.to_html
@@ -68,7 +91,7 @@ class Document < ActiveRecord::Base
 
 	def to_xlsx_html
 		content = ''
-		workbook = Creek::Book.new document.file.path
+		workbook = Creek::Book.new tmp_file
 		workbook.sheets.each do |worksheet|
 			table = '<table>'
 			worksheet.rows.each do |row|
@@ -87,7 +110,7 @@ class Document < ActiveRecord::Base
 
 	def to_xls_html
 		content = ''
-		workbook = Spreadsheet.open document.file.path
+		workbook = Spreadsheet.open tmp_file
 		workbook.worksheets.each do |worksheet|
 			table = '<table>'
 			worksheet.rows.each do |row|

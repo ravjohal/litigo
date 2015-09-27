@@ -7,9 +7,6 @@
       <td>
       </td>
       <td>
-        <% if @document.can_preview? %>
-        <%= link_to 'Preview', @document, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window', :style => 'margin-right: 12px;'} %>
-        <% end %>
       </td>
       <td><%= link_to @document, :class => 'dark-right', method: :delete, data: { confirm: 'WARNING! Deleting a document will remove all the information from storage and you will not be able to retrieve it. Would you like to delete anyway?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Document"></span> <% end %>
       <%= link_to 'Edit', edit_document_path(@document), :class => 'dark' %></td>

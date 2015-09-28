@@ -20,6 +20,8 @@ class SyncAllCalendars
 	@queue = :calendar
 
 	def self.perform
+    Rails.logger.fatal "SyncAllCalendars - start - #{Time.now}"
+
     Firm.all.each do |firm|
       firm.enabled_namespaces.includes(:calendars).each do |namespace|
         active_calendars = namespace.active_calendars
@@ -48,6 +50,8 @@ class SyncAllCalendars
         end
       end
     end
+
+    Rails.logger.fatal "SyncAllCalendars - end - #{Time.now}"
   end
 
 end

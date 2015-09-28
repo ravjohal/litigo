@@ -90,6 +90,7 @@
 
     $('#calendar').fullCalendar({
       weekMode: 'liquid',
+      timezone: '<%= @user.time_zone %>',
       eventClick: function (calEvent, jsEvent, view) {
         $.ajax({
           type: "GET",

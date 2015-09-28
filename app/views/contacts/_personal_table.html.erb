@@ -73,7 +73,7 @@
           <strong>Date of Birth:</strong>
         </td>
         <td colspan="3">
-          <%= @contact.try(:date_of_birth).try(:strftime, "%m/%d/%Y") %>
+          <%= date_to_input_regexp @contact.try(:date_of_birth) %>
         </td>
         </tr>
          <tr>

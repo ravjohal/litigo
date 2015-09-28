@@ -94,8 +94,8 @@
               <strong>Start Time:</strong>
             </td>
             <td>
-              <%= f.text_field :start_date, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_start_date' %>
-              <%= f.text_field :start_time, value: @event.present? ? @event.try(:starts_at).try(:strftime, '%I:%M %p') : Time.now.strftime('%I:%M %p'), id: 'event_start_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
+              <%= f.text_field :start_date, value: @event.present? ? date_to_input_regexp(@event.try(:starts_at)) : date_to_input_regexp(Time.now), id: 'event_start_date' %>
+              <%= f.text_field :start_time, value: @event.present? ? time_to_input_regexp(@event.try(:starts_at)) : time_to_input_regexp(Time.now), id: 'event_start_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
             </td>
           </tr>
           <tr>
@@ -103,8 +103,8 @@
               <strong>End Time:</strong>
             </td>
             <td>
-              <%= f.text_field :end_date, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y'), id: 'event_end_date' %>
-              <%= f.text_field :end_time, value: @event.present? ? @event.try(:ends_at).try(:strftime, '%I:%M %p') : (Time.now+1.hour).strftime('%I:%M %p'), id: 'event_end_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
+              <%= f.text_field :end_date, value: @event.present? ? date_to_input_regexp(@event.try(:ends_at)) : date_to_input_regexp(Time.now), id: 'event_end_date' %>
+              <%= f.text_field :end_time, value: @event.present? ? time_to_input_regexp(@event.try(:ends_at)) : time_to_input_regexp(Time.now+1.hour), id: 'event_end_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
             </td>
           </tr>
 
@@ -153,12 +153,12 @@
 
           <tr class="recur_block">
             <td><strong>Series Start:</strong></td>
-            <td><%= f.text_field :recur_start_date, value: @event.event_series.present? ? @event.try(:event_series).try(:starts_at).try(:strftime, '%-m/%d/%Y') : Time.now.strftime('%-m/%d/%Y') %></td>
+            <td><%= f.text_field :recur_start_date, value: @event.event_series.present? ? date_to_input_regexp(@event.try(:event_series).try(:starts_at)) : date_to_input_regexp(Time.now) %></td>
           </tr>
 
           <tr class="recur_block">
             <td><strong>Series End:</strong></td>
-            <td><%= f.text_field :recur_end_date, value: @event.event_series.present? ? @event.try(:event_series).try(:ends_at).try(:strftime, '%-m/%d/%Y') : (Time.now+5.days).strftime('%-m/%d/%Y') %></td>
+            <td><%= f.text_field :recur_end_date, value: @event.event_series.present? ? date_to_input_regexp(@event.try(:event_series).try(:ends_at)) : date_to_input_regexp(Time.now+5.days) %></td>
           </tr>
           <% end %>
 

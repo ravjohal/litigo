@@ -76,9 +76,15 @@
           <tr>
             <td>
             </td>
-            <td class="case_alert">
-              <%= f.check_box :case_alert, {}, true, false  %> Make this note a Case Alert
-            </td>
+            <% if !@case %>
+              <td class="case_alert">
+                <%= f.check_box :case_alert, {}, true, false  %> Make this note a Case Alert
+              </td>
+            <% else %>
+              <td>
+                <%= f.check_box :case_alert, {}, true, false  %> Make this note a Case Alert
+              </td>
+            <% end %>
           </tr>
 <% if false %> <!-- START OF COMMENT -->
           <tr>

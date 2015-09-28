@@ -54,10 +54,10 @@ class Event < ActiveRecord::Base
       is_reminder = true
       base_title.slice! ' [Reminder]'
     end
-    if base_title.to_s.include?' [AllDay]'
-      all_day = true
-      base_title.slice! ' [AllDay]'
-    end
+    # if base_title.to_s.include?' [AllDay]'
+    #   all_day = true
+    #   base_title.slice! ' [AllDay]'
+    # end
 
     {
         nylas_calendar_id: ne.calendar_id,
@@ -148,21 +148,21 @@ class Event < ActiveRecord::Base
   end
 
   def nylas_time_attributes
-    # if all_day?
-    #   if starts_at.strftime('%Y-%m-%d') == ends_at.strftime('%Y-%m-%d')
-    #     {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')}
-    #   else
-    #     {:object => 'datespan', :start_date => starts_at.strftime('%Y-%m-%d'), :end_date => ends_at.strftime('%Y-%m-%d')}
-    #   end
-    # else
+    if all_day?
+      if starts_at.strftime('%Y-%m-%d') == ends_at.strftime('%Y-%m-%d')
+        {:object => 'date', :date => starts_at.strftime('%Y-%m-%d')}
+      else
+        {:object => 'datespan', :start_date => starts_at.strftime('%Y-%m-%d'), :end_date => ends_at.strftime('%Y-%m-%d')}
+      end
+    else
       {:start_time => starts_at.to_i, :end_time => ends_at.to_i}
-    # end
+    end
   end
 
   def title_for_nylas
     res = "#{title}"
     res << ' [Reminder]' if is_reminder?
-    res << ' [AllDay]' if all_day?
+    # res << ' [AllDay]' if all_day?
     res
   end
 
@@ -257,7 +257,7 @@ class Event < ActiveRecord::Base
         id: id,
         title: title,
         start: starts_at,
-        end: ends_at,
+        end: (all_day? ? ends_at + 1.day : ends_at), # for full_calendar all_day event feature
         allDay: all_day
     }
   end

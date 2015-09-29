@@ -1,8 +1,8 @@
 class Medical < ActiveRecord::Base
 	
-	DOCTOR_TYPE = ['MD', 'DO', 'Specialist', 'Other']
-	TREATMENT_TYPE = ['Ambulance', 'ER', 'Injections', 'PT', 'Chiro', 'Meds', 'Other']
-  # SCAN_TYPE = ['CT', 'MRI', 'Xray', 'EEG', 'EKG', 'Other']
+	DOCTOR_TYPE = %w(MD DO Specialist Other)
+	TREATMENT_TYPE = %w(Ambulance ER Injections PT Chiro Meds Other)
+	SCAN_TYPE = %w(Xray MRI CT EEG EKG Blood Other)
 
 	belongs_to :case
 	has_many :injuries, dependent: :destroy

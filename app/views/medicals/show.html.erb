@@ -107,7 +107,7 @@
             <strong>Doctor(s) Seen:</strong>
         </td>
         <td>
-          <%= @medical.doctor_type.map{|p| p}.join(", ") if @medical.doctor_type %>
+          <%= @medical.doctor_type.map{|p| p}.join(', ') if @medical.doctor_type %>
         </td>
       </tr>
       <tr>
@@ -115,7 +115,15 @@
           <strong>Treatment Type(s):</strong>
         </td>
         <td>
-          <%= @medical.treatment_type.map{|p| p}.join(", ") if @medical.treatment_type %>
+          <%= @medical.treatment_type.map{|p| p}.join(', ') if @medical.treatment_type %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Scans and Tests:</strong>
+        </td>
+        <td>
+          <%= @medical.scans_tests.map{|p| p}.join(', ') if @medical.scans_tests %>
         </td>
       </tr>
       <tr>

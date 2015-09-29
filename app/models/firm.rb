@@ -33,7 +33,7 @@ class Firm < ActiveRecord::Base
   accepts_nested_attributes_for :users
 	include ActiveCalendars
 	include ActiveNamespaces
-
+	include SyncNamespaces
 
   def more_than_one_admin
     self.users.where(:role => 1).size > 1

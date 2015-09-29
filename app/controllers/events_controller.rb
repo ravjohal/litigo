@@ -131,13 +131,7 @@ class EventsController < ApplicationController
   end
 
   def emails_autocomplete
-
-    matches = Soulmate::Matcher.new("contact-#{@firm.id}").matches_for_term(params[:term], {:limit => 30})
-    users_emails = matches.map {|match| match['term'] }
-
-    # @firm.participants.map { |user| users_emails << user.email unless user.email == @user.email }
-    # @firm.contacts.map { |user| users_emails << user.email unless user.email == @user.email }
-
+    users_emails = (Soulmate::Matcher.new("contact-#{@firm.id}").matches_for_term(params[:term], {:limit => 30})).map {|match| match['term'] }
     render json: users_emails.uniq.compact
   end
 
@@ -152,50 +146,7 @@ class EventsController < ApplicationController
     errors_count = 0
     errors = []
 
-    @user.enabled_namespaces.includes(:calendars).each do |namespace|
-      begin
-        active_calendars = namespace.active_calendars
-        if active_calendars.present?
-          ns = namespace.nylas_inbox
-          cursor = namespace.nylas_cursor
-          last_cursor = nil
-
-          ns.deltas(cursor, Namespace::NYLAS_EXCLUDE_DELTA) do |n_event, ne|
-            if ne.is_a?(Nylas::Event)
-              if n_event == 'create' or n_event == 'modify'
-                calendar = active_calendars.find_by(calendar_id: ne.calendar_id)
-                if calendar.present?
-                  event = Event.find_or_initialize_by(nylas_event_id: ne.id)
-
-                  event.new_record? ?
-                      new_events += 1 :
-                      if updated_events_hash[event.id]
-                        updating_events += 1
-                      else
-                        updated_events += 1
-                        updated_events_hash[event.id] = true
-                      end
-
-                  if ne.status == 'cancelled'
-                    event.destroy
-                  else
-                    event.assign_nylas_while_refresh ne, @firm, calendar, namespace
-                  end
-                end
-              end
-              events_synced += 1
-              last_cursor = ne.cursor
-            end
-          end
-
-          namespace.update(cursor: last_cursor) if last_cursor.present?
-        end
-      rescue Exception => e
-        Rails.logger.fatal "Error while refresh events\n - Time: #{Time.now}\n  - Namespace: #{namespace.email_address}\n Message:#{e.message}\n - Backtrace: #{e.backtrace.join("\n")}"
-        errors_count += 1
-        errors << "Error with namespace #{namespace.email_address}\n#{e.message}"
-      end
-    end
+    @user.sync_namespace(@firm, errors, errors_count, events_synced, updated_events_hash, updating_events, new_events, updated_events)
 
     message = "#{events_synced} events were synced."
 

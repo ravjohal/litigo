@@ -1,6 +1,7 @@
 class LeadsDatatable
   delegate :params, :h, :link_to, :number_to_currency, to: :@view
   include ActionView::Helpers::TagHelper
+  include DatesHelper
 
   def initialize(view, user, user_leads)
     @view = view
@@ -23,8 +24,8 @@ class LeadsDatatable
   def data
     leads.map do |lead|
       [
-          link_to(lead.created_at.strftime("%m/%d/%Y") , lead),
-          "#{lead.attorney.try(:name)} #{lead.attorney.try(:email)}",
+          link_to(simple_format_date_regexp(lead.created_at), lead),
+          lead.attorney.try(:name),
           lead.name,
           lead.estimated_value,
           Lead::STATUS[lead.status.to_sym]

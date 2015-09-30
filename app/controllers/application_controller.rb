@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   #before_action :set_tenant #, :set_firm
   #before_filter :in_staging
   around_filter :set_time_zone
+  helper_method :have_notification?
 
   # def in_staging
   #   if Rails.env.staging?
@@ -99,6 +100,15 @@ class ApplicationController < ActionController::Base
       redirect_to tasks_path, :alert => "Please choose a task that belongs to you"
     else
       redirect_to root_path, :alert => "Access denied"
+    end
+  end
+
+  def have_notification?
+    @notifications = Notification.where(["user_id = ? and is_read = ?", current_user.id, false])
+    if @notifications.empty?
+      return false
+    else
+      return true
     end
   end
 

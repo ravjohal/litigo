@@ -37,6 +37,7 @@
                 </div>
           </div>
                       <strong><%= @company.address %></strong><br>
+                      <strong><%= @company.address_2 %></strong><br>
                       <strong><%= @company_city_state %></strong>
           <div class="container-fluid" style="padding: 0;">
                   <div class="row">
@@ -78,6 +79,14 @@
         </td>
         <td>
           <%= @company.address %>
+        </td>
+      </tr>
+        <tr>
+        <td class="right">
+          <strong>Company Address 2:</strong>
+        </td>
+        <td>
+          <%= @company.address_2 %>
         </td>
       </tr>
       <tr>

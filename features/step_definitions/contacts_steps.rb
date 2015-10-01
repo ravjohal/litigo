@@ -49,6 +49,7 @@ end
 
 When /^I fill edit contact form$/ do
   fill_in 'contact_address', with: 'Contact Address'
+  fill_in 'contact_address_2', with: 'Contact Address 2'
   fill_in 'contact_city', with: 'Contact City'
   select 'Alabama', from: 'contact_state'
   fill_in 'contact_zip_code', with: '23456789'
@@ -76,6 +77,7 @@ end
 Then /^The contact info should be saved$/ do
   contact = Contact.last
   expect(contact.address).to eq('Contact Address')
+  expect(contact.address_2).to eq('Contact Address 2')
   expect(contact.city).to eq('Contact City')
   expect(contact.state).to eq('AL')
   expect(contact.zip_code).to eq('23456789')

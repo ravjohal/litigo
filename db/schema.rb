@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150929071425) do
+ActiveRecord::Schema.define(version: 20151001084634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -196,6 +196,7 @@ ActiveRecord::Schema.define(version: 20150929071425) do
     t.string   "phone_number_2"
     t.string   "company_name"
     t.string   "extension"
+    t.string   "address_2"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -325,6 +326,7 @@ ActiveRecord::Schema.define(version: 20150929071425) do
     t.string   "tenant",     limit: 255
     t.string   "state"
     t.string   "city"
+    t.string   "address_2"
   end
 
   create_table "google_calendars", force: :cascade do |t|
@@ -497,6 +499,7 @@ ActiveRecord::Schema.define(version: 20150929071425) do
     t.integer  "contact_id"
     t.string   "phone_book"
     t.integer  "referring_contact_id"
+    t.string   "address_2"
   end
 
   add_index "leads", ["attorney_id"], name: "index_leads_on_attorney_id", using: :btree

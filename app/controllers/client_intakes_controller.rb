@@ -134,6 +134,7 @@ class ClientIntakesController < ApplicationController
                                      :first_name => @lead.first_name,
                                      :last_name => @lead.last_name,
                                      :address => @lead.address,
+                                     :address_2 => @lead.address_2,
                                      :city => @lead.city,
                                      :state => @lead.state,
                                      :zip_code => @lead.zip_code,
@@ -176,7 +177,7 @@ class ClientIntakesController < ApplicationController
       params.require(:lead).permit(:first_name, :last_name, :attorney_id, :note, :phone, :marketing_channel, 
                                   :phone_book, :referred_by, :screener_id, :case_type, :sub_type, :estimated_value, 
                                   :lead_policy_limit, :primary_injury, :primary_region, :incident_date, :case_summary, 
-                                  :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address, 
-                                  :city, :zip_code, :state, :referring_contact_id, :ssn)
+                                  :status, :appointment_date, :attorney_already, :attorney_name, :dob, :email, :address,
+                                   :address_2, :city, :zip_code, :state, :referring_contact_id, :ssn)
     end
 end

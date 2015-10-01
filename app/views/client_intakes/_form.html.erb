@@ -8,6 +8,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+
           <h1>New Lead</h1>
         </div>
         <div class="modal-body">
@@ -37,7 +38,7 @@
         <strong>Assign Attorney:</strong>
       </td>
       <td>
-        <%= f.select :attorney_id, @firm.admin_n_attorneys.map{ |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
+        <%= f.select :attorney_id, @firm.admin_n_attorneys.map { |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
       </td>
     </tr>
     <tr>
@@ -48,60 +49,68 @@
         <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(___) ___-____' %>
       </td>
     </tr>
-     <tr>
-    <td>
-      <strong>Address:</strong>
-    </td>
-    <td>
-      <%= f.text_field :address, label: false, :class => 'table-input' %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <strong>City:</strong>
-    </td>
-    <td>
-      <%= f.text_field :city, label: false, :class => 'table-input' %>
-    </td>
-  </tr>
     <tr>
-    <td>
-      <strong>State:</strong>
-    </td>
-    <td>
-      <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
-    </td>
+      <td>
+        <strong>Address:</strong>
+      </td>
+      <td>
+        <%= f.text_field :address, label: false, :class => 'table-input' %>
+      </td>
     </tr>
     <tr>
-    <td>
-      <strong>Zip Code:</strong>
-    </td>
-    <td>
-      <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
-    </td>
-  </tr>
-        <tr>
+      <td>
+        <strong>Address 2:</strong>
+      </td>
+      <td>
+        <%= f.text_field :address_2, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>City:</strong>
+      </td>
+      <td>
+        <%= f.text_field :city, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>State:</strong>
+      </td>
+      <td>
+        <%= f.select :state, us_states, label: false, :class => 'table-input', :include_blank => true %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Zip Code:</strong>
+      </td>
+      <td>
+        <%= f.text_field :zip_code, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
       <td>
         <strong>How did you hear about us?</strong>
       </td>
       <td>
-         <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '', :onchange => 'Hide(this.value)' %>
+        <%= f.select :marketing_channel, Lead::CHANNELS, label: false, :class => 'table-input', :include_blank => '', :onchange => 'Hide(this.value)' %>
       </td>
     </tr>
-     <tr id="phone_book">
+    <tr id="phone_book">
       <td>
         <strong>Which Phone Book:</strong>
       </td>
       <td>
-         <%= f.text_field :phone_book, label: false, :class => 'table-input' %>
+        <%= f.text_field :phone_book, label: false, :class => 'table-input' %>
       </td>
     </tr>
-      <tr>
+    <tr>
       <td>
         <strong>Case Type:</strong>
       </td>
       <td>
-         <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input', :include_blank => true %>
+        <%= f.input :case_type, label: false, collection: Case::TYPES, :class => 'table-input', :include_blank => true %>
       </td>
     </tr>
     <tr>
@@ -109,7 +118,7 @@
         <strong>Case Sub Type:</strong>
       </td>
       <td>
-         <%= f.input :sub_type, label: false, collection: Case::SUB_TYPES, as: :grouped_select, :group_method => :last, :class => 'table-input', :include_blank => true %>
+        <%= f.input :sub_type, label: false, collection: Case::SUB_TYPES, as: :grouped_select, :group_method => :last, :class => 'table-input', :include_blank => true %>
       </td>
     </tr>
     <tr>
@@ -131,7 +140,7 @@
     </tbody>
   </table>
   <br>
-  <% if action_name == "index" || controller_name == 'dashboards'%>
+  <% if action_name == "index" || controller_name == 'dashboards' %>
     </div><!--end of modal-body-->
 
     <div class="modal-footer">
@@ -141,10 +150,10 @@
   <% end %>
 
   <div class="form-actions">
-    <%= f.button :submit, :class =>"btn btn-info", :style => 'font-size: 18px;' %>
+    <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
   </div>
 
-  <% if action_name == "index" || controller_name == 'dashboards'%>
+  <% if action_name == "index" || controller_name == 'dashboards' %>
     </div><!--end of modal-footer-->
     </div><!--end of modal-content-->
     </div><!--end of modal-dialog-->

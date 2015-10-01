@@ -1,4 +1,3 @@
-<%= javascript_include_tag 'shared/case_tabs', 'data-turbolinks-track' => true %>
 <ul id="nav-tabs-custom" role="tablist" class="menu" style="font-weight: 700;">
   <a class="more" href="#show_all">MORE <span class=" "></span></a>
   <li> <%= active_link_to 'Summary', case_summary_path(@case), :class_active => 'navigated' %></li>
@@ -38,3 +37,4 @@
 <br/>
 <div class="more_menu"></div>
 
+<%= render :partial => "shared/javascript_case_tabs" %>

@@ -6,7 +6,7 @@ class Contact < ActiveRecord::Base
   TYPES = ['Attorney', 'Staff', 'Plaintiff', 'Defendant', 'Judge', 'Witness', 'Expert', 'Physician', 'Adjuster', 'General', 'Company']
 
   has_many :event_attendees
-	belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
+  belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event
   belongs_to :user_account, class_name: 'User', foreign_key: 'user_account_id' #associated contact of the user, answers: is this contact a user?
   belongs_to :firm
@@ -49,8 +49,8 @@ class Contact < ActiveRecord::Base
   end
 
   def name
-    if self.type == "Company"
- #     puts "ARE WE IN COMPANY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
+    if company?
+      #     puts "ARE WE IN COMPANY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
       self.company_name
     else
       if self.first_name.blank? && self.last_name.blank?
@@ -62,7 +62,7 @@ class Contact < ActiveRecord::Base
   end
 
   def shift_name
-    if self.type == "Company"
+    if company?
       #     puts "ARE WE IN COMPANY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! "
       self.company_name
     else
@@ -103,7 +103,9 @@ class Contact < ActiveRecord::Base
   end
 
   def similar_scope
-    Contact.where(firm_id: firm_id).where('lower(last_name) = ?', last_name.to_s.downcase).includes(:cases)
+    company? ?
+        Contact.where(firm_id: firm_id).where('lower(company_name) = ?', company_name.to_s.downcase).includes(:cases) :
+        Contact.where(firm_id: firm_id).where('lower(last_name) = ?', last_name.to_s.downcase).includes(:cases)
   end
 
   def similar_contacts
@@ -114,6 +116,10 @@ class Contact < ActiveRecord::Base
     new_record? ?
         similar_scope.any? :
         similar_contacts.any?
+  end
+
+  def company?
+    'Company' == type.to_s
   end
 
 end

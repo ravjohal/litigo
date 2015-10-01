@@ -1,52 +1,60 @@
 <%= javascript_include_tag 'contacts/edit', 'data-turbolinks-track' => true %>
 <%= simple_form_for @contact do |f| %>
-<div class="case-header">
+  <div class="case-header">
     <div class="case-title">
-          <div style="font-size: 24px;">
-                <strong><%= @contact.name %></strong><br>
-          </div>
-            <div id="case-buttons">
-              <ul>                    
-                    <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
-                    <li><%= link_to 'Cancel', @contact, :class => 'dark-right' %></li>
-              </ul>
-          </div>
+      <div style="font-size: 24px;">
+        <strong><%= @contact.name %></strong><br>
+      </div>
+      <div id="case-buttons">
+        <ul>
+          <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save' %></li>
+          <li><%= link_to 'Cancel', @contact, :class => 'dark-right' %></li>
+        </ul>
+      </div>
     </div>
     <strong><%= @contact.type %></strong>
-    
-        <div class="container-fluid" style="padding: 0;">
-              <div class="row">
-                      <div class="col-md-12">
-                            <%= render partial: 'contact_info_tabs' %>
-                      </div>
-              </div>
-        </div>
-</div>
 
-<div class="top-table-container">
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="2" class="gray-back">
-      <Strong>Contact Information</Strong>
-    </td>
-  </tr>
-</thead>
-<tfoot>
-      <tr style="background-color: transparent;" class="doc-link">
-        <td colspan="2">
-         <%= link_to_add_association 'Add New Number', f, :phones, :"data-association-insertion-node" => "tbody#contacts", :"data-association-insertion-method" => "append", :partial => "phone_fields", class: 'phone pull-right' %>
-                 
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <%= render partial: 'contact_info_tabs' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-table-container">
+    <table id="info-table3">
+      <thead>
+      <tr class="right-top">
+        <td colspan="2" class="gray-back">
+          <Strong>Contact Information</Strong>
         </td>
       </tr>
-</tfoot>
-  <tbody id="contacts">
-        <tr>
+      </thead>
+      <tfoot>
+      <tr style="background-color: transparent;" class="doc-link">
+        <td colspan="2">
+          <%= link_to_add_association 'Add New Number', f, :phones, :"data-association-insertion-node" => "tbody#contacts", :"data-association-insertion-method" => "append", :partial => "phone_fields", class: 'phone pull-right' %>
+
+        </td>
+      </tr>
+      </tfoot>
+      <tbody id="contacts">
+      <tr>
         <td class="right">
           <strong>Home Address:</strong>
         </td>
-        <td >
-              <%= f.text_field :address, label: false, class: 'table-input' %>
+        <td>
+          <%= f.text_field :address, label: false, class: 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Home Address 2:</strong>
+        </td>
+        <td>
+          <%= f.text_field :address_2, label: false, class: 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -56,13 +64,13 @@
         <td>
           <%= f.text_field :city, label: false, class: 'table-input' %>
         </td>
-        </tr>
-        <tr>
+      </tr>
+      <tr>
         <td class="right">
           <strong>State:</strong>
         </td>
         <td>
-              <%= f.select :state, us_states, :class => 'table-input', :include_blank => true  %>
+          <%= f.select :state, us_states, :class => 'table-input', :include_blank => true %>
         </td>
       </tr>
       <tr>
@@ -70,7 +78,7 @@
           <strong>Zip Code:</strong>
         </td>
         <td>
-              <%= f.text_field :zip_code, label: false, class: 'table-input' %>
+          <%= f.text_field :zip_code, label: false, class: 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -78,7 +86,7 @@
           <strong>Email:</strong>
         </td>
         <td class="doc-link">
-                <%= f.text_field :email, label: false, class: 'table-input' %>
+          <%= f.text_field :email, label: false, class: 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -86,7 +94,7 @@
           <strong>Main Phone:</strong>
         </td>
         <td>
-            <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+          <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
       <tr>
@@ -101,285 +109,285 @@
         <td class="right">
           <strong>Mobile:</strong>
         </td>
-        <td >
-              <%= f.text_field :mobile, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
-        </td>
-      </tr>
-        <tr>
-           <%= f.simple_fields_for :phones do |phone| %>
-                      <%= render 'phone_fields', :f => phone %>
-            <% end %>
-      </tr>
-    
-  </tbody>
-</table>
-</div>
-
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="4" class="gray-back">
-      <Strong>Personal Information</Strong>
-    </td>
-  </tr>
-</thead>
-  <tbody>
-  <% if @contact.type == 'Attorney' %>
-      <tr>
-        <td class="right">
-          <strong>Contact Type:</strong>
-        </td>
         <td>
-          <%= f.select :type, Contact::TYPES, :class => 'table-input' %>      
-        </td>
-          <td class="right" id="attorney_type_field">
-            <strong>Attorney Type:</strong>
-          </td>
-          <td>
-              <%= f.select :attorney_type, Contact::ATTORNEYS, :class => 'table-input', :include_blank => '' %>
-          </td>
-        </tr>
-<% else %>
-    <tr>
-        <td class="right">
-          <strong>Contact Type:</strong>
-        </td>
-        <td colspan="3">
-          <%= f.select :type, Contact::TYPES, :class => 'table-input'%>
-        </td>
-        </tr>
-      <% end %>
-      <tr>
-       <td class="right">
-          <strong>Prefix:</strong>
-        </td>
-        <td>
-            <%= f.select :prefix, ['Mr.', 'Mrs.','Ms.', 'Dr.'], label: false, :class => 'table-input', :include_blank => '' %>
-        </td>
-        <td class="right">
-          <strong>First Name:</strong>
-        </td>
-        <td>
-            <%= f.text_field :first_name, :class => 'table-input' %>
-        </td>
-        </tr>
-        <tr>
-        <td class="right">
-          <strong>Middle Name:</strong>
-        </td>
-        <td>
-              <%= f.text_field :middle_name, :class => 'table-input' %>
-        </td>
-        <td class="right">
-          <strong>Last Name:</strong>
-        </td>
-        <td>
-            <%= f.text_field :last_name, :class => 'table-input' %>
-        </td>
-        </tr>
-        <tr>
-          <td class="right">
-          <strong>Gender:</strong>
-        </td>
-        <td colspan="3">
-             <div class="radio">
-                <%= f.radio_button :gender, 'M' %> 
-                <%= label :gender, 'Male' %>
-            </div>
-            <div class="radio">
-                <%= f.radio_button :gender, 'F' %>
-                <%= f.label :gender, 'Female', :value => 'Female'%>
-            </div>
-        </td>
-        </tr>
-      <tr>
-        <td class="right">
-          <strong>Date of Birth:</strong>
-        </td>
-        <td colspan="3">
-            <%= f.date_field :date_of_birth, label: false, :class =>'table-input' %>
-        </td>
-        </tr>
-        <tr>
-        <td class="right">
-          <strong>SSN:</strong>
-        </td>
-        <td colspan="3">
-          <%= f.text_field :ssn, label: false, class: 'table-input' %>
-        </td>
-      </tr>
-        <tr>
-        <td class="right">
-          <strong>Minor:</strong>
-        </td>
-        <td>
-              <%= f.check_box :minor, label: false %>
-        </td>
-         <td class="right">
-          <strong>Majority Date:</strong>
-        </td>
-        <td>
-            <%= f.date_field :major_date, :class => 'table-input' %>
+          <%= f.text_field :mobile, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
       <tr>
-      <td class="right">
-          <strong>Deceased:</strong>
-        </td>
-        <td>
-              <%= f.check_box :deceased, label: false %>
-        </td>
-        <td class="right">
-          <strong>Date of Death</strong>
-        </td>
-        <td>
-              <%= f.date_field :date_of_death, :class => 'table-input' %>
-        </td>
-      </tr> 
-        <tr>
-        <td class="right">
-          <strong>Married:</strong>
-        </td>
-        <td>
-          <%= f.check_box :married, label: false %>
-        </td>
-        <td class="right">
-          <strong>Has children?</strong>
-        </td>
-        <td>
-            <%= f.check_box :parent, label: false %>
-        </td>
-      </tr> 
-      <tr>
-        <td class="right">
-          <strong>Employed:</strong>
-        </td>
-        <td>
-              <%= f.check_box :employed, label: false %>
-        </td>
-        <td class="right">
-          <strong>Occupation:</strong>
-        </td>
-        <td>
-              <%= f.text_field :job_description, label: false, class: 'table-input' %>
-        </td>
-        </tr>
-        <tr>
-        <td class="right">
-          <strong>Salary:</strong>
-        </td>
-        <td>
-              <%= f.text_field :salary, label: false, class: 'table-input' %>
-        </td>
-        <td class="right">
-          <strong>Per:</strong>
-        </td>
-        <td>
-              <%= f.select :time_bound, ['Year', 'Hour'], label: false, :class => 'table-input', :include_blank => '' %>
-        </td>
-        </tr>
-<% if @contact.type == 'Expert' %>
-        <tr>
-         <td class="right">
-          <strong>Occupation:</strong>
-        </td>
-        <td colspan="3">
-            <%= f.text_field :job_description, label: false, class: 'table-input' %>
-        </td>
-        </tr>
+        <%= f.simple_fields_for :phones do |phone| %>
+          <%= render 'phone_fields', :f => phone %>
         <% end %>
-       <tr>
-        <td class="right big-row">
-          <strong>Note:</strong>
-        </td>
-        <td colspan="3" class="big-row">
-              <%= f.text_area :note, :class => 'table-text', :style => "vertical-align:top;"  %>
-        </td>
       </tr>
-  </tbody>
-</table>
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="2" class="gray-back">
-      <Strong>Company Information</Strong>
-    </td>
-  </tr>
-</thead>
-  <tbody>
+
+      </tbody>
+    </table>
+  </div>
+
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="4" class="gray-back">
+        <Strong>Personal Information</Strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <% if @contact.type == 'Attorney' %>
       <tr>
         <td class="right">
-          <strong>Company: </strong><span style="float: right;" id="company" title="You must first create a company before linking a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+          <strong>Contact Type:</strong>
         </td>
         <td>
-              <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda {|company| "#{company.company_name}"}, :class => 'table-input', label: false %>
+          <%= f.select :type, Contact::TYPES, :class => 'table-input' %>
         </td>
-      </tr> 
-    
+        <td class="right" id="attorney_type_field">
+          <strong>Attorney Type:</strong>
+        </td>
+        <td>
+          <%= f.select :attorney_type, Contact::ATTORNEYS, :class => 'table-input', :include_blank => '' %>
+        </td>
+      </tr>
+    <% else %>
       <tr>
         <td class="right">
-          <strong>Company Name: </strong>
+          <strong>Contact Type:</strong>
         </td>
-        <td>
-              
+        <td colspan="3">
+          <%= f.select :type, Contact::TYPES, :class => 'table-input' %>
         </td>
-      </tr>      
+      </tr>
+    <% end %>
+    <tr>
+      <td class="right">
+        <strong>Prefix:</strong>
+      </td>
+      <td>
+        <%= f.select :prefix, ['Mr.', 'Mrs.', 'Ms.', 'Dr.'], label: false, :class => 'table-input', :include_blank => '' %>
+      </td>
+      <td class="right">
+        <strong>First Name:</strong>
+      </td>
+      <td>
+        <%= f.text_field :first_name, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Middle Name:</strong>
+      </td>
+      <td>
+        <%= f.text_field :middle_name, :class => 'table-input' %>
+      </td>
+      <td class="right">
+        <strong>Last Name:</strong>
+      </td>
+      <td>
+        <%= f.text_field :last_name, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Gender:</strong>
+      </td>
+      <td colspan="3">
+        <div class="radio">
+          <%= f.radio_button :gender, 'M' %>
+          <%= label :gender, 'Male' %>
+        </div>
+        <div class="radio">
+          <%= f.radio_button :gender, 'F' %>
+          <%= f.label :gender, 'Female', :value => 'Female' %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Date of Birth:</strong>
+      </td>
+      <td colspan="3">
+        <%= f.date_field :date_of_birth, label: false, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>SSN:</strong>
+      </td>
+      <td colspan="3">
+        <%= f.text_field :ssn, label: false, class: 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Minor:</strong>
+      </td>
+      <td>
+        <%= f.check_box :minor, label: false %>
+      </td>
+      <td class="right">
+        <strong>Majority Date:</strong>
+      </td>
+      <td>
+        <%= f.date_field :major_date, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Deceased:</strong>
+      </td>
+      <td>
+        <%= f.check_box :deceased, label: false %>
+      </td>
+      <td class="right">
+        <strong>Date of Death</strong>
+      </td>
+      <td>
+        <%= f.date_field :date_of_death, :class => 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Married:</strong>
+      </td>
+      <td>
+        <%= f.check_box :married, label: false %>
+      </td>
+      <td class="right">
+        <strong>Has children?</strong>
+      </td>
+      <td>
+        <%= f.check_box :parent, label: false %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Employed:</strong>
+      </td>
+      <td>
+        <%= f.check_box :employed, label: false %>
+      </td>
+      <td class="right">
+        <strong>Occupation:</strong>
+      </td>
+      <td>
+        <%= f.text_field :job_description, label: false, class: 'table-input' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Salary:</strong>
+      </td>
+      <td>
+        <%= f.text_field :salary, label: false, class: 'table-input' %>
+      </td>
+      <td class="right">
+        <strong>Per:</strong>
+      </td>
+      <td>
+        <%= f.select :time_bound, ['Year', 'Hour'], label: false, :class => 'table-input', :include_blank => '' %>
+      </td>
+    </tr>
+    <% if @contact.type == 'Expert' %>
       <tr>
         <td class="right">
-          <strong>Website:</strong>
+          <strong>Occupation:</strong>
         </td>
-        <td>
-            
-        </td>
-      </tr>      
-        <tr>
-        <td class="right">
-          <strong>Company Address:</strong>
-        </td>
-        <td >
-             
+        <td colspan="3">
+          <%= f.text_field :job_description, label: false, class: 'table-input' %>
         </td>
       </tr>
-      <tr>
-        <td class="right">
-          <strong>City:</strong>
-        </td>
-        <td >
-          
-        </td>
-        </tr>
-        <tr>
-        <td class="right">
-          <strong>State:</strong>
-        </td>
-        <td >
-             
-        </td>
-      </tr>
-      <tr>
-        <td class="right">
-          <strong>Zip Code:</strong>
-        </td>
-        <td >
-              
-        </td>
-      </tr>
-         <tr>
-        <td class="right">
-          <strong>Main Phone:</strong>
-        </td>
-        <td>
-             
-        </td>
-      </tr>
-         <tr>
-        <td class="right">
-          <strong>Main Fax:</strong>
-        </td>
-        <td>
-            
-        </td>
-      </tr>
-      <% end %>
-  </tbody>
+    <% end %>
+    <tr>
+      <td class="right big-row">
+        <strong>Note:</strong>
+      </td>
+      <td colspan="3" class="big-row">
+        <%= f.text_area :note, :class => 'table-text', :style => "vertical-align:top;" %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="2" class="gray-back">
+        <Strong>Company Information</Strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>Company: </strong><span style="float: right;" id="company" title="You must first create a company before linking a contact" style="cursor: pointer;" class="glyphicon glyphicon-question-sign"></span>
+      </td>
+      <td>
+        <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda { |company| "#{company.company_name}" }, :class => 'table-input', label: false %>
+      </td>
+    </tr>
+
+    <tr>
+      <td class="right">
+        <strong>Company Name: </strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Website:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Company Address:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>City:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>State:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Zip Code:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Main Phone:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>Main Fax:</strong>
+      </td>
+      <td>
+
+      </td>
+    </tr>
+<% end %>
+</tbody>
 </table>

@@ -84,10 +84,10 @@ class TemplatesController < ApplicationController
 
   def generate_document
     @html = Nokogiri::HTML(@template.html_content.html_safe)
-    @html.css(".insertion").each do |span|
+    @html.css('.insertion').each do |span|
       #puts "SPAN ------------------------> " + span.values.to_s
       if span['data-model'] == 'Date' && span['data-attr'] == 'today'
-        span.inner_html = Date.today.strftime("%B %d, %Y")
+        span.inner_html = Date.today.strftime('%B %d, %Y')
         span['class'] = ''
       elsif span['data-attr'] == 'prefix'
         span.inner_html = "#{select_tag('prefix', options_for_select(['Mr. ', 'Mrs. ', 'Ms. ', 'Miss. ', 'Dr. ']), :prompt => "Prefix", class: 'custom_input')} <ins></ins>"
@@ -142,14 +142,15 @@ class TemplatesController < ApplicationController
           :email => contact.try(:email),
           :phone => contact.try(:phone),
           :address => contact.try(:address),
+          :address_2 => contact.try(:address_2),
           :city => contact.try(:city),
           :state => contact.try(:state),
           :zip_code => contact.try(:zip_code),
           :'company.name' => contact.try(:company).try(:zip_code),
-          :'company.address' => contact.try(:company).try(:address),
+          :'company.address' => "#{contact.try(:company).try(:address)}\n#{contact.try(:company).try(:address_2)}",
           :'company.city' => contact.try(:company).try(:city),
           :'company.state' => contact.try(:company).try(:state),
-          :'company.zipcode' => contact.try(:company).try(:zipcode),
+          :'company.zipcode' => contact.try(:company).try(:zipcode)
       }
 
       contacts_attrs.push(hash)

@@ -1,68 +1,77 @@
 <%= javascript_include_tag 'contacts/edit_company', 'data-turbolinks-track' => true %>
 <%= simple_form_for(@company) do |f| %>
-<div class="case-header">
+  <div class="case-header">
     <div class="case-title">
-          <div style="font-size: 24px;">
-                <strong><%= @company.company_name %></strong><br>
-          </div>
-            <div id="case-buttons">
-              <ul>                    
-                    <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
-                    <li><%= link_to 'Cancel', @company, :class => 'dark-right' %></li>
-              </ul>
-          </div>
+      <div style="font-size: 24px;">
+        <strong><%= @company.company_name %></strong><br>
+      </div>
+      <div id="case-buttons">
+        <ul>
+          <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save' %></li>
+          <li><%= link_to 'Cancel', @company, :class => 'dark-right' %></li>
+        </ul>
+      </div>
     </div>
-                      <strong><%= @company.address %></strong><br>
-                      <strong><%= @company_city_state %></strong>
-        <div class="container-fluid" style="padding: 0;">
-              <div class="row">
-                      <div class="col-md-12">
-                            
-                      </div>
-              </div>
-        </div>
-</div>
+    <strong><%= @company.address %></strong><br>
+    <strong><%= @company_city_state %></strong>
 
-<div class="top-table-container">
-<table id="info-table3">
-<thead>
-  <tr class="right-top">
-    <td colspan="2" class="gray-back">
-      <Strong>Company Information</Strong>
-    </td>
-  </tr>
-</thead>
-<tfoot>
-      <tr style="background-color: transparent;" class="doc-link">
-        <td colspan="2">
-         <%= link_to_add_association 'Add New Number', f, :phones, :"data-association-insertion-node" => "tbody#contacts", :"data-association-insertion-method" => "append", :partial => "phone_fields", class: 'phone pull-right' %>
-                 
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-12">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="top-table-container">
+    <table id="info-table3">
+      <thead>
+      <tr class="right-top">
+        <td colspan="2" class="gray-back">
+          <Strong>Company Information</Strong>
         </td>
       </tr>
-</tfoot>
-  <tbody id="contacts">
-        <tr>
+      </thead>
+      <tfoot>
+      <tr style="background-color: transparent;" class="doc-link">
+        <td colspan="2">
+          <%= link_to_add_association 'Add New Number', f, :phones, :"data-association-insertion-node" => "tbody#contacts", :"data-association-insertion-method" => "append", :partial => "phone_fields", class: 'phone pull-right' %>
+
+        </td>
+      </tr>
+      </tfoot>
+      <tbody id="contacts">
+      <tr>
         <td class="right">
           <strong>Company Name:</strong>
         </td>
         <td>
-          		<%= f.text_field :company_name, label: false, class: 'table-input' %>
+          <%= f.text_field :company_name, label: false, class: 'table-input' %>
         </td>
-      </tr>      
+      </tr>
       <tr>
         <td class="right">
           <strong>Website:</strong>
         </td>
         <td class="doc-link">
-          		<%= f.text_field :website, label: false, class: 'table-input', placeholder: 'www.example.com' %>
+          <%= f.text_field :website, label: false, class: 'table-input', placeholder: 'www.example.com' %>
         </td>
-      </tr>      
-        <tr>
+      </tr>
+      <tr>
         <td class="right">
           <strong>Company Address:</strong>
         </td>
         <td>
-          		<%= f.text_field :address, label: false, class: 'table-input' %>
+          <%= f.text_field :address, label: false, class: 'table-input' %>
+        </td>
+      </tr>
+      <tr>
+        <td class="right">
+          <strong>Company Address 2:</strong>
+        </td>
+        <td>
+          <%= f.text_field :address_2, label: false, class: 'table-input' %>
         </td>
       </tr>
       <tr>
@@ -70,15 +79,15 @@
           <strong>City:</strong>
         </td>
         <td>
-          		<%= f.text_field :city, label: false, class: 'table-input' %>
+          <%= f.text_field :city, label: false, class: 'table-input' %>
         </td>
-        </tr>
-        <tr>
+      </tr>
+      <tr>
         <td class="right">
           <strong>State:</strong>
         </td>
         <td>
-          		<%= f.select :state, us_states, :class => 'table-input', :include_blank => true  %>
+          <%= f.select :state, us_states, :class => 'table-input', :include_blank => true %>
         </td>
       </tr>
       <tr>
@@ -86,52 +95,52 @@
           <strong>Zipcode:</strong>
         </td>
         <td>
-          		<%= f.text_field :zip_code, label: false, class: 'table-input' %>
+          <%= f.text_field :zip_code, label: false, class: 'table-input' %>
         </td>
       </tr>
-         <tr>
+      <tr>
         <td class="right">
           <strong>Main Phone:</strong>
         </td>
         <td>
-              <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+          <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
-         <tr>
+      <tr>
         <td class="right">
           <strong>Fax:</strong>
         </td>
         <td>
-              <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+          <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
-        <tr>
-           <%= f.simple_fields_for :phones do |phone| %>
-                      <%= render 'phone_fields', :f => phone %>
-            <% end %>
+      <tr>
+        <%= f.simple_fields_for :phones do |phone| %>
+          <%= render 'phone_fields', :f => phone %>
+        <% end %>
       </tr>
-  </tbody>
-</table>
-</div>
+      </tbody>
+    </table>
+  </div>
 
 
-<div class="bottom-table-container">
-  <h3>Company Contacts</h3>
-  <br>
+  <div class="bottom-table-container">
+    <h3>Company Contacts</h3>
+    <br>
     <table class="table-striped company-contacts-edit-table rowlink">
-     <thead class="user-table-head">
-        <th>Name</th>
-        <th>Contact Type</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th></th>
+      <thead class="user-table-head">
+      <th>Name</th>
+      <th>Contact Type</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th></th>
       </thead>
       <tbody id="contact_fields">
       <%= f.simple_fields_for :contacts do |contact| %>
         <%= render 'contact_fields', :f => contact %>
       <% end %>
       </tbody>
-      
+
     </table>
   </div>
 <% end %>

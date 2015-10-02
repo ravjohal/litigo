@@ -93,3 +93,9 @@ $icon-font-path: "/assets/";
 .no-display {
   display: none;
 }
+
+a.paginate_button {
+  &.current {
+    text-decoration: underline;
+  }
+}

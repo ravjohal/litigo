@@ -32,7 +32,7 @@
         <strong>Author:</strong>
         </td>
         <td colspan="2">
-           <%= @note.author %>
+           <%= @note.user.try(:name) %>
         </td>
       </tr>
       <tr>

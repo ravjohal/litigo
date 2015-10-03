@@ -62,7 +62,7 @@
       <% @my_notes.to_a.each do |note| %>
         <tr data-id="<%= note.id %>">
           <td class="case_name"><%= note.case.name if note.case.present? %></td>
-          <td><%= link_to note.author, note_path(note)  %></td>
+          <td><%= link_to note.user.try(:name), note_path(note)  %></td>
           <td><div class="larger-td"><%= note.note %></div></td>
           <td><%= simple_format_datetime_regexp note.created_at %></td>
           <td><%= note.note_type %></td>
@@ -104,7 +104,7 @@
       <% @notes.each do |note| %>
         <tr data-id="<%= note.id %>">
           <td class="case_name doc-link"><%= note.case.name if note.case.present? %></td>
-          <td><%= link_to note.author, note_path(note)  %></td>
+          <td><%= link_to note.user.try(:name), note_path(note)  %></td>
           <td><div class="larger-td"><%= note.note %></div></td>
           <td><%= simple_format_datetime_regexp note.created_at %></td>
           <td><%= note.note_type %></td>

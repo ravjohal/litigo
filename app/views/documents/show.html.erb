@@ -29,7 +29,7 @@
         <strong>Author:</strong>
         </td>
         <td colspan="2">
-        <%= @document.author %>
+        <%= @document.user.try(:name) %>
         </td>
       </tr>
       <tr>

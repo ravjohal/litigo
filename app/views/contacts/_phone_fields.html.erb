@@ -1,11 +1,11 @@
-<%= javascript_include_tag 'contacts/phone_fields', 'data-turbolinks-track' => true %>
-    <tr class="nested-fields phone-field">
-      <td>
-          <%= f.text_field :label, :class => 'table-input', :placeholder => 'New Number' %>
-      </td>
-      <td>
-          <%= f.text_field :number, :class => 'table-input-75 phone', :placeholder => '(___) ___-___', :style => 'style="vertical-align: middle;'%>
-           <%= link_to_remove_association f, class: 'remove pull-right' do %><span id="remove" class="glyphicon glyphicon-remove" style="vertical-align: middle;" original-title="Remove"></span><% end %>
-    </td>
-  </tr>
+<tr class="nested-fields phone-field">
+  <%= javascript_include_tag 'contacts/phone_fields', 'data-turbolinks-track' => true %>
+  <td>
+    <%= f.text_field :label, :class => 'table-input', :placeholder => 'New Number' %>
+  </td>
+  <td>
+    <%= f.text_field :number, :class => 'table-input-75 phone', :placeholder => '(___) ___-___', :style => 'style="vertical-align: middle;'%>
+    <%= link_to_remove_association f, class: 'remove pull-right' do %><span id="remove" class="glyphicon glyphicon-remove" style="vertical-align: middle;" original-title="Remove"></span><% end %>
+  </td>
+</tr>
 

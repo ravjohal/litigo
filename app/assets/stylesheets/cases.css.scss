@@ -356,10 +356,14 @@ overflow: hidden;
     transition: .3s;
     padding-top: 2px;
 }
-
 .case-alert {
 background-color: #ff9499;
 padding: 10px;
 margin-top: -160px;
 border-bottom: 1px solid #ebccd1;
+
+.case_contacts-edit-container{
+  margin: 47px auto;
+  padding-top: 134px;
+  width: 900px;
 }

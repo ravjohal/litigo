@@ -1,0 +1,75 @@
+<%= javascript_include_tag 'insurances/show', 'data-turbolinks-track' => true %>
+<div class="case-header">
+  <div class="case-title">
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-2" style="font-size: 24px;">
+          <strong><%= @case.name %></strong><br>
+        </div>
+        <div class="col-md-7">
+          <%= render partial: 'notes/case_alert' %>
+        </div>
+      </div>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Edit', edit_case_contacts_path(@case), :class => 'dark' %></li>
+        <!-- <li><%= link_to cases_path, :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span>
+        <% end %></li> -->
+        <li>
+          <%= link_to '', :class => 'dark' do %>
+            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <strong>Case #: </strong><%= @case.case_number %>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/case_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="top-table-container">
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td class="right" class="gray-back">
+        <strong>Name</strong>
+      </td>
+      <td class="right" class="gray-back">
+        <strong>Role</strong>
+      </td>
+      <td class="right" class="gray-back">
+        <strong>Main Phone Number</strong>
+      </td>
+      <td class="right" class="gray-back">
+        <strong>Note</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td>
+          <%= contact.contact.try(:name) %>
+        </td>
+        <td>
+          <%= contact.role %>
+        </td>
+        <td>
+          <% #contact.contact.phone_number_1 %>
+        </td>
+        <td>
+          <%= contact.note %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

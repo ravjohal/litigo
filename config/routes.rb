@@ -148,6 +148,9 @@ Rails.application.routes.draw do
   get 'cases/:case_id/assign_contacts' => 'contacts#assign_contacts', as: :assign_contacts
   post 'cases/:case_id/update_case_contacts' => 'contacts#update_case_contacts', as: :update_case_contacts
   post 'cases/:id/copy' => 'cases#create', as: :copy_case_create
+  get 'cases/:id/case_contacts' => 'cases#show_case_contacts', as: :show_case_contacts
+  get 'cases/:id/edit_case_contacts' => 'cases#edit_case_contacts', as: :edit_case_contacts
+  post 'cases/:id/update_case_contacts' => 'cases#update_case_contacts', as: :update_contacts_on_case
   resources :medicals do
     resources :injuries
   end

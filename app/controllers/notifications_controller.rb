@@ -12,10 +12,11 @@ class NotificationsController < ApplicationController
   end
 
   def remove_all
+    @user = current_user
     @notifications = Notification.where(user_id: current_user.id)
     @notifications.destroy_all
     flash[:notice] = "You have removed all notifications!"
-    redirect_to notifications_path
+    redirect_to user_root_path(@user)
   end
 
   def destroy

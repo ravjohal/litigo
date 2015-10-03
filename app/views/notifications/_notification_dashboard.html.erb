@@ -15,7 +15,7 @@
                  <%= distance_of_time_in_words(@from_time, note.created_at,include_seconds: true ) %> ago
                </div>
                <div class="links">
-                 <%= link_to note, :class => 'delete-notification', method: :delete,  data: { confirm: 'Are you sure?' }, :remote => true do %><span id="delete" class="glyphicon glyphicon-remove" title="Delete Notification"></span> <% end %>
+                 <%= link_to note, :class => 'delete-notification', method: :delete, :remote => true do %><span id="delete" class="glyphicon glyphicon-remove" title="Delete Notification"></span> <% end %>
                  <%= link_to "View", note_path(note.note_id), :class=>'view' %>
                </div>
             </div>

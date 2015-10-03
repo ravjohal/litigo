@@ -34,6 +34,8 @@ class Case < ActiveRecord::Base
   has_many :time_entries
   has_many :expenses
 
+  accepts_nested_attributes_for :case_contacts, :reject_if => :all_blank, :allow_destroy => :true
+
   include PgSearch
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
                   using: {tsearch: {dictionary: "english", prefix: true}},

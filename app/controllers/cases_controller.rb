@@ -1,7 +1,7 @@
 class CasesController < ApplicationController
   respond_to :html, :json, :docx
   before_filter :authenticate_user!
-  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc]
+  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc, :show_case_contacts, :edit_case_contacts]
   before_action :set_user, :set_firm
 
   helper DatesHelper
@@ -142,14 +142,44 @@ class CasesController < ApplicationController
     elsif @case.statute_of_limitations_changed? && @case.statute_of_limitations.blank?
       @case.sol_priority = nil
     end
+
+      params[:case][:case_contacts_attributes].each do |case_contact|
+        if case_contact[1][:_destroy] == "1"
+          CaseContact.find(case_contact[1][:id]).destroy!
+        end
+      end
+
     if @case.save
+      @case.case_contacts.each do |case_contact|
+        case_contact.save!
+      end
       @case.check_sol
       if params[:commit] == "Assign Contacts"
         redirect_to case_contacts_path(@case), notice: 'Contacts were successfully assigned.'
+      elsif params[:case][:case_contacts_attributes]
+        redirect_to show_case_contacts_path(@case), notice: 'Contacts were successfully updated.'
       else
         respond_with @case, notice: 'Case was successfully updated.'
       end
 
+    end
+  end
+
+  def show_case_contacts
+    @contacts = @case.case_contacts.order(:created_at)
+  end
+
+  def edit_case_contacts
+    @contacts = @case.case_contacts.order(:created_at)
+  end
+
+  def update_case_contacts
+    
+    respond_to do |format|
+      if @case
+        format.html { redirect_to show_case_contacts_path(@case), notice: 'Contact was successfully updated.' }
+        format.json { render :show, status: :ok, location: @contact }
+      end
     end
   end
 
@@ -191,7 +221,8 @@ class CasesController < ApplicationController
         :interrogatory_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :rep_date, :req_date,
         :children_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :id, :rep_date, :req_date, :_destroy]],
         :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
-        :event_ids => [], :contact_ids => [], :task_ids => [], :document_ids => [], :attorney => [], :staff => [])
+        :case_contacts_attributes => [:id, :case_id, :updated_at, :created_at, :firm_id, :role, :contact_id, :note, :_destroy], 
+        :event_ids => [], :task_ids => [], :document_ids => [], :attorney => [], :staff => [])
     end
 
     def case_contacts_params

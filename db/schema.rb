@@ -611,6 +611,20 @@ ActiveRecord::Schema.define(version: 20151001084634) do
   add_index "notes_users", ["secondary_note_id"], name: "index_notes_users_on_secondary_note_id", using: :btree
   add_index "notes_users", ["secondary_owner_id"], name: "index_notes_users_on_secondary_owner_id", using: :btree
 
+  create_table "notifications", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "notificable_id"
+    t.string   "notificable_type"
+    t.integer  "user_id"
+    t.boolean  "is_read",          default: false
+    t.string   "author"
+    t.integer  "note_id"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "notifications", ["notificable_type", "notificable_id"], name: "index_notifications_on_notificable_type_and_notificable_id", using: :btree
+
   create_table "old_events", force: :cascade do |t|
     t.string   "subject",              limit: 255
     t.string   "location",             limit: 255

@@ -94,15 +94,17 @@
           <strong>Main Phone:</strong>
         </td>
         <td>
-          <%= f.text_field :phone_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+          <%= f.text_field :phone_number, label: false, class: 'table-input-75 phone', placeholder: '(___) ___-___' %>
+        
+          <%= f.text_field :extension, label: false, class: 'table-input-small', placeholder: 'Ext.'  %>
         </td>
       </tr>
       <tr>
         <td class="right">
-          <strong>Ext:</strong>
+          <strong>Main Fax:</strong>
         </td>
         <td>
-          <%= f.text_field :extension, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
+          <%= f.text_field :fax_number, label: false, class: 'table-input phone', placeholder: '(___) ___-___' %>
         </td>
       </tr>
       <tr>

@@ -60,15 +60,16 @@
           <strong>Main Phone:</strong>
         </td>
         <td>
-          <%= @contact.phone_number %>
+          <%= @contact.phone_number %> 
+          Ext. <%= @contact.extension %>
         </td>
       </tr>
       <tr>
-        <td>
-          <strong>Ext:</strong>
+        <td class="right">
+          <strong>Main Fax:</strong>
         </td>
         <td>
-          <%= @contact.extension %>
+          <%= @contact.fax_number %> 
         </td>
       </tr>
       <tr>

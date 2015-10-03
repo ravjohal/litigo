@@ -16,7 +16,7 @@
               <div class="row">
                       	<div class="col-md-3 col-xs-6">
                       	User<br>
-                      		<%= collection_select :contact, :contact_id, @firm.users.include(:contacts).where("type IN ('Attorney', 'Staff')"), :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_user %>
+                      		<%= collection_select :contact, :contact_id, @firm.users.joins(:contacts).where("type IN ('Attorney', 'Staff')").uniq, :id, :name, :include_blank => true, :class => 'table-input', :selected => @selected_user %>
                       	</div>
                       	<div class="col-md-9 col-xs-6">
                       	</div>

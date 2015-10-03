@@ -5,7 +5,7 @@ class CasesByUserReport < Dossier::Report
       AND role IN ('Attorney', 'Staff')
       AND contact_id IN :user_contact_id"
       ).select("last_name, first_name, case_number, name, subtype, status"
-      ).to_sql
+      ).uniq.to_sql
   end
 
   def firm_id

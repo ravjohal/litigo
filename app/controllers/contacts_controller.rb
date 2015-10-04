@@ -61,7 +61,7 @@ class ContactsController < ApplicationController
 
     if get_case
       @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)
-      path_contacts =  case_contacts_path
+      path_contacts =  show_case_contacts_path(@case)
       @contact.case_contacts.each do |case_contact|
         case_contact.role = @contact.type
         case_contact.firm = @firm

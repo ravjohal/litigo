@@ -61,7 +61,7 @@ class ContactsController < ApplicationController
 
     if get_case
       @contact = contact_params[:type] == 'Plaintiff' ? @case.plaintiffs.create(contact_params) : @case.contacts.create(contact_params)
-      path_contacts =  case_contacts_path
+      path_contacts =  show_case_contacts_path(@case)
       @contact.case_contacts.each do |case_contact|
         case_contact.role = @contact.type
         case_contact.firm = @firm
@@ -250,7 +250,7 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:company_name, :first_name, :middle_name, :last_name, :address, :address_2, :city, :state, :ssn, :married, :employed, :parent, :prefix,
+      params.require(:contact).permit(:company_name, :suffix, :first_name, :middle_name, :last_name, :address, :address_2, :city, :state, :ssn, :married, :employed, :parent, :prefix,
                                       :country, :phone_number, :extension, :fax_number, :email, :gender, :age, :type, :case_id, :salary, :website,
                                       :user_id, :user_account_id, :corporation, :note, :firm, :attorney_type, :zip_code, :date_of_birth, :minor, :fax_number_1, :fax_number_2,
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2,

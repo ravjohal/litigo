@@ -1,30 +1,32 @@
 <% shown_title = false %>
-<% @case.notes.each do |note| %>
-    <% if note.case_alert %>
-    <div class="row">
-    <div class="col-md-3">
-    </div>
-      <div class="col-md-6">
-        <div class="case-alert">
-          <div class="row">
-              <div class="col-md-1">
-            <span style="color: white; font-size: 24px; margin-top: 5px;" class="glyphicon glyphicon-exclamation-sign" ></span>
-            </div>
-            <div class="col-md-8">
-          <% unless shown_title %>
-              <strong>Case Alert</strong><br />
-          <% end %>
-          <% shown_title = true %>
-          <%= note.note %>
-          </div>
-          <div class="col-md-3">
-          <div style="float: right;color: #0088CC;margin-top: 10px;">
-            <%= link_to "View Note", note_path(note), :style => "color: #0088CC;" %>
-          </div>
-          </div>
-          </div>
-        </div>
-        </div>
+<% if @case %>
+  <% @case.notes.each do |note| %>
+      <% if note.case_alert %>
+      <div class="row">
+      <div class="col-md-3">
       </div>
-    <% end %>
+        <div class="col-md-6">
+          <div class="case-alert">
+            <div class="row">
+                <div class="col-md-1">
+              <span style="color: white; font-size: 24px; margin-top: 5px;" class="glyphicon glyphicon-exclamation-sign" ></span>
+              </div>
+              <div class="col-md-8">
+            <% unless shown_title %>
+                <strong>Case Alert</strong><br />
+            <% end %>
+            <% shown_title = true %>
+            <%= note.note %>
+            </div>
+            <div class="col-md-3">
+            <div style="float: right;color: #0088CC;margin-top: 10px;">
+              <%= link_to "View Note", note_path(note), :style => "color: #0088CC;" %>
+            </div>
+            </div>
+            </div>
+          </div>
+          </div>
+        </div>
+      <% end %>
+  <% end %>
 <% end %>

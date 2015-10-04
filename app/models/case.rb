@@ -2,7 +2,7 @@ class Case < ActiveRecord::Base
 
   TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Estates', 'Family Law', 'Immigration', 'Personal Injury', 'Probate', 'Real Estate', 'Taxation', 'Traffic', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
-  STATUS = ['Active', 'Done Treating', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
+  STATUS = ['Active', 'Treating', 'Done Treating', 'Finals Requested', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
 
   #enum status: { open: 0, pending: 1, closed: 2 }
 

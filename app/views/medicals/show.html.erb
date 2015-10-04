@@ -192,26 +192,30 @@
       <% @medical.medical_bills.each do |med| %>
         <tr class="nested-fields medical-bill-field">
             <td colspan="2">
-             <strong>Date of Service</strong><br>
-              <%= simple_format_date_regexp med.date_of_service if med.date_of_service.present? %>
-            </td>
-             <td colspan="2">
-            <strong>Provider</strong><br>
-              <%= med.company.name if med.company %>
-            </td>
-             <td colspan="4">
-             <strong>Services Rendered</strong><br>
-              <%= med.services %>
-            </td>
-          </tr>
-          <tr class="nested-fields medical-bill-field" style="border-bottom: 2px solid black">
-            <td colspan="2">
               <strong>Physician</strong><br>
               <%= med.physician.name if med.physician %>
             </td>
             <td colspan="2">
                 <strong>Account Number</strong><br>
               <%= med.account_number if med.account_number %>
+            </td>
+             <td colspan="2">
+            <strong>Provider</strong><br>
+              <%= med.company.name if med.company %>
+            </td>
+             <td colspan="2">
+             <strong>Services Rendered</strong><br>
+              <%= med.services %>
+            </td>
+          </tr>
+          <tr class="nested-fields medical-bill-field" style="border-bottom: 2px solid black">
+          <td colspan="2">
+             <strong>First Date of Service</strong><br>
+              <%= simple_format_date_regexp med.date_of_service if med.date_of_service.present? %>
+            </td>
+            <td colspan="2">
+             <strong>Last Date of Service</strong><br>
+              <%= simple_format_date_regexp med.last_date_of_service if med.date_of_service.present? %>
             </td>
             <td style="text-align: right;">
             <strong>Billed</strong><br>

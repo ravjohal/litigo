@@ -167,6 +167,7 @@ class CasesController < ApplicationController
 
   def show_case_contacts
     @contacts = @case.case_contacts.order(:created_at)
+    @contacts_a = [@case, Contact.new] #for modal partial rendering
   end
 
   def edit_case_contacts

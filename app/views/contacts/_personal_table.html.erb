@@ -39,19 +39,20 @@
         <td>
           <%= @contact.prefix %>
         </td>
-          <td class="right">
-          <strong>First Name:</strong>
-        </td>
-        <td>
-          <%= @contact.first_name %>
-        </td>
-        </tr>
-        <tr>
         <td class="right">
           <strong>Middle Name:</strong>
         </td>
         <td>
           <%= @contact.middle_name %>
+        </td>
+          
+        </tr>
+        <tr>
+        <td class="right">
+          <strong>First Name:</strong>
+        </td>
+        <td>
+          <%= @contact.first_name %>
         </td>
         <td class="right">
           <strong>Last Name:</strong>
@@ -61,10 +62,16 @@
         </td>
         </tr>
         <tr>
+         <td class="right">
+          <strong>Suffix:</strong>
+        </td>
+        <td class="right">
+          <%= @contact.suffix %>
+        </td>
           <td class="right">
           <strong>Gender:</strong>
         </td>
-        <td colspan="3">
+        <td class="right">
           <%= @contact.gender %>
         </td>
         </tr>

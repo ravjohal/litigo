@@ -167,18 +167,19 @@
         <%= f.select :prefix, ['Mr.', 'Mrs.', 'Ms.', 'Dr.'], label: false, :class => 'table-input', :include_blank => '' %>
       </td>
       <td class="right">
-        <strong>First Name:</strong>
-      </td>
-      <td>
-        <%= f.text_field :first_name, :class => 'table-input' %>
-      </td>
-    </tr>
-    <tr>
-      <td class="right">
         <strong>Middle Name:</strong>
       </td>
       <td>
         <%= f.text_field :middle_name, :class => 'table-input' %>
+      </td>
+      
+    </tr>
+    <tr>
+      <td class="right">
+        <strong>First Name:</strong>
+      </td>
+      <td>
+        <%= f.text_field :first_name, :class => 'table-input' %>
       </td>
       <td class="right">
         <strong>Last Name:</strong>
@@ -188,10 +189,16 @@
       </td>
     </tr>
     <tr>
+    <td class="right">
+        <strong>Suffix:</strong>
+      </td>
+      <td>
+        <%= f.text_field :suffix, :class => 'table-input' %>
+      </td>
       <td class="right">
         <strong>Gender:</strong>
       </td>
-      <td colspan="3">
+      <td class="right">
         <div class="radio">
           <%= f.radio_button :gender, 'M' %>
           <%= label :gender, 'Male' %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001084634) do
+ActiveRecord::Schema.define(version: 20151004001334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -197,6 +197,7 @@ ActiveRecord::Schema.define(version: 20151001084634) do
     t.string   "company_name"
     t.string   "extension"
     t.string   "address_2"
+    t.string   "suffix"
   end
 
   add_index "contacts", ["case_id"], name: "index_contacts_on_case_id", using: :btree
@@ -512,8 +513,8 @@ ActiveRecord::Schema.define(version: 20151001084634) do
     t.date     "date_of_service"
     t.decimal  "billed_amount"
     t.decimal  "paid_amount"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "company_id"
     t.integer  "medical_id"
     t.integer  "parent_id"
@@ -524,6 +525,7 @@ ActiveRecord::Schema.define(version: 20151001084634) do
     t.decimal  "adjustments"
     t.string   "account_number"
     t.string   "services"
+    t.date     "last_date_of_service"
   end
 
   add_index "medical_bills", ["case_id"], name: "index_medical_bills_on_case_id", using: :btree

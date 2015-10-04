@@ -76,11 +76,11 @@
         </td>
       </tr>
       <tr>
-        <td class="right big-row">
-          <strong>Case Alert:</strong>
+        <td class="right">
+          <strong>Case Alert?</strong>
         </td >
-        <td colspan="2" class="big-row">
-          <%= @note.case_alert %>
+        <td colspan="2">
+          <%= boolean_as_yesno @note.case_alert %>
         </td>
       </tr>
   </tbody>

@@ -7,7 +7,7 @@
           <%= f.input :role, collection: Contact::TYPES, :prompt => "Add Role", :class => 'table-input', :label => false %>
       </td>
       <td>
-          <%= f.input :note, :prompt => "Add Note", :class => 'table-input', :label => false %>
+          <%= f.text_field :note, :prompt => "Add Note", :class => 'table-input', :label => false %>
       </td>
           <%= f.hidden_field :firm_id, :value => @firm.id %>
       <td class="insurance-icon" style="text-align: center;">

@@ -70,22 +70,15 @@
           <strong>Type:</strong>
         </td>
         <td colspan="2">
-           <%= f.select :note_type, ['Status', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand', 'Bankruptcy', 'Medical/Review', 'Communication w/ Client', 'Deposition'], label: false, :class => 'table-input' %>
+           <%= f.select :note_type, ['General', 'Update','Status Update', 'Phone Call', 'Email', 'Communication w/ Client', 'Medical/Review', 'Treatment Update', 'Done Treating', 'Property Damage', 'Adjustor Update', 'Deposition', 'Lit Follow Up', 'Settlement Offer', 'Settlement Demand' ], label: false, :class => 'table-input' %>
         </td>
       </tr>
       <tr>
         <td class="right big-row">
           <strong>Note:</strong>
         </td >
-        <td colspan="2" class="big-row">
+        <td colspan="2" class="big-row" style="padding-bottom: 20px;">
           <%= f.text_area :note, :class => 'table-text' %>
-        </td>
-      </tr>
-      <tr>
-        <td class="right big-row">
-          <strong>Case Alert:</strong>
-        </td >
-        <td colspan="2" class="big-row">
           <%= f.check_box :case_alert, {}  %> Make this note a Case Alert
         </td>
       </tr>

@@ -12,7 +12,7 @@
       <li<%= is_active('insurance') %>><%= active_link_to 'Insurance', case_insurance_path(@case, @case.insurance), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.contacts %>
-      <li><%= active_link_to 'Contacts', show_case_contacts_path(@case), :class_active => 'navigated', :active => [['contacts'], ['index', 'assign_contacts']] %></li>
+      <li><%= active_link_to 'Contacts', show_case_contacts_path(@case), :class_active => 'navigated', :active => [['cases'], ['show_case_contacts', 'edit_case_contacts']] %></li>
   <% end %>
   <% if @case.tasks %>
       <li><%= active_link_to 'Tasks', case_tasks_path(@case), :class_active => 'navigated' %></li>

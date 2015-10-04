@@ -508,21 +508,6 @@ ActiveRecord::Schema.define(version: 20151004001334) do
   add_index "leads", ["firm_id"], name: "index_leads_on_firm_id", using: :btree
   add_index "leads", ["status"], name: "index_leads_on_status", using: :btree
 
-  create_table "litigations", force: :cascade do |t|
-    t.integer  "firm_id"
-    t.integer  "case_id"
-    t.integer  "parent_id"
-    t.integer  "user_id"
-    t.string   "requester"
-    t.string   "responder"
-    t.text     "interrogatory"
-    t.text     "int_reply"
-    t.date     "int_date"
-    t.date     "reply_date"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-  end
-
   create_table "medical_bills", force: :cascade do |t|
     t.string   "provider"
     t.date     "date_of_service"

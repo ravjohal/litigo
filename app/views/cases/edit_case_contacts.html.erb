@@ -7,7 +7,7 @@
       </div>
       <div id="case-buttons">
         <ul>
-          <li><%= link_to 'Cancel', @case, :class => 'dark' %></li>
+          <li><%= link_to 'Cancel', show_case_contacts_path(@case), :class => 'dark' %></li>
           <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save' %></li>
         </ul>
       </div>

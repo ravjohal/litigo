@@ -6,12 +6,12 @@
       <td>
           <%= f.input :role, collection: Contact::TYPES, :prompt => "Add Role", :class => 'table-input', :label => false %>
       </td>
-      <td>
-          <%= f.text_field :note, :prompt => "Add Note", :class => 'table-input', :label => false %>
-      </td>
+      <td colspan="2">
+          <%= f.text_field :note, :prompt => "Add Note", :class => 'table-input-75', :label => false %>
+      
           <%= f.hidden_field :firm_id, :value => @firm.id %>
-      <td class="insurance-icon" style="text-align: center;">
-          <%= link_to_remove_association f, class: 'dark-small remove_case_contacts' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Contact"></span><% end %>
+      
+          <%= link_to_remove_association f, class: 'dark-small remove_case_contacts' do %><span id="remove" class="glyphicon glyphicon-remove pull-right" original-title="Remove Contact"></span><% end %>
       </td>
   </tr>
 

@@ -1,0 +1,27 @@
+<%= javascript_include_tag 'notifications/index' %>
+<div class="container-fluid" style="padding: 0;">
+  <div class="row">
+    <div class="col-md-6">
+      <% if @notifications.to_a.empty? %>
+        
+      <% else %>
+        <% @notifications.to_a.each do |note| %>
+          <% if note.notificable_type == 'NotesUser' %>
+            <div class="each_notification">
+               <div class="author_field">
+                 <%= note.author %> <div class="some_text">copied you on a note</div>
+               </div>
+               <div class="time">
+                 <%= distance_of_time_in_words(@from_time, note.created_at,include_seconds: true ) %> ago
+               </div>
+               <div class="links">
+                 <%= link_to note, :class => 'delete-notification', method: :delete, :remote => true do %><span id="delete" class="glyphicon glyphicon-remove" title="Delete Notification"></span> <% end %>
+                 <%= link_to "View", note_path(note.note_id), :class=>'view' %>
+               </div>
+            </div>
+          <% end%>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

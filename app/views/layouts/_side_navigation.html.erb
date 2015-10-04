@@ -1,7 +1,11 @@
 <ul class="nav nav-sidebar">
-  <!-- <li>
+   <li>
+  <% if have_notification? %>
+    <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh_notif', :active => [['dashboards', 'new']] %>
+  <% else %>
     <%= active_link_to "Dashboard", user_root_path(@user), :class_active => 'tester', :class => 'nav-sidebar__dsh', :active => [['dashboards', 'new']] %>
-  </li> -->
+  <% end %>
+  </li>
   <li>
     <%= active_link_to "Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cli', :id => 'client-intake', :active => [['client_intakes'], []] %>
   </li>

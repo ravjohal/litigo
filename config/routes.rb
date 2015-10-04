@@ -39,7 +39,6 @@ Rails.application.routes.draw do
   resources :task_lists
   post 'task_lists/import_to_case' => 'task_lists#import_to_case', as: :task_lists_import_to_case
   resources :firms
-
   resources :notes
 
   get '/documents/preview/:id' => 'documents#preview'
@@ -57,6 +56,9 @@ Rails.application.routes.draw do
   resources :tasks
   post 'tasks/complete_task' => 'tasks#complete_task'
   get 'get_tasks' => 'tasks#get_tasks', as: :get_tasks
+  match "/notifications/remove_all", to: "notifications#remove_all", via: [:delete], as: :remove_all_notifications
+  resources :notifications
+
 
   resources :contacts
   get '/companies' => 'contacts#companies', as: :companies

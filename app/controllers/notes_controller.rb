@@ -67,6 +67,13 @@ class NotesController < ApplicationController
 
     respond_to do |format|
       if @note.save
+        if note_params[:notes_users_attributes]
+          count_cc = note_params[:notes_users_attributes].count
+          last_notes_user = NotesUser.last(count_cc)
+          last_notes_user.each do |notification|
+            notification.notifications.create(content: @note.note, author: @note.author, note_id: @note.id, user_id: notification.secondary_owner_id)
+          end
+        end
         if note_params[:add_task]
           task = Task.new(name: note_params[:task_name], due_date: note_params[:task_due_date], sms_reminder: note_params[:task_sms_reminder],
                              email_reminder: note_params[:task_email_reminder], description: note_params[:task_description],

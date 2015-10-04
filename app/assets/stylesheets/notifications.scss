@@ -1,0 +1,64 @@
+// Place all the styles related to the notifications controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.each_notification {
+  display: table;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 15px 10px 15px 40px;
+  margin-bottom:5px;
+  border-radius: 8px;
+  border: 1px solid #999999;
+
+}
+
+.view {
+  float: right;
+  background-color: #BBBBBB;
+  color: black;
+  border-radius: 3px;
+  border: 1px solid #999999;
+  padding: 5px 20px 5px 20px;
+  font-size: 16px;
+}
+
+.remove_all {
+  background-color: transparent;
+  color: black;
+  margin-left: 20px;
+  font-size: 14px;
+}
+
+.delete-notification {
+  float: right;
+  color: grey;
+  padding-top: 7px;
+  padding-left: 30px;
+  padding-right: 15px;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.time{
+  color: #898989;
+}
+.links {
+  display: table-cell;
+  vertical-align: middle;
+  color: #0088CC;
+}
+
+
+.author_field {
+  color: #0088CC;
+  font-weight: bold;
+  display: inline;
+}
+
+.some_text {
+  color: black;
+  font-weight: normal;
+  display: inline;
+}
+

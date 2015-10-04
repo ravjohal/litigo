@@ -1,0 +1,13 @@
+
+  <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
+  Notifications
+  <% if !@notifications.empty? %>
+    <%= link_to "Remove All", remove_all_notifications_path, :class=>'remove_all', :method => :delete %>
+  <% end %>
+</div>
+<br />
+
+<%= render partial: 'notifications/notification_dashboard' %>
+
+
+

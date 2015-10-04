@@ -4,11 +4,15 @@
   <td colspan="7" style="padding: 0;">
     <table>
       <tr>
-        <td colspan="1">
-          <strong>Date of Service</strong><br>
-          <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
+      <td>
+          <strong>Physician</strong><br>
+          <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
         </td>
-        <td colspan="3">
+        <td colspan="1">
+          <strong>Account Number</strong><br>
+          <%= f.text_field :account_number, label: false, :class => 'table-input' %>
+        </td>
+        <td colspan="1">
           <strong>Provider</strong><br>
           <%= f.association :company, :collection => @firm.contacts, label: false, :class => 'table-input', :id => 'company' %>
         </td>
@@ -19,13 +23,13 @@
         </td>
       </tr>
       <tr>
-        <td>
-          <strong>Physician</strong><br>
-          <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
+        <td colspan="1">
+          <strong>First Date of Service</strong><br>
+          <%= f.date_field :date_of_service, label: false, :class => 'table-input' %>
         </td>
-        <td colspan="3">
-          <strong>Account Number</strong><br>
-          <%= f.text_field :account_number, label: false, :class => 'table-input' %>
+        <td colspan="1">
+          <strong>Last Date of Service</strong><br>
+          <%= f.date_field :last_date_of_service, label: false, :class => 'table-input' %>
         </td>
         <td>
           <strong>Billed</strong><br>

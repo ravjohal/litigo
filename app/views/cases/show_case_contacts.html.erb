@@ -58,8 +58,8 @@
     <tbody>
     <% @contacts.each do |contact| %>
       <tr>
-        <td>
-          <%= contact.contact.try(:name) %>
+        <td class="doc-link">
+          <%= link_to contact.contact.try(:name), contact.contact %>
         </td>
         <td>
           <%= contact.role %>

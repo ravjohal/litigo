@@ -37,6 +37,7 @@ class ClientIntakesController < ApplicationController
 
   # GET /client_intakes/1/edit
   def edit
+    @@before_attorney_id = @lead.attorney_id
   end
 
   def edit_lead_contact
@@ -64,8 +65,15 @@ class ClientIntakesController < ApplicationController
   # PATCH/PUT /client_intakes/1
   # PATCH/PUT /client_intakes/1.json
   def update
+
     respond_to do |format|
       if @lead.update(client_intake_params)
+        if @lead.update_attributes(params[:attorney_id])
+          #if @lead.screener_id != @@before_attorney_id
+            @lead.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @@before_attorney_id, is_remove: true)
+            @lead.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @lead.attorney.id)
+          #end
+        end
         format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully updated.' }
         format.json { render :show, status: :ok, location: @lead }
       else

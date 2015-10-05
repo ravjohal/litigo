@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'contacts/form', 'data-turbolinks-track' => true %>
 <%= simple_form_for(new_contact) do |f| %>
   <%= f.error_notification %>
-  <% if (action_name == "index" || action_name == "companies") || (controller_name == 'dashboards' && action_name == 'new') %>
+  <% if (%w(index companies show_case_contacts).include? action_name ) || (controller_name == 'dashboards' && action_name == 'new') %>
     <!--only render html from 'if' to 'end' if the controller action this form was rendered from was 'index'; reason for this is because this form is used in 'new' and 'edit' actions; reason we aren't checking for if action_name == 'new' is because this is a modal that is rendered from the index action -->
     <div class="modal-dialog">
       <div class="modal-content">
@@ -150,7 +150,7 @@
     </tbody>
   </table>
   <br>
-  <% if (action_name == "index" || action_name == "companies") || (controller_name == 'dashboards' && action_name == 'new') %>
+  <% if (%w(index companies show_case_contacts).include? action_name ) || (controller_name == 'dashboards' && action_name == 'new') %>
     </div><!--end of modal-body-->
     <div class="modal-footer">
       <div class="pull-left">
@@ -162,7 +162,7 @@
     <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
   </div>
 
-  <% if (action_name == "index" || action_name == "companies") || (controller_name == 'dashboards' && action_name == 'new') %>
+  <% if (%w(index companies show_case_contacts).include? action_name ) || (controller_name == 'dashboards' && action_name == 'new') %>
     </div><!--end of modal-footer-->
     </div><!--end of modal-content-->
     </div><!--end of modal-dialog-->

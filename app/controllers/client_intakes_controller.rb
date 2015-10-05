@@ -50,6 +50,8 @@ class ClientIntakesController < ApplicationController
     @lead.screener_id = current_user.id
     respond_to do |format|
       if @lead.save
+        last_notes_user = Lead.last
+        last_notes_user.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @lead.attorney.id)
         format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else

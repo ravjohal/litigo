@@ -8,6 +8,7 @@ class Lead < ActiveRecord::Base
   has_one :contact #the contact that gets created once lead has been assigned to a case
   belongs_to :referring_contact, class_name: 'Contact', :foreign_key => 'referring_contact_id'
   has_many :documents
+  has_many :notifications, as: :notificable
 
   CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Phone book', 'Other']
   STATUS = {

@@ -8,6 +8,38 @@
             var id = $(e.currentTarget).data('id');
             $('table.rowlink').rowlink()
         });
+
+        var cases_scope = {user_cases: 'open_cases_scope', cases: 'open_cases_scope'};
+
+        $('.table').each(function(i, table) {
+            $(table).dataTable({
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search",
+                    lengthMenu: "View _MENU_"
+                },
+                sDom: '<"toolbar">Rfrtlip',
+                aaSorting: [[ 0, "desc" ]],
+                bProcessing: true,
+                bServerSide: true,
+                sAjaxSource: $(table).data('source'),
+                fnServerParams: function ( aoData ) {
+                    aoData.push( {'name': "casesScope", 'value': cases_scope[$(table).attr('id')] } );
+                }
+            });
+        });
+
+        $("div.toolbar").html("<%= render(partial: 'cases/filter_button') %>");
+
+        $('.case-filter .dropdown-menu li a').click(function (e) {
+            e.preventDefault();
+            var text = $(this).text();
+            var cases_owner = $(this).closest('.case-filter').closest('.dataTables_wrapper').find('.table').attr('id');
+            $(this).closest('.case-filter').find('a.btn-default').html(text.toUpperCase()+" <span class='caret'></span>");
+            var table = $('#'+cases_owner).dataTable();
+            cases_scope[cases_owner] = $(this).data('scope');
+            table.fnDraw();
+        });
     });
   </script>
 <% end %>

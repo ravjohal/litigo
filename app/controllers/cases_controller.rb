@@ -143,7 +143,7 @@ class CasesController < ApplicationController
       @case.sol_priority = nil
     end
 
-      params[:case][:case_contacts_attributes].each do |case_contact|
+      params[:case][:case_contacts_attributes].to_a.each do |case_contact|
         if case_contact[1][:_destroy] == "1"
           CaseContact.find(case_contact[1][:id]).destroy!
         end

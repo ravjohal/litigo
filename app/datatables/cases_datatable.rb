@@ -45,9 +45,9 @@ class CasesDatatable
   def fetch_cases
     #fetch_model = @user_cases ? @user : @firm
     if @user_cases
-      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:user_account_id => @user.id}).uniq
+      cases = @firm.cases.joins(:contacts => [:user]).where(:contacts => {:user_account_id => @user.id}).uniq.send(params[:casesScope])
     else
-      cases = @firm.cases
+      cases = @firm.cases.send(params[:casesScope])
     end
 
     if params[:iSortCol_0].to_i == 3

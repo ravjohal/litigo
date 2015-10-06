@@ -118,12 +118,22 @@
 
                 this.stepBodyWidth = $stepBody.width();
 
-                $stepBody.css({
-                    position: 'relative',
-                    width: this.stepBodyWidth,
-                    height: $stepBody.height(),
-                    overflow: 'hidden'
-                });
+                if (index == 1) {
+                    $stepBody.css({
+                        position: 'relative',
+                        width: this.stepBodyWidth,
+                        height: $stepBody.height(),
+                        'overflow-y': 'auto'
+                    });
+                } else {
+                    $stepBody.css({
+                        position: 'relative',
+                        width: this.stepBodyWidth,
+                        height: $stepBody.height(),
+                        overflow: 'hidden'
+                    });
+                }
+
 
                 $stepBody.find('.step-body-item').css({
                     position: 'absolute',

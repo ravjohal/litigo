@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004001334) do
+ActiveRecord::Schema.define(version: 20151006170243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -623,6 +623,7 @@ ActiveRecord::Schema.define(version: 20151004001334) do
     t.integer  "note_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.boolean  "is_remove",        default: false
   end
 
   add_index "notifications", ["notificable_type", "notificable_id"], name: "index_notifications_on_notificable_type_and_notificable_id", using: :btree
@@ -675,6 +676,7 @@ ActiveRecord::Schema.define(version: 20151004001334) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "firm_id"
+    t.string   "extension"
   end
 
   add_index "phones", ["contact_id"], name: "index_phones_on_contact_id", using: :btree
@@ -871,6 +873,7 @@ ActiveRecord::Schema.define(version: 20151004001334) do
     t.string   "events_color"
     t.boolean  "edit_events_permit",                 default: false
     t.boolean  "disabled",                           default: false
+    t.integer  "confirm_step",                       default: 1
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

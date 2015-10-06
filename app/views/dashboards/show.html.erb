@@ -1,134 +1,134 @@
 <%= javascript_include_tag 'dashboards/show', 'data-turbolinks-track' => true %>
 <% if @user.show_onboarding %>
 
-<div class="row">
+  <div class="row">
     <div class="col-md-6">
-          <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
-                Quick Links
-          </div>
-<div class="row">
-   <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to events_path do %>
-            <div class="tile-new-green">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-calendar"></span></div>
-                  <div class="tile-text">View Calendar</div>
-            </div>
-    <% end %>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to cases_path do %>
-            <div class="tile-new-green">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-open"></span></div>
-                  <div class="tile-text">View Cases</div>
-            </div>
-    <% end %>
-    </div>
-      <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to tasks_path do %>
-            <div class="tile-new-green">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-list-alt"></span></div>
-                  <div class="tile-text">View Task List</div>
-            </div>
-    <% end %>
-    </div>
-  </div>
-
- <div class="row">
-    <div class="col-md-12">
-          <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
-                New Actions
-          </div>
-    </div>
-</div>
-  <div class="row">
-     <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_lead_path, class: 'new-modal', data: {id: 'lead'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-edit"></span></div>
-                  <div class="tile-text">New Caller Intake</div>
-            </div>
-    <% end %>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_case_path, class: 'new-modal3', data: {id: 'case'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-close"></span></div>
-                  <div class="tile-text">New Case</div>
-            </div>
-    <% end %>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_contact_path, class: 'new-modal', data: {id: 'contact'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
-                  <div class="tile-text">New Contact</div>
-            </div>
-      <% end %>
+      <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
+        Quick Links
       </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_task_path, class: 'new-modal', data: {id: 'task'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-check"></span></div>
-                  <div class="tile-text">New Task</div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to events_path do %>
+            <div class="tile-new-green">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-calendar"></span></div>
+              <div class="tile-text">View Calendar</div>
             </div>
-      <% end %>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_document_path, class: 'new-modal', data: {id: 'document'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-file"></span></div>
-                  <div class="tile-text">New Document</div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to cases_path do %>
+            <div class="tile-new-green">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-open"></span></div>
+              <div class="tile-text">View Cases</div>
             </div>
-    <% end %>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_note_path, class: 'new-modal', data: {id: 'note'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-pencil"></span></div>
-                  <div class="tile-text">New Note</div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to tasks_path do %>
+            <div class="tile-new-green">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-list-alt"></span></div>
+              <div class="tile-text">View Task List</div>
             </div>
-      <% end %>
-    </div>
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_event_path, class: 'new-modal', data: {id: 'event'} do %>
-            <div class="tile-new-grey">
-                  <div class="tile-icon-new"><span class="glyphicon glyphicon-flag"></span></div>
-                  <div class="tile-text">New Event</div>
-            </div>
-      <% end %>
-    </div>
-  </div>
+          <% end %>
+        </div>
+      </div>
 
-
-<div class="row">
-    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12">
           <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
-                Getting Started
+            New Actions
           </div>
-    </div>
-</div>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_lead_path, class: 'new-modal', data: {id: 'lead'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-edit"></span></div>
+              <div class="tile-text">New Caller Intake</div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_case_path, class: 'new-modal3', data: {id: 'case'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-folder-close"></span></div>
+              <div class="tile-text">New Case</div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_contact_path, class: 'new-modal', data: {id: 'contact'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
+              <div class="tile-text">New Contact</div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_task_path, class: 'new-modal', data: {id: 'task'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-check"></span></div>
+              <div class="tile-text">New Task</div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_document_path, class: 'new-modal', data: {id: 'document'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-file"></span></div>
+              <div class="tile-text">New Document</div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_note_path, class: 'new-modal', data: {id: 'note'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-pencil"></span></div>
+              <div class="tile-text">New Note</div>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_event_path, class: 'new-modal', data: {id: 'event'} do %>
+            <div class="tile-new-grey">
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-flag"></span></div>
+              <div class="tile-text">New Event</div>
+            </div>
+          <% end %>
+        </div>
+      </div>
 
-  <div class="row">
-    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to login_path do %>
+
+      <div class="row">
+        <div class="col-md-12">
+          <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
+            Getting Started
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to login_path do %>
             <div class="tile-new">
-                      <div class="tile-icon-new"><span class="glyphicon glyphicon-calendar"></span></div>
-                      <div class="tile-text">Add Calendar</div>
+              <div class="tile-icon-new"><span class="glyphicon glyphicon-calendar"></span></div>
+              <div class="tile-text">Add Calendar</div>
             </div>
-    <% end %>
-    </div>
-    <% if @user.admin? %>
-      <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_invitation_path(@user) do %>
+          <% end %>
+        </div>
+        <% if @user.admin? %>
+          <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to new_invitation_path(@user) do %>
               <div class="tile-new">
-                    <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
-                    <div class="tile-text">Add Users to Firm</div>
+                <div class="tile-icon-new"><span class="glyphicon glyphicon-user"></span></div>
+                <div class="tile-text">Add Users to Firm</div>
               </div>
-      <% end %>
-      </div>
-    <% end %>
+            <% end %>
+          </div>
+        <% end %>
 
-  </div>
- </div>
-  <div class="col-md-6">
-    <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
-    Notifications
-      <% if !@notifications.empty? %>
-          <%= link_to "Remove All", remove_all_notifications_path, :class=>'remove_all', :method => :delete %>
-      <% end %>
+      </div>
     </div>
-    <br />
-    <%= render partial: 'notifications/dashboard_notifications' %>
+    <div class="col-md-6">
+      <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
+        Notifications
+        <% if !@notifications.empty? %>
+          <%= link_to "Remove All", remove_all_notifications_path, :class => 'remove_all', :method => :delete %>
+        <% end %>
+      </div>
+      <br/>
+      <%= render partial: 'notifications/dashboard_notifications' %>
+    </div>
   </div>
-</div>
 
 <% else %>
   <h3>User</h3>

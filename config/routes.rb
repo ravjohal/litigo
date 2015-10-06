@@ -78,6 +78,8 @@ Rails.application.routes.draw do
 
   root :to => "visitors#index"
   get '/onboarding' => 'dashboards#new'
+  post '/save_confirm_step' => 'dashboards#save_step'
+  get '/finish_registration' => 'dashboards#finish_registration'
   get '/dashboard/:id' => 'dashboards#show'
   get '/get_counties_by_state' => 'insights#get_counties_by_state'
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
@@ -92,6 +94,7 @@ Rails.application.routes.draw do
   get  "dropbox/auth_start"
   get  "dropbox/auth_finish"
   get 'login_callback' => 'nylas#login_callback'
+  get 'login_callback_close' => 'nylas#login_callback_close'
   get 'login' => 'nylas#login'
   resources :namespaces
   post 'get_events' => 'namespaces#get_events', as: :get_events

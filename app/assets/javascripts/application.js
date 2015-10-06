@@ -81,6 +81,15 @@ var ready = function(){
     if ($(".welcome-link").length !== 0) {
         fm.init(fm_options);
     }
+
+    window.add_message = function(name, message, _class) {
+        var html = '';
+        html += '<div class="alert alert-' + _class + '">';
+        html += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+        html += '<div id="flash_' + name + '">' + message + '</div>';
+        html += '</div>';
+        $('#page_content_wrapper_start').prepend(html);
+    };
 };
 
 $(document).ready(ready);

@@ -6,8 +6,6 @@
           <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
                 Quick Links
           </div>
-
-
 <div class="row">
    <div class="col-xs-6 col-sm-3 col-md-4"><%= link_to events_path do %>
             <div class="tile-new-green">
@@ -122,8 +120,8 @@
  </div>
   <div class="col-md-6">
     <div style="font-size: 24px; text-shadow: 0 1px 0 #fff; color: #323A45;">
+    Notifications
       <% if !@notifications.empty? %>
-          Notifications
           <%= link_to "Remove All", remove_all_notifications_path, :class=>'remove_all', :method => :delete %>
       <% end %>
     </div>

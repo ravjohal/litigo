@@ -1,0 +1,53 @@
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong>Account Settings</strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li></li>
+
+      </ul>
+    </div>
+  </div>
+  <strong style="color: white;">A</strong>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/profile_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+<% if @own_subscriptions.present? %>
+<div class="row">
+  <div class="col-md-12" style="margin-top: 130px;">
+    <% @own_subscriptions.each do |subscription| %>
+      <p><%= date_to_input_regexp subscription.created_at %> You have signed up for the <strong><%= subscription.plan.name %></strong> plan for just <strong><%= number_to_currency subscription.plan.price * @firm.users.count %></strong> <%= subscription.plan.price_description %> </p>
+    <% end %>
+  </div>
+</div>
+<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <div id="plans">
+      <h2>Plans</h2>
+      <% @plans.each do |plan| %>
+        <div class="plan">
+          <div class="name"><%= plan.name %></div>
+          <div class="details">
+            <div class="price">
+              <%= number_to_currency plan.price * @firm.users.count, :precision => 0 %>
+            </div>
+            <div class="per_month"><%= plan.price_description %></div>
+            <div class="signup">
+              <%= link_to "Sign up", new_subscription_path(:plan_id => plan.id) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>

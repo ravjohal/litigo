@@ -1,0 +1,86 @@
+<%= javascript_include_tag 'subscriptions/new', 'data-turbolinks-track' => true %>
+<div class="case-header">
+  <div class="case-title">
+    <div style="font-size: 24px;">
+      <strong>Account Settings</strong><br>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li></li>
+
+      </ul>
+    </div>
+  </div>
+  <strong style="color: white;">A</strong>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/profile_tabs' %>
+      </div>
+    </div>
+  </div>
+</div>
+<div style="margin-top: 140px;">
+  <%= form_for @subscription do |f| %>
+    <% if @subscription.errors.any? %>
+        <div class="error_messages">
+          <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+          <ul>
+            <% @subscription.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <table>
+      <%= f.hidden_field :plan_id %>
+      <%= f.hidden_field :stripe_card_token %>
+      <tr>
+        <td>
+          <strong>Email:</strong>
+        </td>
+        <td>
+          <%= f.text_field :email %>
+        </td>
+      </tr>
+      <% if @subscription.stripe_card_token.present? %>
+         Credit card has been provided.
+      <% else %>
+          <tr>
+            <td>
+             <strong>Credit Card Number</strong>
+            </td>
+            <td>
+              <%= text_field_tag :card_number, nil, name: nil %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Security Code on Card (CVV)</strong>
+            </td>
+            <td>
+              <%= text_field_tag :card_code, nil, name: nil %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Card Expiration</strong>
+            </td>
+            <td>
+              <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
+              <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
+            </td>
+          </tr>
+      <% end %>
+
+      <tr>
+        <td>
+        </td>
+        <td>
+          <%= f.submit "Subscribe", :class => 'btn btn-primary' %>
+        </td>
+      </tr>
+    </table>
+  <% end %>
+</div>

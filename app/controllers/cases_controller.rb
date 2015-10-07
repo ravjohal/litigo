@@ -143,15 +143,19 @@ class CasesController < ApplicationController
       @case.sol_priority = nil
     end
 
+    if params[:case][:case_contacts_attributes]
       params[:case][:case_contacts_attributes].each do |case_contact|
         if case_contact[1][:_destroy] == "1"
           CaseContact.find(case_contact[1][:id]).destroy!
         end
       end
+    end
 
     if @case.save
-      @case.case_contacts.each do |case_contact|
-        case_contact.save!
+      if @case.case_contacts
+        @case.case_contacts.each do |case_contact|
+          case_contact.save!
+        end
       end
       @case.check_sol
       if params[:commit] == "Assign Contacts"

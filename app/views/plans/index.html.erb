@@ -30,7 +30,11 @@
 </div>
 <% end %>
 <div class="row">
-  <div class="col-md-12">
+  <% if @own_subscriptions.present? %>
+    <div class="col-md-12">
+  <% else %>
+    <div class="col-md-12" style="margin-top: 130px;">
+  <% end %>
     <div id="plans">
       <h2>Plans</h2>
       <% @plans.each do |plan| %>

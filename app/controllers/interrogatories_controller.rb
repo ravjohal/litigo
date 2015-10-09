@@ -23,6 +23,15 @@ class InterrogatoriesController < ApplicationController
     @interrogatory = @case.interrogatory
   end
 
+  def index
+    @interrogatories = @case.interrogatories
+  end
+
+  def edit_case_interrogatories
+    @case = Case.find(params[:id])
+    @interrogatories = @case.interrogatories
+  end
+
   # POST /interrogatories
   # POST /interrogatories.json
   def create
@@ -73,7 +82,6 @@ class InterrogatoriesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def interrogatory_params
       params.require(:interrogatory).permit(:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :rep_date, :req_date,
-                                            :children_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :id, :rep_date, :req_date, :_destroy, 
-                                            :document_attributes => [:document, :id, :author, :firm_id, :user_id, {:case_ids => []}, :doc_type]])
+                                            :document_attributes => [:document, :id, :author, :firm_id, :user_id, {:case_ids => []}, :doc_type])
     end
 end

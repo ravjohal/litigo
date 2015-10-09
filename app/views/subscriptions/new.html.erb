@@ -1,4 +1,3 @@
-<%= javascript_include_tag 'subscriptions/new', 'data-turbolinks-track' => true %>
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
@@ -73,7 +72,11 @@
             </td>
           </tr>
       <% end %>
-
+      <tr>
+        <td>
+          <div id="stripe_error"></div>
+        </td>
+      </tr>
       <tr>
         <td>
         </td>

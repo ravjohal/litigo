@@ -24,7 +24,7 @@
 <div class="row">
   <div class="col-md-12" style="margin-top: 130px;">
     <% @own_subscriptions.each do |subscription| %>
-      <p><%= date_to_input_regexp subscription.created_at %> You have signed up for the <strong><%= subscription.plan.name %></strong> plan for just <strong><%= number_to_currency subscription.plan.price * @firm.users.count %></strong> <%= subscription.plan.price_description %> </p>
+      <p><%= date_to_input_regexp subscription.created_at %> - You have signed up for the <strong><%= subscription.plan.name %></strong> plan for just <strong><%= number_to_currency subscription.plan.price * @firm.users.count %></strong> <%= subscription.plan.price_description %> </p>
     <% end %>
   </div>
 </div>

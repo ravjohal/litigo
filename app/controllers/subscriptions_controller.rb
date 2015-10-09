@@ -14,7 +14,7 @@ class SubscriptionsController < ApplicationController
     price = @subscription.plan.price.to_i
     count_people = @firm.users.count.to_i
     if @subscription.save_with_payment(price, count_people, user )
-      redirect_to @subscription, :notice => "Thank you for subscribing!"
+      redirect_to plans_path, :notice => "Thank you for subscribing!"
     else
       render :new
     end

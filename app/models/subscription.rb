@@ -4,6 +4,16 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :plan_id
   validates_presence_of :email
 
+  def cancel_plan(plan)
+    customer = Stripe::Customer.retrieve(stripe_customer_token)
+    subscription_token = customer.subscriptions.data.first["id"]
+    subscription = customer.subscriptions.retrieve(subscription_token ).delete
+    destroy!
+    rescue Stripe::InvalidRequestError => e
+      logger.error "Stripe error while creating customer: #{e.message}"
+      errors.add :base, "There was a problem with your credit card."
+    false
+  end
 
   def save_with_payment(charge, people_count, user)
     @amount = charge * people_count * 100

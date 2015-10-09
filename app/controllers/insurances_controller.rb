@@ -19,6 +19,15 @@ class InsurancesController < ApplicationController
     @insurance = @case.insurance
   end
 
+  def index
+    @insurances = @case.insurances
+  end
+
+  def edit_case_insurances
+    @case = Case.find(params[:id])
+    @insurances = @case.insurances
+  end
+
   def create
     @insurance = @case.build_insurance(insurance_params)
     @insurance.firm = @firm
@@ -42,7 +51,7 @@ class InsurancesController < ApplicationController
 
     respond_to do |format|
       if @insurance.update(insurance_params)
-        format.html { redirect_to [@case, @insurance], notice: 'insurance was successfully updated.' }
+        format.html { redirect_to case_insurances_path(@case), notice: 'insurance was successfully updated.' }
         format.json { render :show, status: :ok, location: @insurance }
       else
         format.html { render :edit }
@@ -63,9 +72,6 @@ class InsurancesController < ApplicationController
 
     def insurance_params
       params.fetch(:insurance, {}).permit(:insurance_type, :insurance_provider, :policy_limit, :amount_paid, :claim_number, 
-                                        :policy_holder,  :_destroy, :case_id, :firm_id, :user_id, :company_id,
-                                        :children_attributes => [:parent_id, :insurance_type, :insurance_provider, 
-                                        :policy_limit, :amount_paid, :claim_number, :policy_holder, :created_at, :updated_at, :id, 
-                                        :case_id, :firm_id, :user_id, :company_id, :adjustor_id, :policy_holder_id, :_destroy])
+                                        :policy_holder,  :_destroy, :case_id, :firm_id, :user_id, :company_id)
     end
 end

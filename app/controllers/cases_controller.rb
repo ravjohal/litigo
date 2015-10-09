@@ -162,10 +162,13 @@ class CasesController < ApplicationController
         redirect_to case_contacts_path(@case), notice: 'Contacts were successfully assigned.'
       elsif params[:case][:case_contacts_attributes]
         redirect_to show_case_contacts_path(@case), notice: 'Contacts were successfully updated.'
+      elsif params[:case][:insurances_attributes]
+        redirect_to case_insurances_path(@case), notice: 'Insurances were successfully updated.'
+      elsif params[:case][:interrogatories_attributes]
+        redirect_to case_interrogatories_path(@case), notice: 'Interrogatories were successfully updated.'
       else
         respond_with @case, notice: 'Case was successfully updated.'
       end
-
     end
   end
 
@@ -221,10 +224,9 @@ class CasesController < ApplicationController
         :creation_date, :closing_date, :state, :medical_bills, :topic, :transfer_date, :statute_of_limitations,
         :medical_attributes => [:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, :doctor_type, :treatment_type, :created_at, :updated_at, :id, 
         :injuries_attributes => [:injury_type, :region, :code, :created_at, :updated_at, :primary_injury, :id]],
-        :insurance_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy,
-        :children_attributes => [:parent_id, :insurance_type, :insurance_provider, :policy_limit, :claim_number, :policy_holder, :created_at, :updated_at, :id, :case_id, :_destroy]], 
-        :interrogatory_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :rep_date, :req_date,
-        :children_attributes => [:question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :parent_id, :id, :rep_date, :req_date, :_destroy]],
+        :insurances_attributes => [:id, :insurance_type, :insurance_provider, :policy_limit, :amount_paid, :claim_number, :policy_holder, :_destroy, :case_id, :firm_id, :user_id, :adjustor_id, :policy_holder_id, :company_id],
+        :interrogatories_attributes => [:id, :question, :response, :requester_id, :responder_id, :document, :firm_id, :case_id, :created_by, :last_updated_by, :rep_date, :req_date, :_destroy,
+        :document_attributes => [:document, :id, :author, :firm_id, :user_id, {:case_ids => []}, :doc_type]],
         :resolution_attributes => [:id, :updated_at, :created_at, :firm_id, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type], 
         :case_contacts_attributes => [:id, :case_id, :updated_at, :created_at, :firm_id, :role, :contact_id, :note, :_destroy], 
         :event_ids => [], :task_ids => [], :document_ids => [], :attorney => [], :staff => [])

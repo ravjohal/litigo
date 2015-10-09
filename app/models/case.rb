@@ -33,8 +33,12 @@ class Case < ActiveRecord::Base
   has_many :notes
   has_many :time_entries
   has_many :expenses
+  has_many :insurances
+  has_many :interrogatories
 
-  accepts_nested_attributes_for :case_contacts, :reject_if => :all_blank, :allow_destroy => :true
+  accepts_nested_attributes_for :case_contacts, :reject_if => :no_contact, :allow_destroy => :true
+  accepts_nested_attributes_for :insurances, :reject_if => :all_blank, :allow_destroy => :true
+  accepts_nested_attributes_for :interrogatories, :reject_if => :all_blank, :allow_destroy => :true
 
   include PgSearch
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
@@ -348,12 +352,17 @@ class Case < ActiveRecord::Base
     check_sol
     true
   end
-
+  
   def self.open_cases_scope
     where.not(["status = ? or status = ?", 'Inactive', 'Closed'])
   end
 
   def self.closed_cases_scope
     where(["status = ? or status = ?", 'Inactive', 'Closed'])
+  end
+
+  #for reject_if for case_contacts on accepts_nested
+  def no_contact(attributes)
+    attributes['contact_id'] == ''
   end
 end

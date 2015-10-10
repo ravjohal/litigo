@@ -69,7 +69,7 @@ class Case < ActiveRecord::Base
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :medical, :allow_destroy => true
   accepts_nested_attributes_for :incident, :allow_destroy => true
-  accepts_nested_attributes_for :insurance, :allow_destroy => true
+  #accepts_nested_attributes_for :insurance, :allow_destroy => true
   accepts_nested_attributes_for :resolution, :allow_destroy => true
 
   validates :name, presence: true
@@ -352,7 +352,7 @@ class Case < ActiveRecord::Base
     check_sol
     true
   end
-  
+
   def self.open_cases_scope
     where.not(["status = ? or status = ?", 'Inactive', 'Closed'])
   end

@@ -104,7 +104,8 @@
             </div>
             <hr style="height: 1px; background: #ccc;">
             <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="col-md-12 col-sm-12 col-xs12 hidden calendar_frame"></div>
+              <div class="col-md-6 col-sm-6 col-xs-6 calendar_board">
                 <div class="col-md-1">
                 </div>
                 <div class="col-md-2">
@@ -120,11 +121,11 @@
                 <div class="col-md-1">
                 </div>
               </div>
-              <div class="col-md-6 col-sm-6 col-xs-6">
+              <div class="col-md-6 col-sm-6 col-xs-6 calendar_board">
                 <div class="col-md-2">
                 </div>
                 <div class="col-md-8">
-                  <%= link_to login_path(:auto_close => true), :target => '_blank' do %>
+                  <%= link_to '#', id: 'add_calendar' do %>
                     <div class="tile-new" style="margin-top: 60px; cursor: pointer;">
                       <div class="tile-icon-new"><span class="glyphicon glyphicon-calendar"></span></div>
                       <div class="tile-text">Add Calendar</div>
@@ -226,10 +227,24 @@
     });
 
     $('#step_finish').click(function () {
-      alert('Finish');
       saveStep(4, function() {
         window.location = '/finish_registration';
       });
+    });
+    $('#add_calendar').click(function() {
+      var $calendarFrame = $('.calendar_frame');
+      var $calendarBoard = $('.calendar_board');
+      $calendarFrame.html('<iframe src="<%= login_path %>" frameborder="0" width="100%"></iframe>');
+      $calendarFrame.find('iframe').height($calendarBoard.height());
+
+      $calendarFrame.removeClass('hidden');
+      $calendarBoard.addClass('hidden');
+
+      window.closeCalendarFrame = function() {
+        $calendarFrame.html('');
+        $calendarFrame.addClass('hidden');
+        $calendarBoard.removeClass('hidden');
+      };
     });
   });
 </script>

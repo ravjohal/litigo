@@ -69,6 +69,10 @@ gem 'rmagick'
 gem 'spreadsheet'
 gem 'creek'
 
+gem 'd3-rails'
+gem 'd3-tip-rails'
+gem 'underscore-rails'
+
 group :development do
   gem 'disable_assets_logger', '~> 1.0.0'
   gem 'better_errors', '~> 2.0.0'

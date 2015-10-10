@@ -46,6 +46,8 @@ class Case < ActiveRecord::Base
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date
 
+  include StatesHelper
+
   # searchable do
   #   text :state
   #   text :court
@@ -157,6 +159,10 @@ class Case < ActiveRecord::Base
     SUB_TYPES.select { |k, v| v.key(self.sub_types) }.values[0].key(self.sub_types) if self.sub_types.present?
   end
 
+  def state_name
+    (us_states.find {|s| s[1] == state}).to_a[0]
+  end
+
   def self.search(search)
     if search
       where('lower(name) LIKE ?', "%#{search}%")
@@ -175,6 +181,31 @@ class Case < ActiveRecord::Base
     else
       case_.case_number
     end
+  end
+
+  def analytic_json
+    {
+      :Case_name => name.to_s,
+      :Id => id,
+      :Case_type => subtype.to_s,
+      :Color => 'color',
+      :Topic => topic.to_s,
+      :Docket => court.to_s,# docket_number.to_s,
+      :Injury => primary_injury.to_s,
+      :Total_amount => resolution.try(:resolution_amount),
+      :Group => '',
+      :State => state_name.to_s,
+      :County => county.to_s,
+      :Court => court.to_s,
+      :Judge => judge.try(:name),
+      'Case.summary' => description.to_s,
+      'Injury.text' => '',
+      'Incident.date' => incident.try(:incident_date).to_s,
+      :Start_month => created_at.strftime('%m'),
+      :Start_day => created_at.strftime('%d'),
+      :Start_year => created_at.strftime('%Y'),
+      :Is_na => 1
+    }
   end
 
   def set_tasks_due_dates
@@ -330,7 +361,7 @@ class Case < ActiveRecord::Base
         end
     end
     check_sol
-    return true
+    true
   end
 
   def assign_case_attorney_staff(attrs) #this method is called on create of case, where note is not needed

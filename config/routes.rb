@@ -3,6 +3,9 @@ require 'resque_web'
 
 Rails.application.routes.draw do
 
+  get '/analytics' => 'analytics#index'
+  get '/charts/data' => 'analytics#get_case'
+
   authenticated :user do
     mount Resque::Server.new, at: '/resque'
     mount ResqueWeb::Engine => '/resque_web'

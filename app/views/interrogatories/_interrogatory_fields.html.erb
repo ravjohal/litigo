@@ -42,7 +42,7 @@
               Existing Document: <%= link_to f.object.document.document.file.filename, f.object.document.document_url %>
               <br />
             <% end %>
-            <%= f.simple_fields_for :document, f.object.document ? f.object.document : @interrogatory.build_document do |d| %>
+            <%= f.simple_fields_for :document, f.object.document ? f.object.document : f.object.build_document do |d| %>
               <%= d.file_field :document, label: false, :class => 'table-input-file' %>
               <%= d.input :author, as: :hidden, :input_html => {value: @user.name} %>
               <%= d.input :firm_id, :input_html => {value: @firm.id}, as: :hidden %>

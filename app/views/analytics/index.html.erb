@@ -1,0 +1,168 @@
+<% content_for :footer_javascript do %>
+  <%= javascript_tag 'var application = new Application(); application.run();' %>
+<% end %>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row topper">
+        <div class="col-md-2">
+          <img src="/assets/litigo-insights.png" alt="Litigo" height="80" width="180" class="icon">
+        </div>
+        <div class="col-md-10">
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-md-7">
+              <input id="textSearch" type="text" class="longInputField">
+            </div>
+            <div class="col-md-5">
+              <div id="sortButtons" class="btn-group">
+                <div class="sortButton activeSortButton btn">Overview</div>
+                <div class="sortButton btn">Judge</div>
+                <div class="sortButton btn">County</div>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-4">
+              <br><select id="caseTypes" class="longInputField"></select>
+            </div>
+            <div class="col-md-4">
+              <br><select id="states" class="longInputField"></select>
+            </div>
+            <div class="col-md-4">
+              <br><select id="counties" class="longInputField"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-7">
+          <table id="appLayout">
+            <tbody>
+            <tr id="legalCasesChartContainer">
+              <td colspan="3" id="legalCasesChart"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-md-5">
+          <div class="case-container">
+            <table>
+              <tbody>
+              <tr id="legalCasesListContainer">
+                <td colspan="3">
+                  <table width="100%" id="legalCasesTable" border="1" cellpadding="10">
+                    <tbody id="legalCasesList">
+                    </tbody>
+                  </table>
+                  <div id="showMore">Show More Results</div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of application -->
+
+    <div style="margin: 10px auto; width: 80%;">
+      <table id="appLayout">
+        <tbody>
+        <!-- Details container -->
+        <tr id="legalCasesDetailsContainer">
+          <td colspan="3">
+            <div>
+              <div id="caseDetailsHeader">
+                <div id="caseDetailsBack" class="button">Back</div>
+                <div id="caseDetailsPrint" class="button">Print</div>
+                <div class="clear"></div>
+              </div>
+              <div id="caseDetails">
+                <table cellpadding="10" width="100%">
+                  <thead>
+                  <tr>
+                    <td colspan="2" align="center">
+                      <h4 id="caseDetailsTitle"></h4>
+
+                      <div id="caseDetailsUnderline"></div>
+                    </td>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr style="margin-bottom: 20px;">
+                    <td class="bold-text" width="20%">Result:</td>
+                    <td id="caseDetailsAmount"></td>
+                  </tr>
+                  <tr style="margin-bottom: 20px;">
+                    <td class="bold-text">State:</td>
+                    <td id="caseDetailsState"></td>
+                  </tr>
+                  <tr style="margin-bottom: 20px;">
+                    <td class="bold-text">Court:</td>
+                    <td id="caseDetailsCourt"></td>
+                  </tr>
+                  <tr>
+                    <td class="bold-text">Judge:</td>
+                    <td id="caseDetailsJudge"></td>
+                  </tr>
+                  <tr>
+                    <td class="bold-text">Year:</td>
+                    <td id="caseDetailsYear"></td>
+                  </tr>
+                  <tr>
+                    <td class="bold-text">Case Type:</td>
+                    <td id="caseDetailsType"></td>
+                  </tr>
+                  <tr>
+                    <td class="bold-text">Injury Summary:</td>
+                    <td id="caseDetailsInjury"></td>
+                  </tr>
+                  <tr>
+                    <td class="bold-text">Case Summary:</td>
+                    <td id="caseDetailsSummary" style="max-height: 200px;"></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row topper" style="margin-top: 150px; padding: 30px;">
+    <div class="col-md-6">
+      <!-- Begin MailChimp Signup Form -->
+      <link href="//cdn-images.mailchimp.com/embedcode/slim-081711.css" rel="stylesheet" type="text/css">
+      <style type="text/css">
+        #mc_embed_signup{background: transparent; clear:left; font:14px Helvetica,Arial,sans-serif; }
+        /* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+           We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+      </style>
+      <div id="mc_embed_signup">
+        <form action="//litigo.us3.list-manage.com/subscribe/post?u=a6e066ba3f0a48da58c4676d2&amp;id=5cc76fede0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+          <div id="mc_embed_signup_scroll">
+
+            <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Enter email address for early access" class="longInputField" required>
+            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+            <div style="position: absolute; left: -5000px;"><input type="text" name="b_a6e066ba3f0a48da58c4676d2_5cc76fede0" tabindex="-1" value=""></div>
+            <div class="clear"><input type="submit" value="Submit" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+          </div>
+        </form>
+      </div>
+      <!--End mc_embed_signup-->
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-3">
+      <div style="color: white; text-align: right;">
+        Litigo Inc. <br>
+        All rights reserved <br>
+        &copy 2015
+      </div>
+    </div>
+
+  </div>
+</div>

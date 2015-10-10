@@ -47,7 +47,7 @@ class DashboardsController < ApplicationController
   end
 
   def finish_registration
-    redirect_to dashboards_path, notice: 'Firm and Contact were successfully created.'
+    redirect_to user_root_path, notice: 'Firm and Contact were successfully created.'
   end
 
   def create

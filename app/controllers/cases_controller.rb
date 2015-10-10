@@ -54,12 +54,12 @@ class CasesController < ApplicationController
       @case.name = params[:case][:name]
       @case.case_number = Case.increment_number(@firm, "new", @case)
 
-      if !interrogatory
-        interrogatory = @case.build_interrogatory
-        interrogatory.firm = @firm
-        interrogatory.user = @user
-        interrogatory.save
-      end
+      # if !interrogatory
+      #   interrogatory = @case.build_interrogatory
+      #   interrogatory.firm = @firm
+      #   interrogatory.user = @user
+      #   interrogatory.save
+      # end
       if !incident
         incident = @case.build_incident
         incident.firm = @firm
@@ -70,11 +70,11 @@ class CasesController < ApplicationController
         medical.firm = @firm
         medical.save
       end
-      if !insurance
-        insurance = @case.build_insurance
-        insurance.firm = @firm
-        insurance.save
-      end
+      # if !insurance
+      #   insurance = @case.build_insurance
+      #   insurance.firm = @firm
+      #   insurance.save
+      # end
       if !contacts
         @case.case_contacts.each do |con|
           con.delete
@@ -101,14 +101,14 @@ class CasesController < ApplicationController
         medical.firm = @firm
         medical.save
 
-        insurance = @case.build_insurance
-        insurance.firm = @firm
-        insurance.save
+        # insurance = @case.build_insurance
+        # insurance.firm = @firm
+        # insurance.save
 
-        interrogatory = @case.build_interrogatory
-        interrogatory.firm = @firm
-        interrogatory.user = @user
-        interrogatory.save
+        # interrogatory = @case.build_interrogatory
+        # interrogatory.firm = @firm
+        # interrogatory.user = @user
+        # interrogatory.save
       end
     end
 

@@ -7,6 +7,7 @@ class UserEmails < ActionMailer::Base
     @admin = options[:admin]
     @token = options[:token]
     @role = options[:role]
+    @firm_name = options[:firm_name] || @user.try(:firm).try(:name)
     mail(to: @send_to,
          from: "\"Litigo\" <ben@litigo.co>",
          subject: "Invitation instructions",

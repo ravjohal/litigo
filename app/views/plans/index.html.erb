@@ -49,7 +49,7 @@
                 <%= link_to "Sign up", new_subscription_path(:plan_id => plan.id) %>
               <% else %>
                 <% if @own_subscription.plan_id != plan.id  %>
-                  <%= link_to "Sign up", plans_path, :onclick => "alert('If you want to change plan you must cancel the current plan')" %>
+                  <%= link_to "Sign up", change_plan_path(@own_subscription, :plan_id => plan.id), :onclick => "alert('WARNING! Do you want to change the plan?')"   %>
                 <% else %>
                   <p>Current plan...</p>
                 <% end %>

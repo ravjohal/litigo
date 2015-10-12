@@ -10,12 +10,12 @@ class Subscription < ActiveRecord::Base
     subscription = customer.subscriptions.retrieve(subscription_token ).delete
     destroy!
     rescue Stripe::InvalidRequestError => e
-      logger.error "Stripe error while creating customer: #{e.message}"
+      logger.error "Stripe error while canceling subscription plan: #{e.message}"
       errors.add :base, "There was a problem with your credit card."
     false
   end
 
-  def change_subscription(new_plan)
+  def change_subscription(count_people, new_plan)
     customer = Stripe::Customer.retrieve(stripe_customer_token)
     subscription_id = customer.subscriptions.data.first["id"]
     subscription = customer.subscriptions.retrieve(subscription_id)
@@ -24,10 +24,11 @@ class Subscription < ActiveRecord::Base
     else
       subscription.plan = new_plan.id.to_s
     end
+    subscription.quantity = count_people
     subscription.save
     update_attributes(:plan_id => new_plan.id)
     rescue Stripe::InvalidRequestError => e
-      logger.error "Stripe error while creating customer: #{e.message}"
+      logger.error "Stripe error while changing subscription: #{e.message}"
       errors.add :base, "There was a problem with your credit card."
     false
   end

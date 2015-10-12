@@ -20,8 +20,9 @@ class SubscriptionsController < ApplicationController
   end
 
   def change_plan
+    count_people = @firm.users.count.to_i
     plan = Plan.find(params[:plan_id])
-    if @subscription.change_subscription(plan)
+    if @subscription.change_subscription(count_people, plan)
       redirect_to plans_path, :notice => "Plan succesfuly changed!"
     else
       render :new

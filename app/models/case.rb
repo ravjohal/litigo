@@ -7,8 +7,8 @@ class Case < ActiveRecord::Base
   #enum status: { open: 0, pending: 1, closed: 2 }
 
   has_one :incident, dependent: :destroy
-  has_one :insurance, -> { where(parent_id: nil) }, dependent: :destroy
-  has_one :interrogatory, -> { where(parent_id: nil) }, dependent: :destroy
+  # has_one :insurance, -> { where(parent_id: nil) }, dependent: :destroy
+  # has_one :interrogatory, -> { where(parent_id: nil) }, dependent: :destroy
   has_one :medical, dependent: :destroy
   has_one :resolution, dependent: :destroy
 

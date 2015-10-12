@@ -69,10 +69,10 @@ class ClientIntakesController < ApplicationController
     respond_to do |format|
       if @lead.update(client_intake_params)
         if @lead.update_attributes(params[:attorney_id])
-          #if @lead.screener_id != @@before_attorney_id
-            @lead.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @@before_attorney_id, is_remove: true)
-            @lead.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @lead.attorney.id)
-          #end
+          if @lead.attorney_id != @@before_attorney_id
+            @lead.notifications.create(author: current_user.name, note_id: @lead.id, user_id: @@before_attorney_id, is_remove: true)
+            @lead.notifications.create(author:  current_user.name, note_id: @lead.id, user_id: @lead.attorney.id)
+          end
         end
         format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully updated.' }
         format.json { render :show, status: :ok, location: @lead }

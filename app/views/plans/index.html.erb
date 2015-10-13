@@ -25,7 +25,10 @@
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <p class="signed_up"><%= date_to_input_regexp @own_subscription.created_at %> - You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price * @firm.users.count %></strong> <%= @own_subscription.plan.price_description %>
-          <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %></p>
+          <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
+          <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
+
+        </p>
       </div>
     </div>
 <% end %>
@@ -33,7 +36,7 @@
   <% if @own_subscription.present? %>
     <div class="col-md-12" style="margin-top: 70px;">
   <% else %>
-    <div class="col-md-12" style="margin-top: 138px;">
+    <div class="col-md-12" style="margin-top: 139px;">
   <% end %>
     <div id="plans">
       <h2>Plans</h2>

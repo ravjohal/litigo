@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   resources :documents
   resources :plans
   get 'subscriptions/:id/change_plan/:plan_id' => 'subscriptions#change_plan', as: :change_plan
+  get 'subscriptions/:id/edit_card/' => 'subscriptions#edit_card', as: :edit_card
   resources :subscriptions
   get '/events/email' => 'events#emails_autocomplete'
   resources :events

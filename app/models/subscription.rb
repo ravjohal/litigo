@@ -4,6 +4,8 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :plan_id
   validates_presence_of :email
 
+  attr_accessor :stripe_card_token
+
   def cancel_plan(plan)
     customer = Stripe::Customer.retrieve(stripe_customer_token)
     subscription_token = customer.subscriptions.data.first["id"]
@@ -43,12 +45,27 @@ class Subscription < ActiveRecord::Base
         customer = Stripe::Customer.create(email: email, plan: plan_id, source: stripe_card_token, quantity: people_count)
       end
       self.stripe_customer_token = customer.id
+      self.last_digits = customer.sources.data.first["last4"]
       self.user_id = user.id
       save!
     end
   rescue Stripe::InvalidRequestError => e
     logger.error "Stripe error while creating customer: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
+    false
+  end
+
+  def update_card(subscriber)
+    customer = Stripe::Customer.retrieve(subscriber.stripe_customer_token)
+    card = customer.sources.create(source: stripe_card_token)
+    card.save
+    customer.default_card = card.id
+    customer.save
+    last_digits = customer.sources.data.first["last4"]
+    update_attributes(:last_digits => last_digits)
+  rescue Stripe::InvalidRequestError => e
+    logger.error "Stripe error while updating card info: #{e.message}"
+    errors.add :base, "#{e.message}"
     false
   end
 

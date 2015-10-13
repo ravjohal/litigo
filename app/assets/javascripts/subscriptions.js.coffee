@@ -1,7 +1,9 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-$(document).on 'ready page:load', ->
+$(document).on 'page:change', ->
+  $('#card_number').on 'input', (event) ->
+    this.value = this.value.replace(/[^0-9]/g, '')
   Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'))
   subscription.setupForm()
 
@@ -30,3 +32,5 @@ subscription =
     else
       $('#stripe_error').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
+
+

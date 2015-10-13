@@ -20,11 +20,52 @@
     </div>
   </div>
 </div>
+<% if @subscription.present? %>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <p class="signed_up"><%= date_to_input_regexp @subscription.created_at %> - You have signed up for the <strong><%= @subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @subscription.plan.price * @firm.users.count %></strong> <%= @subscription.plan.price_description %>
+          <%= link_to 'Details', @subscription, :class => 'cancel' %>
+          <%= link_to 'Cancel', @subscription, method: :delete, :class => 'cancel' %>
+
+        </p>
+      </div>
+    </div>
+<% end %>
 <div class="row">
-  <div class="col-md-12">
-    <div id="subscription" style="margin-top: 140px;">
-      <h1>Your Subscription</h1>
-      <p><%= date_to_input_regexp @subscription.created_at %> You have signed up for the <strong><%= @subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @subscription.plan.price * @firm.users.count %></strong> <%= @subscription.plan.price_description %> </p>
+  <div class="col-md-6">
+    <div id="subscription" style="margin-top: 70px;">
+      <h1>Subscription details</h1>
+      <table>
+        <tr>
+          <td>
+            <strong><%= date_to_input_regexp @subscription.created_at %></strong>
+          </td>
+          <td>
+            You have signed up for the <strong><%= @subscription.plan.name %></strong> plan
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Email</strong>
+          </td>
+          <td>
+            <%= @subscription.email %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Card number</strong>
+
+          </td>
+          <td>
+            ************<%= @subscription.last_digits %>
+
+          </td>
+        </tr>
+      </table>
+      <%= link_to 'Change Card', edit_card_path(@subscription), :class => 'details_edit' %>
+      <%= link_to 'Change Plan', plans_path, :class => 'details_edit' %>
     </div>
   </div>
 </div>

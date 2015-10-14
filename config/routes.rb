@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   get 'subscriptions/:id/change_plan/:plan_id' => 'subscriptions#change_plan', as: :change_plan
   get 'subscriptions/:id/edit_card/' => 'subscriptions#edit_card', as: :edit_card
   resources :subscriptions
+  mount StripeEvent::Engine => '/payment-webhook'
   get '/events/email' => 'events#emails_autocomplete'
   resources :events
 
@@ -125,6 +126,7 @@ Rails.application.routes.draw do
     post "edit_events_permit" => 'invitations#edit_events_permit', as: :edit_events_permit
 
   end
+
   resources :expenses
   resources :users
   resources :cases do

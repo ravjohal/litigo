@@ -4,8 +4,8 @@ class PlansController < ApplicationController
   before_action :set_user, :set_firm
 
   def index
-    @own_subscription = Subscription.where(:user_id => current_user).last
-    @plans = Plan.order('price')
+    @own_subscription = current_user.subscriptions.last
+    @plans = Plan.where('id = ? or id = ?',1, 4).order('price')   # for now we need only basic plans(1,4 -ids)
   end
 
   def plan_params

@@ -57,6 +57,8 @@ gem 'docx', '~> 0.2.07', :require => ['docx']
 gem 'dossier', '~> 2.12.2'
 gem 'amoeba'
 gem 'stripe'
+gem 'stripe_event'
+gem 'ultrahook'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 1.0.0'
 gem 'newrelic_rpm'

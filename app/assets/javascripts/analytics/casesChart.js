@@ -363,8 +363,18 @@ CasesChart.prototype.update = function(dataSet) {
    /*
     * Update selection.
     */
-    bubbles.transition()
-        .duration(this.animationTime)
+    //bubbles.transition()
+    //    .duration(this.animationTime)
+    //    .attr("r", function(d) {
+    //        return d.r;
+    //    }).attr("cx", function(d) {
+    //        return d.x;
+    //    }).attr("cy", function(d) {
+    //        return d.y;
+    //    }).attr("transform", "translate(0, 0)");
+    bubbles
+        //.transition()
+        //.duration(this.animationTime)
         .attr("r", function(d) {
             return d.r;
         }).attr("cx", function(d) {

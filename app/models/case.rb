@@ -192,23 +192,23 @@ class Case < ActiveRecord::Base
       :Case_name => name.to_s,
       :Id => id,
       :Case_type => subtype.to_s,
-      :Color => 'color',
+      :Color => resolution.try(:settlement?) ? 'blue' : 'red',
       :Topic => topic.to_s,
-      :Docket => court.to_s,# docket_number.to_s,
-      :Injury => primary_injury.to_s,
+      :Docket =>  "Case No. #{docket_number}",
+      :Injury => (medical.injuries.flat_map{|injury| injury.injury_type.to_s.split('/') + [injury.region]}).join(' - ').to_s,
       :Total_amount => resolution.try(:resolution_amount),
-      :Group => '',
+      :Group => resolution.try(:settlement?) ? 'medium' : 'high',
       :State => state_name.to_s,
       :County => county.to_s,
       :Court => court.to_s,
-      :Judge => judge.try(:name),
+      :Judge => judge.try(:name).to_s,
       'Case.summary' => description.to_s,
-      'Injury.text' => '',
+      'Injury.text' => medical.injury_summary.to_s,
       'Incident.date' => incident.try(:incident_date).to_s,
       :Start_month => created_at.strftime('%m'),
       :Start_day => created_at.strftime('%d'),
       :Start_year => created_at.strftime('%Y'),
-      :Is_na => 1
+      :Is_na => (resolution.blank? || resolution.resolution_amount.blank?) ? 1 : 0
     }
   end
 

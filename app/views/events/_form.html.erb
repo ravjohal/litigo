@@ -95,7 +95,7 @@
             </td>
             <td>
               <%= f.text_field :start_date, value: @event.new_record? ? date_to_input_regexp(Time.now) : date_to_input_regexp(@event.try(:starts_at)), id: 'event_start_date' %>
-              <%= f.text_field :start_time, value: @event.new_record? ? time_to_input_regexp(Time.now) : time_to_input_regexp(@event.try(:starts_at)), id: 'event_start_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
+              <%= f.text_field :start_time, value: @event.new_record? ? time_to_input(Time.now) : time_to_input(@event.try(:starts_at)), id: 'event_start_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
             </td>
           </tr>
           <tr>
@@ -104,7 +104,7 @@
             </td>
             <td>
               <%= f.text_field :end_date, value: @event.new_record? ? date_to_input_regexp(Time.now) : date_to_input_regexp(@event.try(:ends_at)), id: 'event_end_date' %>
-              <%= f.text_field :end_time, value: @event.new_record? ? time_to_input_regexp(Time.now+1.hour) : time_to_input_regexp(@event.try(:ends_at)), id: 'event_end_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
+              <%= f.text_field :end_time, value: @event.new_record? ? time_to_input(Time.now+1.hour) : time_to_input(@event.try(:ends_at)), id: 'event_end_time', class: "#{@event.all_day ? 'no-display' : ''}" %>
             </td>
           </tr>
 

@@ -20,23 +20,29 @@
     </div>
   </div>
 </div>
-<% if @own_subscription.present? %>
+<% if @own_subscription.present?  %>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <p class="signed_up"><%= date_to_input_regexp @own_subscription.created_at %> - You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price * @firm.users.count %></strong> <%= @own_subscription.plan.price_description %>
-          <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
-          <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
-
+        <p class="signed_up">
+          <% if @own_subscription.plan && @own_subscription.plan != nil %>
+            <%= date_to_input_regexp @own_subscription.created_at %> - You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price * @firm.users.count %></strong> <%= @own_subscription.plan.price_description %>
+            <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
+            <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
+          <% end %>
+          <% if @own_subscription.plan == nil %>
+            You canceled from any plans. Your card details
+            <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
+          <% end %>
         </p>
       </div>
     </div>
 <% end %>
 <div class="row">
-  <% if @own_subscription.present? %>
-    <div class="col-md-12" style="margin-top: 70px;">
+  <% if @own_subscription.present? && @own_subscription.plan != nil %>
+    <div class="col-md-12" style="margin-top: 50px;">
   <% else %>
-    <div class="col-md-12" style="margin-top: 139px;">
+    <div class="col-md-12" style="margin-top: 70px;">
   <% end %>
     <div id="plans">
       <h2>Plans</h2>
@@ -51,6 +57,8 @@
             <div class="signup">
               <% if !@own_subscription %>
                 <%= link_to "Sign up", new_subscription_path(:plan_id => plan.id) %>
+              <% elsif @own_subscription && @own_subscription.plan_id == nil %>
+                <%= link_to "Sign up", change_plan_path(@own_subscription, :plan_id => plan.id) %>
               <% else %>
                 <% if @own_subscription.plan_id != plan.id  %>
                   <%= link_to "Sign up", change_plan_path(@own_subscription, :plan_id => plan.id),  data: { confirm: "WARNING! Do you want to change the plan?" }  %>

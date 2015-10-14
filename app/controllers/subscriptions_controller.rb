@@ -10,8 +10,8 @@ class SubscriptionsController < ApplicationController
 
   def create
     user = current_user
-    @subscription = Subscription.new(subscription_params)
     count_people = @firm.users.count.to_i
+    @subscription = Subscription.new(subscription_params)
     if @subscription.save_with_payment(count_people, user )
       redirect_to plans_path, :notice => "Thank you for subscribing!"
     else
@@ -22,10 +22,19 @@ class SubscriptionsController < ApplicationController
   def change_plan
     count_people = @firm.users.count.to_i
     plan = Plan.find(params[:plan_id])
-    if @subscription.change_subscription(count_people, plan)
-      redirect_to plans_path, :notice => "Plan succesfuly changed!"
+    @subscription = current_user.subscriptions.last
+    if @subscription.plan_id != nil
+      if @subscription.change_subscription(count_people, plan)
+        redirect_to plans_path, :notice => "Plan succesfuly changed!"
+      else
+        render :new
+      end
     else
-      render :new
+      if @subscription.create_subscription_without_customer(count_people, plan)
+        redirect_to plans_path, :notice => "Thank you for subscribing!"
+      else
+        render :new
+      end
     end
   end
 
@@ -52,7 +61,7 @@ class SubscriptionsController < ApplicationController
   end
 
   def show
-    @subscription = Subscription.find(params[:id])
+    @own_subscription = current_user.subscriptions.last
   end
 private
   def set_subscription

@@ -20,18 +20,27 @@
     </div>
   </div>
 </div>
-<% if @subscription.present? %>
+<% if @own_subscription.present?  %>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
-        <p class="signed_up"><%= date_to_input_regexp @subscription.created_at %> - You have signed up for the <strong><%= @subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @subscription.plan.price * @firm.users.count %></strong> <%= @subscription.plan.price_description %>
-          <%= link_to 'Details', @subscription, :class => 'cancel' %>
-          <%= link_to 'Cancel', @subscription, method: :delete, :class => 'cancel' %>
+        <p class="signed_up">
+          <% if @own_subscription.plan && @own_subscription.plan != nil %>
+              <%= date_to_input_regexp @own_subscription.created_at %> - You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price * @firm.users.count %></strong> <%= @own_subscription.plan.price_description %>
+              <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
+              <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
+          <% end %>
+          <% if @own_subscription.plan == nil %>
+              You canceled from any plans. Your card details
+              <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
+          <% end %>
+
 
         </p>
       </div>
     </div>
 <% end %>
+
 <div class="row">
   <div class="col-md-6">
     <div id="subscription" style="margin-top: 70px;">
@@ -39,10 +48,14 @@
       <table>
         <tr>
           <td>
-            <strong><%= date_to_input_regexp @subscription.created_at %></strong>
+            <strong><%= date_to_input_regexp @own_subscription.created_at %></strong>
           </td>
           <td>
-            You have signed up for the <strong><%= @subscription.plan.name %></strong> plan
+            <% if @own_subscription.plan == nil %>
+                You canceled from any plans
+            <% else %>
+                You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan
+            <% end %>
           </td>
         </tr>
         <tr>
@@ -50,7 +63,7 @@
             <strong>Email</strong>
           </td>
           <td>
-            <%= @subscription.email %>
+            <%= @own_subscription.email %>
           </td>
         </tr>
         <tr>
@@ -59,12 +72,12 @@
 
           </td>
           <td>
-            ************<%= @subscription.last_digits %>
+            ************<%= @own_subscription.last_digits %>
 
           </td>
         </tr>
       </table>
-      <%= link_to 'Change Card', edit_card_path(@subscription), :class => 'details_edit' %>
+      <%= link_to 'Change Card', edit_card_path(@own_subscription), :class => 'details_edit' %>
       <%= link_to 'Change Plan', plans_path, :class => 'details_edit' %>
     </div>
   </div>

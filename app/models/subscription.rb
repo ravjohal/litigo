@@ -1,7 +1,7 @@
 class Subscription < ActiveRecord::Base
   belongs_to :plan
   belongs_to :user
-  validates_presence_of :plan_id
+
   validates_presence_of :email
 
   attr_accessor :stripe_card_token
@@ -10,7 +10,7 @@ class Subscription < ActiveRecord::Base
     customer = Stripe::Customer.retrieve(stripe_customer_token)
     subscription_token = customer.subscriptions.data.first["id"]
     subscription = customer.subscriptions.retrieve(subscription_token ).delete
-    destroy!
+    update_attributes(:plan_id => nil)
     rescue Stripe::InvalidRequestError => e
       logger.error "Stripe error while canceling subscription plan: #{e.message}"
       errors.add :base, "There was a problem with your credit card."
@@ -35,6 +35,20 @@ class Subscription < ActiveRecord::Base
     false
   end
 
+  def create_subscription_without_customer(count_people, new_plan)
+    customer = Stripe::Customer.retrieve(stripe_customer_token)
+
+    if new_plan.id == 4
+      customer.subscriptions.create(:plan => "Basic-yr", :quantity => count_people)
+    else
+      customer.subscriptions.create(:plan => new_plan.id.to_s, :quantity => count_people)
+    end
+    update_attributes(:plan_id => new_plan.id)
+  rescue Stripe::InvalidRequestError => e
+    logger.error "Stripe error while changing subscription: #{e.message}"
+    errors.add :base, "There was a problem with your credit card."
+    false
+  end
 
   def save_with_payment(people_count, user)
 

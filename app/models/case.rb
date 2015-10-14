@@ -2,13 +2,13 @@ class Case < ActiveRecord::Base
 
   TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Estates', 'Family Law', 'Immigration', 'Personal Injury', 'Probate', 'Real Estate', 'Taxation', 'Traffic', 'Wrongful Death']
   # STATUS = ['Open', 'Pending', 'Closed']
-  STATUS = ['Active', 'Treating', 'Done Treating', 'Finals Requested', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
+  STATUS = ['Active', 'Treating', 'Done Treating','Inactive', 'Finals Requested', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
 
   #enum status: { open: 0, pending: 1, closed: 2 }
 
   has_one :incident, dependent: :destroy
-  has_one :insurance, -> { where(parent_id: nil) }, dependent: :destroy
-  has_one :interrogatory, -> { where(parent_id: nil) }, dependent: :destroy
+  # has_one :insurance, -> { where(parent_id: nil) }, dependent: :destroy
+  # has_one :interrogatory, -> { where(parent_id: nil) }, dependent: :destroy
   has_one :medical, dependent: :destroy
   has_one :resolution, dependent: :destroy
 
@@ -33,8 +33,12 @@ class Case < ActiveRecord::Base
   has_many :notes
   has_many :time_entries
   has_many :expenses
+  has_many :insurances
+  has_many :interrogatories
 
-  accepts_nested_attributes_for :case_contacts, :reject_if => :all_blank, :allow_destroy => :true
+  accepts_nested_attributes_for :case_contacts, :reject_if => :no_contact, :allow_destroy => :true
+  accepts_nested_attributes_for :insurances, :reject_if => :all_blank, :allow_destroy => :true
+  accepts_nested_attributes_for :interrogatories, :reject_if => :all_blank, :allow_destroy => :true
 
   include PgSearch
   pg_search_scope :search_case, against: [:name, :case_number, :case_type, :description, :status],
@@ -45,6 +49,8 @@ class Case < ActiveRecord::Base
   after_create :import_tasks
   before_save :set_tasks_due_dates
   before_save :capture_transfer_date
+
+  include StatesHelper
 
   # searchable do
   #   text :state
@@ -65,7 +71,7 @@ class Case < ActiveRecord::Base
   accepts_nested_attributes_for :contacts
   accepts_nested_attributes_for :medical, :allow_destroy => true
   accepts_nested_attributes_for :incident, :allow_destroy => true
-  accepts_nested_attributes_for :insurance, :allow_destroy => true
+  #accepts_nested_attributes_for :insurance, :allow_destroy => true
   accepts_nested_attributes_for :resolution, :allow_destroy => true
 
   validates :name, presence: true
@@ -157,6 +163,10 @@ class Case < ActiveRecord::Base
     SUB_TYPES.select { |k, v| v.key(self.sub_types) }.values[0].key(self.sub_types) if self.sub_types.present?
   end
 
+  def state_name
+    (us_states.find {|s| s[1] == state}).to_a[0]
+  end
+
   def self.search(search)
     if search
       where('lower(name) LIKE ?', "%#{search}%")
@@ -175,6 +185,31 @@ class Case < ActiveRecord::Base
     else
       case_.case_number
     end
+  end
+
+  def analytic_json
+    {
+      :Case_name => name.to_s,
+      :Id => id,
+      :Case_type => subtype.to_s,
+      :Color => 'color',
+      :Topic => topic.to_s,
+      :Docket => court.to_s,# docket_number.to_s,
+      :Injury => primary_injury.to_s,
+      :Total_amount => resolution.try(:resolution_amount),
+      :Group => '',
+      :State => state_name.to_s,
+      :County => county.to_s,
+      :Court => court.to_s,
+      :Judge => judge.try(:name),
+      'Case.summary' => description.to_s,
+      'Injury.text' => '',
+      'Incident.date' => incident.try(:incident_date).to_s,
+      :Start_month => created_at.strftime('%m'),
+      :Start_day => created_at.strftime('%d'),
+      :Start_year => created_at.strftime('%Y'),
+      :Is_na => 1
+    }
   end
 
   def set_tasks_due_dates
@@ -330,7 +365,7 @@ class Case < ActiveRecord::Base
         end
     end
     check_sol
-    return true
+    true
   end
 
   def assign_case_attorney_staff(attrs) #this method is called on create of case, where note is not needed
@@ -349,4 +384,16 @@ class Case < ActiveRecord::Base
     true
   end
 
+  def self.open_cases_scope
+    where.not(["status = ? or status = ?", 'Inactive', 'Closed'])
+  end
+
+  def self.closed_cases_scope
+    where(["status = ? or status = ?", 'Inactive', 'Closed'])
+  end
+
+  #for reject_if for case_contacts on accepts_nested
+  def no_contact(attributes)
+    attributes['contact_id'] == ''
+  end
 end

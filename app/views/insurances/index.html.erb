@@ -1,0 +1,112 @@
+<%= javascript_include_tag 'insurances/show', 'data-turbolinks-track' => true %>
+<div class="case-header">
+  <div class="case-title">
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-2" style="font-size: 24px;">
+          <strong><%= @case.name %></strong><br>
+        </div>
+        <div class="col-md-7">
+          <%= render partial: 'notes/case_alert' %>
+        </div>
+      </div>
+    </div>
+    <div id="case-buttons">
+      <ul>
+        <li><%= link_to 'Edit', edit_case_insurances_path(@case), :class => 'dark' %></li>
+        <!-- <li><%= link_to cases_path, :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></span>
+        <% end %></li> -->
+        <li>
+          <%= link_to '', :class => 'dark' do %>
+            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <strong>Case #: </strong><%= @case.case_number %>
+
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'shared/case_tabs' %>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'notes/case_alert' %>
+</div>
+
+<div class="top-table-container">
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="7" class="gray-back">
+        <strong>Insurance Summary</strong>
+      </td>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <td colspan="5" style="text-align: left;">
+        <strong>Totals</strong>
+      </td>
+      <td style="text-align: right;">
+        <strong><%= number_to_currency Insurance.total_policy_limit_amount(@case), precision: 0 %></strong>
+      </td>
+      <td style="text-align: right;">
+        <strong><%= number_to_currency Insurance.total_amount_paid(@case), precision: 0 %></strong>
+      </td>
+    </tr>
+    </tfoot>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>Insurance Provider</strong>
+      </td>
+      <td class="right">
+        <strong>Adjuster</strong>
+      </td>
+      <td class="right">
+        <strong>Insurance Type</strong>
+      </td>
+      <td class="right">
+        <strong>Policy Holder</strong>
+      </td>
+      <td class="right">
+        <strong>Claim Number</strong>
+      </td>
+      <td style="text-align: right;">
+        <strong>Policy Limit</strong>
+      </td>
+      <td style="text-align: right;">
+        <strong>Amount Paid</strong>
+      </td>
+    </tr>
+    <% @insurances.each do |insurance| %>
+      <tr>
+        <td>
+          <%= insurance.company.try(:name) %>
+        </td>
+        <td>
+          <%= insurance.adjustor.try(:name) %>
+        </td>
+        <td>
+          <%= insurance.insurance_type %>
+        </td>
+        <td>
+          <%= insurance.policy_holder_contact.try(:name) %>
+        </td>
+        <td>
+          <%= insurance.claim_number %>
+        </td>
+        <td style="text-align: right;">
+          <%= number_to_currency insurance.policy_limit, precision: 0 %>
+        </td>
+        <td style="text-align: right;">
+          <%= number_to_currency insurance.amount_paid, precision: 0 %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>

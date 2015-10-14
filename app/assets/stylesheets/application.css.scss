@@ -14,7 +14,7 @@
  *= require dataTables/src/demo_table_jui
  *= require fullcalendar
  *= require jquery-ui
- *= require_tree .
+ *= require_directory .
  *= require_self
  *= require select2
  *= require jquery.tagit

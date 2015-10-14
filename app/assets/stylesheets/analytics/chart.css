@@ -1,0 +1,252 @@
+#appLayout {
+    width: 100%;
+    font-size: 14px;
+}
+
+#appLayout .searchFieldLabel {
+    font-weight: bold;
+}
+
+#appLayout thead td {
+    padding: 0 10px;
+}
+
+.sortButton {
+    display: inline-block;
+    padding: 8px 25px;
+    font-size: 15px;
+    line-height: 18px;
+    color: rgb(51, 51, 51);
+    text-align: center;
+    text-shadow: rgba(255, 255, 255, 0.74902) 0px 1px 1px;
+    background-color: rgb(250, 250, 250);
+    background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255) 25%, rgb(230, 230, 230));
+    background-repeat: no-repeat;
+    border: 1px #ccc solid;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-radius: 4px;
+    box-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px;
+    cursor: pointer;
+}
+
+.activeSortButton {
+    background-image: none;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px;
+    background-color: rgb(211, 211, 211);
+    color: rgba(0, 0, 0, 0.85);
+    outline: 0px;
+}
+
+.sortButton:FIRST-CHILD {
+    margin-left: 0px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.sortButton:LAST-CHILD {
+    margin-left: 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+
+#appLayout .textSearch {
+}
+
+.longInputField {
+    width: 100%;
+    border-radius: 4px;
+    border: 2px solid #ccc;
+    height: 35px;
+}
+
+
+#legalCasesChart {
+    width: 100%;
+    height: 600px;
+}
+
+#legalCasesTable {
+    border-collapse: collapse;
+}
+
+#legalCasesTable tr {
+    border: 1px solid black;
+}
+#legalCasesTable tr:hover {
+    cursor: pointer;
+}
+#legalCasesTable td {
+    padding: 10px;  
+}
+
+#legalCasesList div {
+    margin: 10px 0;
+}
+
+#showMore {
+    text-decoration: underline;
+    margin: 20px auto;
+    font-weight: bold;
+    color: blue;
+    cursor: pointer;
+    text-align: center;
+    background-color: transparent;
+    border: transparent;
+}
+
+
+.activeButton {
+    background-image: none;
+    box-shadow: rgba(0, 0, 0, 0.14902) 0px 2px 4px inset, rgba(0, 0, 0, 0.0470588) 0px 1px 2px;
+    background-color: rgb(230, 230, 230);
+    color: rgba(0, 0, 0, 0.498039);
+    outline: 0px;
+}
+
+.inactiveButton {
+    color: lightgrey;
+    cursor: default;
+}
+
+.caseListActiveItem {
+    background-color: lightgrey;
+}
+
+#legalCasesDetailsContainer {
+    display: none;
+}
+
+#legalCasesDetailsContainer .bold-text {
+    font-weight: bold;
+}
+
+.button {
+    cursor: pointer;
+    border: 1px dotted gray;
+    padding: 10px;
+}
+
+.button:hover {
+    background-color: #ccc;
+    cursor: pointer;
+}
+
+#caseDetailsPrint {
+    float: right;
+}
+
+#caseDetailsBack {
+    float: left;
+}
+
+.clear {
+    clear: both;
+}
+
+#caseDetailsUnderline {
+    border: 1px solid #3fc2d8;
+    width: 40%;
+}
+
+.statistics-label {
+    font-size: 11px;
+    font-weight: bold;
+    height: 100px;
+}
+/*
+ * Tool tip styles.
+ */
+.d3-tip {
+    line-height: 1.5;
+    background: white;
+    color: #000;
+    border-radius: 4px;
+    border: 2px solid black;
+    padding: 10px;
+    pointer-events: none;
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+    box-sizing: border-box;
+    display: inline;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Northward tooltips */
+.d3-tip.n:after {
+    content: "\25BC";
+    margin: -1px 0 0 0;
+    top: 100%;
+    left: 0;
+    text-align: center;
+}
+
+/* Eastward tooltips */
+.d3-tip.e:after {
+    content: "\25C0";
+    margin: -4px 0 0 0;
+    top: 50%;
+    left: -8px;
+}
+
+/* Southward tooltips */
+.d3-tip.s:after {
+    content: "\25B2";
+    margin: 0 0 1px 0;
+    top: -8px;
+    left: 0;
+    text-align: center;
+}
+
+/* Westward tooltips */
+.d3-tip.w:after {
+    content: "\25B6";
+    margin: -4px 0 0 -1px;
+    top: 50%;
+    left: 100%;
+}
+
+a, a:visited, a:active {
+    color: rgb(68, 68, 68);
+}
+a:visited {
+    color: rgb(85, 26, 139);
+}
+
+a, a:visited, a:active {
+    color: rgb(68, 68, 68);
+}
+a {
+    color: rgb(0, 136, 204);
+    text-decoration: none;
+}
+
+#legalCasesList div {
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.case-container {
+    max-height: 750px;
+    overflow: scroll;
+}   
+
+.topper {
+    background: #323A45;
+    background-image: -webkit-linear-gradient(top, #323A45, #2c323b);
+    background-image: linear-gradient(to bottom, #323A45, #2c323b);
+    background-color: #ddd; 
+    padding-bottom: 20px;
+    box-shadow: 0 -1px 12px #727171;
+}
+

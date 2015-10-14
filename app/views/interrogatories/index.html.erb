@@ -1,0 +1,80 @@
+<%= javascript_include_tag 'interrogatories/show', 'data-turbolinks-track' => true %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong><%= @case.name %></strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li><%= link_to 'Edit', edit_case_interrogatories_path(@case), :class => 'dark' %></li>
+                  <!-- <li><%= link_to cases_path,  :class => 'dark' do %><span data-tip="Back" class="glyphicon glyphicon-arrow-left tip"></i> <% end %></li> -->
+                  <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></i> <% end %></li>
+              </ul>
+          </div>
+    </div>
+    <strong>Case #: </strong><%= @case.case_number %>
+    
+        <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+                      <div class="col-md-12">
+                            <%= render partial: 'shared/case_tabs' %>
+                      </div>
+              </div>
+        </div>
+    <%= render partial: 'notes/case_alert' %>
+</div>
+
+<div class="top-table-container">
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="11" class="gray-back">
+      <strong>Interrogatories</strong>
+    <a href="#" class="toggler show_replies" data-prod-cat="1">Show Replies</a>
+    </td>
+  </tr>
+</thead>
+  <tbody>
+  <% @interrogatories.each_with_index do |interrogatory, index| %>
+  <tr>
+          <td class="text-center">
+              <strong><%= index + 1 %></strong><br>
+          </td>
+          <td class="right" colspan="2">
+              <strong>Requester</strong><br>
+              <%= interrogatory.requester.try(:name) %>
+          </td>
+          <td class="right" colspan="4">
+              <strong>Interrogatory</strong><br>
+              <%= interrogatory.try(:question) %><br>
+          </td>
+          <td class="text-center" colspan="2">
+              <strong>Date Requested</strong><br>
+              <%= interrogatory.try(:req_date) %>
+          </td>
+          <td class="text-center" colspan="2">
+              <strong>Date Replied</strong><br>
+              <%= interrogatory.try(:rep_date) %>
+          </td>
+  </tr>
+      <tr class="cat1" style="display:none; border-bottom: 2px solid black;">
+        <td>
+        </td>
+          <td class="right" colspan="2">
+              <strong>Responder</strong><br>
+              <%= interrogatory.responder.try(:name) %>
+          </td>
+          <td class="right" colspan="4">
+              <strong>Reply</strong><br>
+              <%= interrogatory.try(:response) %>
+          </td>
+           <td class="text-center doc-link" colspan="4 ">
+              <% if interrogatory.try(:document).try(:document).try(:file) %>
+                  <%= link_to interrogatory.document.document.file.filename, interrogatory.document.document_url %>
+              <% end %>
+          </td>
+      </tr>
+    <% end %> 
+  </tbody>
+</table>
+</div>

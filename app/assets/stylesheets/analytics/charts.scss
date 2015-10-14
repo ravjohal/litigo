@@ -1,0 +1,34 @@
+// Place all the styles related to the charts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.icon {
+  margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+.icon {
+	margin-top: 10px;
+	margin-left: 90px
+}
+
+.sortButton {
+	margin-top: 20px;
+}
+
+#legalCasesChart {
+    width: 100%;
+    height: 400px;
+}
+}
+@media print {
+.topper {
+  display: none;
+}
+#caseDetailsBack {
+display: none;	
+}
+#caseDetailsPrint {
+display: none;	
+}
+}

@@ -7,7 +7,7 @@ class DashboardsController < ApplicationController
     @notifications = Notification.where(user_id: current_user.id).order(created_at: :desc)
     update_notification_flag
     @lead = Lead.new
-    if current_user.firm
+    if current_user.firm && current_user.finish?
       current_user.create_contact User::USER_ROLES[current_user.invitation_role.to_i].to_s.humanize unless current_user.contact_user
       # if params[:google_auth]
       #   @calendars = @user.google_calendars
@@ -15,7 +15,7 @@ class DashboardsController < ApplicationController
       #p "CALENDARS ---------------> " + @calendars.first.summary.to_s
       render :show
     else
-      @firm = Firm.new
+      @firm = current_user.firm || Firm.new
     end
   end
 
@@ -37,38 +37,65 @@ class DashboardsController < ApplicationController
     end
   end
 
+  def save_step
+    @user.confirm_step = params[:step]
+    if @user.save
+      render nothing: true, :status => :ok
+    else
+      render nothing: true, :status => :unprocessable_entity
+    end
+  end
+
+  def finish_registration
+    redirect_to user_root_path, notice: 'Firm and Contact were successfully created.'
+  end
+
   def create
+
     time_zone = params[:firm][:user][:time_zone]
     firm_name = params[:firm][:name]
-    firm_from_db = Firm.find_by(:name => firm_name)
-    #if !firm_from_db
+    is_new = true
+    if @user.firm
+      @firm = @user.firm
+      is_new = false
+    else
+      # firm_from_db = Firm.find_by(:name => firm_name)
+      # if !firm_from_db
       @firm = Firm.new
-      tenant = firm_name.gsub(/[^0-9a-z ]/i, '').tr(" ", "_") #replace whitespace and remove special characters
-      @firm.name = firm_name
-      @firm.phone = params[:phone]
-      #@firm.zip = params[:zip]
-      @firm.tenant = tenant
-
+      # else
+      #   @firm = firm_from_db
+      #   @user.firm = @firm
+      #   @user.save!
+      # end
       @user.firm = @firm
       @user.role = :admin
-      @user.time_zone = time_zone
-   # else
-   #   @firm = firm_from_db
-   #   @user.firm = @firm
-   #   @user.save!
-   # end
+    end
 
-    respond_to do |format|
-      if @firm.save
-        @user.save!
-        UserSignedUpNotifier.send_notification(@user).deliver
-        create_contact_from_parms if Contact.where(user_account_id: @user.id, email: @user.email).count < 1
-        format.html { redirect_to dashboard_path(@user), notice: 'Firm and Contact were successfully created.' }
-        #format.json { render :show, status: :created, location: @firm }
+    tenant = firm_name.gsub(/[^0-9a-z ]/i, '').tr(' ', '_') #replace whitespace and remove special characters
+    @firm.name = firm_name
+    @firm.phone = params[:firm][:phone]
+    #@firm.zip = params[:zip]
+    @firm.tenant = tenant
+
+    @user.time_zone = time_zone
+
+    if @firm.save
+      @user.save!
+      UserSignedUpNotifier.send_notification(@user).deliver if is_new
+      create_contact_from_parms if Contact.where(user_account_id: @user.id, email: @user.email).count < 1
+      if request.xhr?
+        render nothing: true, :status => 200
       else
-        format.html { render :new }
-        #format.json { render json: @firm.errors, status: :unprocessable_entity }
+        redirect_to dashboard_path(@user), notice: 'Firm and Contact were successfully created.'
       end
+      #format.json { render :show, status: :created, location: @firm }
+    else
+      if request.xhr?
+        render nothing: true, status: :unprocessable_entity
+      else
+        render :new
+      end
+      #format.json { render json: @firm.errors, status: :unprocessable_entity }
     end
   end
 

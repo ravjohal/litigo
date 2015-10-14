@@ -1,0 +1,42 @@
+<%= simple_form_for(@case) do |f| %>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong><%= @case.name %></strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li><%= link_to 'Cancel', case_interrogatories_path(@case), :class => 'dark' %></li>
+                  <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save'%></li>
+              </ul>
+          </div>
+    </div>
+    <strong>Case #: </strong><%= @case.case_number %>
+    
+        <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+                      <div class="col-md-12">
+                            <%= render partial: 'shared/case_tabs' %>
+                      </div>
+              </div>
+        </div>
+</div>
+
+<div class="insurance-edit-container">
+ <%= link_to_add_association 'ADD INTERROGATORY', f, :interrogatories, :"data-association-insertion-node" => "tbody#interrogatories", :"data-association-insertion-method" => "append", :partial => "interrogatory_fields", class: 'action-button insure pull-right' %>
+<table id="info-table3">
+<thead>
+  <tr class="right-top">
+    <td colspan="12" class="gray-back">
+      <strong>Interrogatories</strong>
+    </td>
+  </tr>
+</thead>
+  <tbody id="interrogatories">
+      <%= f.simple_fields_for :interrogatories do |interrogatory| %>
+        <%= render 'interrogatory_fields', :f => interrogatory %>
+      <% end %>
+  </tbody>
+</table>
+</div>
+<% end %>

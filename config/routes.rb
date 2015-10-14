@@ -1,11 +1,12 @@
 require 'resque/server'
-require 'resque_web'
 
 Rails.application.routes.draw do
 
+  get '/analytics' => 'analytics#index'
+  get '/charts/data' => 'analytics#get_case'
+
   authenticated :user do
     mount Resque::Server.new, at: '/resque'
-    mount ResqueWeb::Engine => '/resque_web'
   end
 
   get 'reports' => 'reports#index', as: :reports
@@ -78,6 +79,8 @@ Rails.application.routes.draw do
 
   root :to => "visitors#index"
   get '/onboarding' => 'dashboards#new'
+  post '/save_confirm_step' => 'dashboards#save_step'
+  get '/finish_registration' => 'dashboards#finish_registration'
   get '/dashboard/:id' => 'dashboards#show'
   get '/get_counties_by_state' => 'insights#get_counties_by_state'
   #post '/dashboard/:name' => 'dashboard#create_firm_contact', as: 'dashboard_create_firm_contact'
@@ -92,6 +95,7 @@ Rails.application.routes.draw do
   get  "dropbox/auth_start"
   get  "dropbox/auth_finish"
   get 'login_callback' => 'nylas#login_callback'
+  get 'login_callback_close' => 'nylas#login_callback_close'
   get 'login' => 'nylas#login'
   resources :namespaces
   post 'get_events' => 'namespaces#get_events', as: :get_events
@@ -138,6 +142,8 @@ Rails.application.routes.draw do
     resources :settlements
   end
 
+  get 'cases/:id/edit_case_insurances' => 'insurances#edit_case_insurances', as: :edit_case_insurances
+  get 'cases/:id/edit_case_interrogatories' => 'interrogatories#edit_case_interrogatories', as: :edit_case_interrogatories
   get "cases/:id/summary" => 'cases#summary', as: :case_summary
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }

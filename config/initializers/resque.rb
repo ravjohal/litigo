@@ -5,5 +5,8 @@ end
 
 #Dir["/app/app/workers/*.rb"].each { |file| require file }
 
-require 'resque_scheduler'
+require 'resque/scheduler'
 Resque.schedule = YAML.load_file(Rails.root.join('config/rescue_schedule.yml'))
+
+require 'resque-scheduler'
+require 'resque/scheduler/server'

@@ -12,10 +12,10 @@
   <div class="text-center">
     <h1><span style="color: #3FC2D8; margin: 10px 20px 0 0; " class="glyphicon glyphicon-send"></span>Invite Employees</h1>
     <div style="margin-bottom: 20px;">
-          New memembers will automatically be connected to all firm information
+          New members will automatically be connected to all firm information
     </div>
 </div>
-<hr style="height: 1px; background: #ccc;"
+<hr style="height: 1px; background: #ccc;">
   <div class="invite_form">
       <%= form_tag user_invitation_path, :method => :post, :class => 'invitee_form' do %>
               <div class="invitees" style="margin-bottom: 10px;"><%= render 'users/invitations/user_form' %></div>

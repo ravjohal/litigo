@@ -58,6 +58,10 @@ class User < ActiveRecord::Base
   include ActiveNamespaces
   include SyncNamespaces
 
+  def finish?
+    4 == confirm_step.to_i
+  end
+
   #this method is called by devise to check for "active" state of the model
   def active_for_authentication?
     #remember to call the super

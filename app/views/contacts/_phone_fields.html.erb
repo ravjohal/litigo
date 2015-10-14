@@ -5,6 +5,7 @@
   </td>
   <td>
     <%= f.text_field :number, :class => 'table-input-75 phone', :placeholder => '(___) ___-___', :style => 'style="vertical-align: middle;'%>
+    <%= f.text_field :extension, label: false, class: 'table-input-small', placeholder: 'Ext.'  %>
     <%= link_to_remove_association f, class: 'remove pull-right' do %><span id="remove" class="glyphicon glyphicon-remove" style="vertical-align: middle;" original-title="Remove"></span><% end %>
   </td>
 </tr>

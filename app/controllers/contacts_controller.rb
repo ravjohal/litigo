@@ -256,7 +256,7 @@ class ContactsController < ApplicationController
                                       :deceased, :date_of_death, :major_date, :mobile, :company_id, :job_description, :time_bound, :phone_number_1, :phone_number_2,
                                       :firms_attributes => [:name, :address, :zip, :address_2],
                                       :contacts_attributes => [:id, :_destroy, :company_id],
-                                      :phones_attributes => [:id, :label, :number, :contact_id, :firm_id, :_destroy])
+                                      :phones_attributes => [:id, :label, :number, :extension, :contact_id, :firm_id, :_destroy])
       end
 
     def case_contacts_params

@@ -225,6 +225,9 @@
  
 .step-wrapper .step-body .step-body-item {
   display: none;
+  &#step2 {
+    overflow-x: hidden !important;
+  }
 }
  
 .step-wrapper .step-body .active { display: block; }

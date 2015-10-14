@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Litigo | Legal Insights to Build a Winning Case</title>
+  <%= stylesheet_link_tag 'analytics/analytic_application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'analytics/analytic_application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<div id="appContainer">
+  <%= yield %>
+</div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal">×</a>
+        <div class="text-center">
+          <h3>- WELCOME -</h3>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="text-center" style="font-size: 18px;">
+          Litigo Insights is a tool that allows attorneys and staff to research cases by injury, state, county and judge. Create a search, click a case or bubble and read case summaries.
+        </div>
+        <br>
+        <div style="margin-left: 150px; font-size: 18px;">
+          <p><strong>Search: </strong>by injury, such as "fracture" or "femur"</p>
+          <p><strong>Filter: </strong>by case type, state, or county</p>
+          <p><strong>Sort: </strong>visually sort cases by judge or county</p>
+        </div>
+        <br>
+        <div class="text-center" style="font-size: 18px;">
+          We are currently adding 100s of cases, counties, and states every day. To be notified when the application is avialble <a href="http://eepurl.com/3y99f" target="blank" style="color: blue; text-decoration: underline;">enter your email </a>
+        </div><br>
+
+      </div>
+      <div class="modal-footer">
+        <div class="text-center">
+          <a href="#" class="btn btn-info" style="font-size: 18px; color:white;" data-dismiss="modal">Take me to the app</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%= yield :footer_javascript %>
+</body>
+</html>

@@ -14,7 +14,7 @@ class Case < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :firm
-
+  has_many :notifications, as: :notificable
   has_many :case_contacts, :dependent => :destroy
   has_many :contacts, :through => :case_contacts
 

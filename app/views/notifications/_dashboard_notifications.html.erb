@@ -1,24 +1,36 @@
 <% @notifications.to_a.each do |note| %>
   <div class="each_notification">
-     <div class="author_field">
-       <% if note.notificable_type == 'NotesUser' %>
-         <%= note.author %> <div class="some_text">copied you on a note</div>
-       <% elsif note.notificable_type == 'Lead' && note.is_remove %>
-         <%= note.author %> <div class="some_text">removed you from a lead</div>
-       <% else %>
-         <%= note.author %> <div class="some_text">assigned you to a lead</div>
-       <% end %>
-     </div>
-     <div class="time">
-       <%= distance_of_time_in_words(@from_time, note.created_at,include_seconds: true ) %> ago
-     </div>
-     <div class="links">
-       <%= link_to note, :class => 'delete-notification', method: :delete, :remote => true do %><span id="delete" class="glyphicon glyphicon-remove" title="Delete Notification"></span> <% end %>
-       <% if note.notificable_type == 'NotesUser' %>
-         <%= link_to "View", note_path(note.note_id), :class=>'view' %>
-       <% elsif note.notificable_type == 'Lead' %>
-         <%= link_to "View", lead_path(note.note_id), :class=>'view' %>
-       <% end %>
-     </div>
+    <table>
+      <tr>
+        <td class="some_column">
+          <div class="author_field">
+            <% if note.notificable_type == 'NotesUser' %>
+              <%= note.author %> <div class="some_text">copied you on a note</div>
+            <% elsif note.notificable_type == 'Lead' && note.is_remove %>
+              <%= note.author %> <div class="some_text">removed you from a lead</div>
+            <% elsif note.notificable_type == 'Lead' && !note.is_remove %>
+              <%= note.author %> <div class="some_text">assigned you to a lead</div>
+            <% else %>
+              <%= note.author %> <div class="some_text">created a new case and assigned you to the case</div>
+            <% end %>
+          </div>
+          <div class="time">
+            <%= distance_of_time_in_words(@from_time, note.created_at,include_seconds: true ) %> ago
+          </div>
+        </td>
+        <td>
+          <div class="links">
+             <%= link_to note, :class => 'delete-notification', method: :delete, :remote => true do %><span id="delete" class="glyphicon glyphicon-remove" title="Delete Notification"></span> <% end %>
+             <% if note.notificable_type == 'NotesUser' %>
+               <%= link_to "View", note_path(note.note_id), :class=>'view' %>
+             <% elsif note.notificable_type == 'Lead' %>
+               <%= link_to "View", lead_path(note.note_id), :class=>'view' %>
+             <% else %>
+               <%= link_to "View", case_path(note.note_id), :class=>'view' %>
+             <% end %>
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 <% end %>

@@ -16,10 +16,11 @@
   }
   .plan {
     float: left;
-    width: 150px;
+    width: 200px;
     text-align: center;
     margin-right: 10px;
     .name {
+      font-size: 20px;
       color: #FFF;
       padding: 5px 0;
       border: solid 1px #5B6881;
@@ -48,7 +49,7 @@
     .signup {
       margin: 20px;
       a {
-        font-size: 13px;
+        font-size: 15px;
         padding: 5px 10px 6px 10px;
         font-weight: bold;
         border: 1px solid #5B6881;
@@ -58,6 +59,9 @@
         text-decoration: none;
         text-shadow: 0 -1px 0 #036;
       }
+      p {
+        font-size: 15px;
+      }
     }
   }
 }
@@ -66,7 +70,7 @@
     vertical-align: middle;
     background: #0483A0;
     color: #FFF;
-    margin-left: 5px;
+    margin-left: 40px;
     padding: 5px 10px 6px 10px;
     border-radius: 4px;
     border: 1px solid #5B6881;

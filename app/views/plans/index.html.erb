@@ -20,13 +20,14 @@
     </div>
   </div>
 </div>
-<% if @own_subscription.present?  %>
+<% if current_user.admin? %>
+  <% if @own_subscription.present?  %>
     <div class="row">
       <div class="col-md-2"></div>
       <div class="col-md-8">
         <p class="signed_up">
           <% if @own_subscription.plan && @own_subscription.plan != nil %>
-            <%= date_to_input_regexp @own_subscription.created_at %> - You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price * @firm.users.count %></strong> <%= @own_subscription.plan.price_description %>
+            You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price * @firm.users.count %></strong> <%= @own_subscription.plan.price_description %>
             <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
             <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
           <% end %>
@@ -37,7 +38,7 @@
         </p>
       </div>
     </div>
-<% end %>
+  <% end %>
 <div class="row">
   <% if @own_subscription.present? && @own_subscription.plan != nil %>
     <div class="col-md-12" style="margin-top: 50px;">
@@ -74,4 +75,5 @@
     </div>
   </div>
 </div>
+<% end %>
 

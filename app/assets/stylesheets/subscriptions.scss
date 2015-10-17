@@ -1,0 +1,48 @@
+// Place all the styles related to the Subscriptions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#subscription {
+  background-repeat: no-repeat;
+
+  margin: 0 auto;
+
+  margin-bottom: 10px;
+  h1 {
+
+    color: #FFF;
+    padding: 5px 0;
+    border: solid 1px #5B6881;
+    border-bottom: none;
+    background: #3A4E5D;
+    padding: 5px 10px 6px 10px;
+    border-radius: 4px;
+  }
+
+    display: table;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 10px 15px 15px;
+    border-radius: 8px;
+    border: 1px solid #999999;
+
+}
+
+#stripe_error {
+  color: #D00;
+}
+
+.details_edit {
+  float: left;
+  vertical-align: middle;
+  background: #0483A0;
+  color: #FFF;
+  margin-left: 5px;
+  padding: 5px 10px 6px 10px;
+  border-radius: 4px;
+  border: 1px solid #5B6881;
+  background-repeat: no-repeat;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 #036;
+}

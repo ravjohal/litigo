@@ -1,0 +1,63 @@
+<%= form_for @subscription do |f| %>
+    <% if @subscription.errors.any? %>
+        <div class="error_messages">
+          <h2><%= pluralize(@subscription.errors.count, "error") %> prohibited this subscription from being saved:</h2>
+          <ul>
+            <% @subscription.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <table>
+      <%= f.hidden_field :plan_id %>
+      <%= f.hidden_field :stripe_card_token %>
+      <tr>
+        <td>
+          <strong>Email:</strong>
+        </td>
+        <td>
+          <%= f.text_field :email %>
+        </td>
+      </tr>
+
+          <tr>
+            <td>
+              <strong>Credit Card Number</strong>
+            </td>
+            <td>
+              <%= text_field_tag :card_number, nil, name: nil %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Security Code on Card (CVV)</strong>
+            </td>
+            <td>
+              <%= text_field_tag :card_code, nil, name: nil %>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Card Expiration</strong>
+            </td>
+            <td>
+              <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
+              <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
+            </td>
+          </tr>
+
+      <tr>
+        <td>
+          <div id="stripe_error"></div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+        </td>
+        <td>
+          <%= f.submit "Subscribe", :class => 'btn btn-primary' %>
+        </td>
+      </tr>
+    </table>
+<% end %>

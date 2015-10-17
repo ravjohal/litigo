@@ -4,5 +4,8 @@
     <li><%= active_link_to 'Settings', users_settings_path, :class_active => 'navigated' %></li>
     <% if current_user.admin? %><li><%= active_link_to 'Manage Users', users_admin_path, :class_active => 'navigated' %></li><% end %>
     <li><%= active_link_to 'Calendars', namespaces_path, :class_active => 'navigated' %></li>
+    <% if current_user.admin? %>
+      <li><%= active_link_to 'Billing Information', plans_path, :class_active => 'navigated' %></li>
+    <% end %>
   </ul>
 </div>

@@ -8,6 +8,7 @@ gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => 
 gem 'uglifier', '~> 2.5.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.2'
+gem  'jquery-turbolinks'
 gem 'turbolinks', '~> 2.4.0'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
@@ -55,6 +56,9 @@ gem 'docx_replace', '~> 1.0.3'
 gem 'docx', '~> 0.2.07', :require => ['docx']
 gem 'dossier', '~> 2.12.2'
 gem 'amoeba'
+gem 'stripe'
+gem 'stripe_event'
+gem 'ultrahook'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 1.0.0'
 gem 'newrelic_rpm'

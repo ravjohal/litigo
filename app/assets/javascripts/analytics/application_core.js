@@ -137,8 +137,6 @@ Application.prototype.run = function() {
      * Load data.
      */
     d3.json("charts/data", function(error, dataSet) {
-        console.log(error);
-        console.log(dataSet);
         if (error) {
             return console.error(error);
         }

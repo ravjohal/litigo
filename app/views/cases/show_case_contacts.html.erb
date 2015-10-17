@@ -45,6 +45,9 @@
         <strong>Name</strong>
       </td>
       <td class="gray-back">
+        <strong>Company</strong>
+      </td>
+      <td class="gray-back">
         <strong>Case Role</strong>
       </td>
       <td class="gray-back">
@@ -59,19 +62,24 @@
     <% @contacts.each do |contact| %>
       <tr>
         <% if contact.contact %>
-        <td class="doc-link">
-          <%= link_to contact.contact.try(:name), contact.contact %>
-        </td>
-        <% end %>
-        <td>
-          <%= contact.try(:role) %>
-        </td>
-        <td>
-          <%= contact.contact.phone_number if contact.contact %>
-        </td>
-        <td>
-          <%= contact.try(:note) %>
-        </td>
+          <td class="doc-link">
+            <%= link_to contact.contact.try(:name), contact.contact %>
+          </td>
+          <td class="doc-link">
+            <% if contact.contact.company %>
+              <%= link_to contact.contact.company.try(:name), contact.contact.company %>
+            <% end %>
+          </td>
+          <td>
+            <%= contact.try(:role) %>
+          </td>
+          <td>
+            <%= contact.contact.phone_number if contact.contact %>
+          </td>
+          <td>
+            <%= contact.try(:note) %>
+          </td>
+         <% end %>
       </tr>
     <% end %>
     </tbody>

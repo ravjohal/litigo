@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151009060131) do
+ActiveRecord::Schema.define(version: 20151013082923) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -682,6 +682,14 @@ ActiveRecord::Schema.define(version: 20151009060131) do
   add_index "phones", ["contact_id"], name: "index_phones_on_contact_id", using: :btree
   add_index "phones", ["firm_id"], name: "index_phones_on_firm_id", using: :btree
 
+  create_table "plans", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "price"
+    t.string   "price_description"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
   create_table "resolutions", force: :cascade do |t|
     t.integer  "case_id"
     t.integer  "firm_id"
@@ -716,6 +724,17 @@ ActiveRecord::Schema.define(version: 20151009060131) do
   add_index "settlements", ["created_by_id"], name: "index_settlements_on_created_by_id", using: :btree
   add_index "settlements", ["firm_id"], name: "index_settlements_on_firm_id", using: :btree
   add_index "settlements", ["template_id"], name: "index_settlements_on_template_id", using: :btree
+
+  create_table "subscriptions", force: :cascade do |t|
+    t.integer  "plan_id"
+    t.string   "email"
+    t.string   "stripe_customer_token"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.string   "stripe_card_token"
+    t.integer  "user_id"
+    t.string   "last_digits"
+  end
 
   create_table "task_drafts", force: :cascade do |t|
     t.integer "task_list_id"

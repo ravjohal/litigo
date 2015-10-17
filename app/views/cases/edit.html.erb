@@ -61,6 +61,16 @@
         </td>
       </tr>
       <tr>
+        <td class="right">
+            <strong>Mediator:</strong>
+        </td>
+        <td>
+         <% @case.case_contacts.where("role = 'Judge'").each do |d| %>
+          <%= d.contact.first_name %> <%= d.contact.last_name %>
+           <% end %>
+        </td>
+      </tr>
+      <tr>
         <td class="col-one">
           <strong>Court:</strong>
         </td>

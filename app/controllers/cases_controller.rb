@@ -127,6 +127,13 @@ class CasesController < ApplicationController
       if case_params[:attorney] || case_params[:staff]
         @case.assign_case_attorney_staff(case_contacts_params)
       end
+      count_attorneys = @case.case_contacts.where("role = 'Attorney'").size
+      attorneys = @case.case_contacts.where("role = 'Attorney'")
+      last_cases = Case.last(count_attorneys)
+      last_cases.each_with_index do |item, index|
+        case_attorney_id = attorneys[index].contact.user_account_id
+        item.notifications.create(author: current_user.name, note_id: @case.id, user_id: case_attorney_id)
+      end
       redirect_to @case, notice: 'Case was successfully created.'
     else
       redirect_to :back, alert: "Please review the problems below: #{@case.errors.full_messages.join('. ')}"

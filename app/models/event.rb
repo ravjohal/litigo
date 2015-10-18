@@ -108,6 +108,16 @@ class Event < ActiveRecord::Base
       participants.each do |p_email|
         participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
         EventParticipant.create(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
+
+        _contact = Contact.find(firm_id: firm_id, email: p_email)
+
+        options = {
+            user: user,
+            send_to_contact: (_contact || participant),
+            contacts: participants,
+            event: self
+        }
+        UserEmails.event_invitation(options).deliver_later
       end
     end
   end

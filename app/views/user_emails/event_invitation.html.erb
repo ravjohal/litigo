@@ -605,7 +605,7 @@
                         
                             <h1>You've been invited</h1>
 
-<h3>Hello <%= @send_to_contact.first_name.present? && @send_to_contact.last_name.present? ? "#{@send_to_contact.first_name} #{@send_to_contact.last_name}" : @send_to_contact.email %>,</h3>
+<h3>Hello <%= @send_to_contact.try(:first_name).present? && @send_to_contact.try(:last_name).present? ? "#{@send_to_contact.first_name} #{@send_to_contact.last_name}" : @send_to_contact.email %>,</h3>
 
 <p style="font-size: 14px;"><%= @user.name %> invited you to the event <%= @event.try(:summary) %></p><br>
 <p><strong>When:</strong> <%= @event.start.strftime("%a, %e %b %Y %H:%M %Z") %> - <%= @event.end.strftime("%a, %e %b %Y %H:%M %Z") %></p><br>

@@ -99,9 +99,4 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
   config.active_record.raise_in_transactional_callbacks = true
-
-  config.action_dispatch.default_headers.merge!({
-    'Access-Control-Allow-Origin' => '*',
-    'Access-Control-Request-Method' => '*'
-  })
 end

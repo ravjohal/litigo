@@ -3,12 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 #subscription {
   background-repeat: no-repeat;
-
   margin: 0 auto;
-
   margin-bottom: 10px;
   h1 {
-
     color: #FFF;
     padding: 5px 0;
     border: solid 1px #5B6881;
@@ -17,14 +14,12 @@
     padding: 5px 10px 6px 10px;
     border-radius: 4px;
   }
-
-    display: table;
-    width: 100%;
-    background-color: #fff;
-    padding: 15px 10px 15px 15px;
-    border-radius: 8px;
-    border: 1px solid #999999;
-
+  display: table;
+  width: 100%;
+  background-color:#fff;
+  padding: 15px 10px 15px 15px;
+  border-radius: 8px;
+  border: 1px solid #999999;
 }
 
 #stripe_error {

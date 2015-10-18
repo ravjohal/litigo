@@ -59,10 +59,5 @@ module Litigo
         'X-XSS-Protection' => '1; mode=block',
         'X-Content-Type-Options' => 'nosniff'
     }
-
-    config.action_dispatch.default_headers.merge!({
-        'Access-Control-Allow-Origin' => 'https://litigo.co',
-        'Access-Control-Request-Method' => '*'
-      })
   end
 end

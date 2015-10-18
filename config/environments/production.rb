@@ -55,9 +55,9 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-   config.action_controller.asset_host = "d1pet5kk97mhfr.cloudfront.net"
+  # config.action_controller.asset_host = "d1pet5kk97mhfr.cloudfront.net"
 
-   config.font_assets.origin = "https://litigo.co"
+  # config.font_assets.origin = "https://litigo.co"
 
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.

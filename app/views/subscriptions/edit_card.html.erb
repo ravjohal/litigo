@@ -21,6 +21,7 @@
     </div>
   </div>
 </div>
+<div class="incase-tabs-gap"></div>
 <% if @own_subscription.present? %>
     <div class="row">
       <div class="col-md-2"></div>
@@ -33,7 +34,7 @@
       </div>
     </div>
 <% end %>
-<div style="margin-top: 140px;">
+<div class="profile">
   <%= form_for @subscription, html: { class: 'update_subscription' } do |f| %>
       <% if @subscription.errors.any? %>
           <div class="error_messages">

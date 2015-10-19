@@ -59,7 +59,11 @@ class User < ActiveRecord::Base
   include SyncNamespaces
 
   def finish?
-    4 == confirm_step.to_i
+    steps_count == confirm_step.to_i
+  end
+
+  def steps_count
+    admin? ? 5 : 4
   end
 
   #this method is called by devise to check for "active" state of the model

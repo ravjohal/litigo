@@ -32,7 +32,7 @@
             <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
           <% end %>
           <% if @own_subscription.plan == nil %>
-            You canceled from any plans
+            You have canceled from any plans
             <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
           <% end %>
         </p>

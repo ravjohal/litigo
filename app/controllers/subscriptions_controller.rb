@@ -6,6 +6,7 @@ class SubscriptionsController < ApplicationController
   def new
     plan = Plan.find(params[:plan_id])
     @subscription = plan.subscriptions.build
+    @subscription.email = User.select(:email).where(id: params[:user_id]).first.email if params[:user_id]
   end
 
   def create

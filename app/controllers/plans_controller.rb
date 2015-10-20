@@ -5,7 +5,7 @@ class PlansController < ApplicationController
 
   def index
     @own_subscription = current_user.subscriptions.last
-    @plans = Plan.where('id = ? or id = ?',1, 4).order('price')   # for now we need only basic plans(1,4 -ids)
+    @plans = Plan.where('id = ? or id = ? or id = ?', 1, 4, 5).order('price')   # for now we need only basic plans(1,4 -ids) and 5 - free plan
     @user_id = params[:user_id]
   end
 

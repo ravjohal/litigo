@@ -1,0 +1,39 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#new_modal').click(function(){
+        $("#modal-window").html("<%= escape_javascript(render 'invoices/form', new_invoice: Invoice.new ) %>");
+      });
+      $('.table tbody').on( 'click', 'tr', function (e) {
+        var id = $(e.currentTarget).data('id');
+        $('table.rowlink').rowlink();
+      });
+
+      $('.table').each(function(i, table) {
+        $(table).dataTable({
+          language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search",
+            lengthMenu: "View _MENU_"
+          },
+          sDom: '<"toolbar">Rfrtlip',
+          aaSorting: [[ 0, "desc" ]],
+          bProcessing: true,
+          bServerSide: true,
+          sAjaxSource: $(table).data('source')
+        });
+      });
+
+      $("div.toolbar").html("<%= render(partial: 'invoices/filter_button') %>");
+
+      $('.lead-filter .dropdown-menu li a').click(function (e) {
+        e.preventDefault();
+        var text = $(this).text();
+        var cases_owner = $(this).closest('.lead-filter').closest('.dataTables_wrapper').find('.table').attr('id');
+        $(this).closest('.lead-filter').find('a.btn-default').html(text +" <span class='caret'></span>");
+        var table = $('#'+cases_owner).dataTable();
+        table.fnDraw();
+      });
+    });
+  </script>
+<% end %>

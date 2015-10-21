@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :calendars, :through => :namespaces
   has_many :participants, :through => :events
   has_many :interrogatories, class_name: 'Interrogatory', foreign_key: 'created_by_id'
+  has_many :invoices
 
 
   belongs_to :firm
@@ -59,7 +60,7 @@ class User < ActiveRecord::Base
   include SyncNamespaces
 
   def finish?
-    steps_count == confirm_step.to_i
+    steps_count <= confirm_step.to_i
   end
 
   def steps_count

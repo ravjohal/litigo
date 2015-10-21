@@ -19,6 +19,8 @@ class Contact < ActiveRecord::Base
   has_many :requesters, class_name: 'Interrogatory', foreign_key: 'requester_id'
   has_many :responders, class_name: 'Interrogatory', foreign_key: 'responder_id'
 
+  has_many :invoices
+
   amoeba do
     enable
     propagate

@@ -1,4 +1,5 @@
 <ul id="nav-tabs-custom" role="tablist">
   <li <%= is_active('time_entries') %>><%= active_link_to 'Time Entries', time_entries_path, :class_active => 'navigated',  :active => [['time_entries'], ['index']] %></li>
   <li><%= active_link_to 'Expenses', expenses_path , :class_active => 'navigated', :active => [['expenses'], ['index']] %></li>
+  <li><%= active_link_to 'Billing', invoices_path, :class_active => 'navigated', :active => [['invoices'], ['index']] %></li>
 </ul>

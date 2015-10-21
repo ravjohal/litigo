@@ -241,7 +241,7 @@
     });
 
     $('#step_finish').click(function () {
-      saveStep(4, function() {
+      saveStep(<%= @user.steps_count%>, function() {
         window.location = '/finish_registration';
       });
     });

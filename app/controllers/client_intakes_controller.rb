@@ -129,9 +129,13 @@ class ClientIntakesController < ApplicationController
             injury.save
           end
 
-          insurance = @case.build_insurance
-          insurance.firm = @firm
-          insurance.save
+          if @lead.lead_policy_limit
+            insurance = Insurance.new
+            insurance.policy_limit = @lead.lead_policy_limit
+            insurance.insurance_provider = @lead.lead_insurance
+            insurance.firm = @firm
+            @case.insurances << insurance
+          end
         end
 
         resolution = @case.build_resolution

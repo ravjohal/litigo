@@ -35,6 +35,7 @@ class Case < ActiveRecord::Base
   has_many :expenses
   has_many :insurances
   has_many :interrogatories
+  has_many :invoices
 
   accepts_nested_attributes_for :case_contacts, :reject_if => :no_contact, :allow_destroy => :true
   accepts_nested_attributes_for :insurances, :reject_if => :all_blank, :allow_destroy => :true

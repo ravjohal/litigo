@@ -56,11 +56,6 @@ class Lead < ActiveRecord::Base
             :firm_id => firm_id,
             :user_id => user.id
         },
-        :insurance_attributes => {
-            :insurance_provider => lead_insurance,
-            :firm_id => firm_id,
-            :policy_limit => lead_policy_limit
-        },
         :notes_attributes => [{
                                    :note => note,
                                    :firm_id => firm_id,

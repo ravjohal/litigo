@@ -1,0 +1,45 @@
+<%= simple_form_for(@invoice) do |f| %>
+  <%= f.hidden_field :payments %>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+
+        <h1>Add Invoice Payment</h1>
+      </div>
+      <div class="modal-body">
+
+        <table class="lead-form table-condensed">
+          <tbody>
+          <tr>
+            <td class="col-one">
+              <Strong>Payment:</Strong>
+            </td>
+            <td>
+              <%= f.input :add_payment_amount, label: false, :class => 'table-input', :include_blank => true %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+
+      </div>
+      <!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="pull-left">
+          <a class="close" data-dismiss="modal">Cancel</a>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
+        </div>
+
+      </div>
+      <!--end of modal-footer-->
+    </div>
+    <!--end of modal-content-->
+  </div><!--end of modal-dialog-->
+<% end %>
+
+

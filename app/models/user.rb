@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :calendars, :through => :namespaces
   has_many :participants, :through => :events
   has_many :interrogatories, class_name: 'Interrogatory', foreign_key: 'created_by_id'
+  has_many :invoices
 
 
   belongs_to :firm

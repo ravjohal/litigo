@@ -1,0 +1,9 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('#add_payment').click(function(){
+        $("#modal-window").html("<%= escape_javascript(render 'invoices/payment_form', invoice: @invoice ) %>");
+      });
+    });
+  </script>
+<% end %>

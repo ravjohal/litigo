@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
   include SyncNamespaces
 
   def finish?
-    steps_count == confirm_step.to_i
+    steps_count <= confirm_step.to_i
   end
 
   def steps_count

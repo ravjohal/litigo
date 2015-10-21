@@ -95,3 +95,20 @@ text-align: center;
     color: red;
   }
 }
+#popup_medical {
+  float: left;
+  height: 85px;
+  width: 200px;
+  vertical-align:middle;
+  padding-left: 25px;
+  margin-bottom: -40px;
+  background-color: #363636;
+  border: 1px solid #1c2324;
+  border-radius: 5px;
+  color: white;
+  display: none;
+}
+
+.provider_select select {
+  width: 100%;
+}

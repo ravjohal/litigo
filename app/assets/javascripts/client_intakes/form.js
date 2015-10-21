@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    $("#lead_select, td select").select2();
     $('#lead_phone').mask("(999) 999-9999");
 });
 $("#phone_book").hide();

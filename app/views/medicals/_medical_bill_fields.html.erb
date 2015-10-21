@@ -4,7 +4,7 @@
   <td colspan="7" style="padding: 0;">
     <table>
       <tr>
-      <td>
+      <td class="provider_select">
           <strong>Physician</strong><br>
           <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
         </td>
@@ -12,7 +12,7 @@
           <strong>Account Number</strong><br>
           <%= f.text_field :account_number, label: false, :class => 'table-input' %>
         </td>
-        <td colspan="1">
+        <td colspan="1" class="provider_select">
           <strong>Provider</strong><br>
           <%= f.association :company, :collection => @firm.contacts, label: false, :class => 'table-input', :id => 'company' %>
         </td>
@@ -52,3 +52,44 @@
     <% end %>
   </td>
 </tr>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var self =  $("#popup_medical");
+        $(".provider_select select").mouseover(function(){
+            $(this).attr("size", 6);
+        });
+        $(".provider_select select").click(function(){
+            $(this).attr("size", 1);
+        });
+        $(".provider_select select").mouseout(function(){
+            $(this).attr("size", 1);
+        });
+
+        $("select option").hover(function (e)
+        {
+            var $target = $(e.target);
+            if($target.is('option')){
+                //contact_name = $target.text()
+                var idd = $target.val().split(':')[0];
+                $.ajax({
+                    url: '/contacts/'+ idd,
+                    type: 'GET',
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                    },
+                    success: function(data){
+                        $("#popup_medical").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                'F: ' + data.fax_number
+                        ).fadeIn( "slow").show();/* do something meaningful with data */},/* do something meaningful with data */
+                    error: function(xhr, status, response) {/* your error callback */}
+                });
+
+            }
+        },function ()
+        {
+            setTimeout(function () { $(self).fadeOut('slow'); }, 4000);
+        });
+    });
+</script>

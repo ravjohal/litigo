@@ -7,7 +7,7 @@
           <td class="text-center">
               <strong><%= f.options[:child_index].to_i + 1 if f.object.id %></strong>
           </td>
-          <td class="right" colspan="">
+          <td class="right" colspan="" id="interrogatory_select">
               <strong>Requester</strong><br>
               <%= f.association :requester, :collection => @firm.contacts, :class => 'table-input', :label => false %>
           </td>
@@ -27,7 +27,7 @@
       <tr style="border-bottom: 2px solid black;">
           <td>   
           </td>
-          <td class="right" colspan="">
+          <td class="right" colspan="" id="interrogatory_select">
               <strong>Responder</strong><br>
               <%= f.association :responder, :collection => @firm.contacts, :class => 'table-input', :label => false %>
           </td>
@@ -58,5 +58,45 @@
     <% end %>
   </td>
 </tr>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var self =  $("#popup_interrogatory");
+        $("#interrogatory_select select").mouseover(function(){
+            $(this).attr("size", 6);
+        });
+        $("#interrogatory_select select").click(function(){
+            $(this).attr("size", 1);
+        });
+        $("#interrogatory_select select").mouseout(function(){
+            $(this).attr("size", 1);
+        });
 
+        $("select option").hover(function (e)
+        {
+            var $target = $(e.target);
+            if($target.is('option')){
+                //contact_name = $target.text()
+                var idd = $target.val().split(':')[0];
+                $.ajax({
+                    url: '/contacts/'+ idd,
+                    type: 'GET',
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                    },
+                    success: function(data){
+                        $("#popup_interrogatory").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                'F: ' + data.fax_number
+                        ).fadeIn( "slow").show();/* do something meaningful with data */},/* do something meaningful with data */
+                    error: function(xhr, status, response) {/* your error callback */}
+                });
+
+            }
+        },function ()
+        {
+            setTimeout(function () { $(self).fadeOut('slow'); }, 3000);
+        });
+    });
+</script>
 

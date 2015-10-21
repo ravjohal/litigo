@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021170243) do
+ActiveRecord::Schema.define(version: 20151021174251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -464,15 +464,19 @@ ActiveRecord::Schema.define(version: 20151021170243) do
     t.integer  "contact_id"
     t.date     "due_date"
     t.integer  "number"
-    t.decimal  "amount"
-    t.decimal  "balance"
-    t.decimal  "payments"
+    t.decimal  "amount",     default: 0.0
+    t.decimal  "balance",    default: 0.0
+    t.decimal  "payments",   default: 0.0
     t.string   "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "firm_id"
+    t.integer  "user_id"
   end
 
-  add_index "invoices", ["number"], name: "index_invoices_on_number", unique: true, using: :btree
+  add_index "invoices", ["firm_id"], name: "index_invoices_on_firm_id", using: :btree
+  add_index "invoices", ["number"], name: "index_invoices_on_number", using: :btree
+  add_index "invoices", ["user_id"], name: "index_invoices_on_user_id", using: :btree
 
   create_table "leads", force: :cascade do |t|
     t.integer  "screener_id"

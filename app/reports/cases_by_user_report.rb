@@ -3,7 +3,7 @@ class CasesByUserReport < Dossier::Report
   def sql
     Case.joins(:case_contacts => :contact).where("cases.firm_id = :firm_id 
       AND role IN ('Attorney', 'Staff')
-      AND contact_id IN :user_contact_id"
+      AND user_account_id IN :user_contact_id"
       ).select("last_name, first_name, case_number, name, subtype, status"
       ).uniq.to_sql
   end
@@ -13,7 +13,7 @@ class CasesByUserReport < Dossier::Report
   end
 
   def user_contact_id
-    options[:user_contact_id]
+    User.find(options[:user_contact_id])
   end
 
 end

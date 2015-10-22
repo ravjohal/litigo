@@ -1,9 +1,10 @@
     <tr class="nested-fields insurance-field">
       <%= javascript_include_tag 'cases/case_contact_fields', 'data-turbolinks-track' => true %>
-      <td>
+      <td class="select_contact">
           <%= f.association :contact, :collection => (@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map { |contact| [contact.name_with_company, contact.id] }), :prompt => "Add Contact", :class => 'table-input', :label => false %>
       </td>
       <td>
+          <div id="popup_case"></div>
           <%= f.input :role, collection: Contact::TYPES, :prompt => "Add Role", :class => 'table-input', :label => false %>
       </td>
       <td colspan="2">
@@ -15,3 +16,32 @@
       </td>
   </tr>
 
+<script type="text/javascript">
+  $(document).ready(function() {
+    var self =  $("#popup_case");
+    $('select').select2()
+    .on("change", function(e) { // When user select Value then change event fire
+       $('#popup_case').close();
+    })
+    .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+       var idd = e.val.split(':')[0];
+       $.ajax({
+         url: '/contacts/'+ idd,
+         type: 'GET',
+         dataType: 'json',
+         beforeSend: function (xhr) {
+           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+         },
+         success: function(data){
+           $("#popup_case").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                 data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                 'F: ' + data.fax_number
+                                ).fadeIn( "slow").show();
+         setTimeout(function(){
+           $("#popup_case").hide();
+         }, 3000);/* do something meaningful with data */},
+         error: function(xhr, status, response) {/* your error callback */}
+       });
+    });
+  });
+</script>

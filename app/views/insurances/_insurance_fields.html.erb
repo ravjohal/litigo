@@ -27,36 +27,47 @@
       <%= link_to_remove_association f, class: 'dark-small remove_children' do %><span id="remove" class="glyphicon glyphicon-trash" original-title="Remove Insurance"></span><% end %>
     </td>
   </tr>
-<script type="text/javascript">
-$(document).ready(function() {
-  var self =  $("#popup_insurance");
-  $('select').select2()
-     .on("change", function(e) { // When user select Value then change event fire
-        $('#popup_insurance').close();
-     })
-     .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
-     //contact_name = $target.text()
-     var idd = e.val.split(':')[0];
-     $.ajax({
-       url: '/contacts/'+ idd,
-       type: 'GET',
-       // data: 'contact_name=' + contact_name,
-       dataType: 'json',
-       beforeSend: function (xhr) {
-         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-       },
-       success: function(data){
-         $("#popup_insurance").html(data.first_name + ' ' + data.last_name + '<br>' +
-                          data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
-                          'F: ' + data.fax_number
-                         ).fadeIn( "slow").show();
-       setTimeout(function(){
-         $("#popup_insurance").hide();
-       }, 3000);/* do something meaningful with data */},
-       error: function(xhr, status, response) {/* your error callback */}
-     });
-  });
-});
-</script>
-
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var self =  $("#popup_insurance");
+            $(document).mousemove(function (e) {
+                mX = e.pageX;
+                mY = e.pageY;
+            }).mouseover();
+            $('select').select2()
+              .on("change", function(e) { // When user select Value then change event fire
+                 $('#popup_insurance').close();
+              })
+              .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+                var p = 'P: ';
+                var f = 'F: ';
+                var idd = e.val.split(':')[0];
+                $.ajax({
+                  url: '/contacts/'+ idd,
+                  type: 'GET',
+                  dataType: 'json',
+                  beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                  },
+                  success: function(data){
+                  $('#popup_insurance').css({
+                    'opacity': '0.1',
+                    'top': mY-80,
+                  }).animate({
+                    'opacity': '1.0',
+                  }, 300);
+                  if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
+                  if(data.phone_number == null || data.phone_number == '') { p = '';} else {p = '<br>' + 'P: '}
+                  if(data.address == null) {data.address = '' ;}
+                  $("#popup_insurance").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                             data.address + p + data.phone_number  +
+                                             f + data.fax_number
+                                            ).fadeIn( "slow").show();
+                  setTimeout(function(){
+                    $("#popup_insurance").hide();
+                  }, 5000);/* do something meaningful with data */},
+                  error: function(xhr, status, response) {/* your error callback */}
+                });
+              });
+        });
+    </script>

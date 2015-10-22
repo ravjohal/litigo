@@ -167,12 +167,17 @@
 <script type="text/javascript">
 $(document).ready(function() {
   var self =  $("#popup");
+    $(document).mousemove(function (e) {
+        mX = e.pageX;
+        mY = e.pageY;
+    }).mouseover();
     $('select').select2()
             .on("change", function(e) { // When user select Value then change event fire
                 $('#popup').hide();
             })
             .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
-
+                var p = 'P: ';
+                var f = 'F: ';
                 //contact_name = $target.text()
                 var idd = e.val.split(':')[0];
                 $.ajax({
@@ -184,9 +189,18 @@ $(document).ready(function() {
                         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                     },
                     success: function(data){
+                        $('#popup').css({
+                            'opacity': '0.1',
+                            'top': mY-120,
+                        }).animate({
+                            'opacity': '1.0',
+                        }, 300);
+                        if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
+                        if(data.phone_number == null || data.phone_number == '') { p = '';} else {p = '<br>' + 'P: '}
+                        if(data.address == null) {data.address = '' ;}
                         $("#popup").html(data.first_name + ' ' + data.last_name + '<br>' +
-                                data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
-                                'F: ' + data.fax_number
+                                data.address + p + data.phone_number  +
+                                f + data.fax_number
                         ).fadeIn( "slow").show();
                         setTimeout(function(){
                             $("#popup").hide();

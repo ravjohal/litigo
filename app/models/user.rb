@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id' #this user owns these tasks
   has_many :owned_tasks_secondary, class_name: 'Task', foreign_key: 'secondary_owner_id' #this user owns these tasks
   has_many :contacts
-  has_one :contact_user, class_name: 'Contact', :dependent => :destroy
+  has_one :contact_user, class_name: 'Contact', foreign_key: 'user_account_id', :dependent => :destroy
   has_many :cases
   has_many :notes
   has_many :notes_users, foreign_key: 'secondary_owner_id'

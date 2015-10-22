@@ -1,8 +1,8 @@
-<%= javascript_include_tag 'client_intakes/show', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'invoices/show', 'data-turbolinks-track' => true %>
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong>Invoice #:<%= @invoice.number %></strong><br>
+      <strong>Invoice #<%= @invoice.number %></strong><br>
     </div>
     <div id="case-buttons">
       <ul>
@@ -19,6 +19,14 @@
           <% end %>
         </li>
       </ul>
+    </div>
+  </div>
+  <strong style="color: white;">A</strong>
+  <div class="container-fluid" style="padding: 0;">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render partial: 'invoice_tabs' %>
+      </div>
     </div>
   </div>
 </div>
@@ -66,7 +74,7 @@
       <strong>Payments:</strong>
     </td>
     <td>
-      <%= number_to_currency @invoice.payments.to_f %>
+      <%= number_to_currency @invoice.payment_sum.to_f %>
     </td>
     <td class="right">
       <strong>Balance:</strong>

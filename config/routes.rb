@@ -132,7 +132,10 @@ Rails.application.routes.draw do
   end
 
   resources :expenses
-  resources :invoices
+  resources :invoices do
+    resources :payments, :only => [:index, :create], :shallow => true
+    get 'invoice_payments' => 'payments#invoice_payments', :defaults => { :format => :json }
+  end
   resources :users
   resources :cases do
     resources :contacts, :shallow => true
@@ -153,7 +156,7 @@ Rails.application.routes.draw do
   get "cases/:id/summary" => 'cases#summary', as: :case_summary
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
-  get "firm_invoices" => "invoices#firm_invoices", :defaults => { :format => :json }
+  get 'firm_invoices' => 'invoices#firm_invoices', :defaults => { :format => :json }
   get "accept_case/:id" => 'client_intakes#accept_case', as: :accept_case
   get 'cases/:id/doc' => 'cases#doc', as: :doc
   get "contacts/:id/contact information" => 'contacts#info', as: :contact_info

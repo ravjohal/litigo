@@ -39,13 +39,13 @@
       </td>
       <td>
         <%= f.select :attorney_id, User.where('firm_id = ? and role != ? ', current_user.firm_id, 0 ).map { |c|  ["#{c.name} ", "#{c.id}:#{c.id}"] } , label: false, :class => 'table-input'  %>
-        <div id="popup"></div>
       </td>
     </tr>
 
     <tr>
       <td>
         <strong>Caller Phone Number:</strong>
+        <div id="popup"></div>
       </td>
       <td>
         <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(___) ___-____' %>
@@ -165,46 +165,36 @@
 <% end %>
 
 <script type="text/javascript">
-    $("#lead_select, td select").not("#lead_attorney_id").select2();
 $(document).ready(function() {
   var self =  $("#popup");
-  $("select#lead_attorney_id").mouseover(function(){
-     var n = $("select#lead_attorney_id option").length;
-     $(this).attr("size", n);
-  });
-  $("select#lead_attorney_id").click(function(){
-    $(this).attr("size", 1);
-  });
-  $("select#lead_attorney_id").mouseout(function(){
-    $(this).attr("size", 1);
-  });
+    $('select').select2()
+            .on("change", function(e) { // When user select Value then change event fire
+                $('#popup').hide();
+            })
+            .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
 
-    $("select#lead_attorney_id option").hover(function (e)
-    {
-    var $target = $(e.target);
-    if($target.is('option')){
-      //contact_name = $target.text()
-      var idd = $target.val().split(':')[0];
-      $.ajax({
-         url: '/users/'+ idd,
-         type: 'GET',
-         // data: 'contact_name=' + contact_name,
-         dataType: 'json',
-         beforeSend: function (xhr) {
-           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-         },
-         success: function(data){
-           $("#popup").html(data.first_name + ' ' + data.last_name + '<br>' +
-                            data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
-                            'F: ' + data.fax_number
-           ).fadeIn( "slow").show();/* do something meaningful with data */},
-         error: function(xhr, status, response) {/* your error callback */}
-      });
+                //contact_name = $target.text()
+                var idd = e.val.split(':')[0];
+                $.ajax({
+                    url: '/users/'+ idd,
+                    type: 'GET',
+                    // data: 'contact_name=' + contact_name,
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                    },
+                    success: function(data){
+                        $("#popup").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                'F: ' + data.fax_number
+                        ).fadeIn( "slow").show();
+                        setTimeout(function(){
+                            $("#popup").hide();
+                        }, 5000);/* do something meaningful with data */},
 
-    }
-  },function ()
-     {
-     setTimeout(function () { $(self).fadeOut('slow'); }, 5000);
-     });
+                    error: function(xhr, status, response) {/* your error callback */}
+
+                });
+            });
 });
 </script>

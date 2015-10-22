@@ -62,31 +62,44 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var self =  $("#popup_interrogatory");
+        $(document).mousemove(function (e) {
+            mX = e.pageX;
+            mY = e.pageY;
+        }).mouseover();
         $('select').select2()
-                .on("change", function(e) { // When user select Value then change event fire
-                    $('#popup_interrogatory').close();
-                })
-                .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
-                    //contact_name = $target.text()
-                    var idd = e.val.split(':')[0];
-                    $.ajax({
-                        url: '/contacts/'+ idd,
-                        type: 'GET',
-                        // data: 'contact_name=' + contact_name,
-                        dataType: 'json',
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                        },
-                        success: function(data){
-                            $("#popup_interrogatory").html(data.first_name + ' ' + data.last_name + '<br>' +
-                                    data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
-                                    'F: ' + data.fax_number
-                            ).fadeIn( "slow").show();
-                            setTimeout(function(){
-                                $("#popup_interrogatory").hide();
-                            }, 3000);/* do something meaningful with data */},
-                        error: function(xhr, status, response) {/* your error callback */}
-                    });
-                });
+          .on("change", function(e) { // When user select Value then change event fire
+             $('#popup_interrogatory').close();
+          })
+          .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+             var p = 'P: ';
+             var f = 'F: ';
+             var idd = e.val.split(':')[0];
+             $.ajax({
+               url: '/contacts/'+ idd,
+               type: 'GET',
+               dataType: 'json',
+               beforeSend: function (xhr) {
+                 xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+               },
+               success: function(data){
+                 $('#popup_interrogatory').css({
+                    'opacity': '0.1',
+                    'top': mY-50,
+                 }).animate({
+                    'opacity': '1.0',
+                  }, 300);
+                 if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
+                 if(data.phone_number == null || data.phone_number == '') { p = '';} else {p = '<br>' + 'P: '}
+                 if(data.address == null) {data.address = '' ;}
+                 $("#popup_interrogatory").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                                data.address + p + data.phone_number  +
+                                                f + data.fax_number
+                                               ).fadeIn( "slow").show();
+               setTimeout(function(){
+                 $("#popup_interrogatory").hide();
+               }, 5000);/* do something meaningful with data */},
+               error: function(xhr, status, response) {/* your error callback */}
+             });
+          });
     });
 </script>

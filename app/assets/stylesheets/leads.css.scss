@@ -60,13 +60,15 @@
 }
 
 #popup {
-  position:fixed;
-  float: right;
-  height: 85px;
+  position:absolute;
+
+  height: auto;
   width: 170px;
   vertical-align:middle;
   padding-top: 10px;
   padding-left: 5px;
+  padding-bottom: 10px;
+  margin-left: -20px;
   margin-top:-15px;
   font-size: 12px;
   margin-bottom: -15px;

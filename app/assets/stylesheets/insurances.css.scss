@@ -28,17 +28,19 @@
 }
 
 #popup_insurance {
-  position: fixed;
-  top: 50%;
-  float: left;
-  height: 85px;
-  width: 130px;
+  position:absolute;
+
+  height: auto;
+  width: 170px;
   vertical-align:middle;
-  padding-left: 10px;
-  margin-top: 40px;
   padding-top: 10px;
-  background-color: #363636;
+  padding-left: 5px;
+  padding-bottom: 10px;
+  margin-left: -20px;
+  margin-top:-15px;
   font-size: 12px;
+  margin-bottom: -15px;
+  background-color: #363636;
   border: 1px solid #1c2324;
   border-radius: 5px;
   color: white;

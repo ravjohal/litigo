@@ -8,7 +8,7 @@ class Contact < ActiveRecord::Base
   has_many :event_attendees
   belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event
-  belongs_to :user_account, class_name: 'User', foreign_key: 'user_account_id' #associated contact of the user, answers: is this contact a user?
+  belongs_to :user_account, class_name: 'User' #associated contact of the user, answers: is this contact a user?
   belongs_to :firm
   belongs_to :company
   belongs_to :lead

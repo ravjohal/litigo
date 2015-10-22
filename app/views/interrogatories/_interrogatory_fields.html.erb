@@ -13,6 +13,7 @@
           </td>
           <td class="right" colspan="">
               <strong>Interrogatory</strong><br>
+              <div id="popup_interrogatory"></div>
               <%= f.text_field :question, :class => 'table-input' %>
           </td>
           <td class="right" colspan="">
@@ -58,5 +59,34 @@
     <% end %>
   </td>
 </tr>
-
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        var self =  $("#popup_interrogatory");
+        $('select').select2()
+                .on("change", function(e) { // When user select Value then change event fire
+                    $('#popup_interrogatory').close();
+                })
+                .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+                    //contact_name = $target.text()
+                    var idd = e.val.split(':')[0];
+                    $.ajax({
+                        url: '/contacts/'+ idd,
+                        type: 'GET',
+                        // data: 'contact_name=' + contact_name,
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                        },
+                        success: function(data){
+                            $("#popup_interrogatory").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                    data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                    'F: ' + data.fax_number
+                            ).fadeIn( "slow").show();
+                            setTimeout(function(){
+                                $("#popup_interrogatory").hide();
+                            }, 3000);/* do something meaningful with data */},
+                        error: function(xhr, status, response) {/* your error callback */}
+                    });
+                });
+    });
+</script>

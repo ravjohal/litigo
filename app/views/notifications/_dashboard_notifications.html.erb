@@ -1,3 +1,4 @@
+<div id="notice"></div>
 <% @notifications.to_a.each do |note| %>
   <div class="each_notification">
     <table>
@@ -34,3 +35,15 @@
     </table>
   </div>
 <% end %>
+<script>
+$(document).ready(function() {
+  $('#notice').hide();
+  $('.delete-notification').on('click',function(){
+     $("#notice").html('Notification was successfully deleted.');
+     $("#notice").show();
+     setTimeout(function(){
+        $("#notice").hide("slow");
+     }, 2000);
+  });
+});
+</script>

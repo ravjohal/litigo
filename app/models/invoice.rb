@@ -3,6 +3,7 @@ class Invoice < ActiveRecord::Base
   belongs_to :contact
   belongs_to :user
   belongs_to :firm
+  has_many :payments
 
   STATUS = {:unpaid => 'Unpaid', :unpaid_30 => 'Unpaid 30+', :unpaid_60 => 'Unpaid 60+', :unpaid_90 => 'Unpaid 90+', :paid => 'Paid (full)', :paid_p => 'Paid (partial)', :draft => 'Draft'}
 
@@ -12,9 +13,6 @@ class Invoice < ActiveRecord::Base
                   associated_against: { :case => [:name], :contact => [:first_name, :last_name]  }
 
 
-  attr_accessor :add_payment_amount
-
-  after_initialize :after_init
   before_save :calculate_balance
 
   def self.all_invoices_scope
@@ -22,10 +20,10 @@ class Invoice < ActiveRecord::Base
   end
 
 
-  def self.increment_number(firm_, action_, invoice)
-    return invoice.number if 'edit' == action_.to_s
+  def self.increment_number(firm_, invoice)
+    return invoice.number unless invoice.new_record?
 
-    new_number = firm_.invoices.maximum(:number).to_i + 1
+    new_number = firm_.payments.count.to_i + 1
     new_number.to_i
   end
 
@@ -49,15 +47,16 @@ class Invoice < ActiveRecord::Base
     "# #{number}"
   end
 
-  private
-
-  def after_init
-    self.add_payment_amount ||= 0.0
+  def recalculate_balance
+    sum = payments.sum(:amount)
+    self.payment_sum = sum
+    update_attribute(:payment_sum, sum)
   end
 
+  private
+
   def calculate_balance
-    self.payments += add_payment_amount.to_f if add_payment_amount.to_f > 0
-    self.balance = amount - payments if payments_changed?
+    self.balance = amount - payment_sum if payment_sum_changed?
   end
 
 end

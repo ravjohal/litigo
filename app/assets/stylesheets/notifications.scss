@@ -66,3 +66,14 @@
   display: inline;
 }
 
+#notice {
+  position: absolute;
+  z-index: 4;
+  border: 1px solid #Cff0d8;
+  margin-top: -40px;
+  margin-left: 50px;
+  border-radius: 5px;
+  color: #3c763d;
+  padding: 30px 20px 30px 20px;
+  background: #dff0d8;
+}

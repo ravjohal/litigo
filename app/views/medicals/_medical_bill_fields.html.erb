@@ -4,15 +4,16 @@
   <td colspan="7" style="padding: 0;">
     <table>
       <tr>
-      <td class="provider_select">
+      <td>
           <strong>Physician</strong><br>
           <%= f.association :physician, :collection => @firm.contacts.where("type = 'Physician'"), label: false, :class => 'table-input' %>
         </td>
         <td colspan="1">
           <strong>Account Number</strong><br>
+          <div id="popup_medical"></div>
           <%= f.text_field :account_number, label: false, :class => 'table-input' %>
         </td>
-        <td colspan="1" class="provider_select">
+        <td colspan="1">
           <strong>Provider</strong><br>
           <%= f.association :company, :collection => @firm.contacts, label: false, :class => 'table-input', :id => 'company' %>
         </td>
@@ -55,41 +56,31 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var self =  $("#popup_medical");
-        $(".provider_select select").mouseover(function(){
-            $(this).attr("size", 6);
-        });
-        $(".provider_select select").click(function(){
-            $(this).attr("size", 1);
-        });
-        $(".provider_select select").mouseout(function(){
-            $(this).attr("size", 1);
-        });
-
-        $("select option").hover(function (e)
-        {
-            var $target = $(e.target);
-            if($target.is('option')){
-                //contact_name = $target.text()
-                var idd = $target.val().split(':')[0];
-                $.ajax({
-                    url: '/contacts/'+ idd,
-                    type: 'GET',
-                    dataType: 'json',
-                    beforeSend: function (xhr) {
-                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-                    },
-                    success: function(data){
-                        $("#popup_medical").html(data.first_name + ' ' + data.last_name + '<br>' +
-                                data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
-                                'F: ' + data.fax_number
-                        ).fadeIn( "slow").show();/* do something meaningful with data */},/* do something meaningful with data */
-                    error: function(xhr, status, response) {/* your error callback */}
+        $('select').select2()
+                .on("change", function(e) { // When user select Value then change event fire
+                    $('#popup_medical').close();
+                })
+                .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+                    //contact_name = $target.text()
+                    var idd = e.val.split(':')[0];
+                    $.ajax({
+                        url: '/contacts/'+ idd,
+                        type: 'GET',
+                        // data: 'contact_name=' + contact_name,
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                        },
+                        success: function(data){
+                            $("#popup_medical").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                    data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                    'F: ' + data.fax_number
+                            ).fadeIn( "slow").show();
+                            setTimeout(function(){
+                                $("#popup_medical").hide();
+                            }, 3000);/* do something meaningful with data */},
+                        error: function(xhr, status, response) {/* your error callback */}
+                    });
                 });
-
-            }
-        },function ()
-        {
-            setTimeout(function () { $(self).fadeOut('slow'); }, 4000);
-        });
     });
 </script>

@@ -3,7 +3,8 @@
       <td class="select_contact">
           <%= f.association :contact, :collection => (@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map { |contact| [contact.name_with_company, contact.id] }), :prompt => "Add Contact", :class => 'table-input', :label => false %>
       </td>
-      <td class="select_contact">
+      <td>
+          <div id="popup_case"></div>
           <%= f.input :role, collection: Contact::TYPES, :prompt => "Add Role", :class => 'table-input', :label => false %>
       </td>
       <td colspan="2">
@@ -18,41 +19,29 @@
 <script type="text/javascript">
   $(document).ready(function() {
     var self =  $("#popup_case");
-    $(".select_contact select").mouseover(function(){
-       $(this).attr("size", 7);
+    $('select').select2()
+    .on("change", function(e) { // When user select Value then change event fire
+       $('#popup_case').close();
+    })
+    .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+       var idd = e.val.split(':')[0];
+       $.ajax({
+         url: '/contacts/'+ idd,
+         type: 'GET',
+         dataType: 'json',
+         beforeSend: function (xhr) {
+           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+         },
+         success: function(data){
+           $("#popup_case").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                 data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
+                                 'F: ' + data.fax_number
+                                ).fadeIn( "slow").show();
+         setTimeout(function(){
+           $("#popup_case").hide();
+         }, 3000);/* do something meaningful with data */},
+         error: function(xhr, status, response) {/* your error callback */}
+       });
     });
-    $(".select_contact select").click(function(){
-      $(this).attr("size", 1);
-    });
-    $(".select_contact select").mouseout(function(){
-      $(this).attr("size", 1);
-    });
-
-    $("select option").hover(function (e)
-      {
-        var $target = $(e.target);
-        if($target.is('option')){
-         //contact_name = $target.text()
-          var idd = $target.val().split(':')[0];
-          $.ajax({
-            url: '/contacts/'+ idd,
-            type: 'GET',
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-            },
-            success: function(data){
-              $("#popup_case").html(data.first_name + ' ' + data.last_name + '<br>' +
-                      data.address + '<br>' + 'P: ' + data.phone_number + '<br>' +
-                      'F: ' + data.fax_number
-                                   ).fadeIn( "slow").show();/* do something meaningful with data */},/* do something meaningful with data */
-            error: function(xhr, status, response) {/* your error callback */}
-          });
-
-        }
-      },function ()
-         {
-          setTimeout(function () { $(self).fadeOut('slow'); }, 2000);
-         });
- });
+  });
 </script>

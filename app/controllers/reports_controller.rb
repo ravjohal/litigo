@@ -48,10 +48,15 @@ class ReportsController < ApplicationController
   end
 
    def cases_by_user_report
-    @user_all_id_array = @firm.contacts.where("type IN ('Attorney', 'Staff')").pluck(:id)
-    @user_ = params[:contact] && params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @user_all_id_array
+    @user_all_id_array = []
+    @firm.contacts.where("type IN ('Attorney', 'Staff')").each do |contact| 
+      if User.exists?(contact.user_account_id)
+        @user_all_id_array << contact.user_account_id 
+      end
+    end 
+    @user_ = params[:contact] && params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @user_all_id_array.uniq
     @selected_user = params[:contact][:contact_id] if params[:contact]
-    #puts 'ATTTORNEY--------------- ' + @attorney.inspect
+    #puts 'ATTTORNEY--------------- ' + @user_.inspect
     @cases_by_user_report = CasesByUserReport.new(firm_id: @firm.id, user_contact_id: @user_)
   end
 

@@ -1,0 +1,16 @@
+<%= javascript_include_tag 'client_intakes/table', 'data-turbolinks-track' => true %>
+<div class="table-responsive">
+  <table id="<%= id %>" class="table table-striped table-hover rowlink invoices_table" data-source="<%= url %>">
+    <thead class="user-table-head">
+    <tr>
+      <th>#</th>
+      <th>Amount</th>
+      <th>Created Date</th>
+      <th>Due Date</th>
+      <th>Comment</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

@@ -3,7 +3,7 @@
 <%= simple_form_for(@invoice) do |f| %>
   <%= f.error_notification %>
 
-  <%= f.hidden_field :number, :value =>  Invoice.increment_number(@firm, action_name.to_s, @invoice) %>
+  <%= f.hidden_field :number, :value =>  Invoice.increment_number(@firm, @invoice) %>
 
   <% is_modal = (action_name == 'index') %>
   <% if is_modal %>

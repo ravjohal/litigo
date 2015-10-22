@@ -44,7 +44,7 @@ class User < ActiveRecord::Base
   has_many :participants, :through => :events
   has_many :interrogatories, class_name: 'Interrogatory', foreign_key: 'created_by_id'
   has_many :invoices
-
+  has_many :payments
 
   belongs_to :firm
   validates_presence_of :first_name, :last_name

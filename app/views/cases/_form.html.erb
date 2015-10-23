@@ -56,7 +56,7 @@
             <td>
             <Strong>*Case Name:</Strong>
             </td>
-            <td colspan="3">
+            <td colspan="3"  class="my">
                <%= f.text_field :name, label: false, :class =>'table-input', placeholder: 'e.g. Smith v. Doe' %>
             </td>
           </tr>
@@ -64,13 +64,14 @@
             <td>
             <Strong>Assign Attorney(s):</Strong>
             </td>
-            <td colspan="3">
-            <%= f.select :attorney, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:attorney).map(&:id)), {prompt: "Select #{:attorney}"}, {:class => 'contacts_select', :multiple => true} %>
+            <td colspan="3" class="myy">
+            <%= f.select :attorney, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:attorney).map(&:id)), {prompt: "Select #{:attorney}"}, {:class => 'contacts_select',:id => 'mysel', :multiple => true} %>
             </td>
           </tr>
-             <tr>
+          <tr>
             <td>
-            <Strong>Assign Staff:</Strong>
+              <Strong>Assign Staff:</Strong>
+              <div id="popup_case_modal"></div>
             </td>
             <td colspan="3">
               <%= f.select :staff, options_from_collection_for_select(@firm.contacts, 'id', 'name', :selected => new_case.select_contact_role(:staff).map(&:id)), {prompt: "Select #{:staff}"}, {:class => 'contacts_select', :multiple => true} %>
@@ -144,5 +145,47 @@
       </div><!--end of modal-dialog-->
      <% end %>
 <% end %>
-
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        var self =  $("#popup_case_modal");
+        $(document).mousemove(function (e) {
+            mX = e.pageX;
+            mY = e.pageY;
+        }).mouseover();
+        $('select').select2()
+                .on("change", function(e) { // When user select Value then change event fire
+                    $('#popup_case_modal').close();
+                })
+                .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+                    var p = 'P: ';
+                    var f = 'F: ';
+                    var idd = e.val.split(':')[0];
+                    $.ajax({
+                        url: '/contacts/'+ idd,
+                        type: 'GET',
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                        },
+                        success: function(data){
+                            $('#popup_case_modal').css({
+                                'opacity': '0.1',
+                                'top': mY-100,
+                            }).animate({
+                                'opacity': '1.0',
+                            }, 300);
+                            if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
+                            if(data.phone_number == null || data.phone_number == '') { p = '';} else {p = '<br>' + 'P: '}
+                            if(data.address == null) {data.address = '' ;}
+                            $("#popup_case_modal").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                    data.address + p + data.phone_number  +
+                                    f + data.fax_number
+                            ).fadeIn( "slow").show();
+                            setTimeout(function(){
+                                $("#popup_case_modal").hide();
+                            }, 5000);/* do something meaningful with data */},
+                        error: function(xhr, status, response) {/* your error callback */}
+                    });
+                });
+    });
+</script>

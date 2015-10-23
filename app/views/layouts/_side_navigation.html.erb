@@ -21,12 +21,12 @@
   <li>
     <%= active_link_to "Expenses", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__bil', :active => [['time_entries', @case.present? ? '' : 'expenses']], :id => 'time_entries' %>
   </li>
-  <!-- <li>
+  <!--   <li>
       <%= active_link_to " Billing", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
-    </li> -->
+    </li>
   <li id="second">
 
-   <!-- <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
+   <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
     <ul>
       <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LEGAL INSIGHTS<sup> Beta</sup>
         <% end %></li>

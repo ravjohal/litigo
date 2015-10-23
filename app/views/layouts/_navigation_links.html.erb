@@ -1,7 +1,25 @@
 <%# add navigation links to this file %>
 <% if user_signed_in? %>
-  <div class="dropdown">
+  
+  <div class="timer">
+      <div class="clock-block">
+        <!-- <input id="clock" type="text" value="00:00:00" class="timer-clock" readonly> -->
+     <div id="clock" class="timer-clock">00:00:00</div>
+      <ul class="timer-controls">
+        <li><a href='#' id="startstopbutton" type="button" title="Start/Stop Timer">
+          <span id="control" class='glyphicon glyphicon-play'></span></a></li>
+        <li>
+          <a href='#' id="resetbutton" type="button" title="Reset Timer"><span class='glyphicon glyphicon-repeat'></span></a>
+        </li>
+        <li>
+          <a href='#' id="assignbutton" type="button" title="Assign to Case"><span class='glyphicon glyphicon-paperclip'></span></a>
+        </li>
+        <textarea id="output" style="height: 90%; display:none;"></textarea>
+      </ul>
+      </div>
+  </div>
 
+  <div class="dropdown">
     <button class="nav-dropdown-btn dropdown-toggle" type="button" id="userMenuDropdown" data-toggle="dropdown" aria-expanded="true">
       <%= current_user.name %>
       <span class="caret"></span>

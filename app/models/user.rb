@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   has_many :owned_tasks, class_name: 'Task', foreign_key: 'owner_id' #this user owns these tasks
   has_many :owned_tasks_secondary, class_name: 'Task', foreign_key: 'secondary_owner_id' #this user owns these tasks
   has_many :contacts
-  has_one :contact_user, class_name: 'Contact', :dependent => :destroy
+  has_one :contact_user, class_name: 'Contact', foreign_key: 'user_account_id', :dependent => :destroy
   has_many :cases
   has_many :notes
   has_many :notes_users, foreign_key: 'secondary_owner_id'
@@ -43,7 +43,8 @@ class User < ActiveRecord::Base
   has_many :calendars, :through => :namespaces
   has_many :participants, :through => :events
   has_many :interrogatories, class_name: 'Interrogatory', foreign_key: 'created_by_id'
-
+  has_many :invoices
+  has_many :payments
 
   belongs_to :firm
   validates_presence_of :first_name, :last_name
@@ -59,7 +60,11 @@ class User < ActiveRecord::Base
   include SyncNamespaces
 
   def finish?
-    4 == confirm_step.to_i
+    steps_count <= confirm_step.to_i
+  end
+
+  def steps_count
+    admin? ? 5 : 4
   end
 
   #this method is called by devise to check for "active" state of the model

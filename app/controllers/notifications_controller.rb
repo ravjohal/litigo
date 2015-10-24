@@ -23,7 +23,7 @@ class NotificationsController < ApplicationController
     @user = current_user
     @notification.destroy
     respond_to do |format|
-      format.html { redirect_to notifications_url, notice: 'Notification was successfully deleted' }
+      format.html { redirect_to notifications_url }
       format.json { head :no_content }
     end
   end

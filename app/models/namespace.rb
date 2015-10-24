@@ -56,7 +56,12 @@ class Namespace < ActiveRecord::Base
 
   def delayed_destroy
     self.enabled = false
-    save ? Calendar.where(:namespace_id => id).update_all(:deleted => true, :active => false) : false
+    if save
+      Calendar.where(:namespace_id => id).update_all(:deleted => true, :active => false)
+      Event.where(:namespace_id => id).delete_all
+    else
+      false
+    end
   end
 
   private

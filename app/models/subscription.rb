@@ -23,6 +23,8 @@ class Subscription < ActiveRecord::Base
     subscription = customer.subscriptions.retrieve(subscription_id)
     if new_plan.id == 4
       subscription.plan = "Basic-yr"
+    elsif new_plan.id == 5
+      subscription.plan = "Free"
     else
       subscription.plan = new_plan.id.to_s
     end
@@ -40,6 +42,8 @@ class Subscription < ActiveRecord::Base
 
     if new_plan.id == 4
       customer.subscriptions.create(:plan => "Basic-yr", :quantity => count_people)
+    elsif new_plan.id == 5
+      customer.subscriptions.create(:plan => "Free", :quantity => count_people)
     else
       customer.subscriptions.create(:plan => new_plan.id.to_s, :quantity => count_people)
     end
@@ -55,6 +59,8 @@ class Subscription < ActiveRecord::Base
     if valid?
       if plan_id == 4
         customer = Stripe::Customer.create(email: email, plan: "Basic-yr", source: stripe_card_token, quantity: people_count)
+      elsif plan_id == 5
+        customer = Stripe::Customer.create(email: email, plan: "Free", source: stripe_card_token, quantity: people_count)
       else
         customer = Stripe::Customer.create(email: email, plan: plan_id, source: stripe_card_token, quantity: people_count)
       end

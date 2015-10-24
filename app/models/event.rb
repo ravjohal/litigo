@@ -109,7 +109,7 @@ class Event < ActiveRecord::Base
         participant = Participant.find_or_create_by(email: p_email, firm_id: firm_id)
         EventParticipant.create(event_id: self.id, participant_id: participant.id, firm_id: firm_id)
 
-        _contact = Contact.find(firm_id: firm_id, email: p_email)
+        _contact = Contact.where(firm_id: firm_id, email: p_email).first
 
         options = {
             user: user,
@@ -207,13 +207,15 @@ class Event < ActiveRecord::Base
         create_process(calendar, calendar.namespace.nylas_inbox, firm_id)
       else
         n_event = calendar.namespace.nylas_inbox.events.find(nylas_event_id)
-        n_event.title = title_for_nylas
-        n_event.description = description
-        n_event.location = location
-        n_event.when = nylas_time_attributes
-        n_event.participants = participants.map { |p| {:email => p.email, :name => p.name} }
-        n_event.save!
-        update(when_type: n_event.when['object']) if n_event.when['object'] != when_type
+        if n_event
+          n_event.title = title_for_nylas
+          n_event.description = description
+          n_event.location = location
+          n_event.when = nylas_time_attributes
+          n_event.participants = participants.map { |p| {:email => p.email, :name => p.name} }
+          n_event.save!
+          update(when_type: n_event.when['object']) if n_event.when['object'] != when_type
+        end
       end
     end
   end

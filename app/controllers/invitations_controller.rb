@@ -110,12 +110,10 @@ class InvitationsController < Devise::InvitationsController
 
   def edit_events_permit
     user = User.find(params[:id])
-    if current_user != user
-      if user.update(edit_events_permit: params[:edit_events])
-        render :json => {success: true, message: 'Edit events permission updated successfully.'}
-      else
-        render :json => {success: 403, message: 'Edit events permission was not updated.'}
-      end
+    if user.update(edit_events_permit: params[:edit_events])
+      render :json => {success: true, message: 'Edit events permission updated successfully.'}
+    else
+      render :json => {success: 403, message: 'Edit events permission was not updated.'}
     end
   end
 end

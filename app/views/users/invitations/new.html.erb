@@ -66,26 +66,27 @@
     </tr>
   </thead>
   <tbody>
-    <% @firm.users.where(:disabled => false).each do |user| %>
-    <tr>
-      <td>
-        <%= user.name %>
-      </td> 
-       <td>
-        <%= user.email %>
-      </td> 
-      <td>
-  <%= form_for(user) do |f| %>
-    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'btn btn-default btn-xs' %>
-  <% end %>
-</td>
-      <td class="text-center"><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, :style => 'margin-left: 10px; margin-right: 5px;', class: 'edit_events', data:{id: user.id} unless user == current_user && current_user.is_admin?  %></td>
-  <td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure you want to remove this employee from your firm?" }, :method => :delete, :class => 'btn btn-danger btn-xs') unless user == current_user %>
-</td>
+<% @firm.users.where(:disabled => false).each do |user| %>
+  <tr>
+    <td>
+      <%= user.name %>
+    </td> 
+     <td>
+      <%= user.email %>
+    </td> 
+    <td>
+<%= form_for(user) do |f| %>
+  <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+  <%= f.submit 'Change Role', :class => 'btn btn-default btn-xs' %>
+<% end %>
+    </td>
+    <td class="text-center"><%= collection_radio_buttons :edit_events, "user_id[#{user.id}]", [[true, 'Yes'], [false, 'No']], :first, :last, {checked: user.edit_events_permit}, :style => 'margin-left: 10px; margin-right: 5px;', class: 'edit_events', data:{id: user.id} %>
+    </td>
+    <td>
+    <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure you want to remove this employee from your firm?" }, :method => :delete, :class => 'btn btn-danger btn-xs') unless user == current_user %>
+    </td>
 
-    </tr>
+  </tr>
      <% end %>
   </tbody>
 </table>

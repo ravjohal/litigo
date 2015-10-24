@@ -369,7 +369,7 @@ border-bottom: 1px solid #ebccd1;
   width: 900px;
 }
 
-#popup_case {
+.cont {
   position:absolute;
 
   height: 80px;
@@ -387,7 +387,7 @@ border-bottom: 1px solid #ebccd1;
   border-radius: 5px;
   color: white;
   z-index: 3000;
-
+  display:none;
 }
 
 #popup_case_modal {

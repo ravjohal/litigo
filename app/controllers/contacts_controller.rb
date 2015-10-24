@@ -47,6 +47,20 @@ class ContactsController < ApplicationController
     restrict_access("contacts") if @contact.firm_id != @firm.id    
   end
 
+  def fly_create_contact
+    @contact = Contact.new
+    @contact.user = @user
+    @contact.firm = @firm
+    if request.xhr?
+      if @contact.save
+        respond_to do |format|
+        format.json { render :json => { success: true } }
+        end
+      end
+    end
+  end
+
+
   # POST /contacts
   # POST /contacts.json
   def create
@@ -94,6 +108,7 @@ class ContactsController < ApplicationController
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
+
     end
   end
 

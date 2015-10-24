@@ -37,3 +37,25 @@
   <li><%= link_to 'Sign in', new_user_session_path %></li>
   <li><%= link_to 'Sign up', new_user_registration_path %></li>
 <% end %>
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+        var timeout = setTimeout(function(){
+            $(".timer-controls").hide();
+        }, 5000);
+        $('.timer-clock').mouseout(function (){
+            $(".timer-controls").hide();
+            clearTimeout(timeout);
+        });
+        $('.timer-clock').mousemove(function (){
+            $('.timer-controls').show();
+            $(this).show();
+        });
+        $('.timer-controls').mousemove(function(){
+            clearTimeout(timeout);
+            $(this).show();
+        });
+        $('.timer-controls').mouseout(function(){
+            $(this).hide();
+        });
+    })
+</script>

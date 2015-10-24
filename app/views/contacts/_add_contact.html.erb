@@ -1,0 +1,55 @@
+<%= simple_form_for(new_fly, :url => {:controller => 'contacts', :action => 'fly_create_contact'}, :method => :post, :remote => true, :html => {:class => 'fly_create'}) do |f| %>
+    <tr id="first_name">
+      <td>
+        <strong>First Name:</strong>
+      </td>
+      <td>
+        <input name="authenticity_token"
+               type="hidden"
+               value="<%= form_authenticity_token %>"/>
+        <%= f.text_field :first_name, label: false, :class => 'table-input', placeholder: 'John', :style => 'color: black;' %>
+      </td>
+    </tr>
+    <tr id="last_name">
+      <td>
+        <strong>Last Name:</strong>
+      </td>
+      <td>
+        <%= f.text_field :last_name, label: false, :class => 'table-input', placeholder: 'Smith', :style => 'color: black;' %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <strong>Role:</strong>
+      </td>
+      <td>
+        <%= f.select :type, Contact::TYPES, :class => 'table-input', :selected => 'Attorney' %>
+      </td>
+    </tr>
+    <div class="form-actions"><br />
+      <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 12px;margin-right:15px;' %>
+    </div>
+<% end %>
+<script type="text/javascript" charset="utf-8">
+    $(function(){
+        $('select').select2();
+        $("form.fly_create").on('submit',function() {
+
+            $.ajax({
+                url: '/contacts/fly_create_contact',
+                type: 'POST',
+                data:   $(this).serialize(),
+                dataType: 'json',
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                },
+                success: function(data){
+
+                    location.reload();
+                    return false;
+                },/* do something meaningful with data */
+                error: function(xhr, status, response) {/* your error callback */return false;}
+            });
+        });
+    });
+</script>

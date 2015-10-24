@@ -4,11 +4,12 @@ class Contact < ActiveRecord::Base
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
 
   TYPES = ['Attorney', 'Staff', 'Plaintiff', 'Defendant', 'Judge', 'Mediator', 'Witness', 'Expert', 'Physician', 'Adjuster', 'General', 'Company']
+  ROLES = ['Adjsuter', 'Anesthesia', 'Attorney', 'Body Shop', 'Caresource', 'Chiropractor', 'Client Boyfriend', 'Client Child', 'Client Father', 'Client Girlfriend', 'Client Grandfather', 'Client Grandmother', 'Client Mother', 'Client Spouse', 'Co-Counsel', 'Collection Agency', 'Company', 'Def Driver', 'Def Driver-Owner', 'Def Owner', 'Defendant', 'Defense Attorney', 'Doctor', 'Employer', 'EMS', 'ER Doc', 'ER Hospital', 'ER Radiology', 'Estate Attorney', 'Expert', 'General', 'Health Insurance Co', 'HI Subro Adjuster', 'Insurance Agent', 'Judge', 'Liability Adjuster', 'Liability Ins Co', 'Massage Therapy', 'Mediator', 'Medicaid', 'Medicaid HMO', 'Medical Facility', 'Medicare', 'Medicare HMO', 'MP Adjuster', 'MP Ins Co', 'MP Subro Adjuster', 'MP-UM Ins Co', 'MRI-CT', 'Neurologist', 'Neurosurgeon', 'New Liability Adjuster', 'New MP Adjuster', 'New UIM Adjuster', 'New UM Adjuster', 'New UM-UIM Adjuster', 'Old Liability Adjuster', 'Old MP Adjuster', 'Old UIM Adjuster', 'Old UM Adjuster', 'Old UM-UIM Adjuster', 'Orthopedist', 'Pain Doc', 'Passenger', 'PCP', 'PD Adjuster', 'Physical Therapy', 'Physician', 'PIP Adjuster', 'Plastic Surgeon', 'Police Dept', 'Radiology', 'Specialist', 'Staff', 'Subro Adjuster', 'Third Party Administrator', 'Tow Co', 'UIM Adjuster', 'UM Adjuster', 'UM-UIM Adjuster', 'UM-UIM Ins Co', 'Urgent Care', 'Vehicle Driver', 'Vehicle Owner', 'WC Subro', 'Witness', 'X-Rays']
 
   has_many :event_attendees
   belongs_to :user #user that owns this contact, basically the one who created this contact, answers: who created this contact?
   belongs_to :event
-  belongs_to :user_account, class_name: 'User', foreign_key: 'user_account_id' #associated contact of the user, answers: is this contact a user?
+  belongs_to :user_account, class_name: 'User' #associated contact of the user, answers: is this contact a user?
   belongs_to :firm
   belongs_to :company
   belongs_to :lead
@@ -18,6 +19,8 @@ class Contact < ActiveRecord::Base
   has_many :phones
   has_many :requesters, class_name: 'Interrogatory', foreign_key: 'requester_id'
   has_many :responders, class_name: 'Interrogatory', foreign_key: 'responder_id'
+
+  has_many :invoices
 
   amoeba do
     enable

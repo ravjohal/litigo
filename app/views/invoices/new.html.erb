@@ -1,0 +1,9 @@
+<h1>New Intake</h1>
+<br>
+<div style="width: 800px; margin-left: 40px;">
+  <%= render 'form', new_lead: @lead %>
+  	<div class="pull-right">
+        <%= link_to "Cancel", user_root_path(@user), :class => 'close' %>
+    </div>
+</div>
+

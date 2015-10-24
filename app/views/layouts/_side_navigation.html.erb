@@ -21,12 +21,12 @@
   <li>
     <%= active_link_to "Expenses", time_entries_path, :class_active => 'tester', :class => 'nav-sidebar__bil', :active => [['time_entries', @case.present? ? '' : 'expenses']], :id => 'time_entries' %>
   </li>
-  <!-- <li>
+  <!--   <li>
       <%= active_link_to " Billing", user_path(current_user), :class_active => 'tester', :class => 'nav-sidebar__bil', :id => 'bill' %>
-    </li> -->
+    </li>
   <li id="second">
 
-   <!-- <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
+   <%= active_link_to " Analytics", '#', :id => 'legal-insights', :class_active => 'tester', :class => 'nav-sidebar__li', :active => [['insights'], []] %>
     <ul>
       <li> <%= active_link_to insights_path :class_active => 'enabled' do %>LEGAL INSIGHTS<sup> Beta</sup>
         <% end %></li>
@@ -36,26 +36,7 @@
   <li>
         <%= active_link_to "Reports", reports_path , :class_active => 'tester', :class => 'nav-sidebar__cev', :active => [['reports']], :id => 'CaseEval' %>
     </li>
-  
-  <!-- <div class="timer">
-    <li style="border-top: 1px solid #4B6172; border-bottom: 1px solid #33424E;">
-      <div class="clock-block">
-        <!--<input id="clock" type="text" value="00:00:00" class="timer-clock" readonly>-->
-     <!--   <div id="clock" class="timer-clock">00:00:00</div>
-      </div>
-      <ul class="timer-controls">
-        <li><a href='#' id="startstopbutton" type="button" title="Start/Stop Timer">
-          <span id="control" class='glyphicon glyphicon-play'></span></a></li>
-        <li>
-          <a href='#' id="resetbutton" type="button" title="Reset Timer"><span class='glyphicon glyphicon-repeat'></span></a>
-        </li>
-        <li>
-          <a href='#' id="assignbutton" type="button" title="Assign to Case"><span class='glyphicon glyphicon-paperclip'></span></a>
-        </li>
-        <textarea id="output" style="height: 90%; display:none;"></textarea>
-      </ul>
-    </li>
-  </div> -->
+
 </ul>
 
 <%= render :partial => "layouts/side_navigation_javascript" %>

@@ -58,3 +58,27 @@
 .leads_table > tbody > tr > td:nth-of-type(5) {
   width: 20%;
 }
+
+#popup {
+  position:absolute;
+
+  height: auto;
+  width: 132px;
+  vertical-align:middle;
+  padding-top: 10px;
+  padding-left: 5px;
+  padding-bottom: 10px;
+  margin-left: -20px;
+  margin-top:-15px;
+  font-size: 12px;
+  margin-bottom: -15px;
+  background-color: #363636;
+  border: 1px solid #1c2324;
+  border-radius: 5px;
+  color: white;
+  z-index: 3000;
+  display: none;
+}
+
+
+

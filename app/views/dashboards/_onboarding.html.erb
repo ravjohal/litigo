@@ -6,6 +6,9 @@
           <li class="step-header-item active" data-body="#step1">1</li>
           <li class="step-header-item" data-body="#step2">2</li>
           <li class="step-header-item" data-body="#step3">3</li>
+          <% if @user.is_admin? %>
+          <li class="step-header-item" data-body="#step4">4</li>
+          <% end %>
         </ul>
       </div>
       <div class="modal-body">
@@ -136,6 +139,17 @@
               </div>
             </div>
           </div>
+          <% if @user.is_admin? %>
+          <div id="step4" class="step-body-item">
+            <div class="text-center">
+              <h1><span style="color: #3FC2D8; margin: 10px 20px 0 0; " class="glyphicon glyphicon-cc"></span>Billing Information</h1>
+            </div>
+            <hr style="height: 1px; background: #ccc;">
+            <div class="row">
+              <iframe src="<%= plans_path(user_id: @user.id) %>" frameborder="0" width="100%" height="350"></iframe>
+            </div>
+          </div>
+          <% end %>
         </div>
       </div>
       <!--end of modal-body-->
@@ -227,7 +241,7 @@
     });
 
     $('#step_finish').click(function () {
-      saveStep(4, function() {
+      saveStep(<%= @user.steps_count%>, function() {
         window.location = '/finish_registration';
       });
     });

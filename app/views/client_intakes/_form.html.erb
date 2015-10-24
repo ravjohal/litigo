@@ -38,12 +38,14 @@
         <strong>Assign Attorney:</strong>
       </td>
       <td>
-        <%= f.select :attorney_id, @firm.admin_n_attorneys.map { |c| ["#{c.name} ", "#{c.id}:#{c.id}"] }, label: false, :class => 'table-input' %>
+        <%= f.select :attorney_id, User.where('firm_id = ? and role != ? ', current_user.firm_id, 0 ).map { |c|  ["#{c.name} ", "#{c.id}:#{c.id}"] } , label: false, :class => 'table-input'  %>
       </td>
     </tr>
+
     <tr>
       <td>
         <strong>Caller Phone Number:</strong>
+        <div id="popup"></div>
       </td>
       <td>
         <%= f.telephone_field :phone, label: false, :class => 'table-input', placeholder: '(___) ___-____' %>
@@ -55,6 +57,7 @@
       </td>
       <td>
         <%= f.text_field :address, label: false, :class => 'table-input' %>
+
       </td>
     </tr>
     <tr>
@@ -160,3 +163,52 @@
   <% end %>
 
 <% end %>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var self =  $("#popup");
+    $(document).mousemove(function (e) {
+        mX = e.pageX;
+        mY = e.pageY;
+    }).mouseover();
+    $('select').select2()
+            .on("change", function(e) { // When user select Value then change event fire
+                $('#popup').hide();
+            })
+            .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+                var p = 'P: ';
+                var f = 'F: ';
+                //contact_name = $target.text()
+                var idd = e.val.split(':')[0];
+                $.ajax({
+                    url: '/users/'+ idd,
+                    type: 'GET',
+                    // data: 'contact_name=' + contact_name,
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                    },
+                    success: function(data){
+                        $('#popup').css({
+                            'opacity': '0.1',
+                            'top': mY-120,
+                        }).animate({
+                            'opacity': '1.0',
+                        }, 300);
+                        if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
+                        if(data.phone_number == null || data.phone_number == '') { p = '';} else {p = '<br>' + 'P: '}
+                        if(data.address == null) {data.address = '' ;}
+                        $("#popup").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                data.address + p + data.phone_number  +
+                                f + data.fax_number
+                        ).fadeIn( "slow").show();
+                        setTimeout(function(){
+                            $("#popup").hide();
+                        }, 5000);/* do something meaningful with data */},
+
+                    error: function(xhr, status, response) {/* your error callback */}
+
+                });
+            });
+});
+</script>

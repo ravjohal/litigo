@@ -17,8 +17,10 @@
       </ul>
     </div>
   </div>
-  <strong>Lead #: </strong><%= @lead.id %>
-
+  <strong>Lead #: </strong><%= @lead.id %> 
+  <% if @lead.case %>
+  - Lead Accepted on <%= simple_format_datetime_slash_regexp @lead.case.created_at %> - <%= link_to "View Case", @lead.case, :class => 'link_to_case' %>
+  <% end %>
   <div class="container-fluid" style="padding: 0;">
     <div class="row">
       <div class="col-md-12">

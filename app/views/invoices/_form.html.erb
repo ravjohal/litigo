@@ -1,0 +1,85 @@
+<% @invoice = new_invoice if new_invoice%>
+<%= javascript_include_tag 'invoices/form', 'data-turbolinks-track' => true %>
+<%= simple_form_for(@invoice) do |f| %>
+  <%= f.error_notification %>
+
+  <%= f.hidden_field :number, :value =>  Invoice.increment_number(@firm, @invoice) %>
+
+  <% is_modal = (action_name == 'index') %>
+  <% if is_modal %>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+
+          <h1>New Invoice</h1>
+        </div>
+        <div class="modal-body">
+  <% end %>
+
+  <table class="lead-form table-condensed">
+    <tbody>
+    <tr>
+      <td>
+        <Strong>*Contact:</Strong>
+      </td>
+      <td>
+        <%= f.select :contact_id, options_from_collection_for_select(@firm.contacts, 'id', 'name'), {prompt: "Select #{:contact}"}, {:class => 'contacts_select'} %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <Strong>*Case:</Strong>
+      </td>
+      <td>
+        <%= f.select :case_id, options_from_collection_for_select(@firm.cases, 'id', 'name'), {prompt: "Select #{:case}"}, {:class => 'cases_select'} %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Due Date:</strong>
+      </td>
+      <td>
+        <%= f.text_field :due_date, value: @invoice.new_record? ? date_to_input_regexp(Time.now) : date_to_input_regexp(@invoice.try(:due_date)), id: 'invoice_due_date' %>
+      </td>
+    </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Amount:</strong>
+      </td>
+      <td>
+        <%= f.input :amount, label: false, :class => 'table-input', :include_blank => true %>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <Strong>Status:</Strong>
+      </td>
+      <td colspan="3">
+        <%= f.select :status, Invoice::STATUS.invert, :include_blank => true, label: false, :class => 'table-input', :selected => @invoice.safe_status %>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+
+  <% if is_modal %>
+    </div><!--end of modal-body-->
+    <div class="modal-footer">
+      <div class="pull-left">
+        <a class="close" data-dismiss="modal">Cancel</a>
+      </div>
+  <% end %>
+
+  <div class="form-actions">
+    <%= f.button :submit, :class => "btn btn-info", :style => 'font-size: 18px;' %>
+  </div>
+
+  <% if is_modal %>
+    </div><!--end of modal-footer-->
+    </div><!--end of modal-content-->
+    </div><!--end of modal-dialog-->
+  <% end %>
+<% end %>
+
+

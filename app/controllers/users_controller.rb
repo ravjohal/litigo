@@ -13,7 +13,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @firm = current_user.firm
     @user = User.find(params[:id])
+    @user_contact_info = Contact.where(:user_account_id => @user.id).first
     if params[:google_auth]
       @calendars = @user.google_calendars
     end
@@ -22,6 +24,12 @@ class UsersController < ApplicationController
       unless @user == current_user
         redirect_to :back, :alert => "Access denied."
       end
+    end
+    respond_to do |format|
+
+      format.html # show.html.erb
+      format.json { render json: @user_contact_info }
+
     end
   end
 

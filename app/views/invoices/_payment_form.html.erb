@@ -1,0 +1,62 @@
+<%= simple_form_for(@payment, :url => invoice_payments_path(@invoice) ) do |f| %>
+  <%= f.hidden_field :invoice_id %>
+  <%= f.hidden_field :number, value: @payment.increment_number %>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+
+        <h1>Add Invoice Payment</h1>
+      </div>
+      <div class="modal-body">
+
+        <table class="lead-form table-condensed">
+          <tbody>
+          <tr>
+            <td class="col-one">
+              <strong>Amount:</strong>
+            </td>
+            <td>
+              <%= f.input :amount, label: false, :class => 'table-input', :include_blank => true %>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-one">
+              <strong>Date:</strong>
+            </td>
+            <td>
+              <%= f.date_field :date, label: false, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-one">
+              <strong>Comment:</strong>
+            </td>
+            <td>
+              <%= f.text_area :comment, label: false, :class => 'table-text', placeholder: 'Enter some comment for payment', :autofocus => false %>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <br>
+
+      </div>
+      <!--end of modal-body-->
+      <div class="modal-footer">
+        <div class="pull-left">
+          <a class="close" data-dismiss="modal">Cancel</a>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, :class => 'btn btn-info', :style => 'font-size: 18px;' %>
+        </div>
+
+      </div>
+      <!--end of modal-footer-->
+    </div>
+    <!--end of modal-content-->
+  </div><!--end of modal-dialog-->
+<% end %>
+
+

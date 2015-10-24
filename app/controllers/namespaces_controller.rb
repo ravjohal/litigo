@@ -105,6 +105,11 @@ class NamespacesController < ApplicationController
         format.html { redirect_to namespaces_url, notice: 'Namespace was successfully destroyed.' }
         format.json { head :no_content }
       end
+    else
+      respond_to do |format|
+        format.html { redirect_to namespaces_url, notice: 'Error while delete namespace.' }
+        format.json { head :no_content }
+      end
     end
   end
 

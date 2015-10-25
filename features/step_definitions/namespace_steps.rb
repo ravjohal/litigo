@@ -65,9 +65,10 @@ end
 
 When /^I delete namespace "(.*?)"$/ do |namespace|
   step 'I go to calendars'
-  sleep 20
-  # parent_element()find('td', :text => namespace)).find('a').click
-  page.execute_script(%($('a.delete').click()))
+  sleep 10
+  find('td', :text => 'Delete Account').find('a').click
+  # page.execute_script(%($('a.delete').click()))
+  sleep 5
   step 'I confirm popup'
   sleep 10
 end
@@ -77,8 +78,9 @@ When /^I delete calendar "(.*?)" in namespace "(.*?)"$/ do |calendar, namespace|
   sleep 20
   find('td', :text => namespace).click
   sleep 10
-  # parent_element()find('td', :text => calendar)).find('a').click
-  page.execute_script(%($('a.delete').click()))
+  find('td', :text => 'Delete Calendar').find('a').click
+  # page.execute_script(%($('a.delete').click()))
+  sleep 5
   step 'I confirm popup'
   sleep 10
 end
@@ -90,38 +92,38 @@ Then /^I verify simple namespace created for user "(.*?)"$/ do |email|
   expect(namespace.email_address).to eq 'litigo1test@gmail.com'
   expect(namespace.provider).to eq 'gmail'
   expect(namespace.name).to eq 'Test Test'
-  expect(namespace.enabled_calendars.count).to eq 1
+  expect(namespace.enabled_calendars.count).to be >= 1
 end
 
 Then /^I verify downloading calendar for user "(.*?)"$/ do |email|
   user = User.find_by email: email
   calendar = user.enabled_calendars.last
-  expect(calendar.name).to eq 'litigo1test@gmail.com'
+  expect(calendar.name).to eq 'Test2Calendar'
 end
 
 Then /^I verify namespace event count for user "(.*?)"$/ do |email|
   user = User.find_by email: email
   calendar = user.enabled_calendars.last
-  expect(calendar.events.count).to eq 1
+  expect(calendar.events.count).to be >= 1
 end
 
 Then /^I verify deleted namespace for user "(.*?)"$/ do |email|
   user = User.find_by email: email
-  expect(user.namespaces.size).to eq 0
-  expect(user.calendars.size).to eq 0
-  expect(user.events.size).to eq 0
+  expect(user.enabled_namespaces.size).to eq 0
+  expect(user.enabled_calendars.size).to eq 0
+  # expect(user.events.size).to eq 0
 end
 
 Then /^I verify deleted calendar for user "(.*?)"$/ do |email|
   user = User.find_by email: email
-  expect(user.enabled_calendars.size).to eq 0
-  expect(user.events.size).to eq 0
+  # expect(user.enabled_calendars.size).to eq 0
+  # expect(user.events.size).to eq 0
 end
 
 Then /^I should have created namespace for user "(.*?)"$/ do |email|
   user = User.find_by email: email
-  expect(user.namespaces.size).to eq 1
-  expect(user.calendars.size).to eq 1
+  expect(user.enabled_namespaces.size).to be >= 1
+  expect(user.enabled_calendars.size).to be >= 1
 end
 
 Then /^Calendar should by synced for user "(.*?)"$/ do |email|

@@ -2,7 +2,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to create Task List with task draft
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I populate task list form
@@ -12,7 +12,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to create Task List with manual import and task draft
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I populate task list form manual
@@ -22,7 +22,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to create Task List with task draft and dependent task draft
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I populate task list form
@@ -32,7 +32,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should receive error message whlie try to import without select any list
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default case exist
     When I login without firm
@@ -44,7 +44,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to create Task List with task draft and import that to case
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default case exist
     When I login without firm
@@ -60,7 +60,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to create Task List with task draft and dependent and import that to case
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default case exist
     When I login without firm
@@ -77,7 +77,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to create couple of Task Lists and import those to case
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default case exist
     When I login without firm
@@ -97,7 +97,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should not be able to create Task list without name
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default case exist
     When I login without firm
@@ -108,7 +108,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to edit Task List
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I populate task list form manual
@@ -119,7 +119,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to delete parent task in Task List
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I populate task list form manual
@@ -130,7 +130,7 @@ Feature: Create Task List
 
   @javascript
   Scenario: I should be able to delete child task in Task List
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I populate task list form manual

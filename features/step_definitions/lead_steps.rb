@@ -103,6 +103,7 @@ When(/^I create a lead with name "(.*?)" and last name "(.*?)"$/) do |first_name
   sleep 0.5
   fill_in 'lead_first_name', with: first_name
   fill_in 'lead_last_name', with: last_name
+  select 'Personal Injury', from: 'lead_case_type'
   click_on 'Create Lead'
 end
 
@@ -126,7 +127,7 @@ Then(/^I verify lead first name "(.*?)" and last name "(.*?)" for user: "(.*?)"$
 end
 
 When(/^I edit lead$/) do
-  step 'I click to tab "Contact"'
+  # step 'I click to tab "Contact"'
   click_on 'Edit'
   sleep 0.5
   fill_in 'lead_first_name', with: 'Leeds 2'
@@ -165,7 +166,10 @@ When /^I edit lead contact$/ do
 end
 
 When /^I accept case$/ do
-  step 'I click to element with id "accept"'
+  # step 'I click to element with id "accept"'
+  sleep 2
+  step 'I click to element by javascript with selector "#accept"'
+  sleep 2
 end
 
 When(/^I delete lead$/) do

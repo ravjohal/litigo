@@ -11,6 +11,7 @@ When /^I edit the document$/ do
     first('tr > td > a.dark-small > span.glyphicon-pencil').click
   end
   sleep 0.3
+  click_on 'Edit'
   fill_in 'document_doc_type', with: 'new doc desc'
   click_on 'Save'
 end

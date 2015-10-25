@@ -27,9 +27,9 @@
             </td>
             <td colspan="3">
               <% if !@case %>
-                <%= f.association :case, :collection => @firm.cases, :input_html => {:id => "case_select"}, label: false %>
+                <%= f.association :case, :collection => @firm.try(:cases), :input_html => {:id => "case_select"}, label: false %>
               <% else %>
-                <%= f.association :case, :collection => @firm.cases, :selected => @case.id, :input_html => {:id => "case_select"}, label: false %>
+                <%= f.association :case, :collection => @firm.try(:cases), :selected => @case.id, :input_html => {:id => "case_select"}, label: false %>
               <% end %>
             </td>
           </tr>

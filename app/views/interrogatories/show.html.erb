@@ -1,9 +1,13 @@
 <%= javascript_include_tag 'interrogatories/show', 'data-turbolinks-track' => true %>
 <div class="case-header">
     <div class="case-title">
-          <div style="font-size: 24px;">
+    <div class="container-fluid" style="padding: 0;">
+          <div class="row">
+        <div class="col-md-8" style="font-size: 24px;">
                 <strong><%= @case.name %></strong><br>
           </div>
+        </div>
+      </div>
             <div id="case-buttons">
               <ul>
                   <li><%= link_to 'Edit', edit_case_interrogatory_path(@case, @interrogatory), :class => 'dark' %></li>

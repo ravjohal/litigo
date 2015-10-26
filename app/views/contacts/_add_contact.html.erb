@@ -38,8 +38,8 @@
             $.ajax({
                 url: '/contacts/fly_create_contact',
                 type: 'POST',
-                data:   $(this).serialize(),
-                dataType: 'json',
+                data:   { contact: { first_name: first_name, last_name: last_name, type: type, address: null }},
+                dataType: 'js',
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },

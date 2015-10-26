@@ -25,7 +25,12 @@
 
   <div class="case_contacts-edit-container">
     <%= link_to_add_association 'ADD CONTACT', f, :case_contacts, :"data-association-insertion-node" => "tbody#case_contacts_", :"data-association-insertion-method" => "append", class: 'action-button insure pull-right' %>
-    <table id="info-table3">
+        <div class="hover_container">
+          <input type='button' value="+     Add Contact         +" id='add_contact' placeholder="Add contact" style="background: #68CED8;color: white;padding: 2px;width:150px;font-size:12px;"/>
+          <div id="popup_case">
+          </div>
+        </div>
+     <table id="info-table3">
       <tbody id="case_contacts_">
       <tr>
         <td class="gray-back">

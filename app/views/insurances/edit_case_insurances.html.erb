@@ -24,6 +24,11 @@
 
   <div class="insurance-edit-container">
     <%= link_to_add_association 'ADD INSURANCE', f, :insurances, :"data-association-insertion-node" => "tbody#insurances", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button insure pull-right' %>
+        <div class="hover_insurance_container">
+          <input type='button' value="+     Add Contact         +" id='add_contact' placeholder="Add contact" style="background: #68CED8;color: white;padding: 2px;width:150px;font-size:12px;"/>
+          <div id="popup_insurance">
+          </div>
+        </div>
     <table id="info-table3">
       <thead>
       <tr class="right-top">

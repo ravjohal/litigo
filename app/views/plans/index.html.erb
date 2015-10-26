@@ -61,14 +61,14 @@
             <div class="per_month"><%= plan.price_description %></div>
             <div class="signup">
               <% if !@own_subscription %>
-                <%= link_to 'Sign up', new_subscription_path(:plan_id => plan.id, user_id: @user_id) %>
+                <%= link_to 'Select Plan', new_subscription_path(:plan_id => plan.id, user_id: @user_id) %>
               <% elsif @own_subscription && @own_subscription.plan_id == nil %>
-                <%= link_to 'Sign up', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id) %>
+                <%= link_to 'Select Plan', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id) %>
               <% else %>
                 <% if @own_subscription.plan_id != plan.id  %>
-                  <%= link_to 'Sign up', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id),  data: { confirm: 'WARNING! Do you want to change the plan?'}  %>
+                  <%= link_to 'Select Plan', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id),  data: { confirm: 'Are you sure you want to change plans?'}  %>
                 <% else %>
-                  <p>Current plan...</p>
+                  <p>Active Plan</p>
                 <% end %>
               <% end %>
             </div>

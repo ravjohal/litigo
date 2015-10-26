@@ -4,7 +4,7 @@ Feature: Incident tab
 
   @javascript
   Scenario: I create an contact and create the incident
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I create a medical case
@@ -14,7 +14,7 @@ Feature: Incident tab
 
   @javascript
   Scenario: I create an incident for case and edit it
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default medical case exist
     When I login without firm
@@ -35,7 +35,7 @@ Feature: Incident tab
 
   @javascript
   Scenario: I create an incident for case from lead with incident date ant try to copy case
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default medical case exist
     When I login without firm
@@ -57,7 +57,7 @@ Feature: Incident tab
 
   @javascript
   Scenario: I create an motor vehicle incident for case from lead with incident date ant try to copy case
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default medical case exist
     When I login without firm

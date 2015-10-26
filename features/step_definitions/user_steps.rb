@@ -20,8 +20,8 @@ end
 
 When(/^I should be logged in user with email "(.*?)" and password "(.*?)"$/) do |email, password|
   step "I should be just login with email \"#{email}\" and password \"#{password}\""
-  expect(page).to have_content('Welcome!')
-  expect(page).to have_content('We just need a few more details before using your case management software:')
+  # expect(page).to have_content('Welcome!')
+  # expect(page).to have_content('We just need a few more details before using your case management software:')
 end
 
 When(/^I should be just login with email "(.*?)" and password "(.*?)"$/) do |email, password|
@@ -51,7 +51,11 @@ Then(/^I fill in the modal window$/) do
   fill_in 'firm_name', with: 'RubyRiders'
   #select("#Attorney", :from => "#firm_contact_type")
   fill_in 'firm_phone', with: '4081234567'
-  click_on 'Get Started'
+  click_on 'Next'
+  click_on 'Next'
+  click_on 'Next'
+  click_on 'Finished'
+  # click_on 'Get Started'
 end
 
 Then(/^I should logged in$/) do
@@ -96,7 +100,9 @@ Given(/^Firm exist for user: "(.*?)"$/) do |email|
   firm = FactoryGirl.create(:firm)
   user = User.find_by :email => email
   user.firm = firm
+  user.confirm_step = user.steps_count
   user.save!
+
 
   user.create_contact :attorney.to_s.humanize, firm
 end

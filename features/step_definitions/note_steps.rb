@@ -45,7 +45,7 @@ When(/^I create a note with CC$/) do
   visit '/notes'
   click_on 'NEW NOTE'
   find("option[value='Medical/Review']").click
-  click_on 'CC'
+  click_on 'Add cc'
   fill_in 'note_note', with: 'TestNote'
   click_on 'Create Note'
   expect(page).to have_content('Note was successfully created.')

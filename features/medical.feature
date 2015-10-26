@@ -13,7 +13,7 @@ Feature: Medical tab
 
   @javascript
   Scenario: I change case medicals
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Default medical case exist
     When I login without firm

@@ -48,14 +48,13 @@ class ContactsController < ApplicationController
   end
 
   def fly_create_contact
-    @contact = Contact.new
+    @contact = Contact.new(contact_params)
     @contact.user = @user
     @contact.firm = @firm
-    if request.xhr?
-      if @contact.save
-        respond_to do |format|
-        format.json { render :json => { success: true } }
-        end
+    if @contact.save
+      respond_to do |format|
+         format.js   { redirect_to :back }
+         format.json { render :json => { success: true } }
       end
     end
   end

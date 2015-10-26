@@ -186,7 +186,7 @@ class CasesController < ApplicationController
 
   def edit_case_contacts
     @contacts = @case.case_contacts.order(:created_at)
-    @fly = Contact.new
+    @fly_creation = Contact.new
   end
 
   def update_case_contacts

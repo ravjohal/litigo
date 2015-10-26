@@ -66,7 +66,7 @@ Rails.application.routes.draw do
 
 
   resources :contacts
-  post '/contacts/fly_create_contact' => 'contacts#fly_create_contact' ,as: :fly_contact, :defaults => { :format => :json }
+  post '/contacts/fly_create_contact' => 'contacts#fly_create_contact' ,as: :fly_contact, :defaults => { :format => :js }
   get '/companies' => 'contacts#companies', as: :companies
   get '/companies/:id' => 'contacts#show_company', as: :company
   get '/companies/:id/edit' => 'contacts#edit_company', as: :edit_company

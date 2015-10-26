@@ -10,7 +10,6 @@
         </td>
         <td colspan="1">
           <strong>Account Number</strong><br>
-          <div id="popup_medical"></div>
           <%= f.text_field :account_number, label: false, :class => 'table-input' %>
         </td>
         <td colspan="1">
@@ -55,45 +54,71 @@
 </tr>
 <script type="text/javascript">
     $(document).ready(function() {
+        var timeout = setTimeout(function(){
+            $(".hover_medical_container").hide();
+        }, 2000);
         var self =  $("#popup_medical");
         $(document).mousemove(function (e) {
             mX = e.pageX;
             mY = e.pageY;
         }).mouseover();
-        $('select').select2()
-           .on("change", function(e) { // When user select Value then change event fire
-              $('#popup_medical').close();
-           })
-           .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
-           var p = 'P: ';
-           var f = 'F: ';
-           var idd = e.val.split(':')[0];
-           $.ajax({
-             url: '/contacts/'+ idd,
-             type: 'GET',
-             dataType: 'json',
-             beforeSend: function (xhr) {
-               xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-             },
-             success: function(data){
-               $('#popup_medical').css({
-                 'opacity': '0.1',
-                 'top': mY-120,
-               }).animate({
-                 'opacity': '1.0',
-               }, 300);
-               if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
-               if(data.phone_number == null || data.phone_number == '') { p = '';} else {p = '<br>' + 'P: '}
-               if(data.address == null) {data.address = '' ;}
-               $("#popup_medical").html(data.first_name + ' ' + data.last_name + '<br>' +
-                                        data.address + p + data.phone_number  +
-                                        f + data.fax_number
-                                       ).fadeIn( "slow").show();
-             setTimeout(function(){
-               $("#popup_medical").hide();
-             }, 5000);/* do something meaningful with data */},
-             error: function(xhr, status, response) {/* your error callback */}
-           });
+        $('#add_contact').on('click',function() {
+            $('.hover_medical_container').css({
+                'height': '230px',
+                'padding': '10px'
+            });
+            $('#popup_medical').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
+            $('.hover_medical_container').show();
+            clearTimeout(timeout);
         });
+        $('.hover_medical_container').on('mouseover', function(){
+            $('.hover_medical_container').show();
+        });
+        $(document).click(function(event) {
+            if(!$(event.target).closest('.hover_medical_container').length) {
+                if($('.hover_medical_container').is(":visible")) {
+                    $('.hover_medical_container').hide()
+                }
+            }
+        })
+        $('select').select2()
+                .on("change", function(e) { // When user select Value then change event fire
+
+
+                })
+                .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
+                    $('.hover_medical_container').css({
+                        'height': 'auto',
+                        'padding': '10px'
+                    });
+                    var p = 'P: ';
+                    var f = 'F: ';
+                    var idd = e.val.split(':')[0];
+                    $.ajax({
+                        url: '/contacts/'+ idd,
+                        type: 'GET',
+                        dataType: 'json',
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                        },
+                        success: function(data){
+                            $('.hover_medical_container').css({
+                                'opacity': '0.1',
+                                'top': mY-120,
+                            }).animate({
+                                'opacity': '1.0',
+                            }, 300).show();
+                            if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: ';}
+                            if(data.phone_number == null || data.phone_number == '') {data.phone_number = ''; p = '';} else {p = '<br>' + 'P: ';}
+                            if(data.address == null) {data.address = '' }
+                            $("#popup_medical").html(data.first_name + ' ' + data.last_name + '<br>' +
+                                    data.address + p + data.phone_number  +
+                                    f + data.fax_number
+                            ).fadeIn( "slow").show();
+                            timeout();
+                            /* do something meaningful with data */},
+                        error: function(xhr, status, response) {/* your error callback */}
+                    });
+                });
     });
 </script>

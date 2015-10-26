@@ -414,3 +414,25 @@ border-bottom: 1px solid #ebccd1;
   color: blue;
   text-decoration: underline;
 }
+
+
+
+.copy_form {
+  width: 100%;
+    padding: 0;
+  tr {
+    width: 100%;
+    td:first-of-type {
+    }
+    td:nth-of-type(2){
+      width: 75%;
+    }
+  }
+}
+.copy_form td:nth-child(1) {
+  vertical-align: top;
+}
+
+.copy_form tr:nth-child(even){
+ background: transparent;
+}

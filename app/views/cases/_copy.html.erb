@@ -9,7 +9,7 @@
           </div>
           <div class="modal-body">
 
-          <table class="new_case_form table-condensed">
+          <table class="copy_form table-condensed">
             <tbody>
            <tr>
               <td>
@@ -30,31 +30,38 @@
               <td colspan="2">
                <div class="form-group">
                   <%= check_box_tag :incident, :checked, true %>
-                  <%= label_tag :incident, "Incident" %>
+                   <%= label_tag :incident, "" %>
+                  <strong>Incident - </strong>incident details
                </div>
                <div class="form-group">
                  <%= check_box_tag :medicals, :checked, true %>
-                 <%= label_tag :medicals, "Medicals" %>
+                 <%= label_tag :medicals, "" %>
+                 <strong>Medicals - </strong>injury summary and treatment details
                </div>
                <div class="form-group">
                   <%= check_box_tag :insurance, :checked, true %>
-                  <%= label_tag :insurance, "Insurance" %>
+                  <%= label_tag :insurance, "" %>
+                  <strong>Insurance - </strong>insurance information and adjusters
                </div>
                <div class="form-group">
                   <%= check_box_tag :contacts, :checked, true %>
-                  <%= label_tag :contacts, "Contacts" %>
+                  <%= label_tag :contacts, "" %>
+                  <strong>Contacts - </strong>all case contacts and roles
                </div>
                <div class="form-group">
                   <%= check_box_tag :tasks, :checked, true %>
-                  <%= label_tag :tasks, "Tasks" %>
+                  <%= label_tag :tasks, "" %>
+                  <strong>Tasks - </strong>all uncompleted tasks
                </div>
                <div class="form-group">
                   <%= check_box_tag :documents, :checked, true %>
-                  <%= label_tag :documents, "Documents" %>
+                  <%= label_tag :documents, "" %>
+                  <strong>Documents - </strong>all documents
                </div>
                <div class="form-group">
                   <%= check_box_tag :notes, :checked, true %>
-                  <%= label_tag :notes, "Notes" %>
+                  <%= label_tag :notes, "" %>
+                  <strong>Notes - </strong>all case notes
                 </div>
                </td>             
             </tr>

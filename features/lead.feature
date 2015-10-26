@@ -4,7 +4,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I click on sidebar item "Intake"
@@ -20,14 +20,14 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and accept case
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     When I login without firm
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
-    And I click to element with id "accept"
-    Then I check message "Medical injuries injury type can't be blank"
-    And I check message "Case type can't be blank"
+#    And I click to element with id "accept"
+#    Then I check message "Medical injuries injury type can't be blank"
+#    And I check message "Case type can't be blank"
     When I click on "Edit"
     And I fill lead case fields
     And I click on "Save"
@@ -38,7 +38,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead, accept case and check case number
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -52,7 +52,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and edit fields
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -81,7 +81,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and check tabs exist
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -93,7 +93,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and check details tab
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -105,7 +105,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and check contact tab
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -117,7 +117,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and check documents tab
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -130,7 +130,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I create a lead and check case data
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -158,7 +158,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I should be able to add document to lead
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -173,7 +173,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I should be able to change lead contact
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     And I click on sidebar item "Intake"
     And I create a lead with name "Leeds" and last name "United"
@@ -188,7 +188,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I should be able to sort table in lead index page
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Confirmed firm user exists with first name "Aaaaa", last name "Aaaaaaa", email "aaaaaaa@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
     And Confirmed firm user exists with first name "Bbbbb", last name "Bbbbbbb", email "bbbbbbb@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
@@ -237,7 +237,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I should be able to make search on lead index page
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Confirmed firm user exists with first name "Aaaaa", last name "Aaaaaaa", email "aaaaaaa@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
     And Confirmed firm user exists with first name "Bbbbb", last name "Bbbbbbb", email "bbbbbbb@gmail.com" and password "password" for user with email "artem.suchov@gmail.com"
@@ -256,7 +256,7 @@ Feature: Create Lead Test
 
   @javascript
   Scenario: I should be able to filter leads by status
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     And Firm for default user exist
     And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameA" and "LastNameA" and date "08/08/2014" and estimated "100" and status "pending_review"
     And Exist advanced lead for user "artem.suchov@gmail.com" with name "FirstNameB" and "LastNameB" and date "09/09/2014" and estimated "200" and status "appointment_scheduled"

@@ -3,7 +3,7 @@ Feature: Dashboard
 
   @javascript
   Scenario: I should be able to create: Lead, Case, Contact Task, Document and Note from dashboard.
-    Given Confirmed default user exists
+    Given Confirmed default admin user exists
     When I login
     Then I see dashboard with creation quick-links
 #    When I click "New Caller Intake"

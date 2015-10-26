@@ -34,7 +34,7 @@
                 mX = e.pageX;
                 mY = e.pageY;
             }).mouseover();
-            $('select').select2()
+            $('select').select2().not('.select_contacts_insurance select')
               .on("change", function(e) { // When user select Value then change event fire
                  $('#popup_insurance').close();
               })

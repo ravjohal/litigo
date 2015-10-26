@@ -52,7 +52,7 @@ class ClientIntakesController < ApplicationController
     respond_to do |format|
       if @lead.save
         last_notes_user = Lead.last
-        last_notes_user.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @lead.attorney.id)
+        last_notes_user.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @lead.attorney.try(:id)) if last_notes_user
         format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully created.' }
         format.json { render :show, status: :created, location: @lead }
       else
@@ -69,7 +69,7 @@ class ClientIntakesController < ApplicationController
     respond_to do |format|
       if @lead.update(client_intake_params)
         if @lead.update_attributes(params[:attorney_id])
-          if @lead.attorney_id != @@before_attorney_id
+          if @@before_attorney_id && @lead.attorney_id != @@before_attorney_id
             @lead.notifications.create(author: current_user.name, note_id: @lead.id, user_id: @@before_attorney_id, is_remove: true)
             @lead.notifications.create(author:  current_user.name, note_id: @lead.id, user_id: @lead.attorney.id)
           end

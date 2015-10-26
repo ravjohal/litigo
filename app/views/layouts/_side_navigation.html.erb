@@ -10,7 +10,7 @@
     <%= active_link_to "Intake", leads_path, :class_active => 'tester', :class => 'nav-sidebar__cli', :id => 'client-intake', :active => [['client_intakes'], []] %>
   </li>
   <li id="first">
-    <%= active_link_to " Cases", cases_path, :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'incidents', 'medicals', 'resolutions', 'insurances'], []] %>
+    <%= active_link_to " Cases", cases_path, :class_active => 'tester', :class => 'nav-sidebar__cm', :active => [['cases', 'incidents', 'medicals', 'resolutions', 'insurances', 'interrogatories', 'notes', 'tasks', 'documents', 'expenses',  'edit_case_insurances', 'edit'], []] %>
     </li>
     <li>
     <%= active_link_to "Contacts", contacts_path, :class_active => 'tester', :class => 'nav-sidebar__prf', :active => @case.present? ? '' : [['contacts'], []] %></li>

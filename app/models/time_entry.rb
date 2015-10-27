@@ -1,6 +1,7 @@
 class TimeEntry < ActiveRecord::Base
   belongs_to :user
   belongs_to :case
+  belongs_to :invoice
   has_one :firm
   CHARGE_TYPES = ['Hourly', 'Fixed fee', 'Contingent', 'No charge', 'Non-billable']
   ABA_CODES = {
@@ -83,6 +84,36 @@ class TimeEntry < ActiveRecord::Base
           'E124 Other' => 'E124',
       }
   }
+
+  def fixed?
+    charge_type.to_s == 'Fixed fee'
+  end
+
+  def hourly?
+    charge_type.to_s == 'Hourly'
+  end
+
+  def contingent?
+    charge_type.to_s == 'Contingent'
+  end
+
+  def html_hours
+    return '-' if fixed?
+    hours
+  end
+
+  def html_rate
+    return fixed_fee if fixed?
+
+    hourly_rate
+  end
+
+  def html_amount
+    return fixed_fee if fixed?
+    return hourly_rate*hours if hourly?
+    return contingent_fee if contingent?
+    0
+  end
 
   def full_aba_code
     ABA_CODES.select { |k, v| v.key(self.aba_code) }.values[0].key(self.aba_code) if self.aba_code.present?

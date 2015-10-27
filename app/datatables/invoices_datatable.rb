@@ -35,12 +35,12 @@ class InvoicesDatatable
   end
 
   def invoices
-    @payments ||= fetch_leads
+    @invoices ||= fetch_leads
   end
 
   def fetch_leads
 
-    invoices = @firm.payments
+    invoices = @firm.invoices
 
     if params[:iSortCol_0].to_i == 1
       invoices = invoices.joins(:contact).order("name #{sort_direction}")

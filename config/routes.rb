@@ -170,6 +170,14 @@ Rails.application.routes.draw do
   get 'cases/:id/case_contacts' => 'cases#show_case_contacts', as: :show_case_contacts
   get 'cases/:id/edit_case_contacts' => 'cases#edit_case_contacts', as: :edit_case_contacts
   post 'cases/:id/update_case_contacts' => 'cases#update_case_contacts', as: :update_contacts_on_case
+
+  get 'cases/:id/case_services' => 'cases#case_services', as: :get_case_services
+  get 'cases/:id/case_expenses' => 'cases#case_expenses', as: :get_case_expenses
+
+  get 'invoice_expenses' => 'invoices#expenses', as: :show_invoice_expenses
+  get 'invoice_services' => 'invoices#services', as: :show_invoice_services
+  get 'invoice_sum' => 'invoices#invoice_sum', as: :show_invoice_sum
+
   resources :medicals do
     resources :injuries
   end

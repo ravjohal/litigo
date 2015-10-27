@@ -1,7 +1,7 @@
 class CasesController < ApplicationController
   respond_to :html, :json, :docx
   before_filter :authenticate_user!
-  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc, :show_case_contacts, :edit_case_contacts]
+  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc, :show_case_contacts, :edit_case_contacts, :case_expenses, :case_services]
   before_action :set_user, :set_firm
 
   helper DatesHelper
@@ -180,6 +180,7 @@ class CasesController < ApplicationController
   end
 
   def show_case_contacts
+    render(partial: 'cases_show_contacts') and return if request.xhr?
     @contacts = @case.case_contacts.order(:created_at)
     @contacts_a = [@case, Contact.new] #for modal partial rendering
   end
@@ -220,9 +221,19 @@ class CasesController < ApplicationController
     respond_with(@case, filename: "my_file.docx")
   end
 
+  def case_services
+    @ids = params[:ids] || []
+    render partial: 'invoices/services_form'
+  end
+
+  def case_expenses
+    @ids = params[:ids] || []
+    render partial: 'invoices/expenses_form'
+  end
+
   private
     def set_case
-      @case = Case.find(params[:id])
+      @case = Case.find(params[:id]) if params[:id]
     end
 
     def case_params

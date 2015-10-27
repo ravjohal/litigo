@@ -4,6 +4,8 @@ class Invoice < ActiveRecord::Base
   belongs_to :user
   belongs_to :firm
   has_many :payments
+  has_many :expenses
+  has_many :time_entries
 
   STATUS = {:unpaid => 'Unpaid', :unpaid_30 => 'Unpaid 30+', :unpaid_60 => 'Unpaid 60+', :unpaid_90 => 'Unpaid 90+', :paid => 'Paid (full)', :paid_p => 'Paid (partial)', :draft => 'Draft'}
 
@@ -14,16 +16,18 @@ class Invoice < ActiveRecord::Base
 
 
   before_save :calculate_balance
+  after_save :save_relations
+
+  attr_accessor :expenses_ids, :time_entries_ids
 
   def self.all_invoices_scope
     all
   end
 
+  def increment_number
+    return number unless new_record?
 
-  def self.increment_number(firm_, invoice)
-    return invoice.number unless invoice.new_record?
-
-    new_number = firm_.payments.count.to_i + 1
+    new_number = firm.payments.count.to_i + 1
     new_number.to_i
   end
 
@@ -57,6 +61,10 @@ class Invoice < ActiveRecord::Base
 
   def calculate_balance
     self.balance = amount - payment_sum if payment_sum_changed?
+  end
+
+  def save_relations
+
   end
 
 end

@@ -1,9 +1,28 @@
-<h1>New Intake</h1>
-<br>
-<div style="width: 800px; margin-left: 40px;">
-  <%= render 'form', new_lead: @lead %>
-  	<div class="pull-right">
-        <%= link_to "Cancel", user_root_path(@user), :class => 'close' %>
-    </div>
+<div class="row invoice-head-row">
+  <div class="col-md-8" style="font-size: 24px;">
+    <strong>Invoice #<%= @invoice.increment_number %></strong><br>
+  </div>
+  <div class="col-md-2">
+    <strong>
+      <%= link_to 'Cancel', invoices_path, :class => 'close' %>
+    </strong>
+  </div>
+  <div class="col-md-2">
+    <ul class="nav">
+      <li class="dropdown">
+        <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: 'dropdown', :style => 'display:inline;'} do %>
+          INVOICE
+          <span class="caret"></span>
+        <% end %>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
+          <li style="padding: 0; display: inline;"><%= link_to 'Save as Draft', '#save_draft', { :id => 'save_draft' } %></li>
+          <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Issue Invoice', '#issue_invoice', {id: 'issue_invoice'} %></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div>
+  <%= render 'form' %>
 </div>
 

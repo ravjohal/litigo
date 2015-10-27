@@ -1,0 +1,43 @@
+.invoice-head-row {
+  .nav {
+    .dropdown {
+      & > a {
+        padding: 10px;
+      }
+      &.open {
+        & > a, & > a:hover, & > a:focus {
+          background-color: #7b8ca4;
+        }
+      }
+    }
+  }
+}
+.invoice-form {
+  label {
+    float: initial;
+    width: auto;
+    text-align: left;
+    margin: initial;
+  }
+
+  .table-tripped {
+    width: 100%;
+    thead {
+      & > tr {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+    tbody {
+      & > tr {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+    tfoot {
+      & > tr {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+}

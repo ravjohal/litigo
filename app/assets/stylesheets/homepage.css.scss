@@ -1012,15 +1012,16 @@ width: 80px;
   color: white;
   margin-bottom: 15px;
   font-weight: 700;
-  height: 800px;
-  overflow: scroll;
+  overflow: auto;
   ul {
     color: white;
     font-weight: lighter;
     padding: 0;
     list-style-type: none;
-    overflow: scroll;
     }
+}
+.nav-sidebar::-webkit-scrollbar { 
+    display: none; 
 }
 
 .enabled {

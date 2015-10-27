@@ -1,0 +1,5 @@
+<% if activity.trackable %>
+    assigned a lead <%= link_to "View", lead_path(activity.trackable.id ), :class => 'view_activity'%>
+<% else %>
+    assigned a lead which has since been removed
+<% end %>

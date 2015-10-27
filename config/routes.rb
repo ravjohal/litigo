@@ -2,6 +2,7 @@ require 'resque/server'
 
 Rails.application.routes.draw do
 
+  resources :activities
   get '/analytics' => 'analytics#index'
   get '/charts/data' => 'analytics#get_case'
 

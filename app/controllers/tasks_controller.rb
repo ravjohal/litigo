@@ -65,6 +65,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
+        track_activity @task
         if @task.add_event && @task.due_date.present?
           @task.create_event
         end
@@ -89,6 +90,7 @@ class TasksController < ApplicationController
     end
     respond_to do |format|
       if @task.update(task_params)
+        track_activity @task
         format.html { redirect_to path_tasks, notice: 'Task successfully updated.' }
         format.json { render :show, status: :ok, location: @task }
       else
@@ -102,6 +104,7 @@ class TasksController < ApplicationController
   # DELETE /tasks/1.json
   def destroy
     @task.destroy
+    track_activity @task
     respond_to do |format|
       format.html { redirect_to tasks_url, notice: 'Task successfully deleted.' }
       format.json { head :no_content }

@@ -1,0 +1,5 @@
+<% if activity.trackable %>
+    added expense <%= link_to "View", expense_path(activity.trackable.id ), :class => 'view_activity' %>
+<% else %>
+    added expense which has since been removed
+<% end %>

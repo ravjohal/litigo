@@ -68,6 +68,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
+        track_activity @document
         format.html { redirect_to path_documents, notice: 'Document was successfully created.' }
         format.json { render :show, status: :created, location: @document }
       else
@@ -91,6 +92,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.update(document_params)
+        track_activity @document
         format.html { redirect_to path_documents, notice: 'Document was successfully updated.' }
         format.json { render :show, status: :ok, location: @document }
       else
@@ -136,7 +138,7 @@ class DocumentsController < ApplicationController
     else
       @document.destroy
     end
-
+    track_activity @document
     respond_to do |format|
       format.html { redirect_to documents_url, notice: 'Document was successfully destroyed.' }
       format.json { head :no_content }

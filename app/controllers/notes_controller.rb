@@ -74,6 +74,7 @@ class NotesController < ApplicationController
             notification.notifications.create(content: @note.note, author: @note.author, note_id: @note.id, user_id: notification.secondary_owner_id)
           end
         end
+        track_activity @note
         if note_params[:add_task]
           task = Task.new(name: note_params[:task_name], due_date: note_params[:task_due_date], sms_reminder: note_params[:task_sms_reminder],
                              email_reminder: note_params[:task_email_reminder], description: note_params[:task_description],
@@ -101,6 +102,7 @@ class NotesController < ApplicationController
     @note.user = @user
     respond_to do |format|
       if @note.update(note_params)
+        track_activity @note
         format.html { respond_with @note, notice: 'Note was successfully updated' }
         format.json { render :show, status: :ok, location: @note }
       else
@@ -115,6 +117,7 @@ class NotesController < ApplicationController
   def destroy
     @user = current_user
     @note.destroy
+    track_activity @note
     respond_to do |format|
       format.html { redirect_to notes_url, notice: 'Note was successfully deleted' }
       format.json { head :no_content }

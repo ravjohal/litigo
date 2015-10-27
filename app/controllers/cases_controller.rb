@@ -127,6 +127,7 @@ class CasesController < ApplicationController
       if case_params[:attorney] || case_params[:staff]
         @case.assign_case_attorney_staff(case_contacts_params)
       end
+      track_activity @case
       count_attorneys = @case.case_contacts.where("role = 'Attorney'").size
       attorneys = @case.case_contacts.where("role = 'Attorney'")
       last_cases = Case.last(count_attorneys)
@@ -164,17 +165,23 @@ class CasesController < ApplicationController
           case_contact.save!
         end
       end
+
       @case.check_sol
       if params[:commit] == "Assign Contacts"
         redirect_to case_contacts_path(@case), notice: 'Contacts were successfully assigned.'
+        track_activity @case,'update_assign_contacts'
       elsif params[:case][:case_contacts_attributes]
         redirect_to show_case_contacts_path(@case), notice: 'Contacts were successfully updated.'
+        track_activity @case,'update_case_contacts'
       elsif params[:case][:insurances_attributes]
         redirect_to case_insurances_path(@case), notice: 'Insurances were successfully updated.'
+        track_activity @case,'update_insurance'
       elsif params[:case][:interrogatories_attributes]
         redirect_to case_interrogatories_path(@case), notice: 'Interrogatories were successfully updated.'
+        track_activity @case,'update_interrogatory'
       else
         respond_with @case, notice: 'Case was successfully updated.'
+        track_activity @case,'update'
       end
     end
   end
@@ -200,6 +207,7 @@ class CasesController < ApplicationController
 
   def destroy
     @case.destroy
+    track_activity @case
     redirect_to cases_url, notice: 'Case was successfully deleted.'
   end
 

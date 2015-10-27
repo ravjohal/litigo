@@ -1,0 +1,12 @@
+<h1>Activities</h1>
+<div class="col-md-6">
+  <% @activities.each do |activity| %>
+    <div class="activity">
+      <%= link_to activity.user.name, activity.user, :class => 'author_field' %>
+      <%= render "activities/#{activity.trackable_type.underscore}/#{activity.action}", activity: activity %>
+      <div class="time">
+        <%= distance_of_time_in_words(@from_time, activity.created_at,include_seconds: true ) %> ago
+      </div>
+    </div>
+  <% end %>
+</div>

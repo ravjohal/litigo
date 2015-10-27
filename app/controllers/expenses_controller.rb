@@ -34,6 +34,7 @@ class ExpensesController < ApplicationController
     @expense.firm = @firm
     respond_to do |format|
       if @expense.save
+        track_activity @expense
         format.html { redirect_to @case.present? ? case_expense_path(@case, @expense) : @expense, notice: 'Expense was successfully created.' }
         format.json { render :show, status: :created, location: @expense }
       else
@@ -48,6 +49,7 @@ class ExpensesController < ApplicationController
   def update
     respond_to do |format|
       if @expense.update(expense_params)
+        track_activity @expense
         format.html { redirect_to @case.present? ? case_expense_path(@case, @expense) : @expense, notice: 'Expense was successfully updated.' }
         format.json { render :show, status: :ok, location: @expense }
       else
@@ -61,6 +63,7 @@ class ExpensesController < ApplicationController
   # DELETE /expenses/1.json
   def destroy
     @expense.destroy
+    track_activity @expense
     respond_to do |format|
       format.html { redirect_to expenses_url, notice: 'Expense was successfully destroyed.' }
       format.json { head :no_content }

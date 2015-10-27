@@ -1,0 +1,5 @@
+<% if activity.trackable %>
+    updated contact <%= link_to "View", contact_path(activity.trackable.id ), :class => 'view_activity'%>
+<% else %>
+    updated a contact which has since been removed
+<% end %>

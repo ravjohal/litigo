@@ -1,0 +1,43 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <a class="close" style="padding-top: 15px;" data-dismiss="modal">×</a>
+
+      <h1>Add Services to Invoice #<%= params[:number] %></h1>
+    </div>
+    <div class="modal-body">
+
+      <table class="lead-form table-condensed">
+        <thead>
+        <tr>
+          <th></th>
+          <th>Staff Member</th>
+          <th>Activity</th>
+          <th>Hours</th>
+          <th>Rate</th>
+          <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @services = @case.time_entries %>
+        <%= render 'invoices/services_table' %>
+        </tbody>
+      </table>
+      <br>
+
+    </div>
+
+    <div class="modal-footer">
+      <div class="pull-left">
+        <a class="close" data-dismiss="modal">Cancel</a>
+      </div>
+
+      <div class="form-actions">
+        <%= button_tag 'Add Services', type: :submit, :class => 'btn btn-info', :style => 'font-size: 18px;', id: 'confirm_add_services' %>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

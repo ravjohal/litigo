@@ -5,7 +5,7 @@
         </div>
         <div id="case-buttons">
           <ul>
-             <li><%= link_to 'NEW INVOICE', @new_path, {:class => "action-button", :id => "new_modal",  :remote => true, 'data-toggle' =>  "modal", 'data-target' => '#modal-window'}  %></li>
+             <li><%= link_to 'NEW INVOICE', new_invoice_path, {:class => "action-button",}  %></li>
           </ul>
         </div>
       </div>
@@ -29,5 +29,3 @@
 <%= render :partial => 'table', :locals => { :id => 'firm_invoices'} %>
 
 <%= render :partial => 'invoices_index_javascript' %>
-
-

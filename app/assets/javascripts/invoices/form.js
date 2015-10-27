@@ -85,6 +85,13 @@ $(document).ready(function () {
     });
 
     $('#save_draft').click(function () {
+        $('#invoice_status').val('draft');
+        $('#submit_form').click();
+        return false;
+    });
+
+    $('#issue_invoice').click(function () {
+        $('#invoice_status').val('unpaid');
         $('#submit_form').click();
         return false;
     });

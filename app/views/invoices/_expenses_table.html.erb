@@ -1,0 +1,9 @@
+<% @expenses.each do |expense| %>
+  <tr>
+    <td><%= check_box_tag 'selected_expense[]', expense.id, @ids.to_a.include?(expense.id.to_s) %></td>
+    <td><%= expense.user.try(:name) %></td>
+    <td><%= expense.expense %></td>
+    <td><%= expense.aba_billing_code %></td>
+    <td><%= number_to_currency expense.amount %></td>
+  </tr>
+<% end %>

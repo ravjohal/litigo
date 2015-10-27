@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022123642) do
+ActiveRecord::Schema.define(version: 20151026094004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -311,9 +311,11 @@ ActiveRecord::Schema.define(version: 20151022123642) do
     t.integer  "firm_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "invoice_id"
   end
 
   add_index "expenses", ["firm_id"], name: "index_expenses_on_firm_id", using: :btree
+  add_index "expenses", ["invoice_id"], name: "index_expenses_on_invoice_id", using: :btree
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "firms", force: :cascade do |t|
@@ -868,9 +870,11 @@ ActiveRecord::Schema.define(version: 20151022123642) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "activity"
+    t.integer  "invoice_id"
   end
 
   add_index "time_entries", ["case_id"], name: "index_time_entries_on_case_id", using: :btree
+  add_index "time_entries", ["invoice_id"], name: "index_time_entries_on_invoice_id", using: :btree
   add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
   create_table "user_events", force: :cascade do |t|

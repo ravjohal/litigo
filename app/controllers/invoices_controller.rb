@@ -20,6 +20,28 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def expenses
+    @expenses = Expense.where(:id => params[:ids])
+    render partial: 'expenses_table_for_form'
+  end
+
+  def services
+    @services = TimeEntry.where(:id => params[:ids])
+    render partial: 'services_table_for_form'
+  end
+
+  def invoice_sum
+    expenses_ids = params[:expenses_ids] || []
+    services_ids = params[:services_ids] || []
+
+    services_sum = TimeEntry.where(id: services_ids).inject(0) {|sum, te| sum += te.html_amount.to_f }
+    expenses_sum = Expense.where(id: expenses_ids).sum(:amount)
+
+    @sum = services_sum.to_f + expenses_sum.to_f
+
+    render json: {sum: @sum, html: render_to_string(partial: 'invoice_sum')}
+  end
+
   def create
     @invoice = Invoice.new(invoice_params)
     @invoice.user = @user
@@ -45,7 +67,7 @@ class InvoicesController < ApplicationController
 
 
   def new
-    @invoice = Invoice.new
+    @invoice = Invoice.new({firm: @firm, user: @user})
   end
 
   def edit

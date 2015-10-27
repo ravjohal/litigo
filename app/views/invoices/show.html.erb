@@ -87,7 +87,7 @@
     <td class="right">
       <strong>Status:</strong>
     </td>
-    <td><%= Invoice::STATUS[@invoice.status.to_sym] %></td>
+    <td><%= Invoice::STATUS[@invoice.status.try(:to_sym)] %></td>
   </tr>
   </tbody>
 </table>

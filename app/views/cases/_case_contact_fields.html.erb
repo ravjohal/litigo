@@ -4,6 +4,7 @@
           <%= f.association :contact, :collection => (@firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map { |contact| [contact.name_with_company, contact.id] }), :prompt => "Add Contact", :class => 'table-input', :label => false %>
       </td>
       <td class="role_select">
+        <div id="popup_case"></div>
           <%= f.input :role, collection: Contact::TYPES, :prompt => "Add Role", :class => 'table-input', :label => false %>
       </td>
       <td colspan="2">
@@ -14,73 +15,4 @@
           <%= link_to_remove_association f, class: 'dark-small remove_case_contacts' do %><span id="remove" class="glyphicon glyphicon-remove pull-right" original-title="Remove Contact"></span><% end %>
       </td>
   </tr>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-    var timeout = setTimeout(function(){
-        $(".hover_container").hide();
-    }, 2000);
-    var self =  $("#popup_case");
-    $(document).mousemove(function (e) {
-      mX = e.pageX;
-      mY = e.pageY;
-    }).mouseover();
-    $('#add_contact').on('click',function() {
-      $('.hover_container').css({
-        'height': '230px',
-        'padding': '10px'
-      });
-      $('#popup_case').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
-        $('.hover_container').show();
-        clearTimeout(timeout);
-      });
-      $('.hover_container').on('mouseover', function(){
-        $('.hover_container').show();
-      });
-      $(document).click(function(event) {
-          if(!$(event.target).closest('.hover_container').length) {
-              if($('.hover_container').is(":visible")) {
-                  $('.hover_container').hide()
-              }
-          }
-      })
-      $('select').select2().not('.role_select select')
-      .on("change", function(e) { // When user select Value then change event fire
-      })
-       .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
-                $('.hover_container').css({
-                    'height': 'auto',
-                    'padding': '10px'
-                });
-                var p = 'P: ';
-       var f = 'F: ';
-       var idd = e.val.split(':')[0];
-       $.ajax({
-         url: '/contacts/'+ idd,
-         type: 'GET',
-         dataType: 'json',
-         beforeSend: function (xhr) {
-           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
-         },
-         success: function(data){
-           $('.hover_container').css({
-            'opacity': '0.1',
-            'top': mY-120,
-           }).animate({
-            'opacity': '1.0',
-           }, 300).show();
-           if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: ';}
-           if(data.phone_number == null || data.phone_number == '') {data.phone_number = ''; p = '';} else {p = '<br>' + 'P: ';}
-           if(data.address == null) {data.address = '' }
-           $("#popup_case").html(data.first_name + ' ' + data.last_name + '<br>' +
-                                 data.address + p + data.phone_number  +
-                                 f + data.fax_number
-                                 ).fadeIn( "slow").show();
-               timeout();
-               /* do something meaningful with data */},
-         error: function(xhr, status, response) {/* your error callback */}
-       });
-    });
-  });
-</script>
 

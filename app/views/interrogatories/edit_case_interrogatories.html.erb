@@ -24,16 +24,13 @@
 
 <div class="insurance-edit-container">
  <%= link_to_add_association 'ADD INTERROGATORY', f, :interrogatories, :"data-association-insertion-node" => "tbody#interrogatories", :"data-association-insertion-method" => "append", :partial => "interrogatory_fields", class: 'action-button insure pull-right' %>
- <div class="hover_interrogatory_container">
-   <input type='button' value="+     Add Contact         +" id='add_contact' placeholder="Add contact" style="background: #68CED8;color: white;padding: 2px;width:150px;font-size:12px;"/>
-   <div id="popup_interrogatory">
-   </div>
- </div>
 <table id="info-table3">
 <thead>
   <tr class="right-top">
     <td colspan="12" class="gray-back">
       <strong>Interrogatories</strong>
+      <div class="hover_interrogatory_container"></div>
+      <input type='button' value="+ New Contact" id='add_contact' placeholder="Add contact" style="float: right;border:none;padding-right:7px;margin-right: 20px;"/>
     </td>
   </tr>
 </thead>
@@ -45,3 +42,26 @@
 </table>
 </div>
 <% end %>
+  <script>
+      $(document).ready(function() {
+          $(document).mousemove(function (e) {
+              mX = e.pageX;
+              mY = e.pageY;
+          }).mouseover();
+          $('.hover_interrogatory_container').on('mouseover', function(){
+              $('.hover_interrogatory_container').show();
+          });
+
+          $('#add_contact').on('click', function () {
+              $('.hover_interrogatory_container').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
+              $('.hover_interrogatory_container').css({
+                  'opacity': '0.1',
+                  'left': mX-330,
+                  'top': mY-290,
+              }).animate({
+                  'opacity': '1.0',
+              }, 300).toggle();
+          });
+
+      });
+  </script>

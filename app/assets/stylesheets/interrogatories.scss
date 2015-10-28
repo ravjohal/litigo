@@ -17,13 +17,31 @@
 .hover_interrogatory_container {
   position:absolute;
 
-  height: 80px;
+  height: 200px;
+  width: 170px;
+  vertical-align:middle;
+  padding: 10px;
+  margin-left: 188px;
+  margin-top:-15px;
+  font-size: 12px;
+  margin-bottom: -15px;
+  background-color: white;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  color: white;
+  z-index: 3000;
+  display: none;
+}
+
+#popup_interrogatory{
+  position:absolute;
+  height: auto;
   width: 170px;
   vertical-align:middle;
   padding-top: 10px;
   padding-left: 5px;
   padding-bottom: 10px;
-  margin-left: 106px;
+  margin-left: -20px;
   margin-top:-15px;
   font-size: 12px;
   margin-bottom: -15px;
@@ -32,6 +50,18 @@
   border-radius: 5px;
   color: white;
   z-index: 3000;
-  display:none;
+  display: none;
 }
 
+.hover_interrogatory_container:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: -20px;
+  left: 40px;
+  border-width: 0 25px 30px 0px;
+  border-style: solid;
+  border-color: transparent white;
+  display: block;
+  width: 10;
+}

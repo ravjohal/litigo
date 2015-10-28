@@ -13,6 +13,7 @@
           </td>
           <td class="right" colspan="">
               <strong>Interrogatory</strong><br>
+              <div id="popup_interrogatory"></div>
               <%= f.text_field :question, :class => 'table-input' %>
           </td>
           <td class="right" colspan="">
@@ -60,43 +61,16 @@
 </tr>
 <script type="text/javascript">
     $(document).ready(function() {
-        var timeout = setTimeout(function(){
-            $(".hover_interrogatory_container").hide();
-        }, 2000);
         var self =  $("#popup_interrogatory");
         $(document).mousemove(function (e) {
             mX = e.pageX;
             mY = e.pageY;
         }).mouseover();
-        $('#add_contact').on('click',function() {
-            $('.hover_interrogatory_container').css({
-                'height': '230px',
-                'padding': '10px'
-            });
-            $('#popup_interrogatory').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
-            $('.hover_interrogatory_container').show();
-            clearTimeout(timeout);
-        });
-        $('.hover_interrogatory_container').on('mouseover', function(){
-            $('.hover_interrogatory_container').show();
-        });
-        $(document).click(function(event) {
-            if(!$(event.target).closest('.hover_interrogatory_container').length) {
-                if($('.hover_interrogatory_container').is(":visible")) {
-                    $('.hover_interrogatory_container').hide()
-                }
-            }
-        })
         $('select').select2()
                 .on("change", function(e) { // When user select Value then change event fire
-
-
+                    $('#popup_interrogatory').close();
                 })
                 .on("select2-highlight", function(e) { //when user mouse over or highlight value using keyboard navigation keys ("arrow keys")
-                    $('.hover_interrogatory_container').css({
-                        'height': 'auto',
-                        'padding': '10px'
-                    });
                     var p = 'P: ';
                     var f = 'F: ';
                     var idd = e.val.split(':')[0];
@@ -108,21 +82,22 @@
                             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                         },
                         success: function(data){
-                            $('.hover_interrogatory_container').css({
+                            $('#popup_interrogatory').css({
                                 'opacity': '0.1',
-                                'top': mY-120,
+                                'top': mY-50,
                             }).animate({
                                 'opacity': '1.0',
-                            }, 300).show();
-                            if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: ';}
-                            if(data.phone_number == null || data.phone_number == '') {data.phone_number = ''; p = '';} else {p = '<br>' + 'P: ';}
-                            if(data.address == null) {data.address = '' }
+                            }, 300);
+                            if(data.fax_number == null || data.fax_number == '') { data.fax_number = ''; f = '';} else {f = '<br>' + 'F: '}
+                            if(data.phone_number == null || data.phone_number == '') {data.phone_number = ''; p = '';} else {p = '<br>' + 'P: '}
+                            if(data.address == null) {data.address = '' ;}
                             $("#popup_interrogatory").html(data.first_name + ' ' + data.last_name + '<br>' +
                                     data.address + p + data.phone_number  +
                                     f + data.fax_number
                             ).fadeIn( "slow").show();
-                            timeout();
-                            /* do something meaningful with data */},
+                            setTimeout(function(){
+                                $("#popup_interrogatory").hide();
+                            }, 5000);/* do something meaningful with data */},
                         error: function(xhr, status, response) {/* your error callback */}
                     });
                 });

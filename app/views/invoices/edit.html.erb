@@ -1,67 +1,28 @@
-<%= javascript_include_tag 'client_intakes/table', 'data-turbolinks-track' => true %>
-<%= simple_form_for @invoice do |f| %>
-
-  <div class="case-header">
-    <div class="case-title">
-      <div style="font-size: 24px;">
-        <strong>Invoice #<%= @invoice.number %></strong><br>
-      </div>
-      <div id="case-buttons">
-        <ul>
-          <li><%= link_to 'Cancel', @invoice, :class => 'dark' %></li>
-          <li><%= f.submit :class => 'sub2-small dark-right', :value => 'Save' %></li>
-        </ul>
-      </div>
-    </div>
+<div class="row invoice-head-row">
+  <div class="col-md-8" style="font-size: 24px;">
+    <strong>Invoice #<%= @invoice.increment_number %></strong><br>
   </div>
-  <div class="incase-tabs-gap-double"></div>
-  <table id="info-table3" class="lead-table">
-    <thead>
-    <tr class="right-top">
-      <td colspan="4" class="gray-back">
-        <strong>Invoice Information</strong>
-      </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td class="right">
-        <strong>Case:</strong>
-      </td>
-      <td>
-        <%= f.select :case_id, options_from_collection_for_select(@firm.cases, 'id', 'name'), {prompt: "Select #{:case}"}, {:class => 'cases_select'} %>
-      </td>
-      <td class="right">
-        <strong>Contact:</strong>
-      </td>
-      <td>
-        <%= f.select :contact_id, options_from_collection_for_select(@firm.contacts, 'id', 'name'), {prompt: "Select #{:contact}"}, {:class => 'contacts_select'} %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <strong>Due Date</strong>
-      </td>
-      <td>
-        <%= f.text_field :due_date, value: @invoice.new_record? ? date_to_input_regexp(Time.now) : date_to_input_regexp(@invoice.try(:due_date)), id: 'invoice_due_date' %>
-      </td>
-      <td class="right">
-        <strong>Amount:</strong>
-      </td>
-      <td>
-        <%= f.input :amount, label: false, :class => 'table-input', :include_blank => true %>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <Strong>Status:</Strong>
-      </td>
-      <td>
-        <%= f.select :status, Invoice::STATUS.invert, :include_blank => true, label: false, :class => 'table-input', :selected => @invoice.safe_status %>
-      </td>
-    </tr>
+  <div class="col-md-2">
+    <strong>
+      <%= link_to 'Cancel', invoice_path(@invoice), :class => 'close' %>
+    </strong>
+  </div>
+  <div class="col-md-2">
+    <ul class="nav">
+      <li class="dropdown">
+        <%= link_to "", class: 'dropdown-toggle action-button', id: 'task-list-bnt', data: {toggle: 'dropdown', :style => 'display:inline;'} do %>
+          INVOICE
+          <span class="caret"></span>
+        <% end %>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" style="margin-top: 10px;">
+          <li style="padding: 0; display: inline;"><%= link_to 'Save as Draft', '#save_draft', { :id => 'save_draft' } %></li>
+          <li role="presentation" style="padding: 0; display: inline;"><%= link_to 'Issue Invoice', '#issue_invoice', {id: 'issue_invoice'} %></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+<div>
+  <%= render 'form' %>
+</div>
 
-    </tbody>
-  </table>
-
-<% end %>

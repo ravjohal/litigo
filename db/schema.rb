@@ -11,11 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026094004) do
+ActiveRecord::Schema.define(version: 20151028055605) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "action"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "firm_id"
+  end
+
+  add_index "activities", ["firm_id"], name: "index_activities_on_firm_id", using: :btree
+  add_index "activities", ["trackable_type", "trackable_id"], name: "index_activities_on_trackable_type_and_trackable_id", using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "attorneys", force: :cascade do |t|
     t.string   "attorney_type", limit: 255
@@ -474,6 +488,7 @@ ActiveRecord::Schema.define(version: 20151026094004) do
     t.datetime "updated_at",                null: false
     t.integer  "firm_id"
     t.integer  "user_id"
+    t.datetime "issue_date"
   end
 
   add_index "invoices", ["firm_id"], name: "index_invoices_on_firm_id", using: :btree
@@ -939,4 +954,5 @@ ActiveRecord::Schema.define(version: 20151026094004) do
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "activities", "users"
 end

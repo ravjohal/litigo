@@ -5,6 +5,8 @@ class Payment < ActiveRecord::Base
 
   after_create :recalculate_invoice_balance
 
+  TYPES = {cash: 'Cash', charge: 'Charge', check: 'Check', other: 'Other'}
+
   include PgSearch
   pg_search_scope :search_payment, against: [:number, :amount, :date, :comment],
                   using: {tsearch: {dictionary: :english, prefix: true}}

@@ -15,6 +15,22 @@
           <tbody>
           <tr>
             <td class="col-one">
+              <strong>Invoice #</strong>
+            </td>
+            <td>
+              <%= text_field_tag :number, @invoice.number, class: 'table-input', :disabled => true %>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-one">
+              <strong>Date of Payment:</strong>
+            </td>
+            <td>
+              <%= f.date_field :date, label: false, :class => 'table-input' %>
+            </td>
+          </tr>
+          <tr>
+            <td class="col-one">
               <strong>Amount:</strong>
             </td>
             <td>
@@ -23,15 +39,15 @@
           </tr>
           <tr>
             <td class="col-one">
-              <strong>Date:</strong>
+              <strong>Payment Type</strong>
             </td>
             <td>
-              <%= f.date_field :date, label: false, :class => 'table-input' %>
+              <%= f.select :sub_type, Payment::TYPES.invert, label: false, :class => 'table-input', prompt: 'Select Type' %>
             </td>
           </tr>
           <tr>
             <td class="col-one">
-              <strong>Comment:</strong>
+              <strong>Memo:</strong>
             </td>
             <td>
               <%= f.text_area :comment, label: false, :class => 'table-text', placeholder: 'Enter some comment for payment', :autofocus => false %>
@@ -58,5 +74,3 @@
     <!--end of modal-content-->
   </div>
 <% end %>
-
-

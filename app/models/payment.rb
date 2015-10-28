@@ -12,7 +12,7 @@ class Payment < ActiveRecord::Base
   def increment_number
     return number unless new_record?
 
-    new_number = invoice.payments.count.to_i + 1
+    new_number = invoice.payments.maximum(:number).to_i + 1
     new_number.to_i
   end
 

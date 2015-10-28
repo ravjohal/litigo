@@ -19,7 +19,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @services = @case.time_entries %>
+        <% @services = @case.time_entries.where('invoice_id IS NULL') %>
         <%= render 'invoices/services_table' %>
         </tbody>
       </table>

@@ -25,10 +25,10 @@ class PaymentsDatatable
     payments.map do |payment|
       [
           payment.number,
-          number_to_currency(payment.amount),
-          simple_format_date_regexp(payment.created_at),
           simple_format_date_regexp(payment.date),
-          payment.comment
+          payment.comment,
+          Payment::TYPES[payment.sub_type.try(:to_sym)],
+          number_to_currency(payment.amount),
       ]
     end
   end

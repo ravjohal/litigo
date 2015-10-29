@@ -95,7 +95,6 @@ var ready = function(){
 $(document).ready(ready);
 $(document).on('page:load', ready);
 $(document).on('page:change', function (e) {
-  $('select').select2();
   if(e.currentTarget.location.pathname == "/insights") {
      $("#btnFilterSearch").click();
   }

@@ -36,7 +36,7 @@ class PaymentsController < ApplicationController
   end
 
   def payment_params
-    params.require(:payment).permit(:amount, :invoice_id, :comment, :date, :number)
+    params.require(:payment).permit(:amount, :invoice_id, :comment, :date, :number, :sub_type)
   end
 
 end

@@ -1,0 +1,63 @@
+<div class="template_block">
+  <div class="row">
+    <div class="col-md-1 col-lg-2"></div>
+    <div class="col-md-10 col-lg-8">
+      <div class="template_html_show">
+
+        <div class="col-md-3">
+          <div class="row"><%= @invoice.user.name %></div>
+          <div class="row"><%= @invoice.firm.name %></div>
+          <div class="row"><%= @invoice.firm.address %></div>
+          <div class="row"><%= @invoice.firm.city %>, <%= @invoice.firm.zip %></div>
+          <div class="row"><%= @invoice.firm.phone %></div>
+        </div>
+        <div class="col-md-3 col-md-offset-6 text-right">
+          <div class="row"><h3> Invoice #<%= @invoice.number %></h3></div>
+          <div class="row">Date Issued</div>
+          <div class="row"><%= date_to_input @invoice.issue_date %></div>
+          <div class="row">Due Date</div>
+          <div class="row"><%= date_to_input @invoice.due_date %></div>
+        </div>
+
+        <div class="col-md-10 col-md-offset-1">
+          <% if @invoice.time_entries.count > 0 %>
+            <table class="table-tripped">
+              <thead>
+              <tr>
+                <th>Staff Member</th>
+                <th>Description of Service</th>
+                <th>Hours</th>
+                <th>Rate</th>
+                <th style="width: 200px !important;">Amount</th>
+              </tr>
+              </thead>
+              <tbody id="services_table">
+              <% @services = @invoice.time_entries %>
+              <%= render 'services_table_for_form' %>
+              </tbody>
+            </table>
+          <% end %>
+
+          <% if @invoice.expenses.count > 0 %>
+            <table class="table-tripped">
+              <thead>
+              <tr>
+                <th>Expense</th>
+                <th>ABA Code</th>
+                <th style="width: 200px !important;">Amount</th>
+              </tr>
+              </thead>
+              <tbody id="expenses_table">
+              <% @expenses = @invoice.expenses %>
+              <%= render 'expenses_table_for_form' %>
+              </tbody>
+            </table>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-1 col-lg-2"></div>
+  </div>
+  <!-- row end -->
+</div>

@@ -5,6 +5,8 @@ class Payment < ActiveRecord::Base
 
   after_create :recalculate_invoice_balance
 
+  TYPES = {cash: 'Cash', charge: 'Charge', check: 'Check', other: 'Other'}
+
   include PgSearch
   pg_search_scope :search_payment, against: [:number, :amount, :date, :comment],
                   using: {tsearch: {dictionary: :english, prefix: true}}
@@ -12,7 +14,7 @@ class Payment < ActiveRecord::Base
   def increment_number
     return number unless new_record?
 
-    new_number = invoice.payments.count.to_i + 1
+    new_number = invoice.payments.maximum(:number).to_i + 1
     new_number.to_i
   end
 

@@ -75,6 +75,7 @@ class InvoicesController < ApplicationController
 
   def show
     @payment = Payment.new({invoice: @invoice})
+    render (@invoice.draft? ? :show_draft : :show)
   end
 
   def update
@@ -96,8 +97,9 @@ class InvoicesController < ApplicationController
   end
 
   def invoice_params
-    _params = params.require(:invoice).permit(:case_id, :contact_id, :amount, :status, :due_date, :number, :add_payment_amount)
-    _params[:due_date] = convert_date_by_user_timezone(_params[:due_date], @user) if _params[:due_date]
+    _params = params.require(:invoice).permit(:case_id, :contact_id, :amount, :status, :due_date, :number, :expenses_ids, :time_entries_ids)
+    _params[:expenses_ids] = _params[:expenses_ids].split(',') if _params[:expenses_ids]
+    _params[:time_entries_ids] = _params[:time_entries_ids].split(',') if _params[:time_entries_ids]
     _params
   end
 

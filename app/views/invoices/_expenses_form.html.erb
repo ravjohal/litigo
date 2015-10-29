@@ -18,7 +18,7 @@
         </tr>
         </thead>
         <tbody>
-        <% @expenses = @case.expenses %>
+        <% @expenses = @case.expenses.where('invoice_id IS NULL') %>
         <%= render 'invoices/expenses_table' %>
         </tbody>
       </table>

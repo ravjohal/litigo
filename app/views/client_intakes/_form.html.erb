@@ -171,7 +171,7 @@ $(document).ready(function() {
         mX = e.pageX;
         mY = e.pageY;
     }).mouseover();
-    $('select').select2()
+    $('select').not('.table-responsive select').select2()
             .on("change", function(e) { // When user select Value then change event fire
                 $('#popup').hide();
             })

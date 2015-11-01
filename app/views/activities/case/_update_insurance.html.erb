@@ -1,0 +1,5 @@
+<% if activity.trackable %>
+    updated insurance <%= link_to "View", case_insurances_path(activity.trackable.id ) , :class => 'view_activity' %>
+<% else %>
+    updated insurance which has since been removed
+<% end %>

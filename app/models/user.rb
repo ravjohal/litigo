@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :templates
   has_many :template_documents
   has_many :tasks #this user created these tasks
-
+  has_many :activities
   has_many :events, class_name: 'Event', foreign_key: 'created_by'
   has_many :owned_events, class_name: 'Event', foreign_key: 'owner_id'
   has_many :event_series

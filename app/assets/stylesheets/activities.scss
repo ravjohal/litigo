@@ -1,0 +1,30 @@
+// Place all the styles related to the activities controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.activity {
+  display: table;
+  width: 100%;
+  background-color: #ffffff;
+  padding: 10px 10px 10px 30px;
+  margin-bottom:5px;
+  border-radius: 8px;
+  border: 1px solid #999999;
+  .activity_author {
+    color: blue;
+  }
+}
+
+.view_activity {
+  float: right;
+  background-color: #BBBBBB;
+  margin-right: 50px;
+  color: black;
+  border-radius: 3px;
+  border: 1px solid #999999;
+  padding: 5px 20px 5px 20px;
+  font-size: 16px;
+}
+
+.activity:nth-child(odd)  { background: #d1d1d1; }
+.activity:nth-child(even) { background: white; }

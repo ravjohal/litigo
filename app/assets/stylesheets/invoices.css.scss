@@ -1,0 +1,67 @@
+.invoice-head-row {
+  .nav {
+    .dropdown {
+      & > a {
+        padding: 10px;
+      }
+      &.open {
+        & > a, & > a:hover, & > a:focus {
+          background-color: #7b8ca4;
+        }
+      }
+    }
+  }
+}
+.invoice-form, .template_block {
+  label {
+    float: initial;
+    width: auto;
+    text-align: left;
+    margin: initial;
+  }
+
+  .table-tripped {
+    width: 100%;
+    thead {
+      & > tr {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+    tbody {
+      & > tr {
+        border-bottom: 1px solid #ccc;
+      }
+    }
+    tfoot {
+      & > tr {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #ccc;
+      }
+    }
+  }
+}
+
+.template_block {
+  .table-tripped {
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+}
+
+.invoice_box {
+  border: 2px solid black;
+  //width: 100%;
+  text-align: center;
+  padding: 15px 30px;
+  width: auto;
+  max-width: 200px;
+  font-size: 18px;
+  font-weight: bold;
+  &.left_box {
+  }
+  &.center_box {
+  }
+  &.right_box {
+  }
+}

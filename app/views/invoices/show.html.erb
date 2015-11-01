@@ -1,28 +1,27 @@
 <%= javascript_include_tag 'invoices/show', 'data-turbolinks-track' => true %>
-<div class="case-header">
-  <div class="case-title">
-    <div style="font-size: 24px;">
-      <strong>Invoice #<%= @invoice.number %></strong><br>
-    </div>
-    <div id="case-buttons">
+<div id="show-buttons">
+  <ul>
+    <div id="temp-custom">
       <ul>
-        <li><%= link_to 'Edit', edit_invoice_path(@invoice), :class => 'dark' %></li>
-        <li><%= link_to "javascript:window.print()", :class => 'dark' do %>
-            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
-          <% end %></li>
-        <li><%= link_to @invoice, :class => 'dark', method: :delete, data: {confirm: 'WARNING! Deleting a case will remove all the case information from storage and you will not be able to retrieve it. Would you like to delete anyway?'} do %>
-            <span id="delete" class="glyphicon glyphicon-trash" title="Delete Invoice"></span>
-          <% end %></li>
         <li>
-          <%=  link_to '#', :class => :dark, :id => :add_payment, :'data-toggle' => :modal, :'data-target' => '#modal-window', :remote => true do %>
-          <span class="glyphicon glyphicon-plus-sign" title="Add Payment"></span>
+          <%= link_to invoices_path, :class => 'dark' do %>
+            <span id="temp" class="glyphicon glyphicon-arrow-left" title="Back to Invoices"></span>
           <% end %>
+        </li>
+        <li>
+          <%= link_to 'Add Payment', '#add_payment', :class => 'action-button', :id => :add_payment, :'data-toggle' => :modal, :'data-target' => '#modal-window', :remote => true %>
         </li>
       </ul>
     </div>
-  </div>
-  <strong style="color: white;">A</strong>
-  <div class="container-fluid" style="padding: 0;">
+  </ul>
+</div>
+
+<div style="width:500px;">
+  <h3>Invoice #<%= @invoice.number %></h3>
+</div>
+
+<div style="border-bottom: 1px solid #ccc;">
+  <div class="container-fluid" style="padding: 0; position: relative; top: 2px;">
     <div class="row">
       <div class="col-md-12">
         <%= render partial: 'invoice_tabs' %>
@@ -30,65 +29,44 @@
     </div>
   </div>
 </div>
-<div class="incase-tabs-gap-double">
+
+<div class="row" style="max-width: 1200px; margin: 10px auto;">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="col-md-5">
+        <div class="row">
+          <strong>Billed Amount</strong>
+        </div>
+        <div class="row">
+          <div class="invoice_box left_box">
+            <%= number_to_currency @invoice.amount.to_f %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div class="row">
+          <strong>Paid</strong>
+        </div>
+        <div class="row">
+          <div class="invoice_box center_box">
+            <%= number_to_currency @invoice.payment_sum.to_f %>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="row">
+          <strong>Balance</strong>
+        </div>
+        <div class="row">
+          <div class="invoice_box right_box">
+            <%= number_to_currency @invoice.balance.to_f %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<table id="info-table3" class="lead-table">
-  <thead>
-  <tr class="right-top">
-    <td colspan="4" class="gray-back">
-      <strong>Invoice Information</strong>
-    </td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td class="right">
-      <strong>Case:</strong>
-    </td>
-    <td>
-      <%= (@invoice.case.present? ? link_to(@invoice.case.name, @invoice.case, :style => 'color: inherit') : '') %>
-    </td>
-    <td class="right">
-      <strong>Contact:</strong>
-    </td>
-    <td>
-      <%= (@invoice.contact.present? ? link_to(@invoice.contact.name, @invoice.contact, :style => 'color: inherit') : '') %>
-    </td>
-  </tr>
-  <tr>
-    <td class="right">
-      <strong>Due Date</strong>
-    </td>
-    <td>
-      <%= simple_format_date @invoice.due_date %>
-    </td>
-    <td class="right">
-      <strong>Amount:</strong>
-    </td>
-    <td>
-      <%= number_to_currency @invoice.amount.to_f %>
-    </td>
-  </tr>
-  <tr>
-    <td class="right">
-      <strong>Payments:</strong>
-    </td>
-    <td>
-      <%= number_to_currency @invoice.payment_sum.to_f %>
-    </td>
-    <td class="right">
-      <strong>Balance:</strong>
-    </td>
-    <td>
-      <%= number_to_currency @invoice.balance.to_f %>
-    </td>
-  </tr>
-  <tr>
-    <td class="right">
-      <strong>Status:</strong>
-    </td>
-    <td><%= Invoice::STATUS[@invoice.status.to_sym] %></td>
-  </tr>
-  </tbody>
-</table>
+
+<%= render 'template_block' %>
+
 <%= render :partial => 'invoices_show_javascript' %>

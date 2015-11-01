@@ -11,11 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022123642) do
+ActiveRecord::Schema.define(version: 20151028082614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "action"
+    t.integer  "trackable_id"
+    t.string   "trackable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "firm_id"
+  end
+
+  add_index "activities", ["firm_id"], name: "index_activities_on_firm_id", using: :btree
+  add_index "activities", ["trackable_type", "trackable_id"], name: "index_activities_on_trackable_type_and_trackable_id", using: :btree
+  add_index "activities", ["user_id"], name: "index_activities_on_user_id", using: :btree
 
   create_table "attorneys", force: :cascade do |t|
     t.string   "attorney_type", limit: 255
@@ -311,9 +325,11 @@ ActiveRecord::Schema.define(version: 20151022123642) do
     t.integer  "firm_id"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "invoice_id"
   end
 
   add_index "expenses", ["firm_id"], name: "index_expenses_on_firm_id", using: :btree
+  add_index "expenses", ["invoice_id"], name: "index_expenses_on_invoice_id", using: :btree
   add_index "expenses", ["user_id"], name: "index_expenses_on_user_id", using: :btree
 
   create_table "firms", force: :cascade do |t|
@@ -472,6 +488,7 @@ ActiveRecord::Schema.define(version: 20151022123642) do
     t.datetime "updated_at",                null: false
     t.integer  "firm_id"
     t.integer  "user_id"
+    t.datetime "issue_date"
   end
 
   add_index "invoices", ["firm_id"], name: "index_invoices_on_firm_id", using: :btree
@@ -695,9 +712,10 @@ ActiveRecord::Schema.define(version: 20151022123642) do
     t.decimal  "amount",     default: 0.0
     t.date     "date"
     t.string   "comment"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "number",     default: 1
+    t.string   "sub_type",   default: "other"
   end
 
   add_index "payments", ["number"], name: "index_payments_on_number", using: :btree
@@ -868,9 +886,11 @@ ActiveRecord::Schema.define(version: 20151022123642) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.string   "activity"
+    t.integer  "invoice_id"
   end
 
   add_index "time_entries", ["case_id"], name: "index_time_entries_on_case_id", using: :btree
+  add_index "time_entries", ["invoice_id"], name: "index_time_entries_on_invoice_id", using: :btree
   add_index "time_entries", ["user_id"], name: "index_time_entries_on_user_id", using: :btree
 
   create_table "user_events", force: :cascade do |t|
@@ -935,4 +955,5 @@ ActiveRecord::Schema.define(version: 20151022123642) do
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "activities", "users"
 end

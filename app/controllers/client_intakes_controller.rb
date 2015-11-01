@@ -51,6 +51,7 @@ class ClientIntakesController < ApplicationController
     @lead.screener_id = current_user.id
     respond_to do |format|
       if @lead.save
+        track_activity @lead
         last_notes_user = Lead.last
         last_notes_user.notifications.create(author: @lead.screener.try(:name), note_id: @lead.id, user_id: @lead.attorney.try(:id)) if last_notes_user
         format.html { redirect_to lead_path(@lead), notice: 'Client intake was successfully created.' }
@@ -68,6 +69,7 @@ class ClientIntakesController < ApplicationController
 
     respond_to do |format|
       if @lead.update(client_intake_params)
+        track_activity @lead
         if @lead.update_attributes(params[:attorney_id])
           if @@before_attorney_id && @lead.attorney_id != @@before_attorney_id
             @lead.notifications.create(author: current_user.name, note_id: @lead.id, user_id: @@before_attorney_id, is_remove: true)
@@ -87,6 +89,7 @@ class ClientIntakesController < ApplicationController
   # DELETE /client_intakes/1.json
   def destroy
     @lead.destroy
+    track_activity @lead
     respond_to do |format|
       format.html { redirect_to leads_url, notice: 'Client intake was successfully destroyed.' }
       format.json { head :no_content }

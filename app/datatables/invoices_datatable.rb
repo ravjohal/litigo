@@ -29,18 +29,18 @@ class InvoicesDatatable
           simple_format_date_regexp(invoice.due_date),
           number_to_currency(invoice.amount),
           number_to_currency(invoice.balance),
-          Invoice::STATUS[invoice.status.to_sym]
+          Invoice::STATUS[invoice.status.try(:to_sym)]
       ]
     end
   end
 
   def invoices
-    @payments ||= fetch_leads
+    @invoices ||= fetch_leads
   end
 
   def fetch_leads
 
-    invoices = @firm.payments
+    invoices = @firm.invoices
 
     if params[:iSortCol_0].to_i == 1
       invoices = invoices.joins(:contact).order("name #{sort_direction}")

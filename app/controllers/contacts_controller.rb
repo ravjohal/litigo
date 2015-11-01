@@ -85,6 +85,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
+        track_activity @contact
         format.html {
           session[:saved_contact] = @contact.id if @contact.similar_contact?
           redirect_to path_contacts, notice: 'Contact was successfully created.'
@@ -119,6 +120,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update(contact_params)
+        track_activity @contact
         if @contact.type == "Company"
           company_contacts = params[:contact][:contacts_attributes] if params[:contact][:contacts_attributes]
           if company_contacts
@@ -165,6 +167,7 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1.json
   def destroy
     @contact.destroy
+    track_activity @destroy
     respond_to do |format|
       format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
       format.json { head :no_content }

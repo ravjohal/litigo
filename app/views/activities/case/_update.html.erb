@@ -1,0 +1,5 @@
+<% if activity.trackable %>
+  updated case <%= link_to "View", case_path(activity.trackable.id ) , :class => 'view_activity' %>
+<% else %>
+  updated a case which has since been removed
+<% end %>

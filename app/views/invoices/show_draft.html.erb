@@ -1,0 +1,23 @@
+<%= javascript_include_tag 'invoices/show', 'data-turbolinks-track' => true %>
+<div id="show-buttons">
+  <ul>
+    <div id="temp-custom">
+      <ul>
+        <li>
+          <%= link_to 'Edit', edit_invoice_path(@invoice), :class => 'dark'%>
+        </li>
+        <li>
+          <%= link_to 'Issue Invoice', '#issue_invoice', :class => 'action-button', :id => :issue_invoice, :remote => true %>
+          <%= simple_form_for @invoice, html: {class: 'hidden', id: 'hidden_form'} do |f|%>
+          <%= f.hidden_field :status %>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </ul>
+</div>
+
+<div style="width:500px; margin-bottom: 30px;">
+  <h3>Invoice #DRAFT</h3>
+</div>
+<%= render 'template_block' %>

@@ -115,6 +115,14 @@
           <%= @resolution.note %>
         </td>
       </tr>
+       <tr>
+         <td class="col-one">
+           <strong>Analytics?</strong>
+         </td>
+         <td>
+           <%= boolean_as_yesno @case.analytics %>
+         </td>
+       </tr>
   </tbody>
 </table>
 </div>

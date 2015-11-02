@@ -38,6 +38,8 @@ class ResolutionsController < ApplicationController
 
     respond_to do |format|
       if @resolution.update(resolution_params)
+        @case.update!(case_params) if case_params
+        
         format.html { redirect_to [@case, @resolution], notice: 'Resolution successfully updated.' }
         format.json { render :show, status: :ok, location: @resolution }
       else
@@ -60,4 +62,9 @@ class ResolutionsController < ApplicationController
     def resolution_params
       params.require(:resolution).permit(:case_id, :firm_id, :user_id, :contingent_fee, :settlement_demand, :jury_demand, :resolution_amount, :resolution_type, :note, :expected_close, :estimated_value)
     end
+
+  def case_params
+    params.require(:case).permit(:analytics)
+  end
+
 end

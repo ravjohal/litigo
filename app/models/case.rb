@@ -386,11 +386,11 @@ class Case < ActiveRecord::Base
   end
 
   def self.open_cases_scope
-    where.not(["status = ? or status = ?", 'Inactive', 'Closed'])
+    where.not(['status = ? or status = ?', 'Inactive', 'Closed'])
   end
 
   def self.closed_cases_scope
-    where(["status = ? or status = ?", 'Inactive', 'Closed'])
+    where(:status => %w(Inactive Closed))
   end
 
   #for reject_if for case_contacts on accepts_nested

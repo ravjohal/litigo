@@ -109,6 +109,21 @@
             </div>
         </td>
       </tr>
+    <tr>
+      <td class="col-one">
+        <strong>Analytics?</strong>
+      </td>
+      <td>
+        <div class='radio'>
+          <%= f.radio_button :analytics, 'true' %>
+          <%= label :analytics, 'Yes', :value => 'Yes' %>
+        </div>
+        <div class='radio'>
+          <%= f.radio_button :analytics, 'false' %>
+          <%= f.label :analytics, 'No', :value => 'No'%>
+        </div>
+      </td>
+    </tr>
   </tbody>
 </table>
 <table id="info-table2">

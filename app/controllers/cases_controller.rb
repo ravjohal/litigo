@@ -246,7 +246,7 @@ class CasesController < ApplicationController
 
     def case_params
       params.require(:case).permit(:name, :trial_date, :case_number, :docket_number, :description, :case_type, :subtype,
-        :court, :county, :plaintiff, :defendant, :corporation, :status, :hearing_date, :filed_suit_date, :fee_agreement,
+        :court, :county, :plaintiff, :defendant, :corporation, :status, :hearing_date, :filed_suit_date, :fee_agreement, :analytics,
         :creation_date, :closing_date, :state, :medical_bills, :topic, :transfer_date, :statute_of_limitations,
         :medical_attributes => [:total_med_bills, :subrogated_amount, :injuries_within_three_days, :length_of_treatment, :doctor_type, :treatment_type, :created_at, :updated_at, :id, 
         :injuries_attributes => [:injury_type, :region, :code, :created_at, :updated_at, :primary_injury, :id]],

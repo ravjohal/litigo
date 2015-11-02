@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151028082614) do
+ActiveRecord::Schema.define(version: 20151102063047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -130,8 +130,10 @@ ActiveRecord::Schema.define(version: 20151028082614) do
     t.integer  "sol_priority"
     t.integer  "lead_id"
     t.boolean  "fee_agreement",                                               default: false
+    t.boolean  "analytics",                                                   default: false
   end
 
+  add_index "cases", ["analytics"], name: "index_cases_on_analytics", using: :btree
   add_index "cases", ["case_type"], name: "index_cases_on_case_type", using: :btree
   add_index "cases", ["firm_id"], name: "index_cases_on_firm_id", using: :btree
   add_index "cases", ["subtype"], name: "index_cases_on_subtype", using: :btree

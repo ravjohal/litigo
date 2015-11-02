@@ -1259,3 +1259,14 @@ a.add-btn:hover {
 
   }
 }
+
+.intra-task {
+  float: right;
+  border: none;
+  padding-right: 7px;
+  margin-right: 20px;
+  background-color: white;
+  &:hover {
+  color: #3FC2D8;
+  }
+}

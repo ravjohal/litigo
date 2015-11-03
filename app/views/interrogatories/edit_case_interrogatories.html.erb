@@ -29,6 +29,8 @@
   <tr class="right-top">
     <td colspan="12" class="gray-back">
       <strong>Interrogatories</strong>
+      <div class="hover_interrogatory_container"></div>
+      <input type='button' value="+ New Contact" id='add_contact' placeholder="Add contact" class="intra-task"/>
     </td>
   </tr>
 </thead>
@@ -40,3 +42,26 @@
 </table>
 </div>
 <% end %>
+  <script>
+      $(document).ready(function() {
+          $(document).mousemove(function (e) {
+              mX = e.pageX;
+              mY = e.pageY;
+          }).mouseover();
+          $('.hover_interrogatory_container').on('mouseover', function(){
+              $('.hover_interrogatory_container').show();
+          });
+
+          $('#add_contact').on('click', function () {
+              $('.hover_interrogatory_container').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
+              $('.hover_interrogatory_container').css({
+                  'opacity': '0.1',
+                  'left': mX-330,
+                  'top': mY-290,
+              }).animate({
+                  'opacity': '1.0',
+              }, 300).toggle();
+          });
+
+      });
+  </script>

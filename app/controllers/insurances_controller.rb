@@ -26,6 +26,7 @@ class InsurancesController < ApplicationController
   def edit_case_insurances
     @case = Case.find(params[:id])
     @insurances = @case.insurances
+    @fly_creation = Contact.new
   end
 
   def create

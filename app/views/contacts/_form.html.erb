@@ -1,4 +1,24 @@
 <%= javascript_include_tag 'contacts/form', 'data-turbolinks-track' => true %>
+<script type="text/javascript">
+  (function(data) {
+    <%= content_for :fly_contact_success do %>
+    alert('Hahaha');
+    $('.hover_insurance_container').html('').css('display', 'none');
+    $.ajax({
+      url: '/companies',
+      type: 'GET'
+    }).done(function(data, status, xhr) {
+      $('#contact_company_id').html(data);
+      console.log(data);
+      console.log(status);
+      console.log(xhr);
+    });
+    return false;
+    <% end %>
+  })({});
+</script>
+
+
 <%= simple_form_for(new_contact) do |f| %>
   <%= f.error_notification %>
   <% if (%w(index companies show_case_contacts).include? action_name ) || (controller_name == 'dashboards' && action_name == 'new') %>
@@ -147,6 +167,12 @@
         <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda { |company| "#{company.company_name}" }, :class => 'table-input', :include_blank => true, label: false %>
       </td>
     </tr>
+    <tr>
+      <td colspan="2">
+        <div class="hover_insurance_container"></div>
+        <input type='button' value="+ New Contact" id='add_contact' placeholder="Add contact" class="intra-task" />
+      </td>
+    </tr>
     </tbody>
   </table>
   <br>
@@ -168,3 +194,25 @@
     </div><!--end of modal-dialog-->
   <% end %>
 <% end %>
+
+
+<script type="text/javascript">
+  if(typeof mX === "undefined") var mX;
+  if(typeof mY === "undefined") var mY;
+
+  $(document).mousemove(function (e) {
+    mX = e.pageX;
+    mY = e.pageY;
+  }).mouseover();
+  $('.hover_insurance_container').on('mouseover', function(){
+    $('.hover_insurance_container').show();
+  });
+  $('#add_contact').on('click', function () {
+    $(this);
+    $('.hover_insurance_container')
+        .html("<%= escape_javascript(render 'contacts/add_contact') %>")
+        .css({'opacity': '0.1', 'top': mY-260})
+        .animate({'opacity': '1.0'}, 300)
+        .toggle();
+  });
+</script>

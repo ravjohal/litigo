@@ -47,14 +47,23 @@ class ContactsController < ApplicationController
     restrict_access("contacts") if @contact.firm_id != @firm.id    
   end
 
+  respond_to :html, :json, :js
+
   def fly_create_contact
     @contact = Contact.new(contact_params)
     @contact.user = @user
     @contact.firm = @firm
     if @contact.save
       respond_to do |format|
-         format.js   { redirect_to :back }
-         format.json { render :json => { success: true } }
+         format.html { redirect_to :back }
+         format.json { render :nothing => true, :status => :ok }
+         format.js { render :nothing => true, :status => :ok }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to :back, :notice => @contact.errors }
+        format.json { render :json => {errors: @contact.errors}, :status => :bad_request }
+        format.js { render :json => {errors: @contact.errors}, :status => :bad_request }
       end
     end
   end
@@ -220,6 +229,7 @@ class ContactsController < ApplicationController
   def companies
     @companies = @firm.contacts.where(:type => "Company")
     @companies_a = Company.new #for modal partial rendering
+    @list = @companies and render partial: 'contacts/list' if request.xhr?
   end
 
   def show_company

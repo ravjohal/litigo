@@ -10,6 +10,7 @@
           <div class="row"><%= @invoice.firm.address %></div>
           <div class="row"><%= @invoice.firm.city %>, <%= @invoice.firm.zip %></div>
           <div class="row"><%= @invoice.firm.phone %></div>
+          <div class="row"><%= @invoice.contact.try(:address) %></div>
         </div>
         <div class="col-md-3 col-md-offset-6 text-right">
           <div class="row"><h3> Invoice #<%= @invoice.number %></h3></div>

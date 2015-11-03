@@ -9,6 +9,16 @@
           <% end %>
         </li>
         <li>
+          <%= link_to '#print', :class => 'dark' do %>
+            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to invoice_download_path(@invoice), :class => 'dark' do %>
+            <span id="download" class="glyphicon glyphicon-download" title="Download docx"></span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to 'Add Payment', '#add_payment', :class => 'action-button', :id => :add_payment, :'data-toggle' => :modal, :'data-target' => '#modal-window', :remote => true %>
         </li>
       </ul>

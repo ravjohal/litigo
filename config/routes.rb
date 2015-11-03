@@ -136,6 +136,8 @@ Rails.application.routes.draw do
   resources :expenses
   resources :invoices do
     resources :payments, :only => [:index, :create], :shallow => true
+
+    get 'download' => 'invoices#download'
     get 'invoice_payments' => 'payments#invoice_payments', :defaults => { :format => :json }
   end
   resources :users

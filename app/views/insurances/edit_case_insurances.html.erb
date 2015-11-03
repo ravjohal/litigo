@@ -24,11 +24,14 @@
 
   <div class="insurance-edit-container">
     <%= link_to_add_association 'ADD INSURANCE', f, :insurances, :"data-association-insertion-node" => "tbody#insurances", :"data-association-insertion-method" => "append", :partial => "insurance_fields", class: 'action-button insure pull-right' %>
+
     <table id="info-table3">
       <thead>
       <tr class="right-top">
         <td colspan="8" class="gray-back">
           <strong>Insurance Summary</strong>
+          <div class="hover_insurance_container"></div>
+          <input type='button' value="+ New Contact" id='add_contact' placeholder="Add contact" class="intra-task" />
         </td>
       </tr>
       </thead>
@@ -53,7 +56,7 @@
           <strong>Insurance Provider</strong>
         </td>
         <td class="right">
-          <strong>Adjustor</strong>
+          <strong>Adjuster</strong>
         </td>
         <td class="right">
           <strong>Insurance Type</strong>
@@ -80,3 +83,25 @@
     </table>
   </div>
 <% end %>
+    <script>
+        $(document).ready(function() {
+            $(document).mousemove(function (e) {
+                mX = e.pageX;
+                mY = e.pageY;
+            }).mouseover();
+            $('.hover_insurance_container').on('mouseover', function(){
+                $('.hover_insurance_container').show();
+            });
+            $('#add_contact').on('click', function () {
+                $('.hover_insurance_container').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
+                $('.hover_insurance_container').css({
+                    'opacity': '0.1',
+                    'left': mX-330,
+                    'top': mY-290,
+                }).animate({
+                    'opacity': '1.0',
+                }, 300).toggle();
+            });
+
+        });
+    </script>

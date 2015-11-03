@@ -9,7 +9,7 @@
       </td>
       <td>
           <%= f.text_field :insurance_type, :class => 'table-input' %>
-        <div id="popup_insurance"></div>
+          <div id="popup_insurance"></div>
       </td>
       <td>
           <%= f.association :policy_holder_contact, :collection => @firm.contacts, label: false, :class => 'table-input', :include_blank => '' %>

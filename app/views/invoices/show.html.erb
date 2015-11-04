@@ -1,81 +1,73 @@
 <%= javascript_include_tag 'invoices/show', 'data-turbolinks-track' => true %>
-<div id="show-buttons">
-  <ul>
-    <div id="temp-custom">
-      <ul>
-        <li>
-          <%= link_to invoices_path, :class => 'dark' do %>
-            <span id="temp" class="glyphicon glyphicon-arrow-left" title="Back to Invoices"></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to '#print', :class => 'dark' do %>
-            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to invoice_download_path(@invoice), :class => 'dark' do %>
-            <span id="download" class="glyphicon glyphicon-download" title="Download docx"></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to 'Add Payment', '#add_payment', :class => 'action-button', :id => :add_payment, :'data-toggle' => :modal, :'data-target' => '#modal-window', :remote => true %>
-        </li>
-      </ul>
+<div class="case-header">
+    <div class="case-title">
+          <div style="font-size: 24px;">
+                <strong>Invoice #<%= @invoice.number %></strong><br>
+          </div>
+            <div id="case-buttons">
+              <ul>
+                  <li>
+                    <%= link_to invoices_path, :class => 'dark' do %>
+                      <span id="temp" class="glyphicon glyphicon-arrow-left" title="Back to Invoices"></span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to '#print', :class => 'dark' do %>
+                      <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to invoice_download_path(@invoice), :class => 'dark' do %>
+                      <span id="download" class="glyphicon glyphicon-download" title="Download docx"></span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to 'ADD PAYMENT', '#add_payment', :class => 'action-button', :id => :add_payment, :'data-toggle' => :modal, :'data-target' => '#modal-window', :remote => true %>
+                  </li>
+              </ul>
+          </div>
     </div>
-  </ul>
-</div>
-
-<div style="width:500px;">
-  <h3>Invoice #<%= @invoice.number %></h3>
-</div>
-
-<div style="border-bottom: 1px solid #ccc;">
-  <div class="container-fluid" style="padding: 0; position: relative; top: 2px;">
-    <div class="row">
-      <div class="col-md-12">
-        <%= render partial: 'invoice_tabs' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="row" style="max-width: 1200px; margin: 10px auto;">
-  <div class="col-md-12">
-    <div class="row">
-      <div class="col-md-5">
-        <div class="row">
-          <strong>Billed Amount</strong>
+<strong style="color:white;">b</strong>
+       <div class="container-fluid" style="padding: 0;">
+              <div class="row">
+                      <div class="col-md-12">
+                            <%= render partial: 'invoice_tabs' %>
+                      </div>
+              </div>
         </div>
-        <div class="row">
+</div>
+
+
+<div class="invoice-container">
+  <div class="col-md-12">
+    <div class="row" style="margin: 0 auto 40px auto;">
+      <div class="col-md-3 col-sm-3">
+          <strong>Billed Amount</strong><br>
           <div class="invoice_box left_box">
             <%= number_to_currency @invoice.amount.to_f %>
           </div>
         </div>
+        <div class="col-md-1 col-sm-1">
       </div>
-      <div class="col-md-5">
-        <div class="row">
-          <strong>Paid</strong>
-        </div>
-        <div class="row">
+      <div class="col-md-3 col-sm-3">
+          <strong>Paid</strong><br>
           <div class="invoice_box center_box">
             <%= number_to_currency @invoice.payment_sum.to_f %>
           </div>
-        </div>
       </div>
-      <div class="col-md-2">
-        <div class="row">
-          <strong>Balance</strong>
-        </div>
-        <div class="row">
+      <div class="col-md-1 col-sm-1">
+      </div>
+      <div class="col-md-3 col-sm-3">
+          <strong>Balance</strong><br>
           <div class="invoice_box right_box">
             <%= number_to_currency @invoice.balance.to_f %>
           </div>
-        </div>
       </div>
+      
     </div>
   </div>
 </div>
+
 
 <%= render 'template_block' %>
 

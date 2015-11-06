@@ -91,7 +91,7 @@ class InvoicesController < ApplicationController
   end
 
   def download
-    new_tmp_file_name = @invoice.generate_docx(render_to_string(partial: 'invoices/template_block'))
+    new_tmp_file_name = @invoice.generate_docx(render_to_string(partial: 'invoices/docx_template_block'))
     send_file new_tmp_file_name, :filename => "Invoice##{@invoice.number}.docx"
   end
 

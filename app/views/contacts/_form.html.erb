@@ -210,7 +210,7 @@
   $('#add_contact').on('click', function () {
     $(this);
     $('.hover_insurance_container')
-        .html("<%= escape_javascript(render 'contacts/add_contact') %>")
+        .html("<%= escape_javascript(render 'contacts/add_contact_company') %>")
         .css({'opacity': '0.1', 'top': mY-260})
         .animate({'opacity': '1.0'}, 300)
         .toggle();

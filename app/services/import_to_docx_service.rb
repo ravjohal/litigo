@@ -31,9 +31,9 @@ class ImportToDocxService
           w_tabs = Nokogiri::XML::Node.new('w:tabs', doc.doc)
           w_tab1 = Nokogiri::XML::Node.new('w:tab', doc.doc)
 
-          w_tab1['w:val']     = 'right'
-          w_tab1['w:pos']     = '8700'
-          w_tab1['w:leader']  = 'none'
+          w_tab1['w:val'] = 'right'
+          w_tab1['w:pos'] = '8700'
+          w_tab1['w:leader'] = 'none'
 
           w_tabs.add_child w_tab1
           wppr.add_child w_tabs
@@ -50,6 +50,20 @@ class ImportToDocxService
             _row.add_child _tmp_second_row
 
             p.node.xpath('w:r')[1].remove
+          elsif html_root_childs[index].css('.col-left') && html_root_childs[index].css('.col-left').text.blank?
+            #
+            w_empty_text_row = Nokogiri::XML::Node.new('w:t', doc.doc)
+            w_empty_text_row['xml:space'] = 'preserve'
+            w_empty_text_row.native_content = ' '
+
+            w_tab_tmp = Nokogiri::XML::Node.new('w:tab', doc.doc)
+
+            _row = p.node.xpath('w:r')[0]
+            if _row
+              _row.prepend_child w_tab_tmp
+              _row.prepend_child w_empty_text_row
+            end
+
           end
 
         elsif html_row_class =~ /tab_left_column/
@@ -57,9 +71,9 @@ class ImportToDocxService
           w_tabs = Nokogiri::XML::Node.new('w:tabs', doc.doc)
           w_tab1 = Nokogiri::XML::Node.new('w:tab', doc.doc)
 
-          w_tab1['w:val']     = 'left'
-          w_tab1['w:pos']     = '1000'
-          w_tab1['w:leader']  = 'none'
+          w_tab1['w:val'] = 'left'
+          w_tab1['w:pos'] = '1000'
+          w_tab1['w:leader'] = 'none'
 
           w_tabs.add_child w_tab1
           wppr.add_child w_tabs
@@ -78,9 +92,9 @@ class ImportToDocxService
           w_tabs = Nokogiri::XML::Node.new('w:tabs', doc.doc)
           w_tab1 = Nokogiri::XML::Node.new('w:tab', doc.doc)
 
-          w_tab1['w:val']     = 'left'
-          w_tab1['w:pos']     = '5100'
-          w_tab1['w:leader']  = 'none'
+          w_tab1['w:val'] = 'left'
+          w_tab1['w:pos'] = '5100'
+          w_tab1['w:leader'] = 'none'
 
           w_tabs.add_child w_tab1
           wppr.add_child w_tabs

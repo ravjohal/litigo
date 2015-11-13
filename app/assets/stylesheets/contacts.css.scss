@@ -22,6 +22,15 @@
       width: 70%;
     }
   }
+
+  .hover_insurance_container {
+    margin-left: 600px;
+    &:after {
+      bottom: 15px;
+      left: -20px;
+      border-width: 30px 20px 0 0;
+    }
+  }
 }
 .contact-form td:nth-child(1) {
   vertical-align: middle;

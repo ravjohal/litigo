@@ -14,7 +14,7 @@ class AnalyticsController < ApplicationController
   private
   def analytics_info
     res = []
-    Case.closed_cases_scope.find_each {|c| res << c.analytic_json}
+    Case.closed_cases_scope.where(:analytics => true).find_each {|c| res << c.analytic_json}
     res
   end
 end

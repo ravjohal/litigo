@@ -3,41 +3,59 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #add-action {
-	color: #428bca !important;
-	&:hover {
-	color: #313A45 !important;
-	}
-}
-.insure {
-	float: left;
-	margin-bottom: 10px;
+  color: #428bca !important;
+  &:hover {
+    color: #313A45 !important;
+  }
 }
 
-.insurance-edit-container{
+.insure {
+  float: left;
+  margin-bottom: 10px;
+}
+
+.insurance-edit-container {
   margin: 47px auto;
   padding-top: 134px;
   width: 900px;
 }
 
 @media (max-width: 767px) {
-.insurance-edit-container{
-  margin: 0 auto;
-  padding-top: 134px;
-  width: 100%;
+  .insurance-edit-container {
+    margin: 0 auto;
+    padding-top: 134px;
+    width: 100%;
+  }
 }
+
+.hover_insurance_container {
+  position: absolute;
+  height: 200px;
+  width: 170px;
+  vertical-align: middle;
+  padding: 10px;
+  margin-left: 188px;
+  margin-top: -15px;
+  font-size: 12px;
+  margin-bottom: -15px;
+  background-color: white;
+  border: 1px solid darkgrey;
+  border-radius: 5px;
+  color: white;
+  z-index: 3000;
+  display: none;
 }
 
 #popup_insurance {
-  position:absolute;
-
+  position: absolute;
   height: auto;
   width: 170px;
-  vertical-align:middle;
+  vertical-align: middle;
   padding-top: 10px;
   padding-left: 5px;
   padding-bottom: 10px;
   margin-left: -20px;
-  margin-top:-15px;
+  margin-top: -15px;
   font-size: 12px;
   margin-bottom: -15px;
   background-color: #363636;
@@ -46,4 +64,17 @@
   color: white;
   z-index: 3000;
   display: none;
+}
+
+.hover_insurance_container:after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  bottom: -20px;
+  left: 40px;
+  border-width: 0 25px 30px 0px;
+  border-style: solid;
+  border-color: transparent white;
+  display: block;
+  width: 10;
 }

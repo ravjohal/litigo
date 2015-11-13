@@ -30,6 +30,7 @@ class InterrogatoriesController < ApplicationController
   def edit_case_interrogatories
     @case = Case.find(params[:id])
     @interrogatories = @case.interrogatories
+    @fly_creation = Contact.new
   end
 
   # POST /interrogatories

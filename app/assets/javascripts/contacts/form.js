@@ -1,8 +1,10 @@
-$(document).ready(function() { $("td select").select2(); });
-$("#new_contact").bind("ajax:error", function(evt, xhr, status, error){
+$(document).ready(function () {
+    $("td select").select2();
+});
+$("#new_contact").bind("ajax:error", function (evt, xhr, status, error) {
     var error_text = "";
     var error_list = $.parseJSON(xhr.responseText);
-    $.each(error_list, function(key, value){
+    $.each(error_list, function (key, value) {
 //      if(key == 'similar') {
 //        error_text += value.join(', ') + "</br>";
 //        $('input#contact_sure').val(true);
@@ -13,16 +15,16 @@ $("#new_contact").bind("ajax:error", function(evt, xhr, status, error){
     $('.alert').remove();
     $('body').append("<div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert'>&#215;</button>" + error_text + "</div>");
 });
-$("#new_contact").bind("ajax:success", function(e, data, status, xhr){
+$("#new_contact").bind("ajax:success", function (e, data, status, xhr) {
     $('#modal-window').modal('hide');
     $('.alert').remove();
     $('body').append("<div class='alert alert-success'><button type='button' class='close' data-dismiss='alert'>&#215;</button>Contact was successfully created.</div>");
-    var tr = $('.table').DataTable().row.add( [
-        "<a href='/contacts/"+data.id+"'>"+data.last_name+" "+data.first_name+"</a>",
+    var tr = $('.table').DataTable().row.add([
+        "<a href='/contacts/" + data.id + "'>" + data.last_name + " " + data.first_name + "</a>",
         data.type,
         data.email,
         data.phone_number
-    ] ).draw();
+    ]).draw();
 });
 $('#ssn_field').hide();
 $('#age').hide();
@@ -30,7 +32,7 @@ $('#company').hide();
 $('#website').hide();
 $('#company_field').show();
 $('#date_of_birth_field').hide();
-$('#contact_type').on('change', function() {
+$('#contact_type').on('change', function () {
     var conceptName = $('#contact_type').find(":selected").text();
     if (conceptName == 'Defendant') {
         $('#date_of_birth_field').show();
@@ -72,12 +74,13 @@ $('#contact_type').on('change', function() {
     }
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#contact_phone').mask("(999) 999-9999");
     $('#contact_phone_ext').mask("(999) 999-9999");
     $('#contact_fax').mask("(999) 999-9999");
+    $('#contact_fax_number').mask("(999) 999-9999");
 });
 
-    $(function() {
-        $('#comp').tipsy({gravity: 's', fade: true});
-    });
+$(function () {
+    $('#comp').tipsy({gravity: 's', fade: true});
+});

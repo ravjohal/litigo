@@ -111,7 +111,7 @@
         <tfoot>
         <tr>
           <th>TOTAL</th>
-          <th id="total_amount" style="width: 200px !important;"><%= number_to_currency 0.to_f %></th>
+          <th id="total_amount" style="width: 200px !important;"><%= number_to_currency @invoice.amount.to_f %></th>
         </tr>
         </tfoot>
       </table>

@@ -1,6 +1,6 @@
 class InvoicesController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_invoice, :only => [:edit, :show, :update, :destroy]
+  before_action :set_invoice, :only => [:edit, :show, :update, :destroy, :download]
   before_action :set_user, :set_firm
   respond_to :html, :xml, :json
 
@@ -90,10 +90,16 @@ class InvoicesController < ApplicationController
     end
   end
 
+  def download
+    new_tmp_file_name = @invoice.generate_docx(render_to_string(partial: 'invoices/docx_template_block'))
+    send_file new_tmp_file_name, :filename => "Invoice##{@invoice.number}.docx"
+  end
+
   private
 
   def set_invoice
     @invoice = Invoice.find(params[:id]) if params[:id]
+    @invoice ||= Invoice.find(params[:invoice_id]) if params[:invoice_id]
   end
 
   def invoice_params

@@ -201,7 +201,10 @@
       </tr>
       </tbody>
     </table>
+
+
     <%= link_to_add_association 'ADD MEDICAL BILL', f, :medical_bills, :"data-association-insertion-node" => "tbody#medical_bills", :"data-association-insertion-method" => "append", :partial => "medical_bill_fields", :class => 'action-button med-plus pull-right' %>
+
     <div class="clearfix"></div>
     <div id="medical-bills">
       <table class="medicals" style="margin-top: 40px;">
@@ -209,6 +212,8 @@
         <tr>
           <td colspan="8" class="gray-back">
             <strong>Medical Bills</strong>
+            <div class="hover_medical_container"></div>
+            <input type='button' value="+ New Contact" id='add_contact' placeholder="Add contact" class="intra-task"/>
           </td>
         </tr>
         </thead>
@@ -503,5 +508,25 @@
   <% end %><!-- end of each with index loop -->
 
 <% end %> <!-- end of form -->
+<script>
+    $(document).ready(function() {
+        $(document).mousemove(function (e) {
+            mX = e.pageX;
+            mY = e.pageY;
+        }).mouseover();
+        $('.hover_medical_container').on('mouseover', function(){
+            $('.hover_medical_container').show();
+        });
+        $('#add_contact').on('click', function () {
+            $('.hover_medical_container').html("<%= escape_javascript(render 'contacts/add_contact', new_fly: @fly_creation) %>");
+            $('.hover_medical_container').css({
+                'opacity': '0.1',
+                'left': mX-330,
+                'top': mY-290,
+            }).animate({
+                'opacity': '1.0',
+            }, 300).toggle();
+        });
 
-
+    });
+</script>

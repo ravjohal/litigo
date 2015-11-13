@@ -112,6 +112,21 @@
         <%= f.text_area :note, :class => 'table-text', label: false  %><br>
         </td>
       </tr>
+      <tr>
+        <td class="col-one">
+          <strong>Analytics?</strong>
+        </td>
+        <td>
+          <div class='radio'>
+            <%= radio_button_tag :'case[analytics]', 'true', @case.analytics %>
+            <%= label_tag :'case[analytics]', 'Yes', :value => 'Yes' %>
+          </div>
+          <div class='radio'>
+            <%= radio_button_tag :'case[analytics]', 'false', !@case.analytics %>
+            <%= label_tag :'case[analytics]', 'No', :value => 'No'%>
+          </div>
+        </td>
+      </tr>
   </tbody>
 </table>
 </div>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<%= render partial: 'layouts/head' %>
+<body>
+<% if user_signed_in? %>
+  <div id="wrapper">
+    <div id="page-content-wrapper">
+      <div class="page-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12" id="page_content_wrapper_start">
+              <%= yield %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="main">
+    <%= yield %>
+  </div>
+<% end %>
+<%= render :partial => "layouts/javascript_application" %>
+<%= yield :javascript %>
+</body>
+</html>

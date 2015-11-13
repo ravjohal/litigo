@@ -28,6 +28,7 @@ class MedicalsController < ApplicationController
   def edit
     @medical = @case.medical
     @injuries = @medical.injuries.order(:id)
+    @fly_creation = Contact.new
   end
 
   # POST /medicals

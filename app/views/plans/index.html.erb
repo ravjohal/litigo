@@ -3,31 +3,28 @@
     <div style="font-size: 24px;">
       <strong>Account Settings</strong><br>
     </div>
-    <div id="case-buttons">
-      <ul>
-        <li></li>
-
-      </ul>
-    </div>
   </div>
-  <strong style="color: white;">A</strong>
+  <% unless params[:only_content] %>
+    <strong style="color: white;">A</strong>
 
-  <div class="container-fluid" style="padding: 0;">
-    <div class="row">
-      <div class="col-md-12">
-        <%= render partial: 'shared/profile_tabs' %>
+    <div class="container-fluid" style="padding: 0;">
+      <div class="row">
+        <div class="col-md-12">
+          <%= render partial: 'shared/profile_tabs' %>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
 <% if current_user.admin? %>
-  <% if @own_subscription.present?  %>
+  <% if @own_subscription.present? %>
     <div class="row">
       <div class="col-md-2"></div>
-      <div class="<%= @own_subscription.plan.nil? ? 'col-md-4' : 'col-md-9'%>">
+      <div class="<%= @own_subscription.plan.nil? ? 'col-md-4' : 'col-md-9' %>">
         <p class="signed_up">
           <% if @own_subscription.plan && @own_subscription.plan != nil %>
-            You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just <strong><%= number_to_currency @own_subscription.plan.price %></strong> <%= @own_subscription.plan.price_description %>
+            You have signed up for the <strong><%= @own_subscription.plan.name %></strong> plan for just
+            <strong><%= number_to_currency @own_subscription.plan.price %></strong> <%= @own_subscription.plan.price_description %>
             <%= link_to 'Details', @own_subscription, :class => 'cancel' %>
             <%= link_to 'Cancel', @own_subscription, method: :delete, :class => 'cancel' %>
           <% end %>
@@ -39,45 +36,45 @@
       </div>
     </div>
   <% end %>
-<div class="row">
-  <div class="col-md-12" style="<%=
-      if @own_subscription.present? && @own_subscription.plan != nil
-        'margin-top: 70px;'
-      else
-        (@own_subscription.present? && @own_subscription.plan == nil) ? 'margin-top: 80px;' : 'margin-top: 130px;'
-      end
-  %>">
+  <div class="row">
+    <div class="col-md-12" style="<%=
+        if @own_subscription.present? && @own_subscription.plan != nil
+          'margin-top: 70px;'
+        else
+          (@own_subscription.present? && @own_subscription.plan == nil) ? 'margin-top: 80px;' : 'margin-top: 130px;'
+        end
+    %>">
 
 
-    <div id="plans">
-      <h2>Plans</h2>
-      <% @plans.each do |plan| %>
-        <div class="plan">
-          <div class="name"><%= plan.name %></div>
-          <div class="details">
-            <div class="price">
-              <%= number_to_currency plan.price, :precision => 0 %>
-            </div>
-            <div class="per_month"><%= plan.price_description %></div>
-            <div class="signup">
-              <% if !@own_subscription %>
-                <%= link_to 'Select Plan', new_subscription_path(:plan_id => plan.id, user_id: @user_id) %>
-              <% elsif @own_subscription && @own_subscription.plan_id == nil %>
-                <%= link_to 'Select Plan', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id) %>
-              <% else %>
-                <% if @own_subscription.plan_id != plan.id  %>
-                  <%= link_to 'Select Plan', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id),  data: { confirm: 'Are you sure you want to change plans?'}  %>
+      <div id="plans">
+        <h2>Plans</h2>
+        <% @plans.each do |plan| %>
+          <div class="plan">
+            <div class="name"><%= plan.name %></div>
+            <div class="details">
+              <div class="price">
+                <%= number_to_currency plan.price, :precision => 0 %>
+              </div>
+              <div class="per_month"><%= plan.price_description %></div>
+              <div class="signup">
+                <% if !@own_subscription %>
+                  <%= link_to 'Select Plan', new_subscription_path(:plan_id => plan.id, user_id: @user_id) %>
+                <% elsif @own_subscription && @own_subscription.plan_id == nil %>
+                  <%= link_to 'Select Plan', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id) %>
                 <% else %>
-                  <p>Active Plan</p>
+                  <% if @own_subscription.plan_id != plan.id %>
+                    <%= link_to 'Select Plan', change_plan_path(@own_subscription, :plan_id => plan.id, user_id: @user_id), data: {confirm: 'Are you sure you want to change plans?'} %>
+                  <% else %>
+                    <p>Active Plan</p>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      <% end %>
-      <div class="clear"></div>
+        <% end %>
+        <div class="clear"></div>
+      </div>
     </div>
   </div>
-</div>
 <% end %>
 

@@ -15,11 +15,12 @@ class Invoice < ActiveRecord::Base
   include PgSearch
   pg_search_scope :search_invoice, against: [:status, :number],
                   using: {tsearch: {dictionary: :english, prefix: true}},
-                  associated_against: { :case => [:name], :contact => [:first_name, :last_name]  }
+                  associated_against: {:case => [:name], :contact => [:first_name, :last_name]}
 
 
-  before_save :calculate_balance
   before_save :check_issue_status
+  before_save :calculate_balance
+  before_save :check_status
   after_save :save_relations
 
   attr_accessor :expenses_ids, :time_entries_ids
@@ -65,6 +66,10 @@ class Invoice < ActiveRecord::Base
     update_attribute(:payment_sum, sum)
   end
 
+  def generate_docx(html)
+    ImportToDocxService.new("Number-#{number}", html).generate_docx
+  end
+
   private
 
   def calculate_balance
@@ -74,6 +79,27 @@ class Invoice < ActiveRecord::Base
 
   def check_issue_status
     self.issue_date = Time.now if status_changed? && status.to_s == 'unpaid'
+    true
+  end
+
+  def check_status
+    return true if status.to_s == 'draft'
+    if amount > 0
+      if payment_sum > 0
+        self.status = (payment_sum.to_f == amount.to_f && balance == 0) ? :paid : :paid_p
+      else
+        if Time.now <= (due_date + 30.days)
+          self.status = :unpaid
+        elsif Time.now > (due_date + 30.days) && Time.now <= (due_date + 60.days)
+          self.status = :unpaid_30
+        elsif Time.now > (due_date + 60.days) && Time.now <= (due_date + 90.days)
+          self.status = :unpaid_60
+        elsif Time.now > (due_date + 90.days)
+          self.status = :unpaid_90
+        end
+      end
+    end
+    true
   end
 
   def save_relations

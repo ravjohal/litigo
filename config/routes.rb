@@ -67,6 +67,7 @@ Rails.application.routes.draw do
 
 
   resources :contacts
+  post '/contacts/fly_create_contact' => 'contacts#fly_create_contact' ,as: :fly_contact, :defaults => { :format => :json }
   get '/companies' => 'contacts#companies', as: :companies
   get '/companies/:id' => 'contacts#show_company', as: :company
   get '/companies/:id/edit' => 'contacts#edit_company', as: :edit_company
@@ -135,6 +136,8 @@ Rails.application.routes.draw do
   resources :expenses
   resources :invoices do
     resources :payments, :only => [:index, :create], :shallow => true
+
+    get 'download' => 'invoices#download'
     get 'invoice_payments' => 'payments#invoice_payments', :defaults => { :format => :json }
   end
   resources :users
@@ -164,6 +167,7 @@ Rails.application.routes.draw do
   get "contacts/:id/personal information" => 'contacts#personal', as: :contact_personal
   get "contacts/:id/company information" => 'contacts#coinfo', as: :contact_coinfo
   get "contacts/:id/cases" => 'contacts#contact_cases', as: :contact_linked_cases
+
   get 'cases/:case_id/assign_contacts' => 'contacts#assign_contacts', as: :assign_contacts
   post 'cases/:case_id/update_case_contacts' => 'contacts#update_case_contacts', as: :update_case_contacts
   post 'cases/:id/copy' => 'cases#create', as: :copy_case_create

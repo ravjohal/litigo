@@ -51,11 +51,9 @@
 
 .invoice_box {
   border: 2px solid black;
-  //width: 100%;
+  width: 100%;
   text-align: center;
   padding: 15px 30px;
-  width: auto;
-  max-width: 200px;
   font-size: 18px;
   font-weight: bold;
   &.left_box {

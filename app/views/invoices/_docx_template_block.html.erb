@@ -1,0 +1,101 @@
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.user.name %>
+  </span>
+  <span class="col-right">
+    <strong> Invoice #<%= @invoice.number %></strong>
+  </span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.firm.name %>
+  </span>
+  <span class="col-right">
+    Date Issued
+  </span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.firm.address %>
+  </span>
+  <span class="col-right">
+    <%= date_to_input @invoice.issue_date %>
+  </span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.firm.city %>, <%= @invoice.firm.zip %>
+  </span>
+  <span class="col-right">
+    Due Date
+  </span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.firm.phone %>
+  </span>
+  <span class="col-right">
+    <%= date_to_input @invoice.due_date %>
+  </span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.contact.try(:name) %>
+  </span>
+  <span class="col-right"></span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.contact.try(:phone) %>
+  </span>
+  <span class="col-right"></span>
+</p>
+<p class="columns two_columns">
+  <span class="col-left">
+    <%= @invoice.contact.try(:address) %>
+  </span>
+  <span class="col-right"></span>
+</p>
+<p></p>
+<% if @invoice.time_entries.count > 0 %>
+  <table class="table-tripped">
+    <thead>
+    <tr>
+      <th>Staff Member</th>
+      <th>Description of Service</th>
+      <th>Hours</th>
+      <th>Rate</th>
+      <th style="width: 200px !important;">Amount</th>
+    </tr>
+    </thead>
+    <tbody id="services_table">
+    <% @services = @invoice.time_entries %>
+    <%= render 'services_table_for_form' %>
+    </tbody>
+  </table>
+<% end %>
+<p></p>
+<% if @invoice.expenses.count > 0 %>
+  <table class="table-tripped">
+    <thead>
+    <tr>
+      <th>Expense</th>
+      <th>ABA Code</th>
+      <th style="width: 200px !important;">Amount</th>
+    </tr>
+    </thead>
+    <tbody id="expenses_table">
+    <% @expenses = @invoice.expenses %>
+    <%= render 'expenses_table_for_form' %>
+    </tbody>
+  </table>
+<% end %>
+<p></p>
+<table class="table-tripped">
+  <tfoot>
+  <tr>
+    <th>TOTAL</th>
+    <th id="total_amount" style="width: 200px !important;"><%= number_to_currency @invoice.amount.to_f %></th>
+  </tr>
+  </tfoot>
+</table>

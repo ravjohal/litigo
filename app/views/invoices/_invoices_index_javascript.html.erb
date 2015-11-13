@@ -6,6 +6,8 @@
         $('table.rowlink').rowlink();
       });
 
+      var filter_scope = 'all_invoices_scope';
+
       $('.table').each(function(i, table) {
         $(table).dataTable({
           language: {
@@ -17,7 +19,10 @@
           aaSorting: [[ 0, "desc" ]],
           bProcessing: true,
           bServerSide: true,
-          sAjaxSource: $(table).data('source')
+          sAjaxSource: $(table).data('source'),
+          fnServerParams: function ( aoData ) {
+            aoData.push( {'name': "invoicesScope", 'value': filter_scope } );
+          }
         });
       });
 
@@ -29,6 +34,7 @@
         var cases_owner = $(this).closest('.lead-filter').closest('.dataTables_wrapper').find('.table').attr('id');
         $(this).closest('.lead-filter').find('a.btn-default').html(text +" <span class='caret'></span>");
         var table = $('#'+cases_owner).dataTable();
+        filter_scope = $(this).data('scope');
         table.fnDraw();
       });
     });

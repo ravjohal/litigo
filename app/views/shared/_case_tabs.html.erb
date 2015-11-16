@@ -8,7 +8,7 @@
   <% if @case.medical.present? %>
       <li<%= is_active('medicals') %>><%= active_link_to 'Medicals', case_medical_path(@case, @case.medical), :class_active => 'navigated' %></li>
   <% end %>
-  <% if @case.case_type == 'Personal Injury' %>
+  <% if @case.case_type == 'Personal Injury' || @case.case_type == 'Wrongful Death' %>
       <li<%= is_active('insurance') %>><%= active_link_to 'Insurance', case_insurances_path(@case), :class_active => 'navigated' %></li>
   <% end %>
   <% if @case.contacts %>

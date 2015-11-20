@@ -56,8 +56,9 @@ class ReportsController < ApplicationController
     end 
     @user_ = params[:contact] && params[:contact][:contact_id] != '' ? params[:contact][:contact_id].split(",").map(&:to_i) : @user_all_id_array.uniq
     @selected_user = params[:contact][:contact_id] if params[:contact]
+    @statuses = params[:status] ? params[:status] : Case::STATUS
     #puts 'ATTTORNEY--------------- ' + @user_.inspect
-    @cases_by_user_report = CasesByUserReport.new(firm_id: @firm.id, user_contact_id: @user_)
+    @cases_by_user_report = CasesByUserReport.new(firm_id: @firm.id, user_contact_id: @user_, status: @statuses)
   end
 
   def cases_by_status_report

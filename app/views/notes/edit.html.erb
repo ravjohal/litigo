@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'notes/edit', 'data-turbolinks-track' => true %>
+<%= javascript_include_tag 'notes/edit', 'notes/form', 'data-turbolinks-track' => true %>
 <%= simple_form_for @note do |f| %>
 
 <div class="text-center">
@@ -38,11 +38,19 @@
       <tr>
         <td class="right">
           <strong>CC:</strong>
+           <%= link_to_add_association 'Add cc', f, :notes_users,:"data-association-insertion-node" => "div#notess", :"data-association-insertion-method" => "append", :partial => "notes_user_fields", class: 'user pull-right' %>
         </td>
         <td colspan="2">
           <% @note.try(:notes_user).to_a.each do |user| %>
               <%= user.user.name %><br />
           <% end %>
+           <div id="notess">
+                <%= f.simple_fields_for :notes_users, NotesUser.new do |user| %>
+                  <% if !user.object.id.nil? %>
+                    <%= render 'notes_user_fields', :f => user %>
+                  <% end %>
+                <% end %>
+              </div>
         </td>
       </tr>
 	<tr>

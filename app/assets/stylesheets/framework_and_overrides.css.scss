@@ -533,7 +533,7 @@ input:focus {
 }
 
 #info-table1 tr:nth-child(even) {
-  background: #fdfeff;
+  background: #F0F9FF;
 }
 
 #info-table1 th {
@@ -563,7 +563,7 @@ input:focus {
 }
 
 #info-table2 tr:nth-child(even) {
-  background: #fdfeff;
+  background: #F0F9FF;
 }
 
 #info-table2 tr:nth-child(odd) {
@@ -594,7 +594,7 @@ input:focus {
 }
 
 #info-table3 tr:nth-child(even) {
-  background: #fdfeff;
+  background: #F0F9FF;
 }
 
 #info-table3 tr:nth-child(odd) {
@@ -618,7 +618,7 @@ input:focus {
     border: 1px solid #E8ECF1;
   }
   #info-table3 tr:nth-child(even) {
-    background: #fdfeff;
+    background: #F0F9FF;
   }
   #info-table3 tr:nth-child(odd) {
     background: white;
@@ -659,12 +659,13 @@ input:focus {
 }
 
 #insurance-table tr:nth-child(even) {
-  background: #fdfeff;
+  background: #F0F9FF;
 }
 
 #insurance-table tr:nth-child(odd) {
   background: white;
 }
+
 
 #left-td {
   float: left;
@@ -707,6 +708,8 @@ input.sub2-small:hover {
   transition: .2s;
   color: white;
 }
+
+
 
 @media (max-width: 767px) {
   input.sub2-small {

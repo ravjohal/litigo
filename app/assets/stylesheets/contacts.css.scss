@@ -68,3 +68,7 @@
   overflow: hidden;
   width: 150px;
 }
+
+tbody tr:nth-child(even) {
+    background: #F0F9FF;
+}

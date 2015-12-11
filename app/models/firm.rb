@@ -41,6 +41,10 @@ class Firm < ActiveRecord::Base
     self.users.where(:role => 1).size > 1
   end
 
+  def sync_all_calendars
+  	SyncNamespaces.sync_namespace(self)
+  end
+
   def attorneys
     self.users.where(role: 2)
   end

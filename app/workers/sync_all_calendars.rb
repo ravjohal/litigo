@@ -22,7 +22,7 @@ class SyncAllCalendars
 	def self.perform
     Rails.logger.fatal "SyncAllCalendars - start - #{Time.now}"
 
-    Firm.find_each{|firm| Firm.sync_namespace(firm) }
+    Firm.find_each{|firm| firm.sync_namespace(firm) }
 
     Rails.logger.fatal "SyncAllCalendars - end - #{Time.now}"
   end

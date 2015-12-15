@@ -132,6 +132,7 @@ class EventsController < ApplicationController
 
   def emails_autocomplete
     users_emails = (Soulmate::Matcher.new("contact-#{@firm.id}").matches_for_term(params[:term], {:limit => 30})).map {|match| match['term'] }
+    puts "USER EMAILS ------------------------------------------> " + users_emails.inspect
     render json: users_emails.uniq.compact
   end
 

@@ -124,7 +124,14 @@ class ContactsController < ApplicationController
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
-    @contact.user = @user
+    can_update = true
+
+    if @contact.user_account && !@contact.user_account.disabled
+      if contact_params[:type] != "Staff" && contact_params[:type] != "Attorney"
+        can_update = false
+      end
+    end
+
     #puts "CONTACT UPDATE ------------------ BEFORE SAVE: " + contact_params[:type]
     
     if contact_params[:type] == 'Expert Witness'
@@ -139,31 +146,35 @@ class ContactsController < ApplicationController
     # else besides Attorney. Need to look into this when there is a chance since Attorney Type can be
     # persisted once and then never emptied if the Contact Type is changed (which doesn't happen often luckily)
 
-    
+    @contact.user = @user
 
     respond_to do |format|
-      if @contact.update(contact_params)
-        track_activity @contact
-        if @contact.type == "Company"
-          company_contacts = params[:contact][:contacts_attributes] if params[:contact][:contacts_attributes]
-          if company_contacts
-            company_contacts.each do |key, contact_param|
-              contact = Contact.find(contact_param[:id])
-              destroy = contact_param[:_destroy]
-              if destroy == "1"
-                contact.company_id = ""
-                contact.save!
+      if can_update
+        if @contact.update(contact_params)
+          track_activity @contact
+          if @contact.type == "Company"
+            company_contacts = params[:contact][:contacts_attributes] if params[:contact][:contacts_attributes]
+            if company_contacts
+              company_contacts.each do |key, contact_param|
+                contact = Contact.find(contact_param[:id])
+                destroy = contact_param[:_destroy]
+                if destroy == "1"
+                  contact.company_id = ""
+                  contact.save!
+                end
               end
             end
+            format.html { redirect_to company_path(@contact), notice: 'Company was successfully updated.' }
+          else 
+            format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
+            format.json { render :show, status: :ok, location: @contact }
           end
-          format.html { redirect_to company_path(@contact), notice: 'Company was successfully updated.' }
-        else 
-          format.html { redirect_to @contact, notice: 'Company was successfully updated.' }
-          format.json { render :show, status: :ok, location: @contact }
+        else
+          format.html { render :edit }
+          format.json { render json: @contact.errors, status: :unprocessable_entity }
         end
       else
-        format.html { render :edit }
-        format.json { render json: @contact.errors, status: :unprocessable_entity }
+        format.html { redirect_to @contact, alert: 'Contact cannot be updated because it is linked to an Active User.' }
       end
     end
   end
@@ -189,12 +200,19 @@ class ContactsController < ApplicationController
   # DELETE /contacts/1
   # DELETE /contacts/1.json
   def destroy
-    @contact.destroy
-    track_activity @destroy
-    respond_to do |format|
-      format.html { redirect_to contacts_url, notice: 'Contact was successfully destroyed.' }
-      format.json { head :no_content }
+    if @contact.user_account && !@contact.user_account.disabled
+      notice = 'Contact cannot be destroyed because this contact is linked to an Active User.'
+      redirect_url = @contact
+    else
+      @contact.destroy
+      track_activity @destroy
+      notice = 'Contact was successfully destroyed.'
+      redirect_url = contacts_url
     end
+    respond_to do |format|
+        format.html { redirect_to redirect_url, notice:  notice}
+        format.json { head :no_content }
+      end
   end
 
   def assign_contacts

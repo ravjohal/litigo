@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215083054) do
+ActiveRecord::Schema.define(version: 20160106045625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 20151215083054) do
     t.integer  "lead_id"
     t.boolean  "fee_agreement",                                               default: false
     t.boolean  "analytics",                                                   default: false
+    t.integer  "case_copied_from_id"
   end
 
   add_index "cases", ["analytics"], name: "index_cases_on_analytics", using: :btree

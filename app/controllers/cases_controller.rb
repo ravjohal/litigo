@@ -76,12 +76,10 @@ class CasesController < ApplicationController
       #   insurance.firm = @firm
       #   insurance.save
       # end
-      if !contacts
-        @case.case_contacts.each do |con|
-          con.delete
-        end
-      end
+      @case.case_contacts.delete_all if !contacts
+  
       @case.tasks.delete if !tasks
+      
       if !documents
         @case.case_documents.each do |doc|
           doc.delete

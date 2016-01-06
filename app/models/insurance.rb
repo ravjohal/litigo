@@ -29,7 +29,7 @@ class Insurance < ActiveRecord::Base
   end
 
   def save_firm_case_user_for_child
-  	if self.parent_id
+  	if self.parent
   		self.case = self.parent.case
   		self.firm = self.parent.firm
       self.user = self.parent.user

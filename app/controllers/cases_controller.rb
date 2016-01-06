@@ -52,6 +52,7 @@ class CasesController < ApplicationController
       @case = @new_copy_case.amoeba_dup
       #puts "WAHAT ----------------------------- " + @case.inspect
       @case.name = params[:case][:name]
+      @case.case_copied_from_id = @new_copy_case.id
       @case.case_number = Case.increment_number(@firm, "new", @case)
 
       # if !interrogatory

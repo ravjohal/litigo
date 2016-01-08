@@ -10,7 +10,7 @@ class Lead < ActiveRecord::Base
   has_many :documents
   has_many :notifications, as: :notificable
 
-  CHANNELS = ['Google', 'Television', 'Word of mouth', 'Referral', 'Radio', 'Phone book', 'Other']
+  CHANNELS = ['Internet', 'Phone book', 'Prior Client', 'Radio', 'Referral - TSMS', 'Referral - Doctor', 'Referral - Attorney', 'Referral - Client', 'Referral', 'Television', 'Other']
   STATUS = {
       pending_review: 'New Lead - Pending Review',
       outside_action: 'Outside Action Needed to Proceed',

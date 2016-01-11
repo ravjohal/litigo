@@ -79,7 +79,7 @@ class CasesController < ApplicationController
       @case.case_contacts.delete_all if !contacts
   
       @case.tasks.delete if !tasks
-      
+
       if !documents
         @case.case_documents.each do |doc|
           doc.delete
@@ -187,12 +187,12 @@ class CasesController < ApplicationController
 
   def show_case_contacts
     render(partial: 'cases_show_contacts') and return if request.xhr?
-    @contacts = @case.case_contacts.order(:created_at)
+    @contacts = @case.case_contacts
     @contacts_a = [@case, Contact.new] #for modal partial rendering
   end
 
   def edit_case_contacts
-    @contacts = @case.case_contacts.order(:created_at)
+    #@contacts = @case.case_contacts.order(:created_at)
     @fly_creation = Contact.new
   end
 

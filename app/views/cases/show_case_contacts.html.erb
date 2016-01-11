@@ -57,7 +57,8 @@
     </tr>
     </thead>
     <tbody>
-    <% @contacts.sort_by { |a| [a.contact.last_name.downcase] }.each do |contact| %>
+    <% @contacts.sort_by { |a| [a.sort_by_name_of_contact] }.each do |contact| %>
+    <% # @contacts.sort_by { |a| [a.contact.last_name.downcase, a.contact.company_name] }.each do |contact| %>
       <tr>
         <% if contact.contact %>
           <td class="doc-link">

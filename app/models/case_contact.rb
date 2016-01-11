@@ -16,6 +16,16 @@ class CaseContact < ActiveRecord::Base
     self.contact.name
   end
 
+  def sort_by_name_of_contact
+    name = ""
+    if self.contact.company_name?
+     name = self.contact.company_name.upcase
+    else
+     name = self.contact.last_name? ? self.contact.last_name.downcase : self.contact.first_name.downcase
+    end
+    name
+  end
+
   def check_sol
     if self.role == 'Plaintiff'
       if self.affair.present? && (self.contact.date_of_death.present? || self.contact.major_date.present?)

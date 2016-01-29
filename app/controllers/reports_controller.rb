@@ -74,4 +74,8 @@ class ReportsController < ApplicationController
     #puts 'PARAMS ATTORNEY ++++++++++++++ ' + params[:contact][:contact_id].inspect
     @open_close_detail_report = OpenCloseDetailReport.new(firm_id: @firm.id, start_date: @start_date, end_date: @end_date)
   end
+
+  def count_of_cases_by_status_report
+    @count_of_cases_by_status_report = CountOfCasesByStatusReport.new(firm_id: @firm.id)
+  end  
 end

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get 'reports/medical_bills_totals' => 'reports#medical_bills_report', as: :reports_medical_bills
   get 'reports/cases_by_user' => 'reports#cases_by_user_report', as: :reports_cases_by_user
   get 'reports/cases_by_statuses' => 'reports#cases_by_status_report', as: :reports_cases_by_status
+  get 'reports/count_of_cases_by_statuses' => 'reports#count_of_cases_by_status_report', as: :reports_count_of_cases_by_status
   get 'reports/open_close_detail_report' => 'reports#open_close_detail_report', as: :reports_open_close_detail
 
   resources :company_olds

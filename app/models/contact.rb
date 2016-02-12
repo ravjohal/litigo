@@ -102,6 +102,11 @@ class Contact < ActiveRecord::Base
       name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''
       company = self.company_name.present? ? "#{self.company_name}" : ''
       return "#{name}"+"#{company}"
+    elsif self.email?
+      email = self.email
+      return "#{email}"
+    else
+      "no name"
     end
   end
 

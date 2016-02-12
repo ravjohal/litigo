@@ -105,7 +105,7 @@ class TemplatesController < ApplicationController
         end
       elsif span['data-model'] == 'Contact'
         contacts = @firm.contacts
-        span.inner_html = "#{select_tag("contact_#{span['data-attr']}", options_for_select(contacts.map {|contact| [contact.name.present? ? contact.name : contact.email, try_attr(contact, span['data-attr'].split('.'))]}), :prompt => "Contact #{span['data-attr']}", class: "custom_input contact_#{span['data-attr']}")} <ins></ins> "
+        span.inner_html = "#{select_tag("contact_#{span['data-attr']}", options_for_select(contacts.map {|contact| [contact.name.present? ? contact.name : contact.email + 'no name', try_attr(contact, span['data-attr'].split('.'))]}), :prompt => "Contact #{span['data-attr']}", class: "custom_input contact_#{span['data-attr']}")} <ins></ins> "
       elsif span['data-model'] == 'Company'
         companies = @firm.companies
         span.inner_html = "#{select_tag("company_#{span['data-attr']}", options_for_select(companies.map {|company| [company.name, try_attr(company, span['data-attr'].split('.'))]}), :prompt => "Company #{span['data-attr']}", class: "custom_input company_#{span['data-attr']}")} <ins></ins>"

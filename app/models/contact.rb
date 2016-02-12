@@ -101,12 +101,15 @@ class Contact < ActiveRecord::Base
     if self.first_name.present? || self.company_name.present?
       name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''
       company = self.company_name.present? ? "#{self.company_name}" : ''
+      puts "HERE IN NAME -------> " + name.to_s
       return "#{name}"+"#{company}"
     elsif self.email?
       email = self.email
+      puts "HERE IN EMAIL -------> " + email.to_s
       return "#{email}"
     else
-      "no name"
+      puts "HERE IN NO NAME OR EMAIL -------> "
+      "no name or email"
     end
   end
 

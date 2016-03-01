@@ -18,7 +18,8 @@ class Lead < ActiveRecord::Base
       rejected: 'Rejected',
       accepted: 'Accepted',
       inactive: 'Inactive',
-      declined: 'Client Declined'
+      declined: 'Client Declined',
+      referred: 'Referred'
   }
 
   include PgSearch

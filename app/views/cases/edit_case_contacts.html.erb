@@ -38,7 +38,7 @@
           <strong>Note</strong>
         </td>
       </tr>
-        <%= f.simple_fields_for :case_contacts, f.object.case_contacts.sort_by { |a| [a.sort_by_name_of_contact] } do |case_contact| %>
+        <%= f.simple_fields_for :case_contacts, f.object.case_contacts.sort_by { |a| [a.name_of_contact_for_sorting] } do |case_contact| %>
           <%= render 'case_contact_fields', :f => case_contact %>
         <% end %>
       </tbody>

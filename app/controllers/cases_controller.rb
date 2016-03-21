@@ -187,7 +187,7 @@ class CasesController < ApplicationController
 
   def show_case_contacts
     render(partial: 'cases_show_contacts') and return if request.xhr?
-    @contacts = @case.case_contacts
+    @contacts = @case.case_contacts.includes(:contact)
     @contacts_a = [@case, Contact.new] #for modal partial rendering
   end
 

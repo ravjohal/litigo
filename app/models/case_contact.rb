@@ -16,7 +16,7 @@ class CaseContact < ActiveRecord::Base
     self.contact.name
   end
 
-  def sort_by_name_of_contact
+  def name_of_contact_for_sorting
     name = ""
     if self.contact.company_name?
      name = self.contact.company_name.upcase

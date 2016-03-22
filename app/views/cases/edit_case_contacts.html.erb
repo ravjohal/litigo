@@ -1,4 +1,7 @@
 <%= javascript_include_tag 'cases/case_contact_fields', 'data-turbolinks-track' => true %>
+<% GC.start %>
+<% before = GC.stat(:total_freed_objects) %>
+
 <%= simple_form_for @case do |f| %>
   <div class="case-header">
     <div class="case-title">
@@ -45,7 +48,9 @@
     </table>
   </div>
 <% end %>
-
+<% GC.start %>
+<% after = GC.stat(:total_freed_objects) %>
+<% puts "Objects Freed: #{after - before}" %>
     <script type="text/javascript">
         $(document).ready(function() {
             var self =  $("#popup_case");

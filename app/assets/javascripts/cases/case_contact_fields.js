@@ -1,4 +1,3 @@
-
 $('#case_contacts').on('cocoon:after-remove', function(e, insertedItem) {
 });
 $(function() {

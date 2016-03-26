@@ -123,4 +123,5 @@ end
 
 group :staging, :production do
   gem 'rails_12factor', '~> 0.0.3'
+  gem 'unicorn-worker-killer'
 end

@@ -17,13 +17,9 @@ class Case < ActiveRecord::Base
   has_many :notifications, as: :notificable
   has_many :case_contacts, :dependent => :destroy
   has_many :contacts, :through => :case_contacts
-
-  has_many :case_contacts, :dependent => :destroy
   has_many :plaintiffs, :through => :case_contacts
-
   has_many :case_documents, :dependent => :destroy
   has_many :documents, :through => :case_documents
-
   # has_many :case_tasks, :dependent => :destroy
   # has_many :tasks, :through => :case_tasks
   has_many :tasks

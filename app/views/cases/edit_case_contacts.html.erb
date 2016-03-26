@@ -1,4 +1,3 @@
-<%= javascript_include_tag 'cases/case_contact_fields', 'data-turbolinks-track' => true %>
 <%= simple_form_for @case do |f| %>
   <div class="case-header">
     <div class="case-title">
@@ -46,8 +45,12 @@
   </div>
 <% end %>
 
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('select').select2()
-        });
-    </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+      $('#case_contacts').on('cocoon:after-remove', function(e, insertedItem) {
+      });
+      $(function() {
+        $('#remove').tipsy({gravity: 's', fade: true});
+      });
+  });
+</script>

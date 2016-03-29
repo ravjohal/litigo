@@ -1,6 +1,6 @@
 <tr class="nested-fields insurance-field">
     <td class="select_contact">
-        <%= f.association :contact, :collection => @firm_contacts, :prompt => "Add Contact", :class => 'table-input', :label => false, hint: false %>
+        <%= f.association :contact, :collection => @firm_contacts, :prompt => "Add Contact", :class => 'table-input', :label => false, hint: false, input_html: {id: 'contact_select'} %>
     </td>
     <td>
         <div id="popup_case"></div>
@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-      $('select').select2();
+      $('#contact_select*').select2();
       $('#case_contacts').on('cocoon:after-remove', function(e, insertedItem) {
       });
       $(function() {

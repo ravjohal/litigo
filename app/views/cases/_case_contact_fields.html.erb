@@ -1,10 +1,10 @@
 <tr class="nested-fields insurance-field">
-    <td class="select_contact">
-        <%= f.association :contact, :collection => @firm_contacts, :prompt => "Add Contact", :class => 'table-input', :label => false, hint: false, input_html: {id: 'contact_select'} %>
+    <td>
+        <%= f.association :contact, :collection => @firm_contacts, :prompt => "Add Contact", :class => 'table-input', :label => false, hint: false, input_html: { id: 'contact_prompt'} %>
     </td>
     <td>
         <div id="popup_case"></div>
-        <%= f.input :role, collection: Contact::ROLES, :prompt => "Choose Role", :class => 'table-input', :label => false, hint: false %>
+        <%= f.input :role, collection: Contact::ROLES, :prompt => "Choose Role", :class => 'table-input', :label => false, hint: false, input_html: { id: 'role_prompt'} %>
     </td>
     <td colspan="2">
         <%= f.text_field :note, :prompt => "Add Note", :class => 'table-input-75', :label => false, hint: false %>
@@ -16,12 +16,21 @@
 </tr>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-      $('#contact_select*').select2();
-      $('#case_contacts').on('cocoon:after-remove', function(e, insertedItem) {
+$(document).ready(function() {
+    
+      $('#case_contacts_').on('cocoon:before-insert', function() {
+          
+      })
+      .on('cocoon:after-insert', function(e, insertedItem) {
+             $('#contact_prompt').select2();
+             $('#role_prompt').select2();
+      })
+      .on("cocoon:before-remove", function() {
+
+      })
+      .on("cocoon:after-remove", function() {
+        /* e.g. recalculate order of child items */
       });
-      $(function() {
-        $('#remove').tipsy({gravity: 's', fade: true});
-      });
-  });
+
+});
 </script>

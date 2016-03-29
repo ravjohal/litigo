@@ -29,7 +29,7 @@ gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.8.0'               # Replacement for curl commands to grab contacts from google
 gem 'active_link_to', '~> 1.0.2'
 gem 'jquery-datatables-rails', '~> 3.3.0'
-gem "select2-rails", '3.5.9.1'
+gem "select2-rails", '4.0.1.1'
 gem 'jquery-ui-rails', '~> 5.0.0'
 gem 'fullcalendar-rails', '~> 2.3.1.0'
 gem 'google-api-client', '~> 0.7.1'

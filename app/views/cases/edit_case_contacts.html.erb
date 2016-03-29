@@ -23,10 +23,10 @@
   </div>
 
   <div class="case_contacts-edit-container">
-    <%= link_to_add_association 'ADD CONTACT', f, :case_contacts, :"data-association-insertion-node" => "tbody#case_contacts_", :"data-association-insertion-method" => "append", class: 'action-button insure pull-right' %>
+    <%= link_to_add_association 'ADD CONTACT', f, :case_contacts, :"data-association-insertion-node" => "#header_row", :"data-association-insertion-method" => "after", class: 'action-button insure pull-right' %>
      <table id="info-table3">
       <tbody id="case_contacts_">
-      <tr>
+      <tr id="header_row">
         <td class="gray-back">
           <strong>Name</strong>
         </td>
@@ -47,8 +47,8 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
-      $('#case_contacts').on('cocoon:after-remove', function(e, insertedItem) {
-      });
+      $('select').select2();
+
       $(function() {
         $('#remove').tipsy({gravity: 's', fade: true});
       });

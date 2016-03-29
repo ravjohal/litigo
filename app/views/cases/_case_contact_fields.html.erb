@@ -1,22 +1,23 @@
 <tr class="nested-fields insurance-field">
     <td class="select_contact">
-        <%= f.association :contact, :collection => @firm_contacts, :prompt => "Add Contact", :class => 'table-input', :label => false, placeholder: false, hint: false %>
+        <%= f.association :contact, :collection => @firm_contacts, :prompt => "Add Contact", :class => 'table-input', :label => false, hint: false %>
     </td>
     <td>
         <div id="popup_case"></div>
-        <%= f.input :role, collection: Contact::ROLES, :prompt => "Choose Role", :class => 'table-input', :label => false, placeholder: false, hint: false %>
+        <%= f.input :role, collection: Contact::ROLES, :prompt => "Choose Role", :class => 'table-input', :label => false, hint: false %>
     </td>
     <td colspan="2">
-        <%= f.text_field :note, :prompt => "Add Note", :class => 'table-input-75', :label => false, placeholder: false, hint: false %>
+        <%= f.text_field :note, :prompt => "Add Note", :class => 'table-input-75', :label => false, hint: false %>
     
-        <%= f.hidden_field :firm_id, :value => @firm.id, placeholder: false, hint: false %>
+        <%= f.hidden_field :firm_id, :value => @firm.id, hint: false %>
     
-        <%= link_to_remove_association f, class: 'dark-small remove_case_contacts' do %><span id="remove" class="glyphicon glyphicon-remove pull-right" original-title="Remove Contact", placeholder: false, hint: false ></span><% end %>
+        <%= link_to_remove_association f, class: 'dark-small remove_case_contacts' do %><span id="remove" class="glyphicon glyphicon-remove pull-right" original-title="Remove Contact", hint: false ></span><% end %>
     </td>
 </tr>
 
 <script type="text/javascript">
   $(document).ready(function() {
+      $('select').select2();
       $('#case_contacts').on('cocoon:after-remove', function(e, insertedItem) {
       });
       $(function() {

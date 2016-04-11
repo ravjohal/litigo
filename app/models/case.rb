@@ -391,6 +391,6 @@ class Case < ActiveRecord::Base
 
   #for reject_if for case_contacts on accepts_nested
   def no_contact(attributes)
-    attributes['contact_id'] == ''
+    attributes['contact_id'] == nil
   end
 end

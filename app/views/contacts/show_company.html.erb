@@ -2,34 +2,6 @@
 <div class="case-header">
   <div class="case-title">
     <div style="font-size: 24px;">
-      <strong><%= @company.company_name %></strong><br>
-    </div>
-    <div id="case-buttons">
-      <ul>
-        <li><%= link_to "", :class => 'dark' do %>
-            <span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span>
-          <% end %></li>
-        <li style="height: 30px;"><%= link_to @company, :class => 'dark', method: :delete, data: {confirm: 'WARNING! Deleting a contact will remove all the contact  information from storage and you will not be able to retrieve it. Would you like to continue?'} do %>
-            <span id="delete" class="glyphicon glyphicon-trash" title="Delete Contact"></span>
-          <% end %></li>
-      </ul>
-    </div>
-  </div>
-  <strong><%= @company.type %></strong>
-
-  <div class="container-fluid" style="padding: 0;">
-    <div class="row">
-      <div class="col-md-12">
-        <%= render partial: 'company_info_tabs' %>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<div class="case-header">
-  <div class="case-title">
-    <div style="font-size: 24px;">
       <strong><%= @company.company_name %></strong>
     </div>
     <div id="case-buttons">
@@ -44,18 +16,18 @@
       </ul>
     </div>
   </div>
-  <strong><%= @company.address %></strong><br>
-  <strong><%= @company.address_2 %></strong><br>
-  <strong><%= @company_city_state %></strong>
+  <strong><%= @company.address %>, <%= @company.address_2 %><br></strong>
 
   <div class="container-fluid" style="padding: 0;">
     <div class="row">
       <div class="col-md-12">
-
+        <%= render partial: 'company_info_tabs' %>
       </div>
     </div>
   </div>
 </div>
+
+
 <div class="top-table-container">
   <table id="info-table3">
     <thead>

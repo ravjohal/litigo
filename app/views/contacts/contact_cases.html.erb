@@ -6,14 +6,15 @@
           </div>
             <div id="case-buttons">
               <ul>
-                  <li><%= link_to 'Edit', edit_contact_path(@contact), :class => 'dark' %></li>
                   <li><%= link_to "",  :class => 'dark' do %><span id="print" class="glyphicon glyphicon-print" title="Print Screen"></span> <% end %></li>
-                  <li style="height: 30px;"><%= link_to @contact,  :class => 'dark', method: :delete, data: { confirm: 'WARNING! Deleting a contact will remove all the contact  information from storage and you will not be able to retrieve it. Would you like to continue?' } do %><span id="delete" class="glyphicon glyphicon-trash" title="Delete Contact"></span> <% end %></li>
               </ul>
           </div>
     </div>
-    <strong><%= @contact.type %></strong>
-    
+    <% if @contact.type != 'Company'%>
+        <strong><%= @contact.type %></strong>
+    <% else %>
+        <strong><%= @company.address %>, <%= @company.address_2 %><br></strong>
+    <% end %> 
         <div class="container-fluid" style="padding: 0;">
               <div class="row">
                       <div class="col-md-12">

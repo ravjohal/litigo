@@ -1,6 +1,5 @@
 <ul id="nav-tabs-custom" role="tablist" class="menu" style="font-weight: 700;">
   <a class="more" href="#show_all">MORE <span class=" "></span></a>
-  <li> <%= active_link_to 'Summary', case_summary_path(@case), :class_active => 'navigated' %></li>
   <li <%= is_active('cases') %>><%= active_link_to 'Details', case_path(@case), :class_active => 'navigated', :active => [['cases'], ['show', 'edit']] %></li>
   <% if @case.incident.present? %>
       <li<%= is_active('incidents') %>><%= active_link_to 'Incident', case_incident_path(@case, @case.incident), :class_active => 'navigated' %></li>

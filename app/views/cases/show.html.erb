@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'cases/summary', 'data-turbolinks-track' => true %>
 <div class="case-header">
   <div class="case-title">
     <div class="container-fluid" style="padding: 0;">
@@ -37,6 +38,50 @@
   </div>
   <%= render partial: 'notes/case_alert' %>
 </div>
+
+<!-- 
+#Want to have the three recent notes at the top of the details page
+<div class="recent-update-container">
+<% if @last_3_notes %>
+  <div class="bottom-table-container">
+  <h3>Latest Notes</h3>
+  <br>
+    <table class="table-striped recent-notes-table">
+     <thead class="user-table-head">
+        <th>Date</th>
+        <th>Type</th>
+        <th>Note</th>
+        <th>Author</th>
+      </thead>
+      <tbody>
+        <% @last_3_notes.each do |note| %>
+          <tr>
+            <td>
+              <%= date_to_input_regexp note.created_at %>
+            </td>
+            <td>
+              <%= note.note_type %>
+            </td>
+            <td>
+             <div class="larger-td">
+              <%= note.note %>
+              </div>
+            </td>
+              <td>
+              <%= note.author %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+</div> 
+
+#want to have the contacts on this page below this comment, only include name, role, phone as links (like on case contacts page) and ADD conditions for when contact role is either plaintiff, defendant, or attorney -->
+
+
+
 <div class="top-table-container">
   <table id="info-table1">
     <thead>

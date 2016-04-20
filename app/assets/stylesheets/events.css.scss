@@ -71,7 +71,23 @@
       }
     }
 
-    .fc-row {
+    .fc-agendaWeek-view .fc-row {
+      > table {
+        > thead {
+          > tr {
+            > th:first-child {
+              width: 43px !important;
+            }
+          }
+        }
+      }
+    }
+
+    .fc-button {
+    outline: none;
+    }
+
+    .fc-agendaDay-view .fc-row {
       > table {
         > thead {
           > tr {

@@ -60,6 +60,7 @@ $('#contact_type').on('change', function () {
         $('#ssn_field').hide();
         $('#date_of_birth_field').hide();
         $('#age').hide();
+        $('#new_co').hide();
     } else {
         $('#ssn_field').hide();
         $('#date_of_birth_field').hide();

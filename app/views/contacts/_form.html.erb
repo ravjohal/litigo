@@ -167,7 +167,7 @@
         <%= f.association :company, :collection => @firm.contacts.where(:type => "Company"), :label_method => lambda { |company| "#{company.company_name}" }, :class => 'table-input', :include_blank => true, label: false %>
       </td>
     </tr>
-    <tr>
+    <tr id="new_co">
       <td colspan="2">
         <div class="hover_insurance_container"></div>
         <input type='button' value="+ New Company" id='add_contact' placeholder="Add company" class="intra-task" />

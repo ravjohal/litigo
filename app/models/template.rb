@@ -10,6 +10,7 @@ class Template < ActiveRecord::Base
               {name: 'Lead First Name', attr: 'first_name', model: 'Lead'},
               {name: 'Lead Last Name', attr: 'last_name', model: 'Lead'},
               {name: 'Lead Address', attr: 'address', model: 'Lead'},
+              {name: 'Lead Address cont.', attr: 'address_2', model: 'Lead'},
               {name: 'Lead City', attr: 'city', model: 'Lead'},
               {name: 'Lead State', attr: 'state', model: 'Lead'},
               {name: 'Lead Zip Code', attr: 'zip_code', model: 'Lead'},
@@ -57,6 +58,7 @@ class Template < ActiveRecord::Base
               {name: 'Contact Email', attr: 'email', model: 'Contact'},
               {name: 'Contact Phone', attr: 'phone', model: 'Contact'},
               {name: 'Contact Address', attr: 'address', model: 'Contact'},
+              {name: 'Contact Address cont.', attr: 'address_2', model: 'Contact'},
               {name: 'Contact City', attr: 'city', model: 'Contact'},
               {name: 'Contact State', attr: 'state', model: 'Contact'},
               {name: 'Contact Zip Code', attr: 'zip_code', model: 'Contact'},
@@ -76,6 +78,7 @@ class Template < ActiveRecord::Base
               {name: 'Addressee Email', attr: 'email', model: 'Addressee'},
               {name: 'Addressee Phone', attr: 'phone_number', model: 'Addressee'},
               {name: 'Addressee Address', attr: 'address', model: 'Addressee'},
+              {name: 'Addressee Address cont.', attr: 'address_2', model: 'Addressee'},
               {name: 'Addressee City', attr: 'city', model: 'Addressee'},
               {name: 'Addressee State', attr: 'state', model: 'Addressee'},
               {name: 'Addressee Zip Code', attr: 'zip_code', model: 'Addressee'},
@@ -90,6 +93,7 @@ class Template < ActiveRecord::Base
               {name: 'Firm Phone Number', attr: 'phone', model: 'Firm'},
               {name: 'Firm Name', attr: 'name', model: 'Firm'},
               {name: 'Firm Address', attr: 'address', model: 'Firm'},
+              {name: 'Firm Address cont.', attr: 'address_2', model: 'Firm'},
               {name: 'Firm City', attr: 'city', model: 'Firm'}, #TODO add city to firms table
               {name: 'Firm State', attr: 'state', model: 'Firm'},
               {name: 'Firm Zip Code', attr: 'zip', model: 'Firm'} #TODO rename zip to zip_code
@@ -147,7 +151,7 @@ class Template < ActiveRecord::Base
   def clean_s3
     file.remove!
   rescue Excon::Errors::Error => error
-    puts "Something has gone wrong"
+    puts "Something went wrong"
     false
   end
 end

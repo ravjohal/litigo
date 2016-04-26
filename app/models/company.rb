@@ -5,6 +5,8 @@ class Company < Contact
 
 	accepts_nested_attributes_for :contacts, :reject_if => :all_blank
 
+    validates_presence_of :company_name
+
     def set_type
         self.type = 'Company'
     end

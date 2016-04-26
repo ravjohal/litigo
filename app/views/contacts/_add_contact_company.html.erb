@@ -8,7 +8,7 @@
       <input name="authenticity_token"
              type="hidden"
              value="<%= form_authenticity_token %>"/>
-      <%= f.text_field :company_name, label: false, :class => 'table-input', placeholder: 'Allstate' %>
+      <%= f.text_field :company_name, label: false, :class => 'table-input', placeholder: 'Allstate', :style => 'color: black' %>
     </td>
   </tr>
   <tr>
@@ -21,6 +21,7 @@
     </td>
   </tr>
   <div class="form-actions"><br/>
+  <br/>
     <%= f.button :submit, :class => 'btn btn-info', :style => 'font-size: 12px;margin-right:15px;' %>
   </div>
 <% end %>

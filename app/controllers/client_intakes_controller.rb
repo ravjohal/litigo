@@ -66,7 +66,7 @@ class ClientIntakesController < ApplicationController
   # PATCH/PUT /client_intakes/1
   # PATCH/PUT /client_intakes/1.json
   def update
-
+    @@before_attorney_id = @lead.attorney_id
     respond_to do |format|
       if @lead.update(client_intake_params)
         track_activity @lead

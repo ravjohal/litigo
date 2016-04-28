@@ -34,14 +34,19 @@
       $.ajax({
         url: '/contacts/fly_create_contact',
         type: 'POST',
-        data: {contact: {first_name: $form.find('input[name="contact[first_name]"]').val(), last_name: $form.find('input[name="contact[last_name]"]').val(), type: $form.find('select[name="contact[type]"]').val()}},
+        data: {contact: {company_name: $form.find('input[name="contact[company_name]"]').val(), type: $form.find('select[name="contact[type]"]').val()}},
         dataType: 'json',
         beforeSend: function (xhr) {
           xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
         }
-      }).always(function() {
-        <%= yield :fly_contact_success  %>
-        location.reload();
+      }).always(function(xhr, data, status) {
+        if(data == "error"){
+          alert("Company Name cannot be blank");
+        }
+        else{
+          <%= yield :fly_contact_success  %>
+          location.reload();
+        }
         return false;
       });
       return false;

@@ -80,8 +80,8 @@ class ReportsController < ApplicationController
     all_statuses.delete("Closed")
     all_statuses.delete("Inactive")
     open_statuses = all_statuses
-    @open_count = Case.where(:status => open_statuses).count
-    @closed_count = Case.where(:status =>  ['Inactive', 'Closed']).count
+    @open_count = Case.where(:firm_id => @firm.id, :status => open_statuses).count
+    @closed_count = Case.where(:firm_id => @firm.id, :status =>  ['Inactive', 'Closed']).count
     
     @count_of_cases_by_status_report = CountOfCasesByStatusReport.new(firm_id: @firm.id)
   end  

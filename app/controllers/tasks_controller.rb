@@ -148,9 +148,10 @@ class TasksController < ApplicationController
               'DT_RowClass' => task.row_color,
               '0' => task.case.present? ? link_to(task.case.name, case_path(task)) : '',
               '1' => task.try(:owner).try(:name),
-              '2' => content_tag(:div, task.name, class: 'larger-td'),
-              '3' => task.try(:due_date).try(:strftime, "%b %e, %Y"),
-              '4' => "#{check_box_tag(%Q(complete-task-#{task.id}), true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {'task-completed' => task.id})} #{task.try(:completed)}"
+              '2' => task.try(:description),
+              '3' => content_tag(:div, task.name, class: 'larger-td'),
+              '4' => task.try(:due_date).try(:strftime, "%b %e, %Y"),
+              '5' => "#{check_box_tag(%Q(complete-task-#{task.id}), true, task.completed.present?, disabled: task.completed.present?, class: 'complete-task', data: {'task-completed' => task.id})} #{task.try(:completed)}"
           }
       )
     end

@@ -47,11 +47,11 @@
             var tables = $('.table').DataTable({
                 language: {
                     search: "_INPUT_",
-                    searchPlaceholder: "Search or filter Tasks",
+                    searchPlaceholder: "Search or Filter Tasks",
                     lengthMenu: "View _MENU_"
                 },
                 sDom: '<"toolbar">Rfrtlip',
-                aaSorting: [[ 3, 'asc' ]]
+                aaSorting: [[ 4, 'asc' ]]
             });
             $("div.toolbar").html("<%= render(partial: 'tasks/filter_button') %>");
 

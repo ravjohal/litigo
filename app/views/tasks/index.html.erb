@@ -80,6 +80,7 @@
     <tr>
       <th style="vertical-align:middle;">Case(s)</th>
       <th>Owner</th>
+      <th>Description</th>
       <th>Task</th>
       <th>Due Date</th>
       <th>Completed</th>
@@ -90,6 +91,9 @@
       <tr class="<%= task.row_color%>" id="<%= task.id %>">
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.try(:owner).try(:name)%></td>
+        <td>
+          <div class="larger-td"><%= task.description %></div>
+        </td>
         <td>
           <div class="larger-td"><%= task.name %></div>
         </td>
@@ -115,6 +119,7 @@
     <tr>
       <th>Case(s)</th>
       <th>Owner</th>
+      <th>Description</th>
       <th>Task</th>
       <th>Due Date</th>
     </tr>
@@ -125,8 +130,12 @@
         <td class="doc-link"><%= task.try(:case).try(:name) %></td>
         <td><%= task.try(:owner).try(:name) %></td>
         <td>
+          <div class="larger-td"><%= task.description %></div>
+        </td>
+        <td>
           <div class="larger-td"><%= link_to(task.name, task_path(task)) %></div>
         </td>
+        
         <td><%= simple_format_date_regexp task.try(:due_date) %></td>
       </tr>
     <% end %>

@@ -159,6 +159,7 @@ Rails.application.routes.draw do
   get 'cases/:id/edit_case_insurances' => 'insurances#edit_case_insurances', as: :edit_case_insurances
   get 'cases/:id/edit_case_interrogatories' => 'interrogatories#edit_case_interrogatories', as: :edit_case_interrogatories
   get "cases/:id/summary" => 'cases#summary', as: :case_summary
+  get "cases/:id/dates" => 'cases#case_dates', as: :case_dates
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
   get 'firm_invoices' => 'invoices#firm_invoices', :defaults => { :format => :json }

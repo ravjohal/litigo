@@ -1,7 +1,7 @@
 class CasesController < ApplicationController
   respond_to :html, :json, :docx
   before_filter :authenticate_user!
-  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc, :show_case_contacts, :edit_case_contacts, :case_expenses, :case_services]
+  before_action :set_case, only: [:show, :edit, :update, :destroy, :doc, :show_case_contacts, :edit_case_contacts, :case_expenses, :case_services, :case_dates]
   before_action :set_user, :set_firm
 
   helper DatesHelper
@@ -224,6 +224,11 @@ class CasesController < ApplicationController
     @last_3_notes = @case.notes.last(3).reverse
 #    puts "LAST THREE NOTES " + @last_3_notes.to_s
     restrict_access("cases") if @case.firm_id != @firm.id
+  end
+
+  def case_dates
+    @events = @case.events
+    puts "EVENTS EVENTS EVENTS EVENTS ------ " + @events.inspect
   end
 
   def doc

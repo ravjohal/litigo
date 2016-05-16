@@ -24,7 +24,7 @@ class Case < ActiveRecord::Base
   # has_many :tasks, :through => :case_tasks
   has_many :tasks
   has_many :case_events, :dependent => :destroy
-  has_many :events, :through => :case_events
+  has_many :events
   belongs_to :lead
   has_many :notes
   has_many :time_entries

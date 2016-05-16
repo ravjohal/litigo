@@ -1,7 +1,7 @@
 class TimeEntriesController < ApplicationController
   before_action :set_time_entry, except: [:index, :create, :set_timer, :get_timer, :reset_timer]
   before_filter :authenticate_user!
-  before_action :set_user, :set_firm
+  before_action :set_user, :set_firm, except: [:get_timer]
   respond_to :html, :xml, :json
 
   helper DatesHelper

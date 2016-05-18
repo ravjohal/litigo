@@ -64,12 +64,6 @@ module SyncNamespaces
         Rails.logger.fatal "Error while refresh events\n - Time: #{Time.now}\n  - Namespace: #{namespace.email_address}\n Message:#{e.message}\n - Backtrace: #{e.backtrace.join("\n")}"
         errors_count += 1
         errors << "Error with namespace #{namespace.email_address}\n#{e.message}"
-        if e.message.include? "Invalid cursor parameter"
-          namespace.cursor = nil
-          namespace.save!
-          firm = namespace.firm
-          firm.sync_namespace(firm)
-        end
       end
     end
   end

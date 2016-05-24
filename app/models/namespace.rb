@@ -35,7 +35,8 @@ class Namespace < ActiveRecord::Base
 
   # @return [Integer] the last update of the namespace (to figure out the deltas)
   def nylas_cursor
-    cursor.blank? ? nylas_inbox.latest_cursor(last_sync.to_i) : cursor
+    # cursor.blank? ? nylas_inbox.latest_cursor(last_sync.to_i) : cursor
+    cursor.blank? ? nylas_inbox.latest_cursor : cursor
   end
 
   def check_for_exists_in_nylas

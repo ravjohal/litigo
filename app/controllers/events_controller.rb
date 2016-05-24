@@ -77,6 +77,8 @@ class EventsController < ApplicationController
       event = Event.new(attrs)
     end
 
+    puts " event created with the attributes inputted ---> " + event.inspect
+
     if event.save
       begin
         event.assign_participants(event_params[:participants], @firm.id) if event_params[:participants].present?

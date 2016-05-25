@@ -28,12 +28,42 @@
   <%= render partial: 'notes/case_alert' %>
 </div>
 
+
+
 <div class="top-table-container">
+  <table id="info-table3">
+    <thead>
+    <tr class="right-top">
+      <td colspan="2" class="gray-back">
+        <strong>Case Events</strong>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td class="right">
+        <strong>Date</strong>
+      </td>
+      <td class="right">
+        <strong>Event</strong>
+      </td>
+    </tr>
+    <% @events.each do |event| %>
+      <tr>
+        <td><%= simple_format_date_regexp event.starts_at %></td>
+        <td><%= event.title %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    </table>
+    </div>
+
+    <div class="bottom-table-container">
   <table id="info-table1">
     <thead>
     <tr class="right-top">
       <td colspan="2" class="gray-back">
-        <strong>Case Dates</strong>
+        <strong>Other Important Dates</strong>
       </td>
     </tr>
     </thead>
@@ -94,34 +124,6 @@
         <%= simple_format_date_regexp @case.closing_date  %>
       </td>
     </tr>   
-    </tbody>
-  </table>
-</div>
-
-<hr class="invis">
-
-<div class="bottom-table-container">
-  <table id="info-table1">
-    <thead>
-    <tr class="right-top">
-      <td colspan="2" class="gray-back">
-        <strong>Event Dates</strong>
-      </td>
-    </tr>
-    </thead>
-    <thead>
-    <tr>
-      <th>Date</th>
-      <th>Event</th>
-    </tr>
-    </thead>
-    <tbody>
-     <% @events.each do |event| %>
-      <tr>
-        <td><%= simple_format_date_regexp event.starts_at %></td>
-        <td><%= event.title %></td>
-      </tr>
-    <% end %>
     </tbody>
   </table>
 </div>

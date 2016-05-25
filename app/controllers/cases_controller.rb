@@ -227,7 +227,7 @@ class CasesController < ApplicationController
   end
 
   def case_dates
-    @events = @case.events
+    @events = @case.events.order(starts_at: :asc)
     puts "EVENTS EVENTS EVENTS EVENTS ------ " + @events.inspect
   end
 

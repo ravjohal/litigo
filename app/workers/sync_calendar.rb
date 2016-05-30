@@ -29,12 +29,16 @@ class SyncCalendar
 	def self.perform(params_)
 		params_ = params_.symbolize_keys
 
+		puts "PARAMS ---------------------> " + params_.inspect
+
 		namespace = Namespace.find(params_[:namespace_id])
 	    sync_period = params_[:sync_period].to_i
 	    user = User.find(params_[:user_id]) #.includes[:firm]
 	    firm = user.firm
 
 	    user_calendars = user.calendars
+
+	    puts " CALENDARS ----------------------> " + user_calendars.inspect
 
 	    ns = namespace.nylas_inbox
 
@@ -62,6 +66,7 @@ class SyncCalendar
 	          event.assign_nylas_object! ne, firm do
 	            event.assign_attributes created_by: event.id ? event.created_by : 0, last_updated_by: event.id ? event.last_updated_by : 0, owner_id: namespace.user_id, firm_id: firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id), namespace_id: namespace.id
 	          end
+	          puts " EVENT -----------------------------> " + event.inspect
 	          events_synced += 1
 	        end
 	      end

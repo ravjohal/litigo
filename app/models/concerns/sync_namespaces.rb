@@ -11,7 +11,7 @@ module SyncNamespaces
 
           cursor = namespace.nylas_cursor #figure out what the last cursor was (where the last sync left off)
 
-          last_cursor_from_nylas = ns.last_cursor
+          last_cursor_from_nylas = ns.latest_cursor
 
           puts "DO THE CURSORS MATCHUP??????  ===============> from DB: " + cursor.to_s + " from nylas: " + last_cursor_from_nylas.to_s
 

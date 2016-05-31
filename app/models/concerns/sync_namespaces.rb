@@ -5,6 +5,8 @@ module SyncNamespaces
 
       events_synced = 0
 
+      puts "ENABLED NAMESPACES ------>>>>>>>>>> " + enabled_namespaces.inspect
+
     enabled_namespaces.includes(:calendars).each do |namespace| #grab only those namespaces that are still enabled in nylas and loop on each
       begin
 
@@ -17,6 +19,8 @@ module SyncNamespaces
         firm = namespace.firm
 
         events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
+
+        puts " EVENTS -----------------------------> " + events.inspect
 
         events.each do |nylas_event|
           if nylas_calendar_ids.has_value?(nylas_event.calendar_id)

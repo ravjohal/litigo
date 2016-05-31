@@ -66,7 +66,7 @@ class SyncCalendar
 	          event.assign_nylas_object! ne, firm do
 	            event.assign_attributes created_by: event.id ? event.created_by : 0, last_updated_by: event.id ? event.last_updated_by : 0, owner_id: namespace.user_id, firm_id: firm.id, calendar_id: nylas_calendar_ids.key(ne.calendar_id), namespace_id: namespace.id
 	          end
-	          puts " EVENT -----------------------------> " + event.inspect
+	         # puts " EVENT -----------------------------> " + event.inspect
 	          events_synced += 1
 	        end
 	      end

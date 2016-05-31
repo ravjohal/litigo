@@ -29,7 +29,6 @@ module SyncNamespaces
           end
         end
         namespace.update(last_sync: Time.now, sync_period: sync_period)
-      end
 
 
 

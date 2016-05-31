@@ -35,7 +35,7 @@ class SyncAllCalendars
 
     events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
 
-    events.each do |nyles_event|
+    events.each do |nylas_event|
       if nylas_calendar_ids.has_value?(nylas_event.calendar_id)
         event = Event.find_or_initialize_by(nylas_event_id: nylas_event.id)
         event.assign_nylas_object! nylas_event, firm do

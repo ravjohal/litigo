@@ -15,7 +15,7 @@ module SyncNamespaces
 
           last_cursor = nil
 
-          ns.deltas(cursor, Namespace::NYLAS_EXCLUDE_DELTA) do |n_event, ne| #grab all the deltas as of the cursor (new and modified)
+          ns.deltas(cursor) do |n_event, ne| #grab all the deltas as of the cursor (new and modified)
 
             puts "n_event n_event n_event n_event n_event = " + n_event.to_s
 

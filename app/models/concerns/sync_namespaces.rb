@@ -15,11 +15,9 @@ module SyncNamespaces
 
           puts "DO THE CURSORS MATCHUP??????  ===============> from DB: " + cursor.to_s + " from nylas: " + last_cursor_from_nylas.to_s
 
-          puts "cursor cursor cursor cursor = " + cursor.to_s
-
           last_cursor = nil
 
-          ns.deltas(cursor) do |n_event, ne| #grab all the deltas as of the cursor (new and modified)
+          ns.deltas(last_cursor_from_nylas) do |n_event, ne| #grab all the deltas as of the cursor (new and modified)
 
             puts "n_event n_event n_event n_event n_event = " + n_event.to_s
 

@@ -5,7 +5,9 @@ module SyncNamespaces
 
       events_synced = 0
 
+      enabled_namespaces = Namespace.where(:enabled => true)
       puts "ENABLED NAMESPACES ------>>>>>>>>>> " + enabled_namespaces.inspect
+
 
     enabled_namespaces.includes(:calendars).each do |namespace| #grab only those namespaces that are still enabled in nylas and loop on each
       begin

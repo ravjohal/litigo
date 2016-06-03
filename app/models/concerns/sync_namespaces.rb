@@ -93,7 +93,7 @@ module SyncNamespaces
                 end
               end
               events_synced += 1
-              #last_cursor = ne.cursor
+              last_cursor = ne.cursor
 
               puts "events_synced events_synced events_synced = " + events_synced.to_s
 

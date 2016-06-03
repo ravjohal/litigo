@@ -55,7 +55,7 @@ module SyncNamespaces
 
           last_cursor = nil
 
-          puts "DELTAS DELTAS --------------------------- " + ns.deltas(cursor).inspect
+          puts "DELTAS DELTAS --------------------------- " + ns.deltas(cursor).events.inspect
 
           ns.deltas(cursor) do |n_event, ne| #grab all the deltas as of the cursor (new and modified)
 

@@ -6,7 +6,7 @@ class Namespace < ActiveRecord::Base
   SYNC_PERIODS = {'3' => 'Sync last 3 months', '6'=> 'Sync last 6 months', '12' => 'Sync Last year', '0' => 'Sync all calendar events'}
 
   # exclude all those in array, only need events for now
-  NYLAS_EXCLUDE_DELTA = [Nylas::Calendar, Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]
+  NYLAS_EXCLUDE_DELTA = [Nylas::Contact, Nylas::Message, Nylas::File, Nylas::Thread]
 
   scope :enabled, -> { where(:enabled => true) }
   scope :disabled, -> { where(:enabled => false) }

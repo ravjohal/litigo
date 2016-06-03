@@ -70,7 +70,7 @@ class SyncCalendar
 	          events_synced += 1
 	        end
 	      end
-	      namespace.update(last_sync: Time.now, sync_period: sync_period)
+	      namespace.update(cursor: ns.latest_cursor, last_sync: Time.now, sync_period: sync_period)
 	    end
 	end
 end

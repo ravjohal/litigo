@@ -94,7 +94,7 @@ module SyncNamespaces
             end
           end
 
-          namespace.update(cursor: last_cursor) if last_cursor.present?
+          namespace.update(cursor: last_cursor, last_sync: Time.now) if last_cursor.present?
         end
       rescue Exception => e
         Rails.logger.fatal "Error while refresh events\n - Time: #{Time.now}\n  - Namespace: #{namespace.email_address}\n Message:#{e.message}\n - Backtrace: #{e.backtrace.join("\n")}"

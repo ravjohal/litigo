@@ -5,7 +5,7 @@ module SyncNamespaces
 
       events_synced = 0
 
-      enabled_namespaces = Namespace.where(:enabled => true)
+
       puts "ENABLED NAMESPACES ------>>>>>>>>>> " + enabled_namespaces.inspect
 
 

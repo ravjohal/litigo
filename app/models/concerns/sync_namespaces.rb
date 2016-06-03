@@ -16,25 +16,25 @@ module SyncNamespaces
 
 
 
-        # ns = namespace.nylas_inbox
-        # nylas_calendar_ids = {}
-        # firm = namespace.firm
+        ns = namespace.nylas_inbox
+        nylas_calendar_ids = {}
+        firm = namespace.firm
 
-        # events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
+        events = sync_period > 0 ? ns.events.where(starts_after: (Time.now - sync_period.months).to_i) : ns.events
 
-        # puts " EVENTS -----------------------------> " + events.inspect
+        puts " EVENTS -----------------------------> " + events.inspect
 
-        # events.each do |nylas_event|
-        #   if nylas_calendar_ids.has_value?(nylas_event.calendar_id)
-        #     event = Event.find_or_initialize_by(nylas_event_id: nylas_event.id)
-        #     event.assign_nylas_object! nylas_event, firm do
-        #       event.assign_attributes created_by: event.id ? event.created_by : 0, last_updated_by: event.id ? event.last_updated_by : 0, owner_id: namespace.user_id, firm_id: firm.id, calendar_id: nylas_calendar_ids.key(nylas_event.calendar_id), namespace_id: namespace.id
-        #     end
-        #    # puts " EVENT -----------------------------> " + event.inspect
-        #     events_synced += 1
-        #   end
-        # end
-        # namespace.update(last_sync: Time.now, sync_period: sync_period)
+        events.each do |nylas_event|
+          if nylas_calendar_ids.has_value?(nylas_event.calendar_id)
+            event = Event.find_or_initialize_by(nylas_event_id: nylas_event.id)
+            event.assign_nylas_object! nylas_event, firm do
+              event.assign_attributes created_by: event.id ? event.created_by : 0, last_updated_by: event.id ? event.last_updated_by : 0, owner_id: namespace.user_id, firm_id: firm.id, calendar_id: nylas_calendar_ids.key(nylas_event.calendar_id), namespace_id: namespace.id
+            end
+              puts " EVENT -----------------------------> " + event.inspect
+            events_synced += 1
+          end
+        end
+        namespace.update(last_sync: Time.now, sync_period: sync_period)
 
 
 
@@ -54,6 +54,8 @@ module SyncNamespaces
           puts "DO THE CURSORS MATCHUP??????  ===============> from DB: " + cursor.to_s + " from nylas: " + last_cursor_from_nylas.to_s
 
           last_cursor = nil
+
+          puts "DELTAS DELTAS --------------------------- " + ns.deltas(cursor).inspect
 
           ns.deltas(cursor) do |n_event, ne| #grab all the deltas as of the cursor (new and modified)
 
@@ -91,7 +93,7 @@ module SyncNamespaces
                 end
               end
               events_synced += 1
-              last_cursor = ne.cursor
+              #last_cursor = ne.cursor
 
               puts "events_synced events_synced events_synced = " + events_synced.to_s
 

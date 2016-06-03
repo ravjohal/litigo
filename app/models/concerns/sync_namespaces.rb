@@ -1,19 +1,16 @@
 module SyncNamespaces
 
   def sync_namespace(firm, errors=[], errors_count=0, events_synced=0, updated_events_hash={}, updating_events=0, new_events=0, updated_events=0)
-      sync_period = 3
+      # sync_period = 3
 
-      events_synced = 0
+      # events_synced = 0
 
 
-      puts "ENABLED NAMESPACES ------>>>>>>>>>> " + enabled_namespaces.inspect
+    #  puts "ENABLED NAMESPACES ------>>>>>>>>>> " + enabled_namespaces.inspect
 
 
     enabled_namespaces.includes(:calendars).each do |namespace| #grab only those namespaces that are still enabled in nylas and loop on each
       begin
-
-
-
 
 
         # ns = namespace.nylas_inbox
@@ -35,9 +32,6 @@ module SyncNamespaces
         #   end
         # end
         # namespace.update(last_sync: Time.now, sync_period: sync_period)
-
-
-
 
 
         #DELTA CODE
@@ -67,7 +61,7 @@ module SyncNamespaces
               if n_event == 'create' or n_event == 'modify' #is this a create or modify type of Nylas Event?
                 calendar = active_calendars.find_by(calendar_id: ne.calendar_id) #get the calendar for what this event is for
 
-                puts "calendar calendar calendar calendar calendar = " + calendar.inspect
+               # puts "calendar calendar calendar calendar calendar = " + calendar.inspect
 
                 if calendar.present? #if that calendar is actually present
                   event = Event.find_or_initialize_by(nylas_event_id: ne.id) #find the event and update the NylasEvent ID or create new Litigo Event object
@@ -83,7 +77,7 @@ module SyncNamespaces
                         updated_events_hash[event.id] = true
                       end
 
-                  puts "new_events new_events new_events new_events = " + new_events.to_s
+                 # puts "new_events new_events new_events new_events = " + new_events.to_s
 
                   if ne.status == 'cancelled'
                     event.destroy
@@ -95,7 +89,7 @@ module SyncNamespaces
               events_synced += 1
               last_cursor = ne.cursor
 
-              puts "events_synced events_synced events_synced = " + events_synced.to_s
+             # puts "events_synced events_synced events_synced = " + events_synced.to_s
 
             end
           end

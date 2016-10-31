@@ -91,7 +91,7 @@ class CasesController < ApplicationController
     else
       @case = Case.new(case_params)
       @case.sol_priority = 0 if case_params[:statute_of_limitations].present?
-      if @case.case_type == "Personal Injury" || @case.case_type == "Wrongful Death"
+      if @case.case_type == "Personal Injury" || @case.subtype == "Wrongful Death"
         incident = @case.build_incident
         incident.firm = @firm
         incident.save

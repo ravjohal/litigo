@@ -1,6 +1,6 @@
 class Case < ActiveRecord::Base
 
-  TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Estates', 'Family Law', 'Immigration', 'Personal Injury', 'Probate', 'Real Estate', 'Taxation', 'Traffic', 'Wrongful Death']
+  TYPES = ['Bankruptcy', 'Business Entities', 'Civil Litigation', 'Criminal Defense', 'Employment', 'Family Law', 'Personal Injury', 'Probate', 'Traffic', 'Workers Compensation', 'Other']
   # STATUS = ['Open', 'Pending', 'Closed']
   STATUS = ['Active', 'Treating', 'Done Treating','Inactive', 'Finals Requested', 'Settlement Package Out', 'Negotiation', 'Litigation', 'Pending Close', 'Closed', 'Appeal']
 
@@ -114,11 +114,6 @@ class Case < ActiveRecord::Base
           'Wage and Hour Claims' => 'Wage and Hour Claims',
           'Wrongful Termination' => 'Wrongful Termination'
       },
-      'Estates' => {
-          'Power of Attorney' => 'Power of Attorney',
-          'Wills' => 'Wills',
-          'Revocable Trust' => 'Revocable Trust'
-      },
       'Family Law' => {
           'Divorce' => 'Divorce',
           'Prenuptial Agreement' => 'Prenuptial Agreement',
@@ -133,26 +128,27 @@ class Case < ActiveRecord::Base
           'Product Liability' => 'Product Liability',
           'Premise Liability' => 'Premise Liability',
           'Slip and Fall' => 'Slip and Fall',
-          'Workers Compensation' => 'Workers Compensation'
+          'Wrongful Death' => 'Wrongful Death',
       },
        'Probate' => {
           'Probate (general)' => 'Probate (general)'
       },
-       'Real Estate' => {
+       'Traffic' => {
+          'Traffic Violation' => 'Traffic Violation',
+      },
+       'Workers Compensation' => {
+          'Workers Compensation' => 'Workers Compensation',
+      },
+      'Other' => {
+          'Power of Attorney' => 'Power of Attorney',
+          'Wills' => 'Wills',
+          'Revocable Trust' => 'Revocable Trust',
+          'Foreclosure' => 'Foreclosure',
           'Landlord-tenant Dispute' => 'Landlord-tenant Dispute',
           'Boundaries or Easements' => 'Boundaries or Easements',
           'Commercial Lease' => 'Commercial Lease',
           'Residential Lease' => 'Residential Lease',
-          'Non-disclosure/Fraud' => 'Non-disclosure/Fraud'
-      },
-       'Taxation' => {
-          'Foreclosure' => 'Foreclosure',
-      },
-       'Traffic' => {
-          'Traffic Violation' => 'Traffic Violation',
-      },
-       'Wrongful Death' => {
-          'Wrongful Death' => 'Wrongful Death',
+          'Non-disclosure/Fraud' => 'Non-disclosure/Fraud',
       },
   }
 
@@ -253,7 +249,7 @@ class Case < ActiveRecord::Base
     if state == 'OH'
       if model.class.name == 'CaseContact' && model.role == 'Plaintiff'
         plaintiffs_contacts = plantiff_contacts.collect {|cc| cc.contact}
-        if case_type == 'Wrongful Death'
+        if subtype == "Wrongful Death"
           if options.present? && options[:date_of_death_changed]
             min_death_date = plaintiffs_contacts.map { |d| d.date_of_death }.min
             self.update(statute_of_limitations: min_death_date + 2.years, sol_priority: 1) if min_death_date.present? && (statute_of_limitations.blank? || (sol_priority.blank? || sol_priority >= 1))

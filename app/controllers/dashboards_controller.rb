@@ -5,7 +5,7 @@ class DashboardsController < ApplicationController
   def new
     @from_time = Time.now
     @notifications = Notification.where(user_id: current_user.id).order(created_at: :desc)
-    update_notification_flag
+    Notification.mark_as_read(@notifications)
     @lead = Lead.new
     if current_user.firm && current_user.finish?
       current_user.create_contact User::USER_ROLES[current_user.invitation_role.to_i].to_s.humanize unless current_user.contact_user
@@ -100,11 +100,6 @@ class DashboardsController < ApplicationController
   end
 
   private
-  def update_notification_flag
-    @notifications.each do |note|
-      note.update_attribute(:is_read, true)
-    end
-  end
 
   def create_contact_from_parms
     # contact = Contact.new

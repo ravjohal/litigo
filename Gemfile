@@ -62,7 +62,7 @@ gem 'ultrahook'
 # gem 'inbox', '~> 0.15.4'                              # Nylas REST API Ruby bindings
 gem 'nylas', '~> 2.0.1'
 gem 'newrelic_rpm'
-gem 'rack-timeout'
+# gem 'rack-timeout'
 gem 'redis'
 gem 'resque', '~> 1.25.2'
 gem 'resque-scheduler', '4.2.0'
@@ -88,6 +88,7 @@ group :development do
   gem 'rails_layout', '~> 1.0.23'
   gem 'awesome_print', '~> 1.2.0'       # Nicely formatted data structures in console, for example 'ap User.first'
   gem 'meta_request'
+  gem 'active_record_query_trace'       # Logs the source of execution of all queries to the Rails log.
 end
 
 group :development, :test, :staging do

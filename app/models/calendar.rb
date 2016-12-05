@@ -4,9 +4,11 @@ class Calendar < ActiveRecord::Base
   belongs_to :firm
 
   def delete!
-    self.deleted = true
-    Event.delete_all(:calendar_id => id)
-    save!
+    ActiveRecord::Base.transaction do
+      self.deleted = true
+      Event.delete_all(:calendar_id => id)
+      save!
+    end
   end
 
   def user

@@ -84,6 +84,7 @@ class Case < ActiveRecord::Base
     enable
   end
 
+  # TODO: extract this to view/presentation layer and remove duplicates
   SUB_TYPES = {
       'Bankruptcy' => {
           'Bankruptcy (general)' => 'Bankruptcy (general)',
@@ -180,6 +181,7 @@ class Case < ActiveRecord::Base
     end
   end
 
+  # TODO: extract this to view/presentation layer
   def analytic_json
     {
       :Case_name => name.to_s,
@@ -205,6 +207,7 @@ class Case < ActiveRecord::Base
     }
   end
 
+  # TODO: refactor querying because it does a lot queries
   def set_tasks_due_dates
     attrs = TaskDraft::ANCHOR_DATE_HASH['affair'].keys & self.changed
     if attrs.present?
@@ -245,6 +248,7 @@ class Case < ActiveRecord::Base
   end
 
 
+  # TODO: Do something with it
   def calculate_sol(model, options=nil)
     if state == 'OH'
       if model.class.name == 'CaseContact' && model.role == 'Plaintiff'
@@ -280,6 +284,7 @@ class Case < ActiveRecord::Base
     end
   end
 
+  # TODO: Do something with it
   def check_sol
     if state == 'OH'
       if sol_priority != 0
@@ -337,6 +342,7 @@ class Case < ActiveRecord::Base
     self.case_contacts.find_by_role(role.capitalize).note if self.case_contacts.find_by_role(role.capitalize)
   end
 
+  # TODO: Wrap it with transaction
   def assign_case_contacts(attrs)
     case_contacts = self.case_contacts #grab the existing case_contacts that are associated with the case
     attrs.each do |key, value| # go thru each attrs hash that came from the controller
@@ -361,6 +367,7 @@ class Case < ActiveRecord::Base
     true
   end
 
+  # TODO: Wrap it with transaction
   def assign_case_attorney_staff(attrs) #this method is called on create of case, where note is not needed
     case_contacts = self.case_contacts
     attrs.each do |k, v|
@@ -377,10 +384,12 @@ class Case < ActiveRecord::Base
     true
   end
 
+  # TODO: Extract to a scope
   def self.open_cases_scope
     where.not(['status = ? or status = ?', 'Inactive', 'Closed'])
   end
 
+  # TODO: Extract to a scope
   def self.closed_cases_scope
     where(:status => %w(Inactive Closed))
   end

@@ -31,6 +31,7 @@ class Medical < ActiveRecord::Base
 		self.total_billed + self.total_adjustments + self.total_paid if self.medical_bills.present?
   end
 
+  # TODO: Refactor to avoid doing a lot of DB calls
   def set_tasks_due_dates
     attrs = TaskDraft::ANCHOR_DATE_HASH['medical'].keys & self.changed
     if attrs.present?

@@ -14,6 +14,7 @@ class Incident < ActiveRecord::Base
     end
   end
 
+  # TODO: Refactor to avoid doing a lot of DB calls
   def set_tasks_due_dates
     attrs = TaskDraft::ANCHOR_DATE_HASH['incident'].keys & self.changed
     if attrs.present?

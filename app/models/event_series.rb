@@ -67,6 +67,7 @@ class EventSeries < ActiveRecord::Base
 
   end
 
+  # TODO: remove 'p' variable
   def r_period(period)
     case period
       when 'Daily'

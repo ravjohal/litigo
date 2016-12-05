@@ -3,6 +3,8 @@ class Namespace < ActiveRecord::Base
   belongs_to :firm
   has_many :calendars, :dependent => :destroy
   has_many :events, :dependent => :destroy
+
+  # TODO: exctract to the view/presentation layer
   SYNC_PERIODS = {'3' => 'Sync last 3 months', '6'=> 'Sync last 6 months', '12' => 'Sync Last year', '0' => 'Sync all calendar events'}
 
   # exclude all those in array, only need events for now
@@ -67,6 +69,7 @@ class Namespace < ActiveRecord::Base
 
   private
 
+    # TODO: delete
     def delete_from_nylas
       begin
         # disable_nylas_account

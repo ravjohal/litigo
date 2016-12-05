@@ -1,33 +1,33 @@
 source 'https://rubygems.org'
 ruby '2.2.1'
 gem 'rails', '~> 4.2.0.rc2'
-gem 'ffi', '~> 1.9.5'
+# gem 'ffi', '~> 1.9.5'
 #Rack-based asset packaging system
 gem 'sprockets-rails', '2.3.3'
 gem 'sass-rails', :git => 'https://github.com/rails/sass-rails.git', :branch => '5-0-stable'
 gem 'uglifier', '~> 2.5.3'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails', '~> 3.1.2'
-gem  'jquery-turbolinks'
+gem 'jquery-turbolinks'
 gem 'turbolinks', '~> 2.4.0'
 gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
+# gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'autoprefixer-rails', '~> 3.1.2'
 gem 'devise', '~> 3.4.0'
 gem 'pg', '~> 0.17.1'
-gem 'pundit', '~> 0.3.0'
+gem 'pundit', '~> 0.3.0'                    # TODO: decide to remove
 gem 'simple_form', '~> 3.0.2'
-gem 'hopscotch-rails', '~> 0.1.2.1'
+# gem 'hopscotch-rails', '~> 0.1.2.1'
 gem 'unicorn', '~> 4.8.3'
 gem 'carrierwave', '~> 0.10.0'
 gem 'carrierwave_direct', '~> 0.0.15'
-gem 'figaro', '~> 1.0.0'
+# gem 'figaro', '~> 1.0.0'
 gem 'font-awesome-rails', '~> 4.2.0.0'
 gem 'omniauth-google-oauth2', '~> 0.2.6'    # Allows oauth2 support for Google
 gem 'will_paginate', '~> 3.0.7'
 gem 'rest-client', '~> 1.8.0'               # Replacement for curl commands to grab contacts from google
-gem 'active_link_to', '~> 1.0.2'
+gem 'active_link_to', '~> 1.0.2'            # TODO: decide to remove
 gem 'jquery-datatables-rails', '~> 3.3.0'
 gem "select2-rails", '3.5.9.1'
 gem 'jquery-ui-rails', '~> 5.0.0'
@@ -35,15 +35,15 @@ gem 'fullcalendar-rails', '~> 2.3.1.0'
 gem 'google-api-client', '~> 0.7.1'
 gem 'dropbox-sdk', '~> 1.6.4'
 gem 'fog', '~> 1.24.0'
-gem 'cancancan', '~> 1.9.2'
+# gem 'cancancan', '~> 1.9.2'
 gem 'devise_invitable', '~> 1.3.6'
 gem 'jquery-datetimepicker-rails', '~> 2.3.7.0'
 gem 'best_in_place', '~> 3.0.0'
 gem 'jquery-validation-rails', '~> 1.12.0'
 gem 'pg_search', '~> 0.7.8'
-gem 'rails_best_practices', '~> 1.15.4'                   #https://github.com/railsbp/rails_best_practices
-gem 'brakeman', '~> 2.6.3'
-gem 'slick_rails', '~> 1.3.15'
+# gem 'rails_best_practices', '~> 1.15.4'                   #https://github.com/railsbp/rails_best_practices
+# gem 'brakeman', '~> 2.6.3'
+# gem 'slick_rails', '~> 1.3.15'
 #http://rubygems.org/gems/attr_encrypted
 gem 'attr_encrypted', '~> 1.3.3'
 gem 'bootbox-rails', '~>0.4'
@@ -83,9 +83,9 @@ group :development do
   gem 'disable_assets_logger', '~> 1.0.0'
   gem 'better_errors', '~> 2.0.0'
   gem 'binding_of_caller', '~> 0.7.2', :platforms=>[:mri_21]
-  gem 'hub', '~> 1.12.2', :require=>nil
-  gem 'quiet_assets', '~> 1.0.3'
-  gem 'rails_layout', '~> 1.0.23'
+  gem 'hub', '~> 1.12.2', :require=>nil       # TODO: decide to remove
+  gem 'quiet_assets', '~> 1.0.3'              # TODO: decide to remove
+  gem 'rails_layout', '~> 1.0.23'             # TODO: decide to remove
   gem 'awesome_print', '~> 1.2.0'       # Nicely formatted data structures in console, for example 'ap User.first'
   gem 'meta_request'
   gem 'active_record_query_trace'       # Logs the source of execution of all queries to the Rails log.

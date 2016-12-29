@@ -53,9 +53,9 @@ class UsersController < ApplicationController
       user.save!
       user.namespaces.each {|namespace| namespace.destroy}
 
-      redirect_to users_path, :notice => "User deleted."
+      redirect_to users_admin_path, :notice => "User deleted."
     else
-      redirect_to users_path, :notice => "Can't delete yourself."
+      redirect_to users_admin_path, :notice => "Can't delete yourself."
     end
   end
 

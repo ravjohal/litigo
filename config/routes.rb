@@ -162,6 +162,9 @@ Rails.application.routes.draw do
   get "cases/:id/dates" => 'cases#case_dates', as: :case_dates
   get "user_cases" => "cases#user_cases", :defaults => { :format => :json }
   get "user_leads" => "client_intakes#user_leads", :defaults => { :format => :json }
+  get "user_notes" => "notes#user_notes", :defaults => { :format => :json }
+  get "case_user_notes/:case_id/notes" => "notes#case_user_notes", :defaults => { :format => :json }, as: :case_user_notes
+  get "case_notes_case/:case_id/notes" => "notes#case_notes_case", :defaults => { :format => :json }, as: :case_notes_case
   get 'firm_invoices' => 'invoices#firm_invoices', :defaults => { :format => :json }
   get "accept_case/:id" => 'client_intakes#accept_case', as: :accept_case
   get 'cases/:id/doc' => 'cases#doc', as: :doc

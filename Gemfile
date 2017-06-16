@@ -68,7 +68,7 @@ gem 'resque', '~> 1.25.2'
 gem 'resque-scheduler', '4.2.0'
 gem 'font_assets'
 gem 'soulmate'
-gem 'rmagick'
+#gem 'rmagick'
 gem 'spreadsheet'
 gem 'creek'
 

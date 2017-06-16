@@ -2,13 +2,14 @@ class NotesController < ApplicationController
   respond_to :html, :json
   before_filter :authenticate_user!
   before_action :set_note, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, :set_firm
+  before_action :set_user, :set_firm, :get_case
 
   helper DatesHelper
 
   # GET /notes
   # GET /notes.json
   def index
+
     @user = current_user
 
     if get_case
@@ -29,6 +30,11 @@ class NotesController < ApplicationController
       # puts "MY NOTES -0-0-0-0-0-0-0-0- " + @my_notes.to_sql.inspect
       @new_path = new_note_path
       @notes_a = Note.new #for modal partial rendering
+    end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: NotesDatatable.new(view_context, current_user, false, false, @case) }
     end
 
   end
@@ -121,6 +127,28 @@ class NotesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to notes_url, notice: 'Note was successfully deleted' }
       format.json { head :no_content }
+    end
+  end
+
+  def user_notes
+    respond_to do |format|
+      format.json { render json: NotesDatatable.new(view_context, current_user, true, false, get_case) }
+    end
+  end
+
+  def case_user_notes
+    if get_case
+      puts " GET CASE: " + params[:case_id].to_s
+      @case = Case.find(params[:case_id])
+    end
+    respond_to do |format|
+      format.json { render json: NotesDatatable.new(view_context, current_user, true, true, @case) }
+    end
+  end
+
+  def case_notes_case
+    respond_to do |format|
+      format.json { render json: NotesDatatable.new(view_context, current_user, false, true, get_case) }
     end
   end
 

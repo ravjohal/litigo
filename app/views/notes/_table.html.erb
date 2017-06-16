@@ -1,0 +1,14 @@
+<%= javascript_include_tag 'notes/table', 'data-turbolinks-track' => true %>
+<div class="table-responsive">
+  <table id="<%= id %>" class="table table-striped table-hover rowlink notes_table" data-source="<%= send("#{id}_path") %>">
+    <thead class="user-table-head">
+    <tr>
+      <th>Note</th>
+      <th>Note Type</th>
+      <th>Created</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>

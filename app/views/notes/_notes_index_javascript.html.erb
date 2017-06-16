@@ -1,10 +1,34 @@
 <% content_for :javascript do %>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('#new_modal').click(function(event){
-                $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @notes_a ) %>");
-            });
-            <%= render :partial => 'datatable.js', :locals => { :sort_column => 3, :sort_order => 'desc'} %>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#new_modal').click(function(event){
+            $("#modal-window").html("<%= escape_javascript(render 'notes/form', new_note: @note_a ) %>");
         });
-    </script>
+        $('.table tbody').on( 'click', 'tr', function (e) {
+            var id = $(e.currentTarget).data('id');
+            $('table.rowlink').rowlink()
+        });
+
+        var notes_scope = {user_notes: 'notes_scope', case_user_notes: 'notes_scope', notes: 'notes_scope', case_notes_case: 'notes_scope'};
+
+        $('.table').each(function(i, table) {
+            $(table).dataTable({
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search",
+                    lengthMenu: "View _MENU_"
+                },
+                sDom: '<"toolbar">Rfrtlip',
+                aaSorting: [[ 0, "desc" ]],
+                bProcessing: true,
+                bServerSide: true,
+                sAjaxSource: $(table).data('source'),
+                fnServerParams: function ( aoData ) {
+                    aoData.push( {'name': "notesScope", 'value': notes_scope[$(table).attr('id')] } );
+                }
+            });
+        });
+
+    });
+</script>
 <% end %>

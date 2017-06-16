@@ -13,4 +13,7 @@ class Note < ActiveRecord::Base
 	accepts_nested_attributes_for :notes_users,
 																:reject_if => :all_blank,
 																:allow_destroy => true
+	def self.notes_scope
+		self
+	end
 end

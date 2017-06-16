@@ -6,6 +6,12 @@ class Note < ActiveRecord::Base
 	has_many :notes_users, foreign_key: 'secondary_note_id'
 
 	belongs_to :firm
+
+	include PgSearch
+  	pg_search_scope :search_note, against: [:note, :note_type],
+                  using: {tsearch: {dictionary: :english, prefix: true}},
+                  associated_against: { :user => :name , :case => :name }
+
 	attr_accessor :add_task, :task_name, :task_due_date, :task_sms_reminder, :task_email_reminder,
 								:task_description, :task_estimated_time, :task_estimated_time_unit,
 								:task_owner_id, :task_secondary_owner_id, :task_add_event, :task_calendar_id

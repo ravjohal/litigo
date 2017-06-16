@@ -26,9 +26,11 @@ class NotesDatatable
   def data
     notes.map do |one_note|
       [
+          one_note.case.try(:name),
+          one_note.user.try(:name),
           link_to(one_note.note, one_note),
-          one_note.note_type,
-          simple_format_date_regexp(one_note.created_at)
+          simple_format_date_regexp(one_note.created_at),
+          one_note.note_type
       ]
     end
   end
@@ -58,7 +60,7 @@ class NotesDatatable
 
     if params[:iSortCol_0].to_i == 1
       # cases = cases.joins(:medical).order("total_med_bills #{sort_direction}")
-      notes = notes.order("note #{sort_direction}")
+      notes = notes.order("created_at #{sort_direction}")
     elsif params[:iSortCol_0].to_i == 2
       notes = notes.order("note_type #{sort_direction}")
     else
@@ -80,7 +82,7 @@ class NotesDatatable
   end
 
   def sort_column
-    columns = %w[note note_type created_at]
+    columns = %w[created_at note note_type]
     columns[params[:iSortCol_0].to_i]
   end
 

@@ -98,6 +98,11 @@ class Lead < ActiveRecord::Base
     where(status: 'inactive')
   end
 
+
+  def self.referred_leads_scope
+    where(status: 'referred')
+  end
+
   def exist_event?
     Event.where(:lead_id => id).exists? if id
   end

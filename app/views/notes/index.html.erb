@@ -42,74 +42,24 @@
               </ul>
    </div>
 <% end %>
+
+
 <div class="index-table-space">
 <h3>My Notes</h3>
 </div>
-  <div class="table-responsive">
-    <table id="tasks" class="table table-striped table-hover notes_table rowlink">
-      <thead class="user-table-head">
-      <tr>
-        <th>Case</th>
-        <th>Author</th>
-        <th>Note</th>
-        <th>Date</th>
-        <th>Type</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @my_notes.to_a.each do |note| %>
-        <tr data-id="<%= note.id %>">
-          <td class="case_name"><%= note.case.name if note.case.present? %></td>
-          <td><%= link_to note.user.try(:name), note_path(note)  %></td>
-          <td><div class="larger-td"><%= note.note %></div></td>
-          <td><%= simple_format_datetime_regexp note.created_at %></td>
-          <td><%= note.note_type %></td>
-        </tr>
-      <% end %>
-      <% @my_secondary_notes.to_a.each do |note| %>
-          <tr data-id="<%= note.id %>">
-            <td class="case_name"><%= note.case.name if note.case.present? %></td>
-            <td><%= link_to note.author, note_path(note)  %></td>
-            <td><div class="larger-td"><%= note.note %></div></td>
-            <td><%= simple_format_datetime_regexp note.created_at %></td>
-            <td><%= note.note_type %></td>
-          </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
-<br />
-<br />
-<div class="index-table-space">
 <% if @case %>
-<h3>Case Notes</h3>
+  <%= render :partial => 'table', :locals => { :id => 'case_user_notes'} %>
 <% else %>
-<h3>All Firm Notes</h3>
+  <%= render :partial => 'table', :locals => { :id => 'user_notes'} %>
 <% end %>
+<br/>
+<br/>
+<div class="index-table-space">
+<h3>All Firm Notes</h3>
 </div>
-  <div class="table-responsive">
-    <table id="tasks" class="table table-striped table-hover notes_table rowlink">
-      <thead class="user-table-head">
-      <tr>
-        <th>Case</th>
-        <th>Author</th>
-        <th>Note</th>
-        <th>Date</th>
-        <th>Type</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @notes.each do |note| %>
-        <tr data-id="<%= note.id %>">
-          <td class="case_name doc-link"><%= note.case.name if note.case.present? %></td>
-          <td><%= link_to note.user.try(:name), note_path(note)  %></td>
-          <td><div class="larger-td"><%= note.note %></div></td>
-          <td><%= simple_format_datetime_regexp note.created_at %></td>
-          <td><%= note.note_type %></td>
-        </tr>
-      <% end %>
-
-      </tbody>
-    </table>
-  </div>
+<% if @case %> 
+  <%= render :partial => 'table', :locals => { :id => 'case_notes_case'} %>
+<% else %>
+  <%= render :partial => 'table', :locals => { :id => 'notes'} %>
+<% end %>
 <%= render :partial => "notes_index_javascript" %>

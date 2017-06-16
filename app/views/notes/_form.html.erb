@@ -1,5 +1,5 @@
 <%= javascript_include_tag 'notes/form', 'data-turbolinks-track' => true %>
-<%= simple_form_for(new_note) do |f| %>
+<%= simple_form_for(@notes_a) do |f| %>
       <%= f.error_notification %>
 
     <% if action_name == "index" || (controller_name == 'dashboards' && action_name == 'new') %>

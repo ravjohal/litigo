@@ -31,6 +31,19 @@ class Lead < ActiveRecord::Base
     "#{first_name} #{last_name}"
   end
 
+  def case_type_sub_type
+    if case_type && sub_type
+      self.case_type + ": " + self.sub_type
+    elsif case_type && !sub_type
+      self.case_type
+    elsif sub_type && !case_type
+      self.sub_type
+    else
+      ""
+    end
+  end
+  
+
   def generate_case_attrs(user)
     {
         :name => "#{last_name}, #{first_name}",

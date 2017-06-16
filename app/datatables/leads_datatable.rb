@@ -27,7 +27,7 @@ class LeadsDatatable
           link_to(simple_format_date_regexp(lead.created_at), lead),
           lead.attorney.try(:name),
           lead.name,
-          lead.case_type + ": " + lead.sub_type,
+          lead.case_type_sub_type,
           Lead::STATUS[lead.status.to_sym]
       ]
     end

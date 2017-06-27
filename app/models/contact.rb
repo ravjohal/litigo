@@ -22,6 +22,10 @@ class Contact < ActiveRecord::Base
 
   has_many :invoices
 
+  include PgSearch
+  pg_search_scope :search_contact, against: [:type, :email, :last_name, :first_name, :middle_name, :phone_number],
+                  using: {tsearch: {dictionary: :english, prefix: true}}
+
   amoeba do
     enable
     propagate
@@ -128,6 +132,10 @@ class Contact < ActiveRecord::Base
 
   def company?
     'Company' == type.to_s
+  end
+
+  def self.contacts_scope
+    self
   end
 
 end

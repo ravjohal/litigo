@@ -4,8 +4,31 @@
         $('#new_modal, #assign_modal').click(function (event) {
             $("#modal-window").html("<%= escape_javascript( render 'contacts/form', new_contact: @contacts_a ) %>");
         });
-        <%= render :partial => 'datatable.js', :locals => { :sort_column => 0, :sort_order => 'asc'} %>
-        $('.tool-tp').tipsy({gravity: 's', fade: true, html: true});
+        $('.table tbody').on( 'click', 'tr', function (e) {
+            var id = $(e.currentTarget).data('id');
+            $('table.rowlink').rowlink()
+        });
+
+        var contacts_scope = {user_contacts: 'contacts_scope'};
+
+        $('.table').each(function(i, table) {
+            $(table).dataTable({
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Search",
+                    lengthMenu: "View _MENU_"
+                },
+                sDom: '<"toolbar">Rfrtlip',
+                aaSorting: [[ 0, "desc" ]],
+                bProcessing: true,
+                bServerSide: true,
+                sAjaxSource: $(table).data('source'),
+                fnServerParams: function ( aoData ) {
+                    aoData.push( {'name': "contactsScope", 'value': contacts_scope[$(table).attr('id')] } );
+                }
+            });
+        });
+
     });
-  </script>
+</script>
 <% end %>

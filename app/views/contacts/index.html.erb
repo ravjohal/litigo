@@ -96,33 +96,9 @@
 </div>
 
 <% else %>
-  <div class="table-responsive">
-
-    <%= render 'contacts/similar_list' %>
-
-    <table id="tasks" class="table table-striped table-hover rowlink contacts_table">
-      <thead class="user-table-head">
-      <tr>
-        <th>Name</th>
-        <th>Contact Type</th>
-        <th>Email</th>
-        <th>Phone</th>
-      </tr>
-      </thead>
-      <tbody>
-      <% @contacts.each do |contact| %>
-        <tr data-id="<%= contact.id %>">
-          <td style="vertical-align: middle;"><%= link_to contact.shift_name, contact_path(contact) %></td>
-          <td style="vertical-align: middle;"><%= contact.type %></td>
-          <td class="mid-td">
-            <div class="larger-td" style='padding-top:12px;'><%= contact.email %></div>
-          </td>
-          <td style="vertical-align: middle;"><%= contact.phone_number %></td>
-        </tr>
-      <% end %>
-      </tbody>
-    </table>
-  </div>
+ 
+<%= render :partial => 'table', :locals => { :id => 'user_contacts'} %>
+   
 <% end %>
 
 <% if @case %>

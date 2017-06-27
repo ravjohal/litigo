@@ -24,6 +24,11 @@ class ContactsController < ApplicationController
       @new_path = new_contact_path
       @contacts_a = Contact.new #for modal partial rendering
     end
+
+    respond_to do |format|
+      format.html
+      format.json { render json: ContactsDatatable.new(view_context, current_user, true) }
+    end
   end
 
   # GET /contacts/1
@@ -213,6 +218,12 @@ class ContactsController < ApplicationController
         format.html { redirect_to redirect_url, notice:  notice}
         format.json { head :no_content }
       end
+  end
+
+  def user_contacts
+    respond_to do |format|
+      format.json { render json: ContactsDatatable.new(view_context, current_user, true) }
+    end
   end
 
   def assign_contacts

@@ -8,7 +8,7 @@ class NotificationsController < ApplicationController
   def index
     @from_time = Time.now
     @notifications = Notification.where(user_id: current_user.id).order(created_at: :desc)
-    update_notification_flag
+    Notification.mark_as_read(@notifications)
   end
 
   def remove_all
@@ -29,12 +29,6 @@ class NotificationsController < ApplicationController
   end
 
   private
-
-  def update_notification_flag
-    @notifications.each do |note|
-      note.update_attribute(:is_read, true)
-    end
-  end
 
   def set_notification
     @notification = Notification.find(params[:id])

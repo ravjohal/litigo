@@ -49,7 +49,6 @@
 //= require lib/tipsy
 //= require lib/jquery-bootstrap-modal-steps
 //= require lib/step
-//= require slick
 //= require lib/evol.colorpicker.min
 //= require bootstrap-datetimepicker
 //= require maskedinput

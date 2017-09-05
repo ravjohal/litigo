@@ -1,4 +1,5 @@
 class Contact < ActiveRecord::Base
+  # TODO: It's unsafe to keep security sensitive data in the model. Move it somewhere.
   attr_encrypted :ssn, :key => 'zU8CYfjkHEQbghnwQzXeJA=='
 
   ATTORNEYS = ['Plaintiff', 'Defense', 'General Counsel', 'Co-counsel', 'Outside Counsel', 'Prosecution']
@@ -86,7 +87,7 @@ class Contact < ActiveRecord::Base
       p = self.phone_number.present? ? "P: #{self.phone_number}<br/>" : ''
       m = self.mobile.present? ? "M: #{self.mobile}<br/>" : ''
       e = self.email.present? ? "#{self.email}" : ''
-      return p+m+e
+      p+m+e
     end
   end
 
@@ -101,6 +102,7 @@ class Contact < ActiveRecord::Base
     end
   end
 
+  # TODO: This method seems about presentation/view layer. There is no place for it in the model.
   def name_with_company
     if self.first_name.present? || self.company_name.present?
       name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''

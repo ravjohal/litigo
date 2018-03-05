@@ -176,7 +176,7 @@ class EventsController < ApplicationController
   private
 
   def prepare_event_sources
-    @users ||= @firm.users
+    @users ||= @firm.users.where(:disabled => false)
 
     compact_events = @firm.events.includes(:owner).map do |event|
       user = event.owner

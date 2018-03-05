@@ -38,7 +38,7 @@
         <strong>Assign Attorney:</strong>
       </td>
       <td>
-        <%= f.select :attorney_id, User.where('firm_id = ? and role != ? ', current_user.firm_id, 0 ).map { |c|  ["#{c.name} ", "#{c.id}:#{c.id}"] } , label: false, :class => 'table-input'  %>
+        <%= f.select :attorney_id, User.where('firm_id = ? and role != ? and disabled = false', current_user.firm_id, 0 ).map { |c|  ["#{c.name} ", "#{c.id}:#{c.id}"] } , label: false, :class => 'table-input'  %>
       </td>
     </tr>
 

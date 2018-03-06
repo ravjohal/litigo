@@ -194,7 +194,7 @@ class CasesController < ApplicationController
   def edit_case_contacts
     #@contacts = @case.case_contacts.order(:created_at)
     #@fly_creation = Contact.new
-    @firm_contacts = @firm.contacts.select(:first_name, :last_name, :email, :company_name, :id).map { |contact| [contact.name_with_company, contact.id] }
+    @firm_contacts = @firm.contacts.select(:first_name, :last_name, :email, :company_name, :id, :type, :prefix, :suffix).map { |contact| [contact.name_with_company, contact.id] }
   end
 
   def update_case_contacts

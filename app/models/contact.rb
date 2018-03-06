@@ -63,10 +63,26 @@ class Contact < ActiveRecord::Base
       if self.first_name.blank? && self.last_name.blank?
         self.email
       else
-        "#{self.first_name.present? ? self.first_name : ''} #{self.last_name.present? ? self.last_name : ''}"
+        "#{self.first_name.present? ? self.first_name_pre : ''} #{self.last_name.present? ? self.last_name_suf : ''}"
       end
     end
   end
+
+  def first_name_pre
+    if self.prefix
+      self.prefix + " " + self.first_name
+    else
+      self.first_name
+    end
+  end
+
+  def last_name_suf
+    if self.suffix
+      self.last_name + " " + self.suffix
+    else
+      self.last_name
+    end
+  end  
 
   def shift_name
     if company?
@@ -102,8 +118,8 @@ class Contact < ActiveRecord::Base
   end
 
   def name_with_company
-    if self.first_name.present? || self.company_name.present?
-      name = self.first_name.present? ? "#{self.first_name} #{self.last_name}" : ''
+    if self.name.present? || self.company_name.present?
+      name = self.name
       company = self.company_name.present? ? "#{self.company_name}" : ''
       return "#{name}"+"#{company}"
     elsif self.email?

@@ -6,7 +6,7 @@
         <td class="some_column">
           <div class="author_field">
             <% if note.notificable_type == 'NotesUser' %>
-              <%= note.author %> <div class="some_text">copied you on a note</div>
+              <%= note.author %> <div class="some_text"> <b>Copied you on the following Note:</b> <br /> <%= Note.find(note.note_id).note %> </div>
             <% elsif note.notificable_type == 'Lead' && note.is_remove %>
               <%= note.author %> <div class="some_text">removed you from a lead</div>
             <% elsif note.notificable_type == 'Lead' && !note.is_remove %>

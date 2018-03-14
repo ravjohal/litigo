@@ -22,13 +22,12 @@ class CaseContact < ActiveRecord::Base
      name = self.contact.company_name.downcase
     else
       if self.contact.last_name?
-        self.contact.last_name.downcase
+        name = self.contact.last_name.downcase
       elsif self.contact.first_name?
-        self.contact.first_name.downcase
+        name = self.contact.first_name.downcase
       else
-        "No First or Last Name"
+        name = "No First or Last Name"
       end
-     name = self.contact.last_name? ? self.contact.last_name.downcase : self.contact.first_name.downcase
     end
     name
   end

@@ -1,3 +1,5 @@
+<%= javascript_include_tag "cases/edit_case_contacts" %>
+
 <%= simple_form_for @case do |f| %>
   <div class="case-header">
     <div class="case-title">
@@ -44,9 +46,3 @@
     </table>
   </div>
 <% end %>
-
-<script type="text/javascript">
-  $(document).ready(function() {
-      $('select').select2();
-  });
-</script>

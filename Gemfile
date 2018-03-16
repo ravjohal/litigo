@@ -16,6 +16,12 @@ gem 'bootstrap-sass', '~> 3.2.0.2'
 gem 'autoprefixer-rails', '~> 3.1.2'
 gem 'devise', '~> 3.4.0'
 gem 'pg', '~> 0.17.1'
+
+# gem 'rack-mini-profiler'
+# gem 'flamegraph'
+# gem 'stackprof' # ruby 2.1+ only
+# gem 'memory_profiler'
+
 gem 'pundit', '~> 0.3.0'
 gem 'simple_form', '~> 3.0.2'
 gem 'hopscotch-rails', '~> 0.1.2.1'

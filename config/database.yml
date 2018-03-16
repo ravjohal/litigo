@@ -25,7 +25,10 @@ staging:
   password:
 
 production:
+  host: localhost
   adapter: postgresql
+  username: postgres
+  password:
   encoding: unicode
   pool: 5
 

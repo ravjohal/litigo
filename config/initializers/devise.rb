@@ -12,6 +12,8 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
+  #add the following for running in production mode locally: # config.secret_key = '6087099521bac0b4d328fe41f65763f4103b47c695845b1e4a5b9907ebaa1d5ed6a7ef82d9de5a9ba240b80378d1aae30ccd9979cf35aace830ac688835b9442'
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 

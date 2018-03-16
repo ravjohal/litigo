@@ -9,6 +9,11 @@ class ApplicationController < ActionController::Base
   around_filter :set_time_zone
   helper_method :have_notification?
 
+  # to add rack profiler in production mode:
+  # before_action do
+  #     Rack::MiniProfiler.authorize_request
+  # end
+
   # def in_staging
   #   if Rails.env.staging?
   #     #flash[:alert] = "MiniProfiler is initialized"
